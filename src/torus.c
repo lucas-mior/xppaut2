@@ -23,8 +23,8 @@ static struct TorusBox {
     Window window[MAX_ODE];
 } torbox;
 
-static void make_tor_box(char *title);
-static void draw_tor_var(int32 i);
+static void torus_make_box(char *title);
+static void torus_draw_var(int32 i);
 
 void
 do_torus_com(int32 c) {
@@ -49,7 +49,7 @@ do_torus_com(int32 c) {
         }
         /* Choose them   */
         /* choose_torus */
-        make_tor_box("Fold which");
+        torus_make_box("Fold which");
 
         /* do torus events */
         for (int32 i = 0; i < NEQ; i++)
@@ -75,7 +75,7 @@ do_torus_com(int32 c) {
 
                     for (int32 i = 0; i < NEQ; i++) {
                         if (win == torbox.window[i])
-                            draw_tor_var(i);
+                            torus_draw_var(i);
                     }
                 }
                 break;
@@ -93,7 +93,7 @@ do_torus_com(int32 c) {
                 for (int32 i = 0; i < NEQ; i++) {
                     if (event.xbutton.window == torbox.window[i]) {
                         itor[i] = 1 - itor[i];
-                        draw_tor_var(i);
+                        torus_draw_var(i);
                         break;
                     }
                 }
@@ -137,7 +137,7 @@ do_torus_com(int32 c) {
 }
 
 void
-draw_tor_var(int32 i) {
+torus_draw_var(int32 i) {
     char strng[sizeof(*uvar_names) + 5];
     XClearWindow(display, torbox.window[i]);
     if (itor[i] == 1)
@@ -150,7 +150,7 @@ draw_tor_var(int32 i) {
 }
 
 void
-make_tor_box(char *title) {
+torus_make_box(char *title) {
     int32 ndn, nac, width, height;
     int32 nv;
     /*int32 nh; Not used anywhere*/

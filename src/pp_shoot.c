@@ -68,7 +68,7 @@ pp_shoot_compile_bvp(void) {
     NSYM = NSYM_START;
     BVP_FLAG = 0;
     for (int32 i = 0; i < NODE; i++) {
-        if (add_expr(my_bc[i].string, my_bc[i].com, &len)) {
+        if (parserslow_add_expr(my_bc[i].string, my_bc[i].com, &len)) {
             snprintf(badcom, sizeof(badcom), "Bad syntax on %d th BC", i + 1);
             ggets_err_msg(badcom);
             return;

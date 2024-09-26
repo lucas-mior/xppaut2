@@ -208,7 +208,7 @@ int32
 browse_add_stor_col(char *name, char *formula, Browser *b) {
     int32 com[4000], i, j;
 
-    if (add_expr(formula, com, &i)) {
+    if (parserslow_add_expr(formula, com, &i)) {
         ggets_err_msg("Bad Formula .... ");
         return 0;
     }
@@ -243,7 +243,7 @@ browse_add_stor_col(char *name, char *formula, Browser *b) {
             set_val(uvar_names[j], (double)storage[j + 1][i]);
         storage[NEQ + 1][i] = (double)evaluate(com);
     }
-    add_var(uvar_names[NEQ], 0.0); /*  this could be trouble .... */
+    parserslow_add_var(uvar_names[NEQ], 0.0); /*  this could be trouble .... */
     NEQ++;
     b->maxcol = NEQ + 1;
     redraw_browser(*b);
@@ -333,7 +333,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
     /*  first compile formula ... */
 
     if (dif_var < 0 && seq == 0) {
-        if (add_expr(form, com, &i)) {
+        if (parserslow_add_expr(form, com, &i)) {
             NCON = NCON_START;
             NSYM = NSYM_START;
             ggets_err_msg("Illegal formula...");

@@ -235,7 +235,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
         strcpy(markov[index].trans[l0], expr);
         /*  compilation step -- can be delayed */
         /*
-         if(add_expr(expr,com,&leng)){
+         if(parserslow_add_expr(expr,com,&leng)){
            ggets_plintf("Illegal expression %s\n",expr);
            exit(0);
          }
@@ -283,7 +283,7 @@ compile_markov(int32 index, int32 j, int32 k) {
     int32 com[256];
     expr = markov[index].trans[l0];
 
-    if (add_expr(expr, com, &leng2))
+    if (parserslow_add_expr(expr, com, &leng2))
         return -1;
     markov[index].command[l0] =
         xmalloc(sizeof(*(markov[index].command[l0]))*(usize)(leng2 + 2));

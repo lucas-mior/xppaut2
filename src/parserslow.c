@@ -269,21 +269,21 @@ init_rpn(void) {
     fun1[24] = (void *)markov_poidev;
     fun1[25] = (void *)lgamma;
 
-    add_con("PI", M_PI);
+    parserslow_add_con("PI", M_PI);
 
-    add_con("I'", 0.0);
+    parserslow_add_con("I'", 0.0);
     /*   This is going to be for interacting with the
          animator */
     SumIndex = NCON - 1;
-    add_con("mouse_x", 0.0);
-    add_con("mouse_y", 0.0);
-    add_con("mouse_vx", 0.0);
-    add_con("mouse_vy", 0.0);
+    parserslow_add_con("mouse_x", 0.0);
+    parserslow_add_con("mouse_y", 0.0);
+    parserslow_add_con("mouse_vx", 0.0);
+    parserslow_add_con("mouse_vy", 0.0);
 
     /* end animator stuff */
-    /*  add_con("c___1",0.0);
-        add_con("c___2",0.0);
-        add_con("c___3",0.0); */
+    /*  parserslow_add_con("c___1",0.0);
+        parserslow_add_con("c___2",0.0);
+        parserslow_add_con("c___3",0.0); */
 
     tabular_init_table();
     if (newseed == 1)
@@ -307,7 +307,7 @@ duplicate_name(char *junk) {
 /*  ADD_CONSTANT   */
 
 int32
-add_constant(char *junk) {
+parserslow_add_constant(char *junk) {
     int32 len;
     char string[100];
     if (duplicate_name(junk) == 1)
@@ -359,7 +359,7 @@ get_type(int32 index) {
 /*   ADD_CON      */
 
 int32
-add_con(char *name, double value) {
+parserslow_add_con(char *name, double value) {
     /*  printf("Adding constant %s # %d\n",name,NCON); */
     if (NCON >= MAX_PAR) {
         if (ERROUT)
@@ -368,11 +368,11 @@ add_con(char *name, double value) {
     }
     constants[NCON] = value;
     NCON++;
-    return add_constant(name);
+    return parserslow_add_constant(name);
 }
 
 int32
-add_kernel(char *name, double mu, char *expr) {
+parserslow_add_kernel(char *name, double mu, char *expr) {
     char string[100];
 
     int32 len, in = -1;
@@ -433,7 +433,7 @@ add_kernel(char *name, double mu, char *expr) {
 /*  ADD_VAR          */
 
 int32
-add_var(char *junk, double value) {
+parserslow_add_var(char *junk, double value) {
     char string[100];
     int32 len;
     if (duplicate_name(junk) == 1)
@@ -462,7 +462,7 @@ add_var(char *junk, double value) {
 /* ADD_EXPR   */
 
 int32
-add_expr(char *expr, int32 *command, int32 *length) {
+parserslow_add_expr(char *expr, int32 *command, int32 *length) {
     char dest[1024];
     int32 my_token[1024];
     int32 err;
@@ -478,7 +478,7 @@ add_expr(char *expr, int32 *command, int32 *length) {
     } */
     if (err != 0)
         return 1;
-    err = alg_to_rpn(my_token, command);
+    err = parserslow_alg_to_rpn(my_token, command);
     if (err != 0)
         return 1;
     i = 0;
@@ -490,7 +490,7 @@ add_expr(char *expr, int32 *command, int32 *length) {
 }
 
 int32
-add_vector_name(int32 index, char *name) {
+parserslow_add_vector_name(int32 index, char *name) {
     char string[50];
     int32 len = (int32)strlen(name);
     ggets_plintf(" Adding vectorizer %s %d \n", name, index);
@@ -512,7 +512,7 @@ add_vector_name(int32 index, char *name) {
 }
 
 int32
-add_net_name(int32 index, char *name) {
+parserslow_add_net_name(int32 index, char *name) {
     char string[50];
     int32 len = (int32)strlen(name);
     ggets_plintf(" Adding net %s %d \n", name, index);
@@ -534,7 +534,7 @@ add_net_name(int32 index, char *name) {
 /* ADD LOOKUP TABLE   */
 
 int32
-add_file_table(int32 index, char *file) {
+parserslow_add_file_table(int32 index, char *file) {
     char file2[1000];
     int32 i2 = 0, i1 = 0, n;
     char ch;
@@ -557,7 +557,7 @@ add_file_table(int32 index, char *file) {
 }
 
 int32
-add_table_name(int32 index, char *name) {
+parserslow_add_table_name(int32 index, char *name) {
     char string[50];
     int32 len = (int32)strlen(name);
     if (duplicate_name(name) == 1)
@@ -578,7 +578,7 @@ add_table_name(int32 index, char *name) {
 /* ADD LOOKUP TABLE   */
 
 int32
-add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula) {
+parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula) {
     if (tabular_create_fun(nn, xlo, xhi, formula, index) == 0) {
         if (ERROUT)
             printf("Problem with creating table !!\n");
@@ -609,7 +609,7 @@ set_new_arg_names(int32 narg, char args[10][14]) {
 /* NEW ADD_FUN for new form_ode code  */
 
 int32
-add_ufun_name(char *name, int32 index, int32 narg) {
+parserslow_add_ufun_name(char *name, int32 index, int32 narg) {
     char string[50];
     int32 len = (int32)strlen(name);
     if (duplicate_name(name) == 1)
@@ -643,7 +643,7 @@ fixup_endfun(int32 *u, int32 l, int32 narg) {
 }
 
 int32
-add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
+parserslow_add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
     int32 l;
     int32 end;
     if (narg > MAXARG) {
@@ -664,7 +664,7 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
     for (int32 i = 0; i < narg; i++)
         strcpy(ufun_arg[index].args[i], args[i]);
     set_new_arg_names(narg, args);
-    if (add_expr(rhs, ufun[index], &end) == 0) {
+    if (parserslow_add_expr(rhs, ufun[index], &end) == 0) {
         ufun[index][end - 1] = ENDFUN;
         ufun[index][end] = narg;
         ufun[index][end + 1] = ENDEXP;
@@ -685,7 +685,7 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
 /* ADD_UFUN   */
 
 int32
-add_ufun(char *junk, char *expr, int32 narg) {
+parserslow_add_ufun(char *junk, char *expr, int32 narg) {
     char string[50];
     int32 l;
     int32 end;
@@ -710,7 +710,7 @@ add_ufun(char *junk, char *expr, int32 narg) {
     }
 
     convert(junk, string);
-    if (add_expr(expr, ufun[NFUN], &end) == 0) {
+    if (parserslow_add_expr(expr, ufun[NFUN], &end) == 0) {
         if (len > MXLEN)
             len = MXLEN;
         strncpy(my_symb[NSYM].name, string, (usize)len);
@@ -923,7 +923,7 @@ get_ivar(int32 i) {
 }
 
 int32
-alg_to_rpn(int32 *toklist, int32 *command) {
+parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
     int32 tokstak[500], comptr = 0, tokptr = 0, lstptr = 0, temp;
     int32 ncomma = 0;
     int32 loopstk[100];

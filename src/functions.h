@@ -4000,7 +4000,7 @@ int32 simplenet_add_vectorizer(char *name, char *rhs);
 void simplenet_add_vectorizer_name(char *name, char *rhs);
 void simplenet_eval_all_nets(void);
 void simplenet_update_all_ffts(void);
-void fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
+void simplenet_fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
               double *ffti, double *dr, double *di);
 double simplenet_vector_value(double x, int32 i);
 

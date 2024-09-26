@@ -59,7 +59,7 @@ int32
 dae_fun_add_svar_names(void) {
     for (int32 i = 0; i < nsvar; i++) {
         svar[i].index = NVAR;
-        if (add_var(svar[i].name, 0.0) == 1)
+        if (parserslow_add_var(svar[i].name, 0.0) == 1)
             return 1;
     }
     return 0;
@@ -90,7 +90,7 @@ dae_fun_compile_svars(void) {
     }
 
     for (int32 i = 0; i < naeqn; i++) {
-        if (add_expr(aeqn[i].rhs, f, &n) == 1) {
+        if (parserslow_add_expr(aeqn[i].rhs, f, &n) == 1) {
             ggets_plintf(" Bad right-hand side for alg-eqn \n");
             return 1;
         }
@@ -100,7 +100,7 @@ dae_fun_compile_svars(void) {
     }
 
     for (int32 i = 0; i < nsvar; i++) {
-        if (add_expr(svar[i].rhs, f, &n) == 1) {
+        if (parserslow_add_expr(svar[i].rhs, f, &n) == 1) {
             ggets_plintf(" Bad initial guess for sol-var \n");
             return 1;
         }
@@ -287,7 +287,7 @@ dae_fun_get_new_guesses(void) {
         z = svar[i].last;
         snprintf(name, sizeof(name), "Initial %s(%g):", svar[i].name, z);
         ggets_new_string(name, svar[i].rhs);
-        if (add_expr(svar[i].rhs, svar[i].form, &n)) {
+        if (parserslow_add_expr(svar[i].rhs, svar[i].form, &n)) {
             ggets_err_msg("Illegal formula");
             return;
         }

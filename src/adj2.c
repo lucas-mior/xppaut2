@@ -312,7 +312,7 @@ adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
             char name[sizeof(uvar_names[i]) + 18];
             snprintf(name, sizeof(name), "Coupling for %s eqn:", uvar_names[i]);
             ggets_new_string(name, coup_string[i]);
-            if (add_expr(coup_string[i], coup_fun[i], &n)) {
+            if (parserslow_add_expr(coup_string[i], coup_fun[i], &n)) {
                 ggets_err_msg("Illegal formula");
                 goto bye;
             }

@@ -177,8 +177,8 @@ typedef struct Network {
 #define DEL_SPAR 41 /* sparse with unequal in degree and delays  */
 #define IMPORT 50   /* not really a network type   */
 
-static int32 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
-static int32 gilparse(char *s, int32 *ind, int32 *nn);
+static int32 simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
+static int32 simplenet_gil_parse(char *s, int32 *ind, int32 *nn);
 static void simplenet_update_fft(int32 ind);
 static int32 simplenet_is_network(char *s);
 static void simplenet_init(double *v, int32 n);
@@ -188,7 +188,7 @@ static int32 simplenet_parse_import(char *s, char *soname, char *sofun,
                                     char *tname[MAXW]);
 static int32 simplenet_get_vector_info(char *str, char *name, int32 *root,
                                        int32 *length, int32 *il, int32 *ir);
-static int32 getimpstr(char *in, int32 *i, char *out);
+static int32 simplenet_get_imp_str(char *in, int32 *i, char *out);
 static int32 simplenet_import_error(void);
 
 static Network my_net[MAX_NET];
@@ -241,7 +241,7 @@ simplenet_add_vectorizer_name(char *name, char *rhs) {
         exit(0);
     }
     strcpy(my_vec[n_vector].name, name);
-    if (add_vector_name(n_vector, name))
+    if (parserslow_add_vector_name(n_vector, name))
         exit(0);
     n_vector++;
     return;
@@ -471,7 +471,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         str = form_ode_do_fit_get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
-        if (add_expr(junk, my_net[ind].f, &elen)) {
+        if (parserslow_add_expr(junk, my_net[ind].f, &elen)) {
             ggets_plintf(" bad function %s \n", fname);
             return 0;
         }
@@ -545,7 +545,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         str = form_ode_do_fit_get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
-        if (add_expr(junk, my_net[ind].f, &elen)) {
+        if (parserslow_add_expr(junk, my_net[ind].f, &elen)) {
             ggets_plintf(" bad function %s \n", fname);
             return 0;
         }
@@ -728,7 +728,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         str = form_ode_do_fit_get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
-        if (add_expr(junk, my_net[ind].f, &elen)) {
+        if (parserslow_add_expr(junk, my_net[ind].f, &elen)) {
             ggets_plintf(" bad function %s \n", fname);
             return 0;
         }
@@ -1008,7 +1008,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         }
         my_net[ind].iwgt = ivar;
         my_net[ind].gcom = xmalloc(1000*sizeof(*(my_net[ind].gcom)));
-        if (gilparse(str, my_net[ind].gcom, &ivar2) == 0)
+        if (simplenet_gil_parse(str, my_net[ind].gcom, &ivar2) == 0)
             return 0;
         my_net[ind].root = ivar2;
         my_net[ind].n = ivar2 + 1;
@@ -1056,7 +1056,7 @@ simplenet_add_special_name(char *name, char *rhs) {
             return;
         }
         strcpy(my_net[n_network].name, name);
-        add_net_name(n_network, name);
+        parserslow_add_net_name(n_network, name);
         n_network++;
     } else
         ggets_plintf(" No such special type ...\n");
@@ -1209,13 +1209,13 @@ simplenet_eval_all_nets(void) {
             break;
         case FFTCONP:
             y = &variables[root];
-            fft_conv(0, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
+            simplenet_fft_conv(0, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
                      my_net[ind].dr, my_net[ind].di);
             break;
 
         case FFTCON0:
             y = &variables[root];
-            fft_conv(1, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
+            simplenet_fft_conv(1, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
                      my_net[ind].dr, my_net[ind].di);
             break;
 
@@ -1430,7 +1430,7 @@ simplenet_update_fft(int32 ind) {
 }
 
 void
-fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
+simplenet_fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
          double *ffti, double *dr, double *di) {
     int32 dims[2];
     double x;
@@ -1487,7 +1487,7 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
 /* parsing stuff to get gillespie code quickly */
 
 int32
-gilparse(char *s, int32 *ind, int32 *nn) {
+simplenet_gil_parse(char *s, int32 *ind, int32 *nn) {
     int32 i = 0, n = (int32)strlen(s);
     char piece[50], b[20], bn[25], c;
     int32 i1, i2, jp = 0, f;
@@ -1499,7 +1499,7 @@ gilparse(char *s, int32 *ind, int32 *nn) {
         c = s[i];
         if (c == ',' || i > (n - 1)) {
             piece[jp] = 0;
-            if (g_namelist(piece, b, &f, &i1, &i2) == 0) {
+            if (simplenet_g_namelist(piece, b, &f, &i1, &i2) == 0) {
                 printf("Bad gillespie list %s\n", s);
                 return 0;
             }
@@ -1541,7 +1541,7 @@ gilparse(char *s, int32 *ind, int32 *nn) {
 
 /* plucks info out of  xxx{aa-bb}  or returns string */
 int32
-g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
+simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
     int32 i, n = (int32)strlen(s), ir = -1, j = 0;
     char c, num[20];
     *flag = 0;
@@ -1585,7 +1585,7 @@ g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
 }
 
 int32
-getimpstr(char *in, int32 *i, char *out) {
+simplenet_get_imp_str(char *in, int32 *i, char *out) {
     int32 j = 0;
     int32 done = 1;
     char c;
@@ -1635,22 +1635,22 @@ simplenet_parse_import(char *s, char *soname, char *sofun, int32 *n,
             done = 0;
     }
 
-    j = getimpstr(s, &i, temp);
+    j = simplenet_get_imp_str(s, &i, temp);
     strcpy(soname, temp);
     if (j == 1)
         return simplenet_import_error();
 
-    j = getimpstr(s, &i, temp);
+    j = simplenet_get_imp_str(s, &i, temp);
     strcpy(sofun, temp);
     if (j == 1)
         return simplenet_import_error();
 
-    j = getimpstr(s, &i, temp);
+    j = simplenet_get_imp_str(s, &i, temp);
     *n = atoi(temp);
     if (j == 1 || *n <= 0)
         return simplenet_import_error();
 
-    j = getimpstr(s, &i, temp);
+    j = simplenet_get_imp_str(s, &i, temp);
     strcpy(vname, temp);
     *m = 0;
     if (j == 1) {
@@ -1661,7 +1661,7 @@ simplenet_parse_import(char *s, char *soname, char *sofun, int32 *n,
     done = 1;
 
     while (done > 0) {
-        j = getimpstr(s, &i, temp);
+        j = simplenet_get_imp_str(s, &i, temp);
         strcpy(tname[*m], temp);
         *m = *m + 1;
         if (j == 1)

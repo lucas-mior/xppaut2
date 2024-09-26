@@ -1707,7 +1707,7 @@ add_ani_expr(char *x, int32 *c) {
     int32 com[300];
     int32 err;
 
-    err = add_expr(x, com, &n);
+    err = parserslow_add_expr(x, com, &n);
     if (err == 1)
         return 1;
     for (int32 i = 0; i < n; i++) {
@@ -2592,7 +2592,7 @@ ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
     if (z <= 0.0)
         z = .02;
     ani_grab[j].tol = z;
-    if (add_expr(xs, com, &nc)) {
+    if (parserslow_add_expr(xs, com, &nc)) {
         ggets_plintf("Bad grab x %s \n", xs);
         return -1;
     }
@@ -2600,7 +2600,7 @@ ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
     for (k = 0; k <= nc; k++)
         ani_grab[j].x[k] = com[k];
 
-    if (add_expr(ys, com, &nc)) {
+    if (parserslow_add_expr(ys, com, &nc)) {
         ggets_plintf("Bad grab y %s \n", ys);
         return -1;
     }
@@ -2703,7 +2703,7 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         if (i >= MAX_GEVENTS)
             return -1; /* too many events */
         strcpy(ani_grab[igrab].start.lhsname[i], lhs);
-        if (add_expr(rhs, com, &nc)) {
+        if (parserslow_add_expr(rhs, com, &nc)) {
             ggets_plintf("Bad right-hand side for grab event %s\n", rhs);
 
             return -1;
@@ -2728,7 +2728,7 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             return -1; /* too many events */
 
         strcpy(ani_grab[igrab].end.lhsname[i], lhs);
-        if (add_expr(rhs, com, &nc)) {
+        if (parserslow_add_expr(rhs, com, &nc)) {
             ggets_plintf("Bad right-hand side for grab event %s\n", rhs);
             ggets_plintf("should return -1\n");
             return -1;

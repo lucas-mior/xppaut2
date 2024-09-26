@@ -24,7 +24,7 @@ derived_compile(void) {
     int32 k;
     int32 f[256], n;
     for (int64 i = 0; i < nderived; i++) {
-        if (add_expr(derived[i].rhs, f, &n) == 1) {
+        if (parserslow_add_expr(derived[i].rhs, f, &n) == 1) {
             ggets_plintf(" Bad right-hand side for derived parameters \n");
             return 1;
         }
@@ -67,5 +67,5 @@ derived_add(char *name, char *rhs) {
     /* add the name to the recognized symbols */
     ggets_plintf(" derived constant[%d] is %s = %s\n", NCON, name, rhs);
     nderived++;
-    return add_con(name, 0.0);
+    return parserslow_add_con(name, 0.0);
 }

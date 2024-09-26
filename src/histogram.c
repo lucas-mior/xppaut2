@@ -329,7 +329,7 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         if (strlen(condition) == 0)
             cond = 0;
         else {
-            if (add_expr(condition, command, &i)) {
+            if (parserslow_add_expr(condition, command, &i)) {
                 ggets_err_msg("Bad condition. Ignoring...");
 
             } else {

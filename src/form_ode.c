@@ -275,7 +275,7 @@ form_ode_get_eqn(FILE *fptr) {
     /* load_eqn_check_for_xpprc();  This is now done just once and in
      * main_do_vis_env() */
     strcpy(options, "default.opt");
-    add_var("t", 0.0);
+    parserslow_add_var("t", 0.0);
     fgets(bob, MAXEXPLEN, fptr);
     nn = (int32)strlen(bob) + 1;
     if (NLINES > MAXLINES) {
@@ -373,11 +373,11 @@ form_ode_get_eqn(FILE *fptr) {
     /* add primed variables */
     PrimeStart = NVAR;
     if (NVAR < MAX_PRIME_VAR) {
-        add_var("t'", 0.0);
+        parserslow_add_var("t'", 0.0);
         for (i = 0; i < NODE; i++) {
             char prim[sizeof(uvar_names[i]) + 1];
             snprintf(prim, sizeof(prim), "%s'", uvar_names[i]);
-            add_var(prim, 0.0);
+            parserslow_add_var(prim, 0.0);
         }
     } else {
         ggets_plintf(
@@ -394,7 +394,7 @@ form_ode_get_eqn(FILE *fptr) {
     flags_show();
     /* add auxiliary variables */
     for (i = NODE + NMarkov; i < NEQ; i++)
-        add_var(uvar_names[i], 0.0);
+        parserslow_add_var(uvar_names[i], 0.0);
     NCON_START = NCON;
     NSYM_START = NSYM;
     xpp_version_maj = (double)MAJOR_VERSION;
@@ -481,7 +481,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             ggets_plintf("|%s|=%f ", name, value);
             if (ConvertStyle)
                 fprintf(convertf, "%s  ", name);
-            if (add_con(name, value)) {
+            if (parserslow_add_con(name, value)) {
                 ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
@@ -504,7 +504,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 fprintf(convertf, "%s=%g  ", name, value);
 
             ggets_plintf("|%s|=%f ", name, value);
-            if (add_con(name, value)) {
+            if (parserslow_add_con(name, value)) {
                 ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
@@ -546,7 +546,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             if (ConvertStyle)
                 fprintf(convertf, "%s=%g  ", name, value);
             ggets_plintf("|%s|=%f ", name, value);
-            if (add_con(name, value)) {
+            if (parserslow_add_con(name, value)) {
                 ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
@@ -573,7 +573,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         value = atof(my_string);
         my_string = form_ode_do_fit_get_next(" \n");
         nstates = atoi(my_string);
-        add_var(name, value);
+        parserslow_add_var(name, value);
         strcpy(uvar_names[IN_VARS + NMarkov], name);
         last_ic[IN_VARS + NMarkov] = value;
         default_ic[IN_VARS + NMarkov] = value;
@@ -616,7 +616,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             }
             form_ode_take_apart(my_string, &value, name);
             free(my_string);
-            if (add_var(name, value)) {
+            if (parserslow_add_var(name, value)) {
                 ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
@@ -661,7 +661,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         my_string = form_ode_do_fit_get_next("$");
         strcpy(formula, my_string);
         ggets_plintf("Kernel mu=%f %s = %s \n", value, name, formula);
-        if (add_kernel(name, value, formula)) {
+        if (parserslow_add_kernel(name, value, formula)) {
             printf("ERROR at line %d\n", NLINES);
             exit(0);
         }
@@ -687,9 +687,9 @@ form_ode_compiler(char *bob, FILE *fptr) {
             strcpy(formula, my_string);
             printf(" %s has %d pts from %f to %f = %s\n", name, nn, xlo, xhi,
                    formula);
-            add_table_name(NTable, name);
+            parserslow_add_table_name(NTable, name);
 
-            if (add_form_table(NTable, nn, xlo, xhi, formula)) {
+            if (parserslow_add_form_table(NTable, nn, xlo, xhi, formula)) {
                 ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
@@ -708,8 +708,8 @@ form_ode_compiler(char *bob, FILE *fptr) {
         } else {
             strcpy(formula, my_string);
             ggets_plintf("Lookup table %s = %s \n", name, formula);
-            add_table_name(NTable, name);
-            if (add_file_table(NTable, formula)) {
+            parserslow_add_table_name(NTable, name);
+            if (parserslow_add_file_table(NTable, formula)) {
                 ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
@@ -736,7 +736,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             }
             fprintf(convertf, ")=%s", formula);
         }
-        if (add_ufun(name, formula, narg)) {
+        if (parserslow_add_ufun(name, formula, narg)) {
             printf("ERROR at line %d\n", NLINES);
             exit(0);
         }
@@ -799,7 +799,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             }
         }
         ggets_plintf("RHS(%d)=%s\n", NODE, formula);
-        if (add_expr(formula, my_ode[NODE], &leng[NODE])) {
+        if (parserslow_add_expr(formula, my_ode[NODE], &leng[NODE])) {
             printf("ERROR at line %d\n", NLINES);
             exit(0);
         }
@@ -901,7 +901,7 @@ form_ode_find_ker(char *string, int32 *alt) {
             form[ifr] = 0;
             snprintf(name, sizeof(name), "K##%d", NKernel);
             ggets_plintf("Kernel mu=%f %s = %s \n", mu, name, form);
-            if (add_kernel(name, mu, form))
+            if (parserslow_add_kernel(name, mu, form))
                 exit(0);
             for (usize j = 0; j < strlen(name); j++) {
                 new[in] = name[j];
@@ -1506,7 +1506,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
             if (v2->type == TABLE) {
                 convert(v2->lhs, tmp);
-                if (add_table_name(ntab, tmp) == 1) {
+                if (parserslow_add_table_name(ntab, tmp) == 1) {
                     printf(" %s is duplicate name \n", tmp);
                     exit(0);
                 }
@@ -1516,7 +1516,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
             if (v2->type == FUNCTION) {
                 convert(v2->lhs, tmp);
-                if (add_ufun_name(tmp, nufun, v2->nargs) == 1) {
+                if (parserslow_add_ufun_name(tmp, nufun, v2->nargs) == 1) {
                     printf("Duplicate name or too many functions for %s \n",
                            tmp);
                     exit(0);
@@ -1534,7 +1534,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
            fixed stuff
         */
         for (int32 i = 0; i < nvar; i++) {
-            if (add_var(vnames[i], 0.0)) {
+            if (parserslow_add_var(vnames[i], 0.0)) {
                 printf(" Duplicate name %s \n", vnames[i]);
                 exit(0);
             }
@@ -1543,13 +1543,13 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             default_ic[i] = 0.0;
         }
         for (int32 i = 0; i < nfix; i++) {
-            if (add_var(fnames[i], 0.0)) {
+            if (parserslow_add_var(fnames[i], 0.0)) {
                 printf(" Duplicate name %s \n", fnames[i]);
                 exit(0);
             }
         }
         for (int32 i = 0; i < nmark; i++) {
-            if (add_var(mnames[i], 0.0)) {
+            if (parserslow_add_var(mnames[i], 0.0)) {
                 printf(" Duplicate name %s \n", mnames[i]);
                 exit(0);
             }
@@ -1673,7 +1673,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 strcpy(ode_names[nvar], v2->rhs);
                 form_ode_find_ker(v2->rhs, &alt);
                 /*       ode_names[nvar][nn-1]=0; */
-                if (add_expr(v2->rhs, my_ode[nvar], &leng[nvar])) {
+                if (parserslow_add_expr(v2->rhs, my_ode[nvar], &leng[nvar])) {
                     printf("A\n");
                     ggets_plintf("ERROR compiling %s' \n", v2->lhs);
                     exit(0);
@@ -1693,7 +1693,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 form_ode_find_ker(v2->rhs, &alt);
                 if ((my_ode[nfix + IN_VARS] =
                          xmalloc(MAXEXPLEN*sizeof(int32))) == NULL ||
-                    add_expr(v2->rhs, my_ode[nfix + IN_VARS],
+                    parserslow_add_expr(v2->rhs, my_ode[nfix + IN_VARS],
                              &leng[IN_VARS + nfix]) != 0) {
                     ggets_plintf(" Error allocating or compiling %s\n",
                                  v2->lhs);
@@ -1721,7 +1721,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
                 strcpy(ode_names[in1], v2->rhs);
                 /* ode_names[in1][nn]=0; */
-                if (add_expr(v2->rhs, my_ode[in2], &leng[in2])) {
+                if (parserslow_add_expr(v2->rhs, my_ode[in2], &leng[in2])) {
                     printf("B\n");
                     ggets_plintf("ERROR compiling %s \n", v2->lhs);
                     exit(0);
@@ -1756,7 +1756,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 ggets_plintf("%s: %s", v2->lhs, v2->rhs);
                 break;
             case FUNCTION:
-                if (add_ufun_new(nufun, v2->nargs, v2->rhs, v2->args) != 0) {
+                if (parserslow_add_ufun_new(nufun, v2->nargs, v2->rhs, v2->args) != 0) {
                     ggets_plintf(" Function %s messed up \n", v2->lhs);
                     exit(0);
                 }
@@ -1785,7 +1785,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                     strcpy(formula, my_string);
                     ggets_plintf(" %s has %d pts from %f to %f = %s\n", v2->lhs,
                                  nn, xlo, xhi, formula);
-                    if (add_form_table(ntab, nn, xlo, xhi, formula)) {
+                    if (parserslow_add_form_table(ntab, nn, xlo, xhi, formula)) {
                         ggets_plintf("ERROR computing %s\n", v2->lhs);
                         exit(0);
                     }
@@ -1799,7 +1799,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                     strcpy(formula, my_string);
                     ggets_plintf("Lookup table %s = %s \n", v2->lhs, formula);
 
-                    if (add_file_table(ntab, formula)) {
+                    if (parserslow_add_file_table(ntab, formula)) {
                         ggets_plintf("ERROR computing %s", v2->lhs);
                         exit(0);
                     }

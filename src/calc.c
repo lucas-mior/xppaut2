@@ -204,7 +204,7 @@ double
 calc(char *expr, int32 *ok) {
     int32 com[400], i;
     double z = 0.0;
-    if (add_expr(expr, com, &i)) {
+    if (parserslow_add_expr(expr, com, &i)) {
         ggets_err_msg("Illegal formula ..");
         *ok = 0;
         goto bye;
