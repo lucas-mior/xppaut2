@@ -307,7 +307,7 @@ int32
 adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
     int32 n, rval = 0;
     double sum;
-    int32 n0 = node + 1 + FIX_VAR, k2, k;
+    int32 n0 = node + 1 + FIX_VAR, k2;
     if (silent2 == 0) {
         for (int32 i = 0; i < NODE; i++) {
             char name[sizeof(uvar_names[i]) + 18];
@@ -324,7 +324,7 @@ adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
         /* j is phi variable  */
         sum = 0.0;
 
-        for (k = 0; k < nt; k++) {
+        for (int32 k = 0; k < nt; k++) {
             k2 = k + j;
             if (k2 >= nt)
                 k2 = k2 - nt + 1;
@@ -344,7 +344,7 @@ adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
         my_h[1][j] = sum / (double)nt;
     }
     if (HODD_EV) {
-        for (k = 0; k < nt; k++) {
+        for (int32 k = 0; k < nt; k++) {
             k2 = nt - k - 1;
             my_h[2][k] = .5*(my_h[1][k] - my_h[1][k2]);
             my_h[3][k] = .5*(my_h[1][k] + my_h[1][k2]);
