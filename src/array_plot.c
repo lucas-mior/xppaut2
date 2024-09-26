@@ -356,7 +356,7 @@ array_plot_print(struct ArrayPlot *ap) {
     strncpy(values[2], ap->ytitle, sizeof(values[2]));
     strncpy(values[3], ap->bottom, sizeof(values[3]));
     snprintf(values[4], sizeof(values[4]), "%d", ap->type);
-    status = do_string_box(5, 5, 1, "Print array_plot", n, values, 40);
+    status = pop_list_do_string_box(5, 5, 1, "Print array_plot", n, values, 40);
     if (status != 0) {
         strcpy(ap->filename, values[0]);
         strcpy(ap->xtitle, values[1]);
@@ -398,7 +398,7 @@ array_plot_button(Window window) {
         strncpy(values[0], array_plot_range_stem, sizeof(values[0]));
         snprintf(values[1], sizeof(values[1]), "%d", array_plot_still);
         snprintf(values[2], sizeof(values[2]), "%d", array_plot_tag);
-        status = do_string_box(3, 3, 1, "Array range saving", n, values, 28);
+        status = pop_list_do_string_box(3, 3, 1, "Array range saving", n, values, 28);
         if (status != 0) {
             snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s",
                      values[0]);
@@ -533,7 +533,7 @@ array_plot_edit2(struct ArrayPlot *ap) {
     snprintf(values[6], sizeof(values[6]), "%g", ap->zmax);
     snprintf(values[7], sizeof(values[7]), "%d", plot3d_auto_redraw);
     snprintf(values[8], sizeof(values[8]), "%d", ap->ncskip);
-    status = do_string_box(9, 9, 1, "Edit array_plot", n, values, 40);
+    status = pop_list_do_string_box(9, 9, 1, "Edit array_plot", n, values, 40);
     if (status != 0) {
         browse_find_variable(values[0], &i);
         if (i > -1) {

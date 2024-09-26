@@ -657,7 +657,7 @@ many_pops_add_marker(void) {
         snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
         snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
         snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
-        status = do_string_box(3, 3, 1, "Add Marker", n, values, 25);
+        status = pop_list_do_string_box(3, 3, 1, "Add Marker", n, values, 25);
         if (status == 0)
             return;
 
@@ -882,7 +882,7 @@ many_pops_do_gr_objs_com(int32 com) {
             snprintf(values[4], sizeof(values[4]), "%d", markinfo.start);
             snprintf(values[5], sizeof(values[5]), "%d", markinfo.skip);
 
-            status = do_string_box(6, 6, 1, "Add Markers", n, values, 25);
+            status = pop_list_do_string_box(6, 6, 1, "Add Markers", n, values, 25);
             if (status == 0)
                 break;
 

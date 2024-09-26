@@ -156,7 +156,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
         snprintf(values[1], sizeof(values[1]), "%d", ncrange.nstep);
         snprintf(values[2], sizeof(values[2]), "%g", ncrange.xlo);
         snprintf(values[3], sizeof(values[3]), "%g", ncrange.xhi);
-        status = do_string_box(4, 4, 1, "Range Clines", n, values, 45);
+        status = pop_list_do_string_box(4, 4, 1, "Range Clines", n, values, 45);
         if (status == 0)
             break;
 

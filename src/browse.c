@@ -1310,7 +1310,7 @@ browse_data_table(Browser *b) {
              value[0]);
 
     XGetInputFocus(display, &window, &rev);
-    status = do_string_box(4, 4, 1, "Tabulate", name, value, 40);
+    status = pop_list_do_string_box(4, 4, 1, "Tabulate", name, value, 40);
     XSetInputFocus(display, window, rev, CurrentTime);
     if (status == 0)
         return;
@@ -1337,7 +1337,7 @@ browse_data_find(Browser *b) {
     strncpy(value[0], uvar_names[0], sizeof(value[0]));
     sprintf(value[1], "0.00");
     XGetInputFocus(display, &window, &rev);
-    status = do_string_box(2, 2, 1, "Find Data", name, value, 40);
+    status = pop_list_do_string_box(2, 2, 1, "Find Data", name, value, 40);
 
     XSetInputFocus(display, window, rev, CurrentTime);
 

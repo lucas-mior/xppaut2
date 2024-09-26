@@ -36,12 +36,12 @@ typedef struct ScrollBox {
     char **list;
 } ScrollBox;
 
-static void destroy_scroll_box(ScrollBox *sb);
-static void create_scroll_box(Window root, int32 x0, int32 y0, int32 nent,
+static void pop_list_destroy_scroll_box(ScrollBox *sb);
+static void pop_list_create_scroll_box(Window root, int32 x0, int32 y0, int32 nent,
                               int32 nw, char **list, ScrollBox *sb);
 static void expose_scroll_box(Window window, ScrollBox sb);
 static void redraw_scroll_box(ScrollBox sb);
-static void crossing_scroll_box(Window window, int32 c, ScrollBox sb);
+static void pop_list_crossing_scroll_box(Window window, int32 c, ScrollBox sb);
 static int32 scroll_box_motion(XEvent event, ScrollBox *sb);
 static int32 select_scroll_item(Window window, ScrollBox sb);
 static void scroll_popup(StringBox *sb, ScrollBox *scrb);
@@ -51,7 +51,7 @@ static void draw_pop_up(PopUp p, Window window);
 static void set_sbox_item(StringBox *sb, int32 item);
 static void reset_hot(int32 inew, StringBox *sb);
 static void expose_sbox(StringBox sb, Window window, int32 pos);
-static void bin_prnt_byte(int32 x, int32 *arr);
+static void pop_list_bin_prnt_byte(int32 x, int32 *arr);
 static void expose_resp_box(char *button, char *message, Window wb, Window wm,
                             Window window);
 static void make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
@@ -152,7 +152,7 @@ pop_list_make_scrbox_lists(void) {
 }
 
 void
-destroy_scroll_box(ScrollBox *sb) {
+pop_list_destroy_scroll_box(ScrollBox *sb) {
     if (sb->exist == 1) {
         sb->exist = 0;
         browse_wait_a_sec(ClickTime);
@@ -163,7 +163,7 @@ destroy_scroll_box(ScrollBox *sb) {
 }
 
 void
-create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
+pop_list_create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
                   char **list, ScrollBox *sb) {
     int32 slen = 0;
     int32 hgt;
@@ -227,7 +227,7 @@ redraw_scroll_box(ScrollBox sb) {
 }
 
 void
-crossing_scroll_box(Window window, int32 c, ScrollBox sb) {
+pop_list_crossing_scroll_box(Window window, int32 c, ScrollBox sb) {
     for (int32 i = 0; i < sb.nw; i++) {
         if (window == sb.w[i]) {
             XSetWindowBorderWidth(display, window, (uint)c);
@@ -296,14 +296,14 @@ scroll_popup(StringBox *sb, ScrollBox *scrb) {
         uint32 h, w, bw, d;
         Window root;
         XGetGeometry(display, sb->win[ihot], &root, &xx, &y, &w, &h, &bw, &d);
-        create_scroll_box(sb->base, xx, 3, scrbox_list[id].n, maxw,
+        pop_list_create_scroll_box(sb->base, xx, 3, scrbox_list[id].n, maxw,
                           scrbox_list[id].list, scrb);
     }
     return;
 }
 
 int32
-do_string_box(int32 n, int32 rows, int32 cols, char *title, char **names,
+pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title, char **names,
               char values[][MAX_LEN_SBOX], int32 maxchar) {
     StringBox sb;
     int32 status;
@@ -365,13 +365,13 @@ expose_sbox(StringBox sb, Window window, int32 pos) {
         flag = 0;
         if (i == sb.hot)
             flag = 1;
-        do_hilite_text(sb.name[i], sb.value[i], flag, window, pos);
+        pop_list_do_hilite_text(sb.name[i], sb.value[i], flag, window, pos);
     }
     return;
 }
 
 void
-do_hilite_text(char *name, char *value, int32 flag, Window window, int32 pos) {
+pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window, int32 pos) {
     int32 l = (int32)strlen(name);
     int32 m = (int32)strlen(value);
     if (flag) {
@@ -394,10 +394,10 @@ reset_hot(int32 inew, StringBox *sb) {
     int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
-    do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
+    pop_list_do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
                    (int)strlen(sb->value[inew]));
     XClearWindow(display, sb->win[i]);
-    do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
+    pop_list_do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
                    (int)strlen(sb->value[i]));
     return;
 }
@@ -457,11 +457,11 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
             if (item >= 0) {
                 set_sbox_item(sb, item);
                 new_editable(sb, sb->hot, pos, col, &done, &window);
-                destroy_scroll_box(scrb);
+                pop_list_destroy_scroll_box(scrb);
             }
         }
         if (event.xbutton.window == sb->ok) {
-            destroy_scroll_box(scrb);
+            pop_list_destroy_scroll_box(scrb);
             status = DONE_ALL;
             break;
         }
@@ -474,7 +474,7 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
                 XSetInputFocus(display, sb->win[i], RevertToParent,
                                CurrentTime);
                 if (i != sb->hot) {
-                    destroy_scroll_box(scrb);
+                    pop_list_destroy_scroll_box(scrb);
                     new_editable(sb, i, pos, col, &done, &window);
                 } else { /* i==sb->hot */
                     if (event.xbutton.x < DCURX) {
@@ -493,7 +493,7 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
     case EnterNotify:
         wt = event.xcrossing.window;
         if (scrb->exist)
-            crossing_scroll_box(wt, 1, *scrb);
+            pop_list_crossing_scroll_box(wt, 1, *scrb);
         if (wt == sb->ok || wt == sb->cancel)
             XSetWindowBorderWidth(display, wt, 2);
         break;
@@ -501,7 +501,7 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
     case LeaveNotify:
         wt = event.xcrossing.window;
         if (scrb->exist)
-            crossing_scroll_box(wt, 0, *scrb);
+            pop_list_crossing_scroll_box(wt, 0, *scrb);
         if (wt == sb->ok || wt == sb->cancel)
             XSetWindowBorderWidth(display, wt, 1);
         break;
@@ -753,7 +753,7 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
 }
 
 void
-bin_prnt_byte(int32 x, int32 *arr) {
+pop_list_bin_prnt_byte(int32 x, int32 *arr) {
     int32 n = 0;
     for (n = 7; n >= 0; n--) {
         if ((x & 0x80) != 0) {
@@ -878,7 +878,7 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
             row++;
             while (true) {
                 int32 q = 0;
-                bin_prnt_byte(*ps, intstack);
+                pop_list_bin_prnt_byte(*ps, intstack);
                 ps++;
 
                 for (q = 0; q < 8; q++) /*8 bits per byte*/

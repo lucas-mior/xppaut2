@@ -568,7 +568,7 @@ auto_per_par(void) {
 
             sprintf(values[i], "%s=%g", bob, Auto.period[i]);
         }
-        status = do_string_box(9, 5, 2, "AutoPer", n, values, 45);
+        status = pop_list_do_string_box(9, 5, 2, "AutoPer", n, values, 45);
         if (status != 0)
             for (i = 0; i < 9; i++) {
                 ptr = form_ode_get_first(values[i], "=");
@@ -602,7 +602,7 @@ auto_params(void) {
         else
             values[i][0] = '\0'; /*sprintf(values[i],"");*/
     }
-    status = do_string_box(8, 8, 1, "Parameters", n, values, 38);
+    status = pop_list_do_string_box(8, 8, 1, "Parameters", n, values, 38);
     if (status != 0) {
         for (int32 i = 0; i < 8; i++) {
             if (i < NAutoPar) {
@@ -650,7 +650,7 @@ auto_num_par(void) {
     sprintf(values[20], "%d", aauto.iads);
     sprintf(values[21], "%d", SuppressBP);
 
-    status = do_string_box(22, 7, 4, "AutoNum", n, values, 25);
+    status = pop_list_do_string_box(22, 7, 4, "AutoNum", n, values, 25);
     if (status != 0) {
         Auto.ntst = atoi(values[0]);
         Auto.nmx = atoi(values[1]);
@@ -774,7 +774,7 @@ auto_plot_par(void) {
     sprintf(values[4], "%g", Auto.ymin);
     sprintf(values[5], "%g", Auto.xmax);
     sprintf(values[6], "%g", Auto.ymax);
-    status = do_string_box(7, 7, 1, "AutoPlot", n, values, 31);
+    status = pop_list_do_string_box(7, 7, 1, "AutoPlot", n, values, 31);
     if (status != 0) {
         /*  get variable names  */
         browse_find_variable(values[0], &i);
@@ -2206,7 +2206,7 @@ auto_nox_get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
         sprintf(v[i + 2 + NODE], "%g", ur[i]);
     }
 
-    flag = do_string_box(n, n / 2, 2, "Homoclinic info", s, v, 16);
+    flag = pop_list_do_string_box(n, n / 2, 2, "Homoclinic info", s, v, 16);
     if (flag != 0) {
         *nun = atoi(v[0]);
         *nst = atoi(v[NODE + 1]);

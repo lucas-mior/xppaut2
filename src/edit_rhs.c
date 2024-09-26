@@ -126,7 +126,7 @@ edit_rhs_expose_box(EditBox *sb, Window window, int32 pos) {
         flag = 0;
         if (i == sb->hot)
             flag = 1;
-        do_hilite_text(sb->name[i], sb->value[i], flag, window, pos);
+        pop_list_do_hilite_text(sb->name[i], sb->value[i], flag, window, pos);
     }
     return;
 }
@@ -136,10 +136,10 @@ edit_rhs_reset_hot(int32 inew, EditBox *sb) {
     int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
-    do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
+    pop_list_do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
                    (int32)strlen(sb->value[inew]));
     XClearWindow(display, sb->win[i]);
-    do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
+    pop_list_do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
                    (int32)strlen(sb->value[i]));
     return;
 }

@@ -578,7 +578,7 @@ ani_button(Window window) {
         snprintf(values[0], sizeof(values[0]), "%d", mpeg.flag);
         strncpy(values[1], mpeg.root, sizeof(values[0]));
         snprintf(values[2], sizeof(values[0]), "%d", mpeg.aviflag);
-        status = do_string_box(3, 3, 1, "Frame saving", n, values, 28);
+        status = pop_list_do_string_box(3, 3, 1, "Frame saving", n, values, 28);
         if (status != 0) {
             mpeg.flag = atoi(values[0]);
             if (mpeg.flag > 0)

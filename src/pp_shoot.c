@@ -153,7 +153,7 @@ do_sh_range(double *ystart, double *yend) {
     snprintf(values[5], sizeof(values[5]), "%d", shoot_range.side);
     snprintf(values[6], sizeof(values[6]), "%s", yn[shoot_range.movie]);
 
-    status = do_string_box(7, 7, 1, "Range Shoot", n, values, 45);
+    status = pop_list_do_string_box(7, 7, 1, "Range Shoot", n, values, 45);
     if (status == 0)
         return;
 
@@ -243,7 +243,7 @@ set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
     snprintf(values[2], sizeof(values[2]), "%g", *sect);
     snprintf(values[3], sizeof(values[3]), "%s", yn[*ishow]);
 
-    status = do_string_box(4, 4, 1, "Periodic BCs", n, values, 45);
+    status = pop_list_do_string_box(4, 4, 1, "Periodic BCs", n, values, 45);
     if (status != 0) {
         i = init_conds_find_user_name(Param, values[0]);
         if (i > -1)

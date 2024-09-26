@@ -305,7 +305,7 @@ integrate_set_up_range(void) {
     sprintf(values[6], "%s", yn[range.cycle]);
     sprintf(values[7], "%s", yn[range.movie]);
 
-    status = do_string_box(8, 8, 1, "Range Integrate", n, values, 45);
+    status = pop_list_do_string_box(8, 8, 1, "Range Integrate", n, values, 45);
     if (status != 0) {
         strcpy(range.item, values[0]);
         if (integrate_range_item() == 0)
@@ -479,7 +479,7 @@ integrate_eq_range(double *x) {
     sprintf(values[6], "%s", yn[eq_range.movie]);
     sprintf(values[7], "%s", yn[eq_range.mc]);
 
-    status = do_string_box(8, 8, 1, "Range Equilibria", n, values, 45);
+    status = pop_list_do_string_box(8, 8, 1, "Range Equilibria", n, values, 45);
     if (status == 0)
         return;
 
@@ -663,7 +663,7 @@ integrate_do_range(double *x, int32 flag) {
             sprintf(values[11], "1");
         sprintf(values[12], "%d", range.steps2);
         status =
-            do_string_box(13, 7, 2, "Double Range Integrate", n, values, 45);
+            pop_list_do_string_box(13, 7, 2, "Double Range Integrate", n, values, 45);
 
         if (status == 0)
             return -1;

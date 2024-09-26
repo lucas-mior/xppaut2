@@ -345,7 +345,7 @@ do_fit_test(void) {
     snprintf(values[8], sizeof(values[8]), "%g", fit_info.eps);
     snprintf(values[9], sizeof(values[9]), "%d", fit_info.maxiter);
 
-    status = do_string_box(10, 5, 2, "Fit", n, values, 45);
+    status = pop_list_do_string_box(10, 5, 2, "Fit", n, values, 45);
     if (status == 0)
         return;
 

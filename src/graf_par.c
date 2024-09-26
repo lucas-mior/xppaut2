@@ -107,7 +107,7 @@ graf_par_change_view_com(int32 com) {
         snprintf(values[6], sizeof(values[6]), "%s", MyGraph->xlabel);
         snprintf(values[7], sizeof(values[7]), "%s", MyGraph->ylabel);
         MyGraph->ThreeDFlag = 0;
-        status = do_string_box(8, 4, 2, "2D View", n, values, 31);
+        status = pop_list_do_string_box(8, 4, 2, "2D View", n, values, 31);
         if (status != 0) {
             /*  get variable names  */
             browse_find_variable(values[0], &i);
@@ -159,7 +159,7 @@ graf_par_change_view_com(int32 com) {
         snprintf(values[14], sizeof(values[14]), "%s", MyGraph->ylabel);
         snprintf(values[15], sizeof(values[15]), "%s", MyGraph->zlabel);
         MyGraph->ThreeDFlag = 1;
-        status = do_string_box(16, 6, 3, "3D View", n, values, 31);
+        status = pop_list_do_string_box(16, 6, 3, "3D View", n, values, 31);
         if (status != 0) {
             /*  get variable names  */
             browse_find_variable(values[0], &i);
@@ -547,7 +547,7 @@ graf_par_get_3d_com(void) {
     snprintf(values[8], sizeof(values[8]), "%g", mov3d.incr);
     snprintf(values[9], sizeof(values[9]), "%d", mov3d.nclip);
 
-    status = do_string_box(10, 5, 2, "3D Parameters", n, values, 28);
+    status = pop_list_do_string_box(10, 5, 2, "3D Parameters", n, values, 28);
     if (status != 0) {
         MyGraph->PerspFlag = atoi(values[0]);
         MyGraph->ZPlane = atof(values[1]);
@@ -607,7 +607,7 @@ graf_par_window_zoom_com(int32 c) {
         snprintf(values[2], sizeof(values[2]), "%g", MyGraph->ylo);
         snprintf(values[1], sizeof(values[1]), "%g", MyGraph->xhi);
         snprintf(values[3], sizeof(values[3]), "%g", MyGraph->yhi);
-        status = do_string_box(4, 2, 2, "Window", n, values, 28);
+        status = pop_list_do_string_box(4, 2, 2, "Window", n, values, 28);
         if (status != 0) {
             MyGraph->xlo = atof(values[0]);
             MyGraph->ylo = atof(values[2]);
@@ -863,7 +863,7 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
     snprintf(values[2], sizeof(values[2]), "%s", n3);
     snprintf(values[3], sizeof(values[3]), "%d", MyGraph->color[in_it]);
     snprintf(values[4], sizeof(values[4]), "%d", MyGraph->line[in_it]);
-    status = do_string_box(5, 5, 1, title, nn, values, 25);
+    status = pop_list_do_string_box(5, 5, 1, title, nn, values, 25);
     if (status != 0) {
         browse_find_variable(values[0], &i);
         if (i > -1)
@@ -1132,7 +1132,7 @@ graf_par_edit_frz_crv(int32 i) {
     snprintf(values[0], sizeof(values[0]), "%d", frz[i].color);
     snprintf(values[1], sizeof(values[1]), "%s", frz[i].key);
     snprintf(values[2], sizeof(values[2]), "%s", frz[i].name);
-    status = do_string_box(3, 3, 1, "Edit Freeze", nn, values, 25);
+    status = pop_list_do_string_box(3, 3, 1, "Edit Freeze", nn, values, 25);
     if (status != 0) {
         frz[i].color = atoi(values[0]);
         strncpy(frz[i].key, values[1], sizeof(frz[i].key));
@@ -1368,7 +1368,7 @@ graf_par_add_a_curve_com(int32 c) {
         strncpy(values[3], PS_FONT, sizeof(values[3]));
         snprintf(values[4], sizeof(values[4]), "%g", PS_LW);
         status =
-            do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
+            pop_list_do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
         if (status != 0) {
             PS_Color = atoi(values[0]);
             PS_Port = atoi(values[1]);
@@ -1418,7 +1418,7 @@ graf_par_add_a_curve_com(int32 c) {
         snprintf(values[4], sizeof(values[4]), "%d", MyGraph->yorgflag);
         snprintf(values[5], sizeof(values[5]), "%d", MyGraph->zorgflag);
         snprintf(values[6], sizeof(values[6]), "%d", PS_FONTSIZE);
-        status = do_string_box(7, 7, 1, "Axes options", n, values, 25);
+        status = pop_list_do_string_box(7, 7, 1, "Axes options", n, values, 25);
         if (status != 0) {
             MyGraph->xorg = atof(values[0]);
             MyGraph->yorg = atof(values[1]);

@@ -3908,9 +3908,9 @@ extern char *color_names[];
 
 void pop_list_set_window_title(Window win, char *string);
 void pop_list_make_scrbox_lists(void);
-int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
+int32 pop_list_do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
                     char values[][MAX_LEN_SBOX], int32 maxchar);
-void do_hilite_text(char *name, char *value, int32 flag, Window window,
+void pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window,
                     int32 pos);
 void new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col,
                   int32 *done, Window *w);

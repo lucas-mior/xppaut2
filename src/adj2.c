@@ -114,7 +114,7 @@ adj2_do_transpose(void) {
         adj2_data_back();
     }
 
-    status = do_string_box(LENGTH(strings), LENGTH(strings), 1,
+    status = pop_list_do_string_box(LENGTH(strings), LENGTH(strings), 1,
                            "Transpose Data", strings, values, 33);
     if (status == 0)
         return 0;

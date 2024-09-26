@@ -278,7 +278,7 @@ init_conds_do_slide_button(Window window, struct ParSlider *p) {
     sprintf(values[1], "%.16g", p->val);
     sprintf(values[2], "%.16g", p->lo);
     sprintf(values[3], "%.16g", p->hi);
-    status = do_string_box(4, 4, 1, "Set Sliders", n, values, 35);
+    status = pop_list_do_string_box(4, 4, 1, "Set Sliders", n, values, 35);
     if (status == 0)
         return;
     if (strlen(values[0]) == 0) { /* empty string cancels */

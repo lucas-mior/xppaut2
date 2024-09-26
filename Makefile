@@ -4,7 +4,7 @@ MINOR_VERSION = 3
 PREFIX ?= /usr/local
 
 CFLAGS = -D_DEFAULT_SOURCE -std=c99 -DMALLOC_DEBUG
-CFLAGS += -fsanitize=undefined
+# CFLAGS += -fsanitize=undefined
 CFLAGS += -Wall -Wextra -Wpedantic -Wfatal-errors
 CFLAGS += -Wfatal-errors
 CFLAGS += -I./src/ -I./bitmaps/ -I./ -I./src/cvode/

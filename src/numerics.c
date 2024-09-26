@@ -384,7 +384,7 @@ numerics_get_pmap_pars_com(int32 l) {
     snprintf(values[1], sizeof(values[1]), "%.16g", POIPLN);
     snprintf(values[2], sizeof(values[2]), "%d", POISGN);
     snprintf(values[3], sizeof(values[3]), "%s", yn[SOS]);
-    status = do_string_box(4, 4, 1, "Poincare map", n, values, 45);
+    status = pop_list_do_string_box(4, 4, 1, "Poincare map", n, values, 45);
     if (status != 0) {
         browse_find_variable(values[0], &i1);
         if (i1 < 0) {
