@@ -70,7 +70,6 @@ static int32 tabular_eval_fun(int32 n, double xlo, double xhi, char *formula,
 static double tabular_interp(double xlo, double h, double x, double *y,
                              int32 i);
 static double tabular_lookup_xy(double x, int32 n, double *xv, double *yv);
-static void tabular_view(int32 index);
 
 void
 tabular_set_auto_eval_flags(int32 f) {
@@ -86,22 +85,6 @@ tabular_set_table_name(char *name, int32 index) {
     return;
 }
 
-void
-tabular_view(int32 index) {
-    int32 i;
-    int32 n = my_table[index].n, len;
-    double *y = my_table[index].y;
-    double xlo = my_table[index].xlo, dx = my_table[index].dx;
-    len = n;
-    if (len >= MAXSTOR)
-        len = MAXSTOR - 1;
-    for (i = 0; i < len; i++) {
-        storage[0][i] = xlo + i*dx;
-        storage[1][i] = y[i];
-    }
-    refresh_browser(len);
-    return;
-}
 
 void
 tabular_new_lookup_com(int32 i) {
@@ -116,7 +99,19 @@ tabular_new_lookup_com(int32 i) {
     if (index == -1)
         return;
     if (i == 1) {
-        tabular_view(index);
+        /* tabular view */
+        int32 n = my_table[index].n, len;
+        double *y = my_table[index].y;
+        double dx = my_table[index].dx;
+        xlo = my_table[index].xlo;
+        len = n;
+        if (len >= MAXSTOR)
+            len = MAXSTOR - 1;
+        for (int32 i2 = 0; i2 < len; i2++) {
+            storage[0][i2] = xlo + i2*dx;
+            storage[1][i2] = y[i2];
+        }
+        refresh_browser(len);
         return;
     }
     if (my_table[index].flag == 1) {
