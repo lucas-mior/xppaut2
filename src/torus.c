@@ -24,7 +24,6 @@ static struct TorusBox {
 } torbox;
 
 static void make_tor_box(char *title);
-static void draw_torus_box(Window win);
 static void draw_tor_var(int32 i);
 
 void
@@ -59,9 +58,24 @@ do_torus_com(int32 c) {
             XNextEvent(display, &event);
             switch (event.type) {
             case Expose:
-
                 many_pops_do_expose(event); /*  menus and graphs etc  */
-                draw_torus_box(event.xany.window);
+                {
+                    /* draw torus box */
+                    Window win = event.xany.window;
+                    if (win == torbox.cancel) {
+                        XDrawString(display, win, small_gc, 5, CURY_OFFs, "Cancel", 6);
+                        return;
+                    }
+                    if (win == torbox.done) {
+                        XDrawString(display, win, small_gc, 5, CURY_OFFs, "Done", 4);
+                        return;
+                    }
+
+                    for (int32 i = 0; i < NEQ; i++) {
+                        if (win == torbox.window[i])
+                            draw_tor_var(i);
+                    }
+                }
                 break;
             case ButtonPress:
                 if (event.xbutton.window == torbox.done) {
@@ -133,25 +147,6 @@ draw_tor_var(int32 i) {
     return;
 }
 
-void
-draw_torus_box(Window win) {
-    int32 i;
-
-    if (win == torbox.cancel) {
-        XDrawString(display, win, small_gc, 5, CURY_OFFs, "Cancel", 6);
-        return;
-    }
-    if (win == torbox.done) {
-        XDrawString(display, win, small_gc, 5, CURY_OFFs, "Done", 4);
-        return;
-    }
-
-    for (i = 0; i < NEQ; i++) {
-        if (win == torbox.window[i])
-            draw_tor_var(i);
-    }
-    return;
-}
 
 
 void
