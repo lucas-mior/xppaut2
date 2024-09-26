@@ -2183,19 +2183,19 @@ form_ode_strparse(char *s1, char *s2, int32 i0, int32 *i1) {
 int32
 form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
                       char args[MAXARG][NAMLEN + 1]) {
-    int32 k, i = i0, n = (int32)strlen(s1);
+    int32 i = i0, n = (int32)strlen(s1);
     int32 type, na = 0, i1;
     while (i < n) {
         type = form_ode_find_char(s1, ",)", i, &i1);
         if (type == 0) {
-            for (k = i; k < i1; k++)
+            for (int32 k = i; k < i1; k++)
                 args[na][k - i] = s1[k];
             args[na][i1 - i] = 0;
             na++;
             i = i1 + 1;
         }
         if (type == 1) {
-            for (k = i; k < i1; k++)
+            for (int32 k = i; k < i1; k++)
                 args[na][k - i] = s1[k];
             args[na][i1 - i] = 0;
             na++;
@@ -2317,7 +2317,7 @@ form_ode_read_a_line(FILE *fp, char *s) {
 
 int32
 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
-    int32 j, k, l;
+    int32 j, l;
     int32 ileft;
     int32 iright;
     int32 n = (int32)strlen(old);
@@ -2355,7 +2355,7 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                 if (ch == '[') {
                     ileft = i + j;
                     l = 0;
-                    for (k = i + j + 1; k < i; k++) {
+                    for (int32 k = i + j + 1; k < i; k++) {
                         num1[l] = old[k];
                         l++;
                     }
@@ -2378,7 +2378,7 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                 if (ch == ']') {
                     iright = i + j;
                     l = 0;
-                    for (k = 2; k < j; k++) {
+                    for (int32 k = 2; k < j; k++) {
                         num2[l] = old[i + k];
                         l++;
                     }

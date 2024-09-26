@@ -930,7 +930,7 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
 
     int64 jmin;
     double upsi;
-    int64 i, j, k;
+    int64 i, j;
     double tmmin;
     int64 k1, k2, ii;
     double upsmin;
@@ -950,12 +950,12 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
             for (i = 0; i < *ncolrs; ++i) {
                 k1 = i**ndim;
                 k2 = (i + 1)**ndim - 1;
-                for (k = k1 + *nar; k <= k2; ++k) {
+                for (int64 k = k1 + *nar; k <= k2; ++k) {
                     ARRAY2D(ups, j, k) = .1;
                 }
             }
         }
-        for (k = *nar; k < *ndim; ++k) {
+        for (int64 k = *nar; k < *ndim; ++k) {
             ARRAY2D(ups, *ntsr, k) = .1;
         }
     }
@@ -990,7 +990,7 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
                 if (j == *ntsr + 1) {
                     ++ist;
                     tm[-1 + j] = tm[-1 + ist];
-                    for (k = 0; k < *ncolrs**ndim; ++k) {
+                    for (int64 k = 0; k < *ncolrs**ndim; ++k) {
                         ARRAY2D(ups, (j - 1), k) = ARRAY2D(ups, (ist - 1), k);
                         ARRAY2D(udotps, (j - 1), k) =
                             ARRAY2D(udotps, (ist - 1), k);
@@ -1009,7 +1009,7 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
                 if (tm[-1 + i] < 0.) {
                     tm[-1 + i] += 1.;
                 }
-                for (k = 0; k < *ncolrs**ndim; ++k) {
+                for (int64 k = 0; k < *ncolrs**ndim; ++k) {
                     ARRAY2D(ups, (i - 1), k) = ARRAY2D(ups, (j - 1), k);
                     ARRAY2D(udotps, (i - 1), k) = ARRAY2D(udotps, (j - 1), k);
                 }
@@ -1018,7 +1018,7 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
             /* Last equal to first */
 
             tm[*ntsr] = 1.;
-            for (k = 0; k < *ncolrs**ndim; ++k) {
+            for (int64 k = 0; k < *ncolrs**ndim; ++k) {
                 ARRAY2D(ups, *ntsr, k) = ARRAY2D(ups, 0, k);
                 ARRAY2D(udotps, *ntsr, k) = ARRAY2D(udotps, 0, k);
             }
@@ -1036,7 +1036,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 ups_dim1;
     int64 udotps_dim1;
 
-    int64 ndim, ncol, nfpr, ntst, ncol1, j, k;
+    int64 ndim, ncol, nfpr, ntst, ncol1, j;
     double t;
     double *u;
     int64 k1, k2;
@@ -1091,7 +1091,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
             k1 = i*ndim;
             k2 = (i + 1)*ndim - 1;
             stpho(iap, icp, u, par, &t);
-            for (k = k1; k <= k2; ++k) {
+            for (int64 k = k1; k <= k2; ++k) {
                 ARRAY2D(ups, j, k) = u[k - k1];
             }
         }
@@ -1603,7 +1603,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *dfdp, double *zz) {
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
-    int64 j, k, ifail;
+    int64 j, ifail;
     double vdot;
 
     double *f;
@@ -1702,7 +1702,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
                 rr[j] = rrdum[i];
                 ri[i] = ri[j];
                 ri[j] = ridum[i];
-                for (k = 0; k < *ndm; ++k) {
+                for (int64 k = 0; k < *ndm; ++k) {
                     vrdum[k + i*(*ndm)] = vr[k + i*(*ndm)];
                     vr[k + i*(*ndm)] = vr[k + j*(*ndm)];
                     vr[k + j*(*ndm)] = vrdum[k + i*(*ndm)];
@@ -1799,7 +1799,6 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     int64 dfdp_dim1;
 
     int64 j;
-    int64 k;
     int64 mcond, k1, k2, m0;
 
     double det;
@@ -1955,7 +1954,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
             {
                 int64 tmp;
                 tmp = *ndm;
-                for (k = 0; k < tmp; ++k) {
+                for (int64 k = 0; k < tmp; ++k) {
                     dum1[i + j*(tmp)] +=
                         beyn_1.cprev[i + m0 +
                                      (k + ((*is - 1) + ((*itrans - 1)*2)) *
@@ -1974,7 +1973,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
                 }
             }
 #else
-            for (k = 0; k < *ndm; ++k) {
+            for (int64 k = 0; k < *ndm; ++k) {
                 dum1[i + j*(*ndm)] +=
                     beyn_1.cprev[i + m0 +
                                  (k +
@@ -2001,7 +2000,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     for (int64 i = 0; i < mcond; ++i) {
         for (j = 0; j < *ndm; ++j) {
             bound[(i + 1) + m0 + (j + 1)*(*ndm)] = 0.;
-            for (k = 0; k < mcond; ++k) {
+            for (int64 k = 0; k < mcond; ++k) {
                 bound[(i + 1) + m0 + (j + 1)*(*ndm)] +=
                     d[k + i*(*ndm)]*cnow[k + m0 + j*(*ndm)];
             }

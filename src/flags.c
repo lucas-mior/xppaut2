@@ -181,7 +181,7 @@ flags_show(void) {
 int32
 flags_compile(void) {
     int32 j;
-    int32 k, index, nc;
+    int32 index, nc;
     int32 command[256];
     if (NFlags == 0)
         return 0;
@@ -193,7 +193,7 @@ flags_compile(void) {
         flag[j].anypars = 0;
         flag[j].nointerp = 0;
         flag[j].comcond = xmalloc(sizeof(*(flag[j].comcond))*(usize)(nc + 1));
-        for (k = 0; k <= nc; k++)
+        for (int32 k = 0; k <= nc; k++)
             flag[j].comcond[k] = command[k];
         for (int32 i = 0; i < flag[j].nevents; i++) {
             index = init_conds_find_user_name(IC, flag[j].lhsname[i]);
@@ -240,7 +240,7 @@ flags_compile(void) {
             }
             flag[j].comrhs[i] =
                 xmalloc(sizeof(*(flag[j].comrhs[i]))*(usize)(nc + 1));
-            for (k = 0; k <= nc; k++)
+            for (int32 k = 0; k <= nc; k++)
                 flag[j].comrhs[i][k] = command[k];
         }
     }

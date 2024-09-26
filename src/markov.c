@@ -255,13 +255,13 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
 
 void
 markov_compile_all(void) {
-    int32 index, j, k, ns, l0;
+    int32 index, j, ns, l0;
     if (NMarkov == 0)
         return;
     for (index = 0; index < NMarkov; index++) {
         ns = markov[index].nstates;
         for (j = 0; j < ns; j++) {
-            for (k = 0; k < ns; k++) {
+            for (int32 k = 0; k < ns; k++) {
                 l0 = ns*j + k;
                 if (compile_markov(index, j, k) == -1) {
                     ggets_plintf("Bad expression %s[%d][%d] = %s \n",

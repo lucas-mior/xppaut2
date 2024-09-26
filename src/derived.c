@@ -21,7 +21,6 @@ It is called only once during the session
 */
 int32
 derived_compile(void) {
-    int32 k;
     int32 f[256], n;
     for (int64 i = 0; i < nderived; i++) {
         if (parserslow_add_expr(derived[i].rhs, f, &n) == 1) {
@@ -29,7 +28,7 @@ derived_compile(void) {
             return 1;
         }
         derived[i].form = xmalloc(sizeof(*(derived[i].form))*(usize)(n + 2));
-        for (k = 0; k < n; k++)
+        for (int32 k = 0; k < n; k++)
             derived[i].form[k] = f[k];
     }
     derived_evaluate();

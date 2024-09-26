@@ -275,7 +275,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
 
 void
 gear_save_batch_shoot(void) {
-    int32 k, type;
+    int32 type;
     double x[MAX_ODE], olddt;
     char name[256];
     FILE *fp;
@@ -283,7 +283,7 @@ gear_save_batch_shoot(void) {
         return;
     olddt = DELTA_T;
     STORFLAG = 1;
-    for (k = 0; k < ShootIndex; k++) {
+    for (int32 k = 0; k < ShootIndex; k++) {
         for (int32 i = 0; i < NODE; i++)
             x[i] = ShootIC[k][i];
 
@@ -708,8 +708,8 @@ l130:
             continue;
         h[i - 1 + (i - 4)*n] = 0.0;
     }
-    for (k = m; k <= na; k++) /*260 */
-    {
+    for (k = m; k <= na; k++) {
+        /* 260 */
         notlas = 0;
         if (k != na)
             notlas = 1;
@@ -875,7 +875,7 @@ gear_amax(double u, double v) {
 void
 gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
              double *dermat, int32 n) {
-    int32 j, k;
+    int32 j;
     double r;
     rhs_function(0.0, x, y, n);
     if (METHOD == 0)
@@ -883,7 +883,7 @@ gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
             y[i] = y[i] - x[i];
 
     for (int32 i = 0; i < n; i++) {
-        for (k = 0; k < n; k++)
+        for (int32 k = 0; k < n; k++)
             xp[k] = x[k];
         r = eps*gear_amax(eps, fabs(x[i]));
         xp[i] = xp[i] + r;
@@ -906,11 +906,11 @@ gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
 void
 gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
                double *dermat, int32 n) {
-    int32 j, k;
+    int32 j;
     double r;
     rhs_function(0.0, x, y, n);
     for (int32 i = 0; i < n; i++) {
-        for (k = 0; k < n; k++)
+        for (int32 k = 0; k < n; k++)
             xp[k] = x[k];
         r = eps*gear_amax(eps, fabs(x[i]));
         xp[i] = xp[i] + r;
@@ -1523,12 +1523,12 @@ gear_min(double x, double y) {
 
 void
 gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
-    int32 j, k, kp1, l, nm1;
+    int32 j, kp1, l, nm1;
     double t;
     *info = -1;
     nm1 = n - 1;
     if (nm1 > 0) {
-        for (k = 1; k <= nm1; k++) {
+        for (int32 k = 1; k <= nm1; k++) {
             kp1 = k + 1;
             l = gear_is_amax(n - k + 1, &a[(k - 1)*lda + k - 1], lda) + k - 1;
             ipvt[k - 1] = l;

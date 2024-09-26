@@ -476,7 +476,7 @@ nullcline_do_batch_dfield(void) {
 
 void
 nullcline_redraw_dfield(void) {
-    int32 j, k;
+    int32 j;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
     double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
@@ -525,7 +525,7 @@ nullcline_redraw_dfield(void) {
             if (MyGraph->ColorFlag || DF_FLAG == 2) {
                 v1[0] = 0.0;
                 v2[0] = 0.0;
-                for (k = 0; k < NEQ; k++) {
+                for (int32 k = 0; k < NEQ; k++) {
                     v1[k + 1] = (double)y[k];
                     v2[k + 1] = v1[k + 1] + (double)ydot[k];
                 }
@@ -574,7 +574,7 @@ nullcline_redraw_dfield(void) {
 
 void
 nullcline_direct_field_com(int32 c) {
-    int32 j, start, k;
+    int32 j, start;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
     double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
@@ -639,7 +639,7 @@ nullcline_direct_field_com(int32 c) {
                 if (MyGraph->ColorFlag || DF_FLAG == 2) {
                     v1[0] = 0.0;
                     v2[0] = 0.0;
-                    for (k = 0; k < NEQ; k++) {
+                    for (int32 k = 0; k < NEQ; k++) {
                         v1[k + 1] = (double)y[k];
                         v2[k + 1] = v1[k + 1] + (double)ydot[k];
                     }
@@ -679,7 +679,7 @@ nullcline_direct_field_com(int32 c) {
     STORFLAG = 0;
 
     SuppressBounds = 1;
-    for (k = 0; k < 2; k++) {
+    for (int32 k = 0; k < 2; k++) {
         for (int32 i = 0; i <= grid; i++)
             for (j = 0; j <= grid; j++) {
                 integrate_get_ic(2, y);

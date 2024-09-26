@@ -138,14 +138,14 @@ dense_alloc_piv2(int64 n) {
 
 int64
 dense_gefa(double **a, int64 n, int64 *p) {
-    int64 j, k, l;
+    int64 j, l;
     double *col_j, *col_k, *diag_k;
     double temp, mult, a_kj;
     bool swap;
 
     /* k = elimination step number */
 
-    for (k = 0; k < n - 1; k++, p++) {
+    for (int32 k = 0; k < n - 1; k++, p++) {
         col_k = a[k];
         diag_k = col_k + k;
 
@@ -219,13 +219,13 @@ dense_gefa(double **a, int64 n, int64 *p) {
 
 void
 dense_gesl(double **a, int64 n, int64 *p, double *b) {
-    int64 k, l;
+    int64 l;
     double mult;
     double *col_k;
 
     /* Solve Ly = Pb, store solution y in b */
 
-    for (k = 0; k < n - 1; k++) {
+    for (int32 k = 0; k < n - 1; k++) {
         l = p[k];
         mult = b[l];
         if (l != k) {
@@ -239,7 +239,7 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
 
     /* Solve Ux = y, store solution x in b */
 
-    for (k = n - 1; k >= 0; k--) {
+    for (int64 k = n - 1; k >= 0; k--) {
         col_k = a[k];
         b[k] /= col_k[k];
         mult = -b[k];

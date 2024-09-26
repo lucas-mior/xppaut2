@@ -146,7 +146,7 @@ band_alloc_piv2(int64 n) {
 int64
 band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     int64 c, r, num_rows;
-    int64 i, j, k, l, storage_l, storage_k, last_col_k, last_row_k;
+    int64 i, j, l, storage_l, storage_k, last_col_k, last_row_k;
     double *a_c, *col_k, *diag_k, *sub_diag_k, *col_j, *kptr, *jptr;
     double max, temp, mult, a_kj;
     bool swap;
@@ -165,7 +165,7 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 
     /* k = elimination step number */
 
-    for (k = 0; k < n - 1; k++, p++) {
+    for (int64 k = 0; k < n - 1; k++, p++) {
         col_k = a[k];
         diag_k = col_k + smu;
         sub_diag_k = diag_k + 1;
@@ -251,13 +251,13 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 
 void
 band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
-    int64 k, l, i, first_row_k, last_row_k;
+    int64 l, i, first_row_k, last_row_k;
     double mult;
     double *diag_k;
 
     /* Solve Ly = Pb, store solution y in b */
 
-    for (k = 0; k < n - 1; k++) {
+    for (int64 k = 0; k < n - 1; k++) {
         l = p[k];
         mult = b[l];
         if (l != k) {
@@ -272,7 +272,7 @@ band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
 
     /* Solve Ux = y, store solution x in b */
 
-    for (k = n - 1; k >= 0; k--) {
+    for (int64 k = n - 1; k >= 0; k--) {
         diag_k = a[k] + smu;
         first_row_k = MAX(0, k - smu);
         b[k] /= (*diag_k);

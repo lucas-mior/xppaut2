@@ -372,7 +372,7 @@ integrate_monte_carlo(void) {
 
 void
 integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
-    int32 j, k, m, n = fixptguess.n;
+    int32 j, m, n = fixptguess.n;
     int32 ierr, new = 1;
     double x[MAX_ODE], sum;
     double er[MAX_ODE], em[MAX_ODE];
@@ -414,7 +414,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                 }
             } else { /* there are others  better compare them */
                 new = 1;
-                for (k = 0; k < m; k++) {
+                for (int32 k = 0; k < m; k++) {
                     sum = 0.0;
                     for (j = 0; j < NODE; j++)
                         sum += fabs(x[j] - fixptlist.x[k][j]);

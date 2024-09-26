@@ -136,13 +136,13 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
 int32
 iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
     double c, s, temp1, temp2, temp3;
-    int32 i, j, k, q_ptr, n_minus_1, code = 0;
+    int32 i, j, q_ptr, n_minus_1, code = 0;
 
     switch (job) {
     case 0:
         /* Compute a new factorization of H. */
         code = 0;
-        for (k = 0; k < n; k++) {
+        for (int32 k = 0; k < n; k++) {
             /* Multiply column k by the previous k-1 Givens rotations. */
             for (j = 0; j < k - 1; j++) {
                 i = 2*j;
@@ -183,7 +183,7 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
         code = 0;
 
         /* Multiply the new column by the previous n-1 Givens rotations. */
-        for (k = 0; k < n_minus_1; k++) {
+        for (int32 k = 0; k < n_minus_1; k++) {
             i = 2*k;
             temp1 = h[k][n_minus_1];
             temp2 = h[k + 1][n_minus_1];
@@ -228,11 +228,11 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
 int32
 iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
     double c, s, temp1, temp2;
-    int32 k, q_ptr, code = 0;
+    int32 q_ptr, code = 0;
 
     /* Compute Q*b. */
 
-    for (k = 0; k < n; k++) {
+    for (int32 k = 0; k < n; k++) {
         q_ptr = 2*k;
         c = q[q_ptr];
         s = q[q_ptr + 1];
@@ -244,7 +244,7 @@ iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
 
     /* Solve  R*x = Q*b. */
 
-    for (k = n - 1; k >= 0; k--) {
+    for (int32 k = n - 1; k >= 0; k--) {
         if (h[k][k] == ZERO) {
             code = k + 1;
             break;

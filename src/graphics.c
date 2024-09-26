@@ -527,9 +527,8 @@ graphics_scale_to_real(/* Not needed except for X */
 void
 graphics_reset_all_line_type(void) {
     int32 j;
-    int32 k;
     for (j = 0; j < MAXPOP; j++) {
-        for (k = 0; k < MAXPERPLOT; k++) {
+        for (int32 k = 0; k < MAXPERPLOT; k++) {
             graph[j].line[k] = START_LINE_TYPE;
         }
     }
@@ -640,11 +639,10 @@ graphics_get_graph(void) {
 void
 graphics_init(int32 i) {
     int32 j;
-    int32 k;
     if (AXES <= 3)
         AXES = 0;
     for (j = 0; j < 3; j++)
-        for (k = 0; k < 3; k++)
+        for (int32 k = 0; k < 3; k++)
             if (k == j)
                 graph[i].rm[k][j] = 1.0;
             else
@@ -720,12 +718,11 @@ void
 graphics_copy_graph(/*  Graph[i]=Graph[l]  */
                     int32 i, int32 l) {
     int32 j;
-    int32 k;
     graph[i].Use = graph[l].Use;
     graph[i].Restore = graph[l].Restore;
     graph[i].Nullrestore = graph[l].Nullrestore;
     for (j = 0; j < 3; j++)
-        for (k = 0; k < 3; k++)
+        for (int32 k = 0; k < 3; k++)
             graph[i].rm[k][j] = graph[l].rm[k][j];
     graph[i].nvars = graph[l].nvars;
     for (j = 0; j < MAXPERPLOT; j++) {

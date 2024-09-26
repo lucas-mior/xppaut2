@@ -1607,10 +1607,9 @@ cv_rescale(CVodeMem cv_mem) {
 static void
 cv_predict(CVodeMem cv_mem) {
     int32 j;
-    int32 k;
 
     tn += h;
-    for (k = 1; k <= q; k++)
+    for (int32 k = 1; k <= q; k++)
         for (j = q; j >= k; j--)
             vector_linear_sum(ONE, zn[j - 1], ONE, zn[j], zn[j - 1]);
     return;
@@ -2167,10 +2166,9 @@ cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
 static void
 cv_restore(CVodeMem cv_mem, double saved_t) {
     int32 j;
-    int32 k;
 
     tn = saved_t;
-    for (k = 1; k <= q; k++)
+    for (int32 k = 1; k <= q; k++)
         for (j = q; j >= k; j--)
             vector_linear_sum(ONE, zn[j - 1], -ONE, zn[j], zn[j - 1]);
     return;

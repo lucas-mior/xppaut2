@@ -1469,9 +1469,9 @@ convert(char *source, char *dest) {
 void
 find_tok(char *source, int32 *index, int32 *tok) {
     int32 i = *index, maxlen = 0, symlen;
-    int32 k, j, my_tok, match;
+    int32 j, my_tok, match;
     my_tok = NSYM;
-    for (k = 0; k < NSYM; k++) {
+    for (int32 k = 0; k < NSYM; k++) {
         symlen = my_symb[k].len;
         if (symlen <= maxlen)
             continue;

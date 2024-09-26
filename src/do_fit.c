@@ -75,7 +75,7 @@ void
 do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
                 double *yfit, double **yderv, int32 npts, int32 npars,
                 int32 nvars, int32 *ivar, int32 *ipar) {
-    int32 iv, ip, istart = 1, j, k, l, k0, ok;
+    int32 iv, ip, istart = 1, j, l, k0, ok;
     double yold[MAX_ODE], dp;
     double par;
     *flag = 0;
@@ -101,7 +101,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         iv = ivar[i];
         yfit[i] = y[iv];
     }
-    for (k = 1; k < npts; k++) {
+    for (int32 k = 1; k < npts; k++) {
         k0 = k*nvars;
         ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
         if (ok == 0) {
@@ -150,7 +150,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         }
         derived_evaluate();
         /* now loop through all the points */
-        for (k = 1; k < npts; k++) {
+        for (int32 k = 1; k < npts; k++) {
             k0 = k*nvars;
             ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
             if (ok == 0) {
@@ -184,14 +184,14 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
 void
 do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars,
                int32 nvars, int32 npts) {
-    int32 j, k;
+    int32 j;
     int32 ioff;
     for (int32 i = 0; i < npts; i++) {
         ggets_plintf(" %8.5g ", t0[i]);
         ioff = nvars*i;
         for (j = 0; j < nvars; j++) {
             ggets_plintf(" %g ", yfit[ioff + j]);
-            for (k = 0; k < npars; k++)
+            for (int32 k = 0; k < npars; k++)
                 printf(" %g ", yderv[k][ioff + j]);
         }
         ggets_plintf(" \n");
@@ -466,7 +466,7 @@ do_fit_run(/* double arrays */
            int32 *icols, double *y0, double *a, double *yfit) {
     double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda,
         **yderv, *work;
-    int32 j, k, ioff, ictrl = 0, ok = 0;
+    int32 j, ioff, ictrl = 0, ok = 0;
     FILE *fp;
     int32 niter = 0, good_flag = 0;
     double tol10 = 10*tol;
@@ -491,7 +491,7 @@ do_fit_run(/* double arrays */
         t0[i] = t;
 
         ioff = nvars*i;
-        for (k = 0; k < nvars; k++) {
+        for (int32 k = 0; k < nvars; k++) {
             y[ioff + k] = ytemp[icols[k] - 2];
         }
     }
@@ -618,7 +618,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
                    int32 *ipar, double *covar, double *alpha, double *chisq,
                    double *alambda, double *work, double **yderv, double *yfit,
                    double *ochisq, int32 ictrl, double eps) {
-    int32 j, k, ierr, ipivot[1000];
+    int32 j, ierr, ipivot[1000];
 
     double *da, *atry, *beta, *oneda;
     da = work;
@@ -636,7 +636,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
         *ochisq = (*chisq);
     }
     for (j = 0; j < npars; j++) {
-        for (k = 0; k < npars; k++)
+        for (int32 k = 0; k < npars; k++)
             covar[j + k*npars] = alpha[j + k*npars];
         covar[j + j*npars] = alpha[j + j*npars]*(1 + (*alambda));
         oneda[j] = beta[j];
@@ -655,11 +655,11 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
         for (j = 0; j < (npars*npars); j++)
             alpha[j] = covar[j];
         for (j = 0; j < npars; j++) {
-            for (k = 0; k < npars; k++)
+            for (int32 k = 0; k < npars; k++)
                 oneda[k] = 0.0;
             oneda[j] = 1.0;
             gear_sgesl(alpha, npars, npars, ipivot, oneda, 0);
-            for (k = 0; k < npars; k++)
+            for (int32 k = 0; k < npars; k++)
                 covar[j + k*npars] = oneda[k];
         }
         return 1;
@@ -675,7 +675,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
         /* *ochisq=*chisq; */
         *alambda *= 0.1;
         for (j = 0; j < npars; j++) {
-            for (k = 0; k < npars; k++)
+            for (int32 k = 0; k < npars; k++)
                 alpha[j + k*npars] = covar[j + k*npars];
             beta[j] = da[j];
             a[j] = atry[j];
@@ -692,7 +692,7 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
               int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
               double *alpha, double *chisq, double *beta, double **yderv,
               double *yfit, double eps) {
-    int32 flag, j, k, l, k0;
+    int32 flag, j, l, k0;
     double sig2i, dy, wt;
 
     do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars,
@@ -710,7 +710,7 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
     *chisq = 0.0;
     for (int32 i = 0; i < nvars; i++) {
         sig2i = 1.0 / (sig[i]*sig[i]);
-        for (k = 0; k < npts; k++) {
+        for (int32 k = 0; k < npts; k++) {
             k0 = k*nvars + i;
             dy = y[k0] - yfit[k0];
             for (j = 0; j < npars; j++) {

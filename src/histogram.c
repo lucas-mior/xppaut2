@@ -63,7 +63,7 @@ histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
             bin k = int32 ((y-ylo)/dy)
             if j<0 or j>=nxbin then skip etc
     */
-    int32 i, j, k;
+    int32 i, j;
     double dx, dy, norm;
     double x;
     double y;
@@ -79,7 +79,7 @@ histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
             my_hist[1][i + j*n1] = ylo + (j + .5)*dy;
             my_hist[2][i + j*n1] = 0.0;
         }
-    for (k = 0; k < ndat; k++) {
+    for (int32 k = 0; k < ndat; k++) {
         x = (storage[col1][k] - xlo) / dx;
         y = (storage[col2][k] - ylo) / dy;
         i = (int32)x;

@@ -1426,7 +1426,6 @@ many_pops_canvas_xy(char *buf) {
 
 void
 many_pops_check_draw_button(XEvent event) {
-    int32 k;
     char buf[256];
 
     int32 button;
@@ -1441,7 +1440,7 @@ many_pops_check_draw_button(XEvent event) {
     j = event.xbutton.y;
     if (button == 1) { /* select window   */
 
-        for (k = 1; k < MAXPOP; k++)
+        for (int32 k = 1; k < MAXPOP; k++)
             if ((graph[k].Use) && (window == graph[k].window))
                 flag = 1;
         if ((window == graph[1].window) || (flag == 1))

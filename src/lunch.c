@@ -559,7 +559,6 @@ lunch_io_exprs(int32 f, FILE *fp) {
 void
 lunch_io_graph(int32 f, FILE *fp) {
     int32 j;
-    int32 k;
     char temp[256];
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
@@ -567,7 +566,7 @@ lunch_io_graph(int32 f, FILE *fp) {
     if (f != READEM)
         fprintf(fp, "# Graphics\n");
     for (j = 0; j < 3; j++)
-        for (k = 0; k < 3; k++)
+        for (int32 k = 0; k < 3; k++)
             lunch_io_double(&(MyGraph->rm[k][j]), fp, f, "rm");
     for (j = 0; j < MAXPERPLOT; j++) {
         lunch_io_int(&(MyGraph->xv[j]), fp, f, " ");

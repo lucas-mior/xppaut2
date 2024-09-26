@@ -2268,7 +2268,7 @@ void
 draw_ani_comet(int32 j) {
     double x1 = my_ani[j].zx1, y1 = my_ani[j].zy1;
     int32 i1, j1, i2, j2;
-    int32 k, nn, ir;
+    int32 nn, ir;
     set_ani_thick(my_ani[j].zthick);
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
@@ -2278,7 +2278,7 @@ draw_ani_comet(int32 j) {
     nn = my_ani[j].c.i;
     if (my_ani[j].zthick < 0) {
         ir = -my_ani[j].zthick;
-        for (k = 0; k < nn; k++) {
+        for (int32 k = 0; k < nn; k++) {
             i1 = my_ani[j].c.x[k];
             j1 = my_ani[j].c.y[k];
             xset_ani_col(my_ani[j].c.col[k]);
@@ -2287,7 +2287,7 @@ draw_ani_comet(int32 j) {
         }
     } else {
         if (nn > 2) {
-            for (k = 1; k < nn; k++) {
+            for (int32 k = 1; k < nn; k++) {
                 i1 = my_ani[j].c.x[k - 1];
                 j1 = my_ani[j].c.y[k - 1];
                 i2 = my_ani[j].c.x[k];
@@ -2576,7 +2576,7 @@ int32
 ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
     char start[256], end[256];
     int32 com[256];
-    int32 nc, j, k, ans;
+    int32 nc, j, ans;
     double z;
     read_ani_line(fp, start);
     read_ani_line(fp, end);
@@ -2596,7 +2596,7 @@ ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
         return -1;
     }
     ani_grab[j].x = xmalloc(sizeof(*(ani_grab[j].x))*(usize)(nc + 1));
-    for (k = 0; k <= nc; k++)
+    for (int32 k = 0; k <= nc; k++)
         ani_grab[j].x[k] = com[k];
 
     if (parserslow_add_expr(ys, com, &nc)) {
@@ -2604,7 +2604,7 @@ ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
         return -1;
     }
     ani_grab[j].y = xmalloc(sizeof(*(ani_grab[j].y))*(usize)(nc + 1));
-    for (k = 0; k <= nc; k++)
+    for (int32 k = 0; k <= nc; k++)
         ani_grab[j].y[k] = com[k];
     ans = ani_grab_tasks(start, j, 1);
     if (ans < 0)
@@ -2695,7 +2695,7 @@ ani_do_grab_tasks(int32 which) {
 int32
 ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
     int32 com[256];
-    int32 i, nc, k;
+    int32 i, nc;
     int32 rn;
     if (which == 1) {
         i = ani_grab[igrab].start.n;
@@ -2709,7 +2709,7 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         }
         ani_grab[igrab].start.comrhs[i] = xmalloc(
             sizeof(*(ani_grab[igrab].start.comrhs[i]))*(usize)(nc + 1));
-        for (k = 0; k <= nc; k++)
+        for (int32 k = 0; k <= nc; k++)
             ani_grab[igrab].start.comrhs[i][k] = com[k];
 
         ani_grab[igrab].start.n = ani_grab[igrab].start.n + 1;
@@ -2734,7 +2734,7 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         }
         ani_grab[igrab].end.comrhs[i] =
             xmalloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(usize)(nc + 1));
-        for (k = 0; k <= nc; k++)
+        for (int32 k = 0; k <= nc; k++)
             ani_grab[igrab].end.comrhs[i][k] = com[k];
         ani_grab[igrab].end.n = ani_grab[igrab].end.n + 1;
         return 1;

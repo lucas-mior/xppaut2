@@ -370,7 +370,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     int64 ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1;
     int64 fa_dim1, wt_dim1, wp_dim1, wploc_dim1;
 
-    int64 j, k, l, m;
+    int64 j, l, m;
     int64 mpart, i1, j1, k1, l1;
 
     double rlsum;
@@ -462,7 +462,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
             }
         }
         for (ic = 0; ic < *ncol; ++ic) {
-            for (k = 0; k < *ndim; ++k) {
+            for (int32 k = 0; k < *ndim; ++k) {
                 u[k] = ARRAY2D(wt, *ncol, ic)*ARRAY2D(ups, jp1, k);
                 uold[k] = ARRAY2D(wt, *ncol, ic)*ARRAY2D(uoldps, jp1, k);
                 for (l = 0; l < *ncol; ++l) {
@@ -483,7 +483,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
             for (int64 i = 0; i < *ndim; ++i) {
                 ARRAY2D(fa, ic1 + i, jj) =
                     f[i] - ARRAY2D(wploc, *ncol, ic)*ARRAY2D(ups, jp1, i);
-                for (k = 0; k < *ncol; ++k) {
+                for (int32 k = 0; k < *ncol; ++k) {
                     k1 = k**ndim + i;
                     ARRAY2D(fa, ic1 + i, jj) -=
                         ARRAY2D(wploc, k, ic)*ARRAY2D(ups, j, k1);
@@ -521,7 +521,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
         for (jj = 0; jj < *na; ++jj) {
             j = jj + mpart;
             jp1 = j + 1;
-            for (k = 0; k < ncp1; ++k) {
+            for (int32 k = 0; k < ncp1; ++k) {
                 for (int64 i = 0; i < *ndim; ++i) {
                     i1 = k**ndim + i;
                     j1 = j;

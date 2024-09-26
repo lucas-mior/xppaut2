@@ -13,7 +13,7 @@ setubv_make_aa_bb_cc(void *arg) {
         uoldps_dim1, udotps_dim1, upoldp_dim1, dbc_dim1, dicd_dim1, wploc_dim1,
         dfdu_dim1, dfdp_dim1, wp_dim1, wt_dim1;
 
-    int64 j, k, l, m;
+    int64 j, l, m;
     int64 k1;
     int64 l1;
     int64 i1, j1;
@@ -110,7 +110,7 @@ setubv_make_aa_bb_cc(void *arg) {
           variable contains the original value of loop_start and removes
           the shift*/
         for (ic = 0; ic < larg->ncol; ++ic) {
-            for (k = 0; k < larg->ndim; ++k) {
+            for (int32 k = 0; k < larg->ndim; ++k) {
                 u[k] = ARRAY2D(wt, larg->ncol, ic) *
                        ARRAY2D(ups, jp1 + larg->loop_offset, k);
                 uold[k] = ARRAY2D(wt, larg->ncol, ic) *
@@ -148,14 +148,14 @@ setubv_make_aa_bb_cc(void *arg) {
                 ib1 = ib*larg->ndim;
                 for (int32 i = 0; i < larg->ndim; ++i) {
                     ARRAY3D(aa, ib1 + i, ic1 + i, jj) = wploc_tmp;
-                    for (k = 0; k < larg->ndim; ++k) {
+                    for (int32 k = 0; k < larg->ndim; ++k) {
                         ARRAY3D(aa, ib1 + k, ic1 + i, jj) -=
                             wt_tmp*ARRAY2D(dfdu, i, k);
                     }
                 }
             }
             for (int32 i = 0; i < larg->ndim; ++i) {
-                for (k = 0; k < larg->ncb; ++k) {
+                for (int32 k = 0; k < larg->ncb; ++k) {
                     ARRAY3D(bb, k, ic1 + i, jj) =
                         -ARRAY2D(dfdp, i, larg->icp[k]);
                 }
@@ -175,7 +175,7 @@ setubv_make_aa_bb_cc(void *arg) {
         (*(larg->bcni))(larg->iap, larg->rap, larg->ndim, larg->par, larg->icp,
                         larg->nbc, ubc0, ubc1, fbc, 2, dbc);
         for (int32 i = 0; i < larg->nbc; ++i) {
-            for (k = 0; k < larg->ndim; ++k) {
+            for (int32 k = 0; k < larg->ndim; ++k) {
                 /*NOTE!!
                   This needs to split up.  Only the first processor does the
                   first part and only the last processors does the last part.*/
@@ -196,7 +196,7 @@ setubv_make_aa_bb_cc(void *arg) {
         for (jj = larg->loop_start; jj < larg->loop_end; ++jj) {
             j = jj;
             jp1 = j + 1;
-            for (k = 0; k < (larg->ncol + 1); ++k) {
+            for (int32 k = 0; k < (larg->ncol + 1); ++k) {
                 for (int32 i = 0; i < larg->ndim; ++i) {
                     i1 = k*larg->ndim + i;
                     j1 = j;
@@ -229,7 +229,7 @@ setubv_make_aa_bb_cc(void *arg) {
     /*     Pseudo-arclength equation : */
     for (jj = larg->loop_start; jj < larg->loop_end; ++jj) {
         for (int32 i = 0; i < larg->ndim; ++i) {
-            for (k = 0; k < larg->ncol; ++k) {
+            for (int32 k = 0; k < larg->ncol; ++k) {
                 k1 = k*larg->ndim + i;
                 ARRAY3D(cc, k1, larg->nrc - 1, jj) =
                     larg->dtm[jj]*larg->thu[i]*larg->wi[k] *
@@ -279,7 +279,7 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
        double *thu, double *p0, double *p1) {
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
-    int64 j, k;
+    int64 j;
 
     double *wi, *wp, *wt;
 
@@ -307,7 +307,7 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     /* Initialize to zero. */
     for (int32 i = 0; i < nrc; ++i) {
         fc[i] = 0.;
-        for (k = 0; k < ncb; ++k) {
+        for (int32 k = 0; k < ncb; ++k) {
             ARRAY2D(dd, k, i) = 0.;
         }
     }
@@ -321,17 +321,17 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
 
     for (int32 i = 0; i < na; ++i) {
         for (j = 0; j < nra; ++j) {
-            for (k = 0; k < nca; ++k) {
+            for (int32 k = 0; k < nca; ++k) {
                 ARRAY3D(aa, k, j, i) = 0.;
             }
         }
         for (j = 0; j < nra; ++j) {
-            for (k = 0; k < ncb; ++k) {
+            for (int32 k = 0; k < ncb; ++k) {
                 ARRAY3D(bb, k, j, i) = 0.;
             }
         }
         for (j = 0; j < nca; ++j) {
-            for (k = 0; k < nrc; ++k) {
+            for (int32 k = 0; k < nrc; ++k) {
                 ARRAY3D(cc, j, k, i) = 0.;
             }
         }
@@ -365,7 +365,7 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
 
 void
 setubv_make_fa(setubv_parallel_arglist larg) {
-    int64 j, k, l;
+    int64 j, l;
     int64 ic, k1, ib;
     int64 jj, jp1, l1, ic1;
     double dt;
@@ -408,7 +408,7 @@ setubv_make_fa(setubv_parallel_arglist larg) {
             }
         }
         for (ic = 0; ic < larg.ncol; ++ic) {
-            for (k = 0; k < larg.ndim; ++k) {
+            for (int32 k = 0; k < larg.ndim; ++k) {
                 u[k] = ARRAY2D(wt, larg.ncol, ic)*ARRAY2D(ups, jp1, k);
                 uold[k] = ARRAY2D(wt, larg.ncol, ic)*ARRAY2D(uoldps, jp1, k);
                 for (l = 0; l < larg.ncol; ++l) {
@@ -431,7 +431,7 @@ setubv_make_fa(setubv_parallel_arglist larg) {
                 ARRAY2D(fa, ic1 + i, jj) =
                     f[i] - ARRAY2D(wploc, larg.ncol, ic) *
                                ARRAY2D(ups, jp1 + larg.loop_offset, i);
-                for (k = 0; k < larg.ncol; ++k) {
+                for (int32 k = 0; k < larg.ncol; ++k) {
                     k1 = k*larg.ndim + i;
                     ARRAY2D(fa, ic1 + i, jj) -=
                         ARRAY2D(wploc, k, ic) *
@@ -453,7 +453,7 @@ setubv_make_fa(setubv_parallel_arglist larg) {
 void
 setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
                   double *rlold, double rds) {
-    int64 j, jj, jp1, k, i1, m, j1;
+    int64 j, jj, jp1, i1, m, j1;
     double rlsum;
 
     int64 dups_dim1 = larg.ndxloc;
@@ -499,7 +499,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
                        larg.nbc, ubc0, ubc1, fbc, 2, dbc);
         for (int32 i = 0; i < larg.nbc; ++i) {
             larg.fc[i] = -fbc[i];
-            for (k = 0; k < larg.ncb; ++k) {
+            for (int32 k = 0; k < larg.ncb; ++k) {
                 ARRAY2D(dd, k, i) =
                     ARRAY2D(dbc, i, (larg.ndim*2) + larg.icp[k]);
             }
@@ -518,7 +518,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
         for (jj = larg.loop_start; jj < larg.loop_end; ++jj) {
             j = jj;
             jp1 = j + 1;
-            for (k = 0; k < (larg.ncol + 1); ++k) {
+            for (int32 k = 0; k < (larg.ncol + 1); ++k) {
                 for (int32 i = 0; i < larg.ndim; ++i) {
                     i1 = k*larg.ndim + i;
                     j1 = j;

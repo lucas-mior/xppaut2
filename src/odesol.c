@@ -300,7 +300,7 @@ odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq,
 int32
 odesol_adams(double *y, double *tim, double dt, int32 nstep, int32 neq,
              int32 *ist, double *work) {
-    int32 istart = *ist, istpst, k, ik, n;
+    int32 istart = *ist, istpst, ik, n;
     int32 irk;
     double *work1;
     double x0 = *tim, xst = *tim;
@@ -322,7 +322,7 @@ n20:
 
     x0 = xst;
     rhs_function(x0, y, y_p[3], neq);
-    for (k = 1; k < 4; k++) {
+    for (int32 k = 1; k < 4; k++) {
         odesol_rung_kut(y, &x0, dt, 1, neq, &irk, work1);
         delay_handle_stor_delay(y);
         for (int32 i = 0; i < neq; i++)
@@ -384,23 +384,22 @@ n1000:
 int32
 odesol_abmpc(double *y, double *t, double dt, int32 neq) {
     double x1, x0 = *t;
-    int32 k;
     for (int32 i = 0; i < neq; i++) {
         ypred[i] = 0;
-        for (k = 0; k < 4; k++)
+        for (int32 k = 0; k < 4; k++)
             ypred[i] = ypred[i] + coefp[k]*y_p[k][i];
         ypred[i] = y[i] + dt*ypred[i];
     }
 
     for (int32 i = 0; i < neq; i++)
-        for (k = 3; k > 0; k--)
+        for (int32 k = 3; k > 0; k--)
             y_p[k][i] = y_p[k - 1][i];
     x1 = x0 + dt;
     rhs_function(x1, ypred, y_p[0], neq);
 
     for (int32 i = 0; i < neq; i++) {
         ypred[i] = 0;
-        for (k = 0; k < 4; k++)
+        for (int32 k = 0; k < 4; k++)
             ypred[i] = ypred[i] + coefc[k]*y_p[k][i];
         y[i] = y[i] + dt*ypred[i];
     }
@@ -619,7 +618,7 @@ odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
 int32
 odesol_bandfac(/*   factors the matrix    */
                double *a, int32 ml, int32 mr, int32 n) {
-    int32 j, k;
+    int32 j;
     int32 n1 = n - 1, mt = ml + mr + 1, row, rowi, m, r0, ri0;
     double al;
     for (row = 0; row < n; row++) {
@@ -639,7 +638,7 @@ odesol_bandfac(/*   factors the matrix    */
             al = a[ri0 - i];
             if (al == 0.0)
                 continue;
-            for (k = 1; k <= m; k++)
+            for (int32 k = 1; k <= m; k++)
                 a[ri0 - i + k] = a[ri0 - i + k] - (al*a[r0 + k]);
             a[ri0 - i] = -al;
         }
@@ -650,7 +649,7 @@ odesol_bandfac(/*   factors the matrix    */
 void
 odesol_bandsol(/* requires that the matrix be factored   */
                double *a, double *b, int32 ml, int32 mr, int32 n) {
-    int32 j, k, r0;
+    int32 j, r0;
     int32 mt = ml + mr + 1;
     int32 m, n1 = n - 1, row;
     for (int32 i = 0; i < n; i++) {
@@ -663,7 +662,7 @@ odesol_bandsol(/* requires that the matrix be factored   */
     for (row = n1 - 1; row >= 0; row--) {
         m = MIN(mr, n1 - row);
         r0 = row*mt + ml;
-        for (k = 1; k <= m; k++)
+        for (int32 k = 1; k <= m; k++)
             b[row] = b[row] - a[r0 + k]*b[row + k];
     }
     return;

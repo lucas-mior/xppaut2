@@ -32,7 +32,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     SpgmrMem mem;
     Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
-    int32 k;
 
     /* Check the input parameters */
 
@@ -45,7 +44,7 @@ spgmr_malloc(int64 N, int32 l_max) {
     if (V == NULL)
         return NULL;
 
-    for (k = 0; k <= l_max; k++) {
+    for (int32 k = 0; k <= l_max; k++) {
         V[k] = vector_new(N);
         if (V[k] == NULL) {
             spgmr_free_vector_array(V, k - 1);
@@ -61,7 +60,7 @@ spgmr_malloc(int64 N, int32 l_max) {
         return NULL;
     }
 
-    for (k = 0; k <= l_max; k++) {
+    for (int32 k = 0; k <= l_max; k++) {
         Hes[k] = xmalloc((usize)l_max*sizeof(*(Hes[k])));
         if (Hes[k] == NULL) {
             for (int32 i = 0; i < k; i++)
@@ -159,7 +158,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
     double beta, rotation_product, r_norm, s_product, rho = 0.0;
     bool preOnLeft, preOnRight, scale_x, scale_b, converged;
-    int32 j, k, l, l_plus_1, l_max, krydim = 0, ier, ntries;
+    int32 j, l, l_plus_1, l_max, krydim = 0, ier, ntries;
 
     if (mem == NULL)
         return SPGMR_MEM_NULL;
@@ -340,7 +339,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             return SPGMR_QRSOL_FAIL;
 
         /* Add correction vector V_l y to xcor */
-        for (k = 0; k < krydim; k++)
+        for (int32 k = 0; k < krydim; k++)
             vector_linear_sum(yg[k], V[k], ONE, xcor, xcor);
 
         /* If converged, construct the final solution vector x */
@@ -387,7 +386,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         /* Multiply yg by V_(krydim+1) to get last residual vector; restart */
         vector_scale(yg[0], V[0], V[0]);
-        for (k = 1; k <= krydim; k++)
+        for (int32 k = 1; k <= krydim; k++)
             vector_linear_sum(yg[k], V[k], ONE, V[0], V[0]);
     }
 

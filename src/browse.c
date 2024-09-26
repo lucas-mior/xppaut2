@@ -1382,7 +1382,6 @@ browse_data_read(Browser *b) {
     char fil[256];
     char ch;
     FILE *fp;
-    int32 k;
     int32 len, count = 0, white = 1;
     double z;
 
@@ -1421,7 +1420,7 @@ browse_data_read(Browser *b) {
     rewind(fp);
     len = 0;
     while (!feof(fp)) {
-        for (k = 0; k < count; k++) {
+        for (int32 k = 0; k < count; k++) {
             fscanf(fp, "%lf ", &z);
             if (k < b->maxcol)
                 b->data[k][len] = z;

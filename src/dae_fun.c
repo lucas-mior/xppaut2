@@ -82,7 +82,7 @@ dae_fun_add_aeqn(char *rhs) {
 /* this compiles formulas to set to zero */
 int32
 dae_fun_compile_svars(void) {
-    int32 f[256], n, k;
+    int32 f[256], n;
     if (nsvar != naeqn) {
         ggets_plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar,
                      naeqn);
@@ -95,7 +95,7 @@ dae_fun_compile_svars(void) {
             return 1;
         }
         aeqn[i].form = xmalloc(sizeof(*(aeqn[i].form))*(usize)(n + 2));
-        for (k = 0; k < n; k++)
+        for (int32 k = 0; k < n; k++)
             aeqn[i].form[k] = f[k];
     }
 
@@ -105,7 +105,7 @@ dae_fun_compile_svars(void) {
             return 1;
         }
         svar[i].form = xmalloc(100*sizeof(*(svar[i].form)));
-        for (k = 0; k < n; k++)
+        for (int32 k = 0; k < n; k++)
             svar[i].form[k] = f[k];
     }
 

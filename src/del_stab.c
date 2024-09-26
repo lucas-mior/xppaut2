@@ -46,7 +46,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     double colnorm = 0, colmax, colsum;
     double *work, old_x[MAX_ODE], sign;
     double *coef, yp[MAX_ODE], y[MAX_ODE], xp[MAX_ODE], dx;
-    int32 kmem = n*(2*n + 5) + 50, i, j, k, okroot;
+    int32 kmem = n*(2*n + 5) + 50, i, j, okroot;
 
     double *ev;
     ev = xmalloc((usize)(2*n)*sizeof(*ev));
@@ -100,7 +100,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     for (j = 0; j < n; j++)
         xp[j] = x[j];
     /* now the jacobians for the delays */
-    for (k = 0; k < NDelay; k++) {
+    for (int32 k = 0; k < NDelay; k++) {
         WhichDelay = k;
         colmax = 0.0;
         for (i = 0; i < n; i++) {
@@ -208,7 +208,7 @@ del_stab_z_abs(COMPLEX z) {
 
 COMPLEX
 del_stab_z_determ(COMPLEX *z, int32 n) {
-    int32 j, imax = 0, k;
+    int32 j, imax = 0;
     double q;
     double qmax;
     COMPLEX sign = del_stab_rtoc(1.0, 0.0), mult, sum, zd;
@@ -229,7 +229,7 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
         zd = Z(j, j, n);
         for (int32 i = j + 1; i < n; i++) {
             mult = del_stab_c_div(Z(i, j, n), zd);
-            for (k = j + 1; k < n; k++) {
+            for (int32 k = j + 1; k < n; k++) {
                 Z(i, k, n) = del_stab_z_dif(Z(i, k, n),
                                             del_stab_z_mult(mult, Z(j, k, n)));
             }
@@ -244,7 +244,7 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
 void
 del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
                 COMPLEX lambda) {
-    int32 j, k, km;
+    int32 j, km;
     COMPLEX temp;
     COMPLEX eld;
 
@@ -259,7 +259,7 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
                 temp,
                 del_stab_rtoc(coef[i + j*n], 0.0)); /* initialize the array */
         }
-    for (k = 0; k < m; k++) {
+    for (int32 k = 0; k < m; k++) {
         km = (k + 1)*n*n;
         temp = del_stab_rtoc(-delay[k],
                              0.0); /* convert delay to floatcomplex number */
@@ -286,15 +286,13 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
     double jac[4];
     double xl, yl, r, xlp, ylp;
 
-    int32 k;
-
     lambda.r = AlphaMax;
     lambda.i = OmegaMax;
 
     z = xmalloc(sizeof(*z)*(usize)(n*n));
 
     /* now Newtons Method for maxit times */
-    for (k = 0; k < maxit; k++) {
+    for (int32 k = 0; k < maxit; k++) {
         del_stab_z_make(z, delay, n, m, coef, lambda);
         det = del_stab_z_determ(z, n);
 
@@ -368,7 +366,7 @@ del_stab_process_root(double real, double im) {
 double
 del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
                  COMPLEX lambda) {
-    int32 j, k, km;
+    int32 j, km;
     COMPLEX *z;
     COMPLEX temp;
     COMPLEX eld;
@@ -387,7 +385,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
                 temp,
                 del_stab_rtoc(coef[i + j*n], 0.0)); /* initialize the array */
         }
-    for (k = 0; k < m; k++) {
+    for (int32 k = 0; k < m; k++) {
         km = (k + 1)*n*n;
         temp = del_stab_rtoc(-delay[k],
                              0.0); /* convert delay to floatcomplex number */
