@@ -265,9 +265,7 @@ ps_linetype(int32 linetype) {
 }
 
 void
-ps_point(int32 x, int32 y)
-
-{
+ps_point(int32 x, int32 y) {
     int32 number = PointType;
     char *point = "PDABCTSKF";
     number %= POINT_TYPES;

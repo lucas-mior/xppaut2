@@ -1583,13 +1583,11 @@ auto_nox_get_start_period(double *p) {
 }
 
 void
-auto_nox_find_best_homo_shift(int32 n)
-/* this code looks for the best value
-    of the shift to be close as possible to the saddle
-    point of the homoclinic when starting from a
-    long periodic orbit
-*/
-{
+auto_nox_find_best_homo_shift(int32 n) {
+    /* this code looks for the best value
+     * of the shift to be close as possible to the saddle
+     * point of the homoclinic when starting from a
+     * long periodic orbit */
     int32 i;
     int32 j;
     double dmin = 10000.0;

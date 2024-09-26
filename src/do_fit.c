@@ -51,10 +51,6 @@ do_fit_init_info(void) {
     return;
 }
 
-void
-do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
-                double *yfit, double **yderv, int32 npts, int32 npars,
-                int32 nvars, int32 *ivar, int32 *ipar)
 /*
   y     initial condition
   a     initial guesses for the parameters
@@ -75,7 +71,10 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
   ivar     the vector of variables
 
  */
-{
+void
+do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
+                double *yfit, double **yderv, int32 npts, int32 npars,
+                int32 nvars, int32 *ivar, int32 *ipar) {
     int32 i, iv, ip, istart = 1, j, k, l, k0, ok;
     double yold[MAX_ODE], dp;
     double par;
@@ -449,12 +448,6 @@ do_fit_test(void) {
     return;
 }
 
-int32
-do_fit_run(/* double arrays */
-           char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter,
-           int32 ndim, double eps, double tol, int32 *ipar, int32 *ivar,
-           int32 *icols, double *y0, double *a, double *yfit)
-
 /*
    filename is where the data file is -- it is of the form:
    t1 y11 y12 .... y1m
@@ -466,8 +459,11 @@ do_fit_run(/* double arrays */
    ndim is the number of y-pts in the a row
 
 */
-
-{
+int32
+do_fit_run(/* double arrays */
+           char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter,
+           int32 ndim, double eps, double tol, int32 *ipar, int32 *ivar,
+           int32 *icols, double *y0, double *a, double *yfit) {
     double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda,
         **yderv, *work;
     int32 i, j, k, ioff, ictrl = 0, ok = 0;
@@ -592,12 +588,6 @@ do_fit_run(/* double arrays */
     return 1;
 }
 
-int32
-do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
-                   int32 npts, int32 nvars, int32 npars, int32 *ivar,
-                   int32 *ipar, double *covar, double *alpha, double *chisq,
-                   double *alambda, double *work, double **yderv, double *yfit,
-                   double *ochisq, int32 ictrl, double eps)
 /*   One step of Levenberg-Marquardt
 
 nvars  the number of variables to fit
@@ -622,7 +612,12 @@ yfit  is  (npts)*nvars  on each completed step it has the fitted soln
 eps   control numerical derivative
 sigma  weights on nvars
 */
-{
+int32
+do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
+                   int32 npts, int32 nvars, int32 npars, int32 *ivar,
+                   int32 *ipar, double *covar, double *alpha, double *chisq,
+                   double *alambda, double *work, double **yderv, double *yfit,
+                   double *ochisq, int32 ictrl, double eps) {
     int32 i, j, k, ierr, ipivot[1000];
 
     double *da, *atry, *beta, *oneda;

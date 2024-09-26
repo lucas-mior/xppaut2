@@ -2311,11 +2311,9 @@ set_default_params(void) {
 }
 
 void
-draw_editable(Window window, char *string, int32 off, int32 cursor, int32 mc)
-/* cursor position in letters to the left */
-/* first character of string is off */
-{
-
+draw_editable(Window window, char *string, int32 off, int32 cursor, int32 mc) {
+    /* cursor position in letters to the left */
+    /* first character of string is off */
     int32 l = (int32)strlen(string) - off, rev, cp;
     Window focus;
     if (l > mc)

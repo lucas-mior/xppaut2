@@ -874,9 +874,7 @@ gear_amax(double u, double v) {
 
 void
 gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
-             double *dermat, int32 n)
-
-{
+             double *dermat, int32 n) {
     int32 i, j, k;
     double r;
     rhs_function(0.0, x, y, n);
@@ -907,9 +905,7 @@ gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
 
 void
 gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
-               double *dermat, int32 n)
-
-{
+               double *dermat, int32 n) {
     int32 i, j, k;
     double r;
     rhs_function(0.0, x, y, n);
@@ -1016,9 +1012,7 @@ gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
 int32
 ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
       double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
-      double *work, int32 *iwork)
-
-{
+      double *work, int32 *iwork) {
     /* int32 ipivot[MAX_ODE]; */
     double deltat = 0.0, hnew = 0.0, hold = 0.0, h = 0.0, racum = 0.0,
            told = 0.0, r = 0.0, d = 0.0;

@@ -52,9 +52,7 @@ ggets_reset_graphics(void) {
 }
 
 void
-ggets_blank_screen(Window window)
-
-{
+ggets_blank_screen(Window window) {
     CURS_X = 0;
     CURS_Y = 0;
     xor_flag = 0;

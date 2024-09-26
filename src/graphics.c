@@ -929,9 +929,7 @@ graphics_line_3d(double x, double y, double z, double xp, double yp,
 
 void
 graphics_pers_line(double x, double y, double z, double xp, double yp,
-                   double zp)
-
-{
+                   double zp) {
     double Zv = (double)MyGraph->ZView, Zp = (double)MyGraph->ZPlane;
     double d = Zv - Zp, s;
     double eps = .005*d;
@@ -1303,10 +1301,6 @@ C4:
     return iflag;
 }
 
-int32
-graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
-              double *y1_out, double *x2_out, double *y2_out)
-
 /************************************************************ *
  *  Clipping algorithm                                         *
  *   on input,                                                 *
@@ -1315,8 +1309,9 @@ graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
  *is 1 for drawing, 0 for no drawing          * (x1_out,y1_out),(x2_out,y2_out)
  *are endpoints     * of clipped line                                  *
  ***************************************************************/
-
-{
+int32
+graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
+              double *y1_out, double *x2_out, double *y2_out) {
     int32 istack, ix1, ix2, iy1, iy2, isum, iflag;
     double wh, xhat, yhat, wv;
     double x_left = XMin;

@@ -164,9 +164,7 @@ static int32 cv_spgmr_psolve(void *lin_mem, Vector r, Vector z, int32 lr);
 
 void
 cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
-         CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data)
-
-{
+         CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data) {
     CVodeMem cv_mem;
     CVSpgmrMem cvspgmr_mem;
 

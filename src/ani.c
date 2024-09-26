@@ -681,9 +681,7 @@ redraw_ani_slider(void) {
 }
 
 void
-draw_ani_slider(Window window, int32 x)
-
-{
+draw_ani_slider(Window window, int32 x) {
     int32 hgt = DCURYs + 4, l = 48*DCURXs;
     int32 x0 = x - 2;
     if (x0 < 0)

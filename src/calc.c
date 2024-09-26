@@ -51,9 +51,7 @@ draw_calc(Window window) {
 }
 
 void
-make_calc(double z)
-
-{
+make_calc(double z) {
     int32 width;
     int32 height;
     static char *name[] = {"Answer"};

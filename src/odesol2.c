@@ -304,9 +304,7 @@ rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
 
 int32
 adams(double *y, double *tim, double dt, int32 nstep, int32 neq, int32 *ist,
-      double *work)
-
-{
+      double *work) {
     int32 istart = *ist, i, istpst, k, ik, n;
     int32 irk;
     double *work1;

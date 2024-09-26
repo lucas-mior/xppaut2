@@ -70,9 +70,7 @@ numerics_set_total(double total) {
 }
 
 void
-numerics_get_num_par(int32 ch)
-
-{
+numerics_get_num_par(int32 ch) {
     double temp;
     int32 tmp;
     switch (ch) {
