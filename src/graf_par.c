@@ -56,7 +56,6 @@ char *color_names[] = {"WHITE",        "RED",    "REDORANGE",   "ORANGE",
 static int32 get_frz_index(Window window);
 static void read_bd(FILE *fp);
 static void add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
-static void draw_bd(Window window);
 static void draw_frozen_cline(int32 index, Window window);
 static void edit_frz_crv(int32 i);
 static int32 create_crv(int32 ind);
@@ -1209,7 +1208,28 @@ graf_par_draw_freeze(Window window) {
         }
     }
     draw_freeze_key();
-    draw_bd(window);
+    {
+        /* draw bd */
+        int32 len;
+        double *x, *y;
+        if (window == my_bd.window && my_bd.nbifcrv > 0) {
+            for (int32 i2 = 0; i2 < my_bd.nbifcrv; i2++) {
+                graphics_set_linestyle(my_bd.color[i2]);
+                len = my_bd.npts[i2];
+                x = my_bd.x[i2];
+                y = my_bd.y[i2];
+                xpl = x[0];
+                ypl = y[0];
+                for (int32 j2 = 0; j2 < len; j2++) {
+                    oldxpl = xpl;
+                    oldypl = ypl;
+                    xpl = x[j2];
+                    ypl = y[j2];
+                    graphics_line_abs(oldxpl, oldypl, xpl, ypl);
+                }
+            }
+        }
+    }
     return;
 }
 
@@ -1221,29 +1241,6 @@ graf_par_init_bd(void) {
     return;
 }
 
-void
-draw_bd(Window window) {
-    int32 i, j, len;
-    double oldxpl, oldypl, xpl, ypl, *x, *y;
-    if (window == my_bd.window && my_bd.nbifcrv > 0) {
-        for (i = 0; i < my_bd.nbifcrv; i++) {
-            graphics_set_linestyle(my_bd.color[i]);
-            len = my_bd.npts[i];
-            x = my_bd.x[i];
-            y = my_bd.y[i];
-            xpl = x[0];
-            ypl = y[0];
-            for (j = 0; j < len; j++) {
-                oldxpl = xpl;
-                oldypl = ypl;
-                xpl = x[j];
-                ypl = y[j];
-                graphics_line_abs(oldxpl, oldypl, xpl, ypl);
-            }
-        }
-    }
-    return;
-}
 
 
 void
