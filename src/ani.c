@@ -136,7 +136,7 @@ static struct MpegSave {
 
 static AniCom my_ani[MAX_ANI_LINES];
 
-typedef struct {
+static struct VCR {
     Window base, wfile, wgo, wpause, wreset, wfast, wslow, wmpeg;
     Window wfly, kill, slider;
     Window wup, wdn, wskip;
@@ -147,9 +147,7 @@ typedef struct {
     int32 inc;
     int32 slipos, sliwid;
     char file[XPP_MAX_NAME];
-} VCR;
-
-static VCR vcr;
+} vcr;
 
 static int32 n_anicom;
 
