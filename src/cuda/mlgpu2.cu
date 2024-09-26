@@ -61,32 +61,24 @@ cublasHandle_t handle;
 
 /*  ML Functions */
 
-__device__ real minf(real v)
-{
+__device__ real minf(real v) {
   return .5*(1+tanh((v-va)/vb));
 }
-__device__ real ninf(real v)
-{
-
+__device__ real ninf(real v) {
   return .5*(1+tanh((v-vc)/vd));
 }
-__device__ real lamn(real  v)
-{
+__device__ real lamn(real  v) {
   return phi*cosh((v-vc)/(2*vd));
 }
-__device__ real s_inf(real v)
-{
-  
+__device__ real s_inf(real v) {
   return 1.0/(1.0+exp(-(v-vth)/vshp)); 
-
 }
 
 /*  this is the right-hand side evaluation */
 
 
 
-__global__ void update_rhs(real *y,real *yp,real *stot, int n)
-{
+__global__ void update_rhs(real *y,real *yp,real *stot, int n) {
     int i=blockIdx.x*blockDim.x+threadIdx.x;
     real v,w,s;
  /*   if(i<10){
@@ -107,8 +99,7 @@ __global__ void update_rhs(real *y,real *yp,real *stot, int n)
 /*  I will assume for now that the weight do not change throughout the simulation
     so they will only be loaded into the device once
 */
-void allocate_ram(int n, double *w)
-{
+void allocate_ram(int n, double *w) {
   int n3=3*n,nn=n*n;
   int i;
   if(allocflag==1)return;  /* already allocated */
@@ -130,8 +121,7 @@ void allocate_ram(int n, double *w)
 }
 
 /* do this every time */
-void copy_par_to_dev(double *par)
-{
+void copy_par_to_dev(double *par) {
   real dp[MAXPAR];
   int i;
   for(i=0;i<MAXPAR;i++)
@@ -141,8 +131,7 @@ void copy_par_to_dev(double *par)
 
 /* do this every time */
 
-void copy_to_dev(int n,double  *w,double *y)
-{
+void copy_to_dev(int n,double  *w,double *y) {
   int i;
   int n3=3*n,nn=n*n;
 
@@ -157,21 +146,14 @@ void copy_to_dev(int n,double  *w,double *y)
   }
 }  
 
-void copy_from_dev(double *ydot, int nn)
-{
+void copy_from_dev(double *ydot, int nn) {
   int i;
   cudaMemcpy(hostyp,devyp,nn*sizeof(real),cudaMemcpyDeviceToHost);
   for(i=0;i<nn;i++)
     ydot[i]=(double)hostyp[i];
 }
 
-
-
-
-
-
-void update_sums(int n)
-{
+void update_sums(int n) {
   real alpha=1.0,beta=0.0;
 
 
@@ -186,8 +168,7 @@ void update_sums(int n)
 
 extern "C"
 
-void MLGPU(int nn,int ivar, double *par,double *var,double *z[50],double *ydot)
-{
+void MLGPU(int nn,int ivar, double *par,double *var,double *z[50],double *ydot) {
   int n=nn/3;
   double *y;
   int nblock=(int)((n+NTHREAD-1)/NTHREAD);
