@@ -115,53 +115,53 @@ adj2_do_transpose(void) {
 
     status = do_string_box(LENGTH(strings), LENGTH(strings), 1,
                            "Transpose Data", strings, values, 33);
-    if (status != 0) {
-        int32 inrow, incol;
+    if (status == 0)
+        return 0;
 
-        browse_find_variable(values[0], &ii);
-        if (ii > -1)
-            my_trans.col0 = ii + 1;
-        else {
-            ggets_err_msg("No such columns");
-            return 0;
-        }
-        strncpy(my_trans.firstcol, values[0], sizeof(my_trans.firstcol));
-        ii = atoi(values[4]);
-        if (ii >= NEQ)
-            ii = NEQ - 1;
-        my_trans.nrow = ii;
-        my_trans.ncol = atoi(values[1]);
-        my_trans.colskip = atoi(values[2]);
-        my_trans.row0 = atoi(values[3]);
-        my_trans.rowskip = atoi(values[5]);
+    int32 inrow, incol;
 
-        my_trans.data = xmalloc(sizeof(*(my_trans.data))*(usize)(NEQ + 1));
-        for (int32 i = 0; i <= my_trans.nrow; i++)
-            my_trans.data[i] =
-                xmalloc(sizeof(my_trans.data[i])*(usize)my_trans.ncol);
-        for (int32 i = my_trans.nrow + 1; i <= NEQ; i++)
-            my_trans.data[i] = storage[i];
-        for (int32 j = 0; j < my_trans.ncol; j++)
-            my_trans.data[0][j] = (double)(j + 1);
-
-        for (int32 i = 0; i < my_trans.ncol; i++) {
-            incol = my_trans.col0 - 1 + i*my_trans.colskip;
-            if (incol > NEQ)
-                incol = NEQ;
-            for (int32 j = 0; j < my_trans.nrow; j++) {
-                inrow = my_trans.row0 + j*my_trans.rowskip;
-                if (inrow > storind)
-                    inrow = storind;
-                my_trans.data[j + 1][i] = storage[incol][inrow];
-            }
-        }
-
-        set_browser_data(my_trans.data, 1);
-        refresh_browser(my_trans.ncol);
-        my_trans.here = 1;
-        return 1;
+    browse_find_variable(values[0], &ii);
+    if (ii > -1)
+        my_trans.col0 = ii + 1;
+    else {
+        ggets_err_msg("No such columns");
+        return 0;
     }
-    return 0;
+    strncpy(my_trans.firstcol, values[0], sizeof(my_trans.firstcol));
+    ii = atoi(values[4]);
+    if (ii >= NEQ)
+        ii = NEQ - 1;
+    my_trans.nrow = ii;
+    my_trans.ncol = atoi(values[1]);
+    my_trans.colskip = atoi(values[2]);
+    my_trans.row0 = atoi(values[3]);
+    my_trans.rowskip = atoi(values[5]);
+
+    my_trans.data = xmalloc(sizeof(*(my_trans.data))*(usize)(NEQ + 1));
+    for (int32 i = 0; i <= my_trans.nrow; i++)
+        my_trans.data[i] =
+            xmalloc(sizeof(my_trans.data[i])*(usize)my_trans.ncol);
+    for (int32 i = my_trans.nrow + 1; i <= NEQ; i++)
+        my_trans.data[i] = storage[i];
+    for (int32 j = 0; j < my_trans.ncol; j++)
+        my_trans.data[0][j] = (double)(j + 1);
+
+    for (int32 i = 0; i < my_trans.ncol; i++) {
+        incol = my_trans.col0 - 1 + i*my_trans.colskip;
+        if (incol > NEQ)
+            incol = NEQ;
+        for (int32 j = 0; j < my_trans.nrow; j++) {
+            inrow = my_trans.row0 + j*my_trans.rowskip;
+            if (inrow > storind)
+                inrow = storind;
+            my_trans.data[j + 1][i] = storage[incol][inrow];
+        }
+    }
+
+    set_browser_data(my_trans.data, 1);
+    refresh_browser(my_trans.ncol);
+    my_trans.here = 1;
+    return 1;
 }
 
 void
