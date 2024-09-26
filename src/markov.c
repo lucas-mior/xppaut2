@@ -48,7 +48,6 @@ int32 NWiener;
 
 static double markov_ran1(long *idum);
 static double markov_gammln(double xx);
-static void markov_init_stoch(int32 len);
 static double markov_new_state(double old, int32 index, double dt);
 static void update_markov(double *x, double t, double dt);
 static int32 compile_markov(int32 index, int32 j, int32 k);
@@ -541,39 +540,33 @@ markov_variance_back(void) {
 
 
 
-void
-markov_init_stoch(int32 len) {
-    int32 i;
-    int32 j;
-    N_TRIALS = 0;
-    stoch_len = len;
-    for (i = 0; i < (NEQ + 1); i++) {
-        my_mean[i] = xmalloc(sizeof(*(my_mean[i]))*(usize)stoch_len);
-        my_variance[i] = xmalloc(sizeof(*(my_variance[i]))*(usize)stoch_len);
-        for (j = 0; j < stoch_len; j++) {
-            my_mean[i][j] = 0.0;
-            my_variance[i][j] = 0.0;
-        }
-    }
-    for (j = 0; j < stoch_len; j++) {
-        my_mean[0][j] = storage[0][j];
-        my_variance[0][j] = storage[0][j];
-    }
-    STOCH_HERE = 1;
-    return;
-}
 
 void
 markov_append_stoch(int32 first, int32 length) {
-    int32 i;
-    int32 j;
     double z;
-    if (first == 0)
-        markov_init_stoch(length);
+    if (first == 0) {
+        /* markov init stoch */
+        N_TRIALS = 0;
+        stoch_len = length;
+        for (int32 i = 0; i < (NEQ + 1); i++) {
+            my_mean[i] = xmalloc(sizeof(*(my_mean[i]))*(usize)stoch_len);
+            my_variance[i] = xmalloc(sizeof(*(my_variance[i]))*(usize)stoch_len);
+            for (int32 j = 0; j < stoch_len; j++) {
+                my_mean[i][j] = 0.0;
+                my_variance[i][j] = 0.0;
+            }
+        }
+        for (int32 j = 0; j < stoch_len; j++) {
+            my_mean[0][j] = storage[0][j];
+            my_variance[0][j] = storage[0][j];
+        }
+        STOCH_HERE = 1;
+        return;
+    }
     if (length != stoch_len || !STOCH_HERE)
         return;
-    for (i = 0; i < stoch_len; i++) {
-        for (j = 1; j <= NEQ; j++) {
+    for (int32 i = 0; i < stoch_len; i++) {
+        for (int32 j = 1; j <= NEQ; j++) {
             z = storage[j][i];
             my_mean[j][i] = my_mean[j][i] + z;
             my_variance[j][i] = my_variance[j][i] + z*z;
