@@ -200,23 +200,23 @@ adj2_h_back(void) {
     return;
 }
 
-/*  Here is how to do the range over adjoints and h functions
-    unfortunately, h functions are always computed even if you dont want them
-    they will just be zeros
+/* Here is how to do the range over adjoints and h functions
+ * unfortunately, h functions are always computed even if you dont want them
+ * they will just be zeros
 
-    Step 1. Compute a singel orbit, adjoint, and H function (to load the
-    program with the correct right-hand sides for H function. Or just load in
-    set file where it was done
-    Step 2.  Set transient to some reasonable number to assure convergence
-    onto the limit cycle as you change parameters and total to be at least
-    2 periods beyond the transient
-    Step 3. Se up Poincare map - period - stop on section. This lets you
-    get the period
-    Step 4. In numerics averaging - click on adjrange
-    Step 5. Initconds range over the parameter. It should find the periodic
-    orbit, adjoint, and H function and save. Files are of the form
-    orbit.parname_parvalue.dat etc
-*/
+ * Step 1. Compute a singel orbit, adjoint, and H function (to load the
+ * program with the correct right-hand sides for H function. Or just load in
+ * set file where it was done
+ * Step 2. Set transient to some reasonable number to assure convergence
+ * onto the limit cycle as you change parameters and total to be at least
+ * 2 periods beyond the transient
+ * Step 3. Se up Poincare map - period - stop on section. This lets you
+ * get the period
+ * Step 4. In numerics averaging - click on adjrange
+ * Step 5. Initconds range over the parameter. It should find the periodic
+ * orbit, adjoint, and H function and save. Files are of the form
+ * orbit.parname_parvalue.dat etc
+ */
 void
 adj2_make_adj_com(int32 com) {
     static char key[] = "nmaohpr";
@@ -319,9 +319,9 @@ adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
             }
         }
     }
-    /*  formulae are fine .. lets do it ... */
+    /* formulae are fine .. lets do it ... */
     for (int32 j = 0; j < nt; j++) {
-        /* j is phi variable  */
+        /* j is phi variable */
         sum = 0.0;
 
         for (int32 k = 0; k < nt; k++) {
@@ -383,22 +383,22 @@ adj2_new_adjoint(void) {
     return;
 }
 
-/*    ADJOINT ROUTINE
+/* ADJOINT ROUTINE
  *
- *    This assumes that you have already computed the periodic orbit
- *      and have stored in in an array **orbit
- *    including time in the first column
+ * This assumes that you have already computed the periodic orbit
+ * and have stored in in an array **orbit
+ * including time in the first column
 
- *    The righthand sides of the equations are
- *      rhs_function(t,y,yp,n)
- *    and the coupling function for ``H'' functions is
- *      couple(y,yhat,f,n)
+ * The righthand sides of the equations are
+ *   rhs_function(t,y,yp,n)
+ * and the coupling function for ``H'' functions is
+ *   couple(y,yhat,f,n)
 
- *      where yhat is presynaptic and y is postynaptic
- *   variable.  f returns the coupling vector.
+ * where yhat is presynaptic and y is postynaptic
+ * variable. f returns the coupling vector.
 
- *  adjoint is the same size as orbit and when returned has
- *  t in the first column.  */
+ * adjoint is the same size as orbit and when returned has
+ * t in the first column. */
 
 int32
 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
@@ -426,10 +426,10 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         }
     }
 
-    /*  Now we compute the
-          transpose time reversed jacobian  --  this is floatcomplex !! */
+    /* Now we compute the
+     * transpose time reversed jacobian -- this is floatcomplex !! */
     for (int32 k = 0; k < nt; k++) {
-        l = nt - 1 - k; /* reverse the limit cycle  */
+        l = nt - 1 - k; /* reverse the limit cycle */
         for (int32 i = 0; i < node; i++)
             yold[i] = (double)orbit[i + 1][l];
         rhs_function(0.0, yold, fold, node);
@@ -493,7 +493,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         if (error < minerr)
             break;
     }
-    /*  onelast time to compute the adjoint  */
+    /* onelast time to compute the adjoint */
     prod = 0.0; /* for normalization   */
     t = 0.0;
     for (int32 k = 0; k < nt; k++) {
