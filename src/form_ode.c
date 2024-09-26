@@ -398,11 +398,11 @@ form_ode_get_eqn(FILE *fptr) {
         add_var(uvar_names[i], 0.0);
     NCON_START = NCON;
     NSYM_START = NSYM;
-    xppvermaj = (double)MAJOR_VERSION;
-    xppvermin = (double)MINOR_VERSION;
+    xpp_version_maj = (double)MAJOR_VERSION;
+    xpp_version_min = (double)MINOR_VERSION;
     ggets_plintf("Used %d constants and %d symbols \n", NCON, NSYM);
     ggets_plintf("XPPAUT %g.%g Copyright (C) 2002-now  Bard Ermentrout \n",
-                 xppvermaj, xppvermin);
+                 xpp_version_maj, xpp_version_min);
     return 1;
 }
 

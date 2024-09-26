@@ -3188,7 +3188,7 @@ void lunch_io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #include <X11/Xlib.h>
 
-extern int32 allwinvis;
+extern int32 all_win_vis;
 extern int32 use_ani_file;
 extern int32 XPPBatch;
 extern int32 batch_range;
@@ -3217,8 +3217,8 @@ extern double SLIDER3HI;
 extern int32 DoTutorial;
 extern char anifile[XPP_MAX_NAME];
 
-extern double xppvermaj;
-extern double xppvermin;
+extern double xpp_version_maj;
+extern double xpp_version_min;
 extern int32 Xup;
 
 extern char batchout[XPP_MAX_NAME];

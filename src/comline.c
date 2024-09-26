@@ -443,7 +443,7 @@ comline_parse_it(char *com) {
             newseed = 1;
             break;
         case ALLWIN:
-            allwinvis = 1;
+            all_win_vis = 1;
             break;
         case MSSTYLE:
             MSStyle = 1;

@@ -44,12 +44,12 @@
 
 #include "myfonts.h"
 
-int32 allwinvis = 0;
+int32 all_win_vis = 0;
 int32 use_ani_file = 0;
 char anifile[XPP_MAX_NAME];
 
-double xppvermaj;
-double xppvermin;
+double xpp_version_maj;
+double xpp_version_min;
 
 int32 Xup;
 int32 TipsFlag = 1;
@@ -429,14 +429,14 @@ do_main(int32 argc, char **argv) {
 
     if (form_ode_idsc(this_file))
         METHOD = 0;
-    xppvermaj = (double)MAJOR_VERSION;
-    xppvermin = (double)MINOR_VERSION;
+    xpp_version_maj = (double)MAJOR_VERSION;
+    xpp_version_min = (double)MINOR_VERSION;
     if (strlen(this_file) < 60) {
-        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xppvermaj,
-                 xppvermin, this_file);
+        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xpp_version_maj,
+                 xpp_version_min, this_file);
     } else {
-        snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xppvermaj,
-                 xppvermin);
+        snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xpp_version_maj,
+                 xpp_version_min);
     }
     numerics_do_meth();
 
@@ -524,7 +524,7 @@ do_main(int32 argc, char **argv) {
     init_conds_initialize_box();
 
     init_browser();
-    if (allwinvis == 1) {
+    if (all_win_vis == 1) {
         init_conds_make_new_ic_box();
         init_conds_make_new_bc_box();
         init_conds_make_new_delay_box();
