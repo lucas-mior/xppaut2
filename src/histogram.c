@@ -33,7 +33,6 @@ int32 FOUR_HERE;
 
 static int32 histogram_two_d2(void);
 
-static void histogram_just_sd(int32 flag);
 static void histogram_just_fourier(int32 flag);
 static void histogram_mycor2(double *x, double *y, int32 n, int32 nbins,
                              double *z, int32 flag);
@@ -171,7 +170,41 @@ histogram_post_process_stuff(void) {
         return;
     }
     if (post_process > 3 && post_process < 7) {
-        histogram_just_sd(post_process - 4);
+        /* histogram just sd */
+        int32 flag = post_process - 4;
+        int32 length, i, j;
+        double total = storage[0][storind - 1] - storage[0][0];
+        spec_type = flag;
+        if (HIST_HERE) {
+            adj2_data_back();
+            free(my_hist[0]);
+            free(my_hist[1]);
+            if (HIST_HERE == 2)
+                free(my_hist[2]);
+            HIST_HERE = 0;
+        }
+        hist_len = spec_wid / 2;
+        length = hist_len + 2;
+        my_hist[0] = xmalloc(sizeof(*(my_hist[0]))*(usize)length);
+        my_hist[1] = xmalloc(sizeof(*(my_hist[1]))*(usize)length);
+        if (my_hist[1] == NULL) {
+            free(my_hist[0]);
+            ggets_err_msg("Cannot allocate enough...");
+            return;
+        }
+        HIST_HERE = 1;
+        for (i = 2; i <= NEQ; i++)
+            my_hist[i] = storage[i];
+        for (j = 0; j < hist_len; j++)
+            my_hist[0][j] = ((double)j*storind / spec_wid) / total;
+        if (spec_type == 0)
+            histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
+                               my_hist[1]);
+        else
+            histogram_cross_spectrum(storage[spec_col], storage[spec_col2], storind,
+                                     spec_wid, spec_win, my_hist[1], spec_type);
+        histogram_back();
+        ggets_ping();
         return;
     }
     return;
@@ -627,44 +660,6 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
     free(pxym);
 
     return 1;
-}
-
-void
-histogram_just_sd(int32 flag) {
-    int32 length, i, j;
-    double total = storage[0][storind - 1] - storage[0][0];
-    spec_type = flag;
-    if (HIST_HERE) {
-        adj2_data_back();
-        free(my_hist[0]);
-        free(my_hist[1]);
-        if (HIST_HERE == 2)
-            free(my_hist[2]);
-        HIST_HERE = 0;
-    }
-    hist_len = spec_wid / 2;
-    length = hist_len + 2;
-    my_hist[0] = xmalloc(sizeof(*(my_hist[0]))*(usize)length);
-    my_hist[1] = xmalloc(sizeof(*(my_hist[1]))*(usize)length);
-    if (my_hist[1] == NULL) {
-        free(my_hist[0]);
-        ggets_err_msg("Cannot allocate enough...");
-        return;
-    }
-    HIST_HERE = 1;
-    for (i = 2; i <= NEQ; i++)
-        my_hist[i] = storage[i];
-    for (j = 0; j < hist_len; j++)
-        my_hist[0][j] = ((double)j*storind / spec_wid) / total;
-    if (spec_type == 0)
-        histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
-                           my_hist[1]);
-    else
-        histogram_cross_spectrum(storage[spec_col], storage[spec_col2], storind,
-                                 spec_wid, spec_win, my_hist[1], spec_type);
-    histogram_back();
-    ggets_ping();
-    return;
 }
 
 void
