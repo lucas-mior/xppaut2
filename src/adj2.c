@@ -97,6 +97,7 @@ adj2_do_transpose(void) {
     static char *strings[] = {"*0Column 1", "NCols", "ColSkip",
                               "Row 1",      "NRows", "RowSkip"};
     char values[LENGTH(strings)][MAX_LEN_SBOX];
+    int32 inrow, incol;
 
     snprintf(values[0], sizeof(values[0]), "%s", my_trans.firstcol);
     snprintf(values[1], sizeof(values[1]), "%d", my_trans.ncol);
@@ -117,8 +118,6 @@ adj2_do_transpose(void) {
                            "Transpose Data", strings, values, 33);
     if (status == 0)
         return 0;
-
-    int32 inrow, incol;
 
     browse_find_variable(values[0], &ii);
     if (ii > -1)
