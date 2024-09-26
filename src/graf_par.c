@@ -73,7 +73,6 @@ static void movie_rot(double start, double increment, int32 nclip, int32 angle);
 static void fit_window(void);
 static void corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
 static void graf_par_check_val(double *x1, double *x2, double *xb, double *xd);
-static void get_3d_view(int32 ind);
 static void graf_par_check_flags(void);
 static void graf_par_update_view(double xlo, double xhi, double ylo,
                                  double yhi);
@@ -134,7 +133,63 @@ graf_par_change_view_com(int32 com) {
             graf_par_check_windows();
         }
     } else {
-        get_3d_view(CurrentCurve);
+        int32 ind = CurrentCurve;
+        static char *n[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "Xmin",
+                            "Xmax",     "Ymin",     "Ymax",     "Zmin",
+                            "Zmax",     "XLo",      "XHi",      "YLo",
+                            "YHi",      "Xlabel",   "Ylabel",   "Zlabel"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status, i, i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind],
+                         i3 = MyGraph->zv[ind];
+        char n1[15], n2[15], n3[15];
+        graf_par_ind_to_sym(i1, n1);
+        graf_par_ind_to_sym(i2, n2);
+        graf_par_ind_to_sym(i3, n3);
+        snprintf(values[0], sizeof(values[0]), "%s", n1);
+        snprintf(values[1], sizeof(values[1]), "%s", n2);
+        snprintf(values[2], sizeof(values[2]), "%s", n3);
+        snprintf(values[3], sizeof(values[3]), "%g", MyGraph->xmin);
+        snprintf(values[5], sizeof(values[5]), "%g", MyGraph->ymin);
+        snprintf(values[7], sizeof(values[7]), "%g", MyGraph->zmin);
+        snprintf(values[4], sizeof(values[4]), "%g", MyGraph->xmax);
+        snprintf(values[6], sizeof(values[6]), "%g", MyGraph->ymax);
+        snprintf(values[8], sizeof(values[8]), "%g", MyGraph->zmax);
+        snprintf(values[9], sizeof(values[9]), "%g", MyGraph->xlo);
+        snprintf(values[11], sizeof(values[11]), "%g", MyGraph->ylo);
+        snprintf(values[10], sizeof(values[10]), "%g", MyGraph->xhi);
+        snprintf(values[12], sizeof(values[12]), "%g", MyGraph->yhi);
+        snprintf(values[13], sizeof(values[13]), "%s", MyGraph->xlabel);
+        snprintf(values[14], sizeof(values[14]), "%s", MyGraph->ylabel);
+        snprintf(values[15], sizeof(values[15]), "%s", MyGraph->zlabel);
+        MyGraph->ThreeDFlag = 1;
+        status = do_string_box(16, 6, 3, "3D View", n, values, 31);
+        if (status != 0) {
+            /*  get variable names  */
+            browse_find_variable(values[0], &i);
+            if (i > -1)
+                MyGraph->xv[ind] = i;
+            browse_find_variable(values[1], &i);
+            if (i > -1)
+                MyGraph->yv[ind] = i;
+            browse_find_variable(values[2], &i);
+            if (i > -1)
+                MyGraph->zv[ind] = i;
+            snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[13]);
+            snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s", values[14]);
+            snprintf(MyGraph->zlabel, sizeof(MyGraph->zlabel), "%s", values[15]);
+
+            MyGraph->xmin = atof(values[3]);
+            MyGraph->ymin = atof(values[5]);
+            MyGraph->zmin = atof(values[7]);
+            MyGraph->xmax = atof(values[4]);
+            MyGraph->ymax = atof(values[6]);
+            MyGraph->zmax = atof(values[8]);
+            MyGraph->xlo = atof(values[9]);
+            MyGraph->ylo = atof(values[11]);
+            MyGraph->xhi = atof(values[10]);
+            MyGraph->yhi = atof(values[12]);
+            graf_par_check_windows();
+        }
     }
     graf_par_check_flags();
     graf_par_redraw_the_graph();
@@ -165,66 +220,6 @@ graf_par_check_flags(void) {
 
 
 
-void
-get_3d_view(int32 ind) {
-    static char *n[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "Xmin",
-                        "Xmax",     "Ymin",     "Ymax",     "Zmin",
-                        "Zmax",     "XLo",      "XHi",      "YLo",
-                        "YHi",      "Xlabel",   "Ylabel",   "Zlabel"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status, i, i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind],
-                     i3 = MyGraph->zv[ind];
-    char n1[15], n2[15], n3[15];
-    graf_par_ind_to_sym(i1, n1);
-    graf_par_ind_to_sym(i2, n2);
-    graf_par_ind_to_sym(i3, n3);
-    snprintf(values[0], sizeof(values[0]), "%s", n1);
-    snprintf(values[1], sizeof(values[1]), "%s", n2);
-    snprintf(values[2], sizeof(values[2]), "%s", n3);
-    snprintf(values[3], sizeof(values[3]), "%g", MyGraph->xmin);
-    snprintf(values[5], sizeof(values[5]), "%g", MyGraph->ymin);
-    snprintf(values[7], sizeof(values[7]), "%g", MyGraph->zmin);
-    snprintf(values[4], sizeof(values[4]), "%g", MyGraph->xmax);
-    snprintf(values[6], sizeof(values[6]), "%g", MyGraph->ymax);
-    snprintf(values[8], sizeof(values[8]), "%g", MyGraph->zmax);
-    snprintf(values[9], sizeof(values[9]), "%g", MyGraph->xlo);
-    snprintf(values[11], sizeof(values[11]), "%g", MyGraph->ylo);
-    snprintf(values[10], sizeof(values[10]), "%g", MyGraph->xhi);
-    snprintf(values[12], sizeof(values[12]), "%g", MyGraph->yhi);
-    snprintf(values[13], sizeof(values[13]), "%s", MyGraph->xlabel);
-    snprintf(values[14], sizeof(values[14]), "%s", MyGraph->ylabel);
-    snprintf(values[15], sizeof(values[15]), "%s", MyGraph->zlabel);
-    MyGraph->ThreeDFlag = 1;
-    status = do_string_box(16, 6, 3, "3D View", n, values, 31);
-    if (status != 0) {
-        /*  get variable names  */
-        browse_find_variable(values[0], &i);
-        if (i > -1)
-            MyGraph->xv[ind] = i;
-        browse_find_variable(values[1], &i);
-        if (i > -1)
-            MyGraph->yv[ind] = i;
-        browse_find_variable(values[2], &i);
-        if (i > -1)
-            MyGraph->zv[ind] = i;
-        snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[13]);
-        snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s", values[14]);
-        snprintf(MyGraph->zlabel, sizeof(MyGraph->zlabel), "%s", values[15]);
-
-        MyGraph->xmin = atof(values[3]);
-        MyGraph->ymin = atof(values[5]);
-        MyGraph->zmin = atof(values[7]);
-        MyGraph->xmax = atof(values[4]);
-        MyGraph->ymax = atof(values[6]);
-        MyGraph->zmax = atof(values[8]);
-        MyGraph->xlo = atof(values[9]);
-        MyGraph->ylo = atof(values[11]);
-        MyGraph->xhi = atof(values[10]);
-        MyGraph->yhi = atof(values[12]);
-        graf_par_check_windows();
-    }
-    return;
-}
 
 void
 graf_par_check_val(double *x1, double *x2, double *xb, double *xd) {
