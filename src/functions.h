@@ -3883,7 +3883,7 @@ extern char SLIDER2VAR[20];
 extern char SLIDER3VAR[20];
 
 extern OptionsSet notAlreadySet;
-extern XFontStruct *small_font;
+extern XFontStruct *font_small;
 
 /*  This is a string box widget which handles a list of
         editable strings

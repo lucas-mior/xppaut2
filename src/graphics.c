@@ -392,7 +392,7 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
         sup = romfonts[size]->ascent;
         sub = sup / 2;
     } else {
-        sup = small_font->ascent;
+        sup = font_small->ascent;
         sub = sup / 2;
     }
     while (i < n) {
@@ -408,13 +408,13 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
                 if (avromfonts[cs] == 1)
                     dx = XTextWidth(romfonts[cs], tmp, (int)strlen(tmp));
                 else
-                    dx = XTextWidth(small_font, tmp, (int)strlen(tmp));
+                    dx = XTextWidth(font_small, tmp, (int)strlen(tmp));
             }
             if (cf == 1) {
                 if (avsymfonts[cs] == 1)
                     dx = XTextWidth(symfonts[cs], tmp, (int)strlen(tmp));
                 else
-                    dx = XTextWidth(small_font, tmp, (int)strlen(tmp));
+                    dx = XTextWidth(font_small, tmp, (int)strlen(tmp));
             }
             cx += dx;
             j = 0;
@@ -464,8 +464,8 @@ graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
             XSetFont(display, font_gc, symfonts[size]->fid);
             /*yoff=symfonts[size]->ascent;*/
         } else {
-            XSetFont(display, font_gc, small_font->fid);
-            /*yoff=small_font->ascent;*/
+            XSetFont(display, font_gc, font_small->fid);
+            /*yoff=font_small->ascent;*/
         }
         XSetForeground(display, font_gc, GrFore);
         XDrawString(display, draw_win, font_gc, x, y, str, (int)strlen(str));
@@ -477,8 +477,8 @@ graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
             /*yoff=romfonts[size]->ascent;*/
 
         } else {
-            XSetFont(display, font_gc, small_font->fid);
-            /*yoff=small_font->ascent;*/
+            XSetFont(display, font_gc, font_small->fid);
+            /*yoff=font_small->ascent;*/
         }
         XSetForeground(display, font_gc, GrFore);
         XDrawString(display, draw_win, font_gc, x, y, str, (int)strlen(str));

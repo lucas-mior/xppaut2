@@ -127,12 +127,12 @@ double SLIDER3HI = 1.0;
 int32 do_tutorial = 0;
 
 OptionsSet notAlreadySet;
-XFontStruct *small_font;
+XFontStruct *font_small;
 
 static int32 DCURXb;
 static int32 SCALEX;
 static Window TopButton[6];
-static XFontStruct *big_font;
+static XFontStruct *font_big;
 
 static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
 static void main_get_gc(GC *gc);
@@ -722,12 +722,12 @@ main_init_x(void) {
                      ButtonMotionMask);
 
     /* main load fonts */
-    if ((big_font = XLoadQueryFont(display, font_name_big)) == NULL) {
+    if ((font_big = XLoadQueryFont(display, font_name_big)) == NULL) {
         ggets_plintf("X Error: Failed to load big font: %s\n", font_name_big);
         exit(-1);
     }
 
-    if ((small_font = XLoadQueryFont(display, font_name_small)) == NULL) {
+    if ((font_small = XLoadQueryFont(display, font_name_small)) == NULL) {
         ggets_plintf("X Error: Failed to load small font: %s\n",
                      font_name_small);
         exit(-1);
@@ -736,9 +736,9 @@ main_init_x(void) {
     for (int32 i = 0; i < 5; i++) {
         if ((symfonts[i] = XLoadQueryFont(display, symbolfonts[i])) == NULL) {
             if (i == 0 || i == 1)
-                symfonts[i] = small_font;
+                symfonts[i] = font_small;
             else
-                symfonts[i] = big_font;
+                symfonts[i] = font_big;
             avsymfonts[i] = 1;
         } else {
             avsymfonts[i] = 1;
@@ -747,9 +747,9 @@ main_init_x(void) {
 
         if ((romfonts[i] = XLoadQueryFont(display, timesfonts[i])) == NULL) {
             if (i == 0 || i == 1)
-                romfonts[i] = small_font;
+                romfonts[i] = font_small;
             else
-                romfonts[i] = big_font;
+                romfonts[i] = font_big;
             avromfonts[i] = 1;
         } else {
             avromfonts[i] = 1;
@@ -767,17 +767,17 @@ main_init_x(void) {
      * capital letters (for example "GO"). Thus, we divide by the string
      * length of our test string minus 2 for a little more wiggle room. */
 
-    DCURXb = XTextWidth(big_font, teststr, (int)strlen(teststr)) /
+    DCURXb = XTextWidth(font_big, teststr, (int)strlen(teststr)) /
              (int)(strlen(teststr) - 2);
 
-    DCURYb = big_font->ascent + big_font->descent;
-    CURY_OFFb = big_font->ascent - 1;
+    DCURYb = font_big->ascent + font_big->descent;
+    CURY_OFFb = font_big->ascent - 1;
 
-    DCURXs = XTextWidth(small_font, teststr, (int)strlen(teststr)) /
+    DCURXs = XTextWidth(font_small, teststr, (int)strlen(teststr)) /
              (int)(strlen(teststr) - 2);
 
-    DCURYs = small_font->ascent + small_font->descent;
-    CURY_OFFs = small_font->ascent - 1;
+    DCURYs = font_small->ascent + font_small->descent;
+    CURY_OFFs = font_small->ascent - 1;
 
     main_get_gc(&gc);
     main_get_gc(&gc_graph);
@@ -825,9 +825,9 @@ main_init_x(void) {
     DCURX = DCURXb;
     DCURY = DCURYb;
     CURY_OFF = CURY_OFFb;
-    XSetFont(display, gc, big_font->fid);
+    XSetFont(display, gc, font_big->fid);
 
-    XSetFont(display, small_gc, small_font->fid);
+    XSetFont(display, small_gc, font_small->fid);
 
     /* If the user didn't specify specifically heights and widths
      * we try to set the initial size to fit everything nicely especially
@@ -994,8 +994,8 @@ void
 main_bye_bye(void) {
     int32 i;
     auto_nox_yes_reset();
-    XUnloadFont(display, big_font->fid);
-    XUnloadFont(display, small_font->fid);
+    XUnloadFont(display, font_big->fid);
+    XUnloadFont(display, font_small->fid);
     for (i = 0; i < 5; i++) {
         if (avsymfonts[i])
             XUnloadFont(display, symfonts[i]->fid);
