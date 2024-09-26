@@ -635,6 +635,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     int32 istart = 1;
     int32 i;
     int32 j;
+
     if (storind < 2) {
         if (batch == 0)
             ggets_err_msg("You need to compute an orbit first");
@@ -688,6 +689,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     if (fabs(t1) > 1e-12)
         sum = sum / t1;
     *liap = sum;
+
     if (batch == 0) {
         snprintf(bob, sizeof(bob), "Maximal exponent is %g", sum);
         ggets_err_msg(bob);
