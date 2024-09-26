@@ -2695,6 +2695,7 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
     int32 com[256];
     int32 i, nc;
     int32 rn;
+
     if (which == 1) {
         i = ani_grab[igrab].start.n;
         if (i >= MAX_GEVENTS)
