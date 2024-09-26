@@ -2561,7 +2561,7 @@ void init_conds_make_new_delay_box(void);
 void init_conds_make_new_param_box(void);
 void init_conds_initialize_box(void);
 void init_conds_resize_par_box(Window win);
-void make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
+void init_conds_make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
                    int32 use);
 void init_conds_do_box_expose(Window window);
 void init_conds_draw_one_box(BoxList b, int32 index);

@@ -92,47 +92,47 @@ static struct ParSlider {
     Window left, right, top, main, slide, go;
 } my_par_slide[3];
 
-static void do_slide_button(Window window, struct ParSlider *p);
-static void redraw_slide(struct ParSlider *p);
-static void set_slide_pos(struct ParSlider *p);
-static void do_slide_release(Window window, struct ParSlider *p);
-static void do_slide_motion(Window window, int32 x, struct ParSlider *p,
+static void init_conds_do_slide_button(Window window, struct ParSlider *p);
+static void init_conds_redraw_slide(struct ParSlider *p);
+static void init_conds_set_slide_pos(struct ParSlider *p);
+static void init_conds_do_slide_release(Window window, struct ParSlider *p);
+static void init_conds_do_slide_motion(Window window, int32 x, struct ParSlider *p,
                             int32 state);
-static void enter_slider(Window window, struct ParSlider *p, int32 val);
-static void expose_slider(Window window, struct ParSlider *p);
-static void load_entire_box(BoxList *b);
-static void set_value_from_box(BoxList *b, int32 i);
-static int32 to_float(char *s, double *z);
+static void init_conds_enter_slider(Window window, struct ParSlider *p, int32 val);
+static void init_conds_expose_slider(Window window, struct ParSlider *p);
+static void init_conds_load_entire_box(BoxList *b);
+static void init_conds_set_value_from_box(BoxList *b, int32 i);
+static int32 init_conds_to_float(char *s, double *z);
 static void init_conds_add_edit_val(BoxList *b, int32 i, char *string);
 static void init_conds_add_edit_float(BoxList *b, int32 i, double z);
-static int32 edit_bitem(BoxList *b, int32 i, int32 ch);
-static void put_edit_cursor(Window window, int32 pos);
-static void draw_editable(Window win, char *string, int32 off, int32 cursor,
+static int32 init_conds_edit_bit_em(BoxList *b, int32 i, int32 ch);
+static void init_conds_put_edit_cursor(Window window, int32 pos);
+static void init_conds_draw_editable(Window win, char *string, int32 off, int32 cursor,
                           int32 mc);
-static void set_default_params(void);
+static void init_conds_set_default_params(void);
 static void init_conds_do_box_key(BoxList *b, XEvent event, int32 *used);
 static void init_conds_box_list_scroll(BoxList *b, int32 i);
 static void init_conds_do_box_button(BoxList *b, Window window);
-static void redraw_entire_box(BoxList *b);
+static void init_conds_redraw_entire_box(BoxList *b);
 static void init_conds_box_enter(BoxList b, Window window, int32 val);
 static void init_conds_display_box(BoxList b, Window window);
-static void justify_string(Window w1, char *s1);
-static void make_box_list_window(BoxList *b, int32 type);
+static void init_conds_justify_string(Window w1, char *s1);
+static void init_conds_make_box_list_window(BoxList *b, int32 type);
 static void init_conds_destroy_box(BoxList *b);
-static void get_nrow_from_hgt(int32 h, int32 *n, int32 *w);
-static void make_par_slider(Window base, int32 x, int32 y, int32 width,
+static void init_conds_get_nrow_from_hgt(int32 h, int32 *n, int32 *w);
+static void init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width,
                             int32 index);
-static void draw_slider(Window window, int32 x, int32 hgt, int32 l);
-static int32 selector_key(XEvent event);
-static void stringintersect(char *target, char *sother);
+static void init_conds_draw_slider(Window window, int32 x, int32 hgt, int32 l);
+static int32 init_conds_selector_key(XEvent event);
+static void init_conds_string_intersect(char *target, char *sother);
 static void init_conds_create_file_selector(char *title, char *file, char *wild);
 static void init_conds_crossing_selector(Window window, int32 c);
 static int32 init_conds_button_selector(Window window);
-static void fs_scroll(int32 i);
-static void redraw_fs_text(char *string, Window window, int32 flag);
-static void redraw_file_list(void);
-static void redraw_directory(void);
-static void expose_selector(Window window);
+static void init_conds_fs_scroll(int32 i);
+static void init_conds_redraw_fs_text(char *string, Window window, int32 flag);
+static void init_conds_redraw_file_list(void);
+static void init_conds_redraw_directory(void);
+static void init_conds_expose_selector(Window window);
 
 static BoxList *HotBox;
 static int32 HotBoxItem = -1;
@@ -243,7 +243,7 @@ init_conds_find_user_name(int32 type, char *oname) {
 void
 init_conds_create_par_sliders(Window base, int32 x0, int32 h0) {
     for (int32 i = 0; i < 3; i++)
-        make_par_slider(base, x0 + i*36*DCURXs, h0, 100, i);
+        init_conds_make_par_slider(base, x0 + i*36*DCURXs, h0, 100, i);
     return;
 }
 
@@ -259,12 +259,12 @@ init_conds_resize_par_slides(int32 h) {
 void
 init_conds_slide_button_press(Window window) {
     for (int32 i = 0; i < 3; i++)
-        do_slide_button(window, &my_par_slide[i]);
+        init_conds_do_slide_button(window, &my_par_slide[i]);
     return;
 }
 
 void
-do_slide_button(Window window, struct ParSlider *p) {
+init_conds_do_slide_button(Window window, struct ParSlider *p) {
     static char *n[] = {"*3Par/Var", "Value", "Low", "High"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
@@ -315,13 +315,13 @@ do_slide_button(Window window, struct ParSlider *p) {
     init_conds_redraw_params();
     init_conds_redraw_ics();
     p->use = 1;
-    set_slide_pos(p);
-    redraw_slide(p);
+    init_conds_set_slide_pos(p);
+    init_conds_redraw_slide(p);
     return;
 }
 
 void
-expose_selector(Window window) {
+init_conds_expose_selector(Window window) {
     init_conds_display_file_sel(filesel, window);
     return;
 }
@@ -329,23 +329,23 @@ expose_selector(Window window) {
 /* this is rather lazy and slow but hey it works */
 
 void
-redraw_directory(void) {
+init_conds_redraw_directory(void) {
     XClearWindow(display, filesel.dir);
-    expose_selector(filesel.dir);
+    init_conds_expose_selector(filesel.dir);
     return;
 }
 
 void
-redraw_file_list(void) {
+init_conds_redraw_file_list(void) {
     for (int32 i = 0; i < filesel.nwin; i++) {
         XClearWindow(display, filesel.window[i]);
-        expose_selector(filesel.window[i]);
+        init_conds_expose_selector(filesel.window[i]);
     }
     return;
 }
 
 void
-redraw_fs_text(char *string, Window window, int32 flag) {
+init_conds_redraw_fs_text(char *string, Window window, int32 flag) {
     XClearWindow(display, window);
     filesel.off = 0;
     if (flag)
@@ -353,7 +353,7 @@ redraw_fs_text(char *string, Window window, int32 flag) {
     XDrawString(display, window, small_gc, 0, CURY_OFF, string,
                 (int)strlen(string));
     if (flag)
-        put_edit_cursor(window, DCURXs*(int32)strlen(string));
+        init_conds_put_edit_cursor(window, DCURXs*(int32)strlen(string));
     return;
 }
 
@@ -451,7 +451,7 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
 }
 
 void
-fs_scroll(int32 i) {
+init_conds_fs_scroll(int32 i) {
     int32 n0 = filesel.n0;
     int32 new;
     int32 nend;
@@ -465,7 +465,7 @@ fs_scroll(int32 i) {
     if (nend > n)
         new = n - nw;
     filesel.n0 = new;
-    redraw_file_list();
+    init_conds_redraw_file_list();
 }
 
 int32
@@ -477,13 +477,13 @@ init_conds_button_selector(Window window) {
     if (window == filesel.cancel)
         return 2;
     if (window == filesel.up)
-        fs_scroll(1);
+        init_conds_fs_scroll(1);
     if (window == filesel.dn)
-        fs_scroll(-1);
+        init_conds_fs_scroll(-1);
     if (window == filesel.pgup)
-        fs_scroll(filesel.nwin);
+        init_conds_fs_scroll(filesel.nwin);
     if (window == filesel.pgdn)
-        fs_scroll(-filesel.nwin);
+        init_conds_fs_scroll(-filesel.nwin);
     if (window == filesel.home) {
         char *HOMEDIR = getenv("KEY_HOME");
         int32 m;
@@ -494,7 +494,7 @@ init_conds_button_selector(Window window) {
         change_directory(HOMEDIR);
 
         get_directory(cur_dir);
-        redraw_directory();
+        init_conds_redraw_directory();
         free_finfo(&my_ff); /* delete the old file info */
         filesel.n0 = 0;     /* back to the top of the list */
         get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
@@ -507,8 +507,8 @@ init_conds_button_selector(Window window) {
             strcat(filesel.filetxt, "/");
         }
 
-        redraw_fs_text(filesel.filetxt, filesel.file, 1);
-        redraw_file_list();
+        init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
+        init_conds_redraw_file_list();
         XFlush(display);
 
         return 0;
@@ -525,7 +525,7 @@ init_conds_button_selector(Window window) {
         change_directory(START);
 
         get_directory(cur_dir);
-        redraw_directory();
+        init_conds_redraw_directory();
         free_finfo(&my_ff); /* delete the old file info */
         filesel.n0 = 0;     /* back to the top of the list */
         get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
@@ -538,8 +538,8 @@ init_conds_button_selector(Window window) {
             strcat(filesel.filetxt, "/");
         }
 
-        redraw_fs_text(filesel.filetxt, filesel.file, 1);
-        redraw_file_list();
+        init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
+        init_conds_redraw_file_list();
         XFlush(display);
 
         return 0;
@@ -549,8 +549,8 @@ init_conds_button_selector(Window window) {
             filesel.pos = (int32)strlen(filesel.filetxt);
 
         filesel.hot = HOTFILE;
-        redraw_fs_text(filesel.filetxt, filesel.file, 1);
-        redraw_fs_text(filesel.wildtxt, filesel.wild, 0);
+        init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
+        init_conds_redraw_fs_text(filesel.wildtxt, filesel.wild, 0);
         /* set up text stuff */
         return 0;
     }
@@ -558,8 +558,8 @@ init_conds_button_selector(Window window) {
         if (filesel.hot != HOTWILD)
             filesel.pos = (int32)strlen(filesel.wildtxt);
         filesel.hot = HOTWILD;
-        redraw_fs_text(filesel.filetxt, filesel.file, 0);
-        redraw_fs_text(filesel.wildtxt, filesel.wild, 1);
+        init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 0);
+        init_conds_redraw_fs_text(filesel.wildtxt, filesel.wild, 1);
         return 0;
     }
     i0 = -1;
@@ -573,7 +573,7 @@ init_conds_button_selector(Window window) {
             int32 m;
             change_directory(my_ff.dirnames[k]);
             get_directory(cur_dir);
-            redraw_directory();
+            init_conds_redraw_directory();
             free_finfo(&my_ff); /* delete the old file info */
             filesel.n0 = 0;     /* back to the top of the list */
             get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
@@ -586,8 +586,8 @@ init_conds_button_selector(Window window) {
                 strcat(filesel.filetxt, "/");
             }
 
-            redraw_fs_text(filesel.filetxt, filesel.file, 1);
-            redraw_file_list();
+            init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
+            init_conds_redraw_file_list();
             XFlush(display);
 
             return 0;
@@ -721,7 +721,7 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
 }
 
 void
-stringintersect(char *target, char *sother) {
+init_conds_string_intersect(char *target, char *sother) {
     int32 m = (int32)strlen(target);
     int32 n = (int32)strlen(sother);
     int32 j = 0;
@@ -737,10 +737,10 @@ stringintersect(char *target, char *sother) {
     return;
 }
 
-static int32 edit_fitem(int32 ch, char *string, Window window, int32 *off1,
+static int32 init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
                         int32 *pos1, int32 mc);
 int32
-edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
+init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
            int32 mc) {
     int32 l = (int32)strlen(string), cp;
     int32 off = *off1, pos = *pos1, wpos = pos - off;
@@ -783,16 +783,16 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
         return 0;
 
     case KEY_DOWN:
-        fs_scroll(-1);
+        init_conds_fs_scroll(-1);
         return 0;
     case KEY_UP:
-        fs_scroll(1);
+        init_conds_fs_scroll(1);
         return 0;
     case KEY_PGUP:
-        fs_scroll(filesel.nwin);
+        init_conds_fs_scroll(filesel.nwin);
         return 0;
     case KEY_PGDN:
-        fs_scroll(-filesel.nwin);
+        init_conds_fs_scroll(-filesel.nwin);
         return 0; /* junk key  */
     case KEY_ESC:
         return EDIT_ESC;
@@ -840,7 +840,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
             if (strcmp(cur_dir, filesel.filetxt) != 0) {
                 change_directory(filesel.filetxt);
                 get_directory(cur_dir);
-                redraw_directory();
+                init_conds_redraw_directory();
                 free_finfo(&my_ff); /* delete the old file info */
                 filesel.n0 = 0;     /* back to the top of the list */
                 get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
@@ -850,8 +850,8 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
                 if (filesel.filetxt[m - 1] != '/') {
                     strcat(filesel.filetxt, "/");
                 }
-                redraw_fs_text(filesel.filetxt, filesel.file, 1);
-                redraw_file_list();
+                init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
+                init_conds_redraw_file_list();
                 XFlush(display);
             }
             return EDIT_WAIT; /*Wait for further instruction...*/
@@ -910,7 +910,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
                 int32 m2;
                 change_directory(my_ff.dirnames[0]);
                 get_directory(cur_dir);
-                redraw_directory();
+                init_conds_redraw_directory();
                 free_finfo(&my_ff); /* delete the old file info */
                 filesel.n0 = 0;     /* back to the top of the list */
                 get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
@@ -920,7 +920,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
                 if (filesel.filetxt[m2 - 1] != '/') {
                     strcat(filesel.filetxt, "/");
                 }
-                redraw_fs_text(filesel.filetxt, filesel.file, 1);
+                init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
             } else /*Must be that (my_ff.nfiles == 1) -- but best wait for user
                       to confim they actually want this file by clicking on
                       it.*/
@@ -931,7 +931,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
                 strcpy(filesel.filetxt, cur_dir);
                 strcat(filesel.filetxt, "/");
                 strcat(filesel.filetxt, my_ff.filenames[0]);
-                redraw_fs_text(filesel.filetxt, filesel.file, 1);
+                init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
             }
         } else if (filesel.n > 1) /*Expand the file text to most generic
                                      currently represented*/
@@ -946,9 +946,9 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
 
             for (j = 0; j < filesel.n; j++) {
                 if (j < my_ff.ndirs) {
-                    stringintersect(U, my_ff.dirnames[j]);
+                    init_conds_string_intersect(U, my_ff.dirnames[j]);
                 } else {
-                    stringintersect(U, my_ff.filenames[j - my_ff.ndirs]);
+                    init_conds_string_intersect(U, my_ff.filenames[j - my_ff.ndirs]);
                 }
 
                 if (strlen(U) == 0) /*No common substring*/
@@ -961,9 +961,9 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
             /*Actually don't want to force appending of path separator here
             since we want user to decide between matching directory and files.
             */
-            redraw_fs_text(filesel.filetxt, filesel.file, 1);
+            init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
         }
-        redraw_file_list();
+        init_conds_redraw_file_list();
         XFlush(display);
         return 0;
     }
@@ -995,18 +995,18 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
     XDrawString(display, window, small_gc, 0, CURY_OFF, string + off,
                 (int32)strlen(string) - off);
     cp = DCURXs*(pos - off);
-    put_edit_cursor(window, cp);
+    init_conds_put_edit_cursor(window, cp);
     return 0;
 }
 
 int32
-selector_key(XEvent event) {
+init_conds_selector_key(XEvent event) {
     char ch;
     int32 flag;
     ch = (char)ggets_get_key_press(&event);
     switch (filesel.hot) {
     case HOTFILE:
-        flag = edit_fitem(ch, filesel.filetxt, filesel.file, &(filesel.off),
+        flag = init_conds_fit_em(ch, filesel.filetxt, filesel.file, &(filesel.off),
                           &(filesel.pos), 29);
         if (flag == EDIT_DONE)
             return 1;
@@ -1014,7 +1014,7 @@ selector_key(XEvent event) {
             return 2;
         return 0;
     case HOTWILD:
-        flag = edit_fitem(ch, filesel.wildtxt, filesel.wild, &(filesel.off),
+        flag = init_conds_fit_em(ch, filesel.wildtxt, filesel.wild, &(filesel.off),
                           &(filesel.pos), 29);
         if (flag == EDIT_DONE) {
             /* new wild */
@@ -1022,7 +1022,7 @@ selector_key(XEvent event) {
             filesel.n0 = 0;     /* back to the top of the list */
             get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
             filesel.n = my_ff.ndirs + my_ff.nfiles;
-            redraw_file_list();
+            init_conds_redraw_file_list();
             XFlush(display);
             return 0;
         }
@@ -1056,7 +1056,7 @@ init_conds_file_selector(char *title, char *file, char *wild) {
         case MapNotify:
             if (Xup)
                 many_pops_do_expose(event);
-            expose_selector(event.xany.window);
+            init_conds_expose_selector(event.xany.window);
             break;
         case ButtonPress:
             done = init_conds_button_selector(event.xbutton.window);
@@ -1076,7 +1076,7 @@ init_conds_file_selector(char *title, char *file, char *wild) {
             init_conds_crossing_selector(event.xcrossing.window, 1);
             break;
         case KeyPress:
-            done = selector_key(event);
+            done = init_conds_selector_key(event);
             if (done == 2) {
                 selected = 0;
                 goto end;
@@ -1118,25 +1118,25 @@ init_conds_reset_sliders(void) {
             else
                 get_val(p->parname, &val);
             p->val = val;
-            set_slide_pos(p);
-            expose_slider(p->slide, p);
-            expose_slider(p->top, p);
+            init_conds_set_slide_pos(p);
+            init_conds_expose_slider(p->slide, p);
+            init_conds_expose_slider(p->top, p);
         }
     }
     return;
 }
 
 void
-redraw_slide(struct ParSlider *p) {
-    expose_slider(p->slide, p);
-    expose_slider(p->top, p);
-    expose_slider(p->left, p);
-    expose_slider(p->right, p);
+init_conds_redraw_slide(struct ParSlider *p) {
+    init_conds_expose_slider(p->slide, p);
+    init_conds_expose_slider(p->top, p);
+    init_conds_expose_slider(p->left, p);
+    init_conds_expose_slider(p->right, p);
     return;
 }
 
 void
-set_slide_pos(struct ParSlider *p) {
+init_conds_set_slide_pos(struct ParSlider *p) {
     double pos;
     int32 ip;
     pos = 2. + (p->l - 4)*(p->val - p->lo) / (p->hi - p->lo);
@@ -1152,12 +1152,12 @@ set_slide_pos(struct ParSlider *p) {
 void
 init_conds_slide_release(Window window) {
     for (int32 i = 0; i < 3; i++)
-        do_slide_release(window, &my_par_slide[i]);
+        init_conds_do_slide_release(window, &my_par_slide[i]);
     return;
 }
 
 void
-do_slide_release(Window window, struct ParSlider *p) {
+init_conds_do_slide_release(Window window, struct ParSlider *p) {
     if (p->use == 0)
         return;
     if (p->slide == window) {
@@ -1177,13 +1177,13 @@ init_conds_slider_motion(XEvent event) {
     window = event.xmotion.window;
     x = event.xmotion.x;
     for (int32 i = 0; i < 3; i++)
-        do_slide_motion(window, x, &my_par_slide[i],
+        init_conds_do_slide_motion(window, x, &my_par_slide[i],
                         (int32)event.xmotion.state);
     return;
 }
 
 void
-do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
+init_conds_do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
     int32 sp = SuppressBounds;
     if (window == p->slide) {
         p->pos = x;
@@ -1191,11 +1191,11 @@ do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
             p->pos = 2;
         if (x > (p->l - 2))
             p->pos = p->l - 2;
-        expose_slider(p->slide, p);
+        init_conds_expose_slider(p->slide, p);
         if (p->use) {
             p->val = p->lo + (p->hi - p->lo)*(double)(p->pos - 2) /
                                  (double)(p->l - 4);
-            expose_slider(p->top, p);
+            init_conds_expose_slider(p->top, p);
             set_val(p->parname, p->val);
             if (p->type == ICBOX)
                 last_ic[p->index] = p->val;
@@ -1216,12 +1216,12 @@ do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
 void
 init_conds_enter_slides(Window window, int32 val) {
     for (int32 i = 0; i < 3; i++)
-        enter_slider(window, &my_par_slide[i], val);
+        init_conds_enter_slider(window, &my_par_slide[i], val);
     return;
 }
 
 void
-enter_slider(Window window, struct ParSlider *p, int32 val) {
+init_conds_enter_slider(Window window, struct ParSlider *p, int32 val) {
     if (window == p->top || window == p->go)
         XSetWindowBorderWidth(display, window, (uint)val + 1);
     return;
@@ -1230,16 +1230,16 @@ enter_slider(Window window, struct ParSlider *p, int32 val) {
 void
 init_conds_expose_slides(Window window) {
     for (int32 i = 0; i < 3; i++)
-        expose_slider(window, &my_par_slide[i]);
+        init_conds_expose_slider(window, &my_par_slide[i]);
     return;
 }
 
 void
-expose_slider(Window window, struct ParSlider *p) {
+init_conds_expose_slider(Window window, struct ParSlider *p) {
     int32 x, len = 12*DCURXs;
     char top[256];
     if (window == p->slide) {
-        draw_slider(window, p->pos, p->hgt, p->l);
+        init_conds_draw_slider(window, p->pos, p->hgt, p->l);
         return;
     }
     if (window == p->go) {
@@ -1285,7 +1285,7 @@ expose_slider(Window window, struct ParSlider *p) {
 }
 
 void
-draw_slider(Window window, int32 x, int32 hgt, int32 l) {
+init_conds_draw_slider(Window window, int32 x, int32 hgt, int32 l) {
     int32 x0 = x - 2;
     if (x0 < 0)
         x0 = 0;
@@ -1298,7 +1298,7 @@ draw_slider(Window window, int32 x, int32 hgt, int32 l) {
 }
 
 void
-make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index) {
+init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index) {
     int32 mainhgt = 3*(DCURYs + 2);
     int32 mainwid = 32*DCURXs;
     int32 xs;
@@ -1365,7 +1365,7 @@ init_conds_make_new_ic_box(void) {
         XRaiseWindow(display, ICBox.base);
         return;
     }
-    make_box_list_window(&ICBox, ICBOX);
+    init_conds_make_box_list_window(&ICBox, ICBOX);
     many_pops_make_icon((char *)ic_bits, ic_width, ic_height, ICBox.base);
     return;
 }
@@ -1376,7 +1376,7 @@ init_conds_make_new_bc_box(void) {
         XRaiseWindow(display, BCBox.base);
         return;
     }
-    make_box_list_window(&BCBox, BCBOX);
+    init_conds_make_box_list_window(&BCBox, BCBOX);
     many_pops_make_icon((char *)bc_bits, bc_width, bc_height, BCBox.base);
     return;
 }
@@ -1389,7 +1389,7 @@ init_conds_make_new_delay_box(void) {
         XRaiseWindow(display, DelayBox.base);
         return;
     }
-    make_box_list_window(&DelayBox, DELAYBOX);
+    init_conds_make_box_list_window(&DelayBox, DELAYBOX);
     many_pops_make_icon((char *)delay_bits, delay_width, delay_height,
                         DelayBox.base);
     return;
@@ -1403,7 +1403,7 @@ init_conds_make_new_param_box(void) {
         XRaiseWindow(display, ParamBox.base);
         return;
     }
-    make_box_list_window(&ParamBox, PARAMBOX);
+    init_conds_make_box_list_window(&ParamBox, PARAMBOX);
     many_pops_make_icon((char *)param_bits, param_width, param_height,
                         ParamBox.base);
     return;
@@ -1411,16 +1411,16 @@ init_conds_make_new_param_box(void) {
 
 void
 init_conds_initialize_box(void) {
-    make_box_list(&ICBox, "Initial Data", "ICs", NODE + NMarkov, ICBOX, 1);
+    init_conds_make_box_list(&ICBox, "Initial Data", "ICs", NODE + NMarkov, ICBOX, 1);
     if (NUPAR > 0)
-        make_box_list(&ParamBox, "Parameters", "Par", NUPAR, PARAMBOX, 1);
+        init_conds_make_box_list(&ParamBox, "Parameters", "Par", NUPAR, PARAMBOX, 1);
     else
         ParamBox.use = 0;
     if (NDELAYS > 0)
-        make_box_list(&DelayBox, "Delay ICs", "Delay", NODE, DELAYBOX, 1);
+        init_conds_make_box_list(&DelayBox, "Delay ICs", "Delay", NODE, DELAYBOX, 1);
     else
         DelayBox.use = 0;
-    make_box_list(&BCBox, "Boundary Conds", "BCs", NODE, BCBOX, 1);
+    init_conds_make_box_list(&BCBox, "Boundary Conds", "BCs", NODE, BCBOX, 1);
 
     /*  Iconify them !!   */
     /*  if(noicon==0){
@@ -1444,7 +1444,7 @@ init_conds_resize_par_box(Window window) {
         ok = 1;
         b = &ICBox;
         eig_list_get_new_size(window, &w, &h);
-        get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
+        init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
 
     if (ParamBox.xuse == 1 && window == ParamBox.base) {
@@ -1453,19 +1453,19 @@ init_conds_resize_par_box(Window window) {
         browse_wait_a_sec(ClickTime);
 
         eig_list_get_new_size(window, &w, &h);
-        get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
+        init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (BCBox.xuse == 1 && window == BCBox.base) {
         ok = 3;
         b = &BCBox;
         eig_list_get_new_size(window, &w, &h);
-        get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
+        init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (DelayBox.xuse == 1 && window == DelayBox.base) {
         ok = 4;
         b = &DelayBox;
         eig_list_get_new_size(window, &w, &h);
-        get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
+        init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (ok == 0)
         return;
@@ -1512,7 +1512,7 @@ init_conds_resize_par_box(Window window) {
 */
 
 void
-get_nrow_from_hgt(int32 h, int32 *n, int32 *w) {
+init_conds_get_nrow_from_hgt(int32 h, int32 *n, int32 *w) {
     int32 hgt = DCURYs + 4;
     *w = 28*DCURXs;
     *n = h / (hgt + 4) - 5;
@@ -1551,7 +1551,7 @@ init_conds_destroy_box(BoxList *b) {
 }
 
 void
-make_box_list_window(BoxList *b, int32 type) {
+init_conds_make_box_list_window(BoxList *b, int32 type) {
     int32 nrow;
     int32 n;
     int32 x, y;
@@ -1650,7 +1650,7 @@ make_box_list_window(BoxList *b, int32 type) {
 }
 
 void
-make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
+init_conds_make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
               int32 use) {
     int32 nrow;
     char sss[256];
@@ -1719,7 +1719,7 @@ init_conds_do_box_expose(Window window) {
 }
 
 void
-justify_string(Window w1, char *s1) {
+init_conds_justify_string(Window w1, char *s1) {
     int32 n1 = (int32)strlen(s1)*DCURXs, nt = 10*DCURXs;
     int32 i = 0;
     if (n1 < nt)
@@ -1753,20 +1753,20 @@ init_conds_draw_one_box(BoxList b, int32 index) {
     we = b.we[i];
     switch (b.type) {
     case PARAMBOX:
-        draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
-        justify_string(window, upar_names[index]);
+        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
+        init_conds_justify_string(window, upar_names[index]);
         break;
     case BCBOX:
-        justify_string(window, my_bc[index].name);
-        draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
+        init_conds_justify_string(window, my_bc[index].name);
+        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
         break;
     case ICBOX:
-        draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
-        justify_string(window, uvar_names[index]);
+        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
+        init_conds_justify_string(window, uvar_names[index]);
         break;
     case DELAYBOX:
-        justify_string(window, uvar_names[index]);
-        draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
+        init_conds_justify_string(window, uvar_names[index]);
+        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
         break;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -1920,7 +1920,7 @@ init_conds_box_enter(BoxList b, Window window, int32 val) {
 }
 
 void
-redraw_entire_box(BoxList *b) {
+init_conds_redraw_entire_box(BoxList *b) {
     if (b->xuse == 0)
         return;
     switch (b->type) {
@@ -1952,13 +1952,13 @@ init_conds_do_box_button(BoxList *b, Window window) {
         return;
     }
     if (window == b->ok || window == b->go)
-        load_entire_box(b);
+        init_conds_load_entire_box(b);
     if (window == b->cancel)
-        redraw_entire_box(b);
+        init_conds_redraw_entire_box(b);
     if (window == b->go)
         integrate_run_now();
     if (window == b->def && b->type == PARAMBOX)
-        set_default_params();
+        init_conds_set_default_params();
     if (window == b->def && b->type == ICBOX)
 
         /* set default ics */
@@ -1987,7 +1987,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
                 if (HotBoxItem < 0 || HotBox->xuse == 0)
                     break;
                 n0 = HotBox->n0;
-                draw_editable(HotBox->we[HotBoxItem],
+                init_conds_draw_editable(HotBox->we[HotBoxItem],
                               HotBox->value[HotBoxItem + n0],
                               HotBox->off[HotBoxItem], HotBox->pos[HotBoxItem],
                               HotBox->mc);
@@ -1995,7 +1995,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
             } while (0);
             HotBoxItem = i;
             HotBox = b;
-            draw_editable(window, b->value[i + b->n0], b->off[i + b->n0],
+            init_conds_draw_editable(window, b->value[i + b->n0], b->off[i + b->n0],
                           b->pos[i + b->n0], b->mc);
         }
     }
@@ -2084,22 +2084,22 @@ init_conds_box_list_scroll(BoxList *b, int32 i) {
     b->n0 = new;
     switch (b->type) {
     case PARAMBOX:
-        load_entire_box(b);
+        init_conds_load_entire_box(b);
         init_conds_redraw_params();
         init_conds_reset_sliders();
         break;
     case BCBOX:
-        load_entire_box(b);
+        init_conds_load_entire_box(b);
         init_conds_redraw_bcs();
 
         break;
     case ICBOX:
-        load_entire_box(b);
+        init_conds_load_entire_box(b);
         init_conds_redraw_ics();
         init_conds_reset_sliders();
         break;
     case DELAYBOX:
-        load_entire_box(b);
+        init_conds_load_entire_box(b);
         init_conds_redraw_delays();
         break;
     default:
@@ -2162,19 +2162,19 @@ init_conds_do_box_key(BoxList *b, XEvent event, int32 *used) {
             if (window == focus) {
                 *used = 1;
                 ch = (char)ggets_get_key_press(&event);
-                flag = edit_bitem(b, i, ch);
+                flag = init_conds_edit_bit_em(b, i, ch);
                 if (flag == EDIT_NEXT && n > 1) {
                     j = i + 1;
                     if (j == n)
                         j = 0;
                     XSetInputFocus(display, b->we[j], RevertToParent,
                                    CurrentTime);
-                    set_value_from_box(b, i);
+                    init_conds_set_value_from_box(b, i);
 
                     HotBoxItem = j;
-                    draw_editable(b->we[i], b->value[i + b->n0],
+                    init_conds_draw_editable(b->we[i], b->value[i + b->n0],
                                   b->off[i + b->n0], b->pos[i + b->n0], b->mc);
-                    draw_editable(b->we[j], b->value[j + b->n0],
+                    init_conds_draw_editable(b->we[j], b->value[j + b->n0],
                                   b->off[j + b->n0], b->pos[j + b->n0], b->mc);
                     if (b->type == PARAMBOX || b->type == ICBOX)
                         init_conds_reset_sliders();
@@ -2184,7 +2184,7 @@ init_conds_do_box_key(BoxList *b, XEvent event, int32 *used) {
                     HotBoxItem = -1;
                     XSetInputFocus(display, main_win, RevertToParent,
                                    CurrentTime);
-                    load_entire_box(b);
+                    init_conds_load_entire_box(b);
                 }
                 if (flag == EDIT_ESC) {
                     HotBoxItem = -1;
@@ -2237,7 +2237,7 @@ init_conds_new_parameter(void) {
             return;
         }
         if (strncasecmp(name, "DEFAULT", 7) == 0) {
-            set_default_params();
+            init_conds_set_default_params();
             continue;
         }
 
@@ -2283,7 +2283,7 @@ init_conds_redo_stuff(void) {
 }
 
 void
-set_default_params(void) {
+init_conds_set_default_params(void) {
     char junk[256];
     for (int32 i = 0; i < NUPAR; i++) {
         set_val(upar_names[i], default_val[i]);
@@ -2297,7 +2297,7 @@ set_default_params(void) {
 }
 
 void
-draw_editable(Window window, char *string, int32 off, int32 cursor, int32 mc) {
+init_conds_draw_editable(Window window, char *string, int32 off, int32 cursor, int32 mc) {
     /* cursor position in letters to the left */
     /* first character of string is off */
     int32 l = (int32)strlen(string) - off, rev, cp;
@@ -2309,13 +2309,13 @@ draw_editable(Window window, char *string, int32 off, int32 cursor, int32 mc) {
     XGetInputFocus(display, &focus, &rev);
     if (focus == window) {
         cp = DCURXs*(cursor - off); /* must be fixed */
-        put_edit_cursor(window, cp);
+        init_conds_put_edit_cursor(window, cp);
     }
     return;
 }
 
 void
-put_edit_cursor(Window window, int32 pos) {
+init_conds_put_edit_cursor(Window window, int32 pos) {
     int32 x1 = pos;
     int32 x2 = x1 + 1;
     XDrawLine(display, window, small_gc, x1, 1, x1, DCURYs - 1);
@@ -2324,7 +2324,7 @@ put_edit_cursor(Window window, int32 pos) {
 }
 
 int32
-edit_bitem(BoxList *b, int32 i, int32 ch) {
+init_conds_edit_bit_em(BoxList *b, int32 i, int32 ch) {
     Window window = b->we[i];
     int32 i0 = i + b->n0;
     char *string = b->value[i0];
@@ -2439,7 +2439,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
 
     b->off[i0] = off;
     b->pos[i0] = pos;
-    draw_editable(window, string, off, pos, mc);
+    init_conds_draw_editable(window, string, off, pos, mc);
     return 0;
 }
 
@@ -2472,12 +2472,12 @@ init_conds_add_edit_val(BoxList *b, int32 i, char *string) {
         return;
     iw = i - n0;
     if (b->xuse)
-        draw_editable(b->we[iw], string, b->off[i], b->pos[i], b->mc);
+        init_conds_draw_editable(b->we[iw], string, b->off[i], b->pos[i], b->mc);
     return;
 }
 
 int32
-to_float(char *s, double *z) {
+init_conds_to_float(char *s, double *z) {
     int32 flag;
     *z = 0.0;
     if (s[0] == '%') {
@@ -2491,19 +2491,19 @@ to_float(char *s, double *z) {
 }
 
 void
-set_value_from_box(BoxList *b, int32 i) {
+init_conds_set_value_from_box(BoxList *b, int32 i) {
     char *s;
     double z;
     s = b->value[i];
     switch (b->type) {
     case ICBOX:
-        if (to_float(s, &z) == -1)
+        if (init_conds_to_float(s, &z) == -1)
             return;
         last_ic[i] = z;
         init_conds_add_edit_float(b, i, z);
         break;
     case PARAMBOX:
-        if (to_float(s, &z) == -1)
+        if (init_conds_to_float(s, &z) == -1)
             return;
         set_val(upar_names[i], z);
         init_conds_add_edit_float(b, i, z);
@@ -2525,11 +2525,11 @@ set_value_from_box(BoxList *b, int32 i) {
 }
 
 void
-load_entire_box(BoxList *b) {
+init_conds_load_entire_box(BoxList *b) {
     int32 n = b->n;
 
     for (int32 i = 0; i < n; i++)
-        set_value_from_box(b, i);
+        init_conds_set_value_from_box(b, i);
     if (b->type == PARAMBOX) {
         volterra_re_evaluate_kernels();
         tabular_redo_all_fun_tables();
