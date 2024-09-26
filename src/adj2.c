@@ -407,7 +407,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     double *yprime;
     double *work;
     double t, prod, del;
-    int32 j, l, k2, rval = 0;
+    int32 l, k2, rval = 0;
     int32 n2 = node*node;
     double error;
 
@@ -433,7 +433,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         for (int32 i = 0; i < node; i++)
             yold[i] = (double)orbit[i + 1][l];
         rhs_function(0.0, yold, fold, node);
-        for (j = 0; j < node; j++) {
+        for (int32 j = 0; j < node; j++) {
             ytemp = yold[j];
             del = eps*fabs(ytemp);
             if (del < eps)
@@ -502,7 +502,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         for (int32 i = 0; i < node; i++)
             fdev[i] = (double)orbit[i + 1][l];
         rhs_function(0.0, fdev, yprime, node);
-        for (j = 0; j < node; j++) {
+        for (int32 j = 0; j < node; j++) {
             adjnt[j + 1][l] = (double)yold[j];
             prod += yold[j]*yprime[j]*dt;
         }
@@ -518,7 +518,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     prod = prod / t;
     ggets_plintf(" Multiplying the adjoint by 1/%g to normalize\n", prod);
     for (int32 k = 0; k < nt; k++) {
-        for (j = 0; j < node; j++)
+        for (int32 j = 0; j < node; j++)
             adjnt[j + 1][k] = adjnt[j + 1][k] / (double)prod;
         adjnt[0][k] = orbit[0][k];
     }
