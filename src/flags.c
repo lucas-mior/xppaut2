@@ -514,7 +514,7 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
         for (int32 i = 0; i < neq; i++)
             yold[i] = y[i];
         told = *tim;
-        one_step_heun(y, dtt, yval, neq, tim);
+        odesol_one_step_heun(y, dtt, yval, neq, tim);
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
             break;
         /* Its a hit !! */
@@ -540,7 +540,7 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
         for (int32 i = 0; i < neq; i++)
             yold[i] = y[i];
         told = *tim;
-        one_step_rk4(y, dtt, yval, neq, tim);
+        odesol_one_step_rk4(y, dtt, yval, neq, tim);
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
             break;
         /* Its a hit !! */
@@ -598,7 +598,7 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
         for (int32 i = 0; i < n; i++)
             yold[i] = y[i];
         told = *tstart;
-        ok = rosen(y, tstart, tfinal, istart, n, work, ierr);
+        ok = odesol_rosen(y, tstart, tfinal, istart, n, work, ierr);
         if (ok == -1)
             break;
         if ((hit = one_flag_step(yold, y, istart, told, tstart, n, &s)) == 0)
@@ -728,7 +728,7 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
         for (int32 i = 0; i < neq; i++)
             yold[i] = y[i];
         told = *t;
-        if ((j = one_bak_step(y, t, dtt, neq, yg, yp, yp2, ytemp, errvec,
+        if ((j = odesol_one_bak_step(y, t, dtt, neq, yg, yp, yp2, ytemp, errvec,
                               jac)) != 0)
             return j;
         if ((hit = one_flag_step(yold, y, istart, told, t, neq, &s)) == 0)

@@ -228,7 +228,7 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
         return 1;
     }
     if (METHOD == RB23) {
-        rb23(y, &t, t1, istart, NODE, WORK, &kflag);
+        odesol_rb23(y, &t, t1, istart, NODE, WORK, &kflag);
         if (kflag < 0) {
             ggets_err_msg("Step size too small");
             return 0;

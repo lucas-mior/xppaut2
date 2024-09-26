@@ -509,20 +509,20 @@ numerics_do_meth(void) {
         METHOD = VOLTERRA;
     switch (METHOD) {
     case 0:
-        solver = discrete;
+        solver = odesol_discrete;
         DELTA_T = 1;
         break;
     case 1:
-        solver = euler;
+        solver = odesol_euler;
         break;
     case 2:
-        solver = mod_euler;
+        solver = odesol_mod_euler;
         break;
     case 3:
-        solver = rung_kut;
+        solver = odesol_rung_kut;
         break;
     case 4:
-        solver = adams;
+        solver = odesol_adams;
         break;
     case 5:
         NJMP = 1;
@@ -531,10 +531,10 @@ numerics_do_meth(void) {
         solver = volterra;
         break;
     case SYMPLECT:
-        solver = symplect3;
+        solver = odesol_symplect3;
         break;
     case BACKEUL:
-        solver = bak_euler;
+        solver = odesol_bak_euler;
         break;
     case RKQS:
     case STIFF:
@@ -545,7 +545,7 @@ numerics_do_meth(void) {
         NJMP = 1;
         break;
     default:
-        solver = rung_kut;
+        solver = odesol_rung_kut;
     }
     return;
 }

@@ -1753,7 +1753,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
 
             break;
         case RB23:
-            rb23(xpv.x, t, tout, istart, nodes, WORK, &kflag);
+            odesol_rb23(xpv.x, t, tout, istart, nodes, WORK, &kflag);
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
                 ggets_ping();
@@ -1993,7 +1993,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             MSWTCH(xpv.x, x);
-            rb23(xpv.x, t, tout, start, nodes, WORK, &kflag);
+            odesol_rb23(xpv.x, t, tout, start, nodes, WORK, &kflag);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
             if (DelayErr) {

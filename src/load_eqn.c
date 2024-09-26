@@ -381,7 +381,7 @@ load_eqn_set_all_vals(void) {
     STORFLAG = 0;
 
     INFLAG = 0;
-    solver = rung_kut;
+    solver = odesol_rung_kut;
     PLOT_3D = 0;
     if (notAlreadySet.METHOD) {
         METHOD = 3;
