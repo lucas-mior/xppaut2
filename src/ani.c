@@ -84,8 +84,9 @@ static char *toons[] = {"Popeye the Sailor",
 #define DIMENSION 22
 #define COMNT 30
 #define SPEED 23
+
 /***************  stuff for grabber  *******************/
-typedef struct {
+static struct AniMotionInfo {
     double x0;
     double y0;
     double x, y;
@@ -95,9 +96,7 @@ typedef struct {
     double vx;
     double vy;
     double vax, vay;
-} AniMotionInfo;
-
-static AniMotionInfo ami;
+} ami;
 
 static AniGrab ani_grab[MAX_ANI_GRAB];
 static int32 n_ani_grab = 0;
