@@ -84,13 +84,13 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     /* Most of the required memory is allocated below */
     /* This is an interesting section of code.  The main point
-       is that setubv and conpar2 only get called when ifst
+       is that setubv and conpar only get called when ifst
        is 1.  This is a optimization since you can solve
        the system using the previously factored jacobian.
        One thing to watch out for is that two seperate calls
        of solvbv_ talk to each other through these arrays,
        so it is only safe to get rid of them when ifst is
-       1 (since their entries will then be recreated in conpar2
+       1 (since their entries will then be recreated in conpar
        and setubv).
     */
 
@@ -611,7 +611,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
         b = test.b;
         c = test.c;
 #endif
-        conpar2(nov, na, nra, nca, a, ncb, b, nbc, nrc, c, d, irf, icf);
+        conpar(nov, na, nra, nca, a, ncb, b, nbc, nrc, c, d, irf, icf);
         copycp(iam, kwt, na, nov, nra, nca, a, ncb, b, nrc, c, a1, a2, bb, cc,
                irf);
     }

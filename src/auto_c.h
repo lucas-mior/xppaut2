@@ -681,7 +681,7 @@ int32 fopt(int64 ndim, double *u, int64 *icp, double *par, int64 ijac,
            double *fs, double *dfdu, double *dfdp);
 int32 pvls(int64 ndim, double *u, double *par);
 void *conpar2_process(void *);
-int32 conpar2(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
+int32 conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
               int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
               double *d, int64 *irf, int64 *icf);
 /*setubv.c */
