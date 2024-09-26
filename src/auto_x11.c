@@ -17,7 +17,7 @@
 #include "mykeydef.h"
 #include "parserslow.h"
 
-#define xds(a)                                                                 \
+#define XDS(a)                                                                 \
     do {                                                                       \
         XDrawString(display, window, gc, 5, CURY_OFFb, a, strlen(a));          \
         return;                                                                \
@@ -837,27 +837,27 @@ auto_x11_display(Window window) {
         XFlush(display);
     }
     if (window == auto_win.axes)
-        xds("Axes");
+        XDS("Axes");
     if (window == auto_win.numerics)
-        xds("Numerics");
+        XDS("Numerics");
     if (window == auto_win.grab)
-        xds("Grab");
+        XDS("Grab");
     if (window == auto_win.run)
-        xds("Run");
+        XDS("Run");
     if (window == auto_win.redraw)
-        xds("reDraw");
+        XDS("reDraw");
     if (window == auto_win.clear)
-        xds("Clear");
+        XDS("Clear");
     if (window == auto_win.per)
-        xds("Usr period");
+        XDS("Usr period");
     if (window == auto_win.kill)
-        xds("Close");
+        XDS("Close");
     if (window == auto_win.param)
-        xds("Parameter");
+        XDS("Parameter");
     if (window == auto_win.file)
-        xds("File");
+        XDS("File");
     if (window == auto_win.abort)
-        xds("ABORT");
+        XDS("ABORT");
     if (window == auto_win.hint) {
         XClearWindow(display, window);
         XDrawString(display, window, gc, 8, CURY_OFF, Auto.hinttxt,
