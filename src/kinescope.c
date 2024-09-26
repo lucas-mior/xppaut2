@@ -15,9 +15,6 @@
 
 #define MAXFILM 250
 
-static int32 ks_ncycle = 1;
-static int32 ks_speed = 50;
-
 static struct Movie {
     int32 h;
     int32 w;
@@ -269,6 +266,8 @@ kinescope_save_movie(char *basename, int32 fmat) {
 
 void
 kinescope_auto_play(void) {
+    static int32 ks_ncycle = 1;
+    static int32 ks_speed = 50;
     int32 x;
     int32 y;
     int32 h, w, bw, d, key;
