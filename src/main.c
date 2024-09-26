@@ -1276,11 +1276,12 @@ main_top_button_draw(Window window) {
 
 void
 main_top_button_cross(Window window, int32 b) {
-    for (int32 i = 0; i < 6; i++)
+    for (int32 i = 0; i < 6; i++) {
         if (window == TopButton[i]) {
             XSetWindowBorderWidth(display, window, (uint)b);
             return;
         }
+    }
     return;
 }
 
