@@ -1996,11 +1996,8 @@ int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 #include <stdio.h>
 
 #define NEQMAXFOREDIT 20
-#define MAXARG 20
 #define MAX_N_EBOX MAX_ODE
 #define MAX_LEN_EBOX 86
-#define FORGET_ALL 0
-#define DONE_ALL 2
 #define FORGET_THIS 3
 #define DONE_THIS 1
 #define RESET_ALL 4
