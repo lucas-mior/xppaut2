@@ -633,7 +633,6 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     double sum = 0.0;
     char bob[256];
     int32 istart = 1;
-    int32 j;
 
     if (storind < 2) {
         if (batch == 0)
@@ -646,7 +645,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
         dy[i] = 0;
     dy[0] = eps;
 
-    for (j = 0; j < (storind - 1); j++) {
+    for (int32 j = 0; j < (storind - 1); j++) {
         t0 = storage[0][j];
         t1 = storage[0][j + 1];
         istart = 1;
