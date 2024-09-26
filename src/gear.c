@@ -34,7 +34,7 @@ static void gear_saxpy(int32 n, double sa, double *sx, int32 incx, double *sy,
                        int32 incy);
 static double gear_sgnum(double x, double y);
 static double gear_sqr2(double z);
-static void orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
+static void gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
 static void gear_hqrx(int32 n, int32 low, int32 igh, double *h, double *ev,
                       int32 *ierr);
 static void gear_pr_evec(double *x, double *ev, int32 n, int32 type);
@@ -621,7 +621,7 @@ gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
 
 void
 gear_eigen(int32 n, double *a, double *ev, double *work, int32 *ierr) {
-    orthesx(n, 1, n, a, work);
+    gear_orthesx(n, 1, n, a, work);
     gear_hqrx(n, 1, n, a, ev, ierr);
     return;
 }
@@ -794,7 +794,7 @@ l1000:
 }
 
 void
-orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
+gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
     int32 i, j, m, ii, jj, la, mp, kp1;
     double f, g, h, scale;
     la = igh - 1;

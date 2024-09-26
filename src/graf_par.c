@@ -52,23 +52,23 @@ char *color_names[] = {"WHITE",        "RED",    "REDORANGE",   "ORANGE",
                        "YELLOWORANGE", "YELLOW", "YELLOWGREEN", "GREEN",
                        "BLUEGREEN",    "BLUE",   "PURPLE",      "BLACK"};
 
-static int32 get_frz_index(Window window);
-static void read_bd(FILE *fp);
-static void add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
-static void draw_frozen_cline(int32 index, Window window);
-static void edit_frz_crv(int32 i);
-static int32 create_crv(int32 ind);
-static void delete_frz(void);
-static void delete_frz_crv(int32 i);
-static void edit_frz(void);
-static void draw_freeze_key(void);
+static int32 graf_par_get_frz_index(Window window);
+static void graf_par_read_bd(FILE *fp);
+static void graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
+static void graf_par_draw_frozen_cline(int32 index, Window window);
+static void graf_par_edit_frz_crv(int32 i);
+static int32 graf_par_create_crv(int32 ind);
+static void graf_par_delete_frz(void);
+static void graf_par_delete_frz_crv(int32 i);
+static void graf_par_edit_frz(void);
+static void graf_par_draw_freeze_key(void);
 static void graf_par_set_key(int32 x, int32 y);
 static int32 graf_par_alter_curve(char *title, int32 in_it, int32 n);
 static void graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
 static void graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
-static void movie_rot(double start, double increment, int32 nclip, int32 angle);
-static void fit_window(void);
-static void corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
+static void graf_par_movie_rot(double start, double increment, int32 nclip, int32 angle);
+static void graf_par_fit_window(void);
+static void graf_par_corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
 static void graf_par_check_val(double *x1, double *x2, double *xb, double *xd);
 static void graf_par_check_flags(void);
 static void graf_par_update_view(double xlo, double xhi, double ylo,
@@ -263,7 +263,7 @@ graf_par_get_max(int32 index, double *vmin, double *vmax) {
 }
 
 void
-corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
+graf_par_corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
     double x;
     double y;
     double x1, x2, y1, y2;
@@ -352,7 +352,7 @@ graf_par_default_window(void) {
         MyGraph->ymin = y_3d[0];
         MyGraph->zmin = z_3d[0];
 
-        corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
+        graf_par_corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
                     &(MyGraph->yhi));
         graf_par_check_windows();
     } else {
@@ -373,7 +373,7 @@ graf_par_default_window(void) {
 }
 
 void
-fit_window(void) {
+graf_par_fit_window(void) {
     double Mx = -1.e25, My = -1.e25, Mz = -1.e25, mx = -Mx, my = -My, mz = -Mz;
     int32 n = MyGraph->nvars;
     if (storind < 2)
@@ -402,7 +402,7 @@ fit_window(void) {
         MyGraph->ymin = my;
         MyGraph->zmin = mz;
 
-        corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
+        graf_par_corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
                     &(MyGraph->yhi));
         graf_par_check_windows();
     } else {
@@ -500,7 +500,7 @@ graf_par_redraw_the_graph(void) {
 }
 
 void
-movie_rot(double start, double increment, int32 nclip, int32 angle) {
+graf_par_movie_rot(double start, double increment, int32 nclip, int32 angle) {
     double thetaold = MyGraph->Theta, phiold = MyGraph->Phi;
     kinescope_reset_film();
     for (int32 i = 0; i <= nclip; i++) {
@@ -567,7 +567,7 @@ graf_par_get_3d_com(void) {
             if (mov3d.angle[0] == 'p' || mov3d.angle[0] == 'P')
                 angle = 1;
             /*     XRaiseWindow(display,MyGraph->w); */
-            movie_rot(start, increment, nclip, angle);
+            graf_par_movie_rot(start, increment, nclip, angle);
         }
 
         graphics_make_rot(MyGraph->Theta, MyGraph->Phi);
@@ -636,7 +636,7 @@ graf_par_window_zoom_com(int32 c) {
         graf_par_zoom_out(i1, j1, i2, j2);
         break;
     case 3:
-        fit_window();
+        graf_par_fit_window();
         break;
     case 4:
         graf_par_default_window();
@@ -840,7 +840,7 @@ graf_par_graph_all(int32 *list, int32 n, int32 type) {
         }
     }
     graf_par_check_flags();
-    fit_window();
+    graf_par_fit_window();
     return;
 }
 
@@ -924,23 +924,23 @@ graf_par_freeze_com(int32 c) {
     case 0: {
         /* freeze crv */
         int32 crv;
-        crv = create_crv(0);
+        crv = graf_par_create_crv(0);
         if (crv < 0)
             break;
-        edit_frz_crv(crv);
+        graf_par_edit_frz_crv(crv);
         break;
     }
     case 1:
-        delete_frz();
+        graf_par_delete_frz();
         break;
     case 2:
-        edit_frz();
+        graf_par_edit_frz();
         break;
     case 3:
         /* kill frz */
         for (int32 i = 0; i < MAXFRZ; i++) {
             if (frz[i].use == 1 && frz[i].window == draw_win)
-                delete_frz_crv(i);
+                graf_par_delete_frz_crv(i);
         }
         break;
     case 5: {
@@ -955,7 +955,7 @@ graf_par_freeze_com(int32 c) {
             ggets_err_msg("Couldn't open file");
             return;
         }
-        read_bd(fp);
+        graf_par_read_bd(fp);
         break;
     }
     case 6:
@@ -989,7 +989,7 @@ graf_par_set_key(int32 x, int32 y) {
 }
 
 void
-draw_freeze_key(void) {
+graf_par_draw_freeze_key(void) {
     int32 ix;
     int32 iy;
     int32 y0;
@@ -1027,7 +1027,7 @@ graf_par_key_frz_com(int32 c) {
         menudrive_message_box("Position with mouse");
         if (ggets_mouse_xy(&x, &y, draw_win)) {
             graf_par_set_key(x, y);
-            draw_freeze_key();
+            graf_par_draw_freeze_key();
         }
         menudrive_message_box_kill();
         break;
@@ -1038,17 +1038,17 @@ graf_par_key_frz_com(int32 c) {
 }
 
 void
-edit_frz(void) {
+graf_par_edit_frz(void) {
     int32 i;
-    i = get_frz_index(draw_win);
+    i = graf_par_get_frz_index(draw_win);
     if (i < 0)
         return;
-    edit_frz_crv(i);
+    graf_par_edit_frz_crv(i);
     return;
 }
 
 void
-delete_frz_crv(int32 i) {
+graf_par_delete_frz_crv(int32 i) {
     if (frz[i].use == 0)
         return;
     frz[i].use = 0;
@@ -1062,12 +1062,12 @@ delete_frz_crv(int32 i) {
 }
 
 void
-delete_frz(void) {
+graf_par_delete_frz(void) {
     int32 i;
-    i = get_frz_index(draw_win);
+    i = graf_par_get_frz_index(draw_win);
     if (i < 0)
         return;
-    delete_frz_crv(i);
+    graf_par_delete_frz_crv(i);
     return;
 }
 
@@ -1075,12 +1075,12 @@ void
 graf_par_auto_freeze_it(void) {
     if (AutoFreezeFlag == 0)
         return;
-    create_crv(0);
+    graf_par_create_crv(0);
     return;
 }
 
 int32
-create_crv(int32 ind) {
+graf_par_create_crv(int32 ind) {
     int32 type, j;
     int32 ix, iy, iz;
 
@@ -1125,7 +1125,7 @@ create_crv(int32 ind) {
 }
 
 void
-edit_frz_crv(int32 i) {
+graf_par_edit_frz_crv(int32 i) {
     static char *nn[] = {"*4Color", "Key", "Name"};
     char values[LENGTH(nn)][MAX_LEN_SBOX];
     int32 status;
@@ -1142,7 +1142,7 @@ edit_frz_crv(int32 i) {
 }
 
 void
-draw_frozen_cline(int32 index, Window window) {
+graf_par_draw_frozen_cline(int32 index, Window window) {
     if (nclines[index].use == 0 || nclines[index].window != window)
         return;
     return;
@@ -1154,7 +1154,7 @@ graf_par_draw_freeze(Window window) {
     double oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
     double *xv, *yv, *zv;
     for (int32 i = 0; i < MAXNCLINE; i++)
-        draw_frozen_cline(i, window);
+        graf_par_draw_frozen_cline(i, window);
     for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].window == window && frz[i].type == type) {
             if (frz[i].color < 0) {
@@ -1192,7 +1192,7 @@ graf_par_draw_freeze(Window window) {
             }
         }
     }
-    draw_freeze_key();
+    graf_par_draw_freeze_key();
     {
         /* draw bd */
         int32 len;
@@ -1227,7 +1227,7 @@ graf_par_init_bd(void) {
 }
 
 void
-add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
+graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
     int32 i;
     if (ncrv >= MAXBIFCRV)
         return;
@@ -1250,7 +1250,7 @@ add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
 }
 
 void
-read_bd(FILE *fp) {
+graf_par_read_bd(FILE *fp) {
     int32 oldtype, type, oldbr, br, ncrv = 0, len, f2;
     double x[8000], ylo[8000], yhi[8000];
     len = 0;
@@ -1264,10 +1264,10 @@ read_bd(FILE *fp) {
             len++;
         else {
             /* if(oldbr==br)len++; */ /* extend to point of instability */
-            add_bd_crv(x, ylo, len, oldtype, ncrv);
+            graf_par_add_bd_crv(x, ylo, len, oldtype, ncrv);
             ncrv++;
             if (oldtype == UPER || oldtype == SPER) {
-                add_bd_crv(x, yhi, len, oldtype, ncrv);
+                graf_par_add_bd_crv(x, yhi, len, oldtype, ncrv);
                 ncrv++;
             }
             if (oldbr == br)
@@ -1283,10 +1283,10 @@ read_bd(FILE *fp) {
     }
     /*  save this last one */
     if (len > 1) {
-        add_bd_crv(x, ylo, len, oldtype, ncrv);
+        graf_par_add_bd_crv(x, ylo, len, oldtype, ncrv);
         ncrv++;
         if (oldtype == UPER || oldtype == SPER) {
-            add_bd_crv(x, yhi, len, oldtype, ncrv);
+            graf_par_add_bd_crv(x, yhi, len, oldtype, ncrv);
             ncrv++;
         }
     }
@@ -1298,7 +1298,7 @@ read_bd(FILE *fp) {
 }
 
 int32
-get_frz_index(Window window) {
+graf_par_get_frz_index(Window window) {
     char *n[MAXFRZ];
     char key[MAXFRZ], ch;
 

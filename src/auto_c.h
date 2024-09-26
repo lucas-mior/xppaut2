@@ -712,7 +712,7 @@ void setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups,
 
 #include "auto_types.h"
 int32 set_funi_and_icni(iap_type *, setubv_parallel_arglist *);
-int32 set_function_pointers(iap_type, function_list *);
+int32 gogoauto_set_function_pointers(iap_type, function_list *);
 
 #ifdef AUTO_CONSTRUCT_DESCTRUCT
 int32 user_construct(int32 argc, char **argv);
