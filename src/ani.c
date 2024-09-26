@@ -446,7 +446,6 @@ ani_do_events(XEvent event) {
     }
     return;
 }
-/*************************  NEW ANIMaTION STUFF ***********************/
 
 void
 ani_motion_stuff(Window window, int32 x, int32 y) {

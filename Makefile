@@ -77,6 +77,7 @@ $(TARGET): $(OBJECTS) Makefile
 
 clean:
 	rm -f *.o src/*.o src/cvode/*.o src/sbml/*.o $(TARGET)
+	rm compile_commands.json tags
 
 install:
 	install -Dm755 xppaut   ${DESTDIR}${PREFIX}/bin/xppaut
