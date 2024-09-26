@@ -625,7 +625,9 @@ adj2_do_this_liaprun(int32 i, double p) {
 int32
 adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     double y[MAX_ODE];
-    double yp[MAX_ODE], nrm, dy[MAX_ODE];
+    double yp[MAX_ODE];
+    double dy[MAX_ODE];
+    double nrm;
     double t0;
     double t1;
     double sum = 0.0;
