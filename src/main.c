@@ -71,7 +71,6 @@ char PlotFormat[10];
 
 int32 PaperWhite = -1;
 
-static Window TopButton[6];
 Window draw_win;
 Window main_win;
 Window command_pop;
@@ -95,13 +94,11 @@ uint32 MyMainWinColor;
 uint32 MyDrawWinColor;
 uint32 GrFore;
 uint32 GrBack;
-static int32 SCALEX;
 int32 SCALEY;
 Display *display;
 int32 screen;
 int32 periodic = 0;
 int32 DCURYb;
-static int32 DCURXb;
 int32 CURY_OFFb;
 int32 DCURYs;
 int32 DCURXs;
@@ -133,9 +130,12 @@ double SLIDER3HI = 1.0;
 int32 DoTutorial = 0;
 
 OptionsSet notAlreadySet;
-
-static XFontStruct *big_font;
 XFontStruct *small_font;
+
+static int32 DCURXb;
+static int32 SCALEX;
+static Window TopButton[6];
+static XFontStruct *big_font;
 
 static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
 static void main_get_gc(GC *gc);
