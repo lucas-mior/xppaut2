@@ -3163,7 +3163,7 @@ void load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask);
 #include <stdio.h>
 
 void lunch_file_inf(void);
-void ps_write_pars(FILE *fp);
+void lunch_ps_write_pars(FILE *fp);
 int32 lunch_read(FILE *fp);
 void do_lunch(int32 f);
 void lunch_io_parameter_file(char *fn, int32 flag);
@@ -3639,11 +3639,11 @@ void ps_text(int32 x, int32 y, char *str);
 #define MY_RHS_H
 
 int32 main(int32 argc, char **argv);
-void my_rhs_extra(double *y__y, double t, int32 nod, int32 neq);
+void main_rhs_extra(double *y__y, double t, int32 nod, int32 neq);
 void set_fix_rhs(double t, double *y);
-int32 my_rhs(double t, double *y, double *ydot, int32 neq);
+int32 main_rhs(double t, double *y, double *ydot, int32 neq);
 void update_based_on_current(void);
-void fix_only(void);
+void main_rhs_fix_only(void);
 void rhs_only(double *ydot);
 
 #endif

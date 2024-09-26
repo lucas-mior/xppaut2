@@ -44,7 +44,7 @@ lunch_file_inf(void) {
 }
 
 void
-ps_write_pars(FILE *fp) {
+lunch_ps_write_pars(FILE *fp) {
     int32 div, rem, j;
     double z;
 

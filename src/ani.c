@@ -489,7 +489,7 @@ update_ani_motion_stuff(int32 x, int32 y) {
     set_val("mouse_vx", ami.vx);
     set_val("mouse_vy", ami.vy);
     ani_do_grab_tasks(1);
-    fix_only();
+    main_rhs_fix_only();
     ani_frame(0);
     return;
 }

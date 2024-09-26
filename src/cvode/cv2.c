@@ -41,7 +41,7 @@ cv_end(void) {
 void
 cv_func(int64 n, double t, Vector y, Vector ydot, void *fdata) {
     (void)fdata;
-    my_rhs(t, y->data, ydot->data, (int32)n);
+    main_rhs(t, y->data, ydot->data, (int32)n);
     return;
 }
 

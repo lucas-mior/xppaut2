@@ -2467,7 +2467,7 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
             storage[j + 1][i] = u[j];
             x[j] = u[j];
         }
-        my_rhs_extra(x, (double)storage[0][i], nstor, NEQ);
+        main_rhs_extra(x, (double)storage[0][i], nstor, NEQ);
         for (j = nstor; j < NEQ; j++)
             storage[j + 1][i] = (double)x[j];
     }

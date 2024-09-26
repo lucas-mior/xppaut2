@@ -396,7 +396,7 @@ nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
         for (j = 0; j <= n; j++) {
             y[iny] = v0 + dv*j;
             rhs_function(0.0, y, ydot, NODE);
-            my_rhs_extra(y, 0.0, NODE, NEQ);
+            main_rhs_extra(y, 0.0, NODE, NEQ);
             graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
             amp = hypot(dxp, dyp);
             if (amp > *mdf)
@@ -521,7 +521,7 @@ nullcline_redraw_dfield(void) {
         for (j = 0; j <= grid; j++) {
             y[iny] = v0 + dv*j;
             rhs_function(0.0, y, ydot, NODE);
-            my_rhs_extra(y, 0.0, NODE, NEQ);
+            main_rhs_extra(y, 0.0, NODE, NEQ);
             if (MyGraph->ColorFlag || DF_FLAG == 2) {
                 v1[0] = 0.0;
                 v2[0] = 0.0;
@@ -635,7 +635,7 @@ nullcline_direct_field_com(int32 c) {
             for (j = 0; j <= grid; j++) {
                 y[iny] = v0 + dv*j;
                 rhs_function(0.0, y, ydot, NODE);
-                my_rhs_extra(y, 0.0, NODE, NEQ);
+                main_rhs_extra(y, 0.0, NODE, NEQ);
                 if (MyGraph->ColorFlag || DF_FLAG == 2) {
                     v1[0] = 0.0;
                     v2[0] = 0.0;

@@ -352,7 +352,7 @@ last_shot(int32 flag) {
     MyTime = T0;
     if (flag) {
         storage[0][0] = (double)T0;
-        my_rhs_extra(x, T0, NODE, NEQ);
+        main_rhs_extra(x, T0, NODE, NEQ);
         for (int32 i = 0; i < NEQ; i++)
             storage[1 + i][0] = (double)x[i];
         storind = 1;

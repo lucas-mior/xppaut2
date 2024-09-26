@@ -190,7 +190,7 @@ ps_end(void) {
     ps_write("grestore");
     ps_write("end");
     ps_write("showpage");
-    ps_write_pars(psfile);
+    lunch_ps_write_pars(psfile);
     fclose(psfile);
     PltFmtFlag = 0;
     if (Xup)

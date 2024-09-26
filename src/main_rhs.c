@@ -8,7 +8,7 @@ main(int32 argc, char **argv) {
 }
 
 void
-my_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
+main_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
     if (nod >= neq)
         return;
     SETVAR(0, t);
@@ -40,7 +40,7 @@ set_fix_rhs(double t, double *y) {
 }
 
 int32
-my_rhs(double t, double *y, double *ydot, int32 neq) {
+main_rhs(double t, double *y, double *ydot, int32 neq) {
     (void)neq;
     SETVAR(0, t);
     for (int32 i = 0; i < NODE; i++)
@@ -72,7 +72,7 @@ update_based_on_current(void) {
 }
 
 void
-fix_only(void) {
+main_rhs_fix_only(void) {
     for (int32 i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
     return;

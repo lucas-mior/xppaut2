@@ -442,7 +442,7 @@ do_main(int32 argc, char **argv) {
     numerics_do_meth();
 
     numerics_set_delay();
-    rhs_function = my_rhs;
+    rhs_function = main_rhs;
     do_fit_init_info();
     form_ode_strip_saveqn();
     form_ode_create_plot_list();

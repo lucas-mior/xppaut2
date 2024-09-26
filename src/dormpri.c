@@ -61,7 +61,7 @@ static int32 dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 
 void
 dprhs(uint32 n, double t, double *y, double *f) {
-    my_rhs(t, y, f, (int32)n);
+    main_rhs(t, y, f, (int32)n);
     return;
 }
 

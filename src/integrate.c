@@ -832,7 +832,7 @@ integrate_do_range(double *x, int32 flag) {
             integrate_start_flags(x, &MyTime);
             if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
                 storage[0][storind] = (double)MyTime;
-                my_rhs_extra(x, MyTime, NODE, NEQ);
+                main_rhs_extra(x, MyTime, NODE, NEQ);
                 for (iii = 0; iii < NEQ; iii++)
                     storage[1 + iii][storind] = (double)x[iii];
                 storind++;
@@ -1099,7 +1099,7 @@ batch_integrate_once(void) {
         integrate_start_flags(x, &MyTime);
         if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
             storage[0][0] = (double)MyTime;
-            my_rhs_extra(x, MyTime, NODE, NEQ);
+            main_rhs_extra(x, MyTime, NODE, NEQ);
             for (int32 i = 0; i < NEQ; i++)
                 storage[1 + i][0] = (double)x[i];
             storind = 1;
@@ -1400,7 +1400,7 @@ usual_integrate_stuff(double *x) {
     integrate_start_flags(x, &MyTime);
     if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
         storage[0][0] = (double)MyTime;
-        my_rhs_extra(x, MyTime, NODE, NEQ);
+        main_rhs_extra(x, MyTime, NODE, NEQ);
         for (int32 i = 0; i < NEQ; i++)
             storage[1 + i][0] = (double)x[i];
         storind = 1;
@@ -1850,7 +1850,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         return rval;
     one_flag_step(xpv.x, xpv.x, &iflagstart, *t, &tnew, nodes, &sss);
     MSWTCH(x, xpv.x);
-    my_rhs_extra(
+    main_rhs_extra(
         x, *t, NODE,
         NEQ); /* Note this takes care of initializing Markov variables */
     MSWTCH(xpv.x, x);
@@ -2092,7 +2092,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         }
         /*   START POST INTEGRATE STUFF */
 
-        my_rhs_extra(x, *t, NODE, NEQ);
+        main_rhs_extra(x, *t, NODE, NEQ);
 
         if (TORUS == 1) {
             for (ieqn = 0; ieqn < NEQ; ieqn++) {
@@ -2381,7 +2381,7 @@ integrate_send_output(double *y, double t) {
     double yy[MAX_ODE];
     for (int32 i = 0; i < NODE; i++)
         yy[i] = y[i];
-    my_rhs_extra(yy, t, NODE, NEQ);
+    main_rhs_extra(yy, t, NODE, NEQ);
     if ((STORFLAG == 1) && (storind < MAXSTOR)) {
         for (int32 i = 0; i < NEQ; i++)
             storage[i + 1][storind] = (double)yy[i];
