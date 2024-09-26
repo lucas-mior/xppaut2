@@ -60,7 +60,6 @@ static void draw_bd(Window window);
 static void draw_frozen_cline(int32 index, Window window);
 static void edit_frz_crv(int32 i);
 static int32 create_crv(int32 ind);
-static int32 freeze_crv(int32 ind);
 static void delete_frz(void);
 static void delete_frz_crv(int32 i);
 static void edit_frz(void);
@@ -935,8 +934,15 @@ void
 graf_par_freeze_com(int32 c) {
     switch (c) {
     case 0:
-        freeze_crv(0);
+    {
+        /* freeze crv */
+        int32 crv;
+        crv = create_crv(0);
+        if (crv < 0)
+            break;
+        edit_frz_crv(crv);
         break;
+    }
     case 1:
         delete_frz();
         break;
@@ -1080,15 +1086,6 @@ delete_frz(void) {
 }
 
 
-int32
-freeze_crv(int32 ind) {
-    int32 i;
-    i = create_crv(ind);
-    if (i < 0)
-        return -1;
-    edit_frz_crv(i);
-    return 1;
-}
 
 void
 graf_par_auto_freeze_it(void) {
