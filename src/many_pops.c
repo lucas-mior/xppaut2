@@ -62,7 +62,6 @@ static int32 MINI_W = 450;
 int32 ActiveWinList[MAXPOP];
 
 static void many_pops_select_sym(Window window);
-static void many_pops_lo_lite(Window wi);
 static void many_pops_select_window(Window window);
 static void many_pops_set_restore(int32 flag);
 static void many_pops_add_pntarr(int32 type);
@@ -1402,7 +1401,10 @@ many_pops_select_window(Window window) {
                 current_pop = i;
     }
     MyGraph = &graph[current_pop];
-    many_pops_lo_lite(draw_win);
+    /* many pops lo lite */
+    /* many pops set gr back */
+    XSetForeground(display, gc, GrBack);
+    ggets_bar(0, 0, 5, 5, draw_win);
     draw_win = window;
     many_pops_hi_lite(window);
     XRaiseWindow(display, window);
@@ -1421,13 +1423,6 @@ many_pops_hi_lite(Window wi) {
     return;
 }
 
-void
-many_pops_lo_lite(Window wi) {
-    /* many pops set gr back */
-    XSetForeground(display, gc, GrBack);
-    ggets_bar(0, 0, 5, 5, wi);
-    return;
-}
 
 void
 many_pops_select_sym(Window window) {
