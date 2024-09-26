@@ -346,4 +346,5 @@ kinescope_auto_play(void) {
 void
 kinescope_too_small(void) {
     pop_list_respond_box("Okay", "Window too small for film!");
+    return;
 }
