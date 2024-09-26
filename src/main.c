@@ -81,8 +81,6 @@ GC gc;
 GC gc_graph;
 GC small_gc;
 GC font_gc;
-static uint32 Black;
-static uint32 White;
 char UserBlack[8];
 char UserWhite[8];
 char UserMainWinColor[8];
@@ -621,6 +619,9 @@ main_init_x(void) {
     char *win_name = "XPPAUT";
     int32 x = 0, y = 0;
     uint32 min_wid = 450, min_hgt = 360;
+
+    static uint32 Black;
+    static uint32 White;
 
     char teststr[] = "The Quick Brown Fox Jumped Over The Lazy Dog?";
 
