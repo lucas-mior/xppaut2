@@ -8,12 +8,14 @@ find src -iname "*.[ch]" | while read file; do
 
 awk " /^static [[:alnum:]_]+ ($IDENT(\[[^]]+\])?( = \S+)?, )+$IDENT(\[[^]]+\])?( = \S+)?;\$/ {
 # print; exit
+    static = \$1
     type = \$2
+    \$1 = \"\"
     \$2 = \"\"
 
     split(\$0, array, \",\");
     for (i in array) {
-        printf(\"static %s%s;NEWLINELINE\", type, array[i]);
+        printf(\"%s %s%s;NEWLINELINE\", static, type, array[i]);
     }
     getline
 }{
