@@ -16,6 +16,12 @@
 #include "struct.h"
 #include "xpplim.h"
 
+enum {
+    FIX_SIZE = 3,
+    FIX_MIN_SIZE = 2,
+    FIX_MAX_SIZE = 1,
+};
+
 extern Display *display;
 
 extern char *timesfonts[];

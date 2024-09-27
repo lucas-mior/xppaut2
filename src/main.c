@@ -35,9 +35,6 @@
 #include "pp.bitmap"
 #include "read_dir.h"
 
-#define FIX_SIZE 3
-#define FIX_MIN_SIZE 2
-#define FIX_MAX_SIZE 1
 #define LOWBIT(x) ((x) & (~(x) + 1))
 
 #include <X11/cursorfont.h>

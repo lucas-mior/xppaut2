@@ -50,7 +50,6 @@
 #define READEM 1
 
 #define FIRSTCOLOR 30
-#define FIX_MIN_SIZE 2
 
 int32 array_plot_range;
 static int32 array_plot_range_count = 0;
