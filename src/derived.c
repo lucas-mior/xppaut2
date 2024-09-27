@@ -29,8 +29,9 @@ derived_compile(void) {
             return 1;
         }
         derived[i].form = xmalloc(sizeof(*(derived[i].form))*(usize)(n + 2));
-        for (int32 k = 0; k < n; k++)
+        for (int32 k = 0; k < n; k++) {
             derived[i].form[k] = f[k];
+        }
     }
     derived_evaluate();
     return 0;

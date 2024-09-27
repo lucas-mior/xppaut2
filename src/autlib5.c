@@ -95,8 +95,9 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ffho(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -376,8 +377,9 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         blhmu_1.pu1[i] = u1[i];
     }
 
-    if (blhom_1.iequib == 0 || blhom_1.iequib == -1)
+    if (blhom_1.iequib == 0 || blhom_1.iequib == -1) {
         pvls(ndm, u0, par);
+    }
     /*              write(9,*) 'Xequib:' */
     for (int64 i = 0; i < ndm; ++i) {
         xequib1[i] = par[i + 11];
@@ -812,8 +814,9 @@ inho(iap_type *iap, int64 *icp, double *par) {
          the first time the prjctn_ function has been called.
          Accordingly, I initialize it to zero here after I
          have created it. */
-    for (int64 i = 0; i < 4; i++)
+    for (int64 i = 0; i < 4; i++) {
         beyn_1.iflag[i] = 0;
+    }
 
     /* Reads from fort.11 specific constants for homoclinic continuation. */
     /* Sets up re-defined constants in IAP. */
@@ -1689,8 +1692,9 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     /* EISPACK call for eigenvalues and eigenvectors */
     rg(*ndm, *ndm, dfdu, rr, ri, 1, zz, iv1, fv1, &ifail);
 
-    if (ifail != 0)
+    if (ifail != 0) {
         fprintf(fp9, "EISPACK EIGENVALUE ROUTINE FAILED !\n");
+    }
 
     for (int32 j = 0; j < *ndm; ++j) {
         if (ri[j] > 0.) {
@@ -2017,8 +2021,9 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         }
     }
 
-    if (mcond > 0)
+    if (mcond > 0) {
         ge(mcond, *ndm, dum1, mcond, *ndm, d, *ndm, dum2, &det);
+    }
 
     for (int64 i = 0; i < mcond; ++i) {
         for (int32 j = 0; j < *ndm; ++j) {

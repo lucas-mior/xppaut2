@@ -26,12 +26,14 @@ BandMat
 band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu) {
     BandMat A;
 
-    if (N <= 0)
+    if (N <= 0) {
         return NULL;
+    }
 
     A = xmalloc(sizeof *A);
-    if (A == NULL)
+    if (A == NULL) {
         return NULL;
+    }
 
     A->data = band_alloc2(N, smu, ml);
     if (A->data == NULL) {
@@ -49,8 +51,9 @@ band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu) {
 
 int64 *
 band_alloc_piv(int64 N) {
-    if (N <= 0)
+    if (N <= 0) {
         return NULL;
+    }
 
     return xmalloc((usize)N*sizeof(int64));
 }
@@ -114,12 +117,14 @@ band_alloc2(int64 n, int64 smu, int64 ml) {
     double **a;
     int64 colSize;
 
-    if (n <= 0)
+    if (n <= 0) {
         return NULL;
+    }
 
     a = xmalloc((usize)n*sizeof(double *));
-    if (a == NULL)
+    if (a == NULL) {
         return NULL;
+    }
 
     colSize = smu + ml + 1;
     a[0] = xmalloc((usize)(n*colSize)*sizeof(*(a[0])));
@@ -128,16 +133,18 @@ band_alloc2(int64 n, int64 smu, int64 ml) {
         return NULL;
     }
 
-    for (int32 j = 1; j < n; j++)
+    for (int32 j = 1; j < n; j++) {
         a[j] = a[0] + j*colSize;
+    }
 
     return a;
 }
 
 int64 *
 band_alloc_piv2(int64 n) {
-    if (n <= 0)
+    if (n <= 0) {
         return NULL;
+    }
 
     return xmalloc((usize)n*sizeof(int64));
 }
@@ -195,8 +202,9 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 
         /* check for zero pivot element */
 
-        if (col_k[storage_l] == ZERO)
+        if (col_k[storage_l] == ZERO) {
             return k + 1;
+        }
 
         /* swap a(l,k) and a(k,k) if necessary */
 
@@ -213,8 +221,9 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
         /* in a(i,k), i=k+1, ..., MIN(n-1,k+ml).            */
 
         mult = -ONE / (*diag_k);
-        for (i = k + 1, kptr = sub_diag_k; i <= last_row_k; i++, kptr++)
+        for (i = k + 1, kptr = sub_diag_k; i <= last_row_k; i++, kptr++) {
             (*kptr) *= mult;
+        }
 
         /* row_i = row_i - [a(i,k)/a(k,k)] row_k, i=k+1, ..., MIN(n-1,k+ml) */
         /* row k is the pivot row after swapping with row l.                */
@@ -241,8 +250,9 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
             if (a_kj != ZERO) {
                 for (i = k + 1, kptr = sub_diag_k,
                     jptr = col_j + ROW(k + 1, j, smu);
-                     i <= last_row_k; i++, kptr++, jptr++)
+                     i <= last_row_k; i++, kptr++, jptr++) {
                     (*jptr) += a_kj*(*kptr);
+                }
             }
         }
     }
@@ -250,8 +260,9 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     /* set the last pivot row to be n-1 and check for a zero pivot */
 
     *p = n - 1;
-    if (a[n - 1][smu] == ZERO)
+    if (a[n - 1][smu] == ZERO) {
         return n;
+    }
 
     /* return 0 to indicate success */
 
@@ -278,8 +289,9 @@ band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
         }
         diag_k = a[k] + smu;
         last_row_k = MIN(n - 1, k + ml);
-        for (i = k + 1; i <= last_row_k; i++)
+        for (i = k + 1; i <= last_row_k; i++) {
             b[i] += mult*diag_k[i - k];
+        }
     }
 
     /* Solve Ux = y, store solution x in b */
@@ -289,8 +301,9 @@ band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
         first_row_k = MAX(0, k - smu);
         b[k] /= (*diag_k);
         mult = -b[k];
-        for (i = first_row_k; i <= k - 1; i++)
+        for (i = first_row_k; i <= k - 1; i++) {
             b[i] += mult*diag_k[i - k];
+        }
     }
     return;
 }
@@ -303,8 +316,9 @@ band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     colSize = mu + ml + 1;
     for (int32 j = 0; j < n; j++) {
         col_j = a[j] + smu - mu;
-        for (int32 i = 0; i < colSize; i++)
+        for (int32 i = 0; i < colSize; i++) {
             col_j[i] = ZERO;
+        }
     }
     return;
 }
@@ -321,8 +335,9 @@ band_copy2(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
     for (int32 j = 0; j < n; j++) {
         a_col_j = a[j] + a_smu - copymu;
         b_col_j = b[j] + b_smu - copymu;
-        for (int32 i = 0; i < copySize; i++)
+        for (int32 i = 0; i < copySize; i++) {
             b_col_j[i] = a_col_j[i];
+        }
     }
     return;
 }
@@ -336,16 +351,18 @@ band_scale2(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
 
     for (int32 j = 0; j < n; j++) {
         col_j = a[j] + smu - mu;
-        for (int32 i = 0; i < colSize; i++)
+        for (int32 i = 0; i < colSize; i++) {
             col_j[i] *= c;
+        }
     }
     return;
 }
 
 void
 band_add_i2(double **a, int64 n, int64 smu) {
-    for (int32 j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++) {
         a[j][smu] += ONE;
+    }
     return;
 }
 
@@ -371,8 +388,9 @@ band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     for (int64 i = 0; i < n; i++) {
         start = MAX(0, i - ml);
         finish = MIN(n - 1, i + mu);
-        for (int32 j = 0; j < start; j++)
+        for (int32 j = 0; j < start; j++) {
             ggets_plintf("%10s", "");
+        }
         for (int64 j = start; j <= finish; j++) {
             ggets_plintf("%10g", a[j][i - j + smu]);
         }

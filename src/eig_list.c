@@ -60,27 +60,36 @@ void
 eig_list_draw_eq_list(Window window) {
     char bob[300];
     char fstr[15];
-    if (eq_list.flag == 0)
+    if (eq_list.flag == 0) {
         return;
-    if (window == eq_list.up)
+    }
+    if (window == eq_list.up) {
         XDS("Up");
-    if (window == eq_list.down)
+    }
+    if (window == eq_list.down) {
         XDS("Down");
-    if (window == eq_list.close)
+    }
+    if (window == eq_list.close) {
         XDS("Close");
+    }
     if (window == eq_list.list) {
         for (int32 i = eq_list.istart; i < eq_list.istart + eq_list.nlines;
              i++) {
-            if (i >= NEQ)
+            if (i >= NEQ) {
                 break;
-            if (i < NODE && METHOD > 0)
+            }
+            if (i < NODE && METHOD > 0) {
                 strcpy(fstr, "d%s/dT=%s");
-            if (i < NODE && METHOD == 0)
+            }
+            if (i < NODE && METHOD == 0) {
                 strcpy(fstr, "%s(n+1)=%s");
-            if (i < NODE && EqType[i] == 1)
+            }
+            if (i < NODE && EqType[i] == 1) {
                 strcpy(fstr, "%s(t)=%s");
-            if (i >= NODE)
+            }
+            if (i >= NODE) {
                 strcpy(fstr, "%s=%s");
+            }
             sprintf(bob, fstr, uvar_names[i], ode_names[i]);
 
             bob[299] = 0;
@@ -115,8 +124,9 @@ eig_list_create_eq_list(void) {
     hmain = 3*DCURYs;
     hlist = NEQ*(DCURYs + 2);
     height = hlist + hmain;
-    if (height > 300)
+    if (height > 300) {
         height = 300;
+    }
     eq_list.istart = 0;
     eq_list.nlines = (height - hmain) / (DCURYs + 2);
 
@@ -170,8 +180,9 @@ eig_list_eq_list_keypress(XEvent event, int32 *used) {
 
     *used = 0;
 
-    if (eq_list.flag == 0)
+    if (eq_list.flag == 0) {
         return;
+    }
     if (window == eq_list.main || window == eq_list.base ||
         window == eq_list.list) {
         *used = 1;
@@ -194,11 +205,14 @@ void
 eig_list_enter_eq_stuff(Window window, int32 b) {
     if (eq_list.flag == 1) {
         if (window == eq_list.close || window == eq_list.up ||
-            window == eq_list.down)
+            window == eq_list.down) {
             XSetWindowBorderWidth(display, window, (uint)b);
+        }
     }
-    if (eq_box.flag == 1 && (window == eq_box.close || window == eq_box.import))
+    if (eq_box.flag == 1 &&
+        (window == eq_box.close || window == eq_box.import)) {
         XSetWindowBorderWidth(display, window, (uint)b);
+    }
     return;
 }
 
@@ -208,23 +222,27 @@ eig_list_eq_list_button(XEvent event) {
     /* pure laziness here - use this to go to eq_box */
     do {
         /* eig_list_eq_box_button */
-        if (eq_box.flag == 0)
+        if (eq_box.flag == 0) {
             break;
+        }
         if (window == eq_box.import) {
             /* eig list eq box import */
             int32 n = eq_box.n;
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 last_ic[i] = eq_box.y[i];
+            }
 
             if (n < 20) {
                 if (sparity == 0) {
-                    for (int32 i = 0; i < n; i++)
+                    for (int32 i = 0; i < n; i++) {
                         homo_l[i] = eq_box.y[i];
+                    }
                     printf("Saved to left equilibrium\n");
                 }
                 if (sparity == 1) {
-                    for (int32 i = 0; i < n; i++)
+                    for (int32 i = 0; i < n; i++) {
                         homo_r[i] = eq_box.y[i];
+                    }
                     printf("Saved to right equilibrium\n");
                 }
                 sparity = 1 - sparity;
@@ -239,8 +257,9 @@ eig_list_eq_list_button(XEvent event) {
             XDestroyWindow(display, eq_box.base);
         }
     } while (0);
-    if (eq_list.flag == 0)
+    if (eq_list.flag == 0) {
         return;
+    }
 
     if (window == eq_list.up) {
         eig_list_eq_list_up();
@@ -295,10 +314,12 @@ eig_list_resize_eq_list(Window win) {
     int32 nlines;
     uint32 w;
     uint32 h;
-    if (eq_list.flag == 0)
+    if (eq_list.flag == 0) {
         return;
-    if (win != eq_list.base)
+    }
+    if (win != eq_list.base) {
         return;
+    }
     eig_list_get_new_size(win, &w, &h);
     nlines = ((int32)h - CURY_OFFs - 2*DCURYs) / (DCURYs + 2);
     eq_list.nlines = nlines;
@@ -325,27 +346,30 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
     XSizeHints size_hints;
     /*    Do this every time   */
     init_conds_redraw_ics();
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         eq_box.y[i] = y[i];
+    }
     eq_box.n = n;
     eq_box.info[0] = cp;
     eq_box.info[1] = cm;
     eq_box.info[2] = im;
     eq_box.info[3] = rp;
     eq_box.info[4] = rm;
-    if (cp > 0 || rp > 0)
+    if (cp > 0 || rp > 0) {
         sprintf(eq_box.type, "UNSTABLE");
-    else if (im > 0)
+    } else if (im > 0) {
         sprintf(eq_box.type, "NEUTRAL");
-    else
+    } else {
         sprintf(eq_box.type, "STABLE");
+    }
 
     if (eq_box.flag == 0) { /*   the box is not made yet    */
         width = (30 + 30*(int32)(n / 20))*DCURXs;
-        if (n >= 20)
+        if (n >= 20) {
             hequil = 20*(DCURYs + 4);
-        else
+        } else {
             hequil = n*(DCURYs + 4) + 10;
+        }
         hstab = 2*DCURY + 4*DCURYs;
         height = hequil + hstab;
         tpos = (width - 8*DCURX) / 2;
@@ -400,12 +424,15 @@ eig_list_draw_eq_box(Window window) {
     int32 nrow;
     int32 in;
     char temp[50];
-    if (eq_box.flag == 0)
+    if (eq_box.flag == 0) {
         return;
-    if (window == eq_box.close)
+    }
+    if (window == eq_box.close) {
         XDS("Close");
-    if (window == eq_box.import)
+    }
+    if (window == eq_box.import) {
         XDS("Import");
+    }
     if (window == eq_box.top) {
         XDrawString(display, eq_box.top, gc, 5, CURY_OFF, eq_box.type,
                     (int)strlen(eq_box.type));
@@ -430,18 +457,20 @@ eig_list_draw_eq_box(Window window) {
         return;
     }
     if (window == eq_box.rest) {
-        if (n >= 20)
+        if (n >= 20) {
             nrow = 20;
-        else
+        } else {
             nrow = n;
+        }
 
         ncol = 1 + n / 3;
 
         for (int32 j = 0; j < ncol; j++) {
             for (int32 i = 0; i < nrow; i++) {
                 in = j*20 + i;
-                if (in >= n)
+                if (in >= n) {
                     continue;
+                }
                 sprintf(temp, "%s=%.5g", uvar_names[in], eq_box.y[in]);
                 XDrawString(display, eq_box.rest, small_gc, j*28*DCURXs + 8,
                             i*(DCURYs + 3) + 13, temp, (int)strlen(temp));

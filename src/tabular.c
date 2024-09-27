@@ -73,8 +73,9 @@ static double tabular_lookup_xy(double x, int32 n, double *xv, double *yv);
 
 void
 tabular_set_auto_eval_flags(int32 f) {
-    for (int32 i = 0; i < MAX_TAB; i++)
+    for (int32 i = 0; i < MAX_TAB; i++) {
         my_table[i].autoeval = f;
+    }
     return;
 }
 
@@ -96,8 +97,9 @@ tabular_new_lookup_com(int32 i) {
     char newform[80];
 
     index = many_pops_select_table();
-    if (index == -1)
+    if (index == -1) {
         return;
+    }
     if (i == 1) {
         /* tabular view */
         int32 n = my_table[index].n, len;
@@ -105,8 +107,9 @@ tabular_new_lookup_com(int32 i) {
         double dx = my_table[index].dx;
         xlo = my_table[index].xlo;
         len = n;
-        if (len >= MAXSTOR)
+        if (len >= MAXSTOR) {
             len = MAXSTOR - 1;
+        }
         for (int32 i2 = 0; i2 < len; i2++) {
             storage[0][i2] = xlo + i2*dx;
             storage[1][i2] = y[i2];
@@ -117,11 +120,13 @@ tabular_new_lookup_com(int32 i) {
     if (my_table[index].flag == 1) {
         strcpy(file, my_table[index].filename);
         status = init_conds_file_selector("Load table", file, "*.tab");
-        if (status == 0)
+        if (status == 0) {
             return;
+        }
         ok = tabular_load_table(file, index);
-        if (ok == 1)
+        if (ok == 1) {
             strcpy(my_table[index].filename, file);
+        }
     }
     if (my_table[index].flag == 2) {
         npts = my_table[index].n;
@@ -148,11 +153,13 @@ tabular_lookup_xy(double x, int32 n, double *xv, double *yv) {
     double x2;
     double y2;
 
-    if (x <= xv[0])
+    if (x <= xv[0]) {
         return yv[0] + (yv[1] - yv[0])*(x - xv[0]) / (xv[1] - xv[0]);
-    if (x >= xv[n - 1])
+    }
+    if (x >= xv[n - 1]) {
         return (yv[n - 1] + (yv[n - 2] - yv[n - 1])*(x - xv[n - 1]) /
                                 (xv[n - 1] - xv[n - 2]));
+    }
     x1 = xv[0];
     y1 = yv[0];
     for (int32 i = 1; i < n; i++) {
@@ -205,10 +212,12 @@ tabular_lookup(double x, int32 index) {
     int32 n = my_table[index].n;
     y = my_table[index].y;
 
-    if (my_table[index].flag == 0)
+    if (my_table[index].flag == 0) {
         return 0.0; /* Not defined   */
-    if (my_table[index].xyvals == 1)
+    }
+    if (my_table[index].xyvals == 1) {
         return tabular_lookup_xy(x, n, my_table[index].x, y);
+    }
 
     i1 = (int32)((x - xlo) / dx); /* (int32)floor(x) instead of (int32)x ??? */
     if (my_table[index].interp == 2 && i1 > 0 && i1 < (n - 2)) {
@@ -220,9 +229,9 @@ tabular_lookup(double x, int32 index) {
         x1 = dx*i1 + xlo;
         y1 = y[i1];
         y2 = y[i2];
-        if (my_table[index].interp == 0 || my_table[index].interp == 2)
+        if (my_table[index].interp == 0 || my_table[index].interp == 2) {
             return y1 + (y2 - y1)*(x - x1) / dx;
-        else {
+        } else {
 #ifdef DEBUG
             ggets_plintf(
                 "index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n",
@@ -231,10 +240,12 @@ tabular_lookup(double x, int32 index) {
             return y1;
         }
     }
-    if (i1 < 0)
+    if (i1 < 0) {
         return y[0] + (y[1] - y[0])*(x - xlo) / dx;
-    if (i2 >= n)
+    }
+    if (i2 >= n) {
         return y[n - 1] + (y[n - 1] - y[n - 2])*(x - xhi) / dx;
+    }
 
     return 0.0;
 }
@@ -252,9 +263,10 @@ tabular_init_table(void) {
 void
 tabular_redo_all_fun_tables(void) {
     for (int32 i = 0; i < NTable; i++) {
-        if (my_table[i].flag == 2 && my_table[i].autoeval == 1)
+        if (my_table[i].flag == 2 && my_table[i].autoeval == 1) {
             tabular_eval_fun(my_table[i].n, my_table[i].xlo, my_table[i].xhi,
                              my_table[i].filename, my_table[i].y);
+        }
     }
     simplenet_update_all_ffts();
     return;
@@ -346,8 +358,9 @@ tabular_load_table(char *filename, int32 index) {
         if ((ch == '"') && flag == 1) {
             break;
         }
-        if ((ch == '"') && (flag == 0))
+        if ((ch == '"') && (flag == 0)) {
             flag = 1;
+        }
         if (ch != '"') {
             filename2[j] = ch;
             j++;

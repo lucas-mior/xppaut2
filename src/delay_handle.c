@@ -38,8 +38,9 @@ delay_handle_stab_eval(
     if (del_stab_flag == 0) {
         /* search for all delays  */
         for (int32 i = 0; i < NDelay; i++) {
-            if (delay == delay_list[i])
+            if (delay == delay_list[i]) {
                 return GETVAR(var);
+            }
         }
         delay_list[NDelay] = delay;
         NDelay++;
@@ -48,9 +49,11 @@ delay_handle_stab_eval(
     /*  now we must determine the value to return  */
     /*  del_stab_flag =-1 */
     for (int32 i = 0; i < NDelay; i++) {
-        if (delay == delay_list[i])
-            if (i == WhichDelay)
+        if (delay == delay_list[i]) {
+            if (i == WhichDelay) {
                 return variable_shift[1][var - 1];
+            }
+        }
     }
     return variable_shift[0][var - 1];
 }
@@ -76,15 +79,17 @@ delay_handle_alloc_delay(double big) {
     NDelay = 0;
     WhichDelay = -1;
     del_stab_flag = 1;
-    for (int32 i = 0; i < n*(NODE); i++)
+    for (int32 i = 0; i < n*(NODE); i++) {
         DelayWork[i] = 0.0;
+    }
     return 1;
 }
 
 void
 delay_handle_free_delay(void) {
-    if (DelayFlag)
+    if (DelayFlag) {
         free(DelayWork);
+    }
     DelayFlag = 0;
     return;
 }
@@ -94,14 +99,17 @@ delay_handle_stor_delay(double *y) {
     int32 in;
     int32 nodes = NODE;
 
-    if (DelayFlag == 0)
+    if (DelayFlag == 0) {
         return;
+    }
     --LatestDelay;
-    if (LatestDelay < 0)
+    if (LatestDelay < 0) {
         LatestDelay += MaxDelay;
+    }
     in = LatestDelay*(nodes);
-    for (int32 i = 0; i < (nodes); i++)
+    for (int32 i = 0; i < (nodes); i++) {
         DelayWork[i + in] = y[i];
+    }
     return;
 }
 
@@ -133,8 +141,9 @@ delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
             h0 = xa[i - 1] - x;
             hp = xa[i + m - 1] - x;
             w = c[i] - d[i - 1];
-            if ((den = h0 - hp) == 0.0)
+            if ((den = h0 - hp) == 0.0) {
                 return;
+            }
             den = w / den;
             d[i - 1] = hp*den;
             c[i - 1] = h0*den;
@@ -168,8 +177,9 @@ delay_handle_get_delay(int32 in, double tau) {
         integrate_stop_integration();
         return 0.0;
     }
-    if (tau == 0.0) /* check fro zero delay and ignore the rest */
+    if (tau == 0.0) { /* check fro zero delay and ignore the rest */
         return DelayWork[in + nodes*(LatestDelay % MaxDelay)];
+    }
     xa[1] = n1*dd;
     xa[0] = xa[1] - dd;
     xa[2] = xa[1] + dd;
@@ -178,14 +188,18 @@ delay_handle_get_delay(int32 in, double tau) {
     i2 = (n2 + LatestDelay) % MaxDelay;
     i0 = (n0 + LatestDelay) % MaxDelay;
     i3 = (n3 + LatestDelay) % MaxDelay;
-    if (i1 < 0)
+    if (i1 < 0) {
         i1 += MaxDelay;
-    if (i2 < 0)
+    }
+    if (i2 < 0) {
         i2 += MaxDelay;
-    if (i3 < 0)
+    }
+    if (i3 < 0) {
         i3 += MaxDelay;
-    if (i0 < 0)
+    }
+    if (i0 < 0) {
         i0 += MaxDelay;
+    }
 
     ya[1] = DelayWork[in + (nodes)*i1];
     ya[2] = DelayWork[in + (nodes)*i2];
@@ -213,8 +227,9 @@ delay_handle_do_init_delay(double big) {
         del_form[i] = (int32 *)calloc(200, sizeof(int32));
         if (del_form[i] == NULL) {
             ggets_err_msg("Failed to allocate delay formula ...");
-            for (int32 j = 0; j < i; j++)
+            for (int32 j = 0; j < i; j++) {
                 free(del_form[j]);
+            }
             NCON = NCON_START;
             NSYM = NSYM_START;
             return 0;
@@ -222,8 +237,9 @@ delay_handle_do_init_delay(double big) {
 
         if (parserslow_add_expr(delay_string[i], del_form[i], &len)) {
             ggets_err_msg("Illegal delay expression");
-            for (int32 j = 0; j <= i; j++)
+            for (int32 j = 0; j <= i; j++) {
                 free(del_form[j]);
+            }
             NCON = NCON_START;
             NSYM = NSYM_START;
             return 0;
@@ -236,12 +252,14 @@ delay_handle_do_init_delay(double big) {
     for (int32 i = nt; i >= 0; i--) {
         t = T0 - fabs(DELTA_T)*i;
         set_val("t", t);
-        for (int32 j = 0; j < (NODE); j++)
+        for (int32 j = 0; j < (NODE); j++) {
             y[j] = evaluate(del_form[j]);
+        }
         delay_handle_stor_delay(y);
     }
-    for (int32 j = 0; j < (NODE); j++)
+    for (int32 j = 0; j < (NODE); j++) {
         free(del_form[j]);
+    }
     NCON = NCON_START;
     NSYM = NSYM_START;
     set_val("t", old_t);

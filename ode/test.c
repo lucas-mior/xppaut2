@@ -35,9 +35,10 @@ main() {
         v[i] = .05*i;
     }
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < 10; i++) {
         printf("%s %d %d %d %d %g \n", m[i].name, m[i].len, m[i].com, m[i].arg,
                m[i].pri, v[i]);
+    }
     /*  m=(SYMBOL *)realloc(m,100*sizeof(SYMBOL));
     v=(double *)realloc(v,100*sizeof(double));
     for(i=0;i<10;i++)
@@ -54,7 +55,8 @@ main() {
     }
 
     printf("here we go \\n");
-    for (i = 12; i < 80; i++)
+    for (i = 12; i < 80; i++) {
         printf("%s %d %d %d %d %g\n", m[i].name, m[i].len, m[i].com, m[i].arg,
                m[i].pri, v[i]);
+    }
 }

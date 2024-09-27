@@ -65,16 +65,18 @@ markov_add_wiener(int32 index) {
 void
 markov_set_wieners(double dt, double *x, double t) {
     update_markov(x, t, fabs(dt));
-    for (int32 i = 0; i < NWiener; i++)
+    for (int32 i = 0; i < NWiener; i++) {
         constants[Wiener[i]] = normal(0.00, 1.00) / sqrt(fabs(dt));
+    }
     return;
 }
 
 void
 markov_add(int32 nstate, char *name) {
     double st[50];
-    for (int32 i = 0; i < 50; i++)
+    for (int32 i = 0; i < 50; i++) {
         st[i] = (double)i;
+    }
     create_markov(nstate, st, 0, name);
     return;
 }
@@ -110,14 +112,16 @@ build_markov(
     }
     /* get number of states  */
     nstates = markov[index].nstates;
-    if (ConvertStyle)
+    if (ConvertStyle) {
         fprintf(convertf, "markov %s %d\n", name, nstates);
+    }
     ggets_plintf(" Building %s %d states...\n", name, nstates);
     for (int32 i = 0; i < nstates; i++) {
         /* fgets(line,256,fptr); */
         snprintf(line, sizeof(line), "%s", ma[i]);
-        if (ConvertStyle)
+        if (ConvertStyle) {
             fprintf(convertf, "%s", line);
+        }
         /*nn=strlen(line)+1;*/
         /* if((save_eqn[NLINES]=xmalloc(nn))==NULL){
           ggets_plintf("saveeqn-prob\n");exit(0);}
@@ -161,14 +165,16 @@ markov_old_build(FILE *fptr, char *name) {
     }
     /* get number of states  */
     nstates = markov[index].nstates;
-    if (ConvertStyle)
+    if (ConvertStyle) {
         fprintf(convertf, "markov %s %d\n", name, nstates);
+    }
     ggets_plintf(" Building %s ...\n", name);
     for (int32 i = 0; i < nstates; i++) {
         fgets(line, 256, fptr);
 
-        if (ConvertStyle)
+        if (ConvertStyle) {
             fprintf(convertf, "%s", line);
+        }
         /*nn=strlen(line)+1;*/
         /* if((save_eqn[NLINES]=xmalloc(nn))==NULL)exit(0);
            strncpy(save_eqn[NLINES++],line,nn); */
@@ -191,11 +197,12 @@ markov_extract_expr(char *source, char *dest, int32 *i0) {
     while (true) {
         ch = source[*i0];
         *i0 = *i0 + 1;
-        if (ch == '}')
+        if (ch == '}') {
             break;
-        if (ch == '{')
+        }
+        if (ch == '{') {
             flag = 1;
-        else {
+        } else {
             if (flag) {
                 dest[len] = ch;
                 len++;
@@ -225,8 +232,9 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
         markov[j].fixed = xmalloc((usize)n2*sizeof(*(markov[j].fixed)));
     }
 
-    for (int32 i = 0; i < nstates; i++)
+    for (int32 i = 0; i < nstates; i++) {
         markov[j].states[i] = st[i];
+    }
     strcpy(markov[j].name, name);
     NMarkov++;
     return;
@@ -265,8 +273,9 @@ markov_compile_all(void) {
     int32 index;
     int32 ns;
     int32 l0;
-    if (NMarkov == 0)
+    if (NMarkov == 0) {
         return;
+    }
     for (index = 0; index < NMarkov; index++) {
         ns = markov[index].nstates;
         for (int32 j = 0; j < ns; j++) {
@@ -292,8 +301,9 @@ compile_markov(int32 index, int32 j, int32 k) {
     int32 com[256];
     expr = markov[index].trans[l0];
 
-    if (parserslow_add_expr(expr, com, &leng2))
+    if (parserslow_add_expr(expr, com, &leng2)) {
         return -1;
+    }
     markov[index].command[l0] =
         xmalloc(sizeof(*(markov[index].command[l0]))*(usize)(leng2 + 2));
     for (int32 i = 0; i < leng2; i++) {
@@ -306,17 +316,22 @@ compile_markov(int32 index, int32 j, int32 k) {
 void
 update_markov(double *x, double t, double dt) {
     double yp[MAX_ODE];
-    if (NMarkov == 0)
+    if (NMarkov == 0) {
         return;
+    }
     set_ivar(0, t);
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         set_ivar(i + 1, x[i]);
-    for (int32 i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++)
+    }
+    for (int32 i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++) {
         set_ivar(i + 1, x[i - FIX_VAR]);
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
+    }
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
         set_ivar(i + 1, evaluate(my_ode[i]));
-    for (int32 i = 0; i < NMarkov; i++)
+    }
+    for (int32 i = 0; i < NMarkov; i++) {
         yp[i] = markov_new_state(x[NODE + i], i, dt);
+    }
     for (int32 i = 0; i < NMarkov; i++) {
         x[NODE + i] = yp[i];
         set_ivar(i + NODE + FIX_VAR + 1, yp[i]);
@@ -335,13 +350,15 @@ markov_new_state(double old, int32 index, double dt) {
     int32 ns = markov[index].nstates;
     int32 type = markov[index].type;
     st = markov[index].states;
-    for (int32 i = 0; i < ns; i++)
+    for (int32 i = 0; i < ns; i++) {
         if (fabs(st[i] - old) < .0001) {
             row = i;
             break;
         }
-    if (row == -1)
+    }
+    if (row == -1) {
         return old;
+    }
     rns = row*ns;
     sum = 0.0;
     if (type == 0) {
@@ -382,8 +399,9 @@ markov_make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     y = xmalloc((usize)n*sizeof(*y));
     yold = xmalloc((usize)n*sizeof(*yold));
     yp = xmalloc((usize)n*sizeof(*yp));
-    for (ir = 0; ir < m; ir++)
+    for (ir = 0; ir < m; ir++) {
         v[ir + 1] = 0;
+    }
     main_rhs_only(yold);
     for (ir = 0; ir < m; ir++) {
         v[ir + 1] = 1;
@@ -415,8 +433,9 @@ markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
             r[i] = get_ivar(rxn[i]);
             rate += r[i];
         }
-        if (rate <= 0.0)
+        if (rate <= 0.0) {
             return;
+        }
         v[0] = -log(markov_ndrand48()) / rate; /* next step */
         test = rate*markov_ndrand48();
         rate = r[0];
@@ -445,8 +464,9 @@ markov_do_stochast_com(int32 i) {
     static char key[] = "ncdmvhofpislaxe2";
     char ch = key[i];
 
-    if (ch == 27)
+    if (ch == 27) {
         return;
+    }
     switch (ch) {
     case 'n':
         ggets_new_int("Seed:", &RandSeed);
@@ -566,8 +586,9 @@ markov_append_stoch(int32 first, int32 length) {
         STOCH_HERE = 1;
         return;
     }
-    if (length != stoch_len || !STOCH_HERE)
+    if (length != stoch_len || !STOCH_HERE) {
         return;
+    }
     for (int32 i = 0; i < stoch_len; i++) {
         for (int32 j = 1; j <= NEQ; j++) {
             z = storage[j][i];
@@ -610,8 +631,9 @@ markov_gammln(double xx) {
     tmp = x + 5.5;
     tmp -= (x + 0.5)*log(tmp);
     ser = 1.000000000190015;
-    for (int32 j = 0; j <= 5; j++)
+    for (int32 j = 0; j <= 5; j++) {
         ser += cof[j] / ++y;
+    }
     return -tmp + log(2.5066282746310005*ser / x);
 }
 
@@ -674,31 +696,36 @@ markov_ran1(long *idum) {
     double temp;
 
     if (*idum <= 0 || !iy) {
-        if (-(*idum) < 1)
+        if (-(*idum) < 1) {
             *idum = 1;
-        else
+        } else {
             *idum = -(*idum);
+        }
         for (j = NTAB + 7; j >= 0; j--) {
             k = (*idum) / IQ;
             *idum = IA*(*idum - k*IQ) - IR*k;
-            if (*idum < 0)
+            if (*idum < 0) {
                 *idum += IM;
-            if (j < NTAB)
+            }
+            if (j < NTAB) {
                 iv[j] = *idum;
+            }
         }
         iy = iv[0];
     }
     k = (*idum) / IQ;
     *idum = IA*(*idum - k*IQ) - IR*k;
-    if (*idum < 0)
+    if (*idum < 0) {
         *idum += IM;
+    }
     j = (int32)(iy / NDIV);
     iy = iv[j];
     iv[j] = *idum;
-    if ((temp = AM*(double)iy) > RNMX)
+    if ((temp = AM*(double)iy) > RNMX) {
         return RNMX;
-    else
+    } else {
         return temp;
+    }
 }
 #undef IA
 #undef IM

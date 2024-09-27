@@ -20,14 +20,16 @@ static Vector ycv;
 void
 start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
     ycv = vector_new(n);
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         ycv->data[i] = y[i];
+    }
     cvode_mem = cvode_malloc(n, cv_func, t, ycv, BDF, NEWTON, SS, rtol, atol,
                              NULL, NULL, false, cv_iopt, cv_ropt);
-    if (cv_bandflag == 1)
+    if (cv_bandflag == 1) {
         cv_band(cvode_mem, cv_bandupper, cv_bandlower, NULL, NULL);
-    else
+    } else {
         cv_dense(cvode_mem, NULL, NULL);
+    }
     return;
 }
 
@@ -85,8 +87,9 @@ cvode_err_msg(int32 kflag) {
         fprintf(stderr, "Unexpected case in %s.\n", __func__);
         exit(EXIT_FAILURE);
     }
-    if (strlen(s) > 0)
+    if (strlen(s) > 0) {
         ggets_err_msg(s);
+    }
     return;
 }
 
@@ -97,11 +100,13 @@ cvode(
     double *atol, double *rtol) {
     int32 err = 0;
 
-    if (NFlags == 0)
+    if (NFlags == 0) {
         return ccvode(command, y, t, n, tout, kflag, atol, rtol);
+    }
     err = one_flag_step_cvode(command, y, t, n, tout, kflag, atol, rtol);
-    if (err == 1)
+    if (err == 1) {
         *kflag = -9;
+    }
     return 1;
 }
 /* rtol is like our TOLER and atol is something else ?? */
@@ -126,8 +131,9 @@ ccvode(
             return -1;
         }
         *command = 0;
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             y[i] = ycv->data[i];
+        }
         return 0;
     }
     flag = CVode(cvode_mem, tout, ycv, t, NORMAL);
@@ -138,7 +144,8 @@ ccvode(
 
         return -1;
     }
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         y[i] = ycv->data[i];
+    }
     return 0;
 }

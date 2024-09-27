@@ -73,16 +73,18 @@ odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
     if (NFlags == 0) {
         for (int32 i = 0; i < nt; i++) {
             if ((j = odesol_one_bak_step(y, tim, dt, neq, yg, yp, yp2, ytemp,
-                                         errvec, jac)) != 0)
+                                         errvec, jac)) != 0) {
                 return j;
+            }
             delay_handle_stor_delay(y);
         }
         return 0;
     }
     for (int32 i = 0; i < nt; i++) {
         if ((j = one_flag_step_backeul(y, tim, dt, neq, yg, yp, yp2, ytemp,
-                                       errvec, jac, istart)) != 0)
+                                       errvec, jac, istart)) != 0) {
             return j;
+        }
         delay_handle_stor_delay(y);
     }
     return 0;
@@ -102,8 +104,9 @@ odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
     markov_set_wieners(dt, y, *t);
     *t = *t + dt;
     rhs_function(*t, y, yp2, neq);
-    for (int32 i = 0; i < neq; i++)
+    for (int32 i = 0; i < neq; i++) {
         yg[i] = y[i];
+    }
     while (true) {
         err1 = 0.0;
         err = 0.0;
@@ -115,13 +118,15 @@ odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
         }
         odesol_get_the_jac(*t, yg, yp, ytemp, jac, neq, NEWT_ERR, -.5*dt);
         if (cv_bandflag) {
-            for (int32 i = 0; i < neq; i++)
+            for (int32 i = 0; i < neq; i++) {
                 jac[i*mt + ml] += 1;
+            }
             odesol_bandfac(jac, ml, mr, neq);
             odesol_bandsol(jac, errvec, ml, mr, neq);
         } else {
-            for (int32 i = 0; i < neq; i++)
+            for (int32 i = 0; i < neq; i++) {
                 jac[i*neq + i] += 1.0;
+            }
             gear_sgefa(jac, neq, neq, ipivot, &info);
             if (info != -1) {
                 return -1;
@@ -133,13 +138,15 @@ odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
             yg[i] -= errvec[i];
         }
         if (err < euler_tol || err1 < euler_tol) {
-            for (int32 i = 0; i < neq; i++)
+            for (int32 i = 0; i < neq; i++) {
                 y[i] = yg[i];
+            }
             return 0;
         }
         iter++;
-        if (iter > euler_max_iter)
+        if (iter > euler_max_iter) {
             return -2;
+        }
     }
 }
 
@@ -159,11 +166,13 @@ void
 odesol2_one_step_symp(double *y, double h, double *f, int32 n, double *t) {
     int32 s;
     for (s = 0; s < 3; s++) {
-        for (int32 j = 0; j < n; j += 2)
+        for (int32 j = 0; j < n; j += 2) {
             y[j] += (h*symp_b[s]*y[j + 1]);
+        }
         rhs_function(*t, y, f, n);
-        for (int32 j = 0; j < n; j += 2)
+        for (int32 j = 0; j < n; j += 2) {
             y[j + 1] += (h*symp_B[s]*f[j + 1]);
+        }
     }
     *t += h;
     return;
@@ -174,8 +183,9 @@ odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq, double *t) {
     markov_set_wieners(dt, y, *t);
     rhs_function(*t, y, yp, neq);
     *t += dt;
-    for (int32 j = 0; j < neq; j++)
+    for (int32 j = 0; j < neq; j++) {
         y[j] = y[j] + dt*yp[j];
+    }
     return;
 }
 
@@ -204,8 +214,9 @@ odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq,
     }
     t2 = t + dt;
     rhs_function(t2, yval[2], yval[1], neq);
-    for (int32 i = 0; i < neq; i++)
+    for (int32 i = 0; i < neq; i++) {
         y[i] = yval[0][i] + dt*yval[1][i] / 6.00;
+    }
     *tim = t2;
     return;
 }
@@ -217,12 +228,14 @@ odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq,
     double t1;
     markov_set_wieners(dt, y, *tim);
     rhs_function(t, y, yval[0], neq);
-    for (int32 i = 0; i < neq; i++)
+    for (int32 i = 0; i < neq; i++) {
         yval[0][i] = dt*yval[0][i] + y[i];
+    }
     t1 = t + dt;
     rhs_function(t1, yval[0], yval[1], neq);
-    for (int32 i = 0; i < neq; i++)
+    for (int32 i = 0; i < neq; i++) {
         y[i] = .5*(y[i] + yval[0][i] + dt*yval[1][i]);
+    }
     *tim = t1;
     return;
 }
@@ -317,8 +330,9 @@ odesol_adams(double *y, double *tim, double dt, int32 nstep, int32 neq,
         ypred = work + 3*neq;
         goto n20;
     }
-    if (istart > 1)
+    if (istart > 1) {
         goto n350;
+    }
     istpst = 0;
     goto n400;
 
@@ -329,16 +343,19 @@ n20:
     for (int32 k = 1; k < 4; k++) {
         odesol_rung_kut(y, &x0, dt, 1, neq, &irk, work1);
         delay_handle_stor_delay(y);
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             y_s[3 - k][i] = y[i];
+        }
         rhs_function(x0, y, y_p[3 - k], neq);
     }
     istpst = 3;
-    if (istpst <= nstep)
+    if (istpst <= nstep) {
         goto n400;
+    }
     ik = 4 - nstep;
-    for (int32 i = 0; i < neq; i++)
+    for (int32 i = 0; i < neq; i++) {
         y[i] = y_s[ik - 1][i];
+    }
     xst = xst + nstep*dt;
     istart = ik;
     goto n1000;
@@ -346,17 +363,20 @@ n20:
 n350:
 
     ik = istart - nstep;
-    if (ik <= 1)
+    if (ik <= 1) {
         goto n370;
-    for (int32 i = 0; i < neq; i++)
+    }
+    for (int32 i = 0; i < neq; i++) {
         y[i] = y_s[ik - 1][i];
+    }
     xst = xst + nstep*dt;
     istart = ik;
     goto n1000;
 
 n370:
-    for (int32 i = 0; i < neq; i++)
+    for (int32 i = 0; i < neq; i++) {
         y[i] = y_s[0][i];
+    }
     if (ik == 1) {
         x0 = xst + dt*nstep;
         goto n450;
@@ -366,8 +386,9 @@ n370:
 
 n400:
 
-    if (istpst == nstep)
+    if (istpst == nstep) {
         goto n450;
+    }
     for (n = istpst + 1; n < nstep + 1; n++) {
         markov_set_wieners(dt, y, x0);
         odesol_abmpc(y, &x0, dt, neq);
@@ -391,21 +412,25 @@ odesol_abmpc(double *y, double *t, double dt, int32 neq) {
     double x0 = *t;
     for (int32 i = 0; i < neq; i++) {
         ypred[i] = 0;
-        for (int32 k = 0; k < 4; k++)
+        for (int32 k = 0; k < 4; k++) {
             ypred[i] = ypred[i] + coefp[k]*y_p[k][i];
+        }
         ypred[i] = y[i] + dt*ypred[i];
     }
 
-    for (int32 i = 0; i < neq; i++)
-        for (int32 k = 3; k > 0; k--)
+    for (int32 i = 0; i < neq; i++) {
+        for (int32 k = 3; k > 0; k--) {
             y_p[k][i] = y_p[k - 1][i];
+        }
+    }
     x1 = x0 + dt;
     rhs_function(x1, ypred, y_p[0], neq);
 
     for (int32 i = 0; i < neq; i++) {
         ypred[i] = 0;
-        for (int32 k = 0; k < 4; k++)
+        for (int32 k = 0; k < 4; k++) {
             ypred[i] = ypred[i] + coefc[k]*y_p[k][i];
+        }
         y[i] = y[i] + dt*ypred[i];
     }
     *t = x1;
@@ -466,11 +491,13 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     ynew = dfdt + n;
     dfdy = ynew + n;
 
-    if (t0 > tfinal)
+    if (t0 > tfinal) {
         tdir = -1;
+    }
     hmax = fabs(tfinal - t);
-    if (*istart == 1)
+    if (*istart == 1) {
         htry = hmax;
+    }
     rhs_function(t0, y, f0, n);
     hmin = 16*eps*fabs(t);
     absh = MIN(hmax, MAX(hmin, htry));
@@ -487,56 +514,67 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
         odesol_get_the_jac(t, y, f0, ypnew, dfdy, n, epsjac, 1.0);
         tdel = (t + tdir*MIN(sqrteps*MAX(fabs(t), fabs(t + h)), absh)) - t;
         rhs_function(t + tdel, y, f1, n);
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             dfdt[i] = (f1[i] - f0[i]) / tdel;
+        }
         while (true) { /* advance a step  */
-            for (int32 i = 0; i < n2; i++)
+            for (int32 i = 0; i < n2; i++) {
                 dfdy[i] = -h*d*dfdy[i];
-            for (int32 i = 0; i < n; i++)
+            }
+            for (int32 i = 0; i < n; i++) {
                 k1[i] = f0[i] + (h*d)*dfdt[i];
+            }
             if (cv_bandflag) {
-                for (int32 i = 0; i < n; i++)
+                for (int32 i = 0; i < n; i++) {
                     dfdy[i*mt + ml] += 1;
+                }
 
                 odesol_bandfac(dfdy, ml, mr, n);
                 odesol_bandsol(dfdy, k1, ml, mr, n);
             } else {
-                for (int32 i = 0; i < n; i++)
+                for (int32 i = 0; i < n; i++) {
                     dfdy[i*n + i] += 1;
+                }
 
                 gear_sgefa(dfdy, n, n, ipivot, &info);
                 gear_sgesl(dfdy, n, n, ipivot, k1, 0);
             }
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 ynew[i] = y[i] + .5*h*k1[i];
+            }
             rhs_function(t + .5*h, ynew, f1, n);
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 k2[i] = f1[i] - k1[i];
-            if (cv_bandflag)
+            }
+            if (cv_bandflag) {
                 odesol_bandsol(dfdy, k2, ml, mr, n);
-            else
+            } else {
                 gear_sgesl(dfdy, n, n, ipivot, k2, 0);
+            }
             for (int32 i = 0; i < n; i++) {
                 k2[i] = k2[i] + k1[i];
                 ynew[i] = y[i] + h*k2[i];
             }
             tnew = t + h;
             rhs_function(tnew, ynew, f2, n);
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 k3[i] = f2[i] - e32*(k2[i] - f1[i]) - 2*(k1[i] - f0[i]) +
                         (h*d)*dfdt[i];
-            if (cv_bandflag)
+            }
+            if (cv_bandflag) {
                 odesol_bandsol(dfdy, k3, ml, mr, n);
-            else
+            } else {
                 gear_sgesl(dfdy, n, n, ipivot, k3, 0);
+            }
             /*ninf=0;  This is not used anywhere?
              */
             err = 0.0;
             for (int32 i = 0; i < n; i++) {
                 temp = MAX(MAX(fabs(y[i]), fabs(ynew[i])), thresh);
                 temp = fabs(k1[i] - 2*k2[i] + k3[i]) / temp;
-                if (err < temp)
+                if (err < temp) {
                     err = temp;
+                }
             }
             err = err*(absh / 6);
             if (err > rtol) {
@@ -555,10 +593,11 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
         }
         if (nofailed == 1) {
             temp = 1.25*pow(err / rtol, 1. / 3.);
-            if (temp > 0.2)
+            if (temp > 0.2) {
                 absh = absh / temp;
-            else
+            } else {
                 absh = 5*absh;
+            }
         }
         t = tnew;
         for (int32 i = 0; i < n; i++) {
@@ -586,17 +625,18 @@ odesol_get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
     double yold;
     double del;
     double dsy;
-    if (cv_bandflag)
+    if (cv_bandflag) {
         odesol_get_band_jac(dfdy, y, t, ypnew, yp, neq, eps, scal);
-    else {
+    } else {
         for (int32 i = 0; i < neq; i++) {
             del = eps*MAX(eps, fabs(y[i]));
             dsy = scal / del;
             yold = y[i];
             y[i] = y[i] + del;
             rhs_function(t, y, ypnew, neq);
-            for (int32 j = 0; j < neq; j++)
+            for (int32 j = 0; j < neq; j++) {
                 dfdy[j*neq + i] = dsy*(ypnew[j] - yp[j]);
+            }
             y[i] = yold;
         }
     }
@@ -612,8 +652,9 @@ odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
     double yhat;
     double dy;
     double dsy;
-    for (int32 i = 0; i < (n*mt); i++)
+    for (int32 i = 0; i < (n*mt); i++) {
         a[i] = 0.0;
+    }
     for (int32 i = 0; i < n; i++) {
         yhat = y[i];
         dy = eps*(eps + fabs(yhat));
@@ -622,8 +663,9 @@ odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
         rhs_function(t, y, ypnew, n);
         for (int32 j = -ml; j <= mr; j++) {
             k = i - j;
-            if (k < 0 || k > n1)
+            if (k < 0 || k > n1) {
                 continue;
+            }
             a[k*mt + j + ml] = dsy*(ypnew[k] - ypold[k]);
         }
         y[i] = yhat;
@@ -638,23 +680,28 @@ odesol_bandfac(/*   factors the matrix    */
     double al;
     for (row = 0; row < n; row++) {
         r0 = row*mt + ml;
-        if ((al = a[r0]) == 0.0)
+        if ((al = a[r0]) == 0.0) {
             return -1 - row;
+        }
         al = 1.0 / al;
         m = MIN(mr, n1 - row);
-        for (int32 j = 1; j <= m; j++)
+        for (int32 j = 1; j <= m; j++) {
             a[r0 + j] = a[r0 + j]*al;
+        }
         a[r0] = al;
         for (int32 i = 1; i <= ml; i++) {
             rowi = row + i;
-            if (rowi > n1)
+            if (rowi > n1) {
                 break;
+            }
             ri0 = rowi*mt + ml;
             al = a[ri0 - i];
-            if (al == 0.0)
+            if (al == 0.0) {
                 continue;
-            for (int32 k = 1; k <= m; k++)
+            }
+            for (int32 k = 1; k <= m; k++) {
                 a[ri0 - i + k] = a[ri0 - i + k] - (al*a[r0 + k]);
+            }
             a[ri0 - i] = -al;
         }
     }
@@ -670,15 +717,17 @@ odesol_bandsol(/* requires that the matrix be factored   */
     for (int32 i = 0; i < n; i++) {
         r0 = i*mt + ml;
         m = MAX(-ml, -i);
-        for (int32 j = m; j < 0; j++)
+        for (int32 j = m; j < 0; j++) {
             b[i] += a[r0 + j]*b[i + j];
+        }
         b[i] *= a[r0];
     }
     for (row = n1 - 1; row >= 0; row--) {
         m = MIN(mr, n1 - row);
         r0 = row*mt + ml;
-        for (int32 k = 1; k <= m; k++)
+        for (int32 k = 1; k <= m; k++) {
             b[row] = b[row] - a[r0 + k]*b[row + k];
+        }
     }
     return;
 }

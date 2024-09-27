@@ -76,19 +76,21 @@ histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
     /* now fill the data with the bin values - take the midpoints of
        each bin
     */
-    for (i = 0; i < n1; i++)
+    for (i = 0; i < n1; i++) {
         for (j = 0; j < n2; j++) {
             my_hist[0][i + j*n1] = xlo + (i + .5)*dx;
             my_hist[1][i + j*n1] = ylo + (j + .5)*dy;
             my_hist[2][i + j*n1] = 0.0;
         }
+    }
     for (int32 k = 0; k < ndat; k++) {
         x = (storage[col1][k] - xlo) / dx;
         y = (storage[col2][k] - ylo) / dy;
         i = (int32)x;
         j = (int32)y;
-        if ((i >= 0) && (i < n1) && (j >= 0) && (j < n2))
+        if ((i >= 0) && (i < n1) && (j >= 0) && (j < n2)) {
             my_hist[2][i + j*n1] += norm;
+        }
     }
     return 0;
 }
@@ -128,10 +130,12 @@ histogram_new_four(int32 nmodes, int32 col) {
         return;
     }
     FOUR_HERE = 1;
-    for (int32 i = 3; i <= NEQ; i++)
+    for (int32 i = 3; i <= NEQ; i++) {
         my_four[i] = storage[i];
-    for (int32 i = 0; i < length; i++)
+    }
+    for (int32 i = 0; i < length; i++) {
         my_four[0][i] = (double)i / total;
+    }
     bob = browse_get_data_col(col);
     histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
     if (FOUR_HERE) {
@@ -147,10 +151,12 @@ histogram_new_four(int32 nmodes, int32 col) {
 
 void
 histogram_post_process_stuff(void) {
-    if (post_process == 0)
+    if (post_process == 0) {
         return;
-    if (N_plist < 1)
+    }
+    if (N_plist < 1) {
         plotlist = xmalloc(sizeof(*plotlist)*10);
+    }
     N_plist = 2;
     plotlist[0] = 0;
     plotlist[1] = 1;
@@ -181,8 +187,9 @@ histogram_post_process_stuff(void) {
             adjoints_data_back();
             free(my_hist[0]);
             free(my_hist[1]);
-            if (HIST_HERE == 2)
+            if (HIST_HERE == 2) {
                 free(my_hist[2]);
+            }
             HIST_HERE = 0;
         }
         hist_len = spec_wid / 2;
@@ -195,17 +202,20 @@ histogram_post_process_stuff(void) {
             return;
         }
         HIST_HERE = 1;
-        for (int32 i = 2; i <= NEQ; i++)
+        for (int32 i = 2; i <= NEQ; i++) {
             my_hist[i] = storage[i];
-        for (int32 j = 0; j < hist_len; j++)
+        }
+        for (int32 j = 0; j < hist_len; j++) {
             my_hist[0][j] = ((double)j*storind / spec_wid) / total;
-        if (spec_type == 0)
+        }
+        if (spec_type == 0) {
             histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
                                my_hist[1]);
-        else
+        } else {
             histogram_cross_spectrum(storage[spec_col], storage[spec_col2],
                                      storind, spec_wid, spec_win, my_hist[1],
                                      spec_type);
+        }
         histogram_back();
         ggets_ping();
         return;
@@ -217,15 +227,17 @@ int32
 histogram_two_d2(void) {
     int32 length;
     length = hist_inf.nbins*hist_inf.nbins2;
-    if (length >= MAXSTOR)
+    if (length >= MAXSTOR) {
         length = MAXSTOR - 1;
+    }
 
     if (HIST_HERE) {
         adjoints_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
-        if (HIST_HERE == 2)
+        if (HIST_HERE == 2) {
             free(my_hist[2]);
+        }
         HIST_HERE = 0;
     }
 
@@ -240,8 +252,9 @@ histogram_two_d2(void) {
         return -1;
     }
     HIST_HERE = 2;
-    for (int32 i = 3; i <= NEQ; i++)
+    for (int32 i = 3; i <= NEQ; i++) {
         my_hist[i] = storage[i];
+    }
     hist_len = length;
     histogram_two_d(hist_inf.col, hist_inf.col2, storind, hist_inf.nbins,
                     hist_inf.nbins2, hist_inf.xlo, hist_inf.xhi, hist_inf.ylo,
@@ -260,8 +273,9 @@ histogram_new_2d(void) {
         ggets_err_msg("Need more data and at least 3 columns");
         return 0;
     }
-    if (histogram_get_col_info(&hist_inf.col, "Variable 1 ") == 0)
+    if (histogram_get_col_info(&hist_inf.col, "Variable 1 ") == 0) {
         return -1;
+    }
     ggets_new_int("Number of bins ", &hist_inf.nbins);
     ggets_new_float("Low ", &hist_inf.xlo);
     ggets_new_float("Hi ", &hist_inf.xhi);
@@ -274,8 +288,9 @@ histogram_new_2d(void) {
         return 0;
     }
 
-    if (histogram_get_col_info(&hist_inf.col2, "Variable 2 ") == 0)
+    if (histogram_get_col_info(&hist_inf.col2, "Variable 2 ") == 0) {
         return -1;
+    }
     ggets_new_int("Number of bins ", &hist_inf.nbins2);
     ggets_new_float("Low ", &hist_inf.ylo);
     ggets_new_float("Hi ", &hist_inf.yhi);
@@ -305,15 +320,17 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
     double dz;
     int32 length = nbins + 1;
 
-    if (length >= MAXSTOR)
+    if (length >= MAXSTOR) {
         length = MAXSTOR - 1;
+    }
     dz = (zhi - zlo) / (double)(length - 1);
     if (HIST_HERE) {
         adjoints_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
-        if (HIST_HERE == 2)
+        if (HIST_HERE == 2) {
             free(my_hist[2]);
+        }
         HIST_HERE = 0;
     }
     hist_len = length;
@@ -325,16 +342,17 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         return;
     }
     HIST_HERE = 1;
-    for (i = 2; i <= NEQ; i++)
+    for (i = 2; i <= NEQ; i++) {
         my_hist[i] = storage[i];
+    }
     for (i = 0; i < length; i++) {
         my_hist[0][i] = (double)(zlo + dz*i);
         my_hist[1][i] = 0.0;
     }
     if (which == 0) {
-        if (strlen(condition) == 0)
+        if (strlen(condition) == 0) {
             cond = 0;
-        else {
+        } else {
             if (parserslow_add_expr(condition, command, &i)) {
                 ggets_err_msg("Bad condition. Ignoring...");
 
@@ -345,16 +363,19 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         for (i = 0; i < storind; i++) {
             flag = 1;
             if (cond) {
-                for (int32 j = 0; j < NODE + 1; j++)
+                for (int32 j = 0; j < NODE + 1; j++) {
                     set_ivar(j, (double)storage[j][i]);
-                for (int32 j = 0; j < NMarkov; j++)
+                }
+                for (int32 j = 0; j < NMarkov; j++) {
                     set_ivar(j + NODE + 1 + FIX_VAR,
                              (double)storage[j + NODE + 1][i]);
+                }
                 z = evaluate(command);
-                if (fabs(z) > 0.0)
+                if (fabs(z) > 0.0) {
                     flag = 1;
-                else
+                } else {
                     flag = 0;
+                }
             }
             z = (storage[col][i] - zlo) / dz;
             index = (int32)z;
@@ -374,8 +395,9 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
                 y = storage[col][i] - storage[col][j];
                 z = (y - zlo) / dz;
                 index = (int32)z;
-                if (index >= 0 && index < length)
+                if (index >= 0 && index < length) {
                     my_hist[1][index] += 1.0;
+                }
             }
         }
         histogram_back();
@@ -413,8 +435,9 @@ histogram_column_mean(void) {
         ggets_err_msg("Need at least 2 data points!");
         return;
     }
-    if (histogram_get_col_info(&hist_inf.col, "Variable ") == 0)
+    if (histogram_get_col_info(&hist_inf.col, "Variable ") == 0) {
         return;
+    }
     sum = 0.0;
     sum2 = 0.0;
     for (int32 i = 0; i < storind; i++) {
@@ -432,10 +455,11 @@ histogram_column_mean(void) {
 int32
 histogram_get_col_info(int32 *col, char *prompt) {
     char variable[20];
-    if (*col == 0)
+    if (*col == 0) {
         strcpy(variable, "t");
-    else
+    } else {
         strcpy(variable, uvar_names[*col - 1]);
+    }
     ggets_new_string(prompt, variable);
     browse_find_variable(variable, col);
     if (*col < 0) {
@@ -451,8 +475,9 @@ histogram_compute_power(void) {
     double c;
     double *datx, *daty, ptot = 0;
     histogram_compute_fourier();
-    if ((NEQ < 2) || (storind <= 1))
+    if ((NEQ < 2) || (storind <= 1)) {
         return;
+    }
     datx = browse_get_data_col(1);
     daty = browse_get_data_col(2);
 
@@ -488,10 +513,12 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
     double *ct, *st, *f, *d, x, nrmf;
     /*double sum;
      */
-    if (nr < 2)
+    if (nr < 2) {
         return 0;
-    if (kwin < 1)
+    }
+    if (kwin < 1) {
         return 0;
+    }
     ct = xmalloc(sizeof(*ct)*(usize)win);
     d = xmalloc(sizeof(*d)*(usize)win);
     st = xmalloc(sizeof(*st)*(usize)win);
@@ -520,8 +547,9 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
         }
         nrmf += (f[i]*f[i] / win);
     }
-    for (int32 i = 0; i < shift; i++)
+    for (int32 i = 0; i < shift; i++) {
         pow[i] = 0.0;
+    }
     /*sum=0;
      */
 
@@ -538,9 +566,10 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
             /* sum+=x; */
         }
     }
-    for (int32 i = 0; i < shift; i++)
+    for (int32 i = 0; i < shift; i++) {
         /*  pow[i]=log(pow[i]/((kwin)*nrmf)); */
         pow[i] = pow[i] / ((kwin)*sqrt(nrmf));
+    }
     free(f);
     free(ct);
     free(st);
@@ -577,10 +606,12 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
     double *pxx;
     double *pyy;
     double *pxyr, *pxym;
-    if (nr < 2)
+    if (nr < 2) {
         return 0;
-    if (kwin < 1)
+    }
+    if (kwin < 1) {
         return 0;
+    }
     ct = xmalloc(sizeof(*ct)*(usize)win);
     d = xmalloc(sizeof(*d)*(usize)win);
     st = xmalloc(sizeof(*st)*(usize)win);
@@ -647,10 +678,11 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
         pxyr[i] = pxyr[i] / ((kwin)*nrmwin);
         pxym[i] = pxym[i] / ((kwin)*nrmwin);
         pxyr[i] = pxyr[i]*pxyr[i] + pxym[i]*pxym[i];
-        if (type == 1)
+        if (type == 1) {
             pow[i] = log(pxyr[i]);
-        else
+        } else {
             pow[i] = pxyr[i] / (pxx[i]*pyy[i]);
+        }
     }
     free(f);
     free(ct);
@@ -673,19 +705,23 @@ histogram_compute_sd(void) {
     double total = storage[0][storind - 1] - storage[0][0];
     ggets_new_int("(0) PSDx, (1) PSDxy, (2) COHxy:", &spec_type);
 
-    if (histogram_get_col_info(&spec_col, "Variable ") == 0)
+    if (histogram_get_col_info(&spec_col, "Variable ") == 0) {
         return;
-    if (spec_type > 0)
-        if (histogram_get_col_info(&spec_col2, "Variable 2 ") == 0)
+    }
+    if (spec_type > 0) {
+        if (histogram_get_col_info(&spec_col2, "Variable 2 ") == 0) {
             return;
+        }
+    }
     ggets_new_int("Window length ", &spec_wid);
     ggets_new_int("0:sqr 1:par 2:ham 3:bart 4:han ", &spec_win);
     if (HIST_HERE) {
         adjoints_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
-        if (HIST_HERE == 2)
+        if (HIST_HERE == 2) {
             free(my_hist[2]);
+        }
         HIST_HERE = 0;
     }
     hist_len = spec_wid / 2;
@@ -698,16 +734,19 @@ histogram_compute_sd(void) {
         return;
     }
     HIST_HERE = 1;
-    for (int32 i = 2; i <= NEQ; i++)
+    for (int32 i = 2; i <= NEQ; i++) {
         my_hist[i] = storage[i];
-    for (int32 j = 0; j < hist_len; j++)
+    }
+    for (int32 j = 0; j < hist_len; j++) {
         my_hist[0][j] = ((double)j*storind / spec_wid) / total;
-    if (spec_type == 0)
+    }
+    if (spec_type == 0) {
         histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
                            my_hist[1]);
-    else
+    } else {
         histogram_cross_spectrum(storage[spec_col], storage[spec_col2], storind,
                                  spec_wid, spec_win, my_hist[1], spec_type);
+    }
     histogram_back();
     ggets_ping();
     return;
@@ -719,8 +758,9 @@ histogram_just_fourier(int32 flag) {
     double c;
     double *datx, *daty;
     int32 nmodes = storind / 2 - 1;
-    if (NEQ < 2 || storind <= 1)
+    if (NEQ < 2 || storind <= 1) {
         return;
+    }
     histogram_new_four(nmodes, spec_col);
     if (flag) {
         datx = browse_get_data_col(1);
@@ -748,8 +788,9 @@ histogram_compute_fourier(void) {
         ggets_err_msg("No data!");
         return;
     }
-    if (histogram_get_col_info(&spec_col, "Variable ") == 1)
+    if (histogram_get_col_info(&spec_col, "Variable ") == 1) {
         nmodes = storind / 2 - 1;
+    }
     histogram_new_four(nmodes, spec_col);
     return;
 }
@@ -768,8 +809,9 @@ histogram_compute_correl(void) {
 
     ggets_new_int("Number of bins ", &hist_inf.nbins);
     ggets_new_int("(0)Direct or (1) FFT ", &hist_inf.fftc);
-    if (hist_inf.nbins > (storind / 2 - 1))
+    if (hist_inf.nbins > (storind / 2 - 1)) {
         hist_inf.nbins = storind / 2 - 2;
+    }
 
     hist_inf.nbins = 2*(hist_inf.nbins / 2) + 1;
     lag = hist_inf.nbins / 2;
@@ -780,10 +822,12 @@ histogram_compute_correl(void) {
     hist_inf.xlo = -lag*dta;
     hist_inf.xhi = lag*dta;
 
-    if (histogram_get_col_info(&hist_inf.col, "Variable 1 ") == 0)
+    if (histogram_get_col_info(&hist_inf.col, "Variable 1 ") == 0) {
         return;
-    if (histogram_get_col_info(&hist_inf.col2, "Variable 2 ") == 0)
+    }
+    if (histogram_get_col_info(&hist_inf.col2, "Variable 2 ") == 0) {
         return;
+    }
     histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col,
                   hist_inf.col2, hist_inf.cond, 2 + hist_inf.fftc);
     return;
@@ -794,8 +838,9 @@ histogram_compute_stacor(void) {
     ggets_new_int("Number of bins ", &hist_inf.nbins);
     ggets_new_float("Low ", &hist_inf.xlo);
     ggets_new_float("Hi ", &hist_inf.xhi);
-    if (histogram_get_col_info(&hist_inf.col, "Variable ") == 0)
+    if (histogram_get_col_info(&hist_inf.col, "Variable ") == 0) {
         return;
+    }
     histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0,
                   hist_inf.cond, 1);
     return;
@@ -829,8 +874,9 @@ histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
                 sum += (x[i] - avx)*(y[k] - avy);
             }
         }
-        if (count > 0)
+        if (count > 0) {
             sum = sum / count;
+        }
         z[j] = sum;
     }
     return;
@@ -862,8 +908,9 @@ histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z,
                 sum += (x[i] - avx)*(y[k] - avy);
             }
         }
-        if (count > 0)
+        if (count > 0) {
             sum = sum / count;
+        }
         z[j] = sum;
     }
     return;
@@ -874,8 +921,9 @@ histogram_compute(void) {
     ggets_new_int("Number of bins ", &hist_inf.nbins);
     ggets_new_float("Low ", &hist_inf.xlo);
     ggets_new_float("Hi ", &hist_inf.xhi);
-    if (histogram_get_col_info(&hist_inf.col, "Variable ") == 0)
+    if (histogram_get_col_info(&hist_inf.col, "Variable ") == 0) {
         return;
+    }
     ggets_new_string("Condition ", hist_inf.cond);
     histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0,
                   hist_inf.cond, 0);

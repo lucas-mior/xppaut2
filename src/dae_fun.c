@@ -60,8 +60,9 @@ int32
 dae_fun_add_svar_names(void) {
     for (int32 i = 0; i < nsvar; i++) {
         svar[i].index = NVAR;
-        if (parserslow_add_var(svar[i].name, 0.0) == 1)
+        if (parserslow_add_var(svar[i].name, 0.0) == 1) {
             return 1;
+        }
     }
     return 0;
 }
@@ -98,8 +99,9 @@ dae_fun_compile_svars(void) {
             return 1;
         }
         aeqn[i].form = xmalloc(sizeof(*(aeqn[i].form))*(usize)(n + 2));
-        for (int32 k = 0; k < n; k++)
+        for (int32 k = 0; k < n; k++) {
             aeqn[i].form[k] = f[k];
+        }
     }
 
     for (int32 i = 0; i < nsvar; i++) {
@@ -108,8 +110,9 @@ dae_fun_compile_svars(void) {
             return 1;
         }
         svar[i].form = xmalloc(100*sizeof(*(svar[i].form)));
-        for (int32 k = 0; k < n; k++)
+        for (int32 k = 0; k < n; k++) {
             svar[i].form[k] = f[k];
+        }
     }
 
     /* dae fun init work */
@@ -130,8 +133,9 @@ void
 dae_fun_set_init_guess(void) {
     double z;
     dae_work.status = 1;
-    if (nsvar == 0)
+    if (nsvar == 0) {
         return;
+    }
     for (int32 i = 0; i < nsvar; i++) {
         z = evaluate(svar[i].form);
         SETVAR(svar[i].index, z);
@@ -169,12 +173,15 @@ dae_fun_err_dae(void) {
 void
 get_dae_fun(double *y, double *f) {
     /* better do this in case fixed variables depend on sol_var */
-    for (int32 i = 0; i < nsvar; i++)
+    for (int32 i = 0; i < nsvar; i++) {
         SETVAR(svar[i].index, y[i]);
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
+    }
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
-    for (int32 i = 0; i < naeqn; i++)
+    }
+    for (int32 i = 0; i < naeqn; i++) {
         f[i] = evaluate(aeqn[i].form);
+    }
     return;
 }
 
@@ -196,10 +203,12 @@ dae_fun_do_daes(void) {
     int32 iter = 0;
     double *y, *ynew, *f, *fnew, *jac, *errvec;
     n = nsvar;
-    if (nsvar == 0)
+    if (nsvar == 0) {
         ans = 1;
-    if (dae_work.status < 0)
+    }
+    if (dae_work.status < 0) {
         ans = dae_work.status; /* accepts no change error */
+    }
     y = dae_work.work;
     f = y + nsvar;
     fnew = f + nsvar;
@@ -228,20 +237,23 @@ dae_fun_do_daes(void) {
         /* compute jacobian */
         for (int32 i = 0; i < n; i++) {
             z = fabs(y[i]);
-            if (z < eps)
+            if (z < eps) {
                 z = eps;
+            }
             del = eps*z;
             yold = y[i];
             y[i] = y[i] + del;
             get_dae_fun(y, fnew);
-            for (int32 j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++) {
                 jac[j*n + i] = (fnew[j] - f[j]) / del;
+            }
             y[i] = yold;
         }
         gear_sgefa(jac, n, n, dae_work.iwork, &info);
         if (info != -1) {
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, ynew[i]);
+            }
             ans = -1; /* singular jacobian */
             break;
         }
@@ -252,8 +264,9 @@ dae_fun_do_daes(void) {
             err += fabs(errvec[i]);
         }
         if (err > (n*BOUND)) {
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, svar[i].last);
+            }
             ans = -3; /* getting too big */
             break;
         }
@@ -268,15 +281,17 @@ dae_fun_do_daes(void) {
         }
         iter++;
         if (iter > maxit) {
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, svar[i].last);
+            }
             ans = -2; /* too many iterates */
             break;
         }
     }
     dae_work.status = ans;
-    if (ans == 1 || ans == 2)
+    if (ans == 1 || ans == 2) {
         return; /* accepts a no change error! */
+    }
     DelayErr = 1;
     return;
 }
@@ -287,8 +302,9 @@ void
 dae_fun_get_new_guesses(void) {
     int32 n;
     double z;
-    if (nsvar < 1)
+    if (nsvar < 1) {
         return;
+    }
     for (int32 i = 0; i < nsvar; i++) {
         char name[sizeof(svar[i].name) + 23];
 

@@ -143,16 +143,18 @@ ps_init(char *filename, int32 color) {
     fprintf(psfile, "/dl {%d mul} def\n", PS_SC); /* dash length */
     fprintf(psfile, "/hpt %.1f def\n", PS_HTIC / 2.0);
     fprintf(psfile, "/vpt %.1f def\n", PS_VTIC / 2.0);
-    for (int32 i = 0; PS_header[i] != NULL; i++)
+    for (int32 i = 0; PS_header[i] != NULL; i++) {
         fprintf(psfile, "%s", PS_header[i]);
+    }
     fprintf(psfile, "end\n");
     fprintf(psfile, "%%%%EndProlog\n");
     fprintf(psfile, "xppdict begin\n");
     fprintf(psfile, "gsave\n");
     fprintf(psfile, "%d %d translate\n", PS_XOFF, PS_YOFF);
     fprintf(psfile, "%.3f %.3f scale\n", 1. / PS_SC, 1. / PS_SC);
-    if (!PS_Port)
+    if (!PS_Port) {
         fprintf(psfile, "90 rotate\n0 %d translate\n", -PS_YMAX);
+    }
     /* fprintf(psfile,"% 0 setgray\n"); */
     fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE*PS_SC);
     fprintf(psfile, "scalefont setfont\n");
@@ -172,12 +174,14 @@ ps_do_color(int32 color) {
     double g;
     double b;
     /* this doesn work very well */
-    if (PltFmtFlag == 0)
+    if (PltFmtFlag == 0) {
         return;
+    }
     /* if(color==0) */
     /* fprintf(psfile,"0 setgray\n"); */
-    if (PSColorFlag == 0)
+    if (PSColorFlag == 0) {
         return;
+    }
     color_get_ps(color, &r, &g, &b);
     /*  if(LastPtLine)
       fprintf(psfile,"%f %f %f RGB\n",r,g,b);
@@ -195,8 +199,9 @@ ps_end(void) {
     lunch_ps_write_pars(psfile);
     fclose(psfile);
     PltFmtFlag = 0;
-    if (Xup)
+    if (Xup) {
         graphics_init_x11();
+    }
     return;
 }
 
@@ -270,10 +275,12 @@ ps_point(int32 x, int32 y) {
     int32 number = PointType;
     char *point = "PDABCTSKF";
     number %= POINT_TYPES;
-    if (number < -1)
+    if (number < -1) {
         number = -1;
-    if (PointRadius > 0)
+    }
+    if (PointRadius > 0) {
         number = 7;
+    }
     fprintf(psfile, "%d %d %c\n", x, y, point[number + 1]);
     PSLines = 0;
     LastPtLine = 0;
@@ -288,10 +295,11 @@ ps_write(char *str) {
 
 void
 ps_fnt(int32 cf, int32 scale) {
-    if (cf == 0)
+    if (cf == 0) {
         fprintf(psfile, "/%s findfont %d scalefont setfont \n", PS_FONT, scale);
-    else
+    } else {
         fprintf(psfile, "%d Symfnt\n", scale);
+    }
     return;
 }
 
@@ -301,15 +309,17 @@ ps_show(char *str, int32 type) {
     putc('(', psfile);
     ch = *str++;
     while (ch != '\0') {
-        if ((ch == '(') || (ch == ')') || (ch == '\\'))
+        if ((ch == '(') || (ch == ')') || (ch == '\\')) {
             putc('\\', psfile);
+        }
         putc(ch, psfile);
         ch = *str++;
     }
-    if (type == 1)
+    if (type == 1) {
         fprintf(psfile, ") Lshow\n");
-    else
+    } else {
         fprintf(psfile, ") show\n");
+    }
     PSLines = 0;
     return;
 }
@@ -396,8 +406,9 @@ ps_special_put_text(int32 x, int32 y, char *str, int32 size) {
         }
     }
     tmp[j] = 0;
-    if (strlen(tmp) > 0)
+    if (strlen(tmp) > 0) {
         ps_show(tmp, type);
+    }
     return;
 }
 
@@ -408,14 +419,16 @@ ps_text(int32 x, int32 y, char *str) {
     fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE*PS_SC);
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "%d %d moveto\n", x, y);
-    if (TextAngle != 0)
+    if (TextAngle != 0) {
         fprintf(psfile, "currentpoint gsave translate %d rotate 0 0 moveto\n",
                 TextAngle*90);
+    }
     putc('(', psfile);
     ch = *str++;
     while (ch != '\0') {
-        if ((ch == '(') || (ch == ')') || (ch == '\\'))
+        if ((ch == '(') || (ch == ')') || (ch == '\\')) {
             putc('\\', psfile);
+        }
         putc(ch, psfile);
         ch = *str++;
     }
@@ -432,7 +445,8 @@ ps_text(int32 x, int32 y, char *str) {
     default:
         break;
     }
-    if (TextAngle != 0)
+    if (TextAngle != 0) {
         fprintf(psfile, "grestore\n");
+    }
     PSLines = 0;
 }

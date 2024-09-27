@@ -107,8 +107,9 @@ cv_diag(void *cvode_mem) {
 
     /* Return immediately if cvode_mem is NULL */
     cv_mem = (CVodeMem)cvode_mem;
-    if (cv_mem == NULL)
+    if (cv_mem == NULL) {
         return; /* CVode reports this error */
+    }
 
     /* Set four main function fields in cv_mem */
     linit = cv_diag_init;
@@ -118,8 +119,9 @@ cv_diag(void *cvode_mem) {
 
     /* Get memory for CVDiagMemRec */
     lmem = cvdiag_mem = xmalloc(sizeof(CVDiagMemRec));
-    if (cvdiag_mem == NULL)
+    if (cvdiag_mem == NULL) {
         return; /* cv_diag_init reports this error */
+    }
     return;
 }
 
@@ -224,8 +226,9 @@ cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 
     /* Invert M with test for zero components */
     invOK = vector_inv_test(M, M);
-    if (!invOK)
+    if (!invOK) {
         return 1;
+    }
 
     /* Set jcur = true, save gamma in gammasv, and return */
     *jcurPtr = true;
@@ -259,8 +262,9 @@ cv_diag_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
         vector_scale(r, M, M);
         vector_add_const(M, ONE, M);
         invOK = vector_inv_test(M, M);
-        if (!invOK)
+        if (!invOK) {
             return 1;
+        }
 
         gammasv = gamma;
     }

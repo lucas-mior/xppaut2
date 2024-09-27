@@ -42,8 +42,9 @@ do_torus_com(int32 c) {
             return;
         }
         if (c == 0) {
-            for (int32 i = 0; i < MAX_ODE; i++)
+            for (int32 i = 0; i < MAX_ODE; i++) {
                 itor[i] = 1;
+            }
             TORUS = 1;
             return;
         }
@@ -52,8 +53,9 @@ do_torus_com(int32 c) {
         torus_make_box("Fold which");
 
         /* do torus events */
-        for (int32 i = 0; i < NEQ; i++)
+        for (int32 i = 0; i < NEQ; i++) {
             oldit[i] = itor[i];
+        }
         while (!done) {
             XNextEvent(display, &event);
             switch (event.type) {
@@ -74,8 +76,9 @@ do_torus_com(int32 c) {
                     }
 
                     for (int32 i = 0; i < NEQ; i++) {
-                        if (win == torbox.window[i])
+                        if (win == torbox.window[i]) {
                             torus_draw_var(i);
+                        }
                     }
                 }
                 break;
@@ -100,13 +103,15 @@ do_torus_com(int32 c) {
                 break;
             case EnterNotify:
                 wt = event.xcrossing.window;
-                if (wt == torbox.done || wt == torbox.cancel)
+                if (wt == torbox.done || wt == torbox.cancel) {
                     XSetWindowBorderWidth(display, wt, 2);
+                }
                 break;
             case LeaveNotify:
                 wt = event.xcrossing.window;
-                if (wt == torbox.done || wt == torbox.cancel)
+                if (wt == torbox.done || wt == torbox.cancel) {
                     XSetWindowBorderWidth(display, wt, 1);
+                }
                 break;
             default:
                 break;
@@ -114,8 +119,9 @@ do_torus_com(int32 c) {
         }
 
         if (status == -1) {
-            for (int32 i = 0; i < NEQ; i++)
+            for (int32 i = 0; i < NEQ; i++) {
                 itor[i] = oldit[i];
+            }
             TORUS = 0;
         }
         XSelectInput(display, torbox.cancel, EV_MASK);
@@ -125,13 +131,15 @@ do_torus_com(int32 c) {
         XDestroyWindow(display, torbox.base);
 
         for (int32 i = 0; i < NEQ; i++) {
-            if (itor[i] == 1)
+            if (itor[i] == 1) {
                 TORUS = 1;
+            }
         }
         return;
     }
-    for (int32 i = 0; i < MAX_ODE; i++)
+    for (int32 i = 0; i < MAX_ODE; i++) {
         itor[i] = 0;
+    }
     TORUS = 0;
     return;
 }
@@ -140,10 +148,11 @@ void
 torus_draw_var(int32 i) {
     char strng[sizeof(*uvar_names) + 5];
     XClearWindow(display, torbox.window[i]);
-    if (itor[i] == 1)
+    if (itor[i] == 1) {
         snprintf(strng, sizeof(strng), "X  %s", uvar_names[i]);
-    else
+    } else {
         snprintf(strng, sizeof(strng), "   %s", uvar_names[i]);
+    }
     XDrawString(display, torbox.window[i], small_gc, 0, CURY_OFFs, strng,
                 (int)strlen(strng));
     return;
@@ -170,13 +179,15 @@ torus_make_box(char *title) {
     nv = 4*DisplayHeight / (5*(DCURYs + 8));
     /*nh=DisplayWidth/(18*DCURXs);*/
 
-    if (NEQ < nv)
+    if (NEQ < nv) {
         ndn = NEQ;
-    else
+    } else {
         ndn = nv;
+    }
     nac = NEQ / ndn;
-    if (nac*ndn < NEQ)
+    if (nac*ndn < NEQ) {
         nac++;
+    }
 
     width = 24*DCURXs*nac + 10;
     height = 3*DCURYs + ndn*(DCURYs + 8);

@@ -71,11 +71,13 @@ FileInfo my_ff;
 
 void
 read_dir_free_finfo(FileInfo *ff) {
-    for (int32 i = 0; i < ff->ndirs; i++)
+    for (int32 i = 0; i < ff->ndirs; i++) {
         free(ff->dirnames[i]);
+    }
     free(ff->dirnames);
-    for (int32 i = 0; i < ff->nfiles; i++)
+    for (int32 i = 0; i < ff->nfiles; i++) {
         free(ff->filenames[i]);
+    }
     free(ff->filenames);
     return;
 }
@@ -99,16 +101,19 @@ read_dir_get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     int32 nd;
     struct dirent *dp;
     ans = read_dir_fil_count(direct, &nd, &nf, wild, &mld, &mlf);
-    if (ans == 0)
+    if (ans == 0) {
         return 0;
+    }
     ff->nfiles = nf;
     ff->ndirs = nd;
     ff->dirnames = xmalloc((usize)nd*sizeof(char *));
     ff->filenames = xmalloc((usize)nf*sizeof(char *));
-    for (int32 i = 0; i < nd; i++)
+    for (int32 i = 0; i < nd; i++) {
         ff->dirnames[i] = xmalloc((usize)mld + 2);
-    for (int32 i = 0; i < nf; i++)
+    }
+    for (int32 i = 0; i < nf; i++) {
         ff->filenames[i] = xmalloc((usize)mlf + 2);
+    }
     dirp = opendir(direct);
     dp = readdir(dirp);
     nf = 0;
@@ -135,13 +140,15 @@ read_dir_get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     }
     ff->nfiles = nf;
     ff->ndirs = nd;
-    if (nd > 0)
+    if (nd > 0) {
         qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *),
               read_dir_cmp_string_p);
+    }
 
-    if (nf > 0)
+    if (nf > 0) {
         qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *),
               read_dir_cmp_string_p);
+    }
     closedir(dirp);
     return 1;
 }
@@ -156,16 +163,19 @@ read_dir_get_fileinfo(char *wild, char *direct, FileInfo *ff) {
     int32 nd;
     struct dirent *dp;
     ans = read_dir_fil_count(direct, &nd, &nf, wild, &mld, &mlf);
-    if (ans == 0)
+    if (ans == 0) {
         return 0;
+    }
     ff->nfiles = nf;
     ff->ndirs = nd;
     ff->dirnames = xmalloc((usize)nd*sizeof(char *));
     ff->filenames = xmalloc((usize)nf*sizeof(char *));
-    for (int32 i = 0; i < nd; i++)
+    for (int32 i = 0; i < nd; i++) {
         ff->dirnames[i] = xmalloc((usize)mld + 2);
-    for (int32 i = 0; i < nf; i++)
+    }
+    for (int32 i = 0; i < nf; i++) {
         ff->filenames[i] = xmalloc((usize)mlf + 2);
+    }
     dirp = opendir(direct);
     dp = readdir(dirp);
     nf = 0;
@@ -183,13 +193,15 @@ read_dir_get_fileinfo(char *wild, char *direct, FileInfo *ff) {
         dp = readdir(dirp);
     }
 
-    if (nd > 0)
+    if (nd > 0) {
         qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *),
               read_dir_cmp_string_p);
+    }
 
-    if (nf > 0)
+    if (nf > 0) {
         qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *),
               read_dir_cmp_string_p);
+    }
     closedir(dirp);
     return 1;
 }
@@ -214,14 +226,16 @@ read_dir_fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild,
         if (read_dir_is_directory(direct, dp->d_name)) {
             *ndir = *ndir + 1;
             l = (int32)strlen(dp->d_name);
-            if (l > *mld)
+            if (l > *mld) {
                 *mld = l;
+            }
         } else {
             if (read_dir_wild_match(dp->d_name, wild)) {
                 *nfil = *nfil + 1;
                 l = (int32)strlen(dp->d_name);
-                if (l > *mlf)
+                if (l > *mlf) {
                     *mlf = l;
+                }
             }
         }
         dp = readdir(dirp);
@@ -240,10 +254,11 @@ read_dir_change_dir(char *path) {
         ggets_plintf("Can't go to directory %s\n", path);
         return 1;
     }
-    if (read_dir_get_directory(cur_dir) != 0) /* get cwd */
+    if (read_dir_get_directory(cur_dir) != 0) { /* get cwd */
         return 0;
-    else
+    } else {
         return 1;
+    }
 }
 
 int32
@@ -263,17 +278,20 @@ read_dir_is_directory(char *root, char *path) {
     char fullpath[MAXPATHLEN];
     struct stat statbuf;
 
-    if (path == NULL)
+    if (path == NULL) {
         return 0;
+    }
     read_dir_make_full_path(root, path, fullpath);
-    if (stat(fullpath, &statbuf)) /* some error, report that it is not
-                                   * a directory */
+    if (stat(fullpath, &statbuf)) { /* some error, report that it is not
+                                     * a directory */
         return 0;
+    }
 
-    if (statbuf.st_mode & S_IFDIR)
+    if (statbuf.st_mode & S_IFDIR) {
         return 1;
-    else
+    } else {
         return 0;
+    }
 }
 
 /* Function:	read_dir_make_full_path() creates the full pathname for the
@@ -345,13 +363,15 @@ read_dir_wild_match(char *string, char *pattern) {
             pattern++;
             __attribute__((fallthrough));
         default:
-            if (*string != *pattern)
+            if (*string != *pattern) {
                 return 0;
+            }
             continue;
         case '?':
             /* Match anything. */
-            if (*string == '\0')
+            if (*string == '\0') {
                 return 0;
+            }
             continue;
         case '*':
             /* Trailing star matches everything. */
@@ -359,15 +379,19 @@ read_dir_wild_match(char *string, char *pattern) {
         case '[':
             /* Check for inverse character class. */
             reverse = pattern[1] == INVERT;
-            if (reverse)
+            if (reverse) {
                 pattern++;
+            }
             for (prev = 256, matched = 0; *++pattern && *pattern != ']';
-                 prev = *pattern)
+                 prev = *pattern) {
                 if (*pattern == '-' ? *string <= *++pattern && *string >= prev
-                                    : *string == *pattern)
+                                    : *string == *pattern) {
                     matched = 1;
-            if (matched == reverse)
+                }
+            }
+            if (matched == reverse) {
                 return 0;
+            }
             continue;
         }
     }
@@ -377,8 +401,10 @@ read_dir_wild_match(char *string, char *pattern) {
 
 static int32
 read_dir_star(char *string, char *pattern) {
-    while (read_dir_wild_match(string, pattern) == 0)
-        if (*++string == '\0')
+    while (read_dir_wild_match(string, pattern) == 0) {
+        if (*++string == '\0') {
             return 0;
+        }
+    }
     return 1;
 }

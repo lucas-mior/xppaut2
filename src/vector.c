@@ -41,12 +41,14 @@ Vector
 vector_new(int64 N) {
     Vector v;
 
-    if (N <= 0)
+    if (N <= 0) {
         return NULL;
+    }
 
     v = xmalloc(sizeof *v);
-    if (v == NULL)
+    if (v == NULL) {
         return NULL;
+    }
 
     v->data = xmalloc((usize)N*sizeof(*(v->data)));
     if (v->data == NULL) {
@@ -148,8 +150,9 @@ vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int64 i = 0; i < N; i++)
+    for (int64 i = 0; i < N; i++) {
         *zd++ = a*(*xd++) + b*(*yd++);
+    }
     return;
 }
 
@@ -161,8 +164,9 @@ vector_const(double c, Vector z) {
     N = z->length;
     zd = z->data;
 
-    for (int64 i = 0; i < N; i++)
+    for (int64 i = 0; i < N; i++) {
         *zd++ = c;
+    }
     return;
 }
 
@@ -176,8 +180,9 @@ vector_prod(Vector x, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int64 i = 0; i < N; i++)
+    for (int64 i = 0; i < N; i++) {
         *zd++ = (*xd++)*(*yd++);
+    }
     return;
 }
 
@@ -191,8 +196,9 @@ vector_div(Vector x, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int64 i = 0; i < N; i++)
+    for (int64 i = 0; i < N; i++) {
         *zd++ = (*xd++) / (*yd++);
+    }
     return;
 }
 
@@ -214,8 +220,9 @@ vector_scale(double c, Vector x, Vector z) {
         N = x->length;
         xd = x->data;
         zd = z->data;
-        for (int32 i = 0; i < N; i++)
+        for (int32 i = 0; i < N; i++) {
             *zd++ = c*(*xd++);
+        }
     }
     return;
 }
@@ -229,8 +236,9 @@ vector_abs(Vector x, Vector z) {
     xd = x->data;
     zd = z->data;
 
-    for (int64 i = 0; i < N; i++, xd++, zd++)
+    for (int64 i = 0; i < N; i++, xd++, zd++) {
         *zd = ABS(*xd);
+    }
     return;
 }
 
@@ -243,8 +251,9 @@ vector_inv(Vector x, Vector z) {
     xd = x->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = ONE / (*xd++);
+    }
     return;
 }
 
@@ -257,8 +266,9 @@ vector_add_const(Vector x, double b, Vector z) {
     xd = x->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = (*xd++) + b;
+    }
     return;
 }
 
@@ -271,8 +281,9 @@ vector_dot_prod(Vector x, Vector y) {
     xd = x->data;
     yd = y->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         sum += (*xd++)*(*yd++);
+    }
 
     return sum;
 }
@@ -286,8 +297,9 @@ vector_max_norm(Vector x) {
     xd = x->data;
 
     for (int32 i = 0; i < N; i++, xd++) {
-        if (ABS(*xd) > max)
+        if (ABS(*xd) > max) {
             max = ABS(*xd);
+        }
     }
 
     return max;
@@ -320,8 +332,9 @@ vector_min(Vector x) {
     min = xd[0];
 
     for (int32 i = 0; i < N; i++, xd++) {
-        if ((*xd) < min)
+        if ((*xd) < min) {
             min = *xd;
+        }
     }
 
     return min;
@@ -352,8 +365,9 @@ vector_inv_test(Vector x, Vector z) {
     zd = z->data;
 
     for (int32 i = 0; i < N; i++) {
-        if (*xd == ZERO)
+        if (*xd == ZERO) {
             return false;
+        }
         *zd++ = ONE / (*xd++);
     }
 
@@ -368,8 +382,9 @@ vector_print(Vector x) {
     N = x->length;
     xd = x->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         ggets_plintf("%g\n", *xd++);
+    }
 
     ggets_plintf("\n");
     return;
@@ -386,8 +401,9 @@ vector_copy(Vector x, Vector z) {
     xd = x->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = *xd++;
+    }
     return;
 }
 
@@ -401,8 +417,9 @@ vector_sum(Vector x, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = (*xd++) + (*yd++);
+    }
     return;
 }
 
@@ -416,8 +433,9 @@ vector_diff(Vector x, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = (*xd++) - (*yd++);
+    }
     return;
 }
 
@@ -430,8 +448,9 @@ vector_neg(Vector x, Vector z) {
     xd = x->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = -(*xd++);
+    }
     return;
 }
 
@@ -445,8 +464,9 @@ vector_scaleSum(double c, Vector x, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = c*((*xd++) + (*yd++));
+    }
     return;
 }
 
@@ -460,8 +480,9 @@ vector_scaleDiff(double c, Vector x, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = c*((*xd++) - (*yd++));
+    }
     return;
 }
 
@@ -475,8 +496,9 @@ vector_lin1(double a, Vector x, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = a*(*xd++) + (*yd++);
+    }
     return;
 }
 
@@ -490,8 +512,9 @@ vector_lin2(double a, Vector x, Vector y, Vector z) {
     yd = y->data;
     zd = z->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *zd++ = a*(*xd++) - (*yd++);
+    }
     return;
 }
 
@@ -505,19 +528,22 @@ vector_axpy(double a, Vector x, Vector y) {
     yd = y->data;
 
     if (a == ONE) {
-        for (int32 i = 0; i < N; i++)
+        for (int32 i = 0; i < N; i++) {
             *yd++ += (*xd++);
+        }
         return;
     }
 
     if (a == -ONE) {
-        for (int32 i = 0; i < N; i++)
+        for (int32 i = 0; i < N; i++) {
             *yd++ -= (*xd++);
+        }
         return;
     }
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *yd++ += a*(*xd++);
+    }
     return;
 }
 
@@ -529,6 +555,7 @@ vector_scaleBy(double a, Vector x) {
     N = x->length;
     xd = x->data;
 
-    for (int32 i = 0; i < N; i++)
+    for (int32 i = 0; i < N; i++) {
         *xd++ *= a;
+    }
 }

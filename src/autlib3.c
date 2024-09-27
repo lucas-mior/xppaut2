@@ -40,8 +40,9 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     fflp(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -289,8 +290,9 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ffc2(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -482,8 +484,9 @@ fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         f[i] -= u[i];
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     for (int64 i = 0; i < ndim; ++i) {
         --ARRAY2D(dfdu, i, i);
@@ -522,8 +525,9 @@ fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         f[i] = dt*f[i] - u[i] + uold[i];
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     for (int64 i = 0; i < ndim; ++i) {
         for (int64 j = 0; j < ndim; ++j) {
@@ -567,8 +571,9 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ffhd(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -788,8 +793,9 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ffhb(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -993,8 +999,9 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ffhw(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -1268,8 +1275,9 @@ bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     jtmp = NPARX;
     nn = (ndim*2) + jtmp;
@@ -1314,8 +1322,9 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     jtmp = NPARX;
     nn = ndim + jtmp;
@@ -1354,8 +1363,9 @@ pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
     ups_dim1 = *ndxloc;
 
     par[10] *= 2.;
-    if (global_rotations.irtn != 0)
+    if (global_rotations.irtn != 0) {
         par[18] *= 2.;
+    }
 
     for (i = 0; i < *ntst; ++i) {
         tm[i] *= .5;
@@ -1590,8 +1600,9 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         f[i] = u[ndm + i];
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     for (int64 i = 0; i < ndm; ++i) {
         for (int64 j = 0; j < ndm; ++j) {
@@ -1896,8 +1907,9 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         f[ndm + i] = -period*f[ndm + i] / par[i + 14];
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     for (int64 i = 0; i < ndm; ++i) {
         for (int64 j = 0; j < ndm; ++j) {
@@ -1995,8 +2007,9 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             period*((u[i] - uold[i]) / dt - f[ndm + i]) / par[i + 14];
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     for (int64 i = 0; i < ndm; ++i) {
         for (int64 j = 0; j < ndm; ++j) {
@@ -2071,8 +2084,9 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ffpl(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -2188,8 +2202,9 @@ bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     jtmp = NPARX;
     nn = (ndim*2) + jtmp;
@@ -2242,8 +2257,9 @@ icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         f[2] += u[ndm + i]*u[ndm + i];
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     jtmp = NPARX;
     nn = ndim + jtmp;
@@ -2465,8 +2481,9 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ffpd(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -2574,8 +2591,9 @@ bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     jtmp = NPARX;
     nn = (ndim*2) + jtmp;
@@ -2627,8 +2645,9 @@ icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         f[1] += u[ndm + i]*u[ndm + i];
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     jtmp = NPARX;
     nn = ndim + jtmp;
@@ -2829,8 +2848,9 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     fftr(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -2951,8 +2971,9 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     jtmp = NPARX;
     nn = (ndim*2) + jtmp;
@@ -3014,8 +3035,9 @@ ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         f[2] = f[2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     jtmp = NPARX;
     nn = ndim + jtmp;
@@ -3361,8 +3383,9 @@ bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     for (int64 i = 0; i < nbc; ++i) {
         for (int64 j = 0; j <= (ndim*2); ++j) {
@@ -3777,8 +3800,9 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ffbl(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0)
+    if (ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian. */
 
@@ -4423,8 +4447,9 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     }
     bcnd(ndim, par, icp, nbc, u0, u1, ijc, f, dbc);
 
-    if (jac == 1 || ijac == 0)
+    if (jac == 1 || ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian by differencing. */
 
@@ -4544,8 +4569,9 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     }
     icnd(ndim, par, icp, nint, u, uold, udot, upold, ijc, f, dint);
 
-    if (jac == 1 || ijac == 0)
+    if (jac == 1 || ijac == 0) {
         return 0;
+    }
 
     /* Generate the Jacobian by differencing. */
 

@@ -395,12 +395,15 @@ svg_do_color(int32 color) {
     int32 g;
     int32 b;
 
-    if (PltFmtFlag == SCRNFMT)
+    if (PltFmtFlag == SCRNFMT) {
         return;
-    if (PltFmtFlag == PSFMT)
+    }
+    if (PltFmtFlag == PSFMT) {
         return;
-    if (PSColorFlag == 0)
+    }
+    if (PSColorFlag == 0) {
         return;
+    }
     color_get_svg(color, &r, &g, &b);
     cur_RGB[0] = r;
     cur_RGB[1] = g;
@@ -416,8 +419,9 @@ svg_end(void) {
     fclose(svgfile);
     PltFmtFlag = SCRNFMT;
     DOING_SVG_COLOR = 0;
-    if (Xup)
+    if (Xup) {
         graphics_init_x11();
+    }
     return;
 }
 
@@ -573,10 +577,12 @@ svg_point(int32 x, int32 y) {
     svgcol[0] = '\0';
 
     number %= POINT_TYPES;
-    if (number < -1)
+    if (number < -1) {
         number = -1;
-    if (PointRadius > 0)
+    }
+    if (PointRadius > 0) {
         number = 7;
+    }
 
     if (number == 7) {
         snprintf(svgcol, sizeof(svgcol), "00FF00");

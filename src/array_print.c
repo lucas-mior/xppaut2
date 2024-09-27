@@ -58,8 +58,9 @@ array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
     double xx = (double)ndown;
     double yy = (double)(nacross / ncskip);
     my_plot_file = fopen(filename, "w");
-    if (my_plot_file == NULL)
+    if (my_plot_file == NULL) {
         return -1;
+    }
     array_print_ps_begin(0.0, 0.0, xx, yy, 10., 7.);
     array_print_ps_replot(data, col0, row0, nskip, ncskip, maxrow, maxcol,
                           nacross, ndown, zmin, zmax, type);
@@ -93,23 +94,27 @@ array_print_ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
     dely = .8*dy / (double)(nacross / ncskip);
     for (int32 i = 0; i < nacross / ncskip; i++) {
         ib = col0 + i*ncskip;
-        if (ib > maxcol)
+        if (ib > maxcol) {
             return;
+        }
         for (int32 j = 0; j < ndown; j++) {
             jb = row0 + j*nskip;
             if (jb < maxrow && jb >= 0) {
                 fill = (z[ib][jb] - zmin) / (zmax - zmin);
-                if (fill < 0.0)
+                if (fill < 0.0) {
                     fill = 0.0;
-                if (fill > 1.0)
+                }
+                if (fill > 1.0) {
                     fill = 1.0;
+                }
                 fill = 1 - fill;
                 x = xhi - delx - j*delx;
                 y = yhi - dely - i*dely;
-                if (type == GREYSCALE)
+                if (type == GREYSCALE) {
                     array_print_ps_bar(x, y, delx, dely, fill, 0);
-                else
+                } else {
                     array_print_ps_rgb_bar(x, y, delx, dely, fill, 0, type);
+                }
             }
         }
     }
@@ -182,12 +187,13 @@ array_print_ps_col_scale(double y0, double x0, double dy, double dx, int32 n,
     double dz = 1. / (double)(n - 1);
 
     for (int32 i = 0; i < n; i++) {
-        if (type == GREYSCALE)
+        if (type == GREYSCALE) {
             array_print_ps_bar(x0, y0 - (i + 1)*dy, dx, dy,
                                1 - (double)i*dz, 0);
-        else
+        } else {
             array_print_ps_rgb_bar(x0, y0 - (i + 1)*dy, dx, dy,
                                    1. - (double)i*dz, 0, type);
+        }
     }
     fprintf(my_plot_file, "0 G\n");
     sprintf(s, "%g", zlo);
@@ -341,10 +347,12 @@ array_print_ps_rgb_bar(double x, double y, double wid, double len, double fill,
         array_print_ps_hsb_bar(x, y, wid, len, fill, flag);
         return;
     }
-    if (fill < 0.0)
+    if (fill < 0.0) {
         fill = 0.0;
-    if (fill > 1.0)
+    }
+    if (fill > 1.0) {
         fill = 1.0;
+    }
     switch (rgb) {
     case 0:
         fill = 1. - fill;
@@ -352,16 +360,18 @@ array_print_ps_rgb_bar(double x, double y, double wid, double len, double fill,
         r = (double)sqrt((double)(fill*(2.0 - fill)));
         break;
     case 1:
-        if (fill > .4999)
+        if (fill > .4999) {
             r = 0.0;
-        else
+        } else {
             r = (double)sqrt((double)(1. - 4*fill*fill));
+        }
         g = (double)2*sqrt((double)fill*(1. - fill));
 
-        if (fill < .5001)
+        if (fill < .5001) {
             b = 0.0;
-        else
+        } else {
             b = (double)sqrt((double)(4*(fill - .5)*(1.5 - fill)));
+        }
         break;
     default:
         fprintf(stderr, "array_print_ps_rgb_bar: rgb is neither 0 nor 1.\n");

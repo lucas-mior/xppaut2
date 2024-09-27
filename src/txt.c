@@ -63,8 +63,9 @@ txt_view_events(XEvent event) {
     int32 x;
     int32 y;
 
-    if (txtview.here == 0)
+    if (txtview.here == 0) {
         return;
+    }
 
     switch (event.type) {
     case Expose:
@@ -72,8 +73,9 @@ txt_view_events(XEvent event) {
         txt_redraw_view(event.xany.window);
         break;
     case ConfigureNotify:
-        if (event.xconfigure.window != txtview.base)
+        if (event.xconfigure.window != txtview.base) {
             return;
+        }
         x = event.xconfigure.width;
         y = event.xconfigure.height;
         resize_txtview(x, y);
@@ -135,8 +137,9 @@ enter_txtview(Window window, int32 val) {
     Window w = window;
     if (w == txtview.up || w == txtview.down || w == txtview.pgup ||
         w == txtview.pgdn || w == txtview.home || w == txtview.end ||
-        w == txtview.src || w == txtview.action || w == txtview.kill)
+        w == txtview.src || w == txtview.action || w == txtview.kill) {
         XSetWindowBorderWidth(display, w, (uint)val);
+    }
     return;
 }
 
@@ -168,19 +171,23 @@ void
 txtview_press(Window window, int32 x, int32 y) {
     int32 j;
     int32 nt;
-    if (txtview.which == 1)
+    if (txtview.which == 1) {
         nt = n_comments;
-    else
+    } else {
         nt = NLINES;
+    }
 
     if (window == txtview.text) {
-        if (txtview.which == 0)
+        if (txtview.which == 0) {
             return;
-        if (x > (2*txtview.dw))
+        }
+        if (x > (2*txtview.dw)) {
             return;
+        }
         j = txtview.first + y / txtview.dh;
-        if ((j < n_comments) && (comments[j].aflag > 0))
+        if ((j < n_comments) && (comments[j].aflag > 0)) {
             do_txt_action(comments[j].action);
+        }
         return;
     }
 
@@ -216,8 +223,9 @@ txtview_press(Window window, int32 x, int32 y) {
     }
     if (window == txtview.pgup) {
         j = txtview.first - txtview.nlines;
-        if (j < 0)
+        if (j < 0) {
             j = 0;
+        }
         txtview.first = j;
         redraw_txtview_text();
     }
@@ -246,26 +254,36 @@ txtview_press(Window window, int32 x, int32 y) {
 
 void
 txt_redraw_view(Window window) {
-    if (window == txtview.text)
+    if (window == txtview.text) {
         redraw_txtview_text();
-    if (window == txtview.up)
+    }
+    if (window == txtview.up) {
         XDS("Up");
-    if (window == txtview.down)
+    }
+    if (window == txtview.down) {
         XDS("Down");
-    if (window == txtview.pgup)
+    }
+    if (window == txtview.pgup) {
         XDS("PgUp");
-    if (window == txtview.pgdn)
+    }
+    if (window == txtview.pgdn) {
         XDS("PgDn");
-    if (window == txtview.kill)
+    }
+    if (window == txtview.kill) {
         XDS("Kill");
-    if (window == txtview.home)
+    }
+    if (window == txtview.home) {
         XDS("Home");
-    if (window == txtview.end)
+    }
+    if (window == txtview.end) {
         XDS("End");
-    if (window == txtview.src)
+    }
+    if (window == txtview.src) {
         XDS("Source");
-    if (window == txtview.action)
+    }
+    if (window == txtview.action) {
         XDS("Action");
+    }
     return;
 }
 
@@ -284,10 +302,11 @@ redraw_txtview_text(void) {
             }
             break;
         case 1:
-            if (j < n_comments)
+            if (j < n_comments) {
                 XDrawString(display, txtview.text, gc, txtview.dw,
                             i*DCURY + CURY_OFFs, comments[j].text,
                             (int)strlen(comments[j].text));
+            }
             break;
         default:
             fprintf(stderr, "Unexpected case in %s.\n", __func__);
@@ -317,8 +336,9 @@ txt_make_view(void) {
     XTextProperty winname;
     XTextProperty iconname;
     XSizeHints size_hints;
-    if (txtview.here == 1)
+    if (txtview.here == 1) {
         return;
+    }
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, minwid,
                                       minlen, 4);
     txtview.base = base;

@@ -51,11 +51,13 @@ pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
         SETVAR(i + 1, y__0[i]);
         SETVAR(i + n0 + 1, y__1[i]);
     }
-    for (int32 i = n; i < n + FIX_VAR; i++)
+    for (int32 i = n; i < n + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
+    }
 
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         f[i] = evaluate(my_bc[i].com);
+    }
     return;
 }
 
@@ -64,8 +66,9 @@ pp_shoot_compile_bvp(void) {
     int32 len;
     char badcom[50];
     pp_shoot_reset_bvp();
-    if (BVP_FLAG == 0)
+    if (BVP_FLAG == 0) {
         return;
+    }
 
     NCON = NCON_START;
     NSYM = NSYM_START;
@@ -164,8 +167,9 @@ pp_shoot_do_range(double *ystart, double *yend) {
     snprintf(values[6], sizeof(values[6]), "%s", yn[shoot_range.movie]);
 
     status = pop_list_do_string_box(7, 7, 1, "Range Shoot", n, values, 45);
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
 
     strcpy(shoot_range.item, values[0]);
     find = init_conds_find_user_name(Param, shoot_range.item);
@@ -175,18 +179,21 @@ pp_shoot_do_range(double *ystart, double *yend) {
     }
 
     shoot_range.steps = atoi(values[1]);
-    if (shoot_range.steps <= 0)
+    if (shoot_range.steps <= 0) {
         shoot_range.steps = 10;
+    }
     shoot_range.plow = atof(values[2]);
     shoot_range.phigh = atof(values[3]);
-    if (values[4][0] == 'Y' || values[4][0] == 'y')
+    if (values[4][0] == 'Y' || values[4][0] == 'y') {
         shoot_range.cycle = 1;
-    else
+    } else {
         shoot_range.cycle = 0;
-    if (values[6][0] == 'Y' || values[6][0] == 'y')
+    }
+    if (values[6][0] == 'Y' || values[6][0] == 'y') {
         shoot_range.movie = 1;
-    else
+    } else {
         shoot_range.movie = 0;
+    }
 
     shoot_range.side = atoi(values[5]);
 
@@ -199,20 +206,23 @@ pp_shoot_do_range(double *ystart, double *yend) {
     cycle = shoot_range.cycle;
     storind = 0;
     icol = 0;
-    if (shoot_range.movie == 1)
+    if (shoot_range.movie == 1) {
         kinescope_reset_film();
+    }
     for (int32 i = 0; i <= npar; i++) {
         temp = parlo + dpar*(double)i;
         set_val(shoot_range.item, temp);
         snprintf(bob, sizeof(bob), "%s=%.16g", shoot_range.item, temp);
         ggets_bottom_msg(bob);
-        if (shoot_range.movie == 1)
+        if (shoot_range.movie == 1) {
             main_clr_scrn();
+        }
 
         pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &ierr, NODE, 0,
                     0, 0, 0, 0.0);
-        if (ierr == -5)
+        if (ierr == -5) {
             continue;
+        }
         if (ierr < 0) {
             pp_shoot_bad(ierr);
 
@@ -221,18 +231,22 @@ pp_shoot_do_range(double *ystart, double *yend) {
             return;
         }
         storage[0][storind] = temp;
-        if (side == 0)
-            for (int32 j = 0; j < NODE; j++)
+        if (side == 0) {
+            for (int32 j = 0; j < NODE; j++) {
                 storage[j + 1][storind] = ystart[j];
-        else
-            for (int32 j = 0; j < NODE; j++)
+            }
+        } else {
+            for (int32 j = 0; j < NODE; j++) {
                 storage[j + 1][storind] = yend[j];
+            }
+        }
         storind++;
         integrate_set_cycle(cycle, &icol);
         integrate_get_ic(0, ystart);
         pp_shoot_last(0);
-        if (shoot_range.movie == 1)
+        if (shoot_range.movie == 1) {
             kinescope_film_clip();
+        }
         ggets_ping();
     }
     refresh_browser(storind);
@@ -256,24 +270,25 @@ pp_shoot_set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
     status = pop_list_do_string_box(4, 4, 1, "Periodic BCs", n, values, 45);
     if (status != 0) {
         i = init_conds_find_user_name(Param, values[0]);
-        if (i > -1)
+        if (i > -1) {
             *ipar = i;
-        else {
+        } else {
             ggets_err_msg("No such parameter");
             return 0;
         }
         i = init_conds_find_user_name(IC, values[1]);
-        if (i > -1)
+        if (i > -1) {
             *ivar = i;
-        else {
+        } else {
             ggets_err_msg("No such variable");
             return 0;
         }
         *sect = atof(values[2]);
-        if (values[3][0] == 'Y' || values[3][0] == 'y')
+        if (values[3][0] == 'Y' || values[3][0] == 'y') {
             *ishow = 1;
-        else
+        } else {
             *ishow = 0;
+        }
         return 1;
     }
     return 0;
@@ -300,8 +315,9 @@ pp_shoot_find_bvp_com(int32 com) {
     browse_wipe_rep();
     adjoints_data_back();
     pp_shoot_compile_bvp();
-    if (FFT || HIST || DelayFlag || BVP_FLAG == 0)
+    if (FFT || HIST || DelayFlag || BVP_FLAG == 0) {
         return;
+    }
     STORFLAG = 0;
     RANGE_FLAG = 1;
     POIMAP = 0;
@@ -313,11 +329,13 @@ pp_shoot_find_bvp_com(int32 com) {
         pp_shoot_do_range(ystart, yend);
         return;
     case 3:
-        if (NUPAR == 0)
+        if (NUPAR == 0) {
             goto bye;
+        }
         pflag = pp_shoot_set_up_periodic(&ipar, &ivar, &sect, &ishow);
-        if (pflag == 0)
+        if (pflag == 0) {
             goto bye;
+        }
         iper = 1;
         get_val(upar_names[ipar], &oldpar);
         break;
@@ -331,12 +349,13 @@ pp_shoot_find_bvp_com(int32 com) {
         iper = 0;
         break;
     }
-    if (iper)
+    if (iper) {
         pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE,
                     ishow, iper, ipar, ivar, sect);
-    else
+    } else {
         pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE,
                     ishow, 0, 0, 0, 0.0);
+    }
     pp_shoot_bad(iret);
     if (iret == 1 || iret == 2) {
         integrate_get_ic(0, ystart);
@@ -349,8 +368,9 @@ pp_shoot_find_bvp_com(int32 com) {
         refresh_browser(storind);
         graf_par_auto_freeze_it();
         ggets_ping();
-    } else if (iper)
+    } else if (iper) {
         set_val(upar_names[ipar], oldpar);
+    }
 
 bye:
     TRANS = oldtrans;
@@ -368,8 +388,9 @@ pp_shoot_last(int32 flag) {
     if (flag) {
         storage[0][0] = (double)T0;
         main_rhs_extra(x, T0, NODE, NEQ);
-        for (int32 i = 0; i < NEQ; i++)
+        for (int32 i = 0; i < NEQ; i++) {
             storage[1 + i][0] = (double)x[i];
+        }
         storind = 1;
     }
     integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart);
@@ -401,18 +422,21 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
     double t0 = T0;
     double t1 = T0 + TEND*dt / fabs(dt);
 
-    if (iper)
+    if (iper) {
         ntot = n + 1;
+    }
     jac = xmalloc((usize)(ntot*ntot)*sizeof(*jac));
     f = xmalloc((usize)ntot*sizeof(*f));
     fdev = xmalloc((usize)ntot*sizeof(*fdev));
     y0 = xmalloc((usize)ntot*sizeof(*(y0)));
     y1 = xmalloc((usize)ntot*sizeof(*(y1)));
 
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         y0[i] = y[i];
-    if (iper)
+    }
+    if (iper) {
         get_val(upar_names[ipar], &y0[n]);
+    }
 
     /* dt=(t1-t0)/nt;  */
     while (true) {
@@ -431,8 +455,9 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
 
         t = t0;
         istart = 1;
-        if (iper)
+        if (iper) {
             set_val(upar_names[ipar], y0[n]);
+        }
 
         if (integrate_ode_int(y, &t, &istart, ishow) == 0) {
             *iret = -4;
@@ -443,21 +468,25 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
         }
 
         pp_shoot_do_bc(y0, t0, y1, t1, f, n);
-        if (iper)
+        if (iper) {
             f[n] = y1[ivar] - sect;
+        }
         error = 0.0;
-        for (int32 i = 0; i < ntot; i++)
+        for (int32 i = 0; i < ntot; i++) {
             error += fabs(f[i]);
+        }
         if (error < err) {
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 y[i] = y0[i]; /*   Good values .... */
+            }
             if (iper) {
                 set_val(upar_names[ipar], y0[n]);
                 init_conds_redraw_params();
             }
 
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 yend[i] = y1[i];
+            }
             *iret = 1;
             goto bye;
         }
@@ -470,20 +499,24 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
         /*   create the Jacobian matrix ...   */
 
         for (int32 j = 0; j < ntot; j++) {
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 y[i] = y0[i];
-            if (fabs(y0[j]) < eps)
+            }
+            if (fabs(y0[j]) < eps) {
                 dev = eps*eps;
-            else
+            } else {
                 dev = eps*fabs(y0[j]);
+            }
 
-            if (j < n)
+            if (j < n) {
                 y[j] = y[j] + dev;
+            }
             ytemp = y0[j];
             y0[j] = y0[j] + dev;
 
-            if (j == n)
+            if (j == n) {
                 set_val(upar_names[ipar], y0[j]);
+            }
 
             t = t0;
             istart = 1;
@@ -494,11 +527,13 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
             }
 
             pp_shoot_do_bc(y0, t0, y, t1, fdev, n);
-            if (iper)
+            if (iper) {
                 fdev[n] = y[ivar] - sect;
+            }
             y0[j] = ytemp;
-            for (int32 i = 0; i < ntot; i++)
+            for (int32 i = 0; i < ntot; i++) {
                 jac[j + i*ntot] = (fdev[i] - f[i]) / dev;
+            }
         }
 
         gear_sgefa(jac, ntot, ntot, ipvt, &info);
@@ -506,8 +541,9 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
             *iret = -3;
             goto bye;
         }
-        for (int32 i = 0; i < ntot; i++)
+        for (int32 i = 0; i < ntot; i++) {
             fdev[i] = f[i];
+        }
         gear_sgesl(jac, ntot, ntot, ipvt, fdev, 0);
         error = 0.0;
         for (int32 i = 0; i < ntot; i++) {
@@ -515,11 +551,13 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
             error += fabs(fdev[i]);
         }
 
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             y[i] = y0[i];
+        }
         if (error < 1.e-10) {
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 yend[i] = y1[i];
+            }
             *iret = 2;
             goto bye;
         }

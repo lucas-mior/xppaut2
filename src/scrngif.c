@@ -87,15 +87,18 @@ scrngif_ppm_to_pix(uchar r, uchar g, uchar b, int32 *n) {
 
     if (UseGlobalMap == 1) {
         for (int32 i = 0; i < NGlobalColors; i++) {
-            if (r == gifGcol[i].r && g == gifGcol[i].g && b == gifGcol[i].b)
+            if (r == gifGcol[i].r && g == gifGcol[i].g && b == gifGcol[i].b) {
                 return i;
+            }
         }
 
         return -1;
     }
-    for (int32 i = 0; i < nc; i++)
-        if (r == gifcol[i].r && g == gifcol[i].g && b == gifcol[i].b)
+    for (int32 i = 0; i < nc; i++) {
+        if (r == gifcol[i].r && g == gifcol[i].g && b == gifcol[i].b) {
             return i;
+        }
+    }
     if (nc > 255) {
         ggets_plintf("Too many colors \n");
         return -1;
@@ -117,10 +120,11 @@ scrngif_end_ani_gif(FILE *fp) {
 void
 scrngif_add_ani_gif(Window win, FILE *fp, int32 count) {
     ggets_plintf("Frame %d \n", count);
-    if (count == 0)
+    if (count == 0) {
         scrngif_stuff(win, fp, FIRST_ANI_GIF);
-    else
+    } else {
         scrngif_stuff(win, fp, NEXT_ANI_GIF);
+    }
     return;
 }
 
@@ -162,8 +166,9 @@ scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
             g = ppm[k + 1];
             b = ppm[k + 2];
             pix = scrngif_ppm_to_pix(r, g, b, &nc);
-            if (pix < 0)
+            if (pix < 0) {
                 return 0;
+            }
             pixels[l] = (uchar)pix;
             k += 3;
             l++;
@@ -188,8 +193,9 @@ scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
             b = ppm[k + 2];
             k += 3;
             pix = scrngif_ppm_to_pix(r, g, b, &ncol);
-            if (pix < 0)
+            if (pix < 0) {
                 pix = 255;
+            }
             pixels[l] = (uchar)pix;
             l++;
         }
@@ -364,10 +370,11 @@ scrngif_write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
     GifPutShort(0, fout);
     GifPutShort(cols, fout);
     GifPutShort(rows, fout);
-    if (colflag)
+    if (colflag) {
         fputc(0x87, fout);
-    else
+    } else {
         fputc(0x07, fout);
+    }
     if (colflag) {
         for (int32 i = 0; i < 256; i++) {
             fputc(0xff & gifcol[i].r, fout);
@@ -450,8 +457,9 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 
     nodeArray = empty;
     memmove(++nodeArray, empty, 255*sizeof(GifTree **));
-    if ((buffer = xmalloc((BUFLEN + 1)*sizeof(uchar))) == NULL)
+    if ((buffer = xmalloc((BUFLEN + 1)*sizeof(uchar))) == NULL) {
         return 0;
+    }
     buffer++;
 
     pos = buffer;
@@ -464,11 +472,13 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 
     cLength = (int16)((depth == 1) ? 3 : depth + 1);
 
-    if ((topNode = baseNode = xmalloc(sizeof(GifTree)*4094)) == NULL)
+    if ((topNode = baseNode = xmalloc(sizeof(GifTree)*4094)) == NULL) {
         return 0;
+    }
     if ((nodeArray = first->node =
-             xmalloc(256*sizeof(GifTree *)*NUMBER_OF_ARRAYS)) == NULL)
+             xmalloc(256*sizeof(GifTree *)*NUMBER_OF_ARRAYS)) == NULL) {
         return 0;
+    }
     lastArray = nodeArray + (256*NUMBER_OF_ARRAYS - cc);
     scrngif_clear_tree(cc, first);
 
@@ -486,8 +496,9 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
         } else if (curNode->typ == SEARCH) {
             newNode = curNode->nxt;
             while (newNode->alt != NULL) {
-                if (newNode->ix == *pixels)
+                if (newNode->ix == *pixels) {
                     break;
+                }
                 newNode = newNode->alt;
             }
             if (newNode->ix == *pixels) {
@@ -546,18 +557,22 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
          * ******************************************************
          */
         if (debugFlag) {
-            if (curNode == newNode)
+            if (curNode == newNode) {
                 fprintf(stderr, "Wrong choice of node\n");
-            if (curNode->typ == LOOKUP && curNode->node[*pixels] != newNode)
+            }
+            if (curNode->typ == LOOKUP && curNode->node[*pixels] != newNode) {
                 fprintf(stderr, "Wrong pixel coding\n");
-            if (curNode->typ == TERMIN)
+            }
+            if (curNode->typ == TERMIN) {
                 fprintf(stderr,
                         "Wrong Type coding; pixel# = %d; nodecount = %d\n", tel,
                         nodecount);
+            }
         }
         pos = scrngif_add_code_to_buffer(curNode->code, cLength, pos);
-        if (chainlen > maxchainlen)
+        if (chainlen > maxchainlen) {
             maxchainlen = chainlen;
+        }
         chainlen = 0;
         if (pos - buffer > BLOKLEN) {
             buffer[-1] = BLOKLEN;
@@ -570,8 +585,9 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
         }
         curNode = first;
 
-        if (next == (1 << cLength))
+        if (next == (1 << cLength)) {
             cLength++;
+        }
         next++;
 
         if (next == 0xfff) {
@@ -611,9 +627,10 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     free(buffer - 1);
     free(first->node);
     free(baseNode);
-    if (debugFlag)
+    if (debugFlag) {
         fprintf(stderr, "pixel count = %d; nodeCount = %d lookup nodes = %d\n",
                 tel, nodecount, lookuptypes);
+    }
     return 1;
 }
 
@@ -621,11 +638,13 @@ void
 scrngif_clear_tree(int32 cc, GifTree *root) {
     GifTree *newNode, **xx;
 
-    if (debugFlag > 1)
+    if (debugFlag > 1) {
         fprintf(stderr, "Clear Tree  cc= %d\n", cc);
-    if (debugFlag > 1)
+    }
+    if (debugFlag > 1) {
         fprintf(stderr, "nodeCount = %d lookup nodes = %d\n", nodecount,
                 lookuptypes);
+    }
     maxchainlen = 0;
     lookuptypes = 1;
     nodecount = 0;

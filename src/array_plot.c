@@ -124,8 +124,9 @@ array_plot_draw_one(char *bob) {
     char filename[300];
 
     array_plot_redraw(array_plot);
-    if (array_plot_tag)
+    if (array_plot_tag) {
         array_plot_tag2(bob);
+    }
     XFlush(display);
     snprintf(filename, sizeof(filename), "%s.%d.gif", array_plot_range_stem,
              array_plot_range_count);
@@ -145,16 +146,18 @@ array_plot_optimize(int32 *plist) {
     int32 nrows = my_browser.maxrow;
     int32 ncol = i1 + 1 - i0;
 
-    if (ncol < 2 || nrows < 2)
+    if (ncol < 2 || nrows < 2) {
         return;
+    }
     array_plot_make_my("Array!");
 
     array_plot.index0 = i0 + 1;
     strcpy(array_plot.name, uvar_names[i0]);
     array_plot.nacross = ncol;
     nr = 201;
-    if (nrows < nr)
+    if (nrows < nr) {
         nr = nrows;
+    }
     array_plot.ndown = nr;
     ns = nrows / nr;
     array_plot.nskip = ns;
@@ -170,8 +173,9 @@ array_plot_optimize(int32 *plist) {
 
 void
 array_plot_make_my(char *name) {
-    if (array_plot.alive == 1)
+    if (array_plot.alive == 1) {
         return;
+    }
     create_array_plot(&array_plot, name, name);
     return;
 }
@@ -195,23 +199,27 @@ array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin) {
                 jb = row0 + ap->nskip*j;
                 if (jb < nrows && jb >= 0) {
                     z = my_browser.data[ib][jb];
-                    if (z < *zmin)
+                    if (z < *zmin) {
                         *zmin = z;
-                    if (z > *zmax)
+                    }
+                    if (z > *zmax) {
                         *zmax = z;
+                    }
                 }
             }
         }
     }
-    if (*zmin >= *zmax)
+    if (*zmin >= *zmax) {
         *zmax = fabs(*zmin) + 1 + *zmin;
+    }
     return;
 }
 
 void
 array_plot_expose(Window window) {
-    if (array_plot.alive)
+    if (array_plot.alive) {
         array_plot_display(window, array_plot);
+    }
     return;
 }
 
@@ -219,8 +227,9 @@ void
 array_plot_do_events(XEvent event) {
     int32 x;
     int32 y;
-    if (array_plot.alive == 0)
+    if (array_plot.alive == 0) {
         return;
+    }
     switch (event.type) {
         /* case Expose:
          case MapNotify:
@@ -232,14 +241,16 @@ array_plot_do_events(XEvent event) {
             /*printf("%d\n",ev.xmotion.y-first_aplot_press); */
             array_plot.nstart =
                 array_plot.nstart - event.xmotion.y + first_aplot_press;
-            if (array_plot.nstart < 0)
+            if (array_plot.nstart < 0) {
                 array_plot.nstart = 0;
+            }
             array_plot_redraw(array_plot);
         }
         break;
     case ConfigureNotify:
-        if (event.xconfigure.window != array_plot.base)
+        if (event.xconfigure.window != array_plot.base) {
             return;
+        }
         x = event.xconfigure.width;
         y = event.xconfigure.height;
         array_plot.width = x;
@@ -256,8 +267,9 @@ array_plot_do_events(XEvent event) {
         array_plot_wborder(event.xexpose.window, 1, array_plot);
         break;
     case ButtonPress:
-        if (event.xany.window == array_plot.wplot)
+        if (event.xany.window == array_plot.wplot) {
             first_aplot_press = event.xbutton.y;
+        }
         /*array_plot_button(ev.xbutton.window,array_plot);*/
         array_plot_button(event.xbutton.window);
         break;
@@ -273,8 +285,9 @@ array_plot_wborder(Window window, int32 i, struct ArrayPlot ap) {
      */
     Window w = window;
     if (w == ap.wedit || w == ap.wprint || w == ap.wclose || w == ap.wredraw ||
-        w == ap.wgif || w == ap.wrange || w == ap.wfit)
+        w == ap.wgif || w == ap.wrange || w == ap.wfit) {
         XSetWindowBorderWidth(display, w, (uint)i);
+    }
     return;
 }
 
@@ -371,20 +384,25 @@ array_plot_print(struct ArrayPlot *ap) {
     int32 row0 = ap->nstart;
     int32 col0 = ap->index0;
     int32 jb;
-    if (nrows <= 2)
+    if (nrows <= 2) {
         return;
-    if (ap->plotdef == 0 || ap->nacross < 2 || ap->ndown < 2)
+    }
+    if (ap->plotdef == 0 || ap->nacross < 2 || ap->ndown < 2) {
         return;
+    }
     jb = row0;
     tlo = 0.0;
     thi = 20.0;
-    if (jb > 0 && jb < nrows)
+    if (jb > 0 && jb < nrows) {
         tlo = my_browser.data[0][jb];
+    }
     jb = row0 + ap->nskip*(ap->ndown - 1);
-    if (jb >= nrows)
+    if (jb >= nrows) {
         jb = nrows - 1;
-    if (jb >= 0)
+    }
+    if (jb >= 0) {
         thi = my_browser.data[0][jb];
+    }
     strncpy(values[0], ap->filename, sizeof(values[0]));
     strncpy(values[1], ap->xtitle, sizeof(values[1]));
     strncpy(values[2], ap->ytitle, sizeof(values[2]));
@@ -397,23 +415,26 @@ array_plot_print(struct ArrayPlot *ap) {
         strcpy(ap->ytitle, values[2]);
         strcpy(ap->bottom, values[3]);
         ap->type = atoi(values[4]);
-        if (ap->type < -1 || ap->type > 2)
+        if (ap->type < -1 || ap->type > 2) {
             ap->type = -1;
+        }
         errflag =
             array_print(ap->filename, ap->xtitle, ap->ytitle, ap->bottom,
                         ap->nacross, ap->ndown, col0, row0, ap->nskip,
                         ap->ncskip, nrows, my_browser.maxcol, my_browser.data,
                         ap->zmin, ap->zmax, tlo, thi, ap->type);
-        if (errflag == -1)
+        if (errflag == -1) {
             ggets_err_msg("Couldn't open file");
+        }
     }
     return;
 }
 
 void
 array_plot_button(Window window) {
-    if (window == array_plot.wedit)
+    if (window == array_plot.wedit) {
         array_plot_edit2(&array_plot);
+    }
     if (window == array_plot.wfit) {
         /* array plot fit */
         double zmax;
@@ -445,10 +466,12 @@ array_plot_button(Window window) {
             integrate_do_range(x, 0);
         }
     }
-    if (window == array_plot.wredraw)
+    if (window == array_plot.wredraw) {
         array_plot_redraw(array_plot);
-    if (window == array_plot.wprint)
+    }
+    if (window == array_plot.wprint) {
         array_plot_print(&array_plot);
+    }
     if (window == array_plot.wclose) {
         /* array plot destroy */
         array_plot.alive = 0;
@@ -456,8 +479,9 @@ array_plot_button(Window window) {
         XDestroySubwindows(display, array_plot.base);
         XDestroyWindow(display, array_plot.base);
     }
-    if (window == array_plot.wgif)
+    if (window == array_plot.wgif) {
         array_plot_gif();
+    }
     return;
 }
 
@@ -475,8 +499,9 @@ array_plot_draw_scale(struct ArrayPlot ap) {
 
 void
 array_plot_draw(struct ArrayPlot ap) {
-    if (plot3d_auto_redraw != 1)
+    if (plot3d_auto_redraw != 1) {
         return;
+    }
     array_plot_redraw(ap);
 }
 
@@ -498,19 +523,22 @@ array_plot_get_root(char *s, char *sroot, int32 *num) {
             break;
         }
         i--;
-        if (i < 0)
+        if (i < 0) {
             break;
+        }
     }
-    if (i < 0)
+    if (i < 0) {
         strcpy(sroot, s);
-    else {
-        for (int32 j = 0; j <= i; j++)
+    } else {
+        for (int32 j = 0; j <= i; j++) {
             sroot[j] = s[j];
+        }
         sroot[i + 1] = 0;
     }
     if (i >= 0 && i < n) {
-        for (int32 j = i + 1; j < n; j++)
+        for (int32 j = i + 1; j < n; j++) {
             me[j - i - 1] = s[j];
+        }
         me[n - i] = 0;
         *num = atoi(me);
     }
@@ -522,8 +550,9 @@ array_plot_reset_axes(struct ArrayPlot ap) {
     char bob[200];
     char sroot[100];
     int32 num;
-    if (ap.alive == 0)
+    if (ap.alive == 0) {
         return;
+    }
     array_plot_get_root(ap.name, sroot, &num);
     snprintf(bob, sizeof(bob), "%s%d..%d", sroot, num, num + ap.nacross - 1);
     XClearWindow(display, ap.wmax);
@@ -537,10 +566,11 @@ array_plot_reset_axes(struct ArrayPlot ap) {
 void
 array_plot_dump(FILE *fp, int32 f) {
     char bob[256];
-    if (f == READEM)
+    if (f == READEM) {
         fgets(bob, 255, fp);
-    else
+    } else {
         fprintf(fp, "# Array plot stuff\n");
+    }
     lunch_io_string(array_plot.name, 11, fp, f);
     lunch_io_int(&array_plot.nacross, fp, f, "NCols");
     lunch_io_int(&array_plot.nstart, fp, f, "Row 1");
@@ -593,8 +623,9 @@ array_plot_edit2(struct ArrayPlot *ap) {
         plot3d_auto_redraw = atoi(values[7]);
         ap->plotdef = 1;
         ap->ncskip = atoi(values[8]);
-        if (ap->ncskip < 1)
+        if (ap->ncskip < 1) {
             ap->ncskip = 1;
+        }
         array_plot_reset_axes(*ap);
     }
     return 1;
@@ -602,8 +633,9 @@ array_plot_edit2(struct ArrayPlot *ap) {
 
 void
 array_plot_close_files(void) {
-    if (array_plot_still == 0)
+    if (array_plot_still == 0) {
         fclose(ap_fp);
+    }
     return;
 }
 
@@ -658,8 +690,9 @@ void
 array_plot_gif(void) {
     char filename[XPP_MAX_NAME + 4];
     snprintf(filename, sizeof(filename), "%s.gif", this_file);
-    if (!init_conds_file_selector("GIF plot", filename, "*.gif"))
+    if (!init_conds_file_selector("GIF plot", filename, "*.gif")) {
         return;
+    }
     array_plot_gif_all(filename, 1);
     return;
 }
@@ -684,22 +717,27 @@ array_plot_redraw(struct ArrayPlot ap) {
     int32 jb;
     int32 ix;
     int32 iy;
-    if (nrows <= 2)
+    if (nrows <= 2) {
         return;
-    if (ap.plotdef == 0 || ap.nacross < 2 || ap.ndown < 2)
+    }
+    if (ap.plotdef == 0 || ap.nacross < 2 || ap.ndown < 2) {
         return;
+    }
     XClearWindow(display, ap.wtime);
     XClearWindow(display, window);
     jb = row0;
     tlo = 0.0;
     thi = 20.0;
-    if (jb > 0 && jb < nrows)
+    if (jb > 0 && jb < nrows) {
         tlo = my_browser.data[0][jb];
+    }
     jb = row0 + ap.nskip*(ap.ndown - 1);
-    if (jb >= nrows)
+    if (jb >= nrows) {
         jb = nrows - 1;
-    if (jb >= 0)
+    }
+    if (jb >= 0) {
         thi = my_browser.data[0][jb];
+    }
     snprintf(bob, sizeof(bob), " %g < t < %g ", tlo, thi);
     XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob,
                 (int32)strlen(bob));
@@ -712,8 +750,9 @@ array_plot_redraw(struct ArrayPlot ap) {
         x = dx*i;
         ix = (int32)x;
 
-        if (ib >= my_browser.maxcol)
+        if (ib >= my_browser.maxcol) {
             return;
+        }
         for (int32 j = 0; j < ap.ndown; j++) {
             jb = row0 + ap.nskip*j;
 
@@ -725,20 +764,24 @@ array_plot_redraw(struct ArrayPlot ap) {
                 z = (double)color_total*(my_browser.data[ib][jb] - ap.zmin) /
                     (ap.zmax - ap.zmin);
                 colr = (int32)z + FIRSTCOLOR;
-                if (colr < FIRSTCOLOR)
+                if (colr < FIRSTCOLOR) {
                     colr = FIRSTCOLOR;
-                if (colr > cmax)
+                }
+                if (colr > cmax) {
                     colr = cmax;
-                if (colr < 0)
+                }
+                if (colr < 0) {
                     XSetForeground(display, array_plot_gc, GrBack);
-                if (colr == 0)
+                }
+                if (colr == 0) {
                     XSetForeground(display, array_plot_gc, GrFore);
-                else {
-                    if (COLOR)
+                } else {
+                    if (COLOR) {
                         XSetForeground(display, array_plot_gc,
                                        (uint)color_map(colr));
-                    else
+                    } else {
                         XSetForeground(display, array_plot_gc, GrFore);
+                    }
                 }
                 XFillRectangle(display, window, array_plot_gc, ix, iy,
                                (uint)delx, (uint)dely);

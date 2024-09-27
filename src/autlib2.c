@@ -232,8 +232,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     }
     /*     The matrix D and FC are set to zero for all nodes except the first.
      */
-    if (iam > 0)
+    if (iam > 0) {
         setfcdd(ifst, mas.d, fc, &nfpr, &nrc);
+    }
 
 #ifdef MATLAB_OUTPUT
     print_jacobian(*iap, mas);
@@ -646,8 +647,9 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
         /* The faa array needs to be intialized as well, since it
            it used in the dimrge_ rountine to print stuff out,
            and in the bcksub_ routine for actual computations! */
-        for (int64 k = 0; k < ((*nov)*(*na + 1)); k++)
+        for (int64 k = 0; k < ((*nov)*(*na + 1)); k++) {
             faa[k] = 0.0;
+        }
         setzero(fa, fc, na, nra, nrc);
 #else
         setzero(fa, fc, na, nra, nrc);
@@ -734,8 +736,9 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
     c_dim2 = *nrc;
 
     nex = *nca - (*nov*2);
-    if (nex == 0)
+    if (nex == 0) {
         return 0;
+    }
 
     /* Condensation of right hand side. */
 
@@ -1935,8 +1938,9 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
             fprintf(fp9, " ");
             for (int64 i = 0; i < ncrloc; ++i) {
                 fprintf(fp9, "%11.3E", xe[i]);
-                if ((i + 1) % 10 == 0)
+                if ((i + 1) % 10 == 0) {
                     fprintf(fp9, "\n ");
+                }
             }
             fprintf(fp9, "\n");
         }
@@ -1947,8 +1951,9 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
             for (int64 i = 0; i < ncrloc; ++i) {
                 int32 total_printed = 0;
                 for (int64 j = 0; j < ncrloc; ++j) {
-                    if ((total_printed != 0) && (total_printed % 10 == 0))
+                    if ((total_printed != 0) && (total_printed % 10 == 0)) {
                         fprintf(fp9, "\n");
+                    }
                     fprintf(fp9, " %11.3E", ARRAY2D(e, i, j));
                     total_printed++;
                 }
@@ -1972,8 +1977,9 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
             fprintf(fp9, " Solution vector:\n");
 
             for (int64 i = 0; i < ncrloc; ++i) {
-                if ((i != 0) && (i % 7 == 0))
+                if ((i != 0) && (i % 7 == 0)) {
                     fprintf(fp9, "\n");
+                }
                 fprintf(fp9, " %11.3E", fcc[i]);
             }
             fprintf(fp9, "\n");
@@ -2471,19 +2477,22 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
         for (ir = 0; ir < *nra; ++ir) {
             int32 total_written = 0;
             for (ic = 0; ic < *nca; ++ic) {
-                if ((total_written != 0) && (total_written % 12 == 0))
+                if ((total_written != 0) && (total_written % 12 == 0)) {
                     fprintf(fp9, "\n");
+                }
                 fprintf(fp9, " %10.3E", ARRAY3D(a, ic, ir, i));
                 total_written++;
             }
             for (ic = 0; ic < *ncb; ++ic) {
-                if ((total_written != 0) && (total_written % 12 == 0))
+                if ((total_written != 0) && (total_written % 12 == 0)) {
                     fprintf(fp9, "\n");
+                }
                 fprintf(fp9, " %10.3E", ARRAY3D(b, ic, ir, i));
                 total_written++;
             }
-            if ((total_written != 0) && (total_written % 12 == 0))
+            if ((total_written != 0) && (total_written % 12 == 0)) {
                 fprintf(fp9, "\n");
+            }
             fprintf(fp9, " %10.3E", ARRAY2D(fa, ir, i));
             fprintf(fp9, "\n");
         }
@@ -2496,8 +2505,9 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
         for (ir = 0; ir < *nrc; ++ir) {
             int32 total_written = 0;
             for (ic = 0; ic < *nca; ++ic) {
-                if ((total_written != 0) && (total_written % 12 == 0))
+                if ((total_written != 0) && (total_written % 12 == 0)) {
                     fprintf(fp9, "\n");
+                }
                 fprintf(fp9, " %10.3E", ARRAY3D(c, ic, ir, i));
                 total_written++;
             }
@@ -2510,8 +2520,9 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
     for (ir = 0; ir < *nrc; ++ir) {
         int32 total_written = 0;
         for (ic = 0; ic < *ncb; ++ic) {
-            if ((total_written != 0) && (total_written % 12 == 0))
+            if ((total_written != 0) && (total_written % 12 == 0)) {
                 fprintf(fp9, "\n");
+            }
             fprintf(fp9, " %10.3E", ARRAY2D(d, ic, ir));
             total_written++;
         }

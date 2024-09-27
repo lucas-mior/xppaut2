@@ -127,8 +127,9 @@ browse_wait_a_sec(int32 msec) {
         gettimeofday(&tim, NULL);
         t2 = (double)tim.tv_sec + ((double)tim.tv_usec / 1000000.0);
 
-        if ((t2 - t1) > sec)
+        if ((t2 - t1) > sec) {
             break;
+        }
     }
     return;
 }
@@ -157,8 +158,9 @@ write_browser_data(FILE *fp, Browser *b) {
                 fprintf(fp, "%.8g ", b->data[j][i]);
             }
         } else {
-            for (j = 0; j < b->maxcol; j++)
+            for (j = 0; j < b->maxcol; j++) {
                 fprintf(fp, "%.8g ", b->data[j][i]);
+            }
         }
         fprintf(fp, "\n");
     }
@@ -170,8 +172,9 @@ browse_check_for_stor(double **data) {
     if (data != storage) {
         ggets_err_msg("Only data can be in browser");
         return 0;
-    } else
+    } else {
         return 1;
+    }
 }
 
 void
@@ -180,8 +183,9 @@ browse_data_del_col(Browser *b) {
     Window window;
     int32 rev;
 
-    if (browse_check_for_stor(b->data) == 0)
+    if (browse_check_for_stor(b->data) == 0) {
         return;
+    }
     XGetInputFocus(display, &window, &rev);
     ggets_err_msg("Sorry - not working very well yet...");
     return;
@@ -194,8 +198,9 @@ browse_data_add_col(Browser *b) {
     int32 status;
     char var[20];
     char form[80];
-    if (browse_check_for_stor(b->data) == 0)
+    if (browse_check_for_stor(b->data) == 0) {
         return;
+    }
     XGetInputFocus(display, &window, &rev);
     strcpy(var, "");
     strcpy(form, "");
@@ -203,8 +208,9 @@ browse_data_add_col(Browser *b) {
     if (status != 0) {
         status = dialog_box_get("Add Column", "Formula:", form, "Add it",
                                 "Cancel", 80);
-        if (status != 0)
+        if (status != 0) {
             browse_add_stor_col(var, form, b);
+        }
     }
     return;
 }
@@ -236,17 +242,21 @@ browse_add_stor_col(char *name, char *formula, Browser *b) {
     }
     strcpy(ode_names[NEQ], formula);
     strupr(ode_names[NEQ]);
-    for (int32 j = 0; j <= i; j++)
+    for (int32 j = 0; j <= i; j++) {
         my_ode[NEQ + FIX_VAR][j] = com[j];
+    }
     strcpy(uvar_names[NEQ], name);
     strupr(uvar_names[NEQ]);
-    for (i = 0; i < b->maxrow; i++)
-        storage[NEQ + 1][i] = 0.0; /*  zero it all   */
     for (i = 0; i < b->maxrow; i++) {
-        for (int32 j = 0; j < NODE + 1; j++)
+        storage[NEQ + 1][i] = 0.0; /*  zero it all   */
+    }
+    for (i = 0; i < b->maxrow; i++) {
+        for (int32 j = 0; j < NODE + 1; j++) {
             set_ivar(j, (double)storage[j][i]);
-        for (int32 j = NODE; j < NEQ; j++)
+        }
+        for (int32 j = NODE; j < NEQ; j++) {
             set_val(uvar_names[j], (double)storage[j + 1][i]);
+        }
         storage[NEQ + 1][i] = (double)evaluate(com);
     }
     parserslow_add_var(uvar_names[NEQ], 0.0); /*  this could be trouble .... */
@@ -277,11 +287,13 @@ browse_chk_seq(char *f, int32 *seq, double *a1, double *a2) {
         }
     }
     if (j > -1) {
-        for (int32 i = 0; i < j; i++)
+        for (int32 i = 0; i < j; i++) {
             n1[i] = f[i];
+        }
         n1[j] = 0;
-        for (int32 i = j + 1; i < n; i++)
+        for (int32 i = j + 1; i < n; i++) {
             n2[i - j - 1] = f[i];
+        }
         n2[n - j - 1] = 0;
         *a1 = atof(n1);
         *a2 = atof(n2);
@@ -303,15 +315,17 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
     double dt;
     double derv = 0.0;
     double sum = 0.0;
-    if (n < 2)
+    if (n < 2) {
         return;
+    }
 
     dt = NJMP*DELTA_T;
     /* first check for derivative or integral symbol */
     i = 0;
     while (i < (int32)strlen(form)) {
-        if (!isspace(form[i]))
+        if (!isspace(form[i])) {
             break;
+        }
         i++;
     }
     if (form[i] == '&') {
@@ -327,16 +341,19 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
         }
     }
 
-    if (dif_var < 0)
+    if (dif_var < 0) {
         browse_chk_seq(form, &seq, &a1, &a2);
-    if (seq == 1) {
-        if (a1 == a2)
-            seq = 3;
-        else
-            da = (a2 - a1) / ((double)(n - 1));
     }
-    if (seq == 2)
+    if (seq == 1) {
+        if (a1 == a2) {
+            seq = 3;
+        } else {
+            da = (a2 - a1) / ((double)(n - 1));
+        }
+    }
+    if (seq == 2) {
         da = a2;
+    }
     if (seq == 3) {
         ggets_err_msg("Illegal sequence");
         return;
@@ -372,26 +389,32 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
         old_rep[i] = dat[R_COL][i];
         if (dif_var < 0) {
             if (seq == 0) {
-                for (int32 j = 0; j < NODE + 1; j++)
+                for (int32 j = 0; j < NODE + 1; j++) {
                     set_ivar(j, (double)dat[j][i]);
-                for (int32 j = NODE; j < NEQ; j++)
+                }
+                for (int32 j = NODE; j < NEQ; j++) {
                     set_val(uvar_names[j], (double)dat[j + 1][i]);
+                }
                 if (intflag) {
                     sum += (double)evaluate(com);
                     dat[R_COL][i] = sum*dt;
-                } else
+                } else {
                     dat[R_COL][i] = (double)evaluate(com);
+                }
             } else {
                 dat[R_COL][i] = (double)(a1 + i*da);
             }
         } else {
-            if (i == 0)
+            if (i == 0) {
                 derv = (dat[dif_var][1] - dat[dif_var][0]) / dt;
-            if (i == (n - 1))
+            }
+            if (i == (n - 1)) {
                 derv = (dat[dif_var][i] - old) / dt;
+            }
             /* if(i>0&&i<(n-1))derv=(dat[dif_var][i+1]-old)/(2*dt); */
-            if (i > 0 && i < (n - 1))
+            if (i > 0 && i < (n - 1)) {
                 derv = (dat[dif_var][i + 1] - dat[dif_var][i]) / dt;
+            }
             old = dat[dif_var][i];
             dat[R_COL][i] = derv;
         }
@@ -403,8 +426,9 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
 
 void
 browse_wipe_rep(void) {
-    if (!REPLACE)
+    if (!REPLACE) {
         return;
+    }
     free(old_rep);
     REPLACE = 0;
     return;
@@ -417,14 +441,16 @@ browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
     int32 ok;
     FILE *fp;
     browse_open_write_file(&fp, filename, &ok);
-    if (!ok)
+    if (!ok) {
         return;
+    }
     npts = b.iend - b.istart;
 
     fprintf(fp, "%d\n", npts);
     fprintf(fp, "%g\n%g\n", xlo, xhi);
-    for (int32 i = 0; i < npts; i++)
+    for (int32 i = 0; i < npts; i++) {
         fprintf(fp, "%10.10g\n", b.data[col][i + b.istart]);
+    }
     fclose(fp);
     ggets_ping();
     return;
@@ -457,16 +483,18 @@ browse_find_variable(char *s, int32 *col) {
         return;
     }
     *col = init_conds_find_user_name(2, s);
-    if (*col > -1)
+    if (*col > -1) {
         *col = *col + 1;
+    }
     return;
 }
 
 void
 browse_but_on(Browser *b, int32 i, Window window, int32 yn) {
     uint32 val = 1;
-    if (yn)
+    if (yn) {
         val = 2;
+    }
     XSetWindowBorderWidth(display, window, val);
     if (yn && TipsFlag && i >= 0) {
         strcpy(b->hinttxt, browse_hint[i]);
@@ -478,50 +506,72 @@ browse_but_on(Browser *b, int32 i, Window window, int32 yn) {
 void
 enter_browser(XEvent event, Browser *b, int32 yn) {
     Window window = event.xexpose.window;
-    if (window == b->find)
+    if (window == b->find) {
         browse_but_on(b, 0, window, yn);
-    if (window == b->up)
+    }
+    if (window == b->up) {
         browse_but_on(b, 1, window, yn);
-    if (window == b->down)
+    }
+    if (window == b->down) {
         browse_but_on(b, 2, window, yn);
-    if (window == b->pgup)
+    }
+    if (window == b->pgup) {
         browse_but_on(b, 3, window, yn);
-    if (window == b->pgdn)
+    }
+    if (window == b->pgdn) {
         browse_but_on(b, 4, window, yn);
-    if (window == b->left)
+    }
+    if (window == b->left) {
         browse_but_on(b, 5, window, yn);
-    if (window == b->right)
+    }
+    if (window == b->right) {
         browse_but_on(b, 6, window, yn);
-    if (window == b->home)
+    }
+    if (window == b->home) {
         browse_but_on(b, 7, window, yn);
-    if (window == b->end)
+    }
+    if (window == b->end) {
         browse_but_on(b, 8, window, yn);
-    if (window == b->first)
+    }
+    if (window == b->first) {
         browse_but_on(b, 9, window, yn);
-    if (window == b->last)
+    }
+    if (window == b->last) {
         browse_but_on(b, 10, window, yn);
-    if (window == b->restore)
+    }
+    if (window == b->restore) {
         browse_but_on(b, 11, window, yn);
-    if (window == b->write)
+    }
+    if (window == b->write) {
         browse_but_on(b, 12, window, yn);
-    if (window == b->get)
+    }
+    if (window == b->get) {
         browse_but_on(b, 13, window, yn);
-    if (window == b->repl)
+    }
+    if (window == b->repl) {
         browse_but_on(b, 14, window, yn);
-    if (window == b->unrepl)
+    }
+    if (window == b->unrepl) {
         browse_but_on(b, 15, window, yn);
-    if (window == b->table)
+    }
+    if (window == b->table) {
         browse_but_on(b, 16, window, yn);
-    if (window == b->load)
+    }
+    if (window == b->load) {
         browse_but_on(b, 17, window, yn);
-    if (window == b->time)
+    }
+    if (window == b->time) {
         browse_but_on(b, 18, window, yn);
-    if (window == b->addcol)
+    }
+    if (window == b->addcol) {
         browse_but_on(b, 19, window, yn);
-    if (window == b->delcol)
+    }
+    if (window == b->delcol) {
         browse_but_on(b, 20, window, yn);
-    if (window == b->close)
+    }
+    if (window == b->close) {
         browse_but_on(b, -1, window, yn);
+    }
     return;
 }
 
@@ -535,61 +585,85 @@ display_browser(Window window, Browser b) {
         return;
     }
 
-    if (window == b.find)
+    if (window == b.find) {
         XDS("Find");
-    if (window == b.up)
+    }
+    if (window == b.up) {
         XDS("Up");
-    if (window == b.down)
+    }
+    if (window == b.down) {
         XDS("Down");
-    if (window == b.pgup)
+    }
+    if (window == b.pgup) {
         XDS("PgUp");
-    if (window == b.pgdn)
+    }
+    if (window == b.pgdn) {
         XDS("PgDn");
-    if (window == b.left)
+    }
+    if (window == b.left) {
         XDS("Left");
-    if (window == b.right)
+    }
+    if (window == b.right) {
         XDS("Right");
-    if (window == b.home)
+    }
+    if (window == b.home) {
         XDS("Home");
-    if (window == b.end)
+    }
+    if (window == b.end) {
         XDS("End");
-    if (window == b.first)
+    }
+    if (window == b.first) {
         XDS("First");
-    if (window == b.last)
+    }
+    if (window == b.last) {
         XDS("Last");
-    if (window == b.restore)
+    }
+    if (window == b.restore) {
         XDS("Restore");
-    if (window == b.write)
+    }
+    if (window == b.write) {
         XDS("Write");
-    if (window == b.get)
+    }
+    if (window == b.get) {
         XDS("Get");
-    if (window == b.repl)
+    }
+    if (window == b.repl) {
         XDS("Replace");
-    if (window == b.unrepl)
+    }
+    if (window == b.unrepl) {
         XDS("Unrepl");
-    if (window == b.table)
+    }
+    if (window == b.table) {
         XDS("Table");
-    if (window == b.load)
+    }
+    if (window == b.load) {
         XDS("Load");
-    if (window == b.time)
+    }
+    if (window == b.time) {
         XDS("Time");
-    if (window == b.addcol)
+    }
+    if (window == b.addcol) {
         XDS("Add col");
-    if (window == b.close)
+    }
+    if (window == b.close) {
         XDS("Close");
-    if (window == b.delcol)
+    }
+    if (window == b.delcol) {
         XDS("Del col");
+    }
 
     for (int32 i = 0; i < BMAXCOL; i++) {
         if (window == b.label[i]) {
             i0 = i + b.col0 - 1;
-            if (i0 < b.maxcol - 1)
+            if (i0 < b.maxcol - 1) {
                 XDrawString(display, window, small_gc, 5, CURY_OFFs,
                             uvar_names[i0], (int)strlen(uvar_names[i0]));
+            }
         }
     }
-    if (window == b.main)
+    if (window == b.main) {
         browse_draw_data(b);
+    }
     return;
 }
 
@@ -615,8 +689,9 @@ refresh_browser(int32 length) {
     my_browser.dataflag = 1;
     my_browser.maxrow = length;
     my_browser.iend = length;
-    if (Xup && my_browser.xflag == 1)
+    if (Xup && my_browser.xflag == 1) {
         browse_draw_data(my_browser);
+    }
     return;
 }
 
@@ -635,8 +710,9 @@ browse_draw_data(Browser b) {
     char string[50];
     int32 dcol = DCURXs*14;
     int32 drow = (DCURYs + 6);
-    if (b.dataflag == 0)
+    if (b.dataflag == 0) {
         return; /*   no data  */
+    }
     XClearWindow(display, b.main);
 
     /* Do time data first  */
@@ -654,8 +730,9 @@ browse_draw_data(Browser b) {
     for (int32 j = 0; j < b.ncol; j++) {
         x0 = (j + 1)*dcol + DCURXs / 2;
         j0 = j + b.col0;
-        if (j0 >= b.maxcol)
+        if (j0 >= b.maxcol) {
             return; /* if this one is too big, they all are  */
+        }
         for (int32 i = 0; i < b.nrow; i++) {
             i0 = i + b.row0;
             if (i0 < b.maxrow) {
@@ -709,8 +786,9 @@ browse_button2(Window root, int32 row, int32 col, int32 iflag) {
     int32 width = 8*DCURXs;
     int32 x;
     int32 y;
-    if (iflag == 1)
+    if (iflag == 1) {
         dcol = 14*DCURXs;
+    }
     x = dcol*col + 4;
     y = drow*row + 4;
     window = pop_list_make_window(root, x, y, width + 5, DCURYs + 1, 1);
@@ -727,8 +805,9 @@ browse_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
 
     int32 x;
     int32 y;
-    if (iflag == 1)
+    if (iflag == 1) {
         dcol = 14*DCURXs;
+    }
     x = dcol*col + 4;
     y = drow*row + 4;
     window = pop_list_make_window(root, x, y, width + 5, DCURYs + 1, 1);
@@ -751,8 +830,9 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     int32 drow = (DCURYs + 6);
     int32 ystart = 8;
 
-    if (ncol < 5)
+    if (ncol < 5) {
         ncol = 5;
+    }
 
     height = drow*(row + 6);
     width = ncol*dcol;
@@ -820,8 +900,9 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
         b->label[i] = browse_button_data(base, 5, i + 1, "1234567890", 1);
         XSelectInput(display, b->label[i], SIMPMASK);
     }
-    if (noicon == 0)
+    if (noicon == 0) {
         XIconifyWindow(display, base, screen);
+    }
     /*  XMapWindow(display,base);  */
     return;
 }
@@ -830,49 +911,56 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
 
 void
 expose_my_browser(XEvent event) {
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
+    }
     expose_browser(event, my_browser);
     return;
 }
 
 void
 enter_my_browser(XEvent event, int32 yn) {
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
+    }
     enter_browser(event, &my_browser, yn);
     return;
 }
 
 void
 my_browse_button(XEvent event) {
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
+    }
     browse_button(event, &my_browser);
     return;
 }
 
 void
 my_browse_keypress(XEvent event, int32 *used) {
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
+    }
     browse_keypress(event, used, &my_browser);
     return;
 }
 
 void
 resize_my_browser(Window window) {
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
+    }
     resize_browser(window, &my_browser);
 }
 
 void
 expose_browser(XEvent event, Browser b) {
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
-    if (event.type != Expose)
+    }
+    if (event.type != Expose) {
         return;
+    }
     display_browser(event.xexpose.window, b);
     return;
 }
@@ -886,10 +974,12 @@ resize_browser(Window window, Browser *b) {
     int32 i0;
     int32 newrow;
     int32 newcol;
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
-    if (window != b->base)
+    }
+    if (window != b->base) {
         return;
+    }
     /* w=ev.xconfigure.width;
     h=ev.xconfigure.height; */
     eig_list_get_new_size(window, &w, &h);
@@ -899,26 +989,32 @@ resize_browser(Window window, Browser *b) {
        value of the proper width and height
      */
     i0 = (int32)w / dcol;
-    if ((w % (uint32)dcol) > 0)
+    if ((w % (uint32)dcol) > 0) {
         i0++;
-    if (i0 > b->maxcol)
+    }
+    if (i0 > b->maxcol) {
         i0 = b->maxcol;
+    }
 
     w = (uint32)(i0*dcol);
-    if (i0 < 5)
+    if (i0 < 5) {
         w = 5*(uint32)dcol;
+    }
     newcol = i0;
     h = hreal - 8 - 5*(uint32)drow;
     i0 = (int32)h / drow;
-    if ((h % (uint32)drow) > 0)
+    if ((h % (uint32)drow) > 0) {
         i0++;
-    if (i0 > b->maxrow)
+    }
+    if (i0 > b->maxrow) {
         i0 = b->maxrow;
+    }
     h = (uint32)(i0*drow + DCURXs / 2);
     newrow = i0;
     /*  Now resize everything   */
-    if (b->ncol == newcol && b->nrow == newrow)
+    if (b->ncol == newcol && b->nrow == newrow) {
         return;
+    }
     b->ncol = newcol;
     b->nrow = newrow;
 
@@ -938,24 +1034,31 @@ browse_button(XEvent event, Browser *b) {
     XEvent zz;
     int32 done = 1;
     Window w = event.xbutton.window;
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
+    }
     if (w == b->up || w == b->down || w == b->pgup || w == b->pgdn ||
         w == b->left || w == b->right) {
         done = 1;
         while (done) {
-            if (w == b->up)
+            if (w == b->up) {
                 browse_data_up(b);
-            if (w == b->down)
+            }
+            if (w == b->down) {
                 browse_data_down(b);
-            if (w == b->pgup)
+            }
+            if (w == b->pgup) {
                 browse_data_pgup(b);
-            if (w == b->pgdn)
+            }
+            if (w == b->pgdn) {
                 browse_data_pgdn(b);
-            if (w == b->left)
+            }
+            if (w == b->left) {
                 browse_data_left(b);
-            if (w == b->right)
+            }
+            if (w == b->right) {
                 browse_data_right(b);
+            }
             browse_wait_a_sec(100);
             if (XPending(display) > 0) {
                 XNextEvent(display, &zz);
@@ -1057,8 +1160,9 @@ browse_keypress(XEvent event, int32 *used, Browser *b) {
     int32 rev;
 
     *used = 0;
-    if (my_browser.xflag == 0)
+    if (my_browser.xflag == 0) {
         return;
+    }
     XGetInputFocus(display, &w2, &rev);
 
     if (w == b->main || w == b->base || w == b->upper || w2 == b->base) {
@@ -1201,10 +1305,11 @@ browse_data_down(Browser *b) {
 void
 browse_data_pgup(Browser *b) {
     int32 i = b->row0 - b->nrow;
-    if (i > 0)
+    if (i > 0) {
         b->row0 = i;
-    else
+    } else {
         b->row0 = 0;
+    }
     browse_draw_data(*b);
     return;
 }
@@ -1212,10 +1317,11 @@ browse_data_pgup(Browser *b) {
 void
 browse_data_pgdn(Browser *b) {
     int32 i = b->row0 + b->nrow;
-    if (i < (b->maxrow - 1))
+    if (i < (b->maxrow - 1)) {
         b->row0 = i;
-    else
+    } else {
         b->row0 = b->maxrow - 1;
+    }
     browse_draw_data(*b);
     return;
 }
@@ -1265,8 +1371,9 @@ browse_data_get(Browser *b) {
         last_ic[i + NODE] = (double)storage[i + NODE + 1][in];
         set_ivar(i + 1 + NODE + FIX_VAR, last_ic[i + NODE]);
     }
-    for (int32 i = NODE + NMarkov; i < NEQ; i++)
+    for (int32 i = NODE + NMarkov; i < NEQ; i++) {
         set_val(uvar_names[i], storage[i + 1][in]);
+    }
 
     init_conds_redraw_ics();
 }
@@ -1285,8 +1392,9 @@ browse_data_replace(Browser *b) {
     if (status != 0) {
         status = dialog_box_get("Replace", "Formula:", form, "Replace",
                                 "Cancel", 80);
-        if (status != 0)
+        if (status != 0) {
             browse_replace_column(var, form, b->data, b->maxrow);
+        }
         browse_draw_data(*b);
     }
 
@@ -1298,10 +1406,12 @@ void
 browse_data_unreplace(Browser *b) {
     /* browse unreplace column */
     int32 n = my_browser.maxrow;
-    if (!REPLACE)
+    if (!REPLACE) {
         return;
-    for (int32 i = 0; i < n; i++)
+    }
+    for (int32 i = 0; i < n; i++) {
         my_browser.data[R_COL][i] = old_rep[i];
+    }
     browse_wipe_rep();
 
     browse_draw_data(*b);
@@ -1330,13 +1440,15 @@ browse_data_table(Browser *b) {
     XGetInputFocus(display, &window, &rev);
     status = pop_list_do_string_box(4, 4, 1, "Tabulate", name, value, 40);
     XSetInputFocus(display, window, rev, CurrentTime);
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     xlo = atof(value[1]);
     xhi = atof(value[2]);
     browse_find_variable(value[0], &col);
-    if (col >= 0)
+    if (col >= 0) {
         browse_make_d_table(xlo, xhi, col, value[3], *b);
+    }
     return;
 }
 
@@ -1360,12 +1472,14 @@ browse_data_find(Browser *b) {
 
     XSetInputFocus(display, window, rev, CurrentTime);
 
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     val = (double)atof(value[1]);
     browse_find_variable(value[0], &col);
-    if (col >= 0)
+    if (col >= 0) {
         browse_find_value(col, val, &row, *b);
+    }
     if (row >= 0) {
         b->row0 = row;
         browse_draw_data(*b);
@@ -1382,16 +1496,18 @@ browse_open_write_file(FILE **fp, char *fil, int32 *ok) {
         fclose(*fp);
         ans = (char)menudrive_two_choice("Yes", "No", "File Exists! Overwrite?",
                                          "yn");
-        if (ans != 'y')
+        if (ans != 'y') {
             return;
+        }
     }
 
     *fp = fopen(fil, "w");
     if (*fp == NULL) {
         pop_list_respond_box("Ok", "Cannot open file");
         *ok = 0;
-    } else
+    } else {
         *ok = 1;
+    }
     return;
 }
 
@@ -1412,8 +1528,9 @@ browse_data_read(Browser *b) {
     XSetInputFocus(display,w,rev,CurrentTime);
     */
     status = init_conds_file_selector("Load data", fil, "*.dat");
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     fp = fopen(fil, "r");
     if (fp == NULL) {
         pop_list_respond_box("Ok", "Cannot open file");
@@ -1435,20 +1552,23 @@ browse_data_read(Browser *b) {
             white = 0;
             ++count;
         }
-        if (isspace((int32)ch) && (1 - white))
+        if (isspace((int32)ch) && (1 - white)) {
             white = 1;
+        }
     } while (ch != '\n');
     rewind(fp);
     len = 0;
     while (!feof(fp)) {
         for (int32 k = 0; k < count; k++) {
             fscanf(fp, "%lf ", &z);
-            if (k < b->maxcol)
+            if (k < b->maxcol) {
                 b->data[k][len] = z;
+            }
         }
         ++len;
-        if (len >= MAXSTOR)
+        if (len >= MAXSTOR) {
             break;
+        }
     }
     fclose(fp);
     refresh_browser(len);
@@ -1478,14 +1598,17 @@ browse_data_write(Browser *b) {
 
        XSetInputFocus(display,w,rev,CurrentTime); */
     status = init_conds_file_selector("Write data", fil, "*.dat");
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     browse_open_write_file(&fp, fil, &ok);
-    if (!ok)
+    if (!ok) {
         return;
+    }
     for (i = b->istart; i < b->iend; i++) {
-        for (int32 j = 0; j < b->maxcol; j++)
+        for (int32 j = 0; j < b->maxcol; j++) {
             fprintf(fp, "%.8g ", b->data[j][i]);
+        }
         fprintf(fp, "\n");
     }
     fclose(fp);

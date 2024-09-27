@@ -19,8 +19,9 @@ storage_init_alloc_info(void) {
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
     xpv.x = xmalloc((usize)(xpv.nvec + xpv.node)*sizeof(*(xpv.x)));
-    for (int32 i = xpv.node; i < (xpv.nvec + xpv.node); i++)
+    for (int32 i = xpv.node; i < (xpv.nvec + xpv.node); i++) {
         xpv.x[i] = 0.0;
+    }
     return;
 }
 
@@ -46,8 +47,9 @@ storage_alloc_meth(void) {
     default:
         break;
     }
-    if (WORK)
+    if (WORK) {
         free(WORK);
+    }
     WORK = xmalloc((usize)sz*sizeof(*WORK));
     return;
 }
@@ -58,8 +60,9 @@ storage_realloc(int32 ncol, int32 nrow) {
     while ((storage[i] = realloc(storage[i], (usize)nrow*sizeof(*storage))) !=
            NULL) {
         i++;
-        if (i == ncol)
+        if (i == ncol) {
             return 1;
+        }
     }
     ggets_err_msg("Cannot allocate sufficient storage");
     return 0;
@@ -76,8 +79,9 @@ storage_init_stor(int32 nrow, int32 ncol) {
         i = 0;
         while ((storage[i] = xmalloc((usize)nrow*sizeof(*storage))) != NULL) {
             i++;
-            if (i == ncol)
+            if (i == ncol) {
                 return;
+            }
         }
     }
     ggets_err_msg("Cannot allocate sufficient storage");

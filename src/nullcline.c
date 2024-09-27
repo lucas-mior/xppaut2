@@ -94,8 +94,9 @@ nullcline_froz_cline_stuff_com(int32 i) {
     }
     switch (i) {
     case 0:
-        if (NULL_HERE == 0)
+        if (NULL_HERE == 0) {
             return;
+        }
         nullcline_add_froz(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
         break;
     case 1: {
@@ -103,13 +104,15 @@ nullcline_froz_cline_stuff_com(int32 i) {
         NullClines *z;
         NullClines *znew;
         z = ncperm;
-        while (z->n != NULL)
+        while (z->n != NULL) {
             z = z->n;
+        }
         /*  this is the bottom but there is nothing here that has been stored */
 
         znew = z->p;
-        if (znew == NULL)
+        if (znew == NULL) {
             break;
+        }
         free(z);
         z = znew;
         /* now we are deleting everything */
@@ -137,8 +140,9 @@ nullcline_froz_cline_stuff_com(int32 i) {
     }
     case 3:
         ggets_new_int("Delay (msec)", &delay);
-        if (delay <= 0)
+        if (delay <= 0) {
             delay = 0;
+        }
         nullcline_redraw_froz(delay);
         break;
     case 2: {
@@ -160,22 +164,26 @@ nullcline_froz_cline_stuff_com(int32 i) {
         snprintf(values[2], sizeof(values[2]), "%g", ncrange.xlo);
         snprintf(values[3], sizeof(values[3]), "%g", ncrange.xhi);
         status = pop_list_do_string_box(4, 4, 1, "Range Clines", n, values, 45);
-        if (status == 0)
+        if (status == 0) {
             break;
+        }
 
         strcpy(ncrange.rv, values[0]);
         ncrange.nstep = atoi(values[1]);
         ncrange.xlo = atof(values[2]);
         ncrange.xhi = atof(values[3]);
-        if (ncrange.nstep <= 0)
+        if (ncrange.nstep <= 0) {
             break;
+        }
         dz = (ncrange.xhi - ncrange.xlo) / (double)ncrange.nstep;
-        if (dz <= 0.0)
+        if (dz <= 0.0) {
             break;
+        }
         get_val(ncrange.rv, &zold);
 
-        for (i2 = NODE; i2 < NODE + NMarkov; i2++)
+        for (i2 = NODE; i2 < NODE + NMarkov; i2++) {
             set_ivar(i2 + 1 + FIX_VAR, last_ic[i2]);
+        }
         xmin = (double)MyGraph->xmin;
         xmax = (double)MyGraph->xmax;
         y_tp = (double)MyGraph->ymax;
@@ -188,13 +196,15 @@ nullcline_froz_cline_stuff_com(int32 i) {
             set_val(ncrange.rv, z);
             if (NULL_HERE == 0) {
                 if ((X_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL &&
-                    (Y_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL)
+                    (Y_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL) {
 
                     NULL_HERE = 1;
+                }
                 NTop = xmalloc((usize)(course + 1)*sizeof(*NTop));
                 NBot = xmalloc((usize)(course + 1)*sizeof(*NBot));
-                if (NTop == NULL || NBot == NULL)
+                if (NTop == NULL || NBot == NULL) {
                     NULL_HERE = 0;
+                }
             } else {
                 free(NTop);
                 free(NBot);
@@ -238,8 +248,9 @@ nullcline_silent_dfields(void) {
 void
 silent_nullclines(void) {
     FILE *fp;
-    if (NCBatch != 2)
+    if (NCBatch != 2) {
         return;
+    }
     NCSuppress = 1;
     nullcline_new_clines_com(0);
     fp = fopen("nullclines.dat", "w");
@@ -265,17 +276,21 @@ get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
             *v = Y_n;
             *n = num_y_n;
         }
-        if (v == NULL)
+        if (v == NULL) {
             return 1;
+        }
         return 0;
     }
-    if (who > ncline_cnt || n_nstore == 0)
+    if (who > ncline_cnt || n_nstore == 0) {
         return 1;
+    }
     z = ncperm;
-    for (int32 i = 0; i < who; i++)
+    for (int32 i = 0; i < who; i++) {
         z = z->n;
-    if (z == NULL)
+    }
+    if (z == NULL) {
         return 1;
+    }
     if (type == 0) {
         *v = z->xn;
         *n = z->nmx;
@@ -283,8 +298,9 @@ get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
         *v = z->yn;
         *n = z->nmy;
     }
-    if (v == NULL)
+    if (v == NULL) {
         return 1;
+    }
     return 0;
 }
 
@@ -295,15 +311,18 @@ nullcline_save_frozen(char *fn) {
     char fnx[256];
     char ch;
     int32 i = 1;
-    if (n_nstore == 0)
+    if (n_nstore == 0) {
         return;
+    }
     ch = (char)menudrive_two_choice("YES", "NO", "Save Frozen Clines?", "yn");
-    if (ch == 'n')
+    if (ch == 'n') {
         return;
+    }
     z = ncperm;
     while (true) {
-        if (z == NULL || (z->nmx == 0 && z->nmy == 0))
+        if (z == NULL || (z->nmx == 0 && z->nmy == 0)) {
             return;
+        }
         snprintf(fnx, sizeof(fnx), "%s.%d", fn, i);
         fp = fopen(fnx, "w");
         if (fp == NULL) {
@@ -314,8 +333,9 @@ nullcline_save_frozen(char *fn) {
         fclose(fp);
         i++;
         z = z->n;
-        if (z == NULL)
+        if (z == NULL) {
             break;
+        }
     }
     return;
 }
@@ -329,12 +349,14 @@ nullcline_redraw_froz(int32 flag) {
       col1=1;
       col2=9;
       } */
-    if (n_nstore == 0)
+    if (n_nstore == 0) {
         return;
+    }
     z = ncperm;
     while (true) {
-        if (z == NULL || (z->nmx == 0 && z->nmy == 0))
+        if (z == NULL || (z->nmx == 0 && z->nmy == 0)) {
             return;
+        }
 
         if (MyGraph->xv[0] == z->n_ix && MyGraph->yv[0] == z->n_iy &&
             MyGraph->ThreeDFlag == 0) {
@@ -346,12 +368,14 @@ nullcline_redraw_froz(int32 flag) {
             nullcline_restor(z->xn, z->nmx, 1);
             graphics_set_linestyle(col2);
             nullcline_restor(z->yn, z->nmy, 2);
-            if (flag > 0)
+            if (flag > 0) {
                 menudrive_flush_display();
+            }
         }
         z = z->n;
-        if (z == NULL)
+        if (z == NULL) {
             break;
+        }
     }
     return;
 }
@@ -367,11 +391,13 @@ nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
         z = (z->n);
     }
     z->xn = xmalloc(4*(usize)nmx*sizeof(*(z->xn)));
-    for (int32 i = 0; i < 4*nmx; i++)
+    for (int32 i = 0; i < 4*nmx; i++) {
         z->xn[i] = xn[i];
+    }
     z->yn = xmalloc(4*(usize)nmy*sizeof(*(z->yn)));
-    for (int32 i = 0; i < 4*nmy; i++)
+    for (int32 i = 0; i < 4*nmy; i++) {
         z->yn[i] = yn[i];
+    }
     z->nmx = nmx;
     z->nmy = nmy;
     z->n_ix = n_ix;
@@ -404,8 +430,9 @@ nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
             main_rhs_extra(y, 0.0, NODE, NEQ);
             graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
             amp = hypot(dxp, dyp);
-            if (amp > *mdf)
+            if (amp > *mdf) {
                 *mdf = amp;
+            }
         }
     }
     return;
@@ -414,10 +441,12 @@ nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
 
 void
 nullcline_do_batch_nclines(void) {
-    if (!XPPBatch)
+    if (!XPPBatch) {
         return;
-    if (!NCBatch)
+    }
+    if (!NCBatch) {
         return;
+    }
     if (NCBatch == 1) {
         nullcline_new_clines_com(0);
         return;
@@ -433,8 +462,9 @@ nullcline_set_colorization_stuff(void) {
 
 void
 nullcline_do_batch_dfield(void) {
-    if (!XPPBatch)
+    if (!XPPBatch) {
         return;
+    }
     switch (DFBatch) {
     case 0:
         return;
@@ -507,12 +537,14 @@ nullcline_redraw_dfield(void) {
     int32 grid = DF_GRID;
     if (DF_FLAG == 0 || MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
         MyGraph->ThreeDFlag || DF_IX != MyGraph->xv[0] ||
-        DF_IY != MyGraph->yv[0])
+        DF_IY != MyGraph->yv[0]) {
         return;
+    }
     if (DFSuppress == 1) {
         fp = fopen("dirfields.dat", "w");
-        if (fp == NULL)
+        if (fp == NULL) {
             return;
+        }
     }
 
     du = (MyGraph->xhi - MyGraph->xlo) / (double)grid;
@@ -524,8 +556,9 @@ nullcline_redraw_dfield(void) {
     dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
-    if (!DFSuppress)
+    if (!DFSuppress) {
         graphics_set_linestyle(MyGraph->color[0]);
+    }
     integrate_get_ic(2, y);
     nullcline_get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
     if (PltFmtFlag == SVGFMT) {
@@ -545,8 +578,9 @@ nullcline_redraw_dfield(void) {
                     v1[k + 1] = (double)y[k];
                     v2[k + 1] = v1[k + 1] + (double)ydot[k];
                 }
-                if (!DFSuppress)
+                if (!DFSuppress) {
                     integrate_comp_color(v1, v2, NODE, 1.0);
+                }
             }
             if (DF_FLAG == 1 || DF_FLAG == 4) {
                 graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
@@ -567,8 +601,9 @@ nullcline_redraw_dfield(void) {
                     graphics_line_abs((double)y[inx], (double)y[iny],
                                       (double)xv1, (double)xv2);
                 } else {
-                    if (fp)
+                    if (fp) {
                         fprintf(fp, "%g %g %g %g\n", y[inx], y[iny], xv1, xv2);
+                    }
                 }
             }
             if (DF_FLAG == 2 && j > 0 && i < grid) {
@@ -582,8 +617,9 @@ nullcline_redraw_dfield(void) {
         DOING_DFIELD = 0;
         fprintf(svgfile, "</g>\n");
     }
-    if (DFSuppress == 1)
+    if (DFSuppress == 1) {
         fclose(fp);
+    }
     DFSuppress = 0;
     return;
 }
@@ -618,20 +654,24 @@ nullcline_direct_field_com(int32 c) {
     int32 grid = DF_GRID;
 
     if (MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
-        MyGraph->ThreeDFlag)
+        MyGraph->ThreeDFlag) {
         return;
+    }
 
     if (c == 2) {
         DF_FLAG = 0;
         return;
     }
-    if (c == 0)
+    if (c == 0) {
         DFIELD_TYPE = 1;
-    if (c == 4)
+    }
+    if (c == 4) {
         DFIELD_TYPE = 0;
+    }
     ggets_new_int("Grid:", &grid);
-    if (grid <= 1)
+    if (grid <= 1) {
         return;
+    }
     DF_GRID = grid;
     du = (MyGraph->xhi - MyGraph->xlo) / (double)grid;
     dv = (MyGraph->yhi - MyGraph->ylo) / (double)grid;
@@ -708,7 +748,7 @@ nullcline_direct_field_com(int32 c) {
 
     SuppressBounds = 1;
     for (int32 k = 0; k < 2; k++) {
-        for (int32 i = 0; i <= grid; i++)
+        for (int32 i = 0; i <= grid; i++) {
             for (int32 j = 0; j <= grid; j++) {
                 integrate_get_ic(2, y);
                 y[inx] = u0 + du*i;
@@ -723,6 +763,7 @@ nullcline_direct_field_com(int32 c) {
                   } */
                 integrate(&t, y, TEND, DELTA_T, 1, NJMP, &start);
             }
+        }
         DELTA_T = -DELTA_T;
     }
     SuppressBounds = 0;
@@ -754,8 +795,9 @@ restore_nullclines(void) {
       col1=1;
       col2=9;
       } */
-    if (NULL_HERE == 0)
+    if (NULL_HERE == 0) {
         return;
+    }
     if (MyGraph->xv[0] == null_ix && MyGraph->yv[0] == null_iy &&
         MyGraph->ThreeDFlag == 0) {
         graphics_set_linestyle(col1);
@@ -793,8 +835,9 @@ nullcline_restor(/* d=1 for x and 2 for y  */
     double ym;
     int32 x1;
     int32 y1;
-    if (PltFmtFlag == SVGFMT)
+    if (PltFmtFlag == SVGFMT) {
         fprintf(svgfile, "<g>\n");
+    }
 
     for (int32 i = 0; i < n; i++) {
         i4 = 4*i;
@@ -817,15 +860,17 @@ nullcline_restor(/* d=1 for x and 2 for y  */
         }
     }
 
-    if (PltFmtFlag == SVGFMT)
+    if (PltFmtFlag == SVGFMT) {
         fprintf(svgfile, "</g>\n");
+    }
     return;
 }
 
 void
 nullcline_create_new_cline(void) {
-    if (NULL_HERE)
+    if (NULL_HERE) {
         nullcline_new_clines_com(0);
+    }
     return;
 }
 
@@ -840,8 +885,9 @@ nullcline_new_clines_com(int32 c) {
     int32 col2 = YNullColor;
 
     if (MyGraph->ThreeDFlag || MyGraph->TimeFlag ||
-        MyGraph->xv[0] == MyGraph->yv[0])
+        MyGraph->xv[0] == MyGraph->yv[0]) {
         return;
+    }
 
     if (c == 1) {
         restore_nullclines();
@@ -863,12 +909,14 @@ nullcline_new_clines_com(int32 c) {
         /* save_the_nullclines */
         FILE *fp;
         char filename[256];
-        if (NULL_HERE == 0)
+        if (NULL_HERE == 0) {
             return;
+        }
         snprintf(filename, sizeof(filename), "nc.dat");
         ggets_ping();
-        if (!init_conds_file_selector("Save nullclines", filename, "*.dat"))
+        if (!init_conds_file_selector("Save nullclines", filename, "*.dat")) {
             return;
+        }
         fp = fopen(filename, "w");
         if (fp == NULL) {
             ggets_err_msg("Cant open file!");
@@ -880,8 +928,9 @@ nullcline_new_clines_com(int32 c) {
         return;
     }
     if (c == 0) {
-        for (int32 i = NODE; i < NODE + NMarkov; i++)
+        for (int32 i = NODE; i < NODE + NMarkov; i++) {
             set_ivar(i + 1 + FIX_VAR, last_ic[i]);
+        }
         xmin = (double)MyGraph->xmin;
         xmax = (double)MyGraph->xmax;
         y_tp = (double)MyGraph->ymax;
@@ -890,13 +939,15 @@ nullcline_new_clines_com(int32 c) {
         null_iy = MyGraph->yv[0];
         if (NULL_HERE == 0) {
             if ((X_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL &&
-                (Y_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL)
+                (Y_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL) {
 
                 NULL_HERE = 1;
+            }
             NTop = xmalloc((usize)(course + 1)*sizeof(*NTop));
             NBot = xmalloc((usize)(course + 1)*sizeof(*NBot));
-            if (NTop == NULL || NBot == NULL)
+            if (NTop == NULL || NBot == NULL) {
                 NULL_HERE = 0;
+            }
         } else {
             free(NTop);
             free(NBot);
@@ -909,14 +960,16 @@ nullcline_new_clines_com(int32 c) {
         }
 
         WHICH_CRV = null_ix;
-        if (!NCSuppress)
+        if (!NCSuppress) {
             graphics_set_linestyle(col1);
+        }
         new_nullcline(course, xmin, y_bot, xmax, y_tp, X_n, &num_x_n);
         ggets_ping();
 
         WHICH_CRV = null_iy;
-        if (!NCSuppress)
+        if (!NCSuppress) {
             graphics_set_linestyle(col2);
+        }
         new_nullcline(course, xmin, y_bot, xmax, y_tp, Y_n, &num_y_n);
         ggets_ping();
     }
@@ -936,8 +989,9 @@ new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi,
 void
 nullcline_store(double x1, double y1, double x2, double y2) {
     int32 i;
-    if (num_index >= MAX_NULL)
+    if (num_index >= MAX_NULL) {
         return;
+    }
     i = 4*num_index;
     saver[i] = x1;
     saver[i + 1] = y1;
@@ -951,8 +1005,9 @@ double
 nullcline_fnull(double x, double y) {
     double y1[MAX_ODE];
     double ydot[MAX_ODE];
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         y1[i] = last_ic[i];
+    }
 
     y1[null_ix - 1] = (double)x;
     y1[null_iy - 1] = (double)y;
@@ -963,8 +1018,9 @@ nullcline_fnull(double x, double y) {
 int32
 nullcline_interpolate(Point p1, Point p2, double z, double *x, double *y) {
     double scale;
-    if (p1.z == p2.z)
+    if (p1.z == p2.z) {
         return 0;
+    }
     scale = (z - p1.z) / (p2.z - p1.z);
     *x = p1.x + scale*(p2.x - p1.x);
     *y = p1.y + scale*(p2.y - p1.y);
@@ -976,22 +1032,31 @@ nullcline_quad_contour(Point p1, Point p2, Point p3, Point p4) {
     double x[4];
     double y[4];
     int32 count = 0;
-    if (p1.z*p2.z <= 0.0)
-        if (nullcline_interpolate(p1, p2, 0.0, &x[count], &y[count]))
+    if (p1.z*p2.z <= 0.0) {
+        if (nullcline_interpolate(p1, p2, 0.0, &x[count], &y[count])) {
             count++;
-    if (p2.z*p3.z <= 0.0)
-        if (nullcline_interpolate(p3, p2, 0.0, &x[count], &y[count]))
+        }
+    }
+    if (p2.z*p3.z <= 0.0) {
+        if (nullcline_interpolate(p3, p2, 0.0, &x[count], &y[count])) {
             count++;
-    if (p3.z*p4.z <= 0.0)
-        if (nullcline_interpolate(p3, p4, 0.0, &x[count], &y[count]))
+        }
+    }
+    if (p3.z*p4.z <= 0.0) {
+        if (nullcline_interpolate(p3, p4, 0.0, &x[count], &y[count])) {
             count++;
-    if (p1.z*p4.z <= 0.0)
-        if (nullcline_interpolate(p1, p4, 0.0, &x[count], &y[count]))
+        }
+    }
+    if (p1.z*p4.z <= 0.0) {
+        if (nullcline_interpolate(p1, p4, 0.0, &x[count], &y[count])) {
             count++;
+        }
+    }
 
     if (count == 2) {
-        if (!NCSuppress)
+        if (!NCSuppress) {
             graphics_line_abs(x[0], y[0], x[1], y[1]);
+        }
         nullcline_store(x[0], y[0], x[1], y[1]);
     }
     return;

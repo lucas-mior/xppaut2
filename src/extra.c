@@ -73,11 +73,13 @@ void
 extra_load_new_dll(void) {
     int32 status;
 
-    if (dlf.loaded != 0 && dlhandle != NULL)
+    if (dlf.loaded != 0 && dlhandle != NULL) {
         dlclose(dlhandle);
+    }
     status = init_conds_file_selector("Library:", dlf.libfile, "*.so");
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     sprintf(dlf.libname, "%s/%s", cur_dir, dlf.libfile);
     ggets_new_string("Function name:", dlf.fun);
     dlf.loaded = 0;
@@ -102,8 +104,9 @@ extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
         ((Function1)function)(n, ivar, con, var, wgt, ydot);
         return;
     }
-    if (dll_loaded == -1)
+    if (dll_loaded == -1) {
         return;
+    }
     printf("soname = %s  sofun = %s \n", soname, sofun);
     read_dir_get_directory(cur_dir);
     snprintf(sofullname, sizeof(sofullname), "%s/%s", cur_dir, soname);
@@ -130,8 +133,9 @@ int32
 extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
              double *c) {
     char *error;
-    if (dlf.loaded == -1)
+    if (dlf.loaded == -1) {
         return 0;
+    }
     if (dlf.loaded == 0) {
         dlhandle = dlopen(dlf.libname, RTLD_LAZY);
         if (!dlhandle) {
@@ -186,21 +190,24 @@ extra_auto_load_dll(void) {
 
 void
 extra_do_in_out(void) {
-    if (in_out.nin == 0 || in_out.nout == 0)
+    if (in_out.nin == 0 || in_out.nout == 0) {
         return;
+    }
     for (int32 i = 0; i < in_out.nin; i++) {
-        if (in_out.intype[i] == PAR)
+        if (in_out.intype[i] == PAR) {
             in_out.vin[i] = constants[in_out.in[i]];
-        else
+        } else {
             in_out.vin[i] = variables[in_out.in[i]];
+        }
     }
     extra_my_fun(in_out.vin, in_out.vout, in_out.nin, in_out.nout, variables,
                  constants);
     for (int32 i = 0; i < in_out.nout; i++) {
-        if (in_out.outtype[i] == PAR)
+        if (in_out.outtype[i] == PAR) {
             constants[in_out.out[i]] = in_out.vout[i];
-        else
+        } else {
             variables[in_out.out[i]] = in_out.vout[i];
+        }
     }
     return;
 }
@@ -231,17 +238,20 @@ int32
 extra_get_export_count(char *s) {
     int32 i = 0;
     int32 l = (int32)strlen(s);
-    for (int32 j = 0; j < l; j++)
-        if (s[j] == ',')
+    for (int32 j = 0; j < l; j++) {
+        if (s[j] == ',') {
             i++;
+        }
+    }
     i++;
     return i;
 }
 
 void
 extra_do_export_list(void) {
-    if (in_out.nin == 0 || in_out.nout == 0)
+    if (in_out.nin == 0 || in_out.nout == 0) {
         return;
+    }
     extra_parse_inout(in_out.lin, 0);
     extra_parse_inout(in_out.lout, 1);
     /* check_inout(); */
@@ -299,8 +309,9 @@ extra_parse_inout(char *l, int32 flag) {
                 }
                 k++;
             }
-            if (c == '}')
+            if (c == '}') {
                 done = 0;
+            }
             j = 0;
             break;
 
@@ -309,7 +320,8 @@ extra_parse_inout(char *l, int32 flag) {
             j++;
             i++;
         }
-        if (i > (int32)strlen(l))
+        if (i > (int32)strlen(l)) {
             done = 0;
+        }
     }
 }

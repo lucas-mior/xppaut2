@@ -55,16 +55,18 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
        by a very small vector length.           */
 
     temp = FACTOR*vk_norm;
-    if ((temp + (*new_vk_norm)) != temp)
+    if ((temp + (*new_vk_norm)) != temp) {
         return 0;
+    }
 
     new_norm_2 = ZERO;
 
     for (int32 i = i0; i < k; i++) {
         new_product = vector_dot_prod(v[i], v[k]);
         temp = FACTOR*h[i][k_minus_1];
-        if ((temp + new_product) == temp)
+        if ((temp + new_product) == temp) {
             continue;
+        }
         h[i][k_minus_1] += new_product;
         vector_linear_sum(ONE, v[k], -new_product, v[i], v[k]);
         new_norm_2 += SQR(new_product);
@@ -184,8 +186,9 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
             }
             q[q_ptr] = c;
             q[q_ptr + 1] = s;
-            if ((h[k][k] = c*temp1 - s*temp2) == ZERO)
+            if ((h[k][k] = c*temp1 - s*temp2) == ZERO) {
                 code = k + 1;
+            }
         }
         break;
 
@@ -225,8 +228,9 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
         q_ptr = 2*n_minus_1;
         q[q_ptr] = c;
         q[q_ptr + 1] = s;
-        if ((h[n_minus_1][n_minus_1] = c*temp1 - s*temp2) == ZERO)
+        if ((h[n_minus_1][n_minus_1] = c*temp1 - s*temp2) == ZERO) {
             code = n;
+        }
     }
 
     return code;
@@ -266,8 +270,9 @@ iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
             break;
         }
         b[k] /= h[k][k];
-        for (int32 i = 0; i < k; i++)
+        for (int32 i = 0; i < k; i++) {
             b[i] -= b[k]*h[i][k];
+        }
     }
 
     return code;

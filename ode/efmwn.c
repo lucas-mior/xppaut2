@@ -49,11 +49,13 @@ onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
 
         for (ni = 0; ni < niter; ni++) { /* integrate x,s for niter times */
             sbar = 0;
-            for (i = 0; i < n; i++) /* get synaptic drive */
+            for (i = 0; i < n; i++) { /* get synaptic drive */
                 sbar += s[i];
+            }
             sbar = sbar / (double)n;
-            if (ni == nstart)
+            if (ni == nstart) {
                 sstart = sbar;
+            }
             for (i = 0; i < n; i++) {
                 cs[i] = cos(x[i]);
                 s[i] += dt*(.01*pow((1 - cs[i]), 10.0) - s[i]) / tau;
@@ -62,8 +64,9 @@ onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
             } /* all have been updated */
         }
         /* approx slope */
-        for (i = 0; i < n; i++)
+        for (i = 0; i < n; i++) {
             sbar += s[i];
+        }
         sbar = sbar / (double)n;
         ssum += ((sbar - sstart) / f);
     }

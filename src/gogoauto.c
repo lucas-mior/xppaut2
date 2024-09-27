@@ -79,13 +79,15 @@ go_go_auto(void) {
     /*  One-parameter continuations */
     /* ---------------------------------------------------------- */
 
-    if (list.type == AUTOAE)
+    if (list.type == AUTOAE) {
         autoae(&iap, &rap, par, icp, list.aelist.funi, list.aelist.stpnt,
                list.aelist.pvli, thl, thu, iuz, vuz);
-    if (list.type == AUTOBV)
+    }
+    if (list.type == AUTOBV) {
         autobv(&iap, &rap, par, icp, list.bvlist.funi, list.bvlist.bcni,
                list.bvlist.icni, list.bvlist.stpnt, list.bvlist.pvli, thl, thu,
                iuz, vuz);
+    }
 
     free(thu);
     fclose(fp3);

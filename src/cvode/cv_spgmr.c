@@ -170,8 +170,9 @@ cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
 
     /* Return immediately if cvode_mem is NULL */
     cv_mem = (CVodeMem)cvode_mem;
-    if (cv_mem == NULL)
+    if (cv_mem == NULL) {
         return; /* CVode reports this error */
+    }
 
     /* Set four main function fields in cv_mem */
     linit = cv_spgmr_init;
@@ -181,8 +182,9 @@ cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
 
     /* Get memory for CVSpgmrMemRec */
     lmem = cvspgmr_mem = xmalloc(sizeof(CVSpgmrMemRec));
-    if (cvspgmr_mem == NULL)
+    if (cvspgmr_mem == NULL) {
         return; /* cv_spgmr_init reports this error */
+    }
 
     /* Set Spgmr parameters that have been passed in call sequence */
     cvspgmr_mem->g_pretype = pretype;
@@ -320,8 +322,9 @@ cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     /* Call precond routine and possibly reset jcur */
     ier = precond(N, tn, ypred, fpred, jok, jcurPtr, gamma, ewt, h, uround,
                   &nfe, P_data, vtemp1, vtemp2, vtemp3);
-    if (jbad)
+    if (jbad) {
         *jcurPtr = true;
+    }
 
     /* If jcur = true, increment npe and save nst value */
     if (*jcurPtr) {
@@ -330,8 +333,9 @@ cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     }
 
     /* Set npe, and return the same value ier that precond returned */
-    if (iopt != NULL)
+    if (iopt != NULL) {
         iopt[SPGMR_NPE] = npe;
+    }
     return ier;
 }
 
@@ -369,8 +373,9 @@ cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     deltar = delt*tq[4];
     bnorm = vector_wrms_norm(b, ewt);
     if (bnorm <= deltar) {
-        if (mnewt > 0)
+        if (mnewt > 0) {
             vector_const(ZERO, b);
+        }
         return 0;
     }
 
@@ -397,15 +402,19 @@ cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     }
     if (ier != 0) {
         ncfl++;
-        if (iopt != NULL)
+        if (iopt != NULL) {
             iopt[SPGMR_NCFL] = ncfl;
+        }
     }
 
     /* Set return value to -1, 0, or 1 */
-    if (ier < 0)
+    if (ier < 0) {
         return -1;
-    if ((ier == SPGMR_SUCCESS) || ((ier == SPGMR_RES_REDUCED) && (mnewt == 0)))
+    }
+    if ((ier == SPGMR_SUCCESS) ||
+        ((ier == SPGMR_RES_REDUCED) && (mnewt == 0))) {
         return 0;
+    }
     return 1;
 }
 

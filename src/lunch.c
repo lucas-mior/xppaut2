@@ -31,12 +31,14 @@ lunch_file_inf(void) {
     char filename[XPP_MAX_NAME + 5];
     sprintf(filename, "%s.pars", this_file);
     ggets_ping();
-    if (!init_conds_file_selector("Save info", filename, "*.pars*"))
+    if (!init_conds_file_selector("Save info", filename, "*.pars*")) {
         return;
+    }
     /* if(ggets_new_string("Filename: ",filename)==0)return; */
     browse_open_write_file(&fp, filename, &ok);
-    if (!ok)
+    if (!ok) {
         return;
+    }
     init_conds_redraw_params();
     lunch_do_info(fp);
     fclose(fp);
@@ -81,19 +83,23 @@ lunch_do_info(FILE *fp) {
     char fstr[15];
     fprintf(fp, "File: %s \n\n Equations... \n", this_file);
     for (int32 i = 0; i < NEQ; i++) {
-        if (i < NODE && METHOD > 0)
+        if (i < NODE && METHOD > 0) {
             strcpy(fstr, "d%s/dT=%s\n");
-        if (i < NODE && METHOD == 0)
+        }
+        if (i < NODE && METHOD == 0) {
             strcpy(fstr, "%s(n+1)=%s\n");
-        if (i >= NODE)
+        }
+        if (i >= NODE) {
             strcpy(fstr, "%s=%s\n");
+        }
         fprintf(fp, fstr, uvar_names[i], ode_names[i]);
     }
 
     if (FIX_VAR > 0) {
         fprintf(fp, "\nwhere ...\n");
-        for (int32 i = 0; i < FIX_VAR; i++)
+        for (int32 i = 0; i < FIX_VAR; i++) {
             fprintf(fp, "%s = %s \n", fixinfo[i].name, fixinfo[i].value);
+        }
     }
     if (NFUN > 0) {
         fprintf(fp, "\nUser-defined functions:\n");
@@ -110,25 +116,29 @@ lunch_do_info(FILE *fp) {
             DELTA_T, T0, TRANS, TEND, BOUND, DELAY, MaxPoints);
     fprintf(fp, "EVEC_ERR=%g, NEWT_ERR=%g HMIN=%g HMAX=%g TOLER=%g \n",
             EVEC_ERR, NEWT_ERR, HMIN, HMAX, TOLER);
-    if (POIVAR == 0)
+    if (POIVAR == 0) {
         strcpy(bob, "T");
-    else
+    } else {
         strcpy(bob, uvar_names[POIVAR - 1]);
+    }
     fprintf(fp, "POIMAP=%d POIVAR=%s POIPLN=%g POISGN=%d \n", POIMAP, bob,
             POIPLN, POISGN);
 
     fprintf(fp, "\n\n Delay strings ...\n");
 
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         fprintf(fp, "%s\n", delay_string[i]);
+    }
     fprintf(fp, "\n\n BCs ...\n");
 
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         fprintf(fp, "0=%s\n", my_bc[i].string);
+    }
     fprintf(fp, "\n\n ICs ...\n");
 
-    for (int32 i = 0; i < NODE + NMarkov; i++)
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
         fprintf(fp, "%s=%.16g\n", uvar_names[i], last_ic[i]);
+    }
     fprintf(fp, "\n\n Parameters ...\n");
     div = NUPAR / 4;
     rem = NUPAR % 4;
@@ -205,8 +215,9 @@ do_lunch(int32 f) {
 
     if (f == READEM) {
         ggets_ping();
-        if (!init_conds_file_selector("Load SET File", filename, "*.set"))
+        if (!init_conds_file_selector("Load SET File", filename, "*.set")) {
             return;
+        }
 
         fp = fopen(filename, "r");
         if (fp == NULL) {
@@ -247,19 +258,22 @@ do_lunch(int32 f) {
         fclose(fp);
         return;
     }
-    if (!init_conds_file_selector("Save SET File", filename, "*.set"))
+    if (!init_conds_file_selector("Save SET File", filename, "*.set")) {
         return;
+    }
     browse_open_write_file(&fp, filename, &ok);
-    if (!ok)
+    if (!ok) {
         return;
+    }
     init_conds_redraw_params();
     ttt = time(0);
     fprintf(fp, "## Set file for %s on %s", this_file, ctime(&ttt));
     lunch_io_int(&NEQ, fp, f, "Number of equations and auxiliaries");
     lunch_io_int(&NUPAR, fp, f, "Number of parameters");
     lunch_io_numerics(f, fp);
-    if (METHOD == VOLTERRA)
+    if (METHOD == VOLTERRA) {
         lunch_io_int(&MaxPoints, fp, f, "Max points for volterra");
+    }
     lunch_io_exprs(f, fp);
     lunch_io_graph(f, fp);
     adjoints_dump_transpose_info(fp, f);
@@ -277,19 +291,23 @@ lunch_dump_eqn(FILE *fp) {
     char fstr[15];
     fprintf(fp, "RHS etc ...\n");
     for (int32 i = 0; i < NEQ; i++) {
-        if (i < NODE && METHOD > 0)
+        if (i < NODE && METHOD > 0) {
             strcpy(fstr, "d%s/dT=%s\n");
-        if (i < NODE && METHOD == 0)
+        }
+        if (i < NODE && METHOD == 0) {
             strcpy(fstr, "%s(n+1)=%s\n");
-        if (i >= NODE)
+        }
+        if (i >= NODE) {
             strcpy(fstr, "%s=%s\n");
+        }
         fprintf(fp, fstr, uvar_names[i], ode_names[i]);
     }
 
     if (FIX_VAR > 0) {
         fprintf(fp, "\nwhere ...\n");
-        for (int32 i = 0; i < FIX_VAR; i++)
+        for (int32 i = 0; i < FIX_VAR; i++) {
             fprintf(fp, "%s = %s \n", fixinfo[i].name, fixinfo[i].value);
+        }
     }
     if (NFUN > 0) {
         fprintf(fp, "\nUser-defined functions:\n");
@@ -310,8 +328,9 @@ lunch_io_numerics(int32 f, FILE *fp) {
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
-    if (f != READEM)
+    if (f != READEM) {
         fprintf(fp, "# Numerical stuff\n");
+    }
     lunch_io_int(&NJMP, fp, f, " nout");
     lunch_io_int(&NMESH, fp, f, " nullcline mesh");
     lunch_io_int(&METHOD, fp, f, method[METHOD]);
@@ -329,12 +348,14 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_double(&TOLER, fp, f, "Tolerance");
     /* fix stuff concerning the tolerance */
     if (f == READEM) {
-        if (set_type == 1)
+        if (set_type == 1) {
             lunch_io_double(&ATOLER, fp, f, "Abs. Tolerance");
-        else
+        } else {
             ATOLER = TOLER*10;
-    } else
+        }
+    } else {
         lunch_io_double(&ATOLER, fp, f, "Abs. Tolerance");
+    }
 
     lunch_io_double(&DELAY, fp, f, "Max Delay");
     lunch_io_int(&EVEC_ITER, fp, f, "Eigenvector iterates");
@@ -503,8 +524,9 @@ lunch_io_parameters(int32 f, FILE *fp) {
         }
     }
 
-    if (!XPPBatch)
+    if (!XPPBatch) {
         init_conds_reset_sliders();
+    }
     return;
 }
 
@@ -516,36 +538,45 @@ lunch_io_exprs(int32 f, FILE *fp) {
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
-    if (f != READEM)
+    if (f != READEM) {
         fprintf(fp, "# Delays\n");
-    for (int32 i = 0; i < NODE; i++)
+    }
+    for (int32 i = 0; i < NODE; i++) {
         lunch_io_string(delay_string[i], 100, fp, f);
+    }
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
-    if (f != READEM)
+    if (f != READEM) {
         fprintf(fp, "# Bndry conds\n");
-    for (int32 i = 0; i < NODE; i++)
+    }
+    for (int32 i = 0; i < NODE; i++) {
         lunch_io_string(my_bc[i].string, 100, fp, f);
+    }
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
-    if (f != READEM)
+    if (f != READEM) {
         fprintf(fp, "# Old ICs\n");
-    for (int32 i = 0; i < NODE + NMarkov; i++)
+    }
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
         lunch_io_double(&last_ic[i], fp, f, uvar_names[i]);
+    }
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
-    if (f != READEM)
+    if (f != READEM) {
         fprintf(fp, "# Ending  ICs\n");
-    for (int32 i = 0; i < NODE + NMarkov; i++)
+    }
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
         lunch_io_double(&MyData[i], fp, f, uvar_names[i]);
+    }
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
-    if (f != READEM)
+    if (f != READEM) {
         fprintf(fp, "# Parameters\n");
+    }
     for (int32 i = 0; i < NUPAR; i++) {
         if (f != READEM) {
             get_val(upar_names[i], &z);
@@ -571,11 +602,14 @@ lunch_io_graph(int32 f, FILE *fp) {
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
-    if (f != READEM)
+    if (f != READEM) {
         fprintf(fp, "# Graphics\n");
-    for (int32 j = 0; j < 3; j++)
-        for (int32 k = 0; k < 3; k++)
+    }
+    for (int32 j = 0; j < 3; j++) {
+        for (int32 k = 0; k < 3; k++) {
             lunch_io_double(&(MyGraph->rm[k][j]), fp, f, "rm");
+        }
+    }
     for (int32 j = 0; j < MAXPERPLOT; j++) {
         lunch_io_int(&(MyGraph->xv[j]), fp, f, " ");
         lunch_io_int(&(MyGraph->yv[j]), fp, f, " ");
@@ -620,8 +654,9 @@ lunch_io_graph(int32 f, FILE *fp) {
     lunch_io_double(&(MyGraph->yhi), fp, f, " yhi");
     lunch_io_double(&(MyGraph->oldxhi), fp, f, " ");
     lunch_io_double(&(MyGraph->oldyhi), fp, f, " ");
-    if (f == READEM && Xup)
+    if (f == READEM && Xup) {
         graf_par_redraw_the_graph();
+    }
     return;
 }
 
@@ -631,8 +666,9 @@ lunch_io_int(int32 *i, FILE *fp, int32 f, char *ss) {
     if (f == READEM) {
         fgets(bob, 255, fp);
         *i = atoi(bob);
-    } else
+    } else {
         fprintf(fp, "%d   %s\n", *i, ss);
+    }
     return;
 }
 
@@ -642,8 +678,9 @@ lunch_io_double(double *z, FILE *fp, int32 f, char *ss) {
     if (f == READEM) {
         fgets(bob, 255, fp);
         *z = atof(bob);
-    } else
+    } else {
         fprintf(fp, "%.16g  %s\n", *z, ss);
+    }
     return;
 }
 
@@ -654,10 +691,12 @@ lunch_io_string(char *s, int32 len, FILE *fp, int32 f) {
         fgets(s, len, fp);
         i = 0;
         while (i < strlen(s)) {
-            if (s[i] == '\n')
+            if (s[i] == '\n') {
                 s[i] = 0;
+            }
             i++;
         }
-    } else
+    } else {
         fprintf(fp, "%s\n", s);
+    }
 }

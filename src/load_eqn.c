@@ -140,15 +140,17 @@ static void load_eqn_read_defaults(FILE *fp);
 void
 load_eqn_dump_torus(FILE *fp, int32 f) {
     char bob[256];
-    if (f == READEM)
+    if (f == READEM) {
         fgets(bob, 255, fp);
-    else
+    } else {
         fprintf(fp, "# Torus information \n");
+    }
     lunch_io_int(&TORUS, fp, f, " Torus flag 1=ON");
     lunch_io_double(&TOR_PERIOD, fp, f, "Torus period");
     if (TORUS) {
-        for (int32 i = 0; i < NEQ; i++)
+        for (int32 i = 0; i < NEQ; i++) {
             lunch_io_int(&itor[i], fp, f, uvar_names[i]);
+        }
     }
     return;
 }
@@ -166,8 +168,9 @@ load_eqn(void) {
         itor[i] = 0;
         strcpy(delay_string[i], "0.0");
     }
-    if (strcmp(this_file, "/dev/stdin") == 0)
+    if (strcmp(this_file, "/dev/stdin") == 0) {
         std = 1;
+    }
     if (got_file == 1 && (std == 0) &&
         (dp = (struct dirent *)opendir(this_file)) != NULL) {
         no_eqn = 1;
@@ -177,14 +180,17 @@ load_eqn(void) {
         return;
     } else {
         if (got_file == 1 && (fptr = fopen(this_file, "r")) != NULL) {
-            if (std == 1)
+            if (std == 1) {
                 sprintf(this_file, "console");
+            }
             okay = form_ode_get_eqn(fptr);
-            if (std == 0)
+            if (std == 0) {
                 fclose(fptr);
+            }
 
-            if (okay == 1)
+            if (okay == 1) {
                 no_eqn = 0;
+            }
         }
     }
     if (no_eqn) {
@@ -245,8 +251,9 @@ load_eqn_set_x_vals(void) {
         sprintf(UserDrawWinColor, "#%s", "FFFFFF");
     }
 
-    if (UserGradients < 0)
+    if (UserGradients < 0) {
         UserGradients = 1;
+    }
     return;
 }
 
@@ -519,14 +526,17 @@ load_eqn_set_all_vals(void) {
 
     /*                           */
 
-    if (IZPLT > NEQ)
+    if (IZPLT > NEQ) {
         IZPLT = NEQ;
-    if (IYPLT > NEQ)
+    }
+    if (IYPLT > NEQ) {
         IYPLT = NEQ;
-    if (IXPLT == 0 || IYPLT == 0)
+    }
+    if (IXPLT == 0 || IYPLT == 0) {
         TIMPLOT = 1;
-    else
+    } else {
         TIMPLOT = 0;
+    }
     if (x_3d[0] >= x_3d[1]) {
         x_3d[0] = -1;
         x_3d[1] = 1;
@@ -554,8 +564,9 @@ load_eqn_set_all_vals(void) {
         y_3d[1] = MY_YHI;
     }
     storage_init_stor(MAXSTOR, NEQ + 1);
-    if (AXES >= 5)
+    if (AXES >= 5) {
         PLOT_3D = 1;
+    }
     numerics_chk_delay(); /* check for delay allocation */
     adjoints_alloc_h_stuff();
 
@@ -727,8 +738,9 @@ load_eqn_add_intern_set(char *name, char *does) {
             bob[k] = ' ';
             k++;
         }
-        if (ch == '}' || ch == '{')
+        if (ch == '}' || ch == '{') {
             continue;
+        }
         if (ch != ',') {
             bob[k] = ch;
             k++;
@@ -758,8 +770,9 @@ load_eqn_extract_action(char *ptr) {
 
     while ((mystring = form_ode_do_fit_get_next(" ,;\n")) != NULL) {
         load_eqn_split_apart(mystring, name, value);
-        if (strlen(name) > 0 && strlen(value) > 0)
+        if (strlen(name) > 0 && strlen(value) > 0) {
             load_eqn_do_intern_set(name, value);
+        }
     }
     return;
 }
@@ -796,19 +809,23 @@ load_eqn_do_intern_set(char *name1, char *value) {
 int32
 load_eqn_msc(char *s1, char *s2) {
     usize n = strlen(s1);
-    if (n > strlen(s2))
+    if (n > strlen(s2)) {
         return 0;
-    for (usize i = 0; i < n; i++)
-        if (s1[i] != s2[i])
+    }
+    for (usize i = 0; i < n; i++) {
+        if (s1[i] != s2[i]) {
             return 0;
+        }
+    }
     return 1;
 }
 
 void
 load_eqn_set_internopts(OptionsSet *mask) {
     char *ptr, name[20], value[80], *junk, *mystring;
-    if (Nopts == 0)
+    if (Nopts == 0) {
         return;
+    }
     /*  parsem here   */
     for (int32 i = 0; i < Nopts; i++) {
         ptr = interopt[i];
@@ -896,8 +913,9 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
     /*Check for QUIET and LOGFILE options first...*/
     char intrnoptcpy[255]; /*Must use copy to avoid side effects of strtok used
                               in get_first below*/
-    if (Nopts == 0)
+    if (Nopts == 0) {
         return;
+    }
     for (int32 i = 0; i < Nopts; i++) {
         strcpy(intrnoptcpy, interopt[i]);
         ptr = intrnoptcpy;
@@ -967,8 +985,9 @@ load_eqn_split_apart(char *bob, char *name, char *value) {
     } else {
         strncpy(name, bob, (usize)k);
         name[k] = '\0';
-        for (int32 i = k + 1; i < l; i++)
+        for (int32 i = k + 1; i < l; i++) {
             value[i - k - 1] = bob[i];
+        }
         value[l - k - 1] = '\0';
     }
     return;
@@ -981,8 +1000,9 @@ load_eqn_check_for_xpprc(void) {
     char bob[256];
     sprintf(rc, "%s/.xpprc", getenv("HOME"));
     fp = fopen(rc, "r");
-    if (fp == NULL)
+    if (fp == NULL) {
         return;
+    }
     while (!feof(fp)) {
         bob[0] = '\0';
         fgets(bob, 255, fp);
@@ -1233,8 +1253,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.COLORMAP || force) ||
             ((mask != NULL) && (mask->COLORMAP == 1))) {
             i = atoi(s2);
-            if (i < 7)
+            if (i < 7) {
                 custom_color = i;
+            }
             notAlreadySet.COLORMAP = 0;
         }
         return;
@@ -1285,20 +1306,23 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         sprintf(yyl, "YLO%d", j);
         if (load_eqn_msc(xx, s1)) {
             browse_find_variable(s2, &i);
-            if (i > -1)
+            if (i > -1) {
                 IX_PLT[j] = i;
+            }
             return;
         }
         if (load_eqn_msc(yy, s1)) {
             browse_find_variable(s2, &i);
-            if (i > -1)
+            if (i > -1) {
                 IY_PLT[j] = i;
+            }
             return;
         }
         if (load_eqn_msc(zz, s1)) {
             browse_find_variable(s2, &i);
-            if (i > -1)
+            if (i > -1) {
                 IZ_PLT[j] = i;
+            }
             return;
         }
         if (load_eqn_msc(xxh, s1)) {
@@ -1322,8 +1346,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.XP || force) ||
             ((mask != NULL) && (mask->XP == 1))) {
             browse_find_variable(s2, &i);
-            if (i > -1)
+            if (i > -1) {
                 IXPLT = i;
+            }
             notAlreadySet.XP = 0;
             notAlreadySet.IXPLT = 0;
         }
@@ -1333,8 +1358,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.YP || force) ||
             ((mask != NULL) && (mask->YP == 1))) {
             browse_find_variable(s2, &i);
-            if (i > -1)
+            if (i > -1) {
                 IYPLT = i;
+            }
             notAlreadySet.YP = 0;
             notAlreadySet.IYPLT = 0;
         }
@@ -1344,8 +1370,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.ZP || force) ||
             ((mask != NULL) && (mask->ZP == 1))) {
             browse_find_variable(s2, &i);
-            if (i > -1)
+            if (i > -1) {
                 IZPLT = i;
+            }
 
             notAlreadySet.ZP = 0;
             notAlreadySet.IZPLT = 0;
@@ -1393,9 +1420,11 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("METH", s1)) {
         if ((notAlreadySet.METHOD || force) ||
             ((mask != NULL) && (mask->METHOD == 1))) {
-            for (i = 0; i < 15; i++)
-                if (s2[0] == mkey[i] || s2[0] == Mkey[i])
+            for (i = 0; i < 15; i++) {
+                if (s2[0] == mkey[i] || s2[0] == Mkey[i]) {
                     METHOD = i;
+                }
+            }
 
             notAlreadySet.METHOD = 0;
         }
@@ -1673,12 +1702,15 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("POIMAP", s1)) {
         if ((notAlreadySet.POIMAP || force) ||
             ((mask != NULL) && (mask->POIMAP == 1))) {
-            if (s2[0] == 'm' || s2[0] == 'M')
+            if (s2[0] == 'm' || s2[0] == 'M') {
                 POIMAP = 2;
-            if (s2[0] == 's' || s2[0] == 'S')
+            }
+            if (s2[0] == 's' || s2[0] == 'S') {
                 POIMAP = 1;
-            if (s2[0] == 'p' || s2[0] == 'P')
+            }
+            if (s2[0] == 'p' || s2[0] == 'P') {
                 POIMAP = 3;
+            }
             notAlreadySet.POIMAP = 0;
         }
         return;
@@ -1688,8 +1720,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.POIVAR || force) ||
             ((mask != NULL) && (mask->POIVAR == 1))) {
             browse_find_variable(s2, &i);
-            if (i > -1)
+            if (i > -1) {
                 POIVAR = i;
+            }
 
             notAlreadySet.POIVAR = 0;
         }
@@ -2013,8 +2046,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.AUTOVAR || force) ||
             ((mask != NULL) && (mask->AUTOVAR == 1))) {
             browse_find_variable(s2, &i);
-            if (i > 0)
+            if (i > 0) {
                 auto_var = i - 1;
+            }
             notAlreadySet.AUTOVAR = 0;
         }
         return;
@@ -2193,8 +2227,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.HISTCOL || force) ||
             ((mask != NULL) && (mask->HISTCOL == 1))) {
             browse_find_variable(s2, &i);
-            if (i > (-1))
+            if (i > (-1)) {
                 hist_inf.col = i;
+            }
             notAlreadySet.HISTCOL = 0;
         }
         return;
@@ -2231,8 +2266,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.HISTCOL2 || force) ||
             ((mask != NULL) && (mask->HISTCOL2 == 1))) {
             browse_find_variable(s2, &i);
-            if (i > (-1))
+            if (i > (-1)) {
                 hist_inf.col2 = i;
+            }
             notAlreadySet.HISTCOL2 = 0;
         }
         return;
@@ -2242,8 +2278,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.SPECCOL || force) ||
             ((mask != NULL) && (mask->SPECCOL == 1))) {
             browse_find_variable(s2, &i);
-            if (i > (-1))
+            if (i > (-1)) {
                 spec_col = i;
+            }
             notAlreadySet.SPECCOL = 0;
         }
         return;
@@ -2253,8 +2290,9 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.SPECCOL2 || force) ||
             ((mask != NULL) && (mask->SPECCOL2 == 1))) {
             browse_find_variable(s2, &i);
-            if (i > (-1))
+            if (i > (-1)) {
                 spec_col2 = i;
+            }
             notAlreadySet.SPECCOL2 = 0;
         }
         return;
@@ -2306,29 +2344,33 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     /* colorize customizing !! */
     if (load_eqn_msc("COLORVIA", s1)) {
         if ((notAlreadySet.COLORVIA || force) ||
-            ((mask != NULL) && (mask->COLORVIA == 1)))
+            ((mask != NULL) && (mask->COLORVIA == 1))) {
             strcpy(ColorVia, s2);
+        }
         notAlreadySet.COLORVIA = 0;
         return;
     }
     if (load_eqn_msc("COLORIZE", s1)) {
         if ((notAlreadySet.COLORIZE || force) ||
-            ((mask != NULL) && (mask->COLORIZE == 1)))
+            ((mask != NULL) && (mask->COLORIZE == 1))) {
             ColorizeFlag = atoi(s2);
+        }
         notAlreadySet.COLORIZE = 0;
         return;
     }
     if (load_eqn_msc("COLORLO", s1)) {
         if ((notAlreadySet.COLORLO || force) ||
-            ((mask != NULL) && (mask->COLORLO == 1)))
+            ((mask != NULL) && (mask->COLORLO == 1))) {
             ColorViaLo = atof(s2);
+        }
         notAlreadySet.COLORLO = 0;
         return;
     }
     if (load_eqn_msc("COLORHI", s1)) {
         if ((notAlreadySet.COLORHI || force) ||
-            ((mask != NULL) && (mask->COLORHI == 1)))
+            ((mask != NULL) && (mask->COLORHI == 1))) {
             ColorViaHi = atof(s2);
+        }
         notAlreadySet.COLORHI = 0;
         return;
     }

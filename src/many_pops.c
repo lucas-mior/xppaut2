@@ -91,8 +91,9 @@ many_pops_select_table(void) {
     key[NTable] = 0;
     ch = (char)pop_up_list(&temp, "Table", n, key, NTable, 12, 0, 10, 0,
                            no_hint, info_pop, info_message);
-    for (int32 i = 0; i < NTable; i++)
+    for (int32 i = 0; i < NTable; i++) {
         free(n[i]);
+    }
     j = (int32)(ch - 'a');
     if (j < 0 || j >= NTable) {
         ggets_err_msg("Not a valid table");
@@ -108,8 +109,9 @@ many_pops_get_intern_set(void) {
     int32 count = Nintern_set;
     Window temp = main_win;
 
-    if (count == 0)
+    if (count == 0) {
         return;
+    }
     for (int32 i = 0; i < Nintern_set; i++) {
         n[i] = xmalloc(256);
         key[i] = 'a' + (char)i;
@@ -118,8 +120,9 @@ many_pops_get_intern_set(void) {
     key[count] = 0;
     ch = (char)pop_up_list(&temp, "Param set", n, key, count, 12, 0, 10, 0,
                            no_hint, info_pop, info_message);
-    for (int32 i = 0; i < count; i++)
+    for (int32 i = 0; i < count; i++) {
         free(n[i]);
+    }
     j = (int32)(ch - 'a');
     if (j < 0 || j >= Nintern_set) {
         ggets_err_msg("Not a valid set");
@@ -178,8 +181,9 @@ many_pops_gtitle_text(char *string, Window win) {
         Window root;
         XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &de);
         xs = ((int32)w - len*DCURX) / 2;
-        if (xs < 0)
+        if (xs < 0) {
             xs = 0;
+        }
         ggets_f_text(xs, ys, string, win);
         color_set(0);
         ggets_xline(0, 18, (int32)w, 18, win);
@@ -538,12 +542,14 @@ many_pops_draw_marker(double x, double y, double size, int32 type) {
     while (true) {
         offset = 48*type + 3*ind;
         pen = sym_dir[offset];
-        if (pen == 3)
+        if (pen == 3) {
             break;
+        }
         x2 = dx*sym_dir[offset + 1] + x1;
         y2 = dy*sym_dir[offset + 2] + y1;
-        if (pen == 1)
+        if (pen == 1) {
             graphics_line_abs(x1, y1, x2, y2);
+        }
         x1 = x2;
         y1 = y2;
         ind++;
@@ -591,8 +597,9 @@ void
 many_pops_draw_label(Window window) {
     many_pops_gr_col();
     for (int32 i = 0; i < MAXLAB; i++) {
-        if ((lb[i].use == 1) && (lb[i].window == window))
+        if ((lb[i].use == 1) && (lb[i].window == window)) {
             graphics_fancy_text_abs(lb[i].x, lb[i].y, lb[i].s, lb[i].size);
+        }
     }
     for (int32 i = 0; i < MAXGROB; i++) {
         if ((grob[i].use == 1) && (grob[i].window == window)) {
@@ -600,12 +607,15 @@ many_pops_draw_label(Window window) {
             double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe,
                    ye = grob[i].ye;
             graphics_set_linestyle(grob[i].color);
-            if (grob[i].type == POINTER)
+            if (grob[i].type == POINTER) {
                 graphics_line_abs(xs, ys, xe, ye);
-            if (grob[i].type == ARROW || grob[i].type == POINTER)
+            }
+            if (grob[i].type == ARROW || grob[i].type == POINTER) {
                 many_pops_arrow_head(xs, ys, xe, ye, grob[i].size);
-            if (grob[i].type >= MARKER)
+            }
+            if (grob[i].type >= MARKER) {
                 many_pops_draw_marker(xs, ys, grob[i].size, grob[i].type - 2);
+            }
         }
     }
     many_pops_base_col();
@@ -642,14 +652,17 @@ many_pops_select_marker_type(int32 *type) {
     char ch;
     ch = (char)pop_up_list(&temp, "Markers", list, key, 6, 9, ival, 10,
                            4*DCURY + 8, no_hint, info_pop, info_message);
-    if (ch == 27)
+    if (ch == 27) {
         return 0;
-    for (int32 i = 0; i < 6; i++) {
-        if (ch == key[i])
-            ival = i;
     }
-    if (ival < 6)
+    for (int32 i = 0; i < 6; i++) {
+        if (ch == key[i]) {
+            ival = i;
+        }
+    }
+    if (ival < 6) {
         *type = MARKER + ival;
+    }
 
     return 1;
 }
@@ -672,8 +685,9 @@ many_pops_add_marker(void) {
         snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
         snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
         status = pop_list_do_string_box(3, 3, 1, "Add Marker", n, values, 25);
-        if (status == 0)
+        if (status == 0) {
             return;
+        }
 
         markinfo.type = atoi(values[0]);
         markinfo.size = atof(values[2]);
@@ -684,8 +698,9 @@ many_pops_add_marker(void) {
     flag = menudrive_get_mouse_xy(&i1, &j1);
     menudrive_message_box_kill();
     XFlush(display);
-    if (flag == 0)
+    if (flag == 0) {
         return;
+    }
     graphics_scale_to_real(i1, j1, &xs, &ys);
     many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type,
                        markinfo.color);
@@ -707,10 +722,12 @@ many_pops_add_pntarr(int32 type) {
     /*Window temp;*/
     int32 flag;
     /*temp=main_win;*/
-    if (ggets_new_float("Size: ", &size))
+    if (ggets_new_float("Size: ", &size)) {
         return;
-    if (ggets_new_int("Color: ", &color))
+    }
+    if (ggets_new_int("Color: ", &color)) {
         return;
+    }
     /* pop_list_message_box(&temp,0,SCALEY-5*DCURY,"Choose start/end"); */
     menudrive_message_box("Choose start/end");
     flag = rubber(&i1, &j1, &i2, &j2, draw_win, 1);
@@ -720,8 +737,9 @@ many_pops_add_pntarr(int32 type) {
     if (flag) {
         graphics_scale_to_real(i1, j1, &xs, &ys);
         graphics_scale_to_real(i2, j2, &xe, &ye);
-        if (i1 == i2 && j1 == j2)
+        if (i1 == i2 && j1 == j2) {
             return;
+        }
         many_pops_add_grob(xs, ys, xe, ye, size, type, color);
         main_redraw_all();
     }
@@ -800,10 +818,12 @@ many_pops_edit_object_com(int32 com) {
                     ggets_new_int("Size 0-4 :", &lb[ilab].size);
                     /* ggets_new_int("Font  0-times/1-symbol :",&lb[ilab].font);
                      */
-                    if (lb[ilab].size > 4)
+                    if (lb[ilab].size > 4) {
                         lb[ilab].size = 4;
-                    if (lb[ilab].size < 0)
+                    }
+                    if (lb[ilab].size < 0) {
                         lb[ilab].size = 0;
+                    }
                     main_clr_scrn();
                     main_redraw_all();
                 }
@@ -850,8 +870,9 @@ many_pops_edit_object_com(int32 com) {
                          grob[ilab].xs, grob[ilab].ys);
                 ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
-                    if (grob[ilab].type >= MARKER)
+                    if (grob[ilab].type >= MARKER) {
                         many_pops_select_marker_type(&grob[ilab].type);
+                    }
                     ggets_new_float("Size ", &grob[ilab].size);
                     ggets_new_int("Color :", &grob[ilab].color);
                     main_clr_scrn();
@@ -911,8 +932,9 @@ many_pops_do_gr_objs_com(int32 com) {
 
             status =
                 pop_list_do_string_box(6, 6, 1, "Add Markers", n, values, 25);
-            if (status == 0)
+            if (status == 0) {
                 break;
+            }
 
             markinfo.type = atoi(values[0]);
             markinfo.size = atof(values[2]);
@@ -998,11 +1020,13 @@ many_pops_do_windows_com(int32 c) {
             break;
         }
         for (i = 1; i < MAXPOP; i++) {
-            if (graph[i].window == draw_win)
+            if (graph[i].window == draw_win) {
                 break;
+            }
         }
-        if (i >= MAXPOP)
+        if (i >= MAXPOP) {
             return;
+        }
         many_pops_select_window(graph[0].window);
         graph[i].Use = 0;
         many_pops_destroy_label(graph[i].window);
@@ -1054,11 +1078,13 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
         grob[i].use = 0;
     }
     graf_par_init_bd();
-    for (int32 i = 0; i < MAXFRZ; i++)
+    for (int32 i = 0; i < MAXFRZ; i++) {
         frz[i].use = 0;
+    }
     /* for(i=0;i<MAXNCLINE ... */
-    for (int32 i = 0; i < MAXPOP; i++)
+    for (int32 i = 0; i < MAXPOP; i++) {
         graph[i].Use = 0;
+    }
     ActiveWinList[0] = 0;
     graphics_init_all();
 
@@ -1123,8 +1149,9 @@ many_pops_svg_restore(void) {
      */
 
     nullcline_redraw_dfield();
-    if (MyGraph->Nullrestore)
+    if (MyGraph->Nullrestore) {
         restore_nullclines();
+    }
     svg_last_pt_off();
     /*ps_do_color(0);*/
     integrate_restore(0, my_browser.maxrow);
@@ -1248,12 +1275,14 @@ many_pops_do_expose(XEvent event) {
                 draw_win = graph[i].window;
                 graphics_get_draw_area();
                 axes2_do();
-                if (graph[i].Restore)
+                if (graph[i].Restore) {
                     integrate_restore(0, my_browser.maxrow);
+                }
                 many_pops_draw_label(graph[i].window);
                 graf_par_draw_freeze(graph[i].window);
-                if (graph[i].Nullrestore)
+                if (graph[i].Nullrestore) {
                     restore_nullclines();
+                }
             }
         }
     } /* namual expose */
@@ -1285,9 +1314,11 @@ many_pops_create_a_pop(void) {
     int32 i;
     int32 index;
 
-    for (i = 1; i < MAXPOP; i++)
-        if (graph[i].Use == 0)
+    for (i = 1; i < MAXPOP; i++) {
+        if (graph[i].Use == 0) {
             break;
+        }
+    }
     if (i >= MAXPOP) {
         /*pop_list_respond_box(main_win,0,0,"Okay","Too many windows!");*/
         pop_list_respond_box("Okay", "Too many windows!");
@@ -1360,12 +1391,15 @@ many_pops_change_plot_vars(int32 k) {
         if (graph[i].Use) {
             np = graph[i].nvars;
             for (ip = 0; ip < np; ip++) {
-                if (graph[i].xv[ip] > k)
+                if (graph[i].xv[ip] > k) {
                     graph[i].xv[ip] = graph[i].xv[ip] - 1;
-                if (graph[i].yv[ip] > k)
+                }
+                if (graph[i].yv[ip] > k) {
                     graph[i].yv[ip] = graph[i].yv[ip] - 1;
-                if (graph[i].zv[ip] > k)
+                }
+                if (graph[i].zv[ip] > k) {
                     graph[i].zv[ip] = graph[i].zv[ip] - 1;
+                }
             }
         }
     }
@@ -1381,8 +1415,9 @@ many_pops_check_active_plot(int32 k) {
             np = graph[i].nvars;
             for (ip = 0; ip < np; ip++) {
                 if (graph[i].xv[ip] == k || graph[i].yv[ip] == k ||
-                    graph[i].zv[ip] == k)
+                    graph[i].zv[ip] == k) {
                     return 1;
+                }
             }
         }
     }
@@ -1400,15 +1435,18 @@ many_pops_make_active(int32 i, int32 flag) {
 
 void
 many_pops_select_window(Window window) {
-    if (window == draw_win)
+    if (window == draw_win) {
         return;
+    }
     many_pops_gr_col();
-    if (window == graph[0].window)
+    if (window == graph[0].window) {
         current_pop = 0;
-    else {
-        for (int32 i = 1; i < MAXPOP; i++)
-            if ((graph[i].Use) && (window == graph[i].window))
+    } else {
+        for (int32 i = 1; i < MAXPOP; i++) {
+            if ((graph[i].Use) && (window == graph[i].window)) {
                 current_pop = i;
+            }
+        }
     }
     MyGraph = &graph[current_pop];
     /* many pops lo lite */
@@ -1471,15 +1509,19 @@ many_pops_check_draw_button(XEvent event) {
     j = event.xbutton.y;
     if (button == 1) { /* select window   */
 
-        for (int32 k = 1; k < MAXPOP; k++)
-            if ((graph[k].Use) && (window == graph[k].window))
+        for (int32 k = 1; k < MAXPOP; k++) {
+            if ((graph[k].Use) && (window == graph[k].window)) {
                 flag = 1;
-        if ((window == graph[1].window) || (flag == 1))
+            }
+        }
+        if ((window == graph[1].window) || (flag == 1)) {
             many_pops_select_window(window);
+        }
     } else /* any other button   */
     {
-        if (window != draw_win)
+        if (window != draw_win) {
             return;
+        }
         graphics_scale_to_real(i, j, &x, &y);
         snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
         many_pops_canvas_xy(buf);

@@ -24,12 +24,14 @@ DenseMat
 dense_alloc_mat(int64 N) {
     DenseMat A;
 
-    if (N <= 0)
+    if (N <= 0) {
         return NULL;
+    }
 
     A = xmalloc(sizeof *A);
-    if (A == NULL)
+    if (A == NULL) {
         return NULL;
+    }
 
     A->data = dense_alloc2(N);
     if (A->data == NULL) {
@@ -44,8 +46,9 @@ dense_alloc_mat(int64 N) {
 
 int64 *
 dense_alloc_piv(int64 N) {
-    if (N <= 0)
+    if (N <= 0) {
         return NULL;
+    }
 
     return xmalloc((usize)N*sizeof(int64));
 }
@@ -108,12 +111,14 @@ double **
 dense_alloc2(int64 n) {
     double **a;
 
-    if (n <= 0)
+    if (n <= 0) {
         return NULL;
+    }
 
     a = xmalloc((usize)n*sizeof(double *));
-    if (a == NULL)
+    if (a == NULL) {
         return NULL;
+    }
 
     a[0] = xmalloc((usize)(n*n)*sizeof(*(a[0])));
     if (a[0] == NULL) {
@@ -121,16 +126,18 @@ dense_alloc2(int64 n) {
         return NULL;
     }
 
-    for (int32 j = 1; j < n; j++)
+    for (int32 j = 1; j < n; j++) {
         a[j] = a[0] + j*n;
+    }
 
     return a;
 }
 
 int64 *
 dense_alloc_piv2(int64 n) {
-    if (n <= 0)
+    if (n <= 0) {
         return NULL;
+    }
 
     return xmalloc((usize)n*sizeof(int64));
 }
@@ -153,15 +160,18 @@ dense_gefa(double **a, int64 n, int64 *p) {
         /* find l = pivot row number */
 
         l = k;
-        for (int64 i = k + 1; i < n; i++)
-            if (ABS(col_k[i]) > ABS(col_k[l]))
+        for (int64 i = k + 1; i < n; i++) {
+            if (ABS(col_k[i]) > ABS(col_k[l])) {
                 l = i;
+            }
+        }
         *p = l;
 
         /* check for zero pivot element */
 
-        if (col_k[l] == ZERO)
+        if (col_k[l] == ZERO) {
             return k + 1;
+        }
 
         /* swap a(l,k) and a(k,k) if necessary */
 
@@ -178,8 +188,9 @@ dense_gefa(double **a, int64 n, int64 *p) {
         /* in a(i,k), i=k+1, ..., n-1.                      */
 
         mult = -ONE / (*diag_k);
-        for (int64 i = k + 1; i < n; i++)
+        for (int64 i = k + 1; i < n; i++) {
             col_k[i] *= mult;
+        }
 
         /* row_i = row_i - [a(i,k)/a(k,k)] row_k, i=k+1, ..., n-1 */
         /* row k is the pivot row after swapping with row l.      */
@@ -201,8 +212,9 @@ dense_gefa(double **a, int64 n, int64 *p) {
             /* a_kj = a(k,j), col_k[i] = - a(i,k)/a(k,k) */
 
             if (a_kj != ZERO) {
-                for (int64 i = k + 1; i < n; i++)
+                for (int64 i = k + 1; i < n; i++) {
                     col_j[i] += a_kj*col_k[i];
+                }
             }
         }
     }
@@ -210,8 +222,9 @@ dense_gefa(double **a, int64 n, int64 *p) {
     /* set the last pivot row to be n-1 and check for a zero pivot */
 
     *p = n - 1;
-    if (a[n - 1][n - 1] == ZERO)
+    if (a[n - 1][n - 1] == ZERO) {
         return n;
+    }
 
     /* return 0 to indicate success */
 
@@ -234,8 +247,9 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
             b[k] = mult;
         }
         col_k = a[k];
-        for (int64 i = k + 1; i < n; i++)
+        for (int64 i = k + 1; i < n; i++) {
             b[i] += mult*col_k[i];
+        }
     }
 
     /* Solve Ux = y, store solution x in b */
@@ -244,8 +258,9 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
         col_k = a[k];
         b[k] /= col_k[k];
         mult = -b[k];
-        for (int32 i = 0; i < k; i++)
+        for (int32 i = 0; i < k; i++) {
             b[i] += mult*col_k[i];
+        }
     }
     return;
 }
@@ -256,8 +271,9 @@ dense_zero2(double **a, int64 n) {
 
     for (int32 j = 0; j < n; j++) {
         col_j = a[j];
-        for (int64 i = 0; i < n; i++)
+        for (int64 i = 0; i < n; i++) {
             col_j[i] = ZERO;
+        }
     }
     return;
 }
@@ -269,8 +285,9 @@ dense_copy2(double **a, double **b, int64 n) {
     for (int32 j = 0; j < n; j++) {
         a_col_j = a[j];
         b_col_j = b[j];
-        for (int64 i = 0; i < n; i++)
+        for (int64 i = 0; i < n; i++) {
             b_col_j[i] = a_col_j[i];
+        }
     }
     return;
 }
@@ -281,16 +298,18 @@ dense_scale2(double c, double **a, int64 n) {
 
     for (int32 j = 0; j < n; j++) {
         col_j = a[j];
-        for (int64 i = 0; i < n; i++)
+        for (int64 i = 0; i < n; i++) {
             col_j[i] *= c;
+        }
     }
     return;
 }
 
 void
 dense_add_i2(double **a, int64 n) {
-    for (int64 i = 0; i < n; i++)
+    for (int64 i = 0; i < n; i++) {
         a[i][i] += ONE;
+    }
     return;
 }
 

@@ -48,10 +48,11 @@ autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
     x_auto.thl[0] = 0.0;
     x_auto.nint = 0;
 
-    if (ips == 4)
+    if (ips == 4) {
         nnbc = ndim;
-    else
+    } else {
         nnbc = 0;
+    }
     x_auto.ndim = ndim;
     x_auto.nbc = nnbc;
     x_auto.ips = ips;
@@ -123,14 +124,18 @@ int32
 autevd_get_bif_type(int32 ibr, int32 ntot) {
     int32 type = SEQ;
 
-    if (ibr < 0 && ntot < 0)
+    if (ibr < 0 && ntot < 0) {
         type = SPER;
-    if (ibr < 0 && ntot > 0)
+    }
+    if (ibr < 0 && ntot > 0) {
         type = UPER;
-    if (ibr > 0 && ntot > 0)
+    }
+    if (ibr > 0 && ntot > 0) {
         type = UEQ;
-    if (ibr > 0 && ntot < 0)
+    }
+    if (ibr > 0 && ntot < 0) {
         type = SEQ;
+    }
     return type;
 }
 

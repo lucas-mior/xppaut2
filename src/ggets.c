@@ -83,10 +83,11 @@ ggets_show_char(int32 ch, int32 col, int32 row, Window or) {
 
 void
 ggets_chk_xor(void) {
-    if (xor_flag == 1)
+    if (xor_flag == 1) {
         XSetFunction(display, gc, GXxor);
-    else
+    } else {
         XSetFunction(display, gc, GXcopy);
+    }
     return;
 }
 
@@ -117,9 +118,9 @@ ggets_bottom_msg(char *msg) {
 
 void
 ggets_err_msg(char *string) {
-    if (Xup)
+    if (Xup) {
         pop_list_respond_box("OK", string);
-    else {
+    } else {
         ggets_plintf("%s\n", string);
     }
     return;
@@ -130,8 +131,9 @@ ggets_plintf(char *fmt, ...) {
     int32 nchar = 0;
     va_list arglist;
 
-    if (!XPPVERBOSE)
+    if (!XPPVERBOSE) {
         return nchar; /*Don't print at all!*/
+    }
 
     if (logfile == NULL) {
         printf("The log file is NULL!\n");
@@ -173,40 +175,42 @@ ggets_get_key_press(XEvent *event) {
     XLookupString((XKeyEvent *)event, buf, maxlen, &ks, &comp);
     /*       printf(" ks=%d buf[0]=%d char=%c \n",ks,(int32)buf[0],buf[0]); */
 
-    if (ks == XK_Escape)
+    if (ks == XK_Escape) {
         return KEY_ESC;
+    }
 
-    if ((ks == XK_Return) || (ks == XK_KP_Enter) || (ks == XK_Linefeed))
+    if ((ks == XK_Return) || (ks == XK_KP_Enter) || (ks == XK_Linefeed)) {
         return KEY_FINE;
-    else if (((ks >= XK_KP_Space) && (ks <= XK_KP_9)) ||
-             ((ks >= XK_space) && (ks <= XK_asciitilde)))
+    } else if (((ks >= XK_KP_Space) && (ks <= XK_KP_9)) ||
+               ((ks >= XK_space) && (ks <= XK_asciitilde))) {
         return (int32)buf[0];
+    }
     /*   else if ((ks>=XK_Shift_L)&&(ks<=XK_Hyper_R)) return 0;
        else if ((ks>=XK_F1)&&(ks<=XK_F35))  return 0; */
 
-    else if (ks == XK_BackSpace)
+    else if (ks == XK_BackSpace) {
         return KEY_BKSP;
-    else if (ks == XK_Delete)
+    } else if (ks == XK_Delete) {
         return KEY_DEL;
-    else if (ks == XK_Tab)
+    } else if (ks == XK_Tab) {
         return KEY_TAB;
-    else if (ks == XK_Home)
+    } else if (ks == XK_Home) {
         return KEY_HOME;
-    else if (ks == XK_End)
+    } else if (ks == XK_End) {
         return KEY_END;
-    else if (ks == XK_Left)
+    } else if (ks == XK_Left) {
         return KEY_LEFT;
-    else if (ks == XK_Right)
+    } else if (ks == XK_Right) {
         return KEY_RIGHT;
-    else if (ks == XK_Up)
+    } else if (ks == XK_Up) {
         return KEY_UP;
-    else if (ks == XK_Down)
+    } else if (ks == XK_Down) {
         return KEY_DOWN;
-    else if (ks == XK_PgUp)
+    } else if (ks == XK_PgUp) {
         return KEY_PGUP;
-    else if (ks == XK_PgDn)
+    } else if (ks == XK_PgDn) {
         return KEY_PGDN;
-    else {
+    } else {
         return KEY_BADKEY;
     }
 }
@@ -222,8 +226,9 @@ ggets_cput_text(void) {
     Window temp;
     temp = main_win;
     strcpy(string, "");
-    if (ggets_new_string("Text: ", string) == 0)
+    if (ggets_new_string("Text: ", string) == 0) {
         return;
+    }
     if (string[0] == '%') {
         graphics_fillin_text(&string[1], new);
         strcpy(string, new);
@@ -231,10 +236,12 @@ ggets_cput_text(void) {
 
     ggets_new_int("Size 0-4 :", &size);
     /* ggets_new_int("Font  0-times/1-symbol :",&font); */
-    if (size > 4)
+    if (size > 4) {
         size = 4;
-    if (size < 0)
+    }
+    if (size < 0) {
         size = 0;
+    }
     pop_list_message_box(&temp, 0, SCALEY - 5*DCURY, "Place text with mouse");
     if (menudrive_get_mouse_xy(&x, &y)) {
         many_pops_gr_col();
@@ -264,16 +271,20 @@ ggets_mouse_xy(int32 *x, int32 *y, Window window) {
             break;
         case KeyPress:
             ch = (char)ggets_get_key_press(&event);
-            if (ch == ESCAPE)
+            if (ch == ESCAPE) {
                 return 0;
-            if (ch == KEY_FINE)
+            }
+            if (ch == KEY_FINE) {
                 return -2;
-            if (ch == KEY_TAB)
+            }
+            if (ch == KEY_TAB) {
                 return -3;
+            }
             break;
         case ButtonPress:
-            if (event.xbutton.window != window)
+            if (event.xbutton.window != window) {
                 return 0;
+            }
             no_but = 0;
             *x = event.xbutton.x;
             *y = event.xbutton.y;
@@ -325,13 +336,15 @@ ggets_new_float(char *name, double *value) {
     char tvalue[200];
     snprintf(tvalue, sizeof(tvalue), "%.16g", *value);
     done2 = ggets_new_string(name, tvalue);
-    if (done2 == 0 || strlen(tvalue) == 0)
+    if (done2 == 0 || strlen(tvalue) == 0) {
         return -1;
+    }
 
     if (tvalue[0] == '%') {
         flag = calc_do_calc(&tvalue[1], &newz);
-        if (flag != -1)
+        if (flag != -1) {
             *value = newz;
+        }
         return 0;
     }
     *value = atof(tvalue);
@@ -343,8 +356,9 @@ int32
 ggets_new_int(char *name, int32 *value) {
     char svalue[200];
     snprintf(svalue, sizeof(svalue), "%d", *value);
-    if (ggets_new_string(name, svalue) == 0 || strlen(svalue) == 0)
+    if (ggets_new_string(name, svalue) == 0 || strlen(svalue) == 0) {
         return -1;
+    }
     *value = atoi(svalue);
     return 0;
 }
@@ -395,15 +409,17 @@ ggets_put_string_at(Window window, int32 col, char *s, int32 off) {
 
 void
 ggets_mov_mem(char *s1, char *s2, int32 len) {
-    for (int32 i = len - 1; i >= 0; i--)
+    for (int32 i = len - 1; i >= 0; i--) {
         s1[i] = s2[i];
+    }
     return;
 }
 
 void
 ggets_mem_mov(char *s1, char *s2, int32 len) {
-    for (int32 i = 0; i < len; i++)
+    for (int32 i = 0; i < len; i++) {
         s1[i] = s2[i];
+    }
     return;
 }
 
@@ -418,15 +434,17 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
         if (*pos > 0) {
             *pos = *pos - 1;
             *col -= DCURX;
-        } else
+        } else {
             ggets_ping();
+        }
         break;
     case KEY_RIGHT:
         if (*pos < (int32)strlen(value)) {
             *pos = *pos + 1;
             *col += DCURX;
-        } else
+        } else {
             ggets_ping();
+        }
         break;
     case KEY_HOME: {
         *pos = 0;
@@ -446,10 +464,11 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
         *done2 = -1; /* quit without saving */
         return;
     case KEY_FINE:
-        if (MSStyle == 0)
+        if (MSStyle == 0) {
             *done2 = 1;
-        else
+        } else {
             *done2 = 2;
+        }
         return; /* save this guy */
     case KEY_BKSP:
         /*
@@ -464,14 +483,16 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
                           (int32)strlen(value) - *pos + 1);
             *pos = *pos - 1;
             *col -= DCURX;
-        } else
+        } else {
             ggets_ping();
+        }
         break;
     case KEY_TAB:
-        if (MSStyle == 0)
+        if (MSStyle == 0) {
             *done2 = 2;
-        else
+        } else {
             *done2 = 1;
+        }
         return;
     default:
         if ((ch >= ' ') && (ch <= '~')) {
@@ -501,12 +522,14 @@ ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done2,
     case Expose:
     case MapNotify:
         many_pops_do_expose(event);
-        if (event.xexpose.window == command_pop)
+        if (event.xexpose.window == command_pop) {
             ggets_display_command(name, value, *pos);
+        }
         break;
     case ButtonPress:
-        if (event.xbutton.window == command_pop)
+        if (event.xbutton.window == command_pop) {
             XSetInputFocus(display, command_pop, RevertToParent, CurrentTime);
+        }
         break;
     case KeyPress:
         ch = (char)ggets_get_key_press(&event);
@@ -535,8 +558,9 @@ ggets_new_string(char *name, char *value) {
         ggets_edit_command_string(event, name, value, &done2, &pos, &col);
     }
     ggets_clr_command();
-    if (done2 == 1 || done2 == 2)
+    if (done2 == 1 || done2 == 2) {
         return done2;
+    }
     strcpy(value, old_value);
     return 0;
 }

@@ -196,8 +196,9 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
 
     /* Return immediately if cvode_mem is NULL */
     cv_mem = (CVodeMem)cvode_mem;
-    if (cv_mem == NULL)
+    if (cv_mem == NULL) {
         return; /* CVode reports this error */
+    }
 
     /* Set four main function fields in cv_mem */
     linit = cv_dense_init;
@@ -207,8 +208,9 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
 
     /* Get memory for CVDenseMemRec */
     lmem = cvdense_mem = xmalloc(sizeof(CVDenseMemRec));
-    if (cvdense_mem == NULL)
+    if (cvdense_mem == NULL) {
         return; /* cv_dense_init reports this error */
+    }
 
     /* Set Jacobian routine field to user's djac or cv_dense_dq_jac */
     if (djac == NULL) {
@@ -314,8 +316,9 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     } else {
         /* If jok = false, call jac routine for new J value */
         nje++;
-        if (iopt != NULL)
+        if (iopt != NULL) {
             iopt[DENSE_NJE] = nje;
+        }
         nstlj = nst;
         *jcurPtr = true;
         dense_zero(M);
@@ -332,8 +335,9 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     ier = dense_factor(M, pivots);
 
     /* Return 0 if the LU was complete; otherwise return 1 */
-    if (ier > 0)
+    if (ier > 0) {
         return 1;
+    }
     return 0;
 }
 

@@ -175,8 +175,9 @@ void
 auto_x11_do_range(void) {
     double t = TEND;
 
-    if (mark_flag == 2)
+    if (mark_flag == 2) {
         integrate_do_auto_range_go();
+    }
     TEND = t;
     return;
 }
@@ -217,10 +218,11 @@ auto_x11_set_mark(int32 i) {
 
     if (mark_flag == 2) {
         ibr = mark_ibrs;
-        if (ABS(mark_ipts) < ABS(mark_ipte))
+        if (ABS(mark_ipts) < ABS(mark_ipte)) {
             pt = ABS(mark_ipts) + i;
-        else
+        } else {
             pt = ABS(mark_ipte) + i;
+        }
         auto_x11_find_point(ibr, pt);
     }
     return;
@@ -230,8 +232,9 @@ void
 auto_x11_find_point(int32 ibr, int32 pt) {
     Diagram *d;
     Diagram *dnew;
-    if (NBifs < 2)
+    if (NBifs < 2) {
         return;
+    }
     d = bifd;
     while (true) {
         if (d->ibr == ibr &&
@@ -239,17 +242,20 @@ auto_x11_find_point(int32 ibr, int32 pt) {
              (d->ntot ==
               (-pt)))) { /* need to look at both signs to ignore stability */
             /* now we use this info to set parameters and init data */
-            for (int32 i = 0; i < NODE; i++)
+            for (int32 i = 0; i < NODE; i++) {
                 set_ivar(i + 1, d->u0[i]);
+            }
             integrate_get_ic(0, d->u0);
-            for (int32 i = 0; i < NAutoPar; i++)
+            for (int32 i = 0; i < NAutoPar; i++) {
                 constants[Auto_index_to_array[i]] = d->par[i];
+            }
             derived_evaluate();
             tabular_redo_all_fun_tables();
             init_conds_redraw_params();
             init_conds_redraw_ics();
-            if ((d->per) > 0)
+            if ((d->per) > 0) {
                 numerics_set_total(d->per);
+            }
             break;
         }
         dnew = d->next;
@@ -271,8 +277,9 @@ auto_x11_traverse_diagram(void) {
     XEvent event;
     int32 kp;
     mark_flag = 0;
-    if (NBifs < 2)
+    if (NBifs < 2) {
         return;
+    }
 
     d = bifd;
     DONT_XORCross = 0;
@@ -359,8 +366,9 @@ auto_x11_traverse_diagram(void) {
             switch (kp) {
             case KEY_RIGHT:
                 dnew = d->next;
-                if (dnew == NULL)
+                if (dnew == NULL) {
                     dnew = bifd;
+                }
                 auto_x11_xor_cross(ix, iy);
                 d = dnew;
                 CUR_DIAGRAM = dnew;
@@ -369,8 +377,9 @@ auto_x11_traverse_diagram(void) {
 
             case KEY_LEFT:
                 dnew = d->prev;
-                if (dnew == NULL)
+                if (dnew == NULL) {
                     dnew = bifd;
+                }
                 auto_x11_xor_cross(ix, iy);
                 d = dnew;
                 CUR_DIAGRAM = dnew;
@@ -447,8 +456,9 @@ auto_x11_traverse_diagram(void) {
                         break;
                     }
                     d = dnew;
-                    if (d->lab != 0)
+                    if (d->lab != 0) {
                         break;
+                    }
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
@@ -511,8 +521,9 @@ auto_x11_traverse_diagram(void) {
                         break;
                     }
                     d = dnew;
-                    if (d->lab != 0)
+                    if (d->lab != 0) {
                         break;
+                    }
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
@@ -527,8 +538,9 @@ auto_x11_traverse_diagram(void) {
                         break;
                     }
                     d = dnew;
-                    if (d->lab != 0)
+                    if (d->lab != 0) {
                         break;
+                    }
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
@@ -560,14 +572,16 @@ auto_x11_traverse_diagram(void) {
     }
     /* check mark_flag branch similarity */
     if (mark_flag == 2) {
-        if (mark_ibrs != mark_ibre)
+        if (mark_ibrs != mark_ibre) {
             mark_flag = 0;
+        }
     }
     if (done == 1) {
         grabpt.ibr = d->ibr;
         grabpt.lab = d->lab;
-        for (int32 i = 0; i < 8; i++)
+        for (int32 i = 0; i < 8; i++) {
             grabpt.par[i] = d->par[i];
+        }
         grabpt.icp1 = d->icp1;
         grabpt.icp2 = d->icp2;
         grabpt.per = d->per;
@@ -585,8 +599,9 @@ auto_x11_traverse_diagram(void) {
         grabpt.ntot = d->ntot;
         grabpt.nfpar = d->nfpar;
         grabpt.index = d->index;
-        for (int32 i = 0; i < NAutoPar; i++)
+        for (int32 i = 0; i < NAutoPar; i++) {
             constants[Auto_index_to_array[i]] = grabpt.par[i];
+        }
     }
     derived_evaluate();
     tabular_redo_all_fun_tables();
@@ -617,8 +632,9 @@ auto_x11_bye(int32 *iflag) {
     XEvent event;
     Window window;
     char ch;
-    if (Auto.exist == 0)
+    if (Auto.exist == 0) {
         return 1;
+    }
     *iflag = 0;
     while (XPending(display) > 0) {
         XNextEvent(display, &event);
@@ -694,8 +710,9 @@ auto_x11_mark(int32 x, int32 y) {
 
 void
 auto_x11_xor_cross(int32 x, int32 y) {
-    if (DONT_XORCross)
+    if (DONT_XORCross) {
         return;
+    }
 
     if (xorfix) {
         XSetForeground(display, small_gc, MyDrawWinColor);
@@ -822,8 +839,9 @@ auto_x11_motion(XEvent event) {
     double x;
     double y;
     Window window = event.xmotion.window;
-    if (Auto.exist == 0)
+    if (Auto.exist == 0) {
         return;
+    }
     if (window == auto_win.canvas) {
         x = Auto.xmin +
             (double)(i - Auto.x0)*(Auto.xmax - Auto.xmin) / (double)Auto.wid;
@@ -840,11 +858,13 @@ void
 auto_x11_display(Window window) {
     int32 ix;
     int32 iy;
-    if (Auto.exist == 0)
+    if (Auto.exist == 0) {
         return;
+    }
     if (window == auto_win.canvas) {
-        if (auto_redraw_flag == 1)
+        if (auto_redraw_flag == 1) {
             diagram_redraw();
+        }
     }
     if (window == auto_win.stab) {
         int32 r = Auto.st_wid / 4;
@@ -856,28 +876,39 @@ auto_x11_display(Window window) {
         }
         XFlush(display);
     }
-    if (window == auto_win.axes)
+    if (window == auto_win.axes) {
         XDS("Axes");
-    if (window == auto_win.numerics)
+    }
+    if (window == auto_win.numerics) {
         XDS("Numerics");
-    if (window == auto_win.grab)
+    }
+    if (window == auto_win.grab) {
         XDS("Grab");
-    if (window == auto_win.run)
+    }
+    if (window == auto_win.run) {
         XDS("Run");
-    if (window == auto_win.redraw)
+    }
+    if (window == auto_win.redraw) {
         XDS("reDraw");
-    if (window == auto_win.clear)
+    }
+    if (window == auto_win.clear) {
         XDS("Clear");
-    if (window == auto_win.per)
+    }
+    if (window == auto_win.per) {
         XDS("Usr period");
-    if (window == auto_win.kill)
+    }
+    if (window == auto_win.kill) {
         XDS("Close");
-    if (window == auto_win.param)
+    }
+    if (window == auto_win.param) {
         XDS("Parameter");
-    if (window == auto_win.file)
+    }
+    if (window == auto_win.file) {
         XDS("File");
-    if (window == auto_win.abort)
+    }
+    if (window == auto_win.abort) {
         XDS("ABORT");
+    }
     if (window == auto_win.hint) {
         XClearWindow(display, window);
         XDrawString(display, window, gc, 8, CURY_OFF, Auto.hinttxt,
@@ -1042,8 +1073,9 @@ auto_x11_resize_window(XEvent event) {
                               (uint)DCURY + 2);
         }
 
-        if (NBifs < 2)
+        if (NBifs < 2) {
             return;
+        }
         auto_nox_traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
     }
     return;
@@ -1051,8 +1083,9 @@ auto_x11_resize_window(XEvent event) {
 
 void
 auto_x11_msg(int32 i, int32 v) {
-    if (v == 0 || TipsFlag == 0)
+    if (v == 0 || TipsFlag == 0) {
         return;
+    }
     strncpy(Auto.hinttxt, auto_hint[i], sizeof(Auto.hinttxt));
     auto_x11_display(auto_win.hint);
     return;
@@ -1067,8 +1100,9 @@ auto_x11_clear_msg(void) {
 
 void
 auto_x11_enter(Window window, int32 v) {
-    if (Auto.exist == 0)
+    if (Auto.exist == 0) {
         return;
+    }
     if (window == auto_win.axes) {
         XSetWindowBorderWidth(display, window, (uint)v);
         auto_x11_msg(1, v);
@@ -1124,8 +1158,9 @@ auto_x11_enter(Window window, int32 v) {
 void
 auto_x11_button(XEvent event) {
     Window window = event.xbutton.window;
-    if (Auto.exist == 0)
+    if (Auto.exist == 0) {
         return;
+    }
     if (window == auto_win.axes) {
         SBW;
         auto_nox_plot_par();
@@ -1191,8 +1226,9 @@ auto_x11_keypress(XEvent event, int32 *used) {
     int32 rev;
 
     *used = 0;
-    if (Auto.exist == 0)
+    if (Auto.exist == 0) {
         return;
+    }
     XGetInputFocus(display, &w2, &rev);
 
     if (window == auto_win.base || window == auto_win.canvas ||

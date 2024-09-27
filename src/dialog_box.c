@@ -85,8 +85,9 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
     colm = DCURX*pos;
     while (true) {
         status = dialog_box_event_loop(&d, &pos, &colm);
-        if (status != -1)
+        if (status != -1) {
             break;
+        }
     }
     XSelectInput(display, d.cancel, EV_MASK);
     XSelectInput(display, d.ok, EV_MASK);
@@ -95,8 +96,9 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
     XDestroySubwindows(display, d.base);
     XDestroyWindow(display, d.base);
     XFlush(display);
-    if (status == ALL_DONE || status == DONE_WITH_THIS)
+    if (status == ALL_DONE || status == DONE_WITH_THIS) {
         strcpy(value, d.input_s);
+    }
     return status;
 }
 
@@ -123,28 +125,33 @@ dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
         if (event.xbutton.window == d->cancel) {
             status = FORGET_ALL;
         }
-        if (event.xbutton.window == d->input)
+        if (event.xbutton.window == d->input) {
             XSetInputFocus(display, d->input, RevertToParent, CurrentTime);
+        }
         break;
 
     case EnterNotify:
         if (event.xcrossing.window == d->ok ||
-            event.xcrossing.window == d->cancel)
+            event.xcrossing.window == d->cancel) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 2);
+        }
         break;
     case LeaveNotify:
         if (event.xcrossing.window == d->ok ||
-            event.xcrossing.window == d->cancel)
+            event.xcrossing.window == d->cancel) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 1);
+        }
         break;
 
     case KeyPress:
         ch = ggets_get_key_press(&event);
         ggets_edit_window(d->input, pos, d->input_s, col, &done, ch);
-        if (done == -1)
+        if (done == -1) {
             status = FORGET_ALL;
-        if (done == 1 || done == 2)
+        }
+        if (done == 1 || done == 2) {
             status = DONE_WITH_THIS;
+        }
 
         break;
     default:
@@ -155,15 +162,18 @@ dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
 
 void
 dialog_box_display(Window window, Dialog d, int32 col) {
-    if (window == d.ok)
+    if (window == d.ok) {
         XDrawString(display, window, gc, 0, CURY_OFF + 1, d.ok_s,
                     (int32)strlen(d.ok_s));
-    if (window == d.cancel)
+    }
+    if (window == d.cancel) {
         XDrawString(display, window, gc, 0, CURY_OFF + 1, d.cancel_s,
                     (int32)strlen(d.cancel_s));
-    if (window == d.mes)
+    }
+    if (window == d.mes) {
         XDrawString(display, window, gc, 0, CURY_OFF + 1, d.mes_s,
                     (int32)strlen(d.mes_s));
+    }
     if (window == d.input) {
         XDrawString(display, window, gc, 0, CURY_OFF, d.input_s,
                     (int32)strlen(d.input_s));

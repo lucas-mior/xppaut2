@@ -96,18 +96,20 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
     /* set up all initial data and parameter guesses  */
     for (l = 0; l < npars; l++) {
         ip = ipar[l];
-        if (ip < 0)
+        if (ip < 0) {
             constants[-ip] = a[l];
-        else
+        } else {
             y[ip] = a[l];
+        }
     }
     for (int32 i = 0; i < NODE; i++) {
         yold[i] = y[i];
     }
     if (DelayFlag) {
         /* restart initial data */
-        if (delay_handle_do_init_delay(DELAY) == 0)
+        if (delay_handle_do_init_delay(DELAY) == 0) {
             return;
+        }
     }
     derived_evaluate();
     /*   This gets the values at the desired points  */
@@ -119,8 +121,9 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         k0 = k*nvars;
         ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
         if (ok == 0) {
-            for (int32 i = 0; i < NODE; i++)
+            for (int32 i = 0; i < NODE; i++) {
                 y[i] = yold[i];
+            }
 
             return;
         }
@@ -131,17 +134,20 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         }
     }
 #ifdef CVODE_YES
-    if (METHOD == CVODE)
+    if (METHOD == CVODE) {
         cv_end();
+    }
 #endif
     /*  Now we take the derivatives !!   */
     for (l = 0; l < npars; l++) {
         istart = 1;
         /* set up all the initial conditions   */
-        for (int32 j = 0; j < nvars; j++)
+        for (int32 j = 0; j < nvars; j++) {
             yderv[l][j] = 0.0; /* no dependence on initial data ... */
-        for (int32 i = 0; i < NODE; i++)
+        }
+        for (int32 i = 0; i < NODE; i++) {
             y[i] = yold[i];
+        }
         ip = ipar[l];
         if (ip < 0) {
             par = constants[-ip];
@@ -152,15 +158,17 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
             dp = eps*MAX(eps, fabs(par));
             y[ip] = par + dp;
             for (int32 j = 0; j < nvars; j++) {
-                if (ip == ivar[j])
+                if (ip == ivar[j]) {
                     yderv[l][j] =
                         1.0; /* ... except for those ICs that can vary */
+                }
             }
         }
         if (DelayFlag) {
             /* restart initial data */
-            if (delay_handle_do_init_delay(DELAY) == 0)
+            if (delay_handle_do_init_delay(DELAY) == 0) {
                 return;
+            }
         }
         derived_evaluate();
         /* now loop through all the points */
@@ -168,8 +176,9 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
             k0 = k*nvars;
             ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
             if (ok == 0) {
-                for (int32 i = 0; i < NODE; i++)
+                for (int32 i = 0; i < NODE; i++) {
                     y[i] = yold[i];
+                }
 
                 return;
             }
@@ -179,17 +188,20 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
             }
         }
         /* Now return the parameter to its old value */
-        if (ip < 0)
+        if (ip < 0) {
             constants[-ip] = par;
+        }
         derived_evaluate();
 #ifdef CVODE_YES
-        if (METHOD == CVODE)
+        if (METHOD == CVODE) {
             cv_end();
+        }
 #endif
     }
     *flag = 1;
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         y[i] = yold[i];
+    }
 
     /*do_fit_printem(yderv,yfit,t0,npars,nvars,npts);  */
     return;
@@ -204,8 +216,9 @@ do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars,
         ioff = nvars*i;
         for (int32 j = 0; j < nvars; j++) {
             ggets_plintf(" %g ", yfit[ioff + j]);
-            for (int32 k = 0; k < npars; k++)
+            for (int32 k = 0; k < npars; k++) {
                 printf(" %g ", yderv[k][ioff + j]);
+            }
         }
         ggets_plintf(" \n");
     }
@@ -320,14 +333,16 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
     nit = (int32)z;
     kflag = solver(y, &t, dt, nit, NODE, istart, WORK);
 
-    if (kflag < 0)
+    if (kflag < 0) {
         return 0;
+    }
 
     if ((dt < 0 && t > t1) || (dt > 0 && t < t1)) {
         dt = t1 - t;
         kflag = solver(y, &t, dt, 1, NODE, istart, WORK);
-        if (kflag < 0)
+        if (kflag < 0) {
             return 0;
+        }
     }
 
     return 1;
@@ -365,8 +380,9 @@ do_fit_test(void) {
     snprintf(values[9], sizeof(values[9]), "%d", fit_info.maxiter);
 
     status = pop_list_do_string_box(10, 5, 2, "Fit", n, values, 45);
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
 
     fit_info.tol = atof(values[3]);
     fit_info.npts = atoi(values[4]);
@@ -408,13 +424,14 @@ do_fit_test(void) {
         return;
     }
     fit_info.npars = npars;
-    for (int32 i = 0; i < npars; i++)
+    for (int32 i = 0; i < npars; i++) {
         if (fit_info.ipar[i] >= 0) {
             if (fit_info.ipar[i] >= NODE) {
                 ggets_err_msg(" Cant vary auxiliary/markov variables! ");
                 return;
             }
         }
+    }
     for (int32 i = 0; i < nvars; i++) {
         if (fit_info.icols[i] < 2) {
             ggets_err_msg(" Illegal column must be >= 2");
@@ -426,13 +443,15 @@ do_fit_test(void) {
         }
     }
     yfit = xmalloc((usize)(fit_info.npts*fit_info.nvars)*sizeof(*yfit));
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         y0[i] = last_ic[i];
+    }
     for (int32 i = 0; i < fit_info.npars; i++) {
-        if (fit_info.ipar[i] < 0)
+        if (fit_info.ipar[i] < 0) {
             a[i] = constants[-fit_info.ipar[i]];
-        else
+        } else {
             a[i] = last_ic[fit_info.ipar[i]];
+        }
     }
 
     /* do fit print info */
@@ -440,11 +459,13 @@ do_fit_test(void) {
                  fit_info.dim, fit_info.maxiter, fit_info.npts, fit_info.file,
                  fit_info.tol, fit_info.eps);
 
-    for (int32 i = 0; i < fit_info.nvars; i++)
+    for (int32 i = 0; i < fit_info.nvars; i++) {
         ggets_plintf(" variable %d to col %d \n", fit_info.ivar[i],
                      fit_info.icols[i]);
-    for (int32 i = 0; i < fit_info.npars; i++)
+    }
+    for (int32 i = 0; i < fit_info.npars; i++) {
         ggets_plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
+    }
 
     ggets_plintf(" Running the fit...\n");
     ok =
@@ -453,16 +474,18 @@ do_fit_test(void) {
                    fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
 
     free(yfit);
-    if (ok == 0)
+    if (ok == 0) {
         return;
+    }
 
     /* get the latest par values ...  */
 
     for (int32 i = 0; i < npars; i++) {
-        if (fit_info.ipar[i] < 0)
+        if (fit_info.ipar[i] < 0) {
             constants[-fit_info.ipar[i]] = a[i];
-        else
+        } else {
             last_ic[fit_info.ipar[i]] = a[i];
+        }
     }
     return;
 }
@@ -509,8 +532,9 @@ do_fit_run(/* double arrays */
     for (int32 i = 0; i < npts; i++) {
         fscanf(fp, "%lg ", &t);
 
-        for (int32 j = 0; j < ndim - 1; j++)
+        for (int32 j = 0; j < ndim - 1; j++) {
             fscanf(fp, "%lg ", &ytemp[j]);
+        }
         t0[i] = t;
 
         ioff = nvars*i;
@@ -523,10 +547,12 @@ do_fit_run(/* double arrays */
 
     work = xmalloc(sizeof(*work)*(usize)(4*npars + npars*npars));
     yderv = xmalloc((usize)npars*sizeof(double *));
-    for (int32 i = 0; i < npars; i++)
+    for (int32 i = 0; i < npars; i++) {
         yderv[i] = xmalloc((usize)((npts + 1)*nvars)*sizeof(*(yderv[i])));
-    for (int32 i = 0; i < nvars; i++)
+    }
+    for (int32 i = 0; i < nvars; i++) {
         sig[i] = 1.0;
+    }
 
     covar = xmalloc((usize)(npars*npars)*sizeof(*covar));
     alpha = xmalloc((usize)(npars*npars)*sizeof(*alpha));
@@ -540,11 +566,13 @@ do_fit_run(/* double arrays */
         ggets_plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n",
                      niter, ok, alambda, chisq, ochisq);
         ggets_plintf(" params: ");
-        for (int32 i = 0; i < npars; i++)
+        for (int32 i = 0; i < npars; i++) {
             ggets_plintf(" %g ", a[i]);
+        }
         ggets_plintf("\n");
-        if ((ok == 0) || (niter >= maxiter))
+        if ((ok == 0) || (niter >= maxiter)) {
             break;
+        }
         if (ochisq > chisq) {
             if (((ochisq - chisq) < tol10) ||
                 (((ochisq - chisq) / MAX(1.0, chisq)) < tol)) {
@@ -552,8 +580,9 @@ do_fit_run(/* double arrays */
                 niter--; /* compensate for good stuff ... */
             }
             ochisq = chisq;
-        } else
+        } else {
             chisq = ochisq;
+        }
 
         ictrl = 1;
     }
@@ -562,8 +591,9 @@ do_fit_run(/* double arrays */
         ggets_err_msg("Error in step...");
 
         free(work);
-        for (int32 i = 0; i < npars; i++)
+        for (int32 i = 0; i < npars; i++) {
             free(yderv[i]);
+        }
         free(yderv);
         free(alpha);
         free(covar);
@@ -576,8 +606,9 @@ do_fit_run(/* double arrays */
         ggets_err_msg("Max iterations exceeded...");
 
         free(work);
-        for (int32 i = 0; i < npars; i++)
+        for (int32 i = 0; i < npars; i++) {
             free(yderv[i]);
+        }
         free(yderv);
         free(alpha);
         free(covar);
@@ -594,14 +625,16 @@ do_fit_run(/* double arrays */
     /* have the covariance matrix -- so what?   */
     ggets_plintf(" covariance: \n");
     for (int32 i = 0; i < npars; i++) {
-        for (int32 j = 0; j < npars; j++)
+        for (int32 j = 0; j < npars; j++) {
             ggets_plintf(" %g ", covar[i + npars*j]);
+        }
         ggets_plintf("\n");
     }
 
     free(work);
-    for (int32 i = 0; i < npars; i++)
+    for (int32 i = 0; i < npars; i++) {
         free(yderv[i]);
+    }
     free(yderv);
     free(alpha);
     free(covar);
@@ -653,15 +686,18 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
     if (ictrl == 0) {
         *alambda = .001;
         if (do_fit_mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar,
-                          alpha, chisq, beta, yderv, yfit, eps) == 0)
+                          alpha, chisq, beta, yderv, yfit, eps) == 0) {
             return 0;
-        for (int32 i = 0; i < npars; i++)
+        }
+        for (int32 i = 0; i < npars; i++) {
             atry[i] = a[i];
+        }
         *ochisq = (*chisq);
     }
     for (int32 j = 0; j < npars; j++) {
-        for (int32 k = 0; k < npars; k++)
+        for (int32 k = 0; k < npars; k++) {
             covar[j + k*npars] = alpha[j + k*npars];
+        }
         covar[j + j*npars] = alpha[j + j*npars]*(1 + (*alambda));
         oneda[j] = beta[j];
     }
@@ -676,15 +712,18 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
         da[j] = oneda[j];
     }
     if (ictrl == 2) { /* all done invert alpha to get the covariance */
-        for (int32 j = 0; j < (npars*npars); j++)
+        for (int32 j = 0; j < (npars*npars); j++) {
             alpha[j] = covar[j];
+        }
         for (int32 j = 0; j < npars; j++) {
-            for (int32 k = 0; k < npars; k++)
+            for (int32 k = 0; k < npars; k++) {
                 oneda[k] = 0.0;
+            }
             oneda[j] = 1.0;
             gear_sgesl(alpha, npars, npars, ipivot, oneda, 0);
-            for (int32 k = 0; k < npars; k++)
+            for (int32 k = 0; k < npars; k++) {
                 covar[j + k*npars] = oneda[k];
+            }
         }
         return 1;
     }
@@ -692,15 +731,17 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
         atry[j] = a[j] + da[j];
     }
     if (do_fit_mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar,
-                      covar, chisq, da, yderv, yfit, eps) == 0)
+                      covar, chisq, da, yderv, yfit, eps) == 0) {
         return 0;
+    }
 
     if (*chisq < *ochisq) {
         /* *ochisq=*chisq; */
         *alambda *= 0.1;
         for (int32 j = 0; j < npars; j++) {
-            for (int32 k = 0; k < npars; k++)
+            for (int32 k = 0; k < npars; k++) {
                 alpha[j + k*npars] = covar[j + k*npars];
+            }
             beta[j] = da[j];
             a[j] = atry[j];
         }
@@ -743,8 +784,9 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
             dy = y[k0] - yfit[k0];
             for (int32 j = 0; j < npars; j++) {
                 wt = yderv[j][k0]*sig2i;
-                for (l = 0; l < npars; l++)
+                for (l = 0; l < npars; l++) {
                     alpha[j + l*npars] += wt*yderv[l][k0];
+                }
                 beta[j] += dy*wt;
             }
             (*chisq) += dy*dy*sig2i;
@@ -768,8 +810,9 @@ do_fit_parse_collist(char *collist, int32 *icols, int32 *n) {
 
     item = form_ode_get_first(collist, " ,");
 
-    if (item[0] == 0)
+    if (item[0] == 0) {
         return;
+    }
     v = atoi(item);
     icols[i] = v;
     i++;
@@ -789,17 +832,20 @@ do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n) {
     int32 i = 0;
 
     item = form_ode_get_first(varlist, " ,");
-    if (item[0] == 0)
+    if (item[0] == 0) {
         return;
+    }
     browse_find_variable(item, &v);
-    if (v <= 0)
+    if (v <= 0) {
         return;
+    }
     ivars[i] = v - 1;
     i++;
     while ((item = form_ode_do_fit_get_next(" ,")) != NULL) {
         browse_find_variable(item, &v);
-        if (v <= 0)
+        if (v <= 0) {
             return;
+        }
         ivars[i] = v - 1;
         i++;
     }
@@ -814,16 +860,20 @@ do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n) {
     int32 i = 0;
     usize j;
     for (j = 0; j < strlen(parlist); j++) {
-        if (parlist[j] != ' ')
+        if (parlist[j] != ' ') {
             break;
+        }
     }
-    if (j == strlen(parlist))
+    if (j == strlen(parlist)) {
         return;
-    if (strlen(parlist) == 0)
+    }
+    if (strlen(parlist) == 0) {
         return;
+    }
     item = form_ode_get_first(parlist, " ,");
-    if (item[0] == 0L)
+    if (item[0] == 0L) {
         return;
+    }
 
     browse_find_variable(item, &v);
     if (v > 0) {
@@ -831,8 +881,9 @@ do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n) {
         i++;
     } else {
         v = get_param_index(item);
-        if (v <= 0)
+        if (v <= 0) {
             return;
+        }
         ipars[i + *n] = -v;
         i++;
     }
@@ -843,8 +894,9 @@ do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n) {
             i++;
         } else {
             v = get_param_index(item);
-            if (v <= 0)
+            if (v <= 0) {
                 return;
+            }
             ipars[i + *n] = -v;
             i++;
         }

@@ -27,20 +27,23 @@ void
 axes2_get_title_str(char *s1, char *s2, char *s3) {
     int32 i;
 
-    if ((i = MyGraph->xv[0]) == 0)
+    if ((i = MyGraph->xv[0]) == 0) {
         strcpy(s1, "T");
-    else
+    } else {
         strcpy(s1, uvar_names[i - 1]);
+    }
 
-    if ((i = MyGraph->yv[0]) == 0)
+    if ((i = MyGraph->yv[0]) == 0) {
         strcpy(s2, "T");
-    else
+    } else {
         strcpy(s2, uvar_names[i - 1]);
+    }
 
-    if ((i = MyGraph->zv[0]) == 0)
+    if ((i = MyGraph->zv[0]) == 0) {
         strcpy(s3, "T");
-    else
+    } else {
         strcpy(s3, uvar_names[i - 1]);
+    }
     return;
 }
 
@@ -50,25 +53,29 @@ axes2_make_title(char *str) {
     char name1[20];
     char name2[20];
     char name3[20];
-    if ((i = MyGraph->xv[0]) == 0)
+    if ((i = MyGraph->xv[0]) == 0) {
         strcpy(name1, "T");
-    else
+    } else {
         strcpy(name1, uvar_names[i - 1]);
+    }
 
-    if ((i = MyGraph->yv[0]) == 0)
+    if ((i = MyGraph->yv[0]) == 0) {
         strcpy(name2, "T");
-    else
+    } else {
         strcpy(name2, uvar_names[i - 1]);
+    }
 
-    if ((i = MyGraph->zv[0]) == 0)
+    if ((i = MyGraph->zv[0]) == 0) {
         strcpy(name3, "T");
-    else
+    } else {
         strcpy(name3, uvar_names[i - 1]);
+    }
 
-    if (MyGraph->grtype >= 5)
+    if (MyGraph->grtype >= 5) {
         sprintf(str, "%s vs %s vs %s", name3, name2, name1);
-    else
+    } else {
         sprintf(str, "%s vs %s", name2, name1);
+    }
     return;
 }
 
@@ -77,10 +84,12 @@ axes2_dbl_raise(double x, int32 y) {
     double val;
 
     val = 1.0;
-    for (int32 i = 0; i < ABS(y); i++)
+    for (int32 i = 0; i < ABS(y); i++) {
         val *= x;
-    if (y < 0)
+    }
+    if (y < 0) {
         return 1.0 / val;
+    }
     return val;
 }
 
@@ -93,12 +102,13 @@ axes2_make_tics(double tmin, double tmax) {
     l10 = log10(xr);
     xnorm =
         pow(10.0, l10 - (double)((l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1)));
-    if (xnorm <= 2)
+    if (xnorm <= 2) {
         tics = 0.2;
-    else if (xnorm <= 5)
+    } else if (xnorm <= 5) {
         tics = 0.5;
-    else
+    } else {
         tics = 1.0;
+    }
     tic = tics *
           axes2_dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
     return tic;
@@ -108,12 +118,14 @@ void
 axes2_find_max_min_tic(double *tmin, double *tmax, double tic) {
     double t1 = *tmin;
     t1 = tic*floor(*tmin / tic);
-    if (t1 < *tmin)
+    if (t1 < *tmin) {
         t1 += tic;
+    }
     *tmin = t1;
     t1 = tic*ceil(*tmax / tic);
-    if (t1 > *tmax)
+    if (t1 > *tmax) {
         t1 -= tic;
+    }
     *tmax = t1;
     return;
 }
@@ -199,12 +211,15 @@ axes2_do(void) {
 
         graphics_set_linestyle(-1);
 
-        if (MyGraph->zorgflag)
+        if (MyGraph->zorgflag) {
             graphics_line_3d(x0, y0, z4, x0, y0, z5);
-        if (MyGraph->yorgflag)
+        }
+        if (MyGraph->yorgflag) {
             graphics_line_3d(x0, y4, z0, x0, y5, z0);
-        if (MyGraph->xorgflag)
+        }
+        if (MyGraph->xorgflag) {
             graphics_line_3d(x4, y0, z0, x5, y0, z0);
+        }
 
         dt = .06;
         TextJustify = 2;
@@ -234,8 +249,9 @@ axes2_do(void) {
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
         exit(EXIT_FAILURE);
     }
-    if (Xup)
+    if (Xup) {
         many_pops_small_base();
+    }
     return;
 }
 
@@ -291,12 +307,16 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     graphics_scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg,
                              &yaxis_x, &xaxis_y);
     graphics_set_linestyle(-1);
-    if (MyGraph->xorgflag && flag)
-        if (xaxis_y >= ybot && xaxis_y <= ytop)
+    if (MyGraph->xorgflag && flag) {
+        if (xaxis_y >= ybot && xaxis_y <= ytop) {
             graphics_line(xleft, xaxis_y, xright, xaxis_y);
-    if (MyGraph->yorgflag && flag)
-        if (yaxis_x >= xleft && yaxis_x <= xright)
+        }
+    }
+    if (MyGraph->yorgflag && flag) {
+        if (yaxis_x >= xleft && yaxis_x <= xright) {
             graphics_line(yaxis_x, ybot, yaxis_x, ytop);
+        }
+    }
     graphics_set_linestyle(-2);
     axes2_doing_box = 1;
     graphics_line(xleft, ybot, xright, ybot);
@@ -329,8 +349,9 @@ axes2_draw_ytics(char *s1, double start, double incr, double end) {
     TextJustify = 2; /* Right justification  */
     for (ticvalue = start; ticvalue <= end; ticvalue += incr) {
         place = CheckZero(ticvalue, incr);
-        if (ticvalue < y_min || ticvalue > y_max)
+        if (ticvalue < y_min || ticvalue > y_max) {
             continue;
+        }
         sprintf(bob, "%g", place);
         graphics_scale_to_screen((double)x_min, (double)place, &xt, &yt);
         axes2_doing_box = 0;
@@ -341,8 +362,9 @@ axes2_draw_ytics(char *s1, double start, double incr, double end) {
         graphics_put_text(DLeft - (int32)(1.25*HChar), yt, bob);
     }
     graphics_scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
-    if (DTop < DBottom)
+    if (DTop < DBottom) {
         s = -1;
+    }
     if (PltFmtFlag == SVGFMT) {
         fprintf(svgfile,
                 "\n      <text class=\"xppyaxislabelv\" text-anchor=\"middle\" "
@@ -375,13 +397,15 @@ axes2_draw_xtics(char *s2, double start, double incr, double end) {
     int32 xt;
     int32 yt = 0;
     int32 s = 1;
-    if (DTop < DBottom)
+    if (DTop < DBottom) {
         s = -1;
+    }
     TextJustify = 1; /* Center justification  */
     for (ticvalue = start; ticvalue <= end; ticvalue += incr) {
         place = CheckZero(ticvalue, incr);
-        if (ticvalue < x_min || ticvalue > x_max)
+        if (ticvalue < x_min || ticvalue > x_max) {
             continue;
+        }
         sprintf(bob, "%g", place);
         graphics_scale_to_screen((double)place, y_min, &xt, &yt);
         axes2_doing_box = 0;

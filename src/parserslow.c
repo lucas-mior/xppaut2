@@ -286,8 +286,9 @@ init_rpn(void) {
         parserslow_add_con("c___3",0.0); */
 
     tabular_init_table();
-    if (newseed == 1)
+    if (newseed == 1) {
         RandSeed = (int32)time(0);
+    }
     markov_nsrand48(RandSeed);
     return;
 }
@@ -297,8 +298,9 @@ duplicate_name(char *junk) {
     int32 i;
     find_name(junk, &i);
     if (i >= 0) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("%s is a duplicate name\n", junk);
+        }
         return 1;
     }
     return 0;
@@ -310,12 +312,14 @@ int32
 parserslow_add_constant(char *junk) {
     int32 len;
     char string[100];
-    if (duplicate_name(junk) == 1)
+    if (duplicate_name(junk) == 1) {
         return 1;
+    }
 
     if (NCON >= MAX_PAR) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("too many constants !!\n");
+        }
         return 1;
     }
     convert(junk, string);
@@ -324,8 +328,9 @@ parserslow_add_constant(char *junk) {
         ggets_plintf("Empty parameter - remove spaces\n");
         return 1;
     }
-    if (len > MXLEN)
+    if (len > MXLEN) {
         len = MXLEN;
+    }
     strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
@@ -341,8 +346,9 @@ get_var_index(char *name) {
     int32 type;
     int32 com;
     find_name(name, &type);
-    if (type < 0)
+    if (type < 0) {
         return -1;
+    }
     com = my_symb[type].com;
     if (is_uvar(com)) {
         return com % MAXTYPE;
@@ -363,8 +369,9 @@ int32
 parserslow_add_con(char *name, double value) {
     /*  printf("Adding constant %s # %d\n",name,NCON); */
     if (NCON >= MAX_PAR) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("too many constants !!\n");
+        }
         return 1;
     }
     constants[NCON] = value;
@@ -378,8 +385,9 @@ parserslow_add_kernel(char *name, double mu, char *expr) {
 
     int32 len;
     int32 in = -1;
-    if (duplicate_name(name) == 1)
+    if (duplicate_name(name) == 1) {
         return 1;
+    }
     if (NKernel == MAX_KER) {
         ggets_plintf("Too many kernels..\n");
         return 1;
@@ -390,8 +398,9 @@ parserslow_add_kernel(char *name, double mu, char *expr) {
     }
     convert(name, string);
     len = (int32)strlen(string);
-    if (len > MXLEN)
+    if (len > MXLEN) {
         len = MXLEN;
+    }
     strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
@@ -404,8 +413,9 @@ parserslow_add_kernel(char *name, double mu, char *expr) {
     kernel[NKernel].k_n1 = 0.0;
     kernel[NKernel].flag = 0;
     for (int32 i = 0; i < (int32)strlen(expr); i++) {
-        if (expr[i] == '#')
+        if (expr[i] == '#') {
             in = i;
+        }
     }
     if (in == 0 || in == ((int32)strlen(expr) - 1)) {
         ggets_plintf("Illegal use of convolution...\n");
@@ -415,11 +425,13 @@ parserslow_add_kernel(char *name, double mu, char *expr) {
         kernel[NKernel].flag = CONV;
         kernel[NKernel].expr = xmalloc(strlen(expr) + 2 - (usize)in);
         kernel[NKernel].kerexpr = xmalloc((usize)in + 1);
-        for (int32 i = 0; i < in; i++)
+        for (int32 i = 0; i < in; i++) {
             kernel[NKernel].kerexpr[i] = expr[i];
+        }
         kernel[NKernel].kerexpr[in] = 0;
-        for (int32 i = in + 1; i < (int32)strlen(expr); i++)
+        for (int32 i = in + 1; i < (int32)strlen(expr); i++) {
             kernel[NKernel].expr[i - in - 1] = expr[i];
+        }
         kernel[NKernel].expr[strlen(expr) - (usize)in - 1] = 0;
         ggets_plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
                      kernel[NKernel].expr);
@@ -438,17 +450,20 @@ int32
 parserslow_add_var(char *junk, double value) {
     char string[100];
     int32 len;
-    if (duplicate_name(junk) == 1)
+    if (duplicate_name(junk) == 1) {
         return 1;
+    }
     if (NVAR >= MAX_ODE1) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("too many variables !!\n");
+        }
         return 1;
     }
     convert(junk, string);
     len = (int32)strlen(string);
-    if (len > MXLEN)
+    if (len > MXLEN) {
         len = MXLEN;
+    }
     strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
@@ -478,14 +493,17 @@ parserslow_add_expr(char *expr, int32 *command, int32 *length) {
       if(my_token[i]==ENDTOK)break;
       i++;
     } */
-    if (err != 0)
+    if (err != 0) {
         return 1;
+    }
     err = parserslow_alg_to_rpn(my_token, command);
-    if (err != 0)
+    if (err != 0) {
         return 1;
+    }
     i = 0;
-    while (command[i] != ENDEXP)
+    while (command[i] != ENDEXP) {
         i++;
+    }
     *length = i + 1;
     /*  for(i=0;i<*length;i++)printf("%d \n",command[i]);  */
     return 0;
@@ -496,12 +514,14 @@ parserslow_add_vector_name(int32 index, char *name) {
     char string[50];
     int32 len = (int32)strlen(name);
     ggets_plintf(" Adding vectorizer %s %d \n", name, index);
-    if (duplicate_name(name) == 1)
+    if (duplicate_name(name) == 1) {
         return 1;
+    }
     convert(name, string);
     printf(" 1\n");
-    if (len > MXLEN)
+    if (len > MXLEN) {
         len = MXLEN;
+    }
     strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
@@ -518,11 +538,13 @@ parserslow_add_net_name(int32 index, char *name) {
     char string[50];
     int32 len = (int32)strlen(name);
     ggets_plintf(" Adding net %s %d \n", name, index);
-    if (duplicate_name(name) == 1)
+    if (duplicate_name(name) == 1) {
         return 1;
+    }
     convert(name, string);
-    if (len > MXLEN)
+    if (len > MXLEN) {
         len = MXLEN;
+    }
     strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
@@ -552,8 +574,9 @@ parserslow_add_file_table(int32 index, char *file) {
     }
     file2[i2] = 0;
     if (tabular_load_table(file2, index) == 0) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("Problem with creating table !!\n");
+        }
         return 1;
     }
 
@@ -564,11 +587,13 @@ int32
 parserslow_add_table_name(int32 index, char *name) {
     char string[50];
     int32 len = (int32)strlen(name);
-    if (duplicate_name(name) == 1)
+    if (duplicate_name(name) == 1) {
         return 1;
+    }
     convert(name, string);
-    if (len > MXLEN)
+    if (len > MXLEN) {
         len = MXLEN;
+    }
     strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
@@ -585,8 +610,9 @@ int32
 parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi,
                           char *formula) {
     if (tabular_create_fun(nn, xlo, xhi, formula, index) == 0) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("Problem with creating table !!\n");
+        }
         return 1;
     }
     return 0;
@@ -617,17 +643,20 @@ int32
 parserslow_add_ufun_name(char *name, int32 index, int32 narg) {
     char string[50];
     int32 len = (int32)strlen(name);
-    if (duplicate_name(name) == 1)
+    if (duplicate_name(name) == 1) {
         return 1;
+    }
     if (index >= MAX_UFUN) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("too many functions !!\n");
+        }
         return 1;
     }
     ggets_plintf(" Added user fun %s \n", name);
     convert(name, string);
-    if (len > MXLEN)
+    if (len > MXLEN) {
         len = MXLEN;
+    }
     strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
@@ -657,18 +686,21 @@ parserslow_add_ufun_new(int32 index, int32 narg, char *rhs,
         return 1;
     }
     if ((ufun[index] = xmalloc(1024)) == NULL) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("not enough memory!!\n");
+        }
         return 1;
     }
     if ((ufun_def[index] = xmalloc(MAXEXPLEN)) == NULL) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("not enough memory!!\n");
+        }
         return 1;
     }
     ufun_arg[index].narg = narg;
-    for (int32 i = 0; i < narg; i++)
+    for (int32 i = 0; i < narg; i++) {
         strcpy(ufun_arg[index].args[i], args[i]);
+    }
     set_new_arg_names(narg, args);
     if (parserslow_add_expr(rhs, ufun[index], &end) == 0) {
         ufun[index][end - 1] = ENDFUN;
@@ -683,8 +715,9 @@ parserslow_add_ufun_new(int32 index, int32 narg, char *rhs,
     }
 
     set_old_arg_names(narg);
-    if (ERROUT)
+    if (ERROUT) {
         printf(" ERROR IN FUNCTION DEFINITION\n");
+    }
     return 1;
 }
 
@@ -697,28 +730,33 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
     int32 end;
     int32 len = (int32)strlen(junk);
 
-    if (duplicate_name(junk) == 1)
+    if (duplicate_name(junk) == 1) {
         return 1;
+    }
     if (NFUN >= MAX_UFUN) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("too many functions !!\n");
+        }
         return 1;
     }
     if ((ufun[NFUN] = xmalloc(1024)) == NULL) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("not enough memory!!\n");
+        }
         return 1;
     }
     if ((ufun_def[NFUN] = xmalloc(MAXEXPLEN)) == NULL) {
-        if (ERROUT)
+        if (ERROUT) {
             printf("not enough memory!!\n");
+        }
         return 1;
     }
 
     convert(junk, string);
     if (parserslow_add_expr(expr, ufun[NFUN], &end) == 0) {
-        if (len > MXLEN)
+        if (len > MXLEN) {
             len = MXLEN;
+        }
         strncpy(my_symb[NSYM].name, string, (usize)len);
         my_symb[NSYM].name[len] = '\0';
         my_symb[NSYM].len = len;
@@ -741,8 +779,9 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
         NFUN++;
         return 0;
     }
-    if (ERROUT)
+    if (ERROUT) {
         printf(" ERROR IN FUNCTION DEFINITION\n");
+    }
     return 1;
 }
 
@@ -769,30 +808,33 @@ check_num(int32 *tok, double value) {
 
 int32
 is_ufun(int32 x) {
-    if ((x / MAXTYPE) == UFUNTYPE)
+    if ((x / MAXTYPE) == UFUNTYPE) {
         return 1;
-    else
+    } else {
         return 0;
+    }
 }
 
 /* IS_UCON        */
 
 int32
 is_ucon(int32 x) {
-    if (x / MAXTYPE == CONTYPE)
+    if (x / MAXTYPE == CONTYPE) {
         return 1;
-    else
+    } else {
         return 0;
+    }
 }
 
 /* IS_UVAR       */
 
 int32
 is_uvar(int32 x) {
-    if (x / MAXTYPE == VARTYPE)
+    if (x / MAXTYPE == VARTYPE) {
         return 1;
-    else
+    } else {
         return 0;
+    }
 }
 
 int32
@@ -812,18 +854,20 @@ isker(int32 y) {
 
 int32
 is_kernel(int32 x) {
-    if ((x / MAXTYPE) == KERTYPE)
+    if ((x / MAXTYPE) == KERTYPE) {
         return 1;
-    else
+    } else {
         return 0;
+    }
 }
 
 int32
 is_lookup(int32 x) {
-    if ((x / MAXTYPE) == TABTYPE)
+    if ((x / MAXTYPE) == TABTYPE) {
         return 1;
-    else
+    } else {
         return 0;
+    }
 }
 
 int32
@@ -831,11 +875,13 @@ find_lookup(char *name) {
     int32 index;
     int32 com;
     find_name(name, &index);
-    if (index == -1)
+    if (index == -1) {
         return -1;
+    }
     com = my_symb[index].com;
-    if (is_lookup(com))
+    if (is_lookup(com)) {
         return com % MAXTYPE;
+    }
     return -1;
 }
 
@@ -849,14 +895,17 @@ find_name(char *string, int32 *index) {
     convert(string, junk);
     len = (int32)strlen(junk);
     for (i = 0; i < NSYM; i++) {
-        if (len == my_symb[i].len)
-            if (strncmp(my_symb[i].name, junk, (usize)len) == 0)
+        if (len == my_symb[i].len) {
+            if (strncmp(my_symb[i].name, junk, (usize)len) == 0) {
                 break;
+            }
+        }
     }
-    if (i < NSYM)
+    if (i < NSYM) {
         *index = i;
-    else
+    } else {
         *index = -1;
+    }
     return;
 }
 
@@ -865,8 +914,9 @@ get_param_index(char *name) {
     int32 type;
     int32 com;
     find_name(name, &type);
-    if (type < 0)
+    if (type < 0) {
         return -1;
+    }
     com = my_symb[type].com;
     if (is_ucon(com)) {
         return com % MAXTYPE;
@@ -882,8 +932,9 @@ get_val(char *name, double *value) {
     int32 com;
     *value = 0.0;
     find_name(name, &type);
-    if (type < 0)
+    if (type < 0) {
         return 0;
+    }
     com = my_symb[type].com;
     if (is_ucon(com)) {
         *value = constants[com % MAXTYPE];
@@ -903,8 +954,9 @@ set_val(char *name, double value) {
     int32 type;
     int32 com;
     find_name(name, &type);
-    if (type < 0)
+    if (type < 0) {
         return 0;
+    }
     com = my_symb[type].com;
     if (is_ucon(com)) {
         constants[com % MAXTYPE] = value;
@@ -1014,10 +1066,12 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
             temp = my_symb[toklist[lstptr + 1]].com;
             /* !! */ if (is_uvar(temp) || is_ucon(temp)) {
                 /* ram -- same issue */
-                if (is_uvar(temp))
+                if (is_uvar(temp)) {
                     my_symb[LASTTOK].com = COM(SVARTYPE, temp % MAXTYPE);
-                if (is_ucon(temp))
+                }
+                if (is_ucon(temp)) {
                     my_symb[LASTTOK].com = COM(SCONTYPE, temp % MAXTYPE);
+                }
                 /* create a temporary sybol */
 
                 toklist[lstptr + 1] = LASTTOK;
@@ -1031,8 +1085,9 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
         }
 
     next:
-        if ((newtok == ENDTOK) && (oldtok == STARTTOK))
+        if ((newtok == ENDTOK) && (oldtok == STARTTOK)) {
             break;
+        }
 
         if (newtok == LPAREN) {
             tokstak[tokptr] = LPAREN;
@@ -1070,8 +1125,9 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
         if (my_symb[oldtok].pri >= my_symb[newtok].pri) {
             command[comptr] = my_symb[oldtok].com;
             if ((my_symb[oldtok].arg == 2) &&
-                (my_symb[oldtok].com / MAXTYPE == FUN2TYPE))
+                (my_symb[oldtok].com / MAXTYPE == FUN2TYPE)) {
                 ncomma--;
+            }
             my_com = command[comptr];
             comptr++;
             /*   New code   3/95      */
@@ -1123,8 +1179,9 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 my_com == ENDISHIFT) {
                 ncomma -= 1;
             }
-            if (my_com == ENDDELSHFT || my_com == ENDSET)
+            if (my_com == ENDDELSHFT || my_com == ENDSET) {
                 ncomma -= 2;
+            }
             /*  if(my_com==CONV||my_com==DCONV){
                ncomma-=1;
               }  */
@@ -1173,8 +1230,9 @@ pr_command(int32 *command) {
     while (true) {
         token = command[i];
         ggets_plintf("%d %d \n", i, token);
-        if (token == ENDEXP)
+        if (token == ENDEXP) {
             break;
+        }
         i++;
     }
     return;
@@ -1184,8 +1242,9 @@ void
 show_where(char *string, int32 index) {
     char junk[MAXEXPLEN];
     /* exit(-1); */
-    for (int32 i = 0; i < index; i++)
+    for (int32 i = 0; i < index; i++) {
         junk[i] = ' ';
+    }
     junk[index] = '^';
     junk[index + 1] = 0;
     ggets_plintf("%s\n%s\n", string, junk);
@@ -1198,39 +1257,47 @@ function_sym(int32 token) {
     int32 com = my_symb[token].com;
     int32 i1 = com / MAXTYPE;
 
-    if (i1 == FUN1TYPE && !unary_sym(token))
+    if (i1 == FUN1TYPE && !unary_sym(token)) {
         return 1; /* single variable functions */
-    if (i1 == FUN2TYPE && !binary_sym(token))
+    }
+    if (i1 == FUN2TYPE && !binary_sym(token)) {
         return 1; /* two-variable function */
+    }
     /* ram this was: if(i1==UFUN||i1==7||i1==6||i1==5)return 1; recall: 5 was
      * bad
      */
-    if (i1 == UFUNTYPE || i1 == TABTYPE || i1 == VECTYPE || i1 == NETTYPE)
+    if (i1 == UFUNTYPE || i1 == TABTYPE || i1 == VECTYPE || i1 == NETTYPE) {
         return 1;
+    }
     if (token == DELSHFTSYM || token == SETSYM || token == DELSYM ||
         token == SHIFTSYM || token == ISHIFTSYM || com == MYIF ||
-        com == MYTHEN || com == MYELSE || com == SUMSYM || com == ENDSUM)
+        com == MYTHEN || com == MYELSE || com == SUMSYM || com == ENDSUM) {
         return 1;
+    }
     return 0;
 }
 
 int32
 unary_sym(int32 token) {
     /* ram: these are tokens not byte code, so no change here? */
-    if (token == 9 || token == 55)
+    if (token == 9 || token == 55) {
         return 1;
+    }
     return 0;
 }
 
 int32
 binary_sym(int32 token) {
     /* ram: these are tokens not byte code, so no change here? */
-    if (token > 2 && token < 9)
+    if (token > 2 && token < 9) {
         return 1;
-    if (token > 43 && token < 51)
+    }
+    if (token > 43 && token < 51) {
         return 1;
-    if (token == 54)
+    }
+    if (token == 54) {
         return 1;
+    }
     return 0;
 }
 
@@ -1239,8 +1306,9 @@ pure_number(int32 token) {
     int32 com = my_symb[token].com;
     int32 i1 = com / MAXTYPE;
     /* !! */ if (token == NUMTOK || isvar(i1) || iscnst(i1) || isker(i1) ||
-                 i1 == USTACKTYPE || token == INDX)
+                 i1 == USTACKTYPE || token == INDX) {
         return 1;
+    }
     return 0;
 }
 
@@ -1248,26 +1316,32 @@ int32
 gives_number(int32 token) {
     int32 com = my_symb[token].com;
     int32 i1 = com / MAXTYPE;
-    if (token == INDX)
+    if (token == INDX) {
         return 1;
-    if (token == NUMTOK)
+    }
+    if (token == NUMTOK) {
         return 1;
-    if (i1 == FUN1TYPE && !unary_sym(token))
+    }
+    if (i1 == FUN1TYPE && !unary_sym(token)) {
         return 1; /* single variable functions */
-    if (i1 == FUN2TYPE && !binary_sym(token))
+    }
+    if (i1 == FUN2TYPE && !binary_sym(token)) {
         return 1; /* two-variable function */
+    }
     /* !! */
     /* ram: 5 issue; was
      * if(i1==8||isvar(i1)||iscnst(i1)||i1==7||i1==6||i1==5||isker(i1)||i1==UFUN)return
      * 1;
      */
     if (i1 == USTACKTYPE || isvar(i1) || iscnst(i1) || i1 == TABTYPE ||
-        i1 == VECTYPE || i1 == NETTYPE || isker(i1) || i1 == UFUNTYPE)
+        i1 == VECTYPE || i1 == NETTYPE || isker(i1) || i1 == UFUNTYPE) {
         return 1;
+    }
     if (com == MYIF || token == DELSHFTSYM || token == SETSYM ||
         token == DELSYM || token == SHIFTSYM || token == ISHIFTSYM ||
-        com == SUMSYM)
+        com == SUMSYM) {
         return 1;
+    }
     return 0;
 }
 
@@ -1282,8 +1356,10 @@ check_syntax(/* 1 is BAD!   */
 
     if (unary_sym(oldtoken) || oldtoken == COMMA || oldtoken == STARTTOK ||
         oldtoken == LPAREN || binary_sym(oldtoken)) {
-        if (unary_sym(newtoken) || gives_number(newtoken) || newtoken == LPAREN)
+        if (unary_sym(newtoken) || gives_number(newtoken) ||
+            newtoken == LPAREN) {
             return 0;
+        }
         return 1;
     }
 
@@ -1291,8 +1367,9 @@ check_syntax(/* 1 is BAD!   */
      */
 
     if (function_sym(oldtoken)) {
-        if (newtoken == LPAREN)
+        if (newtoken == LPAREN) {
             return 0;
+        }
         return 1;
     }
 
@@ -1302,18 +1379,21 @@ check_syntax(/* 1 is BAD!   */
 
     if (pure_number(oldtoken)) {
         if (binary_sym(newtoken) || newtoken == RPAREN || newtoken == COMMA ||
-            newtoken == ENDTOK)
+            newtoken == ENDTOK) {
             return 0;
+        }
 
         return 1;
     }
 
     if (oldtoken == RPAREN) {
         if (binary_sym(newtoken) || newtoken == RPAREN || newtoken == COMMA ||
-            newtoken == ENDTOK)
+            newtoken == ENDTOK) {
             return 0;
-        if (com2 == MYELSE || com2 == MYTHEN || com2 == ENDSUM)
+        }
+        if (com2 == MYELSE || com2 == MYTHEN || com2 == ENDSUM) {
             return 0;
+        }
 
         return 1;
     }
@@ -1351,12 +1431,15 @@ make_toks(char *dest, int32 *my_token) {
         lastindex = index;
         find_tok(dest, &index, &token);
         if ((token == MINUS) && ((old_tok == STARTTOK) || (old_tok == COMMA) ||
-                                 (old_tok == LPAREN)))
+                                 (old_tok == LPAREN))) {
             token = NEGATE;
-        if (token == LPAREN)
+        }
+        if (token == LPAREN) {
             ++nparen;
-        if (token == RPAREN)
+        }
+        if (token == RPAREN) {
             --nparen;
+        }
 
         if (token == NSYM) {
             if (do_num(dest, num, &value, &index)) {
@@ -1398,8 +1481,9 @@ make_toks(char *dest, int32 *my_token) {
         return 1;
     }
     if (nparen != 0) {
-        if (ERROUT)
+        if (ERROUT) {
             printf(" parentheses don't match\n");
+        }
         return 1;
     }
     return 0;
@@ -1426,26 +1510,31 @@ do_num(char *source, char *num, double *value, int32 *ind) {
     *value = 0.0;
     while (true) {
         ch = source[i];
-        if (((ch == '+') || (ch == '-')) && (oldch != 'E'))
+        if (((ch == '+') || (ch == '-')) && (oldch != 'E')) {
             break;
+        }
         if ((ch == '*') || (ch == '^') || (ch == '/') || (ch == ',') ||
             (ch == ')') || (ch == '\0') || (ch == '|') || (ch == '>') ||
-            (ch == '<') || (ch == '&') || (ch == '='))
+            (ch == '<') || (ch == '&') || (ch == '=')) {
             break;
+        }
         if ((ch == 'E') || (ch == '.') || (ch == '+') || (ch == '-') ||
             isdigit(ch)) {
-            if (isdigit(ch))
+            if (isdigit(ch)) {
                 ndig++;
+            }
             switch (ch) {
             case 'E':
                 nexp++;
-                if ((nexp == 2) || (ndig == 0))
+                if ((nexp == 2) || (ndig == 0)) {
                     goto err;
+                }
                 break;
             case '.':
                 ndec++;
-                if ((ndec == 2) || (nexp == 1))
+                if ((ndec == 2) || (nexp == 1)) {
                     goto err;
+                }
                 break;
             default:
                 break;
@@ -1463,10 +1552,11 @@ do_num(char *source, char *num, double *value, int32 *ind) {
         }
     }
     num[j] = '\0';
-    if (error == 0)
+    if (error == 0) {
         *value = atof(num);
-    else if (ERROUT)
+    } else if (ERROUT) {
         printf(" illegal expression: %s\n", num);
+    }
     *ind = i;
     return error;
 }
@@ -1478,11 +1568,13 @@ convert(char *source, char *dest) {
     int32 j = 0;
     while (true) {
         ch = source[i];
-        if (!isspace(ch))
+        if (!isspace(ch)) {
             dest[j++] = ch;
+        }
         i++;
-        if (ch == '\0')
+        if (ch == '\0') {
             break;
+        }
     }
     strupr(dest);
     return;
@@ -1498,8 +1590,9 @@ find_tok(char *source, int32 *index, int32 *tok) {
     my_tok = NSYM;
     for (int32 k = 0; k < NSYM; k++) {
         symlen = my_symb[k].len;
-        if (symlen <= maxlen)
+        if (symlen <= maxlen) {
             continue;
+        }
 
         match = 1;
         for (int32 j = 0; j < symlen; j++) {
@@ -1521,8 +1614,9 @@ find_tok(char *source, int32 *index, int32 *tok) {
 double
 pmod(double x, double y) {
     double z = fmod(x, y);
-    if (z < 0)
+    if (z < 0) {
         z += y;
+    }
     return z;
 }
 
@@ -1556,13 +1650,15 @@ bessi(double nn, double x) {
     double tox;
     double ans;
     n = (int32)nn;
-    if (n == 0)
+    if (n == 0) {
         return bessi0(x);
-    if (n == 1)
+    }
+    if (n == 1) {
         return bessi1(x);
-    if (x == 0.0)
+    }
+    if (x == 0.0) {
         return 0.0;
-    else {
+    } else {
         tox = 2.0 / fabs(x);
         bip = ans = 0.0;
         bi = 1.0;
@@ -1575,8 +1671,9 @@ bessi(double nn, double x) {
                 bi *= BIGNI;
                 bip *= BIGNI;
             }
-            if (j == n)
+            if (j == n) {
                 ans = bip;
+            }
         }
         ans *= bessi0(x) / bi;
         return x < 0.0 && (n & 1) ? -ans : ans;
@@ -1650,13 +1747,15 @@ bessis(double nn, double x) {
     double tox;
     double ans;
     n = (int32)nn;
-    if (n == 0)
+    if (n == 0) {
         return bessis0(x);
-    if (n == 1)
+    }
+    if (n == 1) {
         return bessis1(x);
-    if (x == 0.0)
+    }
+    if (x == 0.0) {
         return 0.0;
-    else {
+    } else {
         tox = 2.0 / fabs(x);
         bip = ans = 0.0;
         bi = 1.0;
@@ -1669,8 +1768,9 @@ bessis(double nn, double x) {
                 bi *= BIGNI;
                 bip *= BIGNI;
             }
-            if (j == n)
+            if (j == n) {
                 ans = bip;
+            }
         }
         ans *= bessis0(x) / bi;
         return x < 0.0 && (n & 1) ? -ans : ans;
@@ -1748,13 +1848,16 @@ bessis1(double x) {
 char *
 com_name(int32 com) {
     int32 i;
-    for (i = 0; i < NSYM; i++)
-        if (my_symb[i].com == com)
+    for (i = 0; i < NSYM; i++) {
+        if (my_symb[i].com == com) {
             break;
-    if (i < NSYM)
+        }
+    }
+    if (i < NSYM) {
         return my_symb[i].name;
-    else
+    } else {
         return "";
+    }
 }
 
 double
@@ -1764,21 +1867,24 @@ do_shift(double shift, double variable) {
     int32 i = (int32)(variable);
     int32 ish = (int32)shift;
 
-    if (i < 0)
+    if (i < 0) {
         return 0.0;
+    }
     it = i / MAXTYPE;
     in = (i % MAXTYPE) + ish;
     switch (it) {
     case CONTYPE:
-        if (in > NCON)
+        if (in > NCON) {
             return 0.0;
-        else
+        } else {
             return constants[in];
+        }
     case VARTYPE:
-        if (in > MAX_ODE)
+        if (in > MAX_ODE) {
             return 0.0;
-        else
+        } else {
             return variables[in];
+        }
     default:
         ggets_plintf(
             "This can't happen: Invalid symbol index for SHIFT: i = %d\n", i);
@@ -1796,16 +1902,19 @@ do_delay_shift(double delay, double shift, double variable) {
     int32 in;
     int32 i = (int32)(variable);
     int32 ish = (int32)shift;
-    if (i < 0)
+    if (i < 0) {
         return 0.0;
+    }
     in = (i % MAXTYPE) + ish;
 
-    if (in > MAX_ODE)
+    if (in > MAX_ODE) {
         return 0.0;
+    }
 
     if (del_stab_flag > 0) {
-        if (DelayFlag && delay > 0.0)
+        if (DelayFlag && delay > 0.0) {
             return delay_handle_get_delay(in - 1, delay);
+        }
         return variables[in];
     }
 
@@ -1881,8 +1990,9 @@ recip(double z) {
 double
 heaviside(double z) {
     double w = 1.0;
-    if (z < 0)
+    if (z < 0) {
         w = 0.0;
+    }
     return w;
 }
 
@@ -1894,10 +2004,12 @@ rndom(double z) {
 
 double
 signum(double z) {
-    if (z < 0.0)
+    if (z < 0.0) {
         return -1.0;
-    if (z > 0.0)
+    }
+    if (z > 0.0) {
         return 1.0;
+    }
     return 0.0;
 }
 
@@ -1998,8 +2110,9 @@ eval_rpn(int32 *equat) {
         case MYIF:
             temx = POP;
             ijmp = *equat++;
-            if (temx == 0.0)
+            if (temx == 0.0) {
                 equat += ijmp;
+            }
             break;
         case MYTHEN:
             ijmp = *equat++;
@@ -2091,8 +2204,9 @@ eval_rpn(int32 *equat) {
                 }
                 if (in == 3) {
                     temx = POP;
-                    if (temx == 0.0)
+                    if (temx == 0.0) {
                         temx = DOUB_EPS;
+                    }
                     temy = POP;
                     PUSH(temy / temx);
                     goto bye;
@@ -2166,8 +2280,9 @@ void
 strupr(char *s) {
     int32 i = 0;
     while (s[i]) {
-        if (islower(s[i]))
+        if (islower(s[i])) {
             s[i] -= 32;
+        }
         i++;
     }
     return;
@@ -2177,8 +2292,9 @@ void
 strlwr(char *s) {
     int32 i = 0;
     while (s[i]) {
-        if (isupper(s[i]))
+        if (isupper(s[i])) {
             s[i] += 32;
+        }
         i++;
     }
     return;

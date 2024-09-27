@@ -59,12 +59,14 @@ pow_di(double *ap, int64 *bp) {
             x = 1 / x;
         }
         for (u = (ulong)n;;) {
-            if (u & 01)
+            if (u & 01) {
                 pow *= x;
-            if (u >>= 1)
+            }
+            if (u >>= 1) {
                 x *= x;
-            else
+            } else {
                 break;
+            }
         }
     }
     return pow;
@@ -81,20 +83,24 @@ pow_ii(int64 ap, int64 bp) {
     n = bp;
 
     if (n <= 0) {
-        if (n == 0 || x == 1)
+        if (n == 0 || x == 1) {
             return 1;
-        if (x != -1)
+        }
+        if (x != -1) {
             return x == 0 ? 1 / x : 0;
+        }
         n = -n;
     }
     u = (ulong)n;
     for (pow = 1;;) {
-        if (u & 01)
+        if (u & 01) {
             pow *= x;
-        if (u >>= 1)
+        }
+        if (u >>= 1) {
             x *= x;
-        else
+        } else {
             break;
+        }
     }
     return pow;
 }

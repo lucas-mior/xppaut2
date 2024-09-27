@@ -327,14 +327,16 @@ auto_nox_draw_bix_axes(void) {
     sprintf(junk, "%g", Auto.ymin);
     ii = (int32)strlen(junk);
     i0 = 9 - ii;
-    if (i0 < 0)
+    if (i0 < 0) {
         i0 = 0;
+    }
     auto_x11_text(i0*DCURXs, y1, junk);
     sprintf(junk, "%g", Auto.ymax);
     ii = (int32)strlen(junk);
     i0 = 9 - ii;
-    if (i0 < 0)
+    if (i0 < 0) {
         i0 = 0;
+    }
     auto_x11_text(i0*DCURXs, y0 + DCURYs, junk);
     auto_nox_get_str(xlabel, ylabel);
     auto_x11_text((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
@@ -359,8 +361,9 @@ int32
 auto_nox_check_bnds(int32 ix, int32 iy) {
     int32 x1 = Auto.x0, x2 = Auto.x0 + Auto.wid;
     int32 y1 = Auto.y0, y2 = Auto.y0 + Auto.hgt;
-    if ((ix >= x1) && (ix < x2) && (iy >= y1) && (iy < y2))
+    if ((ix >= x1) && (ix < x2) && (iy >= y1) && (iy < y2)) {
         return 1;
+    }
     return 0;
 }
 
@@ -405,11 +408,13 @@ auto_nox_appendf(char *old, char *new) {
         printf("Can't open %s \n", TMPSWAP);
         return;
     }
-    while ((c = getc(fo)) != EOF)
+    while ((c = getc(fo)) != EOF) {
         putc(c, ft);
+    }
     fclose(fo);
-    while ((c = getc(fn)) != EOF)
+    while ((c = getc(fn)) != EOF) {
         putc(c, ft);
+    }
     fclose(fn);
     fclose(ft);
     auto_nox_copyf(TMPSWAP, new);
@@ -464,8 +469,9 @@ auto_nox_open(int32 flg) {
     dname = (char *)dirname(dirc);
 
     HOME = getenv("HOME");
-    if (HOME == NULL)
+    if (HOME == NULL) {
         HOME = dname;
+    }
 
     sprintf(this_auto_file, "%s/%s", HOME, bname);
     sprintf(fort3, "%s/%s", HOME, "fort.3");
@@ -528,12 +534,15 @@ auto_nox_name_to_index(char *s) {
     int32 i;
     int32 in;
     browse_find_variable(s, &in);
-    if (in == 0)
+    if (in == 0) {
         return 10;
+    }
     in = init_conds_find_user_name(PARAM_BOX, s);
-    for (i = 0; i < NAutoPar; i++)
-        if (AutoPar[i] == in)
+    for (i = 0; i < NAutoPar; i++) {
+        if (AutoPar[i] == in) {
             return i;
+        }
+    }
     return -1;
 }
 
@@ -543,8 +552,9 @@ auto_nox_par_to_name(int64 index, char *s) {
         sprintf(s, "T");
         return 1;
     }
-    if (index < 0 || index > 8)
+    if (index < 0 || index > 8) {
         return 0;
+    }
     sprintf(s, "%s", upar_names[AutoPar[index]]);
     return 1;
 }
@@ -563,9 +573,11 @@ auto_nox_per_par(void) {
     char ch;
     ch = (char)auto_x11_pop_up_list("Number", m, key, 10, 12, Auto.nper, 10, 10,
                                     no_hint, Auto.hinttxt);
-    for (i = 0; i < 10; i++)
-        if (ch == key[i])
+    for (i = 0; i < 10; i++) {
+        if (ch == key[i]) {
             Auto.nper = i;
+        }
+    }
     NAutoUzr = Auto.nper;
     if (Auto.nper > 0) {
         for (i = 0; i < 9; i++) {
@@ -574,7 +586,7 @@ auto_nox_per_par(void) {
             sprintf(values[i], "%s=%g", bob, Auto.period[i]);
         }
         status = pop_list_do_string_box(9, 5, 2, "AutoPer", n, values, 45);
-        if (status != 0)
+        if (status != 0) {
             for (i = 0; i < 9; i++) {
                 ptr = form_ode_get_first(values[i], "=");
                 in = auto_nox_name_to_index(ptr);
@@ -584,6 +596,7 @@ auto_nox_per_par(void) {
                     Auto.period[i] = atof(ptr);
                 }
             }
+        }
     }
     for (i = 0; i < 9; i++) {
         outperiod[i] = Auto.period[i];
@@ -602,10 +615,11 @@ auto_nox_params(void) {
     int32 in;
     char values[LENGTH(n)][MAX_LEN_SBOX];
     for (int32 i = 0; i < 8; i++) {
-        if (i < NAutoPar)
+        if (i < NAutoPar) {
             sprintf(values[i], "%s", upar_names[AutoPar[i]]);
-        else
+        } else {
             values[i][0] = '\0'; /*sprintf(values[i],"");*/
+        }
     }
     status = pop_list_do_string_box(8, 8, 1, "Parameters", n, values, 38);
     if (status != 0) {
@@ -705,15 +719,20 @@ auto_nox_plot_par(void) {
     char n1[15];
     ch = (char)auto_x11_pop_up_list("Plot Type", m, key, 14, 10, Auto.plot, 10,
                                     50, aaxes_hint, Auto.hinttxt);
-    if (ch == ESC)
+    if (ch == ESC) {
         return;
-    for (i = 0; i < 5; i++)
-        if (ch == key[i])
+    }
+    for (i = 0; i < 5; i++) {
+        if (ch == key[i]) {
             Auto.plot = i;
-    if (ch == key[10])
+        }
+    }
+    if (ch == key[10]) {
         Auto.plot = 10;
-    if (ch == key[11])
+    }
+    if (ch == key[11]) {
         Auto.plot = 11;
+    }
     if (ch == key[5]) {
         if (auto_x11_rubber(&ii1, &ji1, &ii2, &ji2, RUBBOX) != 0) {
             auto_nox_zoom_in(ii1, ji1, ii2, ji2);
@@ -786,8 +805,9 @@ auto_nox_plot_par(void) {
     if (status != 0) {
         /*  get variable names  */
         browse_find_variable(values[0], &i);
-        if (i > 0)
+        if (i > 0) {
             Auto.var = i - 1;
+        }
         /*  Now check the parameters  */
         i1 = init_conds_find_user_name(PARAM_BOX, values[1]);
         if (i1 >= 0) {
@@ -811,10 +831,12 @@ auto_nox_plot_par(void) {
         Auto.xmax = atof(values[5]);
         Auto.ymax = atof(values[6]);
         auto_nox_draw_bix_axes();
-        if (Auto.plot < 4)
+        if (Auto.plot < 4) {
             auto_nox_keep_last_plot(1);
-        if (Auto.plot == 4)
+        }
+        if (Auto.plot == 4) {
             auto_nox_keep_last_plot(2);
+        }
     }
     return;
 }
@@ -960,10 +982,11 @@ auto_nox_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
         break;
     case FR_P:
         *x = par1;
-        if (per > 0)
+        if (per > 0) {
             *y1 = 1. / per;
-        else
+        } else {
             *y1 = 0.0;
+        }
         *y2 = *y1;
         break;
     case P_P:
@@ -982,10 +1005,12 @@ int32
 auto_nox_plot_point(int32 flag2, int32 icp1, int32 icp2) {
     int32 j = 1;
 
-    if (icp1 != Auto.icp1)
+    if (icp1 != Auto.icp1) {
         j = 0;
-    if (flag2 > 0 && icp2 != Auto.icp2)
+    }
+    if (flag2 > 0 && icp2 != Auto.icp2) {
         j = 0;
+    }
     return j;
 }
 
@@ -1000,52 +1025,65 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
     double par2 = 0;
     int32 type1 = type;
     par1 = par[icp1];
-    if (icp2 < NAutoPar)
+    if (icp2 < NAutoPar) {
         par2 = par[icp2];
+    }
     auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar, a);
     if (flag == 0) {
         Auto.lastx = x;
         Auto.lasty = y1;
     }
 
-    if (flag2 == 0 && Auto.plot == P_P)
+    if (flag2 == 0 && Auto.plot == P_P) {
         return;
-    if (flag2 > 0 && Auto.plot != P_P)
+    }
+    if (flag2 > 0 && Auto.plot != P_P) {
         return;
+    }
 
-    if ((flag2 > 0) && (Auto.plot == P_P))
+    if ((flag2 > 0) && (Auto.plot == P_P)) {
         type1 = CSEQ;
+    }
 
     switch (type1) {
     case CSEQ:
-        if (Auto.plot == PE_P || Auto.plot == FR_P)
+        if (Auto.plot == PE_P || Auto.plot == FR_P) {
             break;
-        if (icp1 != Auto.icp1)
+        }
+        if (icp1 != Auto.icp1) {
             break;
-        if (flag2 > 0 && Auto.icp2 != icp2)
+        }
+        if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
+        }
 
         if (PS_Color) {
             graphics_set_linestyle(1);
-            if (flag2 > 0)
+            if (flag2 > 0) {
                 auto_nox_pscolset2(flag2);
-        } else
+            }
+        } else {
             graphics_set_linestyle(8);
+        }
         graphics_line_abs((double)x, (double)y1, (double)Auto.lastx,
                           (double)Auto.lasty);
         break;
     case CUEQ:
-        if (Auto.plot == PE_P || Auto.plot == FR_P)
+        if (Auto.plot == PE_P || Auto.plot == FR_P) {
             break;
-        if (icp1 != Auto.icp1)
+        }
+        if (icp1 != Auto.icp1) {
             break;
-        if (flag2 > 0 && Auto.icp2 != icp2)
+        }
+        if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
+        }
         if (Auto.plot != P_P) {
-            if (PS_Color)
+            if (PS_Color) {
                 graphics_set_linestyle(0);
-            else
+            } else {
                 graphics_set_linestyle(4);
+            }
         } else {
             auto_nox_pscolset2(flag2);
         }
@@ -1053,27 +1091,33 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
                           (double)Auto.lasty);
         break;
     case UPER:
-        if (PS_Color)
+        if (PS_Color) {
             graphics_set_linestyle(9);
-        else
+        } else {
             graphics_set_linestyle(0);
-        if (icp1 != Auto.icp1)
+        }
+        if (icp1 != Auto.icp1) {
             break;
-        if (flag2 > 0 && Auto.icp2 != icp2)
+        }
+        if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
+        }
         PointType = UPT;
         graphics_point_abs((double)x, (double)y1);
         graphics_point_abs((double)x, (double)y2);
         break;
     case SPER:
-        if (PS_Color)
+        if (PS_Color) {
             graphics_set_linestyle(7);
-        else
+        } else {
             graphics_set_linestyle(0);
-        if (icp1 != Auto.icp1)
+        }
+        if (icp1 != Auto.icp1) {
             break;
-        if (flag2 > 0 && Auto.icp2 != icp2)
+        }
+        if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
+        }
         PointType = SPT;
         graphics_point_abs((double)x, (double)y1);
         graphics_point_abs((double)x, (double)y2);
@@ -1125,14 +1169,18 @@ auto_nox_line(double x1i, double y1i, double x2i, double y2i) {
 */
 int32
 auto_nox_check_plot_type(int32 flag2, int32 icp1, int32 icp2) {
-    if (flag2 == 0 && Auto.plot == P_P)
+    if (flag2 == 0 && Auto.plot == P_P) {
         return 0;
-    if (flag2 > 0 && Auto.plot != P_P)
+    }
+    if (flag2 > 0 && Auto.plot != P_P) {
         return 0;
-    if (icp1 != Auto.icp1)
+    }
+    if (icp1 != Auto.icp1) {
         return 0;
-    if (flag2 > 0 && icp1 != icp2)
+    }
+    if (flag2 > 0 && icp1 != icp2) {
         return 0;
+    }
     return 1;
 }
 /* main plotting code  */
@@ -1153,8 +1201,9 @@ auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
     char bob[5];
     sprintf(bob, "%d", lab);
     par1 = par[icp1];
-    if (icp2 < NAutoPar)
+    if (icp2 < NAutoPar) {
         par2 = par[icp2];
+    }
     auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar,
                      a); /* figure out who sits on axes */
     if (flg == 0) {
@@ -1179,65 +1228,84 @@ auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
         return;
     }
 
-    if ((flag2 > 0) && (Auto.plot == P_P))
+    if ((flag2 > 0) && (Auto.plot == P_P)) {
         type1 = CSEQ;
+    }
     switch (type1) {
     case CSEQ:
-        if (Auto.plot == PE_P || Auto.plot == FR_P)
+        if (Auto.plot == PE_P || Auto.plot == FR_P) {
             break;
-        if (icp1 != Auto.icp1)
+        }
+        if (icp1 != Auto.icp1) {
             break;
-        if (flag2 > 0 && Auto.icp2 != icp2)
+        }
+        if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
+        }
         auto_x11_line_width(2);
         auto_nox_colset(type);
-        if (flag2 > 0)
+        if (flag2 > 0) {
             auto_nox_colset2(flag2);
+        }
         auto_nox_line(x, y1, Auto.lastx, Auto.lasty);
         auto_x11_bw();
         break;
     case CUEQ:
-        if (Auto.plot == PE_P || Auto.plot == FR_P)
+        if (Auto.plot == PE_P || Auto.plot == FR_P) {
             break;
-        if (icp1 != Auto.icp1)
+        }
+        if (icp1 != Auto.icp1) {
             break;
-        if (flag2 > 0 && Auto.icp2 != icp2)
+        }
+        if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
+        }
         auto_x11_line_width(1);
         auto_nox_colset(type);
-        if (flag2 > 0)
+        if (flag2 > 0) {
             auto_nox_colset2(flag2);
+        }
         auto_nox_line(x, y1, Auto.lastx, Auto.lasty);
         auto_x11_bw();
         break;
     case UPER:
-        if (icp1 != Auto.icp1)
+        if (icp1 != Auto.icp1) {
             break;
-        if (flag2 > 0 && Auto.icp2 != icp2)
+        }
+        if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
+        }
         auto_x11_line_width(1);
         auto_nox_colset(type);
-        if (flag2 > 0)
+        if (flag2 > 0) {
             auto_nox_colset2(flag2);
-        if (auto_nox_check_bnds(ix, iy1))
+        }
+        if (auto_nox_check_bnds(ix, iy1)) {
             auto_x11_circle(ix, iy1, 3);
-        if (auto_nox_check_bnds(ix, iy2))
+        }
+        if (auto_nox_check_bnds(ix, iy2)) {
             auto_x11_circle(ix, iy2, 3);
+        }
         auto_x11_bw();
         break;
     case SPER:
-        if (icp1 != Auto.icp1)
+        if (icp1 != Auto.icp1) {
             break;
-        if (flag2 > 0 && Auto.icp2 != icp2)
+        }
+        if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
+        }
         auto_x11_line_width(1);
         auto_nox_colset(type);
-        if (flag2 > 0)
+        if (flag2 > 0) {
             auto_nox_colset2(flag2);
-        if (auto_nox_check_bnds(ix, iy1))
+        }
+        if (auto_nox_check_bnds(ix, iy1)) {
             auto_x11_fill_circle(ix, iy1, 3);
-        if (auto_nox_check_bnds(ix, iy2))
+        }
+        if (auto_nox_check_bnds(ix, iy2)) {
             auto_x11_fill_circle(ix, iy2, 3);
+        }
         auto_x11_bw();
         break;
     default:
@@ -1257,8 +1325,9 @@ auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
                     auto_x11_line(ix - 4, iy2, ix + 4, iy2);
                     auto_x11_line(ix, iy2 - 4, ix, iy2 + 4);
                 }
-                if (auto_nox_check_bnds(ix, iy1))
+                if (auto_nox_check_bnds(ix, iy1)) {
                     auto_x11_text(ix + 8, iy1 + 8, bob);
+                }
             }
         }
     }
@@ -1313,10 +1382,11 @@ auto_nox_info_header(int32 icp1, int32 icp2) {
     char p2name[12];
 
     strncpy(p1name, upar_names[AutoPar[icp1]], sizeof(p1name));
-    if (icp2 < NAutoPar)
+    if (icp2 < NAutoPar) {
         strncpy(p2name, upar_names[AutoPar[icp2]], sizeof(p2name));
-    else
+    } else {
         strncpy(p2name, "   ", sizeof(p2name));
+    }
     many_pops_small_base();
     sprintf(bob, "  Br  Pt Ty  Lab %10s %10s       norm %10s     period",
             p1name, p2name, uvar_names[Auto.var]);
@@ -1333,8 +1403,9 @@ auto_nox_new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
     auto_x11_clear_info();
     auto_nox_info_header(icp1, icp2);
     p1 = par[icp1];
-    if (icp2 < NAutoPar)
+    if (icp2 < NAutoPar) {
         p2 = par[icp2];
+    }
     sprintf(bob, "%4d %4d %2s %4d %10.4g %10.4g %10.4g %10.4g %10.4g", ibr, pt,
             ty, lab, p1, p2, norm, u0, per);
     auto_x11_draw_info(bob, 10, 2*DCURYs + 2);
@@ -1374,8 +1445,9 @@ auto_nox_traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
 
     auto_nox_get_bif_sym(symb, itp);
     par1 = par[icp1];
-    if (icp2 < NAutoPar)
+    if (icp2 < NAutoPar) {
         par2 = par[icp2];
+    }
     auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, d->uhi, d->ulo, d->ubar,
                      norm);
 
@@ -1387,8 +1459,9 @@ auto_nox_traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
         auto_nox_new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per,
                           icp1, icp2);
     }
-    if (lab > 0 && load_all_labeled_orbits > 0)
+    if (lab > 0 && load_all_labeled_orbits > 0) {
         auto_nox_load_orbitx(ibr, 1, lab, per);
+    }
     return;
 }
 
@@ -1460,8 +1533,9 @@ auto_nox_keep_last_plot(int32 flg) {
 void
 auto_nox_init_win(void) {
     int32 i;
-    if (NODE > NAUTO)
+    if (NODE > NAUTO) {
         return;
+    }
     diagram_start(NODE);
     for (i = 0; i < 10; i++) {
         Auto.period[i] = 11. + 3.*i;
@@ -1470,10 +1544,12 @@ auto_nox_init_win(void) {
         UzrPar[i] = 10;
     }
     NAutoPar = 8;
-    if (NUPAR < 8)
+    if (NUPAR < 8) {
         NAutoPar = NUPAR;
-    for (i = 0; i < NAutoPar; i++)
+    }
+    for (i = 0; i < NAutoPar; i++) {
         AutoPar[i] = i;
+    }
     for (i = 0; i < NAutoPar; i++) {
         Auto_index_to_array[i] = get_param_index(upar_names[AutoPar[i]]);
     }
@@ -1481,8 +1557,9 @@ auto_nox_init_win(void) {
     grabpt.flag = 0; /*  no point in buffer  */
     Auto.exist = 0;
     blrtn.irot = 0;
-    for (i = 0; i < NODE; i++)
+    for (i = 0; i < NODE; i++) {
         blrtn.nrot[i] = 0;
+    }
     blrtn.torper = TOR_PERIOD;
 
     {
@@ -1496,8 +1573,9 @@ auto_nox_init_win(void) {
         dname = (char *)dirname(dirc);
 
         HOME = getenv("HOME");
-        if (HOME == NULL)
+        if (HOME == NULL) {
             HOME = dname;
+        }
 
         sprintf(this_auto_file, "%s/%s", HOME, bname);
     }
@@ -1506,8 +1584,9 @@ auto_nox_init_win(void) {
     Auto.irs = 0;
     Auto.ips = 1;
     Auto.isp = 1;
-    if (SuppressBP == 1)
+    if (SuppressBP == 1) {
         Auto.isp = 0;
+    }
     Auto.ilp = 1;
     Auto.isw = 1;
     Auto.nbc = NODE;
@@ -1573,15 +1652,19 @@ auto_nox_plot_stab(double *evr, double *evi, int32 n) {
     auto_x11_clr_stab();
     for (i = 0; i < n; i++) {
         x = evr[i];
-        if (x < -1.95)
+        if (x < -1.95) {
             x = -1.95;
-        if (x > 1.95)
+        }
+        if (x > 1.95) {
             x = 1.95;
+        }
         y = evi[i];
-        if (y < -1.95)
+        if (y < -1.95) {
             y = -1.95;
-        if (y > 1.95)
+        }
+        if (y > 1.95) {
             y = 1.95;
+        }
         x = r*(x + 2.0) / 4.0;
         y = r - r*(y + 2.0) / 4.0;
         ix = (int32)x;
@@ -1595,8 +1678,9 @@ auto_nox_plot_stab(double *evr, double *evi, int32 n) {
 int32
 auto_nox_yes_reset(void) {
     char string[256];
-    if (NBifs <= 1)
+    if (NBifs <= 1) {
         return 0;
+    }
     kill_diagrams();
     FromAutoFlag = 0;
     NBifs = 1;
@@ -1614,12 +1698,14 @@ auto_nox_yes_reset(void) {
 int32
 auto_nox_reset(void) {
     char ch;
-    if (NBifs <= 1)
+    if (NBifs <= 1) {
         return 0;
+    }
     ch = (char)menudrive_two_choice("YES", "NO", "Destroy AUTO diagram & files",
                                     "yn");
-    if (ch != 'y')
+    if (ch != 'y') {
         return 0;
+    }
 
     return auto_nox_yes_reset();
 }
@@ -1669,10 +1755,12 @@ auto_nox_get_shifted_orbit(double *u, double t, double p, int32 n) {
     int32 i2;
     int32 ip;
     double lam;
-    if (t > 1.0)
+    if (t > 1.0) {
         t -= 1.0;
-    if (t < 0.0)
+    }
+    if (t < 0.0) {
         t += 1.0;
+    }
     ts = fmod(t*p + HOMO_SHIFT, p);
     for (i = 0; i < storind; i++) {
         ip = (i + 1) % storind;
@@ -1680,9 +1768,10 @@ auto_nox_get_shifted_orbit(double *u, double t, double p, int32 n) {
             i1 = i;
             i2 = ip;
             lam = ts - storage[0][i];
-            for (int32 j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++) {
                 u[j] =
                     (1.0 - lam)*storage[j + 1][i1] + lam*storage[j + 1][i2];
+            }
             break;
         }
     }
@@ -1695,19 +1784,23 @@ auto_nox_get_start_orbit(double *u, double t, int32 n) {
     double lam;
     int32 i1;
     int32 i2;
-    if (t > 1.0)
+    if (t > 1.0) {
         t -= 1.0;
-    if (t < 0.0)
+    }
+    if (t < 0.0) {
         t += 1.0;
+    }
     tnorm = t*(storind - 1);
     i1 = (int32)tnorm;
     i2 = i1 + 1;
-    if (i2 >= storind)
+    if (i2 >= storind) {
         i2 -= storind;
+    }
     lam = (tnorm - (double)i1);
 
-    for (int32 j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++) {
         u[j] = (1.0 - lam)*storage[j + 1][i1] + lam*storage[j + 1][i2];
+    }
     return;
 }
 
@@ -1730,8 +1823,9 @@ auto_nox_run(void) {
             int32 opn = NO_OPEN_3, cls = OVERWRITE;
             NewPeriodFlag = 0;
 
-            if (NBifs > 1)
+            if (NBifs > 1) {
                 auto_nox_reset();
+            }
 
             TypeOfCalc = DI1;
             Auto.ips = -1;
@@ -1740,8 +1834,9 @@ auto_nox_run(void) {
             Auto.ilp = 1;
             Auto.isw = 1;
             Auto.isp = 1;
-            if (SuppressBP == 1)
+            if (SuppressBP == 1) {
                 Auto.isp = 0;
+            }
             Auto.nfpar = 1;
             AutoTwoParam = 0;
             auto_nox_do(opn, cls);
@@ -1765,8 +1860,9 @@ auto_nox_run(void) {
             Auto.isw = 1;
 
             Auto.isp = 2;
-            if (SuppressBP == 1)
+            if (SuppressBP == 1) {
                 Auto.isp = 0;
+            }
             Auto.nfpar = 1;
             AutoTwoParam = 0;
             NewPeriodFlag = 1;
@@ -1781,8 +1877,9 @@ auto_nox_run(void) {
             opn = NO_OPEN_3;
             cls = OVERWRITE;
             pp_shoot_compile_bvp();
-            if (BVP_FLAG == 0)
+            if (BVP_FLAG == 0) {
                 return;
+            }
             TypeOfCalc = BV1;
             Auto.ips = 4;
             Auto.irs = 0;
@@ -1791,8 +1888,9 @@ auto_nox_run(void) {
             Auto.isw = 1;
 
             Auto.isp = 2;
-            if (SuppressBP == 1)
+            if (SuppressBP == 1) {
                 Auto.isp = 0;
+            }
 
             Auto.nfpar = 1;
             AutoTwoParam = 0;
@@ -1823,15 +1921,17 @@ auto_nox_run(void) {
             /* auto start diff ss */
             TypeOfCalc = EQ1;
             Auto.ips = 1;
-            if (METHOD == DISCRETE)
+            if (METHOD == DISCRETE) {
                 Auto.ips = -1;
+            }
             Auto.irs = 0;
             Auto.itp = 0;
             Auto.ilp = 1;
             Auto.isw = 1;
             Auto.isp = 1;
-            if (SuppressBP == 1)
+            if (SuppressBP == 1) {
                 Auto.isp = 0;
+            }
             Auto.nfpar = 1;
             AutoTwoParam = 0;
             auto_nox_do(NO_OPEN_3, APPEND);
@@ -1901,8 +2001,9 @@ auto_nox_run(void) {
             Auto.isw = -1;
             TypeOfCalc = PE1;
             Auto.isp = 2;
-            if (SuppressBP == 1)
+            if (SuppressBP == 1) {
                 Auto.isp = 0;
+            }
             Auto.ips = 2;
             AutoTwoParam = 0;
             auto_nox_do(OPEN_3, APPEND);
@@ -1948,11 +2049,12 @@ auto_nox_run(void) {
         return;
     }
     if (itp1 == 5 || itp2 == 5) { /* limit pt of periodic or BVP */
-        if (Auto.ips != 4)
+        if (Auto.ips != 4) {
             Auto.ips = 2; /* this is a bit dangerous - the idea is that
                              if you are doing BVPs, then that is all you are
                              doing
                           */
+        }
         auto_nox_2p_limit(Auto.ips);
         ggets_ping();
         return;
@@ -2035,8 +2137,9 @@ auto_nox_run(void) {
         Auto.ilp = 1;
         Auto.isw = 1;
         Auto.isp = 2;
-        if (SuppressBP == 1)
+        if (SuppressBP == 1) {
             Auto.isp = 0;
+        }
         Auto.ips = 4;
         AutoTwoParam = 0;
         auto_nox_do(OPEN_3, APPEND);
@@ -2064,10 +2167,12 @@ auto_nox_homo_choice(int32 itp) {
         Auto.isp = 0;
         Auto.nbc = 0;
 
-        if (HomoFlag == 1)
+        if (HomoFlag == 1) {
             x_auto.iequib = 1;
-        if (HomoFlag == 2)
+        }
+        if (HomoFlag == 2) {
             x_auto.iequib = -2;
+        }
 
         auto_nox_do(OPEN_3, APPEND);
     }
@@ -2094,8 +2199,9 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             Auto.ilp = 1;
             Auto.isw = -1;
             Auto.isp = 2;
-            if (SuppressBP == 1)
+            if (SuppressBP == 1) {
                 Auto.isp = 0;
+            }
             Auto.ips = 2;
             AutoTwoParam = 0;
             auto_nox_do(OPEN_3, APPEND);
@@ -2108,8 +2214,9 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             Auto.ilp = 1;
             Auto.isw = -1;
             Auto.isp = 2;
-            if (SuppressBP == 1)
+            if (SuppressBP == 1) {
                 Auto.isp = 0;
+            }
             Auto.ips = 4;
             AutoTwoParam = 0;
             auto_nox_do(OPEN_3, APPEND);
@@ -2122,11 +2229,13 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             Auto.ilp = 1;
             Auto.isw = -1;
             Auto.isp = 1;
-            if (SuppressBP == 1)
+            if (SuppressBP == 1) {
                 Auto.isp = 0;
+            }
             Auto.ips = 1;
-            if (METHOD == DISCRETE)
+            if (METHOD == DISCRETE) {
                 Auto.ips = -1;
+            }
             AutoTwoParam = 0;
             auto_nox_do(OPEN_3, APPEND);
         }
@@ -2142,10 +2251,12 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
     }
     if (ch == 't') {
         ipsuse = 1;
-        if (ips == 4)
+        if (ips == 4) {
             ipsuse = 4;
-        if (ibr < 0)
+        }
+        if (ibr < 0) {
             ipsuse = 2;
+        }
         auto_nox_2p_branch(ipsuse);
         /* auto_nox_2p_limit(ips); */
         return;
@@ -2191,8 +2302,9 @@ auto_nox_new_ss(void) {
     int32 cls = OVERWRITE;
     NewPeriodFlag = 0;
 
-    if (NBifs > 1)
+    if (NBifs > 1) {
         auto_nox_reset();
+    }
 
     TypeOfCalc = EQ1;
     Auto.ips = 1;
@@ -2201,8 +2313,9 @@ auto_nox_new_ss(void) {
     Auto.ilp = 1;
     Auto.isw = 1;
     Auto.isp = 1;
-    if (SuppressBP == 1)
+    if (SuppressBP == 1) {
         Auto.isp = 0;
+    }
 
     Auto.nfpar = 1;
     AutoTwoParam = 0;
@@ -2235,11 +2348,13 @@ auto_nox_extend_ss(void) {
     Auto.ilp = 1;
     Auto.isw = 1;
     Auto.ips = 1;
-    if (METHOD == DISCRETE)
+    if (METHOD == DISCRETE) {
         Auto.ips = -1;
+    }
     Auto.isp = 1;
-    if (SuppressBP == 1)
+    if (SuppressBP == 1) {
         Auto.isp = 0;
+    }
 
     AutoTwoParam = 0;
     auto_nox_do(OPEN_3, APPEND);
@@ -2274,8 +2389,9 @@ auto_nox_get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
         *nst = atoi(v[NODE + 1]);
         for (i = 0; i < NODE; i++) {
             ul[i] = atof(v[i + 1]);
-            if (HomoFlag == 2)
+            if (HomoFlag == 2) {
                 ur[i] = atof(v[i + 2 + NODE]);
+            }
         }
     }
     for (i = 0; i < n; i++) {
@@ -2309,8 +2425,9 @@ auto_nox_start_at_homoclinic(void) {
         x_auto.iequib = 1;
         auto_nox_find_best_homo_shift(NODE);
     }
-    if (HomoFlag == 2)
+    if (HomoFlag == 2) {
         x_auto.iequib = -2;
+    }
     flag =
         auto_nox_get_homo_info(&x_auto.nunstab, &x_auto.nstab, homo_l, homo_r);
     if (flag) {
@@ -2350,8 +2467,9 @@ auto_nox_new_per(void) {
     Auto.ilp = 1;
     Auto.isw = 1; /* -1 */
     Auto.isp = 2;
-    if (SuppressBP == 1)
+    if (SuppressBP == 1) {
         Auto.isp = 0;
+    }
     Auto.ips = 2;
     AutoTwoParam = 0;
     auto_nox_do(OPEN_3, APPEND);
@@ -2373,11 +2491,12 @@ auto_nox_2p_limit(int32 ips) {
     Auto.isw = 2;
     Auto.isp = 0; /* was 2 */
     /* fix ips now */
-    if (ips == 4)
+    if (ips == 4) {
         ipsuse = 4;
-    else {
-        if ((itp1 == 5) || (itp2 == 5))
+    } else {
+        if ((itp1 == 5) || (itp2 == 5)) {
             ipsuse = 2;
+        }
     }
 
     Auto.ips = ipsuse;
@@ -2408,16 +2527,18 @@ auto_nox_2p_branch(int32 ips) {
     Auto.ilp = 0; /* was 1 */
     Auto.isw = 2;
     Auto.isp = 0; /* was 2 */
-    if (ips == 4)
+    if (ips == 4) {
         ipsuse = 4;
-    else {
-        if ((itp1 == 6) || (itp2 == 6))
+    } else {
+        if ((itp1 == 6) || (itp2 == 6)) {
             ipsuse = 2;
+        }
     }
 
     Auto.ips = ipsuse;
-    if (METHOD == DISCRETE)
+    if (METHOD == DISCRETE) {
         Auto.ips = -1;
+    }
     AutoTwoParam = BR2;
     TypeOfCalc = BR2;
     auto_nox_do(OPEN_3, APPEND);
@@ -2464,8 +2585,9 @@ auto_nox_2p_hopf(void) {
     Auto.isw = 2;
     Auto.isp = 0;
     Auto.ips = 1;
-    if (METHOD == DISCRETE)
+    if (METHOD == DISCRETE) {
         Auto.ips = -1;
+    }
     AutoTwoParam = HB2;
     TypeOfCalc = HB2;
     auto_nox_do(OPEN_3, APPEND);
@@ -2501,8 +2623,9 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     int32 flg;
 
     if ((ibr > 0 && (Auto.ips != 4) && (Auto.ips != 3) && (Auto.ips != 9)) ||
-        flag == 0)
+        flag == 0) {
         return;
+    }
     // either nothing grabbed or just a fixed point and that is already loaded
     sprintf(string, "%s.s", this_auto_file);
     fp = fopen(string, "r");
@@ -2514,8 +2637,9 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     period = per;
     flg = auto_nox_move_to_label(label, &nrow, &ndim, fp);
     nstor = ndim;
-    if (ndim > NODE)
+    if (ndim > NODE) {
         nstor = NODE;
+    }
     if (flg == 0) {
         printf("Could not find label %d in file %s \n", label, string);
         auto_nox_err("Cant find labeled pt");
@@ -2525,24 +2649,27 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     x = &MyData[0];
     for (i = 0; i < nrow; i++) {
         auto_nox_get_a_row(u, &t, ndim, fp);
-        if (Auto.ips != 4)
+        if (Auto.ips != 4) {
             storage[0][i] = t*period;
-        else
+        } else {
             storage[0][i] = t;
+        }
 
         for (int32 j = 0; j < nstor; j++) {
             storage[j + 1][i] = u[j];
             x[j] = u[j];
         }
         main_rhs_extra(x, (double)storage[0][i], nstor, NEQ);
-        for (int32 j = nstor; j < NEQ; j++)
+        for (int32 j = nstor; j < NEQ; j++) {
             storage[j + 1][i] = (double)x[j];
+        }
     }
     storind = nrow;
     refresh_browser(nrow);
     /* insert auxiliary stuff here */
-    if (load_all_labeled_orbits == 2)
+    if (load_all_labeled_orbits == 2) {
         menudrive_clr_all_scrns();
+    }
     menudrive_drw_all_scrns();
     fclose(fp);
     return;
@@ -2562,11 +2689,13 @@ auto_nox_save(void) {
     XSetInputFocus(display,w,rev,CurrentTime);
     */
     status = init_conds_file_selector("Save Auto", filename, "*.auto");
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     browse_open_write_file(&fp, filename, &ok);
-    if (!ok)
+    if (!ok) {
         return;
+    }
     auto_nox_save_numerics(fp);
     auto_nox_save_graph(fp);
     status = diagram_save(fp, NODE);
@@ -2583,11 +2712,13 @@ void
 auto_nox_save_numerics(FILE *fp) {
     int32 i;
     fprintf(fp, "%d ", NAutoPar);
-    for (i = 0; i < NAutoPar; i++)
+    for (i = 0; i < NAutoPar; i++) {
         fprintf(fp, "%d ", AutoPar[i]);
+    }
     fprintf(fp, "%d\n", NAutoUzr);
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < 9; i++) {
         fprintf(fp, "%g %ld\n", outperiod[i], UzrPar[i]);
+    }
     fprintf(fp, "%d %d %d \n", Auto.ntst, Auto.nmx, Auto.npr);
     fprintf(fp, "%g %g %g \n", Auto.ds, Auto.dsmin, Auto.dsmax);
     fprintf(fp, "%g %g %g %g\n", Auto.rl0, Auto.rl1, Auto.a0, Auto.a1);
@@ -2683,11 +2814,13 @@ auto_nox_no_info_noinfo(char *s) {
     /* get rid of any blank lines */
     int32 n = (int32)strlen(s);
     int32 i;
-    if (n == 0)
+    if (n == 0) {
         return 1;
+    }
     for (i = 0; i < n; i++) {
-        if (!isspace(s[i]))
+        if (!isspace(s[i])) {
             return 0;
+        }
     }
     return 1;
 }
@@ -2701,15 +2834,17 @@ auto_nox_load(void) {
     int32 status;
     if (NBifs > 1) {
         ok = auto_nox_reset();
-        if (ok == 0)
+        if (ok == 0) {
             return;
+        }
     }
 
     sprintf(filename, "%s.auto", basename(this_auto_file));
 
     status = init_conds_file_selector("Load Auto", filename, "*.auto");
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     fp = fopen(filename, "r");
     if (fp == NULL) {
         auto_nox_err("Cannot open file");
@@ -2750,10 +2885,12 @@ auto_nox_move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp) {
             *ndim = nar - 1;
             return 1;
         }
-        for (i = 0; i < nskip; i++)
+        for (i = 0; i < nskip; i++) {
             fgets(line, MAXLINELENGTH, fp);
-        if (feof(fp))
+        }
+        if (feof(fp)) {
             break;
+        }
     }
     return 0;
 }
@@ -2762,8 +2899,9 @@ void
 auto_nox_get_a_row(double *u, double *t, int32 n, FILE *fp) {
     int32 i;
     fscanf(fp, "%lg ", t);
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++) {
         fscanf(fp, "%lg ", &u[i]);
+    }
     return;
 }
 
@@ -2790,10 +2928,12 @@ auto_nox_file(void) {
         auto_nox_load();
         return;
     }
-    if (ch == 'r')
+    if (ch == 'r') {
         auto_nox_reset();
-    if (ch == 'c')
+    }
+    if (ch == 'c') {
         grabpt.flag = 0;
+    }
     if (ch == 'p') {
         NoBreakLine = 1;
         diagram_post_auto();
@@ -2804,30 +2944,36 @@ auto_nox_file(void) {
         diagram_svg_auto();
         NoBreakLine = 0;
     }
-    if (ch == 'w')
+    if (ch == 'w') {
         diagram_write_pts();
-    if (ch == 'a')
+    }
+    if (ch == 'a') {
         diagram_write_info_out();
-    if (ch == 'd')
+    }
+    if (ch == 'd') {
         diagram_write_init_data_file();
+    }
     if (ch == 't') {
         auto_redraw_flag = 1 - auto_redraw_flag;
-        if (auto_redraw_flag == 1)
+        if (auto_redraw_flag == 1) {
             ggets_err_msg("Redraw is ON");
-        else
+        } else {
             ggets_err_msg("Redraw is OFF");
+        }
     }
     if (ch == 'o') {
-        if (mark_flag < 2)
+        if (mark_flag < 2) {
             ggets_err_msg("Mark a branch first using S and E");
-        else
+        } else {
             diagram_load_browser_with_branch(mark_ibrs, mark_ipts, mark_ipte);
+        }
     }
     if (ch == 'n') {
-        if (mark_flag < 2)
+        if (mark_flag < 2) {
             ggets_err_msg("Mark a branch first using S and E");
-        else
+        } else {
             auto_x11_do_range();
+        }
     }
     if (ch == 'e') {
         if (Auto.plot != P_P) {

@@ -44,31 +44,35 @@ static void color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
 
 void
 color_set_s(int32 col) {
-    if (col < 0)
+    if (col < 0) {
         XSetForeground(display, small_gc, GrBack);
-    if (col == 0)
+    }
+    if (col == 0) {
         XSetForeground(display, small_gc, GrFore);
-    else {
-        if (COLOR)
+    } else {
+        if (COLOR) {
             XSetForeground(display, small_gc, (ulong)color_map(col));
-        else
+        } else {
             XSetForeground(display, small_gc, GrFore);
+        }
     }
     return;
 }
 
 void
 color_set(int32 col) {
-    if (col < 0)
+    if (col < 0) {
         XSetForeground(display, gc_graph, GrBack);
-    if (col == 0)
+    }
+    if (col == 0) {
         XSetForeground(display, gc_graph, GrFore);
-    else {
+    } else {
 
-        if (COLOR)
+        if (COLOR) {
             XSetForeground(display, gc_graph, (ulong)color_map(col));
-        else
+        } else {
             XSetForeground(display, gc_graph, GrFore);
+        }
     }
     return;
 }
@@ -124,8 +128,9 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
             b[i + i1] = 0;
         }
 
-        for (int32 i = i1; i < n; i++)
+        for (int32 i = i1; i < n; i++) {
             r[i] = 256*255;
+        }
         for (int32 i = i2; i < n; i++) {
             x = 256*255*(double)(i - i2) / ((double)i3);
 
@@ -168,18 +173,24 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
             gg = x + amp*(-.29227*cos(angle) - .90649*sin(angle));
             bb = x + amp*(1.97294*cos(angle));
 
-            if (rr < 0.0)
+            if (rr < 0.0) {
                 rr = 0.0;
-            if (rr > 1.0)
+            }
+            if (rr > 1.0) {
                 rr = 1.0;
-            if (gg < 0.0)
+            }
+            if (gg < 0.0) {
                 gg = 0.0;
-            if (gg > 1.0)
+            }
+            if (gg > 1.0) {
                 gg = 1.0;
-            if (bb < 0.0)
+            }
+            if (bb < 0.0) {
                 bb = 0.0;
-            if (bb > 1.0)
+            }
+            if (bb > 1.0) {
                 bb = 1.0;
+            }
             r[i] = 256*(int32)(255.*rr);
             b[i] = 256*(int32)(255.*bb);
             g[i] = 256*(int32)(255.*gg);
@@ -196,27 +207,31 @@ int32
 color_rfun(double y, int32 per) {
     double x;
     x = y;
-    if ((y > .666666) && (per == 1))
+    if ((y > .666666) && (per == 1)) {
         x = 1. - y;
+    }
 
-    if (x > .33333333333)
+    if (x > .33333333333) {
         return 0;
+    }
     return (int32)(3.*255*sqrt((.333334 - x)*(x + .33334)));
 }
 
 int32
 color_gfun(double y, int32 per) {
     (void)per;
-    if (y > .666666)
+    if (y > .666666) {
         return 0;
+    }
     return (int32)(3.*255*sqrt((.6666667 - y)*(y)));
 }
 
 int32
 color_bfun(double y, int32 per) {
     (void)per;
-    if (y < .333334)
+    if (y < .333334) {
         return 0;
+    }
     return (int32)(2.79*255*sqrt((1.05 - y)*(y - .333333333)));
 }
 
@@ -262,11 +277,13 @@ color_map_make(void) {
     color_min = 30;
     color_max = MAX_COLORS - 1;
     color_total = color_max - color_min + 1;
-    if (color_total > COL_TOTAL)
+    if (color_total > COL_TOTAL) {
         color_total = COL_TOTAL;
+    }
     color_max = color_min + color_total;
-    if (Xup)
+    if (Xup) {
         cmap = DefaultColormap(display, screen);
+    }
     for (int32 i = 0; i < clo; i++) {
         color[i].pixel = (ulong)i;
     }
@@ -322,16 +339,20 @@ color_map_make(void) {
 
 uint32
 color_map(int32 i) {
-    if (i == -1)
+    if (i == -1) {
         return GrBack;
+    }
 
-    if (i == 0)
+    if (i == 0) {
         return GrFore;
+    }
     if (color_mode) {
-        if (i < 0)
+        if (i < 0) {
             i = 0;
-        if (i >= color_max)
+        }
+        if (i >= color_max) {
             i = color_max;
+        }
         return (uint32)color[i].pixel;
     } else {
         return (uint32)i;

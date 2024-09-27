@@ -207,8 +207,9 @@ simplenet_interp(double x, int32 i) {
     int32 n = my_net[i].n;
     double dx = x - (double)jlo;
     y = &variables[my_net[i].root];
-    if (jlo < 0 || jlo > (n - 1))
+    if (jlo < 0 || jlo > (n - 1)) {
         return 0.0; /* out of range */
+    }
     return (1 - dx)*y[jlo] + dx*y[jlo + 1];
 }
 
@@ -222,15 +223,18 @@ simplenet_add_vectorizer(char *name, char *rhs) {
     int32 len;
     int32 flag;
 
-    for (i = 0; i < n_vector; i++)
-        if (strcmp(name, my_vec[i].name) == 0)
+    for (i = 0; i < n_vector; i++) {
+        if (strcmp(name, my_vec[i].name) == 0) {
             break;
+        }
+    }
 
     ind = i;
     flag = simplenet_get_vector_info(rhs, name, &ivar, &len, &il, &ir);
 
-    if (flag == 0)
+    if (flag == 0) {
         return 0;
+    }
 
     my_vec[ind].root = ivar;
     my_vec[ind].length = len;
@@ -251,8 +255,9 @@ simplenet_add_vectorizer_name(char *name, char *rhs) {
         exit(0);
     }
     strcpy(my_vec[n_vector].name, name);
-    if (parserslow_add_vector_name(n_vector, name))
+    if (parserslow_add_vector_name(n_vector, name)) {
         exit(0);
+    }
     n_vector++;
     return;
 }
@@ -263,18 +268,22 @@ simplenet_vector_value(double x, int32 i) {
           k = (int32)x;
     int32 root = my_vec[i].root;
 
-    if ((k >= 0) && (k < n))
+    if ((k >= 0) && (k < n)) {
         return variables[root + k];
-    if (il == PERIODIC)
+    }
+    if (il == PERIODIC) {
         return variables[root + ((k + n) % n)];
+    }
     if (k < 0) {
-        if (il == ZERO)
+        if (il == ZERO) {
             return 0.0;
+        }
         return variables[root - k - 1];
     }
     if (k >= n) {
-        if (ir == ZERO)
+        if (ir == ZERO) {
             return 0.0;
+        }
         return variables[2*n - k - 1 + root];
     }
     return 0;
@@ -283,17 +292,20 @@ simplenet_vector_value(double x, int32 i) {
 double
 simplenet_network_value(double x, int32 i) {
     int32 j = (int32)x;
-    if (my_net[i].type == INTERP)
+    if (my_net[i].type == INTERP) {
         return simplenet_interp(x, i);
-    if (j >= 0 && j < my_net[i].n)
+    }
+    if (j >= 0 && j < my_net[i].n) {
         return my_net[i].values[j];
+    }
     return 0.0;
 }
 
 void
 simplenet_init(double *v, int32 n) {
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         v[i] = 0.0;
+    }
     return;
 }
 
@@ -322,12 +334,15 @@ simplenet_add_spec_fun(char *name, char *rhs) {
     char fname[20];
     char sofun[256], soname[256], *tname[MAXW];
     type = simplenet_is_network(rhs);
-    if (type == 0)
+    if (type == 0) {
         return 0;
+    }
     ggets_plintf("type=%d \n", type);
-    for (i = 0; i < n_network; i++)
-        if (strcmp(name, my_net[i].name) == 0)
+    for (i = 0; i < n_network; i++) {
+        if (strcmp(name, my_net[i].name) == 0) {
             break;
+        }
+    }
     ind = i;
     if (ind >= n_network) {
         ggets_plintf(" No such name %s ?? \n", name);
@@ -338,12 +353,15 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = -1;
-        if (str[0] == 'E')
+        if (str[0] == 'E') {
             ntype = CONVE;
-        if (str[0] == '0' || str[0] == 'Z')
+        }
+        if (str[0] == '0' || str[0] == 'Z') {
             ntype = CONV0;
-        if (str[0] == 'P')
+        }
+        if (str[0] == 'P') {
             ntype = CONVP;
+        }
         if (ntype == -1) {
             ggets_plintf(" No such convolution type %s \n", str);
             return 0;
@@ -446,12 +464,15 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = -1;
-        if (str[0] == 'E')
+        if (str[0] == 'E') {
             ntype = FCONVE;
-        if (str[0] == '0' || str[0] == 'Z')
+        }
+        if (str[0] == '0' || str[0] == 'Z') {
             ntype = FCONV0;
-        if (str[0] == 'P')
+        }
+        if (str[0] == 'P') {
             ntype = FCONVP;
+        }
         if (ntype == -1) {
             ggets_plintf(" No such convolution type %s \n", str);
             return 0;
@@ -596,10 +617,12 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         str = form_ode_do_fit_get_next(",");
         ntype = -1;
         /* if(str[0]=='E')ntype=CONVE; */
-        if (str[0] == '0' || str[0] == 'Z')
+        if (str[0] == '0' || str[0] == 'Z') {
             ntype = FFTCON0;
-        if (str[0] == 'P')
+        }
+        if (str[0] == 'P') {
             ntype = FFTCONP;
+        }
         if (ntype == -1) {
             ggets_plintf(" No such fft convolution type %s \n", str);
             return 0;
@@ -636,10 +659,11 @@ simplenet_add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
-        if (ntype == FFTCON0)
+        if (ntype == FFTCON0) {
             ncon = 2*ntot;
-        else
+        } else {
             ncon = ntot;
+        }
         my_net[ind].fftr =
             xmalloc((usize)(ncon + 2)*sizeof(*(my_net[ind].fftr)));
         my_net[ind].ffti =
@@ -845,8 +869,9 @@ simplenet_add_spec_fun(char *name, char *rhs) {
 
     case IMPORT:
         ntype = IMPORT;
-        for (i = 0; i < MAXW; i++)
+        for (i = 0; i < MAXW; i++) {
             tname[i] = xmalloc(25);
+        }
         simplenet_parse_import(rhs, soname, sofun, &ncon, rootname, &ntab,
                                tname);
         my_net[ind].values =
@@ -873,8 +898,9 @@ simplenet_add_spec_fun(char *name, char *rhs) {
             }
             my_net[ind].wgtlist[i] = my_table[iwgt].y;
         }
-        for (i = 0; i < MAXW; i++)
+        for (i = 0; i < MAXW; i++) {
             free(tname[i]);
+        }
         ggets_plintf(" Added import %s len=%d  with %s %s var[%d] %d weights\n",
                      name, my_net[ind].n, soname, sofun, ivar, ntab);
 
@@ -1032,8 +1058,9 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         }
         my_net[ind].iwgt = ivar;
         my_net[ind].gcom = xmalloc(1000*sizeof(*(my_net[ind].gcom)));
-        if (simplenet_gil_parse(str, my_net[ind].gcom, &ivar2) == 0)
+        if (simplenet_gil_parse(str, my_net[ind].gcom, &ivar2) == 0) {
             return 0;
+        }
         my_net[ind].root = ivar2;
         my_net[ind].n = ivar2 + 1;
         my_net[ind].ncon = -1;
@@ -1082,8 +1109,9 @@ simplenet_add_special_name(char *name, char *rhs) {
         strcpy(my_net[n_network].name, name);
         parserslow_add_net_name(n_network, name);
         n_network++;
-    } else
+    } else {
         ggets_plintf(" No such special type ...\n");
+    }
     return;
 }
 
@@ -1094,32 +1122,50 @@ simplenet_is_network(char *s) {
     ani_de_space(s);
     strupr(s);
     /* n=strlen(s); Not used*/
-    if (s[0] == 'C' && s[1] == 'O' && s[2] == 'N' && s[3] == 'V')
+    if (s[0] == 'C' && s[1] == 'O' && s[2] == 'N' && s[3] == 'V') {
         return 1;
-    if (s[0] == 'S' && s[1] == 'P' && s[2] == 'A' && s[3] == 'R')
+    }
+    if (s[0] == 'S' && s[1] == 'P' && s[2] == 'A' && s[3] == 'R') {
         return 2;
-    if (s[0] == 'F' && s[1] == 'C' && s[2] == 'O' && s[3] == 'N' && s[4] == 'V')
+    }
+    if (s[0] == 'F' && s[1] == 'C' && s[2] == 'O' && s[3] == 'N' &&
+        s[4] == 'V') {
         return 3;
-    if (s[0] == 'F' && s[1] == 'S' && s[2] == 'P' && s[3] == 'A' && s[4] == 'R')
+    }
+    if (s[0] == 'F' && s[1] == 'S' && s[2] == 'P' && s[3] == 'A' &&
+        s[4] == 'R') {
         return 4;
-    if (s[0] == 'F' && s[1] == 'F' && s[2] == 'T' && s[3] == 'C')
+    }
+    if (s[0] == 'F' && s[1] == 'F' && s[2] == 'T' && s[3] == 'C') {
         return 5;
-    if (s[0] == 'M' && s[1] == 'M' && s[2] == 'U' && s[3] == 'L')
+    }
+    if (s[0] == 'M' && s[1] == 'M' && s[2] == 'U' && s[3] == 'L') {
         return 6;
-    if (s[0] == 'F' && s[1] == 'M' && s[2] == 'M' && s[3] == 'U' && s[4] == 'L')
+    }
+    if (s[0] == 'F' && s[1] == 'M' && s[2] == 'M' && s[3] == 'U' &&
+        s[4] == 'L') {
         return 7;
-    if (s[0] == 'G' && s[1] == 'I' && s[2] == 'L' && s[3] == 'L')
+    }
+    if (s[0] == 'G' && s[1] == 'I' && s[2] == 'L' && s[3] == 'L') {
         return 10;
-    if (s[0] == 'I' && s[1] == 'N' && s[2] == 'T' && s[3] == 'E' && s[4] == 'R')
+    }
+    if (s[0] == 'I' && s[1] == 'N' && s[2] == 'T' && s[3] == 'E' &&
+        s[4] == 'R') {
         return INTERP;
-    if (s[0] == 'F' && s[1] == 'I' && s[2] == 'N' && s[3] == 'D' && s[4] == 'E')
+    }
+    if (s[0] == 'F' && s[1] == 'I' && s[2] == 'N' && s[3] == 'D' &&
+        s[4] == 'E') {
         return FINDEXT;
-    if (s[0] == 'D' && s[1] == 'E' && s[2] == 'L' && s[3] == 'M')
+    }
+    if (s[0] == 'D' && s[1] == 'E' && s[2] == 'L' && s[3] == 'M') {
         return DEL_MUL;
-    if (s[0] == 'D' && s[1] == 'E' && s[2] == 'L' && s[3] == 'S')
+    }
+    if (s[0] == 'D' && s[1] == 'E' && s[2] == 'L' && s[3] == 'S') {
         return DEL_SPAR;
-    if (s[0] == 'I' && s[1] == 'M' && s[2] == 'P' && s[3] == 'O')
+    }
+    if (s[0] == 'I' && s[1] == 'M' && s[2] == 'P' && s[3] == 'O') {
         return IMPORT;
+    }
     /* if(s[0]=='G'&& s[1]=='R' && s[2]=='O' && s[3]=='U')return 8; */
     return 0;
 }
@@ -1200,8 +1246,9 @@ simplenet_eval_all_nets(void) {
                 for (int32 j = -ncon; j <= ncon; j++) {
                     k = ABS(i + j);
                     if (k < twon) {
-                        if (k >= n)
+                        if (k >= n) {
                             k = ABS(twon - 2 - k);
+                        }
                         sum += (w[j + ncon]*y[k]);
                     }
                 }
@@ -1214,8 +1261,9 @@ simplenet_eval_all_nets(void) {
                 sum = 0.0;
                 for (int32 j = -ncon; j <= ncon; j++) {
                     k = i + j;
-                    if (k < n && k >= 0)
+                    if (k < n && k >= 0) {
                         sum += (w[j + ncon]*y[k]);
+                    }
                 }
                 values[i] = sum;
             }
@@ -1282,9 +1330,10 @@ simplenet_eval_all_nets(void) {
                 for (int32 j = 0; j < ncon; j++) {
                     ij = i*ncon + j;
                     k = (int32)cc[ij];
-                    if (k >= 0)
+                    if (k >= 0) {
                         sum +=
                             (w[ij]*delay_handle_get_delay(k + in0, tau[ij]));
+                    }
                 }
                 values[i] = sum;
             }
@@ -1296,8 +1345,9 @@ simplenet_eval_all_nets(void) {
                 for (int32 j = 0; j < ncon; j++) {
                     ij = i*ncon + j;
                     k = (int32)cc[ij];
-                    if (k >= 0)
+                    if (k >= 0) {
                         sum += (w[ij]*y[k]);
+                    }
                 }
                 values[i] = sum;
             }
@@ -1313,8 +1363,9 @@ simplenet_eval_all_nets(void) {
                 for (int32 j = -ncon; j <= ncon; j++) {
                     k = ABS(i + j);
                     if (k < twon) {
-                        if (k >= n)
+                        if (k >= n) {
                             k = ABS(twon - 2 - k);
+                        }
                         f[0] = root2 + k;
 
                         z = evaluate(f);
@@ -1404,9 +1455,11 @@ simplenet_eval_all_nets(void) {
 
 void
 simplenet_update_all_ffts(void) {
-    for (int32 i = 0; i < n_network; i++)
-        if (my_net[i].type == FFTCON0 || my_net[i].type == FFTCONP)
+    for (int32 i = 0; i < n_network; i++) {
+        if (my_net[i].type == FFTCON0 || my_net[i].type == FFTCONP) {
             simplenet_update_fft(i);
+        }
+    }
     return;
 }
 /*
@@ -1429,24 +1482,30 @@ simplenet_update_fft(int32 ind) {
     if (type == FFTCONP) {
         n = my_net[ind].n;
         n2 = n / 2;
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             ffti[i] = 0.0;
-        for (int32 i = 0; i <= n2; i++)
+        }
+        for (int32 i = 0; i <= n2; i++) {
             fftr[i] = w[i + n2];
-        for (int32 i = 0; i < n2; i++)
+        }
+        for (int32 i = 0; i < n2; i++) {
             fftr[n2 + i + 1] = w[i];
+        }
         dims[0] = n;
         fftn(1, dims, fftr, ffti, 1, 1.);
     }
     if (type == FFTCON0) {
         n = 2*my_net[ind].n;
         n2 = n / 2;
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             ffti[i] = 0.0;
-        for (int32 i = 0; i <= n2; i++)
+        }
+        for (int32 i = 0; i <= n2; i++) {
             fftr[i] = w[i + n2];
-        for (int32 i = 1; i < n2; i++)
+        }
+        for (int32 i = 1; i < n2; i++) {
             fftr[n2 + i] = w[i];
+        }
         dims[0] = n;
         fftn(1, dims, fftr, ffti, 1, 1.);
     }
@@ -1480,18 +1539,20 @@ simplenet_fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
         }
 
         fftn(1, dims, dr, di, -1, -2.0);
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             values[i] = dr[i];
+        }
 
         return;
     case 1:
         dims[0] = n2;
         for (int32 i = 0; i < n2; i++) {
             di[i] = 0.0;
-            if (i < n)
+            if (i < n) {
                 dr[i] = yy[i];
-            else
+            } else {
                 dr[i] = 0.0;
+            }
         }
         fftn(1, dims, dr, di, 1, -2.0);
         for (int32 i = 0; i < n2; i++) {
@@ -1501,8 +1562,9 @@ simplenet_fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
             di[i] = y;
         }
         fftn(1, dims, dr, di, -1, -2.0);
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             values[i] = dr[i];
+        }
         return;
     default:
         fprintf(stderr, "Unexpected case in %s.\n", __func__);
@@ -1583,22 +1645,26 @@ simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
     char c;
     char num[20];
     *flag = 0;
-    for (i = 0; i < n; i++)
-        if (s[i] == '{')
+    for (i = 0; i < n; i++) {
+        if (s[i] == '{') {
             ir = i;
+        }
+    }
     if (ir < 0) {
         strcpy(root, s);
         return 1;
     }
-    for (i = 0; i < ir; i++)
+    for (i = 0; i < ir; i++) {
         root[i] = s[i];
+    }
     root[ir] = 0;
     *flag = 1;
     j = 0;
     for (i = ir + 1; i < n; i++) {
         c = s[i];
-        if (c == '-')
+        if (c == '-') {
             break;
+        }
         num[j] = c;
         j++;
     }
@@ -1612,8 +1678,9 @@ simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
     j = 0;
     for (i = ir; i < n; i++) {
         c = s[i];
-        if (c == '}')
+        if (c == '}') {
             break;
+        }
         num[j] = c;
         j++;
     }
@@ -1635,10 +1702,11 @@ simplenet_get_imp_str(char *in, int32 *i, char *out) {
             out[j] = 0;
             *i = *i + 1;
             done = 0;
-            if (c == ')')
+            if (c == ')') {
                 k = 1;
-            else
+            } else {
                 k = 0;
+            }
 
         } else {
             out[j] = c;
@@ -1669,24 +1737,28 @@ simplenet_parse_import(char *s, char *soname, char *sofun, int32 *n,
     while (done > 0) {
         c = s[i];
         i++;
-        if (c == '(')
+        if (c == '(') {
             done = 0;
+        }
     }
 
     j = simplenet_get_imp_str(s, &i, temp);
     strcpy(soname, temp);
-    if (j == 1)
+    if (j == 1) {
         return simplenet_import_error();
+    }
 
     j = simplenet_get_imp_str(s, &i, temp);
     strcpy(sofun, temp);
-    if (j == 1)
+    if (j == 1) {
         return simplenet_import_error();
+    }
 
     j = simplenet_get_imp_str(s, &i, temp);
     *n = atoi(temp);
-    if (j == 1 || *n <= 0)
+    if (j == 1 || *n <= 0) {
         return simplenet_import_error();
+    }
 
     j = simplenet_get_imp_str(s, &i, temp);
     strcpy(vname, temp);
@@ -1702,8 +1774,9 @@ simplenet_parse_import(char *s, char *soname, char *sofun, int32 *n,
         j = simplenet_get_imp_str(s, &i, temp);
         strcpy(tname[*m], temp);
         *m = *m + 1;
-        if (j == 1)
+        if (j == 1) {
             done = 0;
+        }
     }
     return 1;
 }
@@ -1718,9 +1791,11 @@ simplenet_get_vector_info(char *str, char *name, int32 *root, int32 *length,
     int32 j;
     char temp[100];
     ani_de_space(str);
-    for (i = 0; i < n; i++)
-        if (str[i] == '(')
+    for (i = 0; i < n; i++) {
+        if (str[i] == '(') {
             break;
+        }
+    }
     i++;
     j = 0;
     while (true) {
@@ -1757,18 +1832,22 @@ simplenet_get_vector_info(char *str, char *name, int32 *root, int32 *length,
 
     *length = n;
     *il = PERIODIC;
-    if (str[i] == 'e' || str[i] == 'E')
+    if (str[i] == 'e' || str[i] == 'E') {
         *il = EVEN;
-    if (str[i] == 'z' || str[i] == 'Z')
+    }
+    if (str[i] == 'z' || str[i] == 'Z') {
         *il = ZERO;
+    }
     i++;
     i++;
     *ir = PERIODIC;
 
-    if (str[i] == 'e' || str[i] == 'E')
+    if (str[i] == 'e' || str[i] == 'E') {
         *ir = EVEN;
-    if (str[i] == 'z' || str[i] == 'Z')
+    }
+    if (str[i] == 'z' || str[i] == 'Z') {
         *ir = ZERO;
+    }
 
     return 1;
 }

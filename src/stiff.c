@@ -105,28 +105,35 @@ stiff_gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
     h = SIGN(h1, x2 - x1);
     markov_set_wieners(*hguess, ystart, x1);
     *ier = 0;
-    for (int32 i = 0; i < nvar; i++)
+    for (int32 i = 0; i < nvar; i++) {
         y[i] = ystart[i];
+    }
     for (nstp = 1; nstp <= MAXSTP; nstp++) {
         rhs_function(x, y, dydx, nvar);
-        for (int32 i = 0; i < nvar; i++)
-            if (iflag == STIFF)
+        for (int32 i = 0; i < nvar; i++) {
+            if (iflag == STIFF) {
                 yscal[i] = MAX(1, fabs(y[i]));
-            else
+            } else {
                 yscal[i] = fabs(y[i]) + fabs(dydx[i]*h) + TINY;
-        if ((x + h - x2)*(x + h - x1) > 0.0)
+            }
+        }
+        if ((x + h - x2)*(x + h - x1) > 0.0) {
             h = x2 - x;
-        if (iflag == STIFF)
+        }
+        if (iflag == STIFF) {
             stiff(y, dydx, nvar, &x, h, eps, yscal, &hdid, &hnext, work2, epjac,
                   ier);
-        else
+        } else {
             stiff_rkqs(y, dydx, nvar, &x, h, eps, yscal, &hdid, &hnext, work2,
                        ier);
-        if (*ier > 0)
+        }
+        if (*ier > 0) {
             return -1;
+        }
         if ((x - x2)*(x2 - x1) >= 0.0) {
-            for (int32 i = 0; i < nvar; i++)
+            for (int32 i = 0; i < nvar; i++) {
                 ystart[i] = y[i];
+            }
             *hguess = SIGN(hnext, x2 - x1);
             *xs = x2;
             return 0;
@@ -175,8 +182,9 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
     h = htry;
     for (jtry = 1; jtry <= MAXTRY; jtry++) {
         for (int32 i = 0; i < n; i++) {
-            for (int32 j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++) {
                 a[i + n*j] = -dfdy[i + n*j];
+            }
             a[i + n*i] += 1.0 / (GAM*h);
         }
         gear_sgefa(a, n, n, indx, &info);
@@ -185,27 +193,33 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
             return -1;
         }
 
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             g1[i] = dysav[i] + h*C1X*dfdx[i];
+        }
         gear_sgesl(a, n, n, indx, g1, 0);
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             y[i] = ysav[i] + A21*g1[i];
+        }
         *x = xsav + A2X*h;
         rhs_function(*x, y, dydx, n);
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             g2[i] = dydx[i] + h*C2X*dfdx[i] + C21*g1[i] / h;
+        }
         gear_sgesl(a, n, n, indx, g2, 0);
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             y[i] = ysav[i] + A31*g1[i] + A32*g2[i];
+        }
         *x = xsav + A3X*h;
         rhs_function(*x, y, dydx, n);
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             g3[i] =
                 dydx[i] + h*C3X*dfdx[i] + (C31*g1[i] + C32*g2[i]) / h;
+        }
         gear_sgesl(a, n, n, indx, g3, 0);
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             g4[i] = dydx[i] + h*C4X*dfdx[i] +
                     (C41*g1[i] + C42*g2[i] + C43*g3[i]) / h;
+        }
         gear_sgesl(a, n, n, indx, g4, 0);
         for (int32 i = 0; i < n; i++) {
             y[i] = ysav[i] + B1*g1[i] + B2*g2[i] + B3*g3[i] + B4*g4[i];
@@ -218,8 +232,9 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         }
         errmax = 0.0;
 
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             errmax = MAX(errmax, fabs(err[i] / yscal[i]));
+        }
         errmax /= eps;
         if (errmax <= 1.0) {
             *hdid = h;
@@ -251,8 +266,9 @@ stiff_rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
     for (;;) {
         stiff_rkck(y, dydx, n, *x, h, ytemp, yerr, work2);
         errmax = 0.0;
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             errmax = MAX(errmax, fabs(yerr[i] / yscal[i]));
+        }
         errmax /= eps;
         if (errmax > 1.0) {
             htemp = SAFETY*h*pow(errmax, PSHRNK2);
@@ -264,13 +280,15 @@ stiff_rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
             }
             continue;
         } else {
-            if (errmax > ERRCON2)
+            if (errmax > ERRCON2) {
                 *hnext = SAFETY*h*pow(errmax, PGROW2);
-            else
+            } else {
                 *hnext = 5.0*h;
+            }
             *x += (*hdid = h);
-            for (int32 i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++) {
                 y[i] = ytemp[i];
+            }
             break;
         }
     }
@@ -298,28 +316,35 @@ stiff_rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
     ak5 = ak4 + n;
     ak6 = ak5 + n;
     ytemp = ak6 + n;
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         ytemp[i] = y[i] + b21*h*dydx[i];
+    }
     rhs_function(x + a2*h, ytemp, ak2, n);
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         ytemp[i] = y[i] + h*(b31*dydx[i] + b32*ak2[i]);
+    }
     rhs_function(x + a3*h, ytemp, ak3, n);
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         ytemp[i] = y[i] + h*(b41*dydx[i] + b42*ak2[i] + b43*ak3[i]);
+    }
     rhs_function(x + a4*h, ytemp, ak4, n);
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         ytemp[i] = y[i] + h*(b51*dydx[i] + b52*ak2[i] + b53*ak3[i] +
                                b54*ak4[i]);
+    }
     rhs_function(x + a5*h, ytemp, ak5, n);
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         ytemp[i] = y[i] + h*(b61*dydx[i] + b62*ak2[i] + b63*ak3[i] +
                                b64*ak4[i] + b65*ak5[i]);
+    }
     rhs_function(x + a6*h, ytemp, ak6, n);
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         yout[i] =
             y[i] + h*(c1*dydx[i] + c3*ak3[i] + c4*ak4[i] + c6*ak6[i]);
-    for (int32 i = 0; i < n; i++)
+    }
+    for (int32 i = 0; i < n; i++) {
         yerr[i] = h*(dc1*dydx[i] + dc3*ak3[i] + dc4*ak4[i] +
                        dc5*ak5[i] + dc6*ak6[i]);
+    }
     return;
 }

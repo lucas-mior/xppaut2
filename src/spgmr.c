@@ -35,14 +35,16 @@ spgmr_malloc(int64 N, int32 l_max) {
 
     /* Check the input parameters */
 
-    if ((N <= 0) || (l_max <= 0))
+    if ((N <= 0) || (l_max <= 0)) {
         return NULL;
+    }
 
     /* Get memory for the Krylov basis vectors V[0], ..., V[l_max] */
 
     V = xmalloc((usize)(l_max + 1)*sizeof(*V));
-    if (V == NULL)
+    if (V == NULL) {
         return NULL;
+    }
 
     for (int32 k = 0; k <= l_max; k++) {
         V[k] = vector_new(N);
@@ -63,8 +65,9 @@ spgmr_malloc(int64 N, int32 l_max) {
     for (int32 k = 0; k <= l_max; k++) {
         Hes[k] = xmalloc((usize)l_max*sizeof(*(Hes[k])));
         if (Hes[k] == NULL) {
-            for (int32 i = 0; i < k; i++)
+            for (int32 i = 0; i < k; i++) {
                 free(Hes[i]);
+            }
             spgmr_free_vector_array(V, l_max);
             return NULL;
         }
@@ -74,8 +77,9 @@ spgmr_malloc(int64 N, int32 l_max) {
 
     givens = xmalloc(2*(usize)l_max*sizeof(*givens));
     if (givens == NULL) {
-        for (int32 i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++) {
             free(Hes[i]);
+        }
         spgmr_free_vector_array(V, l_max);
         return NULL;
     }
@@ -85,8 +89,9 @@ spgmr_malloc(int64 N, int32 l_max) {
     xcor = vector_new(N);
     if (xcor == NULL) {
         free(givens);
-        for (int32 i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++) {
             free(Hes[i]);
+        }
         spgmr_free_vector_array(V, l_max);
         return NULL;
     }
@@ -97,8 +102,9 @@ spgmr_malloc(int64 N, int32 l_max) {
     if (yg == NULL) {
         vector_free(xcor);
         free(givens);
-        for (int32 i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++) {
             free(Hes[i]);
+        }
         spgmr_free_vector_array(V, l_max);
         return NULL;
     }
@@ -110,8 +116,9 @@ spgmr_malloc(int64 N, int32 l_max) {
         free(yg);
         vector_free(xcor);
         free(givens);
-        for (int32 i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++) {
             free(Hes[i]);
+        }
         spgmr_free_vector_array(V, l_max);
         return NULL;
     }
@@ -124,8 +131,9 @@ spgmr_malloc(int64 N, int32 l_max) {
         free(yg);
         vector_free(xcor);
         free(givens);
-        for (int32 i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++) {
             free(Hes[i]);
+        }
         spgmr_free_vector_array(V, l_max);
         return NULL;
     }
@@ -173,8 +181,9 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     int32 ier;
     int32 ntries;
 
-    if (mem == NULL)
+    if (mem == NULL) {
         return SPGMR_MEM_NULL;
+    }
 
     /* Make local copies of mem variables */
 
@@ -189,12 +198,14 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     *nli = *nps = 0;   /* Initialize counters */
     converged = false; /* Initialize converged flag */
 
-    if (max_restarts < 0)
+    if (max_restarts < 0) {
         max_restarts = 0;
+    }
 
     if ((pretype != PRE_LEFT) && (pretype != PRE_RIGHT) &&
-        (pretype != PRE_BOTH))
+        (pretype != PRE_BOTH)) {
         pretype = PRE_NONE;
+    }
 
     preOnLeft = ((pretype == PRE_LEFT) || (pretype == PRE_BOTH));
     preOnRight = ((pretype == PRE_RIGHT) || (pretype == PRE_BOTH));
@@ -206,8 +217,9 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     if (vector_dot_prod(x, x) == ZERO) {
         vector_scale(ONE, b, vtemp);
     } else {
-        if (atimes(A_data, x, vtemp) != 0)
+        if (atimes(A_data, x, vtemp) != 0) {
             return SPGMR_ATIMES_FAIL;
+        }
         vector_linear_sum(ONE, b, -ONE, vtemp, vtemp);
     }
     vector_scale(ONE, vtemp, V[0]);
@@ -223,9 +235,10 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     if (preOnLeft) {
         ier = psolve(P_data, V[0], vtemp, PRE_LEFT);
         (*nps)++;
-        if (ier != 0)
+        if (ier != 0) {
             return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                               : SPGMR_PSOLVE_FAIL_REC);
+        }
     } else {
         vector_scale(ONE, V[0], vtemp);
     }
@@ -240,8 +253,9 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
        return if small  */
 
     *res_norm = r_norm = beta = llnlmath_rsqrt(vector_dot_prod(V[0], V[0]));
-    if (r_norm <= delta)
+    if (r_norm <= delta) {
         return SPGMR_SUCCESS;
+    }
 
     /* Set xcor = 0 */
 
@@ -253,9 +267,11 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
         /* Initialize the Hessenberg matrix Hes and Givens rotation
            product.  Normalize the initial vector V[0].             */
 
-        for (int32 i = 0; i <= l_max; i++)
-            for (int32 j = 0; j < l_max; j++)
+        for (int32 i = 0; i <= l_max; i++) {
+            for (int32 j = 0; j < l_max; j++) {
                 Hes[i][j] = ZERO;
+            }
+        }
 
         rotation_product = ONE;
 
@@ -283,23 +299,26 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             if (preOnRight) {
                 ier = psolve(P_data, V[l_plus_1], vtemp, PRE_RIGHT);
                 (*nps)++;
-                if (ier != 0)
+                if (ier != 0) {
                     return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                                       : SPGMR_PSOLVE_FAIL_REC);
+                }
             }
 
             /* Apply A: V[l+1] = A P2_inv sx_inv V[l] */
-            if (atimes(A_data, vtemp, V[l_plus_1]) != 0)
+            if (atimes(A_data, vtemp, V[l_plus_1]) != 0) {
                 return SPGMR_ATIMES_FAIL;
+            }
 
             /* Apply left preconditioning: vtemp = P1_inv A P2_inv sx_inv V[l]
              */
             if (preOnLeft) {
                 ier = psolve(P_data, V[l_plus_1], vtemp, PRE_LEFT);
                 (*nps)++;
-                if (ier != 0)
+                if (ier != 0) {
                     return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                                       : SPGMR_PSOLVE_FAIL_REC);
+                }
             } else {
                 vector_scale(ONE, V[l_plus_1], vtemp);
             }
@@ -315,18 +334,22 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
             if (gstype == CLASSICAL_GS) {
                 if (iterativ_classical_gs(V, Hes, l_plus_1, l_max,
-                                          &(Hes[l_plus_1][l]), vtemp, yg) != 0)
+                                          &(Hes[l_plus_1][l]), vtemp,
+                                          yg) != 0) {
                     return SPGMR_GS_FAIL;
+                }
             } else {
                 if (iterativ_modified_gs(V, Hes, l_plus_1, l_max,
-                                         &(Hes[l_plus_1][l])) != 0)
+                                         &(Hes[l_plus_1][l])) != 0) {
                     return SPGMR_GS_FAIL;
+                }
             }
 
             /*  Update the QR factorization of Hes  */
 
-            if (iterativ_qr_fact(krydim, Hes, givens, l) != 0)
+            if (iterativ_qr_fact(krydim, Hes, givens, l) != 0) {
                 return SPGMR_QRFACT_FAIL;
+            }
 
             /*  Update residual norm estimate; break if convergence test passes
              */
@@ -346,27 +369,32 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         /* Construct g, then solve for y */
         yg[0] = r_norm;
-        for (int32 i = 1; i <= krydim; i++)
+        for (int32 i = 1; i <= krydim; i++) {
             yg[i] = ZERO;
-        if (iterativ_qr_sol(krydim, Hes, givens, yg) != 0)
+        }
+        if (iterativ_qr_sol(krydim, Hes, givens, yg) != 0) {
             return SPGMR_QRSOL_FAIL;
+        }
 
         /* Add correction vector V_l y to xcor */
-        for (int32 k = 0; k < krydim; k++)
+        for (int32 k = 0; k < krydim; k++) {
             vector_linear_sum(yg[k], V[k], ONE, xcor, xcor);
+        }
 
         /* If converged, construct the final solution vector x */
         if (converged) {
             /* Apply x-scaling and right precond.: vtemp = P2_inv sx_inv xcor */
 
-            if (scale_x)
+            if (scale_x) {
                 vector_div(xcor, sx, xcor);
+            }
             if (preOnRight) {
                 ier = psolve(P_data, xcor, vtemp, PRE_RIGHT);
                 (*nps)++;
-                if (ier != 0)
+                if (ier != 0) {
                     return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                                       : SPGMR_PSOLVE_FAIL_REC);
+                }
             } else {
                 vector_scale(ONE, xcor, vtemp);
             }
@@ -380,8 +408,9 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         /* Not yet converged; if allowed, prepare for restart */
 
-        if (ntries == max_restarts)
+        if (ntries == max_restarts) {
             break;
+        }
 
         /* Construct last column of Q in yg */
         s_product = ONE;
@@ -393,14 +422,16 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         /* Scale r_norm and yg */
         r_norm *= s_product;
-        for (int32 i = 0; i <= krydim; i++)
+        for (int32 i = 0; i <= krydim; i++) {
             yg[i] *= r_norm;
+        }
         r_norm = ABS(r_norm);
 
         /* Multiply yg by V_(krydim+1) to get last residual vector; restart */
         vector_scale(yg[0], V[0], V[0]);
-        for (int32 k = 1; k <= krydim; k++)
+        for (int32 k = 1; k <= krydim; k++) {
             vector_linear_sum(yg[k], V[k], ONE, V[0], V[0]);
+        }
     }
 
     /* Failed to converge, even after allowed restarts.
@@ -410,14 +441,16 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     if (rho < beta) {
         /* Apply the x-scaling and right precond.: vtemp = P2_inv sx_inv xcor */
 
-        if (scale_x)
+        if (scale_x) {
             vector_div(xcor, sx, xcor);
+        }
         if (preOnRight) {
             ier = psolve(P_data, xcor, vtemp, PRE_RIGHT);
             (*nps)++;
-            if (ier != 0)
+            if (ier != 0) {
                 return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                                   : SPGMR_PSOLVE_FAIL_REC);
+            }
         } else {
             vector_scale(ONE, xcor, vtemp);
         }
@@ -438,15 +471,17 @@ spgmr_free(SpgmrMem mem) {
     int32 l_max;
     double **Hes;
 
-    if (mem == NULL)
+    if (mem == NULL) {
         return;
+    }
 
     l_max = mem->l_max;
     Hes = mem->Hes;
 
     spgmr_free_vector_array(mem->V, l_max);
-    for (int32 i = 0; i <= l_max; i++)
+    for (int32 i = 0; i <= l_max; i++) {
         free(Hes[i]);
+    }
     free(Hes);
     free(mem->givens);
     vector_free(mem->xcor);
@@ -461,8 +496,9 @@ spgmr_free(SpgmrMem mem) {
 
 static void
 spgmr_free_vector_array(Vector *A, int32 indMax) {
-    for (int32 j = 0; j <= indMax; j++)
+    for (int32 j = 0; j <= indMax; j++) {
         vector_free(A[j]);
+    }
 
     free(A);
 }

@@ -41,23 +41,26 @@ static void numerics_check_pos(int32 *j);
 
 void
 numerics_chk_volterra(void) {
-    if (NKernel > 0)
+    if (NKernel > 0) {
         METHOD = VOLTERRA;
+    }
     return;
 }
 
 void
 numerics_check_pos(int32 *j) {
-    if (*j <= 0)
+    if (*j <= 0) {
         *j = 1;
+    }
     return;
 }
 
 void
 numerics_quick_num(int32 com) {
     char key[] = "tsrdnviobec";
-    if (com >= 0 && com < 11)
+    if (com >= 0 && com < 11) {
         numerics_get_num_par(key[com]);
+    }
     return;
 }
 
@@ -98,15 +101,17 @@ numerics_get_num_par(int32 ch) {
         /* DT */
         temp = DELTA_T;
         ggets_new_float("Delta t :", &DELTA_T);
-        if (DELTA_T == 0.0)
+        if (DELTA_T == 0.0) {
             DELTA_T = temp;
+        }
         if (DELAY > 0.0) {
             delay_handle_free_delay();
             if (delay_handle_alloc_delay(DELAY)) {
                 INFLAG = 0; /*  Make sure no last ics allowed */
             }
-        } else
+        } else {
             delay_handle_free_delay();
+        }
         if (NKernel > 0) {
             INFLAG = 0;
             MyStart = 1;
@@ -131,8 +136,9 @@ numerics_get_num_par(int32 ch) {
         numerics_check_pos(&EVEC_ITER);
         ggets_new_float("Newton tolerance :", &EVEC_ERR);
         ggets_new_float("Jacobian epsilon :", &NEWT_ERR);
-        if (NFlags > 0)
+        if (NFlags > 0) {
             ggets_new_float("SMIN :", &STOL);
+        }
 
         break;
     case 'o':
@@ -169,18 +175,21 @@ numerics_get_num_par(int32 ch) {
         ch2 = (char)pop_up_list(&temp2, "Method", n, key, nmeth, 15, METHOD, 10,
                                 DCURY + 8, meth_hint, info_pop, info_message);
         for (i2 = 0; i2 < nmeth; i2++) {
-            if (ch2 == key[i2])
+            if (ch2 == key[i2]) {
                 METHOD = i2;
+            }
         }
-        if (i2 > (nmeth - 1))
+        if (i2 > (nmeth - 1)) {
             i2 = nmeth - 1;
+        }
     }
         if (METHOD == VOLTERRA && NKernel == 0) {
             ggets_err_msg("Volterra only for integral eqns");
             METHOD = 4;
         }
-        if (NKernel > 0)
+        if (NKernel > 0) {
             METHOD = VOLTERRA;
+        }
         if (METHOD == GEAR || METHOD == RKQS || METHOD == STIFF) {
             ggets_new_float("Tolerance :", &TOLER);
             ggets_new_float("minimum step :", &HMIN);
@@ -218,8 +227,9 @@ numerics_get_num_par(int32 ch) {
         break;
     case 'e':
         /* delay */
-        if (NDELAYS == 0)
+        if (NDELAYS == 0) {
             break;
+        }
         ggets_new_float("Maximal delay :", &DELAY);
         ggets_new_float("real guess :", &AlphaMax);
         ggets_new_float("imag guess :", &OmegaMax);
@@ -229,13 +239,15 @@ numerics_get_num_par(int32 ch) {
             if (delay_handle_alloc_delay(DELAY)) {
                 INFLAG = 0; /*  Make sure no last ics allowed */
             }
-        } else
+        } else {
             delay_handle_free_delay();
+        }
         break;
     case 'c':
         /* color */
-        if (COLOR == 0)
+        if (COLOR == 0) {
             break;
+        }
         menudrive_set_col_par();
         break;
     case 'h':
@@ -254,12 +266,15 @@ numerics_get_num_par(int32 ch) {
         ggets_new_int("x-axis shift ", &(MyGraph->xshft));
         ggets_new_int("y-axis shift ", &(MyGraph->yshft));
         ggets_new_int("z-axis shift", &(MyGraph->zshft));
-        if (MyGraph->xshft < 0)
+        if (MyGraph->xshft < 0) {
             MyGraph->xshft = 0;
-        if (MyGraph->yshft < 0)
+        }
+        if (MyGraph->yshft < 0) {
             MyGraph->yshft = 0;
-        if (MyGraph->zshft < 0)
+        }
+        if (MyGraph->zshft < 0) {
             MyGraph->zshft = 0;
+        }
         break;
     }
     case 'k':
@@ -285,15 +300,17 @@ numerics_chk_delay(void) {
         if (delay_handle_alloc_delay(DELAY)) {
             INFLAG = 0; /*  Make sure no last ics allowed */
         }
-    } else
+    } else {
         delay_handle_free_delay();
+    }
     return;
 }
 
 void
 numerics_set_delay(void) {
-    if (NDELAYS == 0)
+    if (NDELAYS == 0) {
         return;
+    }
     if (DELAY > 0.0) {
         delay_handle_free_delay();
         if (delay_handle_alloc_delay(DELAY)) {
@@ -370,15 +387,19 @@ numerics_get_pmap_pars_com(int32 l) {
     ch = mkey[l];
 
     POIMAP = 0;
-    if (ch == 's')
+    if (ch == 's') {
         POIMAP = 1;
-    if (ch == 'm')
+    }
+    if (ch == 'm') {
         POIMAP = 2;
-    if (ch == 'p')
+    }
+    if (ch == 'p') {
         POIMAP = 3;
+    }
 
-    if (POIMAP == 0)
+    if (POIMAP == 0) {
         return;
+    }
 
     graf_par_ind_to_sym(i1, n1);
     snprintf(values[0], sizeof(values[0]), "%s", n1);
@@ -395,10 +416,11 @@ numerics_get_pmap_pars_com(int32 l) {
         }
         POIVAR = i1;
         POISGN = atoi(values[2]);
-        if (values[3][0] == 'Y' || values[3][0] == 'y')
+        if (values[3][0] == 'Y' || values[3][0] == 'y') {
             SOS = 1;
-        else
+        } else {
             SOS = 0;
+        }
         POIPLN = atof(values[1]);
     }
     return;
@@ -408,10 +430,11 @@ void
 numerics_user_set_color_par(int32 flag, char *via, double lo, double hi) {
     int32 ivar;
     MyGraph->min_scale = lo;
-    if (hi > lo)
+    if (hi > lo) {
         MyGraph->color_scale = (hi - lo);
-    else
+    } else {
         MyGraph->color_scale = 1;
+    }
 
     if (strncasecmp("speed", via, 5) == 0) {
         MyGraph->ColorFlag = 1;
@@ -449,9 +472,9 @@ numerics_set_col_par_com(int32 i) {
         ggets_new_string("Color via:", name);
         browse_find_variable(name, &ivar);
 
-        if (ivar >= 0)
+        if (ivar >= 0) {
             MyGraph->ColorValue = ivar;
-        else {
+        } else {
 
             ggets_err_msg("No such quantity!");
             MyGraph->ColorFlag = 0;
@@ -478,19 +501,23 @@ numerics_set_col_par_com(int32 i) {
         return;
     }
     if (MyGraph->ColorFlag == 1) {
-        if (storind < 2)
+        if (storind < 2) {
             return;
+        }
         maxder = 0.0;
         minder = 1.e20;
         for (i = 1; i < my_browser.maxrow; i++) {
             sum = 0.0;
-            for (int32 j = 0; j < NODE; j++)
+            for (int32 j = 0; j < NODE; j++) {
                 sum += (double)fabs((double)(my_browser.data[1 + j][i] -
                                              my_browser.data[1 + j][i - 1]));
-            if (sum < minder)
+            }
+            if (sum < minder) {
                 minder = sum;
-            if (sum > maxder)
+            }
+            if (sum > maxder) {
                 maxder = sum;
+            }
         }
         if (minder >= 0.0 && maxder > minder) {
             MyGraph->color_scale = (maxder - minder) / (fabs(DELTA_T*NJMP));
@@ -500,16 +527,18 @@ numerics_set_col_par_com(int32 i) {
         graf_par_get_max(MyGraph->ColorValue, &temp[0], &temp[1]);
         MyGraph->min_scale = temp[0];
         MyGraph->color_scale = (temp[1] - temp[0]);
-        if (MyGraph->color_scale == 0.0)
+        if (MyGraph->color_scale == 0.0) {
             MyGraph->color_scale = 1.0;
+        }
     }
     return;
 }
 
 void
 numerics_do_meth(void) {
-    if (NKernel > 0)
+    if (NKernel > 0) {
         METHOD = VOLTERRA;
+    }
     switch (METHOD) {
     case 0:
         solver = odesol_discrete;

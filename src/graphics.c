@@ -168,56 +168,61 @@ graphics_set_normal_scale(void) {
 
 void
 graphics_point(int32 x, int32 y) {
-    if (PltFmtFlag == PSFMT)
+    if (PltFmtFlag == PSFMT) {
         ps_point(x, y);
-    else if (PltFmtFlag == SVGFMT)
+    } else if (PltFmtFlag == SVGFMT) {
         svg_point(x, y);
-    else
+    } else {
         graphics_point_x11(x, y);
+    }
     return;
 }
 
 void
 graphics_line(int32 x1, int32 y1, int32 x2, int32 y2) {
-    if (PltFmtFlag == PSFMT)
+    if (PltFmtFlag == PSFMT) {
         ps_line(x1, y1, x2, y2);
-    else if (PltFmtFlag == SVGFMT)
+    } else if (PltFmtFlag == SVGFMT) {
         svg_line(x1, y1, x2, y2);
-    else
+    } else {
         graphics_line_x11(x1, y1, x2, y2);
+    }
 }
 /* draw a little filled circle */
 
 void
 graphics_bead(int32 x1, int32 y1) {
-    if (PltFmtFlag == PSFMT)
+    if (PltFmtFlag == PSFMT) {
         return;
-    else if (PltFmtFlag == SVGFMT)
+    } else if (PltFmtFlag == SVGFMT) {
         svg_bead();
-    else
+    } else {
         graphics_bead_x11(x1, y1);
+    }
     return;
 }
 
 void
 graphics_frect(int32 x1, int32 y1, int32 w, int32 h) {
-    if (PltFmtFlag == PSFMT)
+    if (PltFmtFlag == PSFMT) {
         ps_frect(x1, y1, w, h);
-    else if (PltFmtFlag == SVGFMT)
+    } else if (PltFmtFlag == SVGFMT) {
         svg_frect(x1, y1, w, h);
-    else
+    } else {
         graphics_rect_x11(x1, y1, w, h);
+    }
     return;
 }
 
 void
 graphics_put_text(int32 x, int32 y, char *str) {
-    if (PltFmtFlag == PSFMT)
+    if (PltFmtFlag == PSFMT) {
         ps_text(x, y, str);
-    else if (PltFmtFlag == SVGFMT)
+    } else if (PltFmtFlag == SVGFMT) {
         svg_text(x, y, str);
-    else
+    } else {
         graphics_put_text_x11(x, y, str);
+    }
     return;
 }
 
@@ -275,21 +280,22 @@ graphics_point_x11(int32 xp, int32 yp) {
     int32 r = PointRadius;
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
     int32 wh = 2*r2;
-    if (PointRadius == 0)
+    if (PointRadius == 0) {
         XDrawPoint(display, draw_win, gc_graph, xp, yp);
-    else
+    } else {
         XFillArc(display, draw_win, gc_graph, xp - r2, yp - r2, (uint)wh,
                  (uint)wh, 0, 360*64);
+    }
     return;
 }
 
 void
 graphics_set_linestyle(int32 ls) {
-    if (PltFmtFlag == PSFMT)
+    if (PltFmtFlag == PSFMT) {
         ps_linetype(ls);
-    else if (PltFmtFlag == SVGFMT)
+    } else if (PltFmtFlag == SVGFMT) {
         svg_linetype(ls);
-    else {
+    } else {
         /* graphics set line style x11 */
         /*int32 width=0;*/
         int32 type = 0;
@@ -310,9 +316,9 @@ graphics_set_linestyle(int32 ls) {
         }
         if (!COLOR) { /* Mono  */
             ls = (ls % 8) + 2;
-            if (ls == 2)
+            if (ls == 2) {
                 type = LineSolid;
-            else {
+            } else {
                 type = LineOnOffDash;
                 XSetDashes(display, gc_graph, 0, dashes[ls],
                            (int)strlen(dashes[ls]));
@@ -344,9 +350,10 @@ graphics_rect_x11(int32 x, int32 y, int32 w, int32 h) {
 void
 graphics_draw_many_lines(void) {
     int32 NLINE = 500000;
-    for (int32 i = 0; i < NLINE; i++)
+    for (int32 i = 0; i < NLINE; i++) {
         XDrawLine(display, draw_win, gc_graph, rand() % 200, rand() % 200,
                   rand() % 200, rand() % 200);
+    }
     printf("Done\n");
     return;
 }
@@ -413,16 +420,18 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
             graphics_fancy_put_text_x11(cx, cy, tmp, cs,
                                         cf); /* render the current buffer */
             if (cf == 0) {
-                if (avromfonts[cs] == 1)
+                if (avromfonts[cs] == 1) {
                     dx = XTextWidth(romfonts[cs], tmp, (int)strlen(tmp));
-                else
+                } else {
                     dx = XTextWidth(font_small, tmp, (int)strlen(tmp));
+                }
             }
             if (cf == 1) {
-                if (avsymfonts[cs] == 1)
+                if (avsymfonts[cs] == 1) {
                     dx = XTextWidth(symfonts[cs], tmp, (int)strlen(tmp));
-                else
+                } else {
                     dx = XTextWidth(font_small, tmp, (int)strlen(tmp));
+                }
             }
             cx += dx;
             j = 0;
@@ -435,12 +444,14 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
             }
             if (c == 's') {
                 cy = cy + sub;
-                if (size > 0)
+                if (size > 0) {
                     cs = size - 1;
+                }
             }
             if (c == 'S') {
-                if (size > 0)
+                if (size > 0) {
                     cs = size - 1;
+                }
                 cy = cy - sup;
             }
             if (c == '1') {
@@ -464,8 +475,9 @@ graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
                             int32 font) {
     /*int32 yoff;
      */
-    if (strlen(str) == 0)
+    if (strlen(str) == 0) {
         return;
+    }
     switch (font) {
     case 1:
         if (avsymfonts[size] == 1) {
@@ -546,8 +558,9 @@ graphics_reset_all_line_type(void) {
 
 void
 graphics_init_all(void) {
-    for (int32 i = 0; i < MAXPOP; i++)
+    for (int32 i = 0; i < MAXPOP; i++) {
         graphics_init(i);
+    }
     MyGraph = &graph[0];
     /*graphics_set_extra();*/
     graphics_set_normal_scale();
@@ -556,10 +569,12 @@ graphics_init_all(void) {
 
 void
 graphics_set_extra(void) {
-    if (NPltV < 2)
+    if (NPltV < 2) {
         return;
-    if (NPltV > 8)
+    }
+    if (NPltV > 8) {
         NPltV = 8;
+    }
     if (MultiWin == 0) {
         MyGraph->nvars = NPltV;
         for (int32 i = 1; i < NPltV; i++) {
@@ -592,10 +607,11 @@ graphics_set_extra(void) {
 
 void
 graphics_reset_graph(void) {
-    if (AXES >= 5)
+    if (AXES >= 5) {
         PLOT_3D = 1;
-    else
+    } else {
         PLOT_3D = 0;
+    }
     MyGraph->xv[0] = IXPLT;
     MyGraph->yv[0] = IYPLT;
     MyGraph->zv[0] = IZPLT;
@@ -637,24 +653,29 @@ graphics_get_graph(void) {
     IYPLT = MyGraph->yv[0];
     IZPLT = MyGraph->zv[0];
     PLOT_3D = MyGraph->ThreeDFlag;
-    if (PLOT_3D)
+    if (PLOT_3D) {
         AXES = 5;
-    else
+    } else {
         AXES = 0;
+    }
     AXES = MyGraph->grtype;
     return;
 }
 
 void
 graphics_init(int32 i) {
-    if (AXES <= 3)
+    if (AXES <= 3) {
         AXES = 0;
-    for (int32 j = 0; j < 3; j++)
-        for (int32 k = 0; k < 3; k++)
-            if (k == j)
+    }
+    for (int32 j = 0; j < 3; j++) {
+        for (int32 k = 0; k < 3; k++) {
+            if (k == j) {
                 graph[i].rm[k][j] = 1.0;
-            else
+            } else {
                 graph[i].rm[k][j] = 0.0;
+            }
+        }
+    }
     graph[i].nvars = 1;
     for (int32 j = 0; j < MAXPERPLOT; j++) {
         graph[i].xv[j] = IXPLT;
@@ -728,9 +749,11 @@ graphics_copy_graph(/*  Graph[i]=Graph[l]  */
     graph[i].Use = graph[l].Use;
     graph[i].Restore = graph[l].Restore;
     graph[i].Nullrestore = graph[l].Nullrestore;
-    for (int32 j = 0; j < 3; j++)
-        for (int32 k = 0; k < 3; k++)
+    for (int32 j = 0; j < 3; j++) {
+        for (int32 k = 0; k < 3; k++) {
             graph[i].rm[k][j] = graph[l].rm[k][j];
+        }
+    }
     graph[i].nvars = graph[l].nvars;
     for (int32 j = 0; j < MAXPERPLOT; j++) {
         graph[i].xv[j] = graph[l].xv[j];
@@ -823,8 +846,10 @@ graphics_threedproj(double x2p, double y2p, double z2p, double *xp,
         *yp = y1p;
         return 1;
     }
-    if ((z1p >= (double)(MyGraph->ZView)) || (z1p < (double)(MyGraph->ZPlane)))
+    if ((z1p >= (double)(MyGraph->ZView)) ||
+        (z1p < (double)(MyGraph->ZPlane))) {
         return 0;
+    }
     s = (double)(MyGraph->ZView - MyGraph->ZPlane) /
         ((double)(MyGraph->ZView) - z1p);
     x1p = s*x1p;
@@ -838,8 +863,9 @@ void
 graphics_text3d(double x, double y, double z, char *s) {
     double xp;
     double yp;
-    if (graphics_threedproj(x, y, z, &xp, &yp))
+    if (graphics_threedproj(x, y, z, &xp, &yp)) {
         graphics_text_abs(xp, yp, s);
+    }
     return;
 }
 
@@ -861,8 +887,10 @@ graphics_threed_proj(double x, double y, double z, double *xp, double *yp) {
         *yp = y1p;
         return 1;
     }
-    if ((z1p >= (double)(MyGraph->ZView)) || (z1p < (double)(MyGraph->ZPlane)))
+    if ((z1p >= (double)(MyGraph->ZView)) ||
+        (z1p < (double)(MyGraph->ZPlane))) {
         return 0;
+    }
     s = (double)(MyGraph->ZView - MyGraph->ZPlane) /
         ((double)(MyGraph->ZView) - z1p);
     x1p = s*x1p;
@@ -876,8 +904,9 @@ void
 graphics_point_3d(double x, double y, double z) {
     double xp;
     double yp;
-    if (graphics_threed_proj(x, y, z, &xp, &yp))
+    if (graphics_threed_proj(x, y, z, &xp, &yp)) {
         graphics_point_abs(xp, yp);
+    }
     return;
 }
 
@@ -893,10 +922,11 @@ graphics_line3dn(/* unscaled version  unclipped */
     double zsp;
     graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
-    if (MyGraph->PerspFlag)
+    if (MyGraph->PerspFlag) {
         graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
-    else
+    } else {
         graphics_line_nabs(xs, ys, xsp, ysp);
+    }
     return;
 }
 
@@ -917,14 +947,16 @@ graphics_line3d(/* unscaled version     */
     double ysp1;
     double zsp1;
     if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1,
-                         &ysp1, &zsp1))
+                         &ysp1, &zsp1)) {
         return;
+    }
     graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
-    if (MyGraph->PerspFlag)
+    if (MyGraph->PerspFlag) {
         graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
-    else
+    } else {
         graphics_line_abs(xs, ys, xsp, ysp);
+    }
     return;
 }
 
@@ -952,14 +984,16 @@ graphics_line_3d(double x, double y, double z, double xp, double yp,
     graphics_scale3d(x, y, z, &x01, &y01, &z01); /* scale to a cube  */
     graphics_scale3d(xp, yp, zp, &x02, &y02, &z02);
     if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1,
-                         &ysp1, &zsp1))
+                         &ysp1, &zsp1)) {
         return;
+    }
     graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
-    if (MyGraph->PerspFlag)
+    if (MyGraph->PerspFlag) {
         graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
-    else
+    } else {
         graphics_line_abs(xs, ys, xsp, ysp);
+    }
     return;
 }
 
@@ -971,8 +1005,9 @@ graphics_pers_line(double x, double y, double z, double xp, double yp,
     double d = Zv - Zp, s;
     double eps = .005*d;
 
-    if (((zp >= Zv) && (z >= Zv)) || ((zp < Zp) && (z < Zp)))
+    if (((zp >= Zv) && (z >= Zv)) || ((zp < Zp) && (z < Zp))) {
         return;
+    }
     if (zp > Zv) {
         s = (Zv - eps - z) / (zp - z);
         zp = Zv - eps;
@@ -1018,8 +1053,9 @@ graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp,
 
     for (int32 i = 0; i < 3; i++) {
         vnew[i] = 0.0;
-        for (int32 j = 0; j < 3; j++)
+        for (int32 j = 0; j < 3; j++) {
             vnew[i] = vnew[i] + MyGraph->rm[i][j]*vt[j];
+        }
     }
     *xp = vnew[0];
     *yp = vnew[1];
@@ -1036,8 +1072,9 @@ graphics_point_abs(double x1, double y1) {
     double x_right = XMax;
     double y_top = YMax;
     double y_bottom = YMin;
-    if ((x1 > x_right) || (x1 < x_left) || (y1 > y_top) || (y1 < y_bottom))
+    if ((x1 > x_right) || (x1 < x_left) || (y1 > y_top) || (y1 < y_bottom)) {
         return;
+    }
     graphics_scale_to_screen(x1, y1, &xp, &yp);
     graphics_point(xp, yp);
     return;
@@ -1064,8 +1101,9 @@ graphics_bead_abs(double x1, double y1) {
     double x_right = XMax;
     double y_top = YMax;
     double y_bottom = YMin;
-    if ((x1 > x_right) || (x1 < x_left) || (y1 > y_top) || (y1 < y_bottom))
+    if ((x1 > x_right) || (x1 < x_left) || (y1 > y_top) || (y1 < y_bottom)) {
         return;
+    }
     graphics_scale_to_screen(x1, y1, &i1, &j1);
     graphics_bead(i1, j1);
     return;
@@ -1136,8 +1174,9 @@ graphics_fillin_text(char *old, char *new) {
 
         if (c == '\\') {
             c2 = old[i + 1];
-            if (c2 != '{')
+            if (c2 != '{') {
                 goto na;
+            }
             if (c2 == '{') {
                 m = 0;
                 i = i + 2;
@@ -1178,8 +1217,9 @@ graphics_fillin_text(char *old, char *new) {
         j++;
     nc: /* normal characters */
         i++;
-        if (i >= l)
+        if (i >= l) {
             break;
+        }
     }
     new[j] = 0;
     return;
@@ -1192,12 +1232,13 @@ graphics_fancy_text_abs(double x, double y, char *old, int32 size) {
     char text[256];
     graphics_scale_to_screen(x, y, &xp, &yp);
     graphics_fillin_text(old, text);
-    if (PltFmtFlag == PSFMT)
+    if (PltFmtFlag == PSFMT) {
         ps_special_put_text(xp, yp, text, size);
-    else if (PltFmtFlag == SVGFMT)
+    } else if (PltFmtFlag == SVGFMT) {
         special_put_text_svg(xp, yp, text, size);
-    else
+    } else {
         graphics_special_put_text_x11(xp, yp, text, size);
+    }
     return;
 }
 
@@ -1223,48 +1264,67 @@ graphics_clip3d(double x1, double y1, double z1, double x2, double y2,
     *x2p = x2;
     *y2p = y2;
     *z2p = z2;
-    if (x1 < -1.)
+    if (x1 < -1.) {
         ix1 = -1;
-    if (x1 > 1.)
+    }
+    if (x1 > 1.) {
         ix1 = 1;
-    if (x2 < -1.)
+    }
+    if (x2 < -1.) {
         ix2 = -1;
-    if (x2 > 1.)
+    }
+    if (x2 > 1.) {
         ix2 = 1;
-    if (y1 < -1.)
+    }
+    if (y1 < -1.) {
         iy1 = -1;
-    if (y1 > 1.)
+    }
+    if (y1 > 1.) {
         iy1 = 1;
-    if (y2 < -1.)
+    }
+    if (y2 < -1.) {
         iy2 = -1;
-    if (y2 > 1.)
+    }
+    if (y2 > 1.) {
         iy2 = 1;
-    if (z1 < -1.)
+    }
+    if (z1 < -1.) {
         iz1 = -1;
-    if (z1 > 1.)
+    }
+    if (z1 > 1.) {
         iz1 = 1;
-    if (z2 < -1.)
+    }
+    if (z2 < -1.) {
         iz2 = -1;
-    if (z2 > 1.)
+    }
+    if (z2 > 1.) {
         iz2 = 1;
+    }
 
-    if ((ABS(ix1) + ABS(ix2) + abs(iy1) + abs(iy2) + abs(iz1) + abs(iz2)) == 0)
+    if ((ABS(ix1) + ABS(ix2) + abs(iy1) + abs(iy2) + abs(iz1) + abs(iz2)) ==
+        0) {
         return 1;
+    }
 
     /*  Both are outside the cube  */
 
-    if ((ix1 == ix2) && (ix1 != 0))
+    if ((ix1 == ix2) && (ix1 != 0)) {
         return 0;
-    if ((iy1 == iy2) && (iy1 != 0))
+    }
+    if ((iy1 == iy2) && (iy1 != 0)) {
         return 0;
-    if ((iz1 == iz2) && (iz1 != 0))
+    }
+    if ((iz1 == iz2) && (iz1 != 0)) {
         return 0;
+    }
 
-    if (ix1 == 0)
+    if (ix1 == 0) {
         goto C2;
+    }
     wv = -1;
-    if (ix1 > 0)
+    if (ix1 > 0) {
         wv = 1;
+    }
     *x1p = wv;
     del = (wv - x2) / (x1 - x2);
     yhat = (y1 - y2)*del + y2;
@@ -1277,11 +1337,13 @@ graphics_clip3d(double x1, double y1, double z1, double x2, double y2,
     }
     istack = 0;
 C2:
-    if (iy1 == 0)
+    if (iy1 == 0) {
         goto C22;
+    }
     wh = -1;
-    if (iy1 > 0)
+    if (iy1 > 0) {
         wh = 1;
+    }
     *y1p = wh;
     del = (wh - y2) / (y1 - y2);
     xhat = (x1 - x2)*del + x2;
@@ -1294,11 +1356,13 @@ C2:
     }
     istack = 0;
 C22:
-    if (iz1 == 0)
+    if (iz1 == 0) {
         goto C3;
+    }
     wo = -1;
-    if (iz1 > 0)
+    if (iz1 > 0) {
         wo = 1;
+    }
     *z1p = wo;
 
     del = (wo - z2) / (z1 - z2);
@@ -1309,15 +1373,18 @@ C22:
         *x1p = xhat;
         *y1p = yhat;
         iflag = 1;
-    } else
+    } else {
         istack = 0;
+    }
 C3:
     istack += iflag;
-    if ((ix2 == 0) || (istack == 0))
+    if ((ix2 == 0) || (istack == 0)) {
         goto C44;
+    }
     wv = -1;
-    if (ix2 > 0)
+    if (ix2 > 0) {
         wv = 1;
+    }
     *x2p = wv;
     del = (wv - x1) / (x2 - x1);
     yhat = (y2 - y1)*del + y1;
@@ -1328,11 +1395,13 @@ C3:
         return 1;
     }
 C44:
-    if (iy2 == 0 || istack == 0)
+    if (iy2 == 0 || istack == 0) {
         goto C4;
+    }
     wh = -1;
-    if (iy2 > 0)
+    if (iy2 > 0) {
         wh = 1;
+    }
     *y2p = wh;
     del = (wh - y1) / (y2 - y1);
     xhat = (x2 - x1)*del + x1;
@@ -1343,11 +1412,13 @@ C44:
         return 1;
     }
 C4:
-    if (iz2 == 0 || istack == 0)
+    if (iz2 == 0 || istack == 0) {
         return iflag;
+    }
     wo = -1;
-    if (iz2 > 0)
+    if (iz2 > 0) {
         wo = 1;
+    }
     *z2p = wo;
     del = (wo - z1) / (z2 - z1);
     xhat = (x2 - x1)*del + x1;
@@ -1392,33 +1463,45 @@ graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
     *y2_out = y2;
     *x1_out = x1;
     *x2_out = x2;
-    if (x1 < x_left)
+    if (x1 < x_left) {
         ix1 = -1;
-    if (x1 > x_right)
+    }
+    if (x1 > x_right) {
         ix1 = 1;
-    if (x2 < x_left)
+    }
+    if (x2 < x_left) {
         ix2 = -1;
-    if (x2 > x_right)
+    }
+    if (x2 > x_right) {
         ix2 = 1;
-    if (y2 < y_bottom)
+    }
+    if (y2 < y_bottom) {
         iy2 = -1;
-    if (y2 > y_top)
+    }
+    if (y2 > y_top) {
         iy2 = 1;
-    if (y1 < y_bottom)
+    }
+    if (y1 < y_bottom) {
         iy1 = -1;
-    if (y1 > y_top)
+    }
+    if (y1 > y_top) {
         iy1 = 1;
+    }
     isum = ABS(ix1) + ABS(ix2) + abs(iy1) + abs(iy2);
-    if (isum == 0)
+    if (isum == 0) {
         return 1; /* both inside window so plottem' */
+    }
 
-    if (((ix1 == ix2) && (ix1 != 0)) || ((iy1 == iy2) && (iy1 != 0)))
+    if (((ix1 == ix2) && (ix1 != 0)) || ((iy1 == iy2) && (iy1 != 0))) {
         return 0;
-    if (ix1 == 0)
+    }
+    if (ix1 == 0) {
         goto C2;
+    }
     wv = x_left;
-    if (ix1 > 0)
+    if (ix1 > 0) {
         wv = x_right;
+    }
     *x1_out = wv;
     yhat = (y1 - y2)*(wv - x2) / (x1 - x2) + y2;
     if ((yhat <= y_top) && (yhat >= y_bottom)) {
@@ -1428,25 +1511,30 @@ graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
     }
     istack = 0;
 C2:
-    if (iy1 == 0)
+    if (iy1 == 0) {
         goto C3;
+    }
     wh = y_bottom;
-    if (iy1 > 0)
+    if (iy1 > 0) {
         wh = y_top;
+    }
     *y1_out = wh;
     xhat = (x1 - x2)*(wh - y2) / (y1 - y2) + x2;
     if ((xhat <= x_right) && (xhat >= x_left)) {
         *x1_out = xhat;
         iflag = 1;
-    } else
+    } else {
         istack = 0;
+    }
 C3:
     istack += iflag;
-    if ((ix2 == 0) || (istack == 0))
+    if ((ix2 == 0) || (istack == 0)) {
         goto C4;
+    }
     wv = x_left;
-    if (ix2 > 0)
+    if (ix2 > 0) {
         wv = x_right;
+    }
     *x2_out = wv;
     yhat = (y2 - y1)*(wv - x1) / (x2 - x1) + y1;
     if ((yhat <= y_top) && (yhat >= y_bottom)) {
@@ -1454,11 +1542,13 @@ C3:
         return 1;
     }
 C4:
-    if ((iy2 == 0) || (istack == 0))
+    if ((iy2 == 0) || (istack == 0)) {
         return iflag;
+    }
     wh = y_bottom;
-    if (iy2 > 0)
+    if (iy2 > 0) {
         wh = y_top;
+    }
     *y2_out = wh;
     xhat = (x2 - x1)*(wh - y1) / (y2 - y1) + x1;
     if ((xhat <= x_right) && (xhat >= x_left)) {
@@ -1474,10 +1564,12 @@ graphics_eq_symb(double *x, int32 type) {
     double dy = 6.0*(double)(MyGraph->yhi - MyGraph->ylo)*SYMSIZE;
     int32 ix = MyGraph->xv[0] - 1, iy = MyGraph->yv[0] - 1,
           iz = MyGraph->zv[0] - 1;
-    if (!Xup)
+    if (!Xup) {
         return;
-    if (MyGraph->TimeFlag)
+    }
+    if (MyGraph->TimeFlag) {
         return;
+    }
     color_set(0);
     if (MyGraph->ThreeDFlag) {
         dx = 6.0*SYMSIZE / MyGraph->dx;
@@ -1529,8 +1621,9 @@ graphics_draw_symbol(double x, double y, double size, int32 my_symb) {
         x2 = sym_dir[my_symb][3*ind + 1]*dx + x1;
         y2 = sym_dir[my_symb][3*ind + 2]*dy + y1;
         pen = sym_dir[my_symb][3*ind];
-        if (pen != 0)
+        if (pen != 0) {
             graphics_line_abs(x1, y1, x2, y2);
+        }
         x1 = x2;
         y1 = y2;
         ind++;

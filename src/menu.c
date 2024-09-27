@@ -421,8 +421,9 @@ show_menu(int32 j) {
 
 void
 unshow_menu(int32 j) {
-    if (j < 0)
+    if (j < 0) {
         return;
+    }
     my_menus[j].visible = 0;
     /* XUnmapSubwindows(display,my_menus[j].base);
      XUnmapWindow(display,my_menus[j].base); */
@@ -445,10 +446,11 @@ menu_help_num(void) {
 
 void
 menu_help_file(void) {
-    if (tfBell)
+    if (tfBell) {
         my_menus[FILE_MENU].names = fileon_menu;
-    else
+    } else {
         my_menus[FILE_MENU].names = fileoff_menu;
+    }
     unshow_menu(help_menu);
     show_menu(FILE_MENU);
     return;
@@ -459,17 +461,20 @@ menu_crossing(Window win, int32 yn) {
     int32 n;
     int32 j = help_menu;
     char **z;
-    if (j < 0)
+    if (j < 0) {
         return;
-    if (my_menus[j].visible == 0)
+    }
+    if (my_menus[j].visible == 0) {
         return;
+    }
     n = my_menus[j].n;
     z = my_menus[j].hints;
     for (int32 i = 0; i < n; i++) {
         if (win == my_menus[j].window[i]) {
             XSetWindowBorderWidth(display, win, (uint)yn);
-            if (yn && TipsFlag)
+            if (yn && TipsFlag) {
                 ggets_bottom_msg(z[i]);
+            }
             return;
         }
     }
@@ -481,10 +486,12 @@ menu_expose(Window win) {
     int32 n;
     int32 j = help_menu;
     char **z;
-    if (j < 0)
+    if (j < 0) {
         return;
-    if (my_menus[j].visible == 0)
+    }
+    if (my_menus[j].visible == 0) {
         return;
+    }
     n = my_menus[j].n;
     z = my_menus[j].names;
     if (win == my_menus[j].title) {
@@ -515,10 +522,12 @@ menu_button(Window win) {
     int32 n;
     int32 j = help_menu;
 
-    if (j < 0)
+    if (j < 0) {
         return;
-    if (my_menus[j].visible == 0)
+    }
+    if (my_menus[j].visible == 0) {
         return;
+    }
     n = my_menus[j].n;
     for (int32 i = 0; i < n; i++) {
         if (win == my_menus[j].window[i]) {
@@ -536,14 +545,17 @@ menu_draw_help(void) {
     int32 n;
     /*char **z;
      */
-    if (j < 0)
+    if (j < 0) {
         return;
-    if (my_menus[j].visible == 0)
+    }
+    if (my_menus[j].visible == 0) {
         return;
+    }
     n = my_menus[j].n;
     /*z=my_menus[j].names;
      */
     menu_expose(my_menus[j].title);
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         menu_expose(my_menus[j].window[i]);
+    }
 }

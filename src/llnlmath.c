@@ -39,25 +39,29 @@ llnlmath_rpower_i(double base, int32 exponent) {
 
     prod = ONE;
     expt = ABS(exponent);
-    for (int32 i = 1; i <= expt; i++)
+    for (int32 i = 1; i <= expt; i++) {
         prod *= base;
-    if (exponent < 0)
+    }
+    if (exponent < 0) {
         prod = ONE / prod;
+    }
     return prod;
 }
 
 double
 llnlmath_rpower_r(double base, double exponent) {
-    if (base <= ZERO)
+    if (base <= ZERO) {
         return ZERO;
+    }
 
     return (double)pow((double)base, (double)exponent);
 }
 
 double
 llnlmath_rsqrt(double x) {
-    if (x <= ZERO)
+    if (x <= ZERO) {
         return ZERO;
+    }
 
     return (double)sqrt((double)x);
 }

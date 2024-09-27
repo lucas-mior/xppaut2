@@ -258,8 +258,9 @@ fftn_factorize(int32 nPass, int32 *kt) {
     if (nPass <= 4) {
         *kt = nFactor;
         factor[nFactor] = nPass;
-        if (nPass != 1)
+        if (nPass != 1) {
             nFactor++;
+        }
     } else {
         if (nPass - (nPass / 4 << 2) == 0) {
             factor[nFactor++] = 2;
@@ -277,9 +278,9 @@ fftn_factorize(int32 nPass, int32 *kt) {
     }
     if (*kt) {
         j = *kt;
-        do
+        do {
             factor[nFactor++] = factor[--j];
-        while (j);
+        } while (j);
     }
 
     return nFactor;
@@ -366,20 +367,24 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         if (dims != NULL) {
             /* number of dimensions was specified */
             for (int32 i = 0; i < ndim; i++) {
-                if (dims[i] <= 0)
+                if (dims[i] <= 0) {
                     goto Dimension_Error;
+                }
                 nTotal *= (usize)dims[i];
             }
-        } else
+        } else {
             nTotal *= (usize)ndim;
+        }
     } else {
         int32 i;
         /* determine # of dimensions from zero-terminated list */
-        if (dims == NULL)
+        if (dims == NULL) {
             goto Dimension_Error;
+        }
         for (ndim = i = 0; dims[i]; i++) {
-            if (dims[i] <= 0)
+            if (dims[i] <= 0) {
                 goto Dimension_Error;
+            }
             nTotal *= (usize)dims[i];
             ndim++;
         }
@@ -394,10 +399,12 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
     if (dims != NULL) {
         int32 i;
         for (maxFactors = maxPerm = 1, i = 0; i < ndim; i++) {
-            if (dims[i] > maxFactors)
+            if (dims[i] > maxFactors) {
                 maxFactors = dims[i];
-            if (dims[i] > maxPerm)
+            }
+            if (dims[i] > maxPerm) {
                 maxPerm = dims[i];
+            }
         }
     } else {
         maxFactors = maxPerm = (int32)nTotal;
@@ -417,24 +424,28 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
             ret = FFTRADIX(Re, Im, nTotal, (usize)dims[i], nSpan, iSign,
                            maxFactors, maxPerm);
             /* exit, clean-up already done */
-            if (ret)
+            if (ret) {
                 return ret;
+            }
         }
     } else {
         int32 ret;
         ret = FFTRADIX(Re, Im, nTotal, nTotal, nTotal, iSign, maxFactors,
                        maxPerm);
         /* exit, clean-up already done */
-        if (ret)
+        if (ret) {
             return ret;
+        }
     }
 
     /* Divide through by the normalizing constant: */
     if (scaling != 0.0 && scaling != 1.0) {
-        if (iSign < 0)
+        if (iSign < 0) {
             iSign = -iSign;
-        if (scaling < 0.0)
+        }
+        if (scaling < 0.0) {
             scaling = (scaling < -1.0) ? sqrt((double)nTotal) : (double)nTotal;
+        }
         scaling = 1.0 / scaling; /* multiply is often faster */
         for (usize i = 0; i < nTotal; i += (usize)iSign) {
             Re_Data(i) *= scaling;
@@ -518,8 +529,9 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
     Re--;
     Im--;
 
-    if (nPass < 2)
+    if (nPass < 2) {
         return 0;
+    }
 
     /* allocate storage */
     if (SpaceAlloced < (usize)maxFactors*sizeof(REAL)) {
@@ -539,8 +551,9 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
         /* allow full use of alloc'd space */
         maxPerm = (int32)MaxPermAlloced;
     }
-    if (!Tmp0 || !Tmp1 || !Tmp2 || !Tmp3 || !Perm)
+    if (!Tmp0 || !Tmp1 || !Tmp2 || !Tmp3 || !Perm) {
         goto Memory_Error;
+    }
 
     /* assign pointers */
     Rtmp = (REAL *)Tmp0;
@@ -614,8 +627,9 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                 } while (kk <= nn);
                 kk -= nn;
             } while (kk <= jc);
-            if (kk > kspan)
+            if (kk > kspan) {
                 goto Permute_Results; /* exit infinite loop */
+            }
             do {
                 int32 k2;
 
@@ -729,8 +743,9 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                 } while (kk <= kspan);
                 kk = kk - kspan + inc;
             } while (kk <= jc);
-            if (kspan == jc)
+            if (kspan == jc) {
                 goto Permute_Results; /* exit infinite loop */
+            }
             break;
 
         default:
@@ -830,8 +845,9 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                     s1 = pi2 / (double)jf;
                     c1 = cos(s1);
                     s1 = sin(s1);
-                    if (jf > maxFactors)
+                    if (jf > maxFactors) {
                         goto Memory_Error;
+                    }
                     Cos[jf - 1] = 1.0;
                     Sin[jf - 1] = 0.0;
                     j = 1;
@@ -893,8 +909,9 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                                 bj += Itmp[k]*Sin[jj - 1];
                                 k++;
                                 jj += j;
-                                if (jj > jf)
+                                if (jj > jf) {
                                     jj -= jf;
+                                }
                             } while (k < jf);
                             k = jf - j;
                             Re_Data(k1) = ak - bj;
@@ -910,8 +927,9 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                 break;
             }
             /* multiply by rotation factor (except for factors of 2 and 4) */
-            if (ii == nFactor)
+            if (ii == nFactor) {
                 goto Permute_Results; /* exit infinite loop */
+            }
             kk = jc + 1;
             do {
                 c2 = 1.0 - cd;
@@ -956,8 +974,9 @@ Permute_Results:
         int32 k2;
 
         k = kt + kt + 1;
-        if (k > nFactor)
+        if (k > nFactor) {
             k--;
+        }
         Perm[k] = jc;
         j = 1;
         do {
@@ -1006,8 +1025,9 @@ Permute_Results:
                 } while (k2 > Perm[j - 1]);
                 j = 1;
                 do {
-                    if (kk < k2)
+                    if (kk < k2) {
                         goto Permute_Multi;
+                    }
                     kk += jc;
                     k2 += kspan;
                 } while (k2 < ns);
@@ -1038,8 +1058,9 @@ Permute_Results:
                 } while (k2 > Perm[j - 1]);
                 j = 1;
                 do {
-                    if (kk < k2)
+                    if (kk < k2) {
                         goto Permute_Single;
+                    }
                     kk += inc;
                     k2 += kspan;
                 } while (k2 < ns);
@@ -1048,8 +1069,9 @@ Permute_Results:
         jc = k3;
     }
 
-    if ((kt << 1) + 1 >= nFactor)
+    if ((kt << 1) + 1 >= nFactor) {
         return 0;
+    }
     ispan = Perm[kt];
 
     /* permutation for square-free factors of n */
@@ -1061,8 +1083,9 @@ Permute_Results:
     } while (j != kt);
     nn = factor[kt] - 1;
     kt++;
-    if (nn > maxPerm)
+    if (nn > maxPerm) {
         goto Memory_Error;
+    }
 
     j = jj = 0;
     for (;;) {
@@ -1072,8 +1095,9 @@ Permute_Results:
         k2 = factor[kt - 1];
         kk = factor[k - 1];
         j++;
-        if (j > nn)
+        if (j > nn) {
             break; /* exit infinite loop */
+        }
         jj += kk;
         while (jj >= k2) {
             jj -= k2;
@@ -1098,8 +1122,9 @@ Permute_Results:
             k3 = kk;
         } else {
             Perm[j - 1] = -j;
-            if (j == nn)
+            if (j == nn) {
                 break; /* exit infinite loop */
+            }
         }
     }
 
@@ -1110,8 +1135,9 @@ Permute_Results:
         j = k3 + 1;
         nt -= ispan;
         ii = nt - inc + 1;
-        if (nt < 0)
+        if (nt < 0) {
             break; /* exit infinite loop */
+        }
         do {
             do {
                 j--;
@@ -1120,10 +1146,11 @@ Permute_Results:
             do {
                 int32 k2;
 
-                if (jj < maxFactors)
+                if (jj < maxFactors) {
                     kspan = jj;
-                else
+                } else {
                     kspan = maxFactors;
+                }
 
                 jj -= kspan;
                 k = Perm[j - 1];

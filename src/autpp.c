@@ -26,13 +26,16 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     derived_evaluate();
     tabular_redo_all_fun_tables();
     rhs_function(0.0, u, f, (int32)ndim);
-    if (ijac == 1)
+    if (ijac == 1) {
         gear_jac_trans(u, y, yp, xp, NEWT_ERR, dfdu, (int32)ndim);
-    if (METHOD > 0 || NJMP == 1)
+    }
+    if (METHOD > 0 || NJMP == 1) {
         return 0;
+    }
     for (int32 i = 1; i < NJMP; i++) {
-        for (int32 j = 0; j < ndim; j++)
+        for (int32 j = 0; j < ndim; j++) {
             zz[j] = f[j];
+        }
         rhs_function(0.0, zz, f, (int32)ndim);
     }
 
@@ -43,19 +46,22 @@ int32
 stpnt(int64 ndim, double t, double *u, double *par) {
     double p;
 
-    for (int32 i = 0; i < NAutoPar; i++)
+    for (int32 i = 0; i < NAutoPar; i++) {
         par[i] = constants[Auto_index_to_array[i]];
+    }
 
     if (NewPeriodFlag == 0) {
-        for (int32 i = 0; i < ndim; i++)
+        for (int32 i = 0; i < ndim; i++) {
             u[i] = last_ic[i];
+        }
         return 0;
     }
 
     auto_nox_get_start_period(&p);
     par[10] = p;
-    if (HomoFlag != 1)
+    if (HomoFlag != 1) {
         auto_nox_get_start_orbit(u, t, (int32)ndim);
+    }
     /*  printf("%d %d %g %g %g %g \n",ndim,HomoFlag,t,u[0],u[1],p); */
     if (HomoFlag == 1) {
         auto_nox_get_shifted_orbit(u, t, p, (int32)ndim);

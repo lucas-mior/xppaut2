@@ -146,8 +146,9 @@ void
 main_plot_command(int32 nit, int32 icount, int32 cwidth) {
     double dx;
 
-    if (nit == 0)
+    if (nit == 0) {
         return;
+    }
 
     dx = (double)icount*(double)cwidth / (double)nit;
     XDrawPoint(display, command_pop, gc, (int32)dx, 5);
@@ -189,8 +190,9 @@ main_my_abort(void) {
         XEvent event;
         XNextEvent(display, &event);
 
-        if (ani_check_pause(event) == 27)
+        if (ani_check_pause(event) == 27) {
             return 27;
+        }
 
         switch (event.type) {
         case Expose:
@@ -429,8 +431,9 @@ do_main(int32 argc, char **argv) {
     auto_nox_init_win();
 #endif
 
-    if (form_ode_idsc(this_file))
+    if (form_ode_idsc(this_file)) {
         METHOD = 0;
+    }
     xpp_version_maj = (double)MAJOR_VERSION;
     xpp_version_min = (double)MINOR_VERSION;
     if (strlen(this_file) < 60) {
@@ -461,10 +464,12 @@ do_main(int32 argc, char **argv) {
         graphics_set_extra();
         nullcline_set_colorization_stuff();
         integrate_batch();
-        if (NCBatch > 0)
+        if (NCBatch > 0) {
             silent_nullclines();
-        if (DFBatch > 0)
+        }
+        if (DFBatch > 0) {
             nullcline_silent_dfields();
+        }
         integrate_silent_equilibria();
         exit(0);
     }
@@ -558,8 +563,9 @@ do_main(int32 argc, char **argv) {
         XGetWindowAttributes(display, main_win, &xwa);
         main_get_x_colors(&xwa, &colors);
 
-        if (colors)
+        if (colors) {
             free((char *)colors);
+        }
     }
     comline_if_needed_load_set();
     comline_if_needed_load_par();
@@ -570,8 +576,9 @@ do_main(int32 argc, char **argv) {
         ani_get_file(anifile);
     }
 
-    if (do_tutorial == 1)
+    if (do_tutorial == 1) {
         menudrive_do_tutorial();
+    }
 
     graf_par_default_window();
 
@@ -601,10 +608,12 @@ main_check_for_quiet(int32 argc, char **argv) {
     }
     /* If -quiet or -logfile were specified at least once on the command line
      * we lock those in now...  */
-    if (quiet_specified_once == 1)
+    if (quiet_specified_once == 1) {
         OVERRIDE_QUIET = 1;
-    if (logfile_specified_once == 1)
+    }
+    if (logfile_specified_once == 1) {
         OVERRIDE_LOGFILE = 1;
+    }
     return;
 }
 
@@ -744,10 +753,11 @@ main_init_x(void) {
 
     for (int32 i = 0; i < 5; i++) {
         if ((symfonts[i] = XLoadQueryFont(display, symbolfonts[i])) == NULL) {
-            if (i == 0 || i == 1)
+            if (i == 0 || i == 1) {
                 symfonts[i] = font_small;
-            else
+            } else {
                 symfonts[i] = font_big;
+            }
             avsymfonts[i] = 1;
         } else {
             avsymfonts[i] = 1;
@@ -755,10 +765,11 @@ main_init_x(void) {
         }
 
         if ((romfonts[i] = XLoadQueryFont(display, timesfonts[i])) == NULL) {
-            if (i == 0 || i == 1)
+            if (i == 0 || i == 1) {
                 romfonts[i] = font_small;
-            else
+            } else {
                 romfonts[i] = font_big;
+            }
             avromfonts[i] = 1;
         } else {
             avromfonts[i] = 1;
@@ -827,8 +838,9 @@ main_init_x(void) {
         }
     }
 
-    if (COLOR)
+    if (COLOR) {
         color_map_make();
+    }
 
     /* main set big font */
     DCURX = DCURXb;
@@ -841,11 +853,13 @@ main_init_x(void) {
     /* If the user didn't specify specifically heights and widths
      * we try to set the initial size to fit everything nicely especially
      * if they are using wacky fonts...  */
-    if (UserMinWidth <= 0)
+    if (UserMinWidth <= 0) {
         SCALEX = 10 + 36*2*DCURXs + 32*DCURXs;
+    }
 
-    if (UserMinHeight <= 0)
+    if (UserMinHeight <= 0) {
         SCALEY = 25*DCURYb + 7*DCURYs;
+    }
 
     XResizeWindow(display, main_win, (uint)SCALEX, (uint)SCALEY);
     return;
@@ -908,26 +922,31 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         break;
     case Expose:
     case MapNotify:
-        if (report.xany.window == command_pop)
+        if (report.xany.window == command_pop) {
             ggets_put_command("Command:");
+        }
         many_pops_do_expose(report);
 
         break;
     case KeyPress:
         used = 0;
         init_conds_box_keypress(report, &used);
-        if (used)
+        if (used) {
             break;
+        }
         eig_list_eq_list_keypress(report, &used);
-        if (used)
+        if (used) {
             break;
+        }
         my_browse_keypress(report, &used);
-        if (used)
+        if (used) {
             break;
+        }
 #ifdef AUTO
         auto_x11_keypress(report, &used);
-        if (used)
+        if (used) {
             break;
+        }
 #endif
         ch = (char)ggets_get_key_press(&report);
         main_commander(ch);
@@ -1004,10 +1023,12 @@ main_bye_bye(void) {
     XUnloadFont(display, font_small->fid);
 
     for (int32 i = 0; i < 5; i++) {
-        if (avsymfonts[i])
+        if (avsymfonts[i]) {
             XUnloadFont(display, symfonts[i]->fid);
-        if (avromfonts[i])
+        }
+        if (avromfonts[i]) {
             XUnloadFont(display, romfonts[i]->fid);
+        }
     }
 
     XFreeGC(display, gc);
@@ -1155,8 +1176,9 @@ main_commander(int32 ch) {
             menudrive_xpp_hlp();
             break;
         case 'q':
-            if (pop_list_yes_no_box())
+            if (pop_list_yes_no_box()) {
                 main_bye_bye();
+            }
             break;
         case 'l':
             init_conds_clone_ode();
@@ -1196,16 +1218,19 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
         exit(-1);
     }
     screen = DefaultScreen(display);
-    if (!deleteWindowAtom)
+    if (!deleteWindowAtom) {
         deleteWindowAtom = XInternAtom(display, "WM_DELETE_WINDOW", 0);
+    }
     dp_w = DisplayWidth(display, screen);
     dp_h = DisplayHeight(display, screen);
     DisplayWidth = dp_w;
     DisplayHeight = dp_h;
-    if (SCALEX > dp_w)
+    if (SCALEX > dp_w) {
         SCALEX = dp_w;
-    if (SCALEY > dp_h)
+    }
+    if (SCALEY > dp_h) {
         SCALEY = dp_h;
+    }
     wine = XCreateSimpleWindow(display, RootWindow(display, screen), x, y,
                                (uint)SCALEX, (uint)SCALEY, bw, MyForeColor,
                                MyBackColor);
@@ -1262,18 +1287,24 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
 
 void
 main_top_button_draw(Window window) {
-    if (window == TopButton[0])
+    if (window == TopButton[0]) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "ICs  ", 5);
-    if (window == TopButton[1])
+    }
+    if (window == TopButton[1]) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "BCs  ", 5);
-    if (window == TopButton[2])
+    }
+    if (window == TopButton[2]) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Delay", 5);
-    if (window == TopButton[3])
+    }
+    if (window == TopButton[3]) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Param", 5);
-    if (window == TopButton[4])
+    }
+    if (window == TopButton[4]) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Eqns ", 5);
-    if (window == TopButton[5])
+    }
+    if (window == TopButton[5]) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Data ", 5);
+    }
     return;
 }
 
@@ -1304,18 +1335,24 @@ main_top_button_events(XEvent report) {
     case ButtonPress: {
         Window window = report.xbutton.window;
         /* main top button press */
-        if (window == TopButton[0])
+        if (window == TopButton[0]) {
             init_conds_make_new_ic_box();
-        if (window == TopButton[1])
+        }
+        if (window == TopButton[1]) {
             init_conds_make_new_bc_box();
-        if (window == TopButton[2])
+        }
+        if (window == TopButton[2]) {
             init_conds_make_new_delay_box();
-        if (window == TopButton[3])
+        }
+        if (window == TopButton[3]) {
             init_conds_make_new_param_box();
-        if (window == TopButton[4])
+        }
+        if (window == TopButton[4]) {
             eig_list_create_eq_list();
-        if (window == TopButton[5])
+        }
+        if (window == TopButton[5]) {
             make_new_browser();
+        }
         break;
     }
     default:
@@ -1403,14 +1440,17 @@ main_get_x_colors(XWindowAttributes *win_info, XColor **colors) {
             (*colors)[i].pixel = (ulong)(red | green | blue);
             (*colors)[i].pad = 0;
             red += red1;
-            if (red > (int32)win_info->visual->red_mask)
+            if (red > (int32)win_info->visual->red_mask) {
                 red = 0;
+            }
             green += green1;
-            if (green > (int32)win_info->visual->green_mask)
+            if (green > (int32)win_info->visual->green_mask) {
                 green = 0;
+            }
             blue += blue1;
-            if (blue > (int32)win_info->visual->blue_mask)
+            if (blue > (int32)win_info->visual->blue_mask) {
                 blue = 0;
+            }
         }
     } else {
         for (int32 i = 0; i < ncolors; i++) {

@@ -369,14 +369,16 @@ ani_new_vcr(void) {
     int32 tt;
     int32 i;
 
-    if (vcr.iexist == 1)
+    if (vcr.iexist == 1) {
         return;
+    }
     tt = browse_get_time_now();
     i = (10 + (tt % 10)) % 10;
-    if (i >= 0 && i < 10)
+    if (i >= 0 && i < 10) {
         ani_create_vcr(toons[i]);
-    else
+    } else {
         ani_create_vcr("Wanna be a member");
+    }
     return;
 }
 
@@ -456,8 +458,9 @@ ani_create_vcr(char *name) {
     mpeg.filter[0] = 0;
     mpeg.skip = 1;
     vcr.pos = 0;
-    if (use_ani_file)
+    if (use_ani_file) {
         ani_get_file(vcr.file);
+    }
     return;
 }
 
@@ -466,17 +469,20 @@ ani_border(Window window, int32 i) {
     Window w = window;
     if (w == vcr.wgrab || w == vcr.wgo || w == vcr.wreset || w == vcr.wpause ||
         w == vcr.wfast || w == vcr.wfile || w == vcr.wslow || w == vcr.wmpeg ||
-        w == vcr.wup || w == vcr.wdn || w == vcr.wskip || w == vcr.kill)
+        w == vcr.wup || w == vcr.wdn || w == vcr.wskip || w == vcr.kill) {
         XSetWindowBorderWidth(display, w, (uint)i);
+    }
     return;
 }
 
 int32
 ani_check_pause(XEvent event) {
-    if ((vcr.iexist == 0) || (!animation_on_the_fly))
+    if ((vcr.iexist == 0) || (!animation_on_the_fly)) {
         return 0;
-    if (event.type == ButtonPress && event.xbutton.window == vcr.wpause)
+    }
+    if (event.type == ButtonPress && event.xbutton.window == vcr.wpause) {
         return 27;
+    }
     return 0;
 }
 
@@ -484,12 +490,14 @@ void
 ani_do_events(XEvent event) {
     int32 x;
     int32 y;
-    if (vcr.iexist == 0)
+    if (vcr.iexist == 0) {
         return;
+    }
     switch (event.type) {
     case ConfigureNotify:
-        if (event.xconfigure.window != vcr.base)
+        if (event.xconfigure.window != vcr.base) {
             return;
+        }
         x = event.xconfigure.width;
         y = event.xconfigure.height;
         x = (x) / 8;
@@ -506,14 +514,16 @@ ani_do_events(XEvent event) {
         break;
     case MotionNotify:
         do_ani_slider_motion(event.xmotion.window, event.xmotion.x);
-        if (ani_grab_flag == 0)
+        if (ani_grab_flag == 0) {
             break;
+        }
         ani_motion_stuff(event.xmotion.window, event.xmotion.x,
                          event.xmotion.y);
         break;
     case ButtonRelease:
-        if (ani_grab_flag == 0)
+        if (ani_grab_flag == 0) {
             break;
+        }
         ani_buttonx(event, 0);
         break;
     case ButtonPress:
@@ -527,8 +537,9 @@ ani_do_events(XEvent event) {
 
 void
 ani_motion_stuff(Window window, int32 x, int32 y) {
-    if (window == vcr.view)
+    if (window == vcr.view) {
         update_ani_motion_stuff(x, y);
+    }
     return;
 }
 
@@ -551,14 +562,16 @@ update_ani_motion_stuff(int32 x, int32 y) {
     ami.oy = ami.y;
     ani_ij_to_xy(x, y, &ami.x, &ami.y);
     dt = ami.t1 - ami.t2;
-    if (dt == 0.0)
+    if (dt == 0.0) {
         dt = 10000000000;
+    }
     ami.vx = (ami.x - ami.ox) / dt;
     ami.vy = (ami.y - ami.oy) / dt;
 
     dt = ami.tstart - ami.t2;
-    if (dt == 0.0)
+    if (dt == 0.0) {
         dt = 100000000000;
+    }
     ami.vax = (ami.x0 - ami.x) / dt;
     ami.vay = (ami.y0 - ami.y) / dt;
     set_val("mouse_x", ami.x);
@@ -585,8 +598,9 @@ ani_buttonx(XEvent event, int32 flag) {
             ami.x0 = ami.x;
             ami.y0 = ami.y;
             who_was_grabbed = ani_search_for_grab(ami.x, ami.y);
-            if (who_was_grabbed < 0)
+            if (who_was_grabbed < 0) {
                 printf("Nothing grabbed\n");
+            }
         }
         if (flag == 0) { /* This is BUTTON RELEASE  */
             /*  update_ani_motion_stuff(ev.xbutton.x,ev.xbutton.y); */
@@ -620,8 +634,9 @@ ani_buttonx(XEvent event, int32 flag) {
         }
         return;
     }
-    if (flag == 0)
+    if (flag == 0) {
         return;
+    }
     /*   END OF ADDED STUFF  ************************/
 
     ani_button(window);
@@ -630,12 +645,14 @@ ani_buttonx(XEvent event, int32 flag) {
 
 void
 ani_button(Window window) {
-    if (ani_grab_flag == 1)
+    if (ani_grab_flag == 1) {
         return;
+    }
     /* Grab button resets and shows first frame */
     if (window == vcr.wgrab) {
-        if (n_ani_grab == 0)
+        if (n_ani_grab == 0) {
             return;
+        }
         if (vcr.ok) {
             vcr.pos = 0;
 
@@ -658,14 +675,17 @@ ani_button(Window window) {
         status = pop_list_do_string_box(3, 3, 1, "Frame saving", n, values, 28);
         if (status != 0) {
             mpeg.flag = atoi(values[0]);
-            if (mpeg.flag > 0)
+            if (mpeg.flag > 0) {
                 mpeg.flag = 1;
+            }
             mpeg.aviflag = atoi(values[2]);
             snprintf(mpeg.root, sizeof(mpeg.root), "%s", values[1]);
-            if (mpeg.aviflag == 1)
+            if (mpeg.aviflag == 1) {
                 mpeg.flag = 0;
-        } else
+            }
+        } else {
             mpeg.flag = 0;
+        }
         if (mpeg.flag == 1) {
             /* ani disk warn */
             char junk[256];
@@ -678,8 +698,9 @@ ani_button(Window window) {
                 snprintf(junk, sizeof(junk),
                          " %d Mb disk space needed! Continue?", total);
                 ans = (char)menudrive_two_choice("YES", "NO", junk, "yn");
-                if (ans != 'y')
+                if (ans != 'y') {
                     mpeg.flag = 0;
+                }
             }
         }
     }
@@ -698,18 +719,22 @@ ani_button(Window window) {
             dialog_box_get("Frame skip", "Increment:", bob, "Ok", "Cancel", 20);
         if (status != 0) {
             vcr.inc = atoi(bob);
-            if (vcr.inc <= 0)
+            if (vcr.inc <= 0) {
                 vcr.inc = 1;
+            }
         }
         XSetInputFocus(display, win, rev, CurrentTime);
         return;
     }
-    if (window == vcr.wup)
+    if (window == vcr.wup) {
         ani_flip1(1);
-    if (window == vcr.wdn)
+    }
+    if (window == vcr.wdn) {
         ani_flip1(-1);
-    if (window == vcr.wfile)
+    }
+    if (window == vcr.wfile) {
         ani_get_file(NULL);
+    }
     if (window == vcr.wfly) {
         animation_on_the_fly = 1 - animation_on_the_fly;
         ani_check_on_the_fly();
@@ -735,12 +760,15 @@ do_ani_slider_motion(Window window, int32 x) {
     int32 x0 = x;
     int32 mr = my_browser.maxrow;
     int32 k;
-    if (window != vcr.slider)
+    if (window != vcr.slider) {
         return;
-    if (mr < 2)
+    }
+    if (mr < 2) {
         return;
-    if (x0 > l - 2)
+    }
+    if (x0 > l - 2) {
         x0 = l - 2;
+    }
     vcr.slipos = x0;
     draw_ani_slider(window, x0);
     k = x0*mr / l;
@@ -756,8 +784,9 @@ redraw_ani_slider(void) {
     int32 l = 48*DCURXs;
     int32 xx;
     int32 mr = my_browser.maxrow;
-    if (mr < 2)
+    if (mr < 2) {
         return;
+    }
     xx = (k*l) / mr;
     draw_ani_slider(vcr.slider, xx);
     return;
@@ -767,52 +796,71 @@ void
 draw_ani_slider(Window window, int32 x) {
     int32 hgt = DCURYs + 4, l = 48*DCURXs;
     int32 x0 = x - 2;
-    if (x0 < 0)
+    if (x0 < 0) {
         x0 = 0;
-    if (x0 > (l - 4))
+    }
+    if (x0 > (l - 4)) {
         x0 = l - 4;
+    }
     XClearWindow(display, window);
-    for (int32 i = 0; i < 4; i++)
+    for (int32 i = 0; i < 4; i++) {
         XDrawLine(display, window, small_gc, x0 + i, 0, x0 + i, hgt);
+    }
     return;
 }
 
 void
 ani_expose(Window window) {
-    if (vcr.iexist == 0)
+    if (vcr.iexist == 0) {
         return;
-    if (window == vcr.wgrab)
+    }
+    if (window == vcr.wgrab) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Grab", 4);
-    if (window == vcr.view)
+    }
+    if (window == vcr.view) {
         XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
                   (uint)vcr.hgt, 0, 0);
-    if (window == vcr.wgo)
+    }
+    if (window == vcr.wgo) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Go  ", 4);
-    if (window == vcr.wup)
+    }
+    if (window == vcr.wup) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, " >>>>", 5);
-    if (window == vcr.wskip)
+    }
+    if (window == vcr.wskip) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Skip", 4);
-    if (window == vcr.wdn)
+    }
+    if (window == vcr.wdn) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, " <<<<", 5);
-    if (window == vcr.wfast)
+    }
+    if (window == vcr.wfast) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Fast", 4);
-    if (window == vcr.wslow)
+    }
+    if (window == vcr.wslow) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Slow", 4);
+    }
 
-    if (window == vcr.slider)
+    if (window == vcr.slider) {
         draw_ani_slider(window, vcr.slipos);
-    if (window == vcr.wpause)
+    }
+    if (window == vcr.wpause) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Pause", 5);
-    if (window == vcr.wreset)
+    }
+    if (window == vcr.wreset) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Reset", 5);
-    if (window == vcr.kill)
+    }
+    if (window == vcr.kill) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Close", 5);
-    if (window == vcr.wfile)
+    }
+    if (window == vcr.wfile) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "File", 4);
-    if (window == vcr.wmpeg)
+    }
+    if (window == vcr.wmpeg) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "MPEG", 4);
-    if (window == vcr.wfly)
+    }
+    if (window == vcr.wfly) {
         ani_check_on_the_fly();
+    }
     return;
 }
 
@@ -820,8 +868,9 @@ void
 ani_resize(int32 x, int32 y) {
     int32 ww = x - (2*4);
     int32 hh = y - (int32)((2.5*(DCURYs + 6)) + 5);
-    if (ww == vcr.wid && hh == vcr.hgt)
+    if (ww == vcr.wid && hh == vcr.hgt) {
         return;
+    }
     XFreePixmap(display, ani_pixmap);
 
     vcr.hgt = 5*(int32)((y - ((4.5*(DCURYs + 6)) + 5)) / 5);
@@ -831,10 +880,12 @@ ani_resize(int32 x, int32 y) {
     from occuring if the user shrinks the window size smaller than the vcr.hgt |
     vcr.wid
     */
-    if (vcr.hgt < 1)
+    if (vcr.hgt < 1) {
         vcr.hgt = 1;
-    if (vcr.wid < 1)
+    }
+    if (vcr.wid < 1) {
         vcr.wid = 1;
+    }
 
     XMoveResizeWindow(display, vcr.view, 4, (int32)4.5*(DCURYs + 6),
                       (uint)vcr.wid, (uint)vcr.hgt);
@@ -873,8 +924,9 @@ ani_check_on_the_fly(void) {
 
 void
 ani_on_the_fly(int32 task) {
-    if (vcr.iexist == 0 || n_anicom == 0)
+    if (vcr.iexist == 0 || n_anicom == 0) {
         return;
+    }
     ani_frame(task);
     browse_wait_a_sec(on_the_fly_speed);
     return;
@@ -911,28 +963,34 @@ ani_flip1(int32 n) {
     double **ss;
     double y[MAX_ODE];
     double t;
-    if (n_anicom == 0)
+    if (n_anicom == 0) {
         return;
-    if (my_browser.maxrow < 2)
+    }
+    if (my_browser.maxrow < 2) {
         return;
+    }
     ss = my_browser.data;
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
     XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
                    (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
-    if (vcr.pos == 0)
+    if (vcr.pos == 0) {
         set_ani_perm();
+    }
 
     vcr.pos = vcr.pos + n;
-    if (vcr.pos >= my_browser.maxrow)
+    if (vcr.pos >= my_browser.maxrow) {
         vcr.pos = my_browser.maxrow - 1;
-    if (vcr.pos < 0)
+    }
+    if (vcr.pos < 0) {
         vcr.pos = 0;
+    }
     row = vcr.pos;
 
     t = (double)ss[0][row];
-    for (int32 i = 0; i < NODE + NMarkov; i++)
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
         y[i] = (double)ss[i + 1][row];
+    }
     main_rhs_set_fix(t, y);
 
     /* now draw the stuff  */
@@ -967,10 +1025,12 @@ ani_flip(void) {
     int32 x0,y0;
     */
     done = 0;
-    if (n_anicom == 0)
+    if (n_anicom == 0) {
         return;
-    if (my_browser.maxrow < 2)
+    }
+    if (my_browser.maxrow < 2) {
         return;
+    }
     ss = my_browser.data;
     set_ani_perm(); /* evaluate all permanent structures  */
     /* check avi_flags for initialization */
@@ -991,14 +1051,16 @@ ani_flip(void) {
                 }
                 if (window == vcr.wfast) {
                     ani_speed = ani_speed - ani_speed_inc;
-                    if (ani_speed < 0)
+                    if (ani_speed < 0) {
                         ani_speed = 0;
+                    }
                     break;
                 }
                 if (window == vcr.wslow) {
                     ani_speed = ani_speed + ani_speed_inc;
-                    if (ani_speed > 100)
+                    if (ani_speed > 100) {
                         ani_speed = 100;
+                    }
                     break;
                 }
                 break;
@@ -1015,8 +1077,9 @@ ani_flip(void) {
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
         row = vcr.pos;
         t = (double)ss[0][row];
-        for (int32 i = 0; i < NODE + NMarkov; i++)
+        for (int32 i = 0; i < NODE + NMarkov; i++) {
             y[i] = (double)ss[i + 1][row];
+        }
         main_rhs_set_fix(t, y);
 
         /* now draw the stuff  */
@@ -1031,8 +1094,9 @@ ani_flip(void) {
         XFlush(display);
 
         browse_wait_a_sec(ani_speed);
-        if (mpeg.aviflag == 1 || mpeg.flag > 0)
+        if (mpeg.aviflag == 1 || mpeg.flag > 0) {
             browse_wait_a_sec(5*ani_speed);
+        }
         vcr.pos = vcr.pos + vcr.inc;
         if (vcr.pos >= my_browser.maxrow) {
             done = 1;
@@ -1092,16 +1156,19 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     ximage = XGetImage(display, window, 0, 0, (uint)*wid, (uint)*hgt, AllPlanes,
                        ZPixmap);
 
-    if (!ximage)
+    if (!ximage) {
         return -1;
+    }
     /* this is only good for 256 color displays */
-    for (uint32 i = 0; i < 256; i++)
+    for (uint32 i = 0; i < 256; i++) {
         palette[i].pixel = i;
+    }
     XQueryColors(display, cmap, palette, 256);
     if (TrueColorFlag == 1) {
         bbp = (uint32)ximage->bits_per_pixel; /* is it 16 or 24 bit */
-        if (bbp > 24)
+        if (bbp > 24) {
             bbp = 24;
+        }
         bbc = bbp / 3; /*  divide up the 3 colors equally to bbc bits  */
         CMSK = (1 << bbc) - 1; /*  make a mask  2^bbc  -1  */
         CSHIFT = bbc;          /*  how far to shift to get the next color */
@@ -1123,8 +1190,9 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
                 /*  get the 3 colors   hopefully  */
                 lobits = value & CMSK;
                 value = value >> CSHIFT;
-                if (bbc == 5)
+                if (bbc == 5) {
                     value = value >> 1;
+                }
                 midbits = value & CMSK;
                 value = value >> CSHIFT;
                 hibits = value & CMSK;
@@ -1177,22 +1245,26 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
     cmap = DefaultColormap(display, screen);
     ximage = XGetImage(display, window, 0, 0, (uint)wid, (uint)hgt, AllPlanes,
                        ZPixmap);
-    if (!ximage)
+    if (!ximage) {
         return -1;
+    }
     /* this is only good for 256 color displays */
-    for (uint32 i = 0; i < 256; i++)
+    for (uint32 i = 0; i < 256; i++) {
         palette[i].pixel = i;
+    }
     XQueryColors(display, cmap, palette, 256);
     fd = creat(filename, 0666);
-    if (fd == -1)
+    if (fd == -1) {
         return -1;
+    }
     /*    this worked for me - but you may want to change
           it for your machine
     */
     if (TrueColorFlag == 1) {
         bbp = (uint32)ximage->bits_per_pixel; /* is it 16 or 24 bit */
-        if (bbp > 24)
+        if (bbp > 24) {
             bbp = 24;
+        }
         bbc = bbp / 3; /*  divide up the 3 colors equally to bbc bits  */
         CMSK = (1 << bbc) - 1; /*  make a mask  2^bbc  -1  */
         CSHIFT = bbc;          /*  how far to shift to get the next color */
@@ -1218,8 +1290,9 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
                 /*  get the 3 colors   hopefully  */
                 lobits = value & CMSK;
                 value = value >> CSHIFT;
-                if (bbc == 5)
+                if (bbc == 5) {
                     value = value >> 1;
+                }
                 midbits = value & CMSK;
                 value = value >> CSHIFT;
                 hibits = value & CMSK;
@@ -1253,9 +1326,9 @@ ani_zero(void) {
     ani_speed = 10;
     aniflag = TRANSIENT;
     ani_grab_flag = 0;
-    if (use_ani_file)
+    if (use_ani_file) {
         strcpy(vcr.file, anifile);
-    else {
+    } else {
         strcpy(vcr.file, this_file);
         snprintf(vcr.file, sizeof(vcr.file), "%s/", dirname(vcr.file));
         /*strcpy(vcr.file,"foo.ani");*/
@@ -1270,8 +1343,9 @@ ani_get_file(char *fname) {
 
     if (fname == NULL) {
         status = init_conds_file_selector("Load animation", vcr.file, "*.ani");
-        if (status == 0)
+        if (status == 0) {
             return;
+        }
     } else {
         strcpy(vcr.file, fname);
     }
@@ -1294,8 +1368,9 @@ ani_new_file(char *filename) {
         ggets_err_msg("Couldn't open ani-file");
         return -1;
     }
-    if (n_anicom > 0)
+    if (n_anicom > 0) {
         free_ani();
+    }
     if (load_ani_file(fp) == 0) {
         snprintf(bob, sizeof(bob), "Bad ani-file at graphics_line %d",
                  ani_line);
@@ -1326,8 +1401,9 @@ load_ani_file(FILE *fp) {
             ans = parse_ani_string(big, fp);
         }
 
-        if (ans == 0 || feof(fp))
+        if (ans == 0 || feof(fp)) {
             break;
+        }
         if (ans < 0) { /* error occurred !! */
             ggets_plintf(" error at graphics_line %d\n", ani_line);
             free_ani();
@@ -1363,93 +1439,124 @@ parse_ani_string(char *s, FILE *fp) {
     ptr = s;
     type = COMNT;
     command = form_ode_get_first(ptr, "; ");
-    if (command == NULL)
+    if (command == NULL) {
         return -1;
+    }
     strupr(command);
     /************** GRAB STUFF *****************/
-    if (load_eqn_msc("GR", command))
+    if (load_eqn_msc("GR", command)) {
         type = GRAB;
-    if (load_eqn_msc("LI", command))
+    }
+    if (load_eqn_msc("LI", command)) {
         type = LINE;
-    if (load_eqn_msc("RL", command))
+    }
+    if (load_eqn_msc("RL", command)) {
         type = RLINE;
-    if (load_eqn_msc("RE", command))
+    }
+    if (load_eqn_msc("RE", command)) {
         type = RECT;
-    if (load_eqn_msc("FR", command))
+    }
+    if (load_eqn_msc("FR", command)) {
         type = FRECT;
-    if (load_eqn_msc("EL", command))
+    }
+    if (load_eqn_msc("EL", command)) {
         type = ELLIP;
-    if (load_eqn_msc("FE", command))
+    }
+    if (load_eqn_msc("FE", command)) {
         type = FELLIP;
-    if (load_eqn_msc("CI", command))
+    }
+    if (load_eqn_msc("CI", command)) {
         type = CIRC;
-    if (load_eqn_msc("FC", command))
+    }
+    if (load_eqn_msc("FC", command)) {
         type = FCIRC;
-    if (load_eqn_msc("VT", command))
+    }
+    if (load_eqn_msc("VT", command)) {
         type = VTEXT;
-    if (load_eqn_msc("TE", command))
+    }
+    if (load_eqn_msc("TE", command)) {
         type = TEXT;
-    if (load_eqn_msc("SE", command))
+    }
+    if (load_eqn_msc("SE", command)) {
         type = SETTEXT;
-    if (load_eqn_msc("TR", command))
+    }
+    if (load_eqn_msc("TR", command)) {
         type = TRANSIENT;
-    if (load_eqn_msc("PE", command))
+    }
+    if (load_eqn_msc("PE", command)) {
         type = PERMANENT;
-    if (load_eqn_msc("DI", command))
+    }
+    if (load_eqn_msc("DI", command)) {
         type = DIMENSION;
-    if (load_eqn_msc("EN", command))
+    }
+    if (load_eqn_msc("EN", command)) {
         type = END;
-    if (load_eqn_msc("DO", command))
+    }
+    if (load_eqn_msc("DO", command)) {
         type = END;
-    if (load_eqn_msc("SP", command))
+    }
+    if (load_eqn_msc("SP", command)) {
         type = SPEED;
-    if (load_eqn_msc("CO", command))
+    }
+    if (load_eqn_msc("CO", command)) {
         type = COMET;
-    if (load_eqn_msc("XN", command))
+    }
+    if (load_eqn_msc("XN", command)) {
         type = AXNULL;
-    if (load_eqn_msc("YN", command))
+    }
+    if (load_eqn_msc("YN", command)) {
         type = AYNULL;
+    }
     switch (type) {
     case GRAB:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x3, nxt);
         anss = ani_add_grab_command(x1, x2, x3, fp);
         return anss;
     case AXNULL:
     case AYNULL:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x3, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x4, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(col, nxt);
         nxt = form_ode_do_fit_get_next("\n");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(thick, nxt);
         break;
     case LINE:
@@ -1458,175 +1565,213 @@ parse_ani_string(char *s, FILE *fp) {
     case FELLIP:
     case FRECT:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x3, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x4, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if ((nxt == NULL) || strlen(nxt) == 0)
+        if ((nxt == NULL) || strlen(nxt) == 0) {
             break;
+        }
         strcpy(col, nxt);
         nxt = form_ode_do_fit_get_next("\n");
-        if ((nxt == NULL) || strlen(nxt) == 0)
+        if ((nxt == NULL) || strlen(nxt) == 0) {
             break;
+        }
         strcpy(thick, nxt);
         break;
     case RLINE:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if ((nxt == NULL) || strlen(nxt) == 0)
+        if ((nxt == NULL) || strlen(nxt) == 0) {
             break;
+        }
         strcpy(col, nxt);
         nxt = form_ode_do_fit_get_next("\n");
-        if ((nxt == NULL) || strlen(nxt) == 0)
+        if ((nxt == NULL) || strlen(nxt) == 0) {
             break;
+        }
         strcpy(thick, nxt);
         break;
     case COMET:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(thick, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x3, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if ((nxt == NULL) || strlen(nxt) == 0)
+        if ((nxt == NULL) || strlen(nxt) == 0) {
             break;
+        }
         strcpy(col, nxt);
         break;
     case CIRC:
     case FCIRC:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x3, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if ((nxt == NULL) || strlen(nxt) == 0)
+        if ((nxt == NULL) || strlen(nxt) == 0) {
             break;
+        }
         strcpy(col, nxt);
         break;
     case SETTEXT:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(col, nxt);
         break;
     case TEXT:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x4, nxt);
         break;
     case VTEXT:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x4, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x3, nxt);
         break;
     case SPEED:
         nxt = form_ode_do_fit_get_next(" \n");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         ani_speed = atoi(nxt);
-        if (ani_speed < 0)
+        if (ani_speed < 0) {
             ani_speed = 0;
-        if (ani_speed > 1000)
+        }
+        if (ani_speed > 1000) {
             ani_speed = 1000;
+        }
         return 1;
     case DIMENSION:
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x1, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x2, nxt);
         nxt = form_ode_do_fit_get_next(";");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x3, nxt);
         nxt = form_ode_do_fit_get_next(";\n");
-        if (nxt == NULL)
+        if (nxt == NULL) {
             return -1;
+        }
         strcpy(x4, nxt);
         break;
     default:
         break;
     }
 
-    if (type == END)
+    if (type == END) {
         return 0;
+    }
     if (type == TRANSIENT) {
         aniflag = TRANSIENT;
         return 1;
     }
-    if (type == COMNT)
+    if (type == COMNT) {
         return 1;
+    }
     if (type == PERMANENT) {
         aniflag = PERMANENT;
         return 1;
@@ -1664,8 +1809,9 @@ add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
             char *thick) {
     int32 err = 0;
     if (type == COMNT || type == DIMENSION || type == PERMANENT ||
-        type == TRANSIENT || type == END || type == SPEED)
+        type == TRANSIENT || type == END || type == SPEED) {
         return 1;
+    }
     my_ani[n_anicom].type = type;
     my_ani[n_anicom].flag = aniflag;
     my_ani[n_anicom].x1 = xmalloc(256*sizeof(*(my_ani[n_anicom].x1)));
@@ -1750,12 +1896,14 @@ free_ani(void) {
             free(ani_grab[i].x);
             free(ani_grab[i].y);
             m = ani_grab[i].start.n;
-            for (int32 j = 0; j < m; j++)
+            for (int32 j = 0; j < m; j++) {
                 free(ani_grab[i].start.comrhs[j]);
+            }
 
             m = ani_grab[i].end.n;
-            for (int32 j = 0; j < m; j++)
+            for (int32 j = 0; j < m; j++) {
                 free(ani_grab[i].end.comrhs[j]);
+            }
             ani_grab[i].start.n = 0;
             ani_grab[i].end.n = 0;
         }
@@ -1811,8 +1959,9 @@ add_ani_expr(char *x, int32 *c) {
     int32 err;
 
     err = parserslow_add_expr(x, com, &n);
-    if (err == 1)
+    if (err == 1) {
         return 1;
+    }
     for (int32 i = 0; i < n; i++) {
         c[i] = com[i];
     }
@@ -1830,27 +1979,32 @@ add_ani_rline(AniCom *a, char *x1, char *y1, char *col, char *thick) {
         a->col[0] = index;
     } else {
         err = add_ani_expr(col, a->col);
-        if (err == 1)
+        if (err == 1) {
             return -1;
+        }
     }
     a->zthick = atoi(thick);
-    if (a->zthick < 0)
+    if (a->zthick < 0) {
         a->zthick = 0;
+    }
 
     err = add_ani_expr(x1, a->x1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y1, a->y1);
-    if (err)
+    if (err) {
         return -1;
+    }
     return 0;
 }
 
 void
 ani_reset_comets(void) {
     for (int32 i = 0; i < n_anicom; i++) {
-        if (my_ani[i].type == COMET)
+        if (my_ani[i].type == COMET) {
             my_ani[i].c.i = 0;
+        }
     }
     return;
 }
@@ -1889,8 +2043,9 @@ add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col, char *thick) {
         a->col[0] = -index;
     } else {
         err = add_ani_expr(col, a->col);
-        if (err == 1)
+        if (err == 1) {
             return -1;
+        }
     }
     a->zthick = atoi(thick);
     n = atoi(x2);
@@ -1899,11 +2054,13 @@ add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col, char *thick) {
         return -1;
     }
     err = add_ani_expr(x1, a->x1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y1, a->y1);
-    if (err)
+    if (err) {
         return -1;
+    }
     a->c.n = n;
     a->c.x = xmalloc((usize)n*sizeof(*(a->c.x)));
     a->c.y = xmalloc((usize)n*sizeof(*(a->c.y)));
@@ -1922,25 +2079,31 @@ add_ani_line(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
         a->col[0] = -index;
     } else {
         err = add_ani_expr(col, a->col);
-        if (err == 1)
+        if (err == 1) {
             return -1;
+        }
     }
     a->zthick = atoi(thick);
-    if (a->zthick < 0)
+    if (a->zthick < 0) {
         a->zthick = 0;
+    }
 
     err = add_ani_expr(x1, a->x1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y1, a->y1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(x2, a->x2);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y2, a->y2);
-    if (err)
+    if (err) {
         return -1;
+    }
     return 0;
 }
 
@@ -1954,25 +2117,31 @@ add_ani_null(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
         a->col[0] = -index;
     } else {
         err = add_ani_expr(col, a->col);
-        if (err == 1)
+        if (err == 1) {
             return -1;
+        }
     }
 
     err = add_ani_expr(who, a->who);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(x1, a->x1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y1, a->y1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(x2, a->x2);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y2, a->y2);
-    if (err)
+    if (err) {
         return -1;
+    }
 
     return 0;
 }
@@ -2011,22 +2180,27 @@ add_ani_circle(AniCom *a, char *x1, char *y1, char *x2, char *col,
         a->col[0] = -index;
     } else {
         err = add_ani_expr(col, a->col);
-        if (err == 1)
+        if (err == 1) {
             return -1;
+        }
     }
     a->zthick = atoi(thick);
-    if (a->zthick < 0)
+    if (a->zthick < 0) {
         a->zthick = 0;
+    }
 
     err = add_ani_expr(x1, a->x1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y1, a->y1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(x2, a->x2);
-    if (err)
+    if (err) {
         return -1;
+    }
 
     return 0;
 }
@@ -2036,11 +2210,13 @@ add_ani_text(AniCom *a, char *x1, char *y1, char *y2) {
     int32 err;
     char *s;
     err = add_ani_expr(x1, a->x1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y1, a->y1);
-    if (err)
+    if (err) {
         return -1;
+    }
     s = (char *)(a->y2);
     strcpy(s, y2);
     return 0;
@@ -2051,14 +2227,17 @@ add_ani_vtext(AniCom *a, char *x1, char *y1, char *x2, char *y2) {
     int32 err;
     char *s;
     err = add_ani_expr(x1, a->x1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(y1, a->y1);
-    if (err)
+    if (err) {
         return -1;
+    }
     err = add_ani_expr(x2, a->x2);
-    if (err)
+    if (err) {
         return -1;
+    }
     s = (char *)(a->y2);
     strcpy(s, y2);
     return 0;
@@ -2071,15 +2250,19 @@ add_ani_settext(AniCom *a, char *x1, char *y1, char *col) {
     int32 index = 0;
     int32 err;
     ani_de_space(y1);
-    if (y1[0] == 's' || y1[0] == 'S')
+    if (y1[0] == 's' || y1[0] == 'S') {
         font = 1;
+    }
     err = chk_ani_color(col, &index);
-    if (err != 1)
+    if (err != 1) {
         index = 0;
-    if (size < 0)
+    }
+    if (size < 0) {
         size = 0;
-    if (size > 4)
+    }
+    if (size > 4) {
         size = 4;
+    }
     a->tsize = size;
     a->tfont = font;
     a->tcolor = index;
@@ -2096,13 +2279,15 @@ render_ani(void) {
         flag = my_ani[i].flag;
         if (type == LINE || type == RLINE || type == RECT || type == FRECT ||
             type == CIRC || type == FCIRC || type == ELLIP || type == FELLIP ||
-            type == COMET || type == AXNULL || type == AYNULL)
+            type == COMET || type == AXNULL || type == AYNULL) {
             eval_ani_color(i);
+        }
         switch (type) {
         case AXNULL:
         case AYNULL:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_null(i, type - AXNULL);
             break;
         case SETTEXT:
@@ -2110,60 +2295,71 @@ render_ani(void) {
                                my_ani[i].tcolor);
             break;
         case TEXT:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_text(i);
             break;
         case VTEXT:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_vtext(i);
             break;
         case LINE:
 
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_line(i);
             break;
         case COMET:
 
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_comet(i);
             break;
         case RLINE:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_rline(i);
             break;
         case RECT:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_rect(i);
             break;
         case FRECT:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_frect(i);
             break;
         case ELLIP:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_ellip(i);
             break;
         case FELLIP:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_fellip(i);
             break;
         case CIRC:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_circ(i);
             break;
         case FCIRC:
-            if (flag == TRANSIENT)
+            if (flag == TRANSIENT) {
                 eval_ani_com(i);
+            }
             draw_ani_fcirc(i);
             break;
         default:
@@ -2215,12 +2411,14 @@ set_ani_perm(void) {
     for (int32 i = 0; i < n_anicom; i++) {
         type = my_ani[i].type;
         if (my_ani[i].flag == PERMANENT) {
-            if (my_ani[i].type != SETTEXT)
+            if (my_ani[i].type != SETTEXT) {
                 eval_ani_com(i);
+            }
             if (type == LINE || type == RLINE || type == RECT ||
                 type == FRECT || type == CIRC || type == FCIRC ||
-                type == ELLIP || type == FELLIP)
+                type == ELLIP || type == FELLIP) {
                 eval_ani_color(i);
+            }
         }
     }
     return;
@@ -2232,10 +2430,12 @@ eval_ani_color(int32 j) {
 
     if (my_ani[j].col[0] > 0) {
         z = evaluate(my_ani[j].col);
-        if (z > 1)
+        if (z > 1) {
             z = 1.0;
-        if (z < 0)
+        }
+        if (z < 0) {
             z = 0.0;
+        }
         my_ani[j].zcol = z;
     }
     return;
@@ -2269,29 +2469,33 @@ eval_ani_com(int32 j) {
         break;
     }
 
-    if (my_ani[j].type == AXNULL || my_ani[j].type == AYNULL)
+    if (my_ani[j].type == AXNULL || my_ani[j].type == AYNULL) {
         my_ani[j].zval = evaluate(my_ani[j].who);
+    }
     return;
 }
 
 void
 set_ani_thick(int32 t) {
-    if (t < 0)
+    if (t < 0) {
         t = 0;
+    }
     XSetLineAttributes(display, ani_gc, (uint)t, LineSolid, CapButt, JoinRound);
     return;
 }
 
 void
 set_ani_font_stuff(int32 size, int32 font, int32 color) {
-    if (color == 0)
+    if (color == 0) {
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
-    else
+    } else {
         XSetForeground(display, ani_gc, color_map(color));
-    if (font == 0)
+    }
+    if (font == 0) {
         XSetFont(display, ani_gc, romfonts[size]->fid);
-    else
+    } else {
         XSetFont(display, ani_gc, symfonts[size]->fid);
+    }
     return;
 }
 
@@ -2300,24 +2504,27 @@ set_ani_col(int32 j) {
     int32 c = my_ani[j].col[0];
     int32 icol;
 
-    if (c <= 0)
+    if (c <= 0) {
         icol = -c;
-    else
+    } else {
         icol = (int32)(color_total*my_ani[j].zcol) + FIRSTCOLOR;
-    if (icol == 0)
+    }
+    if (icol == 0) {
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
-    else
+    } else {
         XSetForeground(display, ani_gc, color_map(icol));
+    }
     LastAniColor = icol;
     return;
 }
 
 void
 xset_ani_col(int32 icol) {
-    if (icol == 0)
+    if (icol == 0) {
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
-    else
+    } else {
         XSetForeground(display, ani_gc, color_map(icol));
+    }
     return;
 }
 
@@ -2362,14 +2569,18 @@ ani_xyscale(double x, double y, int32 *ix, int32 *iy) {
     double yy = vcr.hgt - dy*(y - ani_ylo);
     *ix = (int32)xx;
     *iy = (int32)yy;
-    if (*ix < 0)
+    if (*ix < 0) {
         *ix = 0;
-    if (*ix >= vcr.wid)
+    }
+    if (*ix >= vcr.wid) {
         *ix = vcr.wid - 1;
-    if (*iy < 0)
+    }
+    if (*iy < 0) {
         *iy = 0;
-    if (*iy >= vcr.hgt)
+    }
+    if (*iy >= vcr.hgt) {
         *iy = vcr.hgt - 1;
+    }
     return;
 }
 
@@ -2429,14 +2640,16 @@ draw_ani_null(int32 j, int32 id) {
     int32 j2;
     double x1, y1, x2, y2, dx = xh - xl, dy = yh - yl;
     int32 err;
-    if (dx == 0.0 || dy == 0.0)
+    if (dx == 0.0 || dy == 0.0) {
         return;
+    }
 
     set_ani_col(j);
     who = (int32)z; /* the nullcline that you want  -1 is the default cline */
     err = get_nullcline_floats(&v, &n, who, id);
-    if (err == 1)
+    if (err == 1) {
         return;
+    }
     for (int32 i = 0; i < n; i++) {
         i4 = 4*i;
         x1 = (v[i4] - xl) / dx;
@@ -2546,10 +2759,12 @@ draw_ani_rect(int32 j) {
     ani_xyscale(x2, y2, &i2, &j2);
     h = ABS(j2 - j1);
     w = ABS(i2 - i1);
-    if (i1 > i2)
+    if (i1 > i2) {
         i1 = i2;
-    if (j1 > j2)
+    }
+    if (j1 > j2) {
         j1 = j2;
+    }
     XDrawRectangle(display, ani_pixmap, ani_gc, i1, j1, (uint)w, (uint)h);
     return;
 }
@@ -2571,10 +2786,12 @@ draw_ani_frect(int32 j) {
 
     h = ABS(j2 - j1);
     w = ABS(i2 - i1);
-    if (i1 > i2)
+    if (i1 > i2) {
         i1 = i2;
-    if (j1 > j2)
+    }
+    if (j1 > j2) {
         j1 = j2;
+    }
 
     XFillRectangle(display, ani_pixmap, ani_gc, i1, j1, (uint)w, (uint)h);
     return;
@@ -2697,13 +2914,15 @@ read_ani_line(FILE *fp, char *s) {
                 ihat = i;
             }
         }
-        if (ok == 1)
+        if (ok == 1) {
             temp[ihat] = 0;
+        }
         strcat(s, temp);
     }
     n = (int32)strlen(s);
-    if (s[n - 1] == '\n')
+    if (s[n - 1] == '\n') {
         s[n - 1] = ' ';
+    }
     s[n] = ' ';
     s[n + 1] = 0;
     return;
@@ -2746,29 +2965,34 @@ ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
     }
     j = n_ani_grab;
     z = atof(ts);
-    if (z <= 0.0)
+    if (z <= 0.0) {
         z = .02;
+    }
     ani_grab[j].tol = z;
     if (parserslow_add_expr(xs, com, &nc)) {
         ggets_plintf("Bad grab x %s \n", xs);
         return -1;
     }
     ani_grab[j].x = xmalloc(sizeof(*(ani_grab[j].x))*(usize)(nc + 1));
-    for (int32 k = 0; k <= nc; k++)
+    for (int32 k = 0; k <= nc; k++) {
         ani_grab[j].x[k] = com[k];
+    }
 
     if (parserslow_add_expr(ys, com, &nc)) {
         ggets_plintf("Bad grab y %s \n", ys);
         return -1;
     }
     ani_grab[j].y = xmalloc(sizeof(*(ani_grab[j].y))*(usize)(nc + 1));
-    for (int32 k = 0; k <= nc; k++)
+    for (int32 k = 0; k <= nc; k++) {
         ani_grab[j].y[k] = com[k];
+    }
     ans = ani_grab_tasks(start, j, 1);
-    if (ans < 0)
+    if (ans < 0) {
         return -1;
-    if (ani_grab_tasks(end, j, 2) == (-1))
+    }
+    if (ani_grab_tasks(end, j, 2) == (-1)) {
         return -1;
+    }
     n_ani_grab++;
     return 1;
 }
@@ -2784,13 +3008,15 @@ ani_grab_tasks(char *graphics_line, int32 igrab, int32 which) {
     k = 0;
     for (int32 i = 0; i < n; i++) {
         c = graphics_line[i];
-        if (c == '{' || c == ' ')
+        if (c == '{' || c == ' ') {
             continue;
+        }
         if (c == ';' || c == '}') {
             form[k] = 0;
             strcpy(rhs, form);
-            if (ani_add_grab_task(lhs, rhs, igrab, which) < 0)
+            if (ani_add_grab_task(lhs, rhs, igrab, which) < 0) {
                 return -1;
+            }
             k = 0;
             continue;
         }
@@ -2831,8 +3057,9 @@ ani_do_grab_tasks(int32 which) {
     int32 i = who_was_grabbed;
     int32 n;
     double z;
-    if (i < 0)
+    if (i < 0) {
         return; /*  no legal grab graphics_point */
+    }
     if (which == 1) {
         n = ani_grab[i].start.n;
         for (int32 j = 0; j < n; j++) {
@@ -2862,8 +3089,9 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
 
     if (which == 1) {
         i = ani_grab[igrab].start.n;
-        if (i >= MAX_GEVENTS)
+        if (i >= MAX_GEVENTS) {
             return -1; /* too many events */
+        }
         strcpy(ani_grab[igrab].start.lhsname[i], lhs);
         if (parserslow_add_expr(rhs, com, &nc)) {
             ggets_plintf("Bad right-hand side for grab event %s\n", rhs);
@@ -2872,8 +3100,9 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         }
         ani_grab[igrab].start.comrhs[i] = xmalloc(
             sizeof(*(ani_grab[igrab].start.comrhs[i]))*(usize)(nc + 1));
-        for (int32 k = 0; k <= nc; k++)
+        for (int32 k = 0; k <= nc; k++) {
             ani_grab[igrab].start.comrhs[i][k] = com[k];
+        }
 
         ani_grab[igrab].start.n = ani_grab[igrab].start.n + 1;
         return 1;
@@ -2886,8 +3115,9 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             return 1;
         }
         i = ani_grab[igrab].end.n;
-        if (i >= MAX_GEVENTS)
+        if (i >= MAX_GEVENTS) {
             return -1; /* too many events */
+        }
 
         strcpy(ani_grab[igrab].end.lhsname[i], lhs);
         if (parserslow_add_expr(rhs, com, &nc)) {
@@ -2897,8 +3127,9 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         }
         ani_grab[igrab].end.comrhs[i] =
             xmalloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(usize)(nc + 1));
-        for (int32 k = 0; k <= nc; k++)
+        for (int32 k = 0; k <= nc; k++) {
             ani_grab[igrab].end.comrhs[i][k] = com[k];
+        }
         ani_grab[igrab].end.n = ani_grab[igrab].end.n + 1;
         return 1;
     }

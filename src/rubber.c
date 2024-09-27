@@ -47,14 +47,16 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
             break;
 
         case KeyPress:
-            if (state > 0)
+            if (state > 0) {
                 break; /* too late Bozo   */
+            }
             there = 1;
             error = 1;
             break;
         case ButtonPress:
-            if (state > 0)
+            if (state > 0) {
                 break;
+            }
             state = 1;
             dragx = event.xkey.x;
             dragy = event.xkey.y;
@@ -63,16 +65,18 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
             rubber_box(dragx, dragy, oldx, oldy, window, f);
             break;
         case MotionNotify:
-            if (state == 0)
+            if (state == 0) {
                 break;
+            }
             rubber_box(dragx, dragy, oldx, oldy, window, f);
             oldx = event.xmotion.x;
             oldy = event.xmotion.y;
             rubber_box(dragx, dragy, oldx, oldy, window, f);
             break;
         case ButtonRelease:
-            if (state == 0)
+            if (state == 0) {
                 break;
+            }
             there = 1;
             rubber_box(dragx, dragy, oldx, oldy, window, f);
             break;
@@ -99,8 +103,9 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     XSelectInput(display, window,
                  KeyPressMask | ButtonPressMask | ExposureMask |
                      ButtonReleaseMask | ButtonMotionMask);
-    if (error)
+    if (error) {
         return 0;
+    }
     return 1;
 }
 

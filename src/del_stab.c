@@ -52,20 +52,23 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
 
     double *ev;
     ev = xmalloc((usize)(2*n)*sizeof(*ev));
-    for (i = 0; i < (2*n); i++)
+    for (i = 0; i < (2*n); i++) {
         ev[i] = 0.0;
+    }
     /* first we establish how many delays there are */
     del_stab_flag = 0;
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++) {
         old_x[i] = x[i];
+    }
     work = xmalloc((usize)kmem*sizeof(*work));
     gear_rooter(x, err, eps, big, work, ierr, maxit, n);
     if (*ierr != 0) {
         del_stab_flag = 1;
         free(work);
         ggets_err_msg("Could not converge to root");
-        for (i = 0; i < n; i++)
+        for (i = 0; i < n; i++) {
             x[i] = old_x[i];
+        }
         return;
     }
     /* OKAY -- we have the root */
@@ -86,8 +89,9 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
 
     for (i = 0; i < n; i++) {
         colsum = 0.0;
-        for (int32 j = 0; j < n; j++)
+        for (int32 j = 0; j < n; j++) {
             xp[j] = x[j];
+        }
         dx = eps*gear_amax(eps, fabs(x[i]));
         xp[i] = xp[i] + dx;
         rhs_function(0.0, xp, yp, n);
@@ -95,20 +99,23 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
             coef[j*n + i] = (yp[j] - y[j]) / dx;
             colsum += fabs(coef[j*n + i]);
         }
-        if (colsum > colmax)
+        if (colsum > colmax) {
             colmax = colsum;
+        }
     }
     colnorm = colmax;
-    for (int32 j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++) {
         xp[j] = x[j];
+    }
     /* now the jacobians for the delays */
     for (int32 k = 0; k < NDelay; k++) {
         WhichDelay = k;
         colmax = 0.0;
         for (i = 0; i < n; i++) {
             colsum = 0.0;
-            for (int32 j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++) {
                 variable_shift[1][j] = variable_shift[0][j];
+            }
             dx = eps*gear_amax(eps, fabs(x[i]));
             variable_shift[1][i] = x[i] + dx;
             rhs_function(0.0, x, yp, n);
@@ -117,8 +124,9 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
                 coef[j*n + i + n*n*(k + 1)] = (yp[j] - y[j]) / dx;
                 colsum += fabs(coef[j*n + i + n*n*(k + 1)]);
             }
-            if (colsum > colmax)
+            if (colsum > colmax) {
                 colmax = colsum;
+            }
         }
         colnorm += colmax;
     }
@@ -137,15 +145,17 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     *stabinfo = (double)fabs(sign);
     /* if(*stabinfo>0) */
     i = (int32)sign;
-    if (i == 0 && okroot == 1 && AlphaMax > 0)
+    if (i == 0 && okroot == 1 && AlphaMax > 0) {
         i = 2;
+    }
 
     eig_list_create_eq_box(ABS(i), 2, 0, 0, 0, x, n);
     /* DING; */
     del_stab_flag = 1;
     free(ev);
-    if (okroot == 1)
+    if (okroot == 1) {
         *stabinfo = AlphaMax;
+    }
     return;
 }
 
@@ -222,11 +232,13 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
                 imax = i;
             }
         }
-        if (qmax == 0.0)
+        if (qmax == 0.0) {
             return del_stab_rtoc(0.0, 0.0);
+        }
         del_stab_switch_rows(z, imax, j, n);
-        if (imax > j)
+        if (imax > j) {
             sign = del_stab_z_mult(del_stab_rtoc(-1.0, 0.0), sign);
+        }
         zd = Z(j, j, n);
         for (int32 i = j + 1; i < n; i++) {
             mult = del_stab_c_div(Z(i, j, n), zd);
@@ -237,8 +249,9 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
         }
     }
     sum = sign;
-    for (int32 j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++) {
         sum = del_stab_z_mult(sum, Z(j, j, n));
+    }
     return sum;
 }
 
@@ -249,17 +262,19 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
     COMPLEX temp;
     COMPLEX eld;
 
-    for (int32 j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++) {
         for (int32 i = 0; i < n; i++) {
-            if (i == j)
+            if (i == j) {
                 temp = lambda;
-            else
+            } else {
                 temp = del_stab_rtoc(0.0, 0.0);
+            }
             /* cprintn(temp); */
             z[i + j*n] = del_stab_z_dif(
                 temp,
                 del_stab_rtoc(coef[i + j*n], 0.0)); /* initialize the array */
         }
+    }
     for (int32 k = 0; k < m; k++) {
         km = (k + 1)*n*n;
         temp = del_stab_rtoc(-delay[k],
@@ -267,12 +282,14 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
         eld = del_stab_c_exp2(
             del_stab_z_mult(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
-        for (int32 j = 0; j < n; j++)
-            for (int32 i = 0; i < n; i++)
+        for (int32 j = 0; j < n; j++) {
+            for (int32 i = 0; i < n; i++) {
                 z[i + j*n] = del_stab_z_dif(
                     z[i + j*n],
                     del_stab_z_mult(eld,
                                     del_stab_rtoc(coef[km + i + n*j], 0.0)));
+            }
+        }
     }
     return;
 }
@@ -312,20 +329,22 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         yl = lambda.i;
 
         /* compute the Jacobian */
-        if (fabs(xl) > eps)
+        if (fabs(xl) > eps) {
             r = eps*fabs(xl);
-        else
+        } else {
             r = eps*eps;
+        }
         xlp = xl + r;
         lambdap = del_stab_rtoc(xlp, yl);
         del_stab_z_make(z, delay, n, m, coef, lambdap);
         detp = del_stab_z_determ(z, n);
         jac[0] = (detp.r - det.r) / r;
         jac[2] = (detp.i - det.i) / r;
-        if (fabs(yl) > eps)
+        if (fabs(yl) > eps) {
             r = eps*fabs(yl);
-        else
+        } else {
             r = eps*eps;
+        }
         ylp = yl + r;
         lambdap = del_stab_rtoc(xl, ylp);
         del_stab_z_make(z, delay, n, m, coef, lambdap);
@@ -377,20 +396,23 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
     COMPLEX eld;
     double arg;
 
-    if (m == 0)
+    if (m == 0) {
         return 0; /* no delays so don't use this! */
+    }
     z = xmalloc(sizeof(*z)*(usize)(n*n));
-    for (int32 j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++) {
         for (int32 i = 0; i < n; i++) {
-            if (i == j)
+            if (i == j) {
                 temp = lambda;
-            else
+            } else {
                 temp = del_stab_rtoc(0.0, 0.0);
+            }
             /* cprintn(temp); */
             z[i + j*n] = del_stab_z_dif(
                 temp,
                 del_stab_rtoc(coef[i + j*n], 0.0)); /* initialize the array */
         }
+    }
     for (int32 k = 0; k < m; k++) {
         km = (k + 1)*n*n;
         temp = del_stab_rtoc(-delay[k],
@@ -398,12 +420,14 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
         eld = del_stab_c_exp2(
             del_stab_z_mult(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
-        for (int32 j = 0; j < n; j++)
-            for (int32 i = 0; i < n; i++)
+        for (int32 j = 0; j < n; j++) {
+            for (int32 i = 0; i < n; i++) {
                 z[i + j*n] = del_stab_z_dif(
                     z[i + j*n],
                     del_stab_z_mult(eld,
                                     del_stab_rtoc(coef[km + i + n*j], 0.0)));
+            }
+        }
     }
     /*  the array is done  */
     /* cprintarr(z,n,n); */
@@ -419,13 +443,15 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
 int32
 del_stab_test_sign(double old, double new) {
     if (old > 0.0 && new < 0.0) {
-        if (old > 2.9 && new < -2.9)
+        if (old > 2.9 && new < -2.9) {
             return 1;
+        }
         return 0; /* doesnt pass threshold */
     }
     if (old < 0.0 && new > 0.0) {
-        if (old < -2.9 && new > 2.9)
+        if (old < -2.9 && new > 2.9) {
             return -1;
+        }
         return 0;
     }
     return 0;

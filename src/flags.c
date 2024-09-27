@@ -124,8 +124,9 @@ flags_add_global(char *cond, int32 sign, char *rest) {
     l = (int32)strlen(rest);
     for (ii = 0; ii < l; ii++) {
         ch = rest[ii];
-        if (ch == '{' || ch == ' ')
+        if (ch == '{' || ch == ' ') {
             continue;
+        }
         if (ch == '}' || ch == ';') {
             if (nevents == MAX_EVENTS) {
                 printf(" Too many events per flag \n");
@@ -141,8 +142,9 @@ flags_add_global(char *cond, int32 sign, char *rest) {
             strcpy(flag[j].rhs[nevents], temp);
             nevents++;
             k = 0;
-            if (ch == '}')
+            if (ch == '}') {
                 break;
+            }
             continue;
         }
         if (ch == '=') {
@@ -150,8 +152,9 @@ flags_add_global(char *cond, int32 sign, char *rest) {
             strcpy(flag[j].lhsname[nevents], temp);
 
             k = 0;
-            if (nevents < MAX_EVENTS - 1)
+            if (nevents < MAX_EVENTS - 1) {
                 flag[j].lhsname[nevents + 1][0] = 0;
+            }
             continue;
         }
 
@@ -190,8 +193,9 @@ flags_compile(void) {
     int32 index;
     int32 nc;
     int32 command[256];
-    if (NFlags == 0)
+    if (NFlags == 0) {
         return 0;
+    }
     for (int32 j = 0; j < NFlags; j++) {
         if (parserslow_add_expr(flag[j].cond, command, &nc)) {
             ggets_plintf("Illegal global condition:  %s\n", flag[j].cond);
@@ -200,8 +204,9 @@ flags_compile(void) {
         flag[j].anypars = 0;
         flag[j].nointerp = 0;
         flag[j].comcond = xmalloc(sizeof(*(flag[j].comcond))*(usize)(nc + 1));
-        for (int32 k = 0; k <= nc; k++)
+        for (int32 k = 0; k <= nc; k++) {
             flag[j].comcond[k] = command[k];
+        }
         for (int32 i = 0; i < flag[j].nevents; i++) {
             index = init_conds_find_user_name(IC, flag[j].lhsname[i]);
             if (index < 0) {
@@ -247,8 +252,9 @@ flags_compile(void) {
             }
             flag[j].comrhs[i] =
                 xmalloc(sizeof(*(flag[j].comrhs[i]))*(usize)(nc + 1));
-            for (int32 k = 0; k <= nc; k++)
+            for (int32 k = 0; k <= nc; k++) {
                 flag[j].comrhs[i][k] = command[k];
+            }
         }
     }
     return 0;
@@ -271,8 +277,9 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     int32 newhit;
     int32 nevents;
 
-    if (NFlags == 0)
+    if (NFlags == 0) {
         return 0;
+    }
     /* printf("dt=%g yold= %g ynew = %g \n",dt,yold[0],ynew[0]); */
     /*  if(ABS(dt)<MY_DBL_EPS) return 0;  */
     for (int32 i = 0; i < NFlags; i++) {
@@ -281,18 +288,21 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     }
     /* If this is the first call, then need f1  */
     if (*istart == 1) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             SETVAR(i + 1, yold[i]);
+        }
         SETVAR(0, told);
-        for (int32 i = 0; i < NFlags; i++)
+        for (int32 i = 0; i < NFlags; i++) {
             *istart = 0;
+        }
     }
     for (int32 i = 0; i < NFlags; i++) {
         sign = flag[i].sign;
         flag[i].f0 = flag[i].f1;
         f0 = flag[i].f0;
-        for (int32 j = 0; j < neq; j++)
+        for (int32 j = 0; j < neq; j++) {
             SETVAR(j + 1, ynew[j]);
+        }
         SETVAR(0, *tnew);
         f1 = evaluate(flag[i].comcond);
         flag[i].f1 = f1;
@@ -325,16 +335,19 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
             flag[i].tstar = 1.0;
         }
 
-        if (smin > flag[i].tstar)
+        if (smin > flag[i].tstar) {
             smin = flag[i].tstar;
+        }
     } /* run through flags */
 
-    if (smin < STOL)
+    if (smin < STOL) {
         smin = STOL;
-    else
+    } else {
         smin = (1 + STOL)*smin;
-    if (smin > 1.0)
+    }
+    if (smin > 1.0) {
         return 0;
+    }
 
     *tnew = told + dt*smin;
     SETVAR(0, *tnew);
@@ -342,8 +355,9 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         ynew[i] = yold[i] + smin*(ynew[i] - yold[i]);
         SETVAR(i + 1, ynew[i]);
     }
-    for (int32 i = 0; i < NFlags; i++)
+    for (int32 i = 0; i < NFlags; i++) {
         flag[i].f0 = evaluate(flag[i].comcond);
+    }
     while (true) { /* run through all possible events  */
         ncycle++;
         newhit = 0;
@@ -353,8 +367,9 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                 for (int32 j = 0; j < nevents; j++) {
                     flag[i].vrhs[j] = evaluate(flag[i].comrhs[j]);
                     in = flag[i].lhs[j];
-                    if (flag[i].type[j] == 0)
+                    if (flag[i].type[j] == 0) {
                         SETVAR(in + 1, flag[i].vrhs[j]);
+                    }
                 }
             }
         }
@@ -370,13 +385,17 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                         ynew[in] = flag[i].vrhs[j];
                         /* SETVAR(in+1,ynew[in]); if this screws up */
                     } else {
-                        if (flag[i].type[j] == 1)
+                        if (flag[i].type[j] == 1) {
                             set_val(upar_names[in], flag[i].vrhs[j]);
-                        else {
-                            if ((flag[i].type[j] == 2) && (flag[i].vrhs[j] > 0))
+                        } else {
+                            if ((flag[i].type[j] == 2) &&
+                                (flag[i].vrhs[j] > 0)) {
                                 integrate_send_output(ynew, *tnew);
-                            if ((flag[i].type[j] == 3) && (flag[i].vrhs[j] > 0))
+                            }
+                            if ((flag[i].type[j] == 3) &&
+                                (flag[i].vrhs[j] > 0)) {
                                 integrate_send_halt();
+                            }
                         }
                     }
                 }
@@ -395,8 +414,9 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         }
         for (int32 i = 0; i < NFlags; i++) {
             flag[i].f1 = evaluate(flag[i].comcond);
-            if (flag[i].hit > 0)
+            if (flag[i].hit > 0) {
                 continue; /* already hit so dont do anything */
+            }
             f1 = flag[i].f1;
             sign = flag[i].sign;
             f0 = flag[i].f0;
@@ -427,8 +447,9 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                 break;
             }
         }
-        if (newhit == 0)
+        if (newhit == 0) {
             break;
+        }
     }
 
     *s = smin;
@@ -447,12 +468,14 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
     double dtt = dt;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *tim;
         odesol2_one_step_symp(y, dtt, work, neq, tim);
-        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
+        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
         dtt = (1 - s)*dt;
@@ -476,12 +499,14 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
     double dtt = dt;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *tim;
         odesol2_one_step_euler(y, dtt, work, neq, tim);
-        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
+        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
         dtt = (1 - s)*dt;
@@ -505,12 +530,14 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
     double dtt = dt;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *tim;
         odesol2_one_step_discrete(y, dtt, work, neq, tim);
-        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
+        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
         dtt = (1 - s)*dt;
@@ -533,12 +560,14 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
     double dtt = dt;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *tim;
         odesol_one_step_heun(y, dtt, yval, neq, tim);
-        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
+        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
         dtt = (1 - s)*dt;
@@ -561,12 +590,14 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
     double dtt = dt;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *tim;
         odesol_one_step_rk4(y, dtt, yval, neq, tim);
-        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
+        if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
         dtt = (1 - s)*dt;
@@ -589,20 +620,24 @@ one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
     double s;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *t;
         ggear(neq, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart, work,
               iwork);
-        if (*kflag < 0)
+        if (*kflag < 0) {
             break;
-        if ((hit = one_flag_step(yold, y, jstart, told, t, neq, &s)) == 0)
+        }
+        if ((hit = one_flag_step(yold, y, jstart, told, t, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
         *jstart = 0; /* for gear always reset  */
-        if (*t == tout)
+        if (*t == tout) {
             break;
+        }
         if (nstep > (NFlags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
@@ -622,19 +657,23 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
     double s;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             yold[i] = y[i];
+        }
         told = *tstart;
         ok = odesol_rosen(y, tstart, tfinal, istart, n, work, ierr);
-        if (ok == -1)
+        if (ok == -1) {
             break;
-        if ((hit = one_flag_step(yold, y, istart, told, tstart, n, &s)) == 0)
+        }
+        if ((hit = one_flag_step(yold, y, istart, told, tstart, n, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
 
-        if (*tstart == tfinal)
+        if (*tstart == tfinal) {
             break;
+        }
         if (nstep > (NFlags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
@@ -654,19 +693,23 @@ one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
     double s;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             yold[i] = y[i];
+        }
         told = *t;
         dormprin(istart, y, t, n, tout, tol, atol, flag2, kflag);
-        if (*kflag != 1)
+        if (*kflag != 1) {
             break;
-        if ((hit = one_flag_step(yold, y, istart, told, t, n, &s)) == 0)
+        }
+        if ((hit = one_flag_step(yold, y, istart, told, t, n, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
 
-        if (*t == tout)
+        if (*t == tout) {
             break;
+        }
         if (nstep > (NFlags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
@@ -689,20 +732,24 @@ one_flag_step_cvode(
     double s;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *t;
         ccvode(command, y, t, n, tout, kflag, atol, rtol);
-        if (*kflag < 0)
+        if (*kflag < 0) {
             break;
-        if ((hit = one_flag_step(yold, y, command, told, t, neq, &s)) == 0)
+        }
+        if ((hit = one_flag_step(yold, y, command, told, t, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
         cv_end();
         *command = 1; /* for cvode always reset  */
-        if (*t == tout)
+        if (*t == tout) {
             break;
+        }
         if (nstep > (NFlags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
@@ -723,20 +770,24 @@ one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
     double s;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *t;
         stiff_gadaptive(y, neq, t, tout, eps, hguess, hmin, work, ier, epjac,
                         iflag);
-        if (*ier)
+        if (*ier) {
             break;
-        if ((hit = one_flag_step(yold, y, jstart, told, t, neq, &s)) == 0)
+        }
+        if ((hit = one_flag_step(yold, y, jstart, told, t, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
 
-        if (*t == tout)
+        if (*t == tout) {
             break;
+        }
         if (nstep > (NFlags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
@@ -758,14 +809,17 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
     double dtt = dt;
     int32 nstep = 0;
     while (true) {
-        for (int32 i = 0; i < neq; i++)
+        for (int32 i = 0; i < neq; i++) {
             yold[i] = y[i];
+        }
         told = *t;
         if ((j = odesol_one_bak_step(y, t, dtt, neq, yg, yp, yp2, ytemp, errvec,
-                                     jac)) != 0)
+                                     jac)) != 0) {
             return j;
-        if ((hit = one_flag_step(yold, y, istart, told, t, neq, &s)) == 0)
+        }
+        if ((hit = one_flag_step(yold, y, istart, told, t, neq, &s)) == 0) {
             break;
+        }
         /* Its a hit !! */
         nstep++;
         dtt = (1 - s)*dt;

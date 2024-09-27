@@ -114,11 +114,13 @@ graf_par_change_view_com(int32 com) {
         if (status != 0) {
             /*  get variable names  */
             browse_find_variable(values[0], &i);
-            if (i > -1)
+            if (i > -1) {
                 MyGraph->xv[ind] = i;
+            }
             browse_find_variable(values[1], &i);
-            if (i > -1)
+            if (i > -1) {
                 MyGraph->yv[ind] = i;
+            }
 
             MyGraph->xmin = atof(values[2]);
             MyGraph->ymin = atof(values[3]);
@@ -166,14 +168,17 @@ graf_par_change_view_com(int32 com) {
         if (status != 0) {
             /*  get variable names  */
             browse_find_variable(values[0], &i);
-            if (i > -1)
+            if (i > -1) {
                 MyGraph->xv[ind] = i;
+            }
             browse_find_variable(values[1], &i);
-            if (i > -1)
+            if (i > -1) {
                 MyGraph->yv[ind] = i;
+            }
             browse_find_variable(values[2], &i);
-            if (i > -1)
+            if (i > -1) {
                 MyGraph->zv[ind] = i;
+            }
             snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s",
                      values[13]);
             snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s",
@@ -200,24 +205,27 @@ graf_par_change_view_com(int32 com) {
 
 void
 graf_par_ind_to_sym(int32 ind, char *str) {
-    if (ind == 0)
+    if (ind == 0) {
         strcpy(str, "T");
-    else
+    } else {
         strcpy(str, uvar_names[ind - 1]);
+    }
     return;
 }
 
 void
 graf_par_check_flags(void) {
-    if (MyGraph->grtype > 4)
+    if (MyGraph->grtype > 4) {
         MyGraph->ThreeDFlag = 1;
-    else
+    } else {
         MyGraph->ThreeDFlag = 0;
+    }
     if ((MyGraph->xv[0] == 0) || (MyGraph->yv[0] == 0) ||
-        ((MyGraph->zv[0] == 0) && (MyGraph->ThreeDFlag == 1)))
+        ((MyGraph->zv[0] == 0) && (MyGraph->ThreeDFlag == 1))) {
         MyGraph->TimeFlag = 1;
-    else
+    } else {
         MyGraph->TimeFlag = 0;
+    }
     return;
 }
 
@@ -252,10 +260,12 @@ graf_par_get_max(int32 index, double *vmin, double *vmax) {
     x1 = x0;
     for (int32 i = 0; i < my_browser.maxrow; i++) {
         z = my_browser.data[index][i];
-        if (z < x0)
+        if (z < x0) {
             x0 = z;
-        if (z > x1)
+        }
+        if (z > x1) {
             x1 = z;
+        }
     }
     *vmin = (double)x0;
     *vmax = (double)x1;
@@ -281,68 +291,96 @@ graf_par_corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
     y1 = y;
     y2 = y;
     graphics_threedproj(-1., -1., 1., &x, &y);
-    if (x < x1)
+    if (x < x1) {
         x1 = x;
-    if (x > x2)
+    }
+    if (x > x2) {
         x2 = x;
-    if (y < y1)
+    }
+    if (y < y1) {
         y1 = y;
-    if (y > y2)
+    }
+    if (y > y2) {
         y2 = y;
+    }
     graphics_threedproj(-1., 1., -1., &x, &y);
-    if (x < x1)
+    if (x < x1) {
         x1 = x;
-    if (x > x2)
+    }
+    if (x > x2) {
         x2 = x;
-    if (y < y1)
+    }
+    if (y < y1) {
         y1 = y;
-    if (y > y2)
+    }
+    if (y > y2) {
         y2 = y;
+    }
     graphics_threedproj(-1., 1., 1., &x, &y);
-    if (x < x1)
+    if (x < x1) {
         x1 = x;
-    if (x > x2)
+    }
+    if (x > x2) {
         x2 = x;
-    if (y < y1)
+    }
+    if (y < y1) {
         y1 = y;
-    if (y > y2)
+    }
+    if (y > y2) {
         y2 = y;
+    }
     graphics_threedproj(1., -1., -1., &x, &y);
-    if (x < x1)
+    if (x < x1) {
         x1 = x;
-    if (x > x2)
+    }
+    if (x > x2) {
         x2 = x;
-    if (y < y1)
+    }
+    if (y < y1) {
         y1 = y;
-    if (y > y2)
+    }
+    if (y > y2) {
         y2 = y;
+    }
     graphics_threedproj(1., -1., 1., &x, &y);
-    if (x < x1)
+    if (x < x1) {
         x1 = x;
-    if (x > x2)
+    }
+    if (x > x2) {
         x2 = x;
-    if (y < y1)
+    }
+    if (y < y1) {
         y1 = y;
-    if (y > y2)
+    }
+    if (y > y2) {
         y2 = y;
+    }
     graphics_threedproj(1., 1., 1., &x, &y);
-    if (x < x1)
+    if (x < x1) {
         x1 = x;
-    if (x > x2)
+    }
+    if (x > x2) {
         x2 = x;
-    if (y < y1)
+    }
+    if (y < y1) {
         y1 = y;
-    if (y > y2)
+    }
+    if (y > y2) {
         y2 = y;
+    }
     graphics_threedproj(1., 1., -1., &x, &y);
-    if (x < x1)
+    if (x < x1) {
         x1 = x;
-    if (x > x2)
+    }
+    if (x > x2) {
         x2 = x;
-    if (y < y1)
+    }
+    if (y < y1) {
         y1 = y;
-    if (y > y2)
+    }
+    if (y > y2) {
         y2 = y;
+    }
     *xlo = x1;
     *ylo = y1;
     *xhi = x2;
@@ -390,8 +428,9 @@ graf_par_fit_window(void) {
     double mz = -Mz;
     int32 n = MyGraph->nvars;
 
-    if (storind < 2)
+    if (storind < 2) {
         return;
+    }
     if (MyGraph->ThreeDFlag) {
         for (int32 i = 0; i < n; i++) {
             graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
@@ -509,8 +548,9 @@ graf_par_redraw_the_graph(void) {
     many_pops_draw_label(draw_win);
     graf_par_draw_freeze(draw_win);
     nullcline_redraw_dfield();
-    if (MyGraph->Nullrestore)
+    if (MyGraph->Nullrestore) {
         restore_nullclines();
+    }
     return;
 }
 
@@ -520,10 +560,11 @@ graf_par_movie_rot(double start, double increment, int32 nclip, int32 angle) {
     double phiold = MyGraph->Phi;
     kinescope_reset_film();
     for (int32 i = 0; i <= nclip; i++) {
-        if (angle == 0)
+        if (angle == 0) {
             graphics_make_rot(start + i*increment, phiold);
-        else
+        } else {
             graphics_make_rot(thetaold, start + i*increment);
+        }
         graf_par_redraw_the_graph();
         kinescope_film_clip();
     }
@@ -551,8 +592,9 @@ graf_par_get_3d_com(void) {
     int32 angle = 0;
     double start;
     double increment = 45;
-    if (MyGraph->grtype < 5)
+    if (MyGraph->grtype < 5) {
         return;
+    }
 
     snprintf(values[0], sizeof(values[0]), "%d", MyGraph->PerspFlag);
     snprintf(values[1], sizeof(values[1]), "%g", MyGraph->ZPlane);
@@ -582,8 +624,9 @@ graf_par_get_3d_com(void) {
             mov3d.incr = increment;
             mov3d.nclip = nclip;
             angle = 0;
-            if (mov3d.angle[0] == 'p' || mov3d.angle[0] == 'P')
+            if (mov3d.angle[0] == 'p' || mov3d.angle[0] == 'P') {
                 angle = 1;
+            }
             /*     XRaiseWindow(display,MyGraph->w); */
             graf_par_movie_rot(start, increment, nclip, angle);
         }
@@ -646,14 +689,16 @@ graf_par_window_zoom_com(int32 c) {
         break;
     }
     case 1:
-        if (rubber(&i1, &j1, &i2, &j2, draw_win, RUBBOX) == 0)
+        if (rubber(&i1, &j1, &i2, &j2, draw_win, RUBBOX) == 0) {
             break;
+        }
         graf_par_zoom_in(i1, j1, i2, j2);
 
         break;
     case 2:
-        if (rubber(&i1, &j1, &i2, &j2, draw_win, RUBBOX) == 0)
+        if (rubber(&i1, &j1, &i2, &j2, draw_win, RUBBOX) == 0) {
             break;
+        }
         graf_par_zoom_out(i1, j1, i2, j2);
         break;
     case 3:
@@ -898,19 +943,23 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
     status = pop_list_do_string_box(5, 5, 1, title, nn, values, 25);
     if (status != 0) {
         browse_find_variable(values[0], &i);
-        if (i > -1)
+        if (i > -1) {
             MyGraph->xv[n] = i;
+        }
         browse_find_variable(values[1], &i);
-        if (i > -1)
+        if (i > -1) {
             MyGraph->yv[n] = i;
+        }
         browse_find_variable(values[2], &i);
-        if (i > -1)
+        if (i > -1) {
             MyGraph->zv[n] = i;
+        }
 
         MyGraph->line[n] = atoi(values[4]);
         i = atoi(values[3]);
-        if (i < 0 || i > 10)
+        if (i < 0 || i > 10) {
             i = 0;
+        }
         MyGraph->color[n] = i;
 
         return 1;
@@ -957,8 +1006,9 @@ graf_par_freeze_com(int32 c) {
         /* freeze crv */
         int32 crv;
         crv = graf_par_create_crv(0);
-        if (crv < 0)
+        if (crv < 0) {
             break;
+        }
         graf_par_edit_frz_crv(crv);
         break;
     }
@@ -971,8 +1021,9 @@ graf_par_freeze_com(int32 c) {
     case 3:
         /* kill frz */
         for (int32 i = 0; i < MAXFRZ; i++) {
-            if (frz[i].use == 1 && frz[i].window == draw_win)
+            if (frz[i].use == 1 && frz[i].window == draw_win) {
                 graf_par_delete_frz_crv(i);
+            }
         }
         break;
     case 5: {
@@ -981,8 +1032,9 @@ graf_par_freeze_com(int32 c) {
         char filename[XPP_MAX_NAME];
         snprintf(filename, sizeof(filename), "diagram.dat");
         ggets_ping();
-        if (!init_conds_file_selector("Import Diagram", filename, "*.dat"))
+        if (!init_conds_file_selector("Import Diagram", filename, "*.dat")) {
             return;
+        }
         if ((fp = fopen(filename, "r")) == NULL) {
             ggets_err_msg("Couldn't open file");
             return;
@@ -1027,10 +1079,12 @@ graf_par_draw_freeze_key(void) {
     int32 y0;
     int32 ix2;
     int32 dy = 2*HChar;
-    if (FreezeKeyFlag == SCRNFMT)
+    if (FreezeKeyFlag == SCRNFMT) {
         return;
-    if (PltFmtFlag == PSFMT)
+    }
+    if (PltFmtFlag == PSFMT) {
         dy = -dy;
+    }
     graphics_scale_to_screen((double)FreezeKeyX, (double)FreezeKeyY, &ix, &iy);
     ix2 = ix + 4*HChar;
     y0 = iy;
@@ -1073,23 +1127,26 @@ void
 graf_par_edit_frz(void) {
     int32 i;
     i = graf_par_get_frz_index(draw_win);
-    if (i < 0)
+    if (i < 0) {
         return;
+    }
     graf_par_edit_frz_crv(i);
     return;
 }
 
 void
 graf_par_delete_frz_crv(int32 i) {
-    if (frz[i].use == 0)
+    if (frz[i].use == 0) {
         return;
+    }
     frz[i].use = 0;
     frz[i].name[0] = 0;
     frz[i].key[0] = 0;
     free(frz[i].xv);
     free(frz[i].yv);
-    if (frz[i].type > 0)
+    if (frz[i].type > 0) {
         free(frz[i].zv);
+    }
     return;
 }
 
@@ -1097,16 +1154,18 @@ void
 graf_par_delete_frz(void) {
     int32 i;
     i = graf_par_get_frz_index(draw_win);
-    if (i < 0)
+    if (i < 0) {
         return;
+    }
     graf_par_delete_frz_crv(i);
     return;
 }
 
 void
 graf_par_auto_freeze_it(void) {
-    if (AutoFreezeFlag == 0)
+    if (AutoFreezeFlag == 0) {
         return;
+    }
     graf_par_create_crv(0);
     return;
 }
@@ -1131,9 +1190,10 @@ graf_par_create_crv(int32 ind) {
                 xmalloc(sizeof(*(frz[i].xv))*(usize)my_browser.maxrow);
             frz[i].yv =
                 xmalloc(sizeof(*(frz[i].yv))*(usize)my_browser.maxrow);
-            if ((type = MyGraph->grtype) > 0)
+            if ((type = MyGraph->grtype) > 0) {
                 frz[i].zv =
                     xmalloc(sizeof(*(frz[i].zv))*(usize)my_browser.maxrow);
+            }
             if ((type > 0 && frz[i].zv == NULL) ||
                 (type == 0 && frz[i].yv == NULL)) {
                 ggets_err_msg("Cant allocate storage for curve");
@@ -1144,8 +1204,9 @@ graf_par_create_crv(int32 ind) {
             for (int32 j = 0; j < my_browser.maxrow; j++) {
                 frz[i].xv[j] = my_browser.data[ix][j];
                 frz[i].yv[j] = my_browser.data[iy][j];
-                if (type > 0)
+                if (type > 0) {
                     frz[i].zv[j] = my_browser.data[iz][j];
+                }
             }
             frz[i].type = (int16)type;
             frz[i].window = draw_win;
@@ -1177,8 +1238,9 @@ graf_par_edit_frz_crv(int32 i) {
 
 void
 graf_par_draw_frozen_cline(int32 index, Window window) {
-    if (nclines[index].use == 0 || nclines[index].window != window)
+    if (nclines[index].use == 0 || nclines[index].window != window) {
         return;
+    }
     return;
 }
 
@@ -1193,42 +1255,49 @@ graf_par_draw_freeze(Window window) {
     double ypl;
     double zpl = 0.0;
     double *xv, *yv, *zv;
-    for (int32 i = 0; i < MAXNCLINE; i++)
+    for (int32 i = 0; i < MAXNCLINE; i++) {
         graf_par_draw_frozen_cline(i, window);
+    }
     for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].window == window && frz[i].type == type) {
             if (frz[i].color < 0) {
                 graphics_set_linestyle(-frz[i].color);
                 lt = 1;
-            } else
+            } else {
                 graphics_set_linestyle(frz[i].color);
+            }
             xv = frz[i].xv;
             yv = frz[i].yv;
             zv = frz[i].zv;
             oldxpl = xv[0];
             oldypl = yv[0];
-            if (type > 0)
+            if (type > 0) {
                 oldzpl = zv[0];
+            }
             for (int32 j = 0; j < frz[i].len; j++) {
                 xpl = xv[j];
                 ypl = yv[j];
-                if (type > 0)
+                if (type > 0) {
                     zpl = zv[j];
+                }
                 if (lt == 0) {
-                    if (type == 0)
+                    if (type == 0) {
                         graphics_line_abs(oldxpl, oldypl, xpl, ypl);
-                    else
+                    } else {
                         graphics_line_3d(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
+                    }
                 } else {
-                    if (type == 0)
+                    if (type == 0) {
                         graphics_point_abs(xpl, ypl);
-                    else
+                    } else {
                         graphics_point_3d(xpl, ypl, zpl);
+                    }
                 }
                 oldxpl = xpl;
                 oldypl = ypl;
-                if (type > 0)
+                if (type > 0) {
                     oldzpl = zpl;
+                }
             }
         }
     }
@@ -1269,8 +1338,9 @@ graf_par_init_bd(void) {
 void
 graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
     int32 i;
-    if (ncrv >= MAXBIFCRV)
+    if (ncrv >= MAXBIFCRV) {
         return;
+    }
     my_bd.x[ncrv] = xmalloc(sizeof(*(my_bd.x[ncrv]))*(usize)len);
     my_bd.y[ncrv] = xmalloc(sizeof(*(my_bd.y[ncrv]))*(usize)len);
     for (i = 0; i < len; i++) {
@@ -1279,12 +1349,15 @@ graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
     }
     my_bd.npts[ncrv] = len;
     i = LS_SEQ;
-    if (type == UPER)
+    if (type == UPER) {
         i = LS_UPER;
-    if (type == SPER)
+    }
+    if (type == SPER) {
         i = LS_SPER;
-    if (type == UEQ)
+    }
+    if (type == UEQ) {
         i = LS_UEQ;
+    }
     my_bd.color[ncrv] = i;
     return;
 }
@@ -1308,9 +1381,9 @@ graf_par_read_bd(FILE *fp) {
     while (!feof(fp)) {
         fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &type,
                &br, &f2);
-        if (type == oldtype && br == oldbr)
+        if (type == oldtype && br == oldbr) {
             len++;
-        else {
+        } else {
             /* if(oldbr==br)len++; */ /* extend to point of instability */
             graf_par_add_bd_crv(x, ylo, len, oldtype, ncrv);
             ncrv++;
@@ -1318,8 +1391,9 @@ graf_par_read_bd(FILE *fp) {
                 graf_par_add_bd_crv(x, yhi, len, oldtype, ncrv);
                 ncrv++;
             }
-            if (oldbr == br)
+            if (oldbr == br) {
                 len--;
+            }
             x[0] = x[len];
             ylo[0] = ylo[len];
             yhi[0] = yhi[len];
@@ -1362,13 +1436,15 @@ graf_par_get_frz_index(Window window) {
             count++;
         }
     }
-    if (count == 0)
+    if (count == 0) {
         return -1;
+    }
     key[count] = 0;
     ch = (char)pop_up_list(&temp, "Curves", n, key, count, 12, 0, 10,
                            8*DCURY + 8, no_hint, info_pop, info_message);
-    for (int32 i = 0; i < count; i++)
+    for (int32 i = 0; i < count; i++) {
         free(n[i]);
+    }
     return (int32)(ch - 'a');
 }
 
@@ -1381,12 +1457,14 @@ graf_par_add_a_curve_com(int32 c) {
             return;
         }
         /* new curve */
-        if (graf_par_alter_curve("New Curve", 0, MyGraph->nvars))
+        if (graf_par_alter_curve("New Curve", 0, MyGraph->nvars)) {
             MyGraph->nvars = MyGraph->nvars + 1;
+        }
         break;
     case 1:
-        if (MyGraph->nvars > 1)
+        if (MyGraph->nvars > 1) {
             MyGraph->nvars = MyGraph->nvars - 1;
+        }
         break;
     case 2:
         MyGraph->nvars = 1;
@@ -1427,8 +1505,10 @@ graf_par_add_a_curve_com(int32 c) {
             snprintf(filename, sizeof(filename), "%s.ps", this_file);
             ggets_ping();
 
-            if (!init_conds_file_selector("Print postscript", filename, "*.ps"))
+            if (!init_conds_file_selector("Print postscript", filename,
+                                          "*.ps")) {
                 return;
+            }
             if (ps_init(filename, PS_Color)) {
                 many_pops_ps_restore();
                 ggets_ping();
@@ -1443,8 +1523,9 @@ graf_par_add_a_curve_com(int32 c) {
         filename[strlen(filename) - 4] = '\0';
         strcat(filename, ".svg");
         /*snprintf(filename, sizeof(filename),"%s.svg",tmp);*/
-        if (!init_conds_file_selector("Print svg", filename, "*.svg"))
+        if (!init_conds_file_selector("Print svg", filename, "*.svg")) {
             return;
+        }
         if (svg_init(filename)) {
             many_pops_svg_restore();
             ggets_ping();
@@ -1487,8 +1568,9 @@ graf_par_add_a_curve_com(int32 c) {
         char filename[XPP_MAX_NAME];
         snprintf(filename, sizeof(filename), "curve.dat");
         ggets_ping();
-        if (!init_conds_file_selector("Export graph data", filename, "*.dat"))
+        if (!init_conds_file_selector("Export graph data", filename, "*.dat")) {
             return;
+        }
         /* if(ggets_new_string("Data filename:",filename)==0)return; */
         if ((fp = fopen(filename, "w")) == NULL) {
             ggets_err_msg("Couldn't open file");

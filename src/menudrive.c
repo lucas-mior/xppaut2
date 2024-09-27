@@ -64,8 +64,9 @@ menudrive_do_tutorial(void) {
             DisplayHeight / 2, RootWindow(display, screen),
             "Did you know you can...");
 
-        if (ans == 'd')
+        if (ans == 'd') {
             break;
+        }
         tut++;
         tut = tut % N_TUTORIAL;
     }
@@ -155,15 +156,17 @@ menudrive_message_box(char *m) {
 
 void
 menudrive_message_box_redraw(Window window) {
-    if (window == MsgBox.window)
+    if (window == MsgBox.window) {
         ggets_f_text(10, 2*DCURY, MsgBox.text, MsgBox.window);
+    }
     return;
 }
 
 void
 menudrive_message_box_kill(void) {
-    if (MsgBox.here == 0)
+    if (MsgBox.here == 0) {
         return;
+    }
     MsgBox.here = 0;
     browse_wait_a_sec(ClickTime);
     XDestroyWindow(display, MsgBox.window);
@@ -240,8 +243,9 @@ menudrive_clr_all_scrns(void) {
 
 void
 menudrive_run_the_commands(int32 com) {
-    if (com < 0)
+    if (com < 0) {
         return;
+    }
     if (com <= MAX_M_I) {
         integrate_do_init_data(com);
         return;
@@ -267,8 +271,9 @@ menudrive_run_the_commands(int32 com) {
 
     if (com >= M_DD && com <= M_DS) {
         nullcline_direct_field_com(com - M_DD);
-        if ((com - M_DD) == 1)
+        if ((com - M_DD) == 1) {
             return;
+        }
         nullcline_create_new_cline();
         graf_par_redraw_the_graph();
         /*nullcline_redraw_dfield();*/
@@ -396,8 +401,9 @@ menudrive_run_the_commands(int32 com) {
             menudrive_do_tutorial();
             break;
         case M_FQ:
-            if (pop_list_yes_no_box())
+            if (pop_list_yes_no_box()) {
                 main_bye_bye();
+            }
             break;
         case M_FER:
             edit_rhs();
@@ -433,18 +439,24 @@ menudrive_run_the_commands(int32 com) {
         return;
     }
 
-    if (com >= M_V2 && com <= M_VT)
+    if (com >= M_V2 && com <= M_VT) {
         graf_par_change_view_com(com - M_V2);
-    if (com >= M_UAN && com <= M_UAR)
+    }
+    if (com >= M_UAN && com <= M_UAR) {
         adjoints_make_adj_com(com - M_UAN);
-    if (com >= M_UCN && com <= M_UCA)
+    }
+    if (com >= M_UCN && com <= M_UCA) {
         numerics_set_col_par_com(com - M_UCN);
-    if (com >= M_UPN && com <= M_UPP)
+    }
+    if (com >= M_UPN && com <= M_UPP) {
         numerics_get_pmap_pars_com(com - M_UPN);
-    if (com >= M_UHN && com <= M_UH2)
+    }
+    if (com >= M_UHN && com <= M_UH2) {
         markov_do_stochast_com(com - M_UHN);
-    if (com >= M_UT && com <= M_UC)
+    }
+    if (com >= M_UT && com <= M_UC) {
         numerics_quick_num(com - M_UT);
+    }
     return;
 }
 
@@ -460,12 +472,15 @@ menudrive_do_stochast(void) {
     int32 i;
     ch = (char)pop_up_list(&temp, "Stochastic", n, key, 16, 10, 0, 10,
                            2*DCURY + 8, stoch_hint, info_pop, info_message);
-    for (i = 0; i < 16; i++)
-        if (ch == key[i])
+    for (i = 0; i < 16; i++) {
+        if (ch == key[i]) {
             break;
+        }
+    }
 
-    if (i >= 0 && i < 16)
+    if (i >= 0 && i < 16) {
         menudrive_run_the_commands(M_UHN + i);
+    }
     return;
 }
 
@@ -480,12 +495,15 @@ menudrive_get_pmap_pars(void) {
     ch = (char)pop_up_list(&temp, "Poincare map", map, mkey, 4, 13, POIMAP, 10,
                            6*DCURY + 8, map_hint, info_pop, info_message);
 
-    for (i = 0; i < 4; i++)
-        if (ch == mkey[i])
+    for (i = 0; i < 4; i++) {
+        if (ch == mkey[i]) {
             break;
+        }
+    }
 
-    if (i >= 0 && i < 4)
+    if (i >= 0 && i < 4) {
         menudrive_run_the_commands(M_UPN + i);
+    }
     return;
 }
 
@@ -498,11 +516,14 @@ menudrive_set_col_par(void) {
     int32 i;
     ch = (char)pop_up_list(&tempw, "Color code", n, key, 3, 11, 0, 10,
                            12*DCURY + 8, color_hint, info_pop, info_message);
-    for (i = 0; i < 3; i++)
-        if (ch == key[i])
+    for (i = 0; i < 3; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 3)
+        }
+    }
+    if (i >= 0 && i < 3) {
         menudrive_run_the_commands(i + M_UCN);
+    }
     return;
 }
 
@@ -516,11 +537,14 @@ menudrive_make_adj(void) {
     int32 i;
     ch = (char)pop_up_list(&temp, "Adjoint", n, key, 7, 10, 0, 10,
                            11*DCURY + 8, adj_hint, info_pop, info_message);
-    for (i = 0; i < 7; i++)
-        if (ch == key[i])
+    for (i = 0; i < 7; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 7)
+        }
+    }
+    if (i >= 0 && i < 7) {
         menudrive_run_the_commands(M_UAN + i);
+    }
     return;
 }
 
@@ -538,29 +562,36 @@ menudrive_do_gr_objs(void) {
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, title, list, key, 7, 10, 0, 10,
                            10*DCURY + 8, text_hint, info_pop, info_message);
-    if (ch == 27)
+    if (ch == 27) {
         return;
+    }
     if (ch == 'e') {
         ch = (char)pop_up_list(&temp, etitle, elist, ekey, 3, 9, 0, 10,
                                10*DCURY + 8,
 
                                edit_hint, info_pop, info_message);
 
-        if (ch == 27)
+        if (ch == 27) {
             return;
-        for (i = 0; i < 3; i++) {
-            if (ch == ekey[i])
-                break;
         }
-        if (i >= 0 && i < 3)
+        for (i = 0; i < 3; i++) {
+            if (ch == ekey[i]) {
+                break;
+            }
+        }
+        if (i >= 0 && i < 3) {
             menudrive_run_the_commands(M_TEM + i);
+        }
         return;
     }
-    for (i = 0; i < 7; i++)
-        if (ch == key[i])
+    for (i = 0; i < 7; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 7)
+        }
+    }
+    if (i >= 0 && i < 7) {
         menudrive_run_the_commands(M_TT + i);
+    }
     return;
 }
 
@@ -570,14 +601,17 @@ menudrive_new_lookup(void) {
     static char key[] = "ev";
     char ch;
     Window temp = main_win;
-    if (NTable == 0)
+    if (NTable == 0) {
         return;
+    }
     ch = (char)pop_up_list(&temp, "Tables", n, key, 2, 12, 1, 10,
                            11*DCURY + 8, tab_hint, info_pop, info_message);
-    if (ch == key[0])
+    if (ch == key[0]) {
         menudrive_run_the_commands(M_UKE);
-    if (ch == key[1])
+    }
+    if (ch == key[1]) {
         menudrive_run_the_commands(M_UKV);
+    }
     return;
 }
 
@@ -590,13 +624,17 @@ menudrive_find_bvp(void) {
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, "Bndry Value Prob", n, key, 4, 16, 1, 10,
                            6*DCURY + 8, bvp_hint, info_pop, info_message);
-    if (ch == 27)
+    if (ch == 27) {
         return;
-    for (i = 0; i < 4; i++)
-        if (ch == key[i])
+    }
+    for (i = 0; i < 4; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 4)
+        }
+    }
+    if (i >= 0 && i < 4) {
         menudrive_run_the_commands(M_BR + i);
+    }
     return;
 }
 
@@ -610,11 +648,14 @@ menudrive_change_view(void) {
 
     ch = (char)pop_up_list(&temp, "Axes", n, key, 4, 5, 0, 10, 13*DCURY + 8,
                            view_hint, info_pop, info_message);
-    for (i = 0; i < 4; i++)
-        if (ch == key[i])
+    for (i = 0; i < 4; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 4)
+        }
+    }
+    if (i >= 0 && i < 4) {
         menudrive_run_the_commands(M_V2 + i);
+    }
     return;
 }
 
@@ -630,21 +671,24 @@ menudrive_do_windows(void) {
     static char key[] = "ckdbams";
     static char title[] = "Make window";
     Window temp = main_win;
-    if (SimulPlotFlag == 0)
+    if (SimulPlotFlag == 0) {
         ch = (char)pop_up_list(&temp, title, list, key, 7, 11, 0, 10,
                                14*DCURY + 8, half_hint, info_pop,
                                info_message);
-    else
+    } else {
         ch = (char)pop_up_list(&temp, title, list2, key, 7, 11, 0, 10,
                                14*DCURY + 8, half_hint, info_pop,
                                info_message);
+    }
     for (i = 0; i < 7; i++) {
-        if (ch == key[i])
+        if (ch == key[i]) {
             break;
+        }
     }
 
-    if (i >= 0 && i < 7)
+    if (i >= 0 && i < 7) {
         menudrive_run_the_commands(M_MC + i);
+    }
     return;
 }
 
@@ -673,46 +717,58 @@ menudrive_add_a_curve(void) {
     int32 j;
     ch = (char)pop_up_list(&temp, "Curves", na, keya, 10, 15, 0, 10,
                            8*DCURY + 8, graf_hint, info_pop, info_message);
-    for (i = 0; i < 10; i++)
-        if (ch == keya[i])
+    for (i = 0; i < 10; i++) {
+        if (ch == keya[i]) {
             break;
+        }
+    }
     if (i == 6) {
-        if (AutoFreezeFlag == 0)
+        if (AutoFreezeFlag == 0) {
             ch = (char)pop_up_list(&temp, "Freeze", nf, keyf, 8, 15, 0, 10,
                                    8*DCURY + 8, frz_hint, info_pop,
                                    info_message);
-        else
+        } else {
             ch = (char)pop_up_list(&temp, "Freeze", nf2, keyf, 8, 15, 0, 10,
                                    8*DCURY + 8, frz_hint, info_pop,
                                    info_message);
-        for (j = 0; j < 8; j++)
-            if (ch == keyf[j])
+        }
+        for (j = 0; j < 8; j++) {
+            if (ch == keyf[j]) {
                 break;
+            }
+        }
         if (j == 4) {
             ch = (char)pop_up_list(&temp, "Key", nk, keyk, 2, 9, 0, 10,
                                    8*DCURY + 8, no_hint, info_pop,
                                    info_message);
-            if (ch == keyk[0])
+            if (ch == keyk[0]) {
                 com = M_GFKN;
-            if (ch == keyk[1])
+            }
+            if (ch == keyk[1]) {
                 com = M_GFKK;
+            }
         } else {
-            if (j >= 0 && j < 8)
+            if (j >= 0 && j < 8) {
                 com = M_GFF + j;
+            }
         }
     } else {
         if (i == 9) {
             ch = (char)pop_up_list(&temp, "Colormap", nc, keyc, 7, 15, 0, 10,
                                    8*DCURY + 8, cmap_hint, info_pop,
                                    info_message);
-            for (j = 0; j < 7; j++)
-                if (ch == keyc[j])
+            for (j = 0; j < 7; j++) {
+                if (ch == keyc[j]) {
                     break;
-            if (j >= 0 && j < 7)
+                }
+            }
+            if (j >= 0 && j < 7) {
                 com = M_GCN + j;
+            }
         } else {
-            if (i >= 0 && i < 10)
+            if (i >= 0 && i < 10) {
                 com = M_GA + i;
+            }
         }
     }
     menudrive_run_the_commands(com);
@@ -730,11 +786,14 @@ menudrive_do_movie(void) {
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, "Kinescope", list, key, nkc, 11, 0, 10,
                            8*DCURY + 8, kin_hint, info_pop, info_message);
-    for (i = 0; i < nkc; i++)
-        if (ch == key[i])
+    for (i = 0; i < nkc; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < nkc)
+        }
+    }
+    if (i >= 0 && i < nkc) {
         menudrive_run_the_commands(i + M_KC);
+    }
     return;
 }
 
@@ -747,11 +806,14 @@ menudrive_do_torus(void) {
     int32 i;
     ch = (char)pop_up_list(&temp, "Torus", n, key, 3, 9, 1 - TORUS, 10,
                            4*DCURY + 8, phas_hint, info_pop, info_message);
-    for (i = 0; i < 3; i++)
-        if (ch == key[i])
+    for (i = 0; i < 3; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 3)
+        }
+    }
+    if (i >= 0 && i < 3) {
         menudrive_run_the_commands(M_AA + i);
+    }
     return;
 }
 
@@ -765,11 +827,14 @@ menudrive_window_zoom(void) {
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, "Window", n, key, 6, 13, 0, 10,
                            13*DCURY + 8, wind_hint, info_pop, info_message);
-    for (i = 0; i < 6; i++)
-        if (ch == key[i])
+    for (i = 0; i < 6; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 6)
+        }
+    }
+    if (i >= 0 && i < 6) {
         menudrive_run_the_commands(M_WW + i);
+    }
     return;
 }
 
@@ -784,11 +849,14 @@ menudrive_direct_field(void) {
     ch = (char)pop_up_list(&temp, "Two-D Fun", n, key, 5, 18, 0, 10,
                            6*DCURY + 8, flow_hint, info_pop, info_message);
 
-    for (i = 0; i < 5; i++)
-        if (ch == key[i])
+    for (i = 0; i < 5; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 5)
+        }
+    }
+    if (i >= 0 && i < 5) {
         menudrive_run_the_commands(M_DD + i);
+    }
     return;
 }
 
@@ -802,11 +870,14 @@ menudrive_new_clines(void) {
     char ch;
     ch = (char)pop_up_list(&temp, "Nullclines", n, key, 6, 10, 0, 10,
                            6*DCURY + 8, null_hint, info_pop, info_message);
-    for (i = 0; i < 6; i++)
-        if (ch == key[i])
+    for (i = 0; i < 6; i++) {
+        if (ch == key[i]) {
             break;
-    if (i >= 0 && i < 6)
+        }
+    }
+    if (i >= 0 && i < 6) {
         menudrive_run_the_commands(M_NN + i);
+    }
     return;
 }
 
@@ -820,11 +891,13 @@ menudrive_froz_cline_stuff(void) {
     ch = (char)pop_up_list(&temp, "Freeze cline", n, key, 4, 10, 0, 10,
                            6*DCURY + 8, null_freeze, info_pop, info_message);
     for (i = 0; i < 4; i++) {
-        if (ch == key[i])
+        if (ch == key[i]) {
             break;
+        }
     }
-    if (i >= 0 && i < 4)
+    if (i >= 0 && i < 4) {
         menudrive_run_the_commands(M_NFF + i);
+    }
     return;
 }
 
@@ -837,15 +910,18 @@ menudrive_find_equilibrium(void) {
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, "Equilibria", n, key, 4, 12, 1, 10,
                            6*DCURY + 8, sing_hint, info_pop, info_message);
-    if (ch == 27)
+    if (ch == 27) {
         return;
+    }
     for (i = 0; i < 4; i++) {
-        if (ch == key[i])
+        if (ch == key[i]) {
             break;
+        }
     }
 
-    if (i > -1 && i < 4)
+    if (i > -1 && i < 4) {
         menudrive_run_the_commands(i + M_SG);
+    }
     return;
 }
 
@@ -862,12 +938,14 @@ menudrive_ini_data_menu(void) {
     ch = (char)pop_up_list(&temp, "Integrate", n, key, 14, 13, 3, 10,
                            3*DCURY + 8, ic_hint, info_pop, info_message);
 
-    if (ch == 27)
+    if (ch == 27) {
         return;
+    }
 
     for (i = 0; i < 14; i++) {
-        if (ch == key[i])
+        if (ch == key[i]) {
             break;
+        }
     }
 
     menudrive_run_the_commands(i);

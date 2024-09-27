@@ -109,8 +109,9 @@ static Vocab my_cmd[NCMD] = {
 int32
 comline_is_set_name(struct SetName *set, char *nam) {
     struct SetName *curr;
-    if (set == NULL)
+    if (set == NULL) {
         return 0;
+    }
 
     curr = set;
 
@@ -319,8 +320,9 @@ comline_if_needed_load_ext_options(void) {
     FILE *fp;
     char myopts[1024];
     char myoptsx[1026];
-    if (externaloptionsflag == 0)
+    if (externaloptionsflag == 0) {
         return 1;
+    }
 
     if (externaloptionsflag == 1) {
         fp = fopen(readsetfile, "r");
@@ -346,8 +348,9 @@ comline_if_needed_load_ext_options(void) {
 
 int32
 comline_if_needed_select_sets(void) {
-    if (!select_intern_sets)
+    if (!select_intern_sets) {
         return 1;
+    }
     for (int32 j = 0; j < Nintern_set; j++) {
         intern_set[j].use = (uint32)use_intern_sets;
         Nintern_2_use += use_intern_sets;
@@ -377,8 +380,9 @@ comline_if_needed_select_sets(void) {
 int32
 comline_if_needed_load_set(void) {
     FILE *fp;
-    if (!loadsetfile)
+    if (!loadsetfile) {
         return 1;
+    }
     fp = fopen(setfilename, "r");
     if (fp == NULL) {
         ggets_plintf("Couldn't load %s\n", setfilename);
@@ -391,8 +395,9 @@ comline_if_needed_load_set(void) {
 
 int32
 comline_if_needed_load_par(void) {
-    if (!loadparfile)
+    if (!loadparfile) {
         return 1;
+    }
     ggets_plintf("Loading external parameter file: %s\n", parfilename);
     lunch_io_parameter_file(parfilename, 1);
     return 1;
@@ -400,8 +405,9 @@ comline_if_needed_load_par(void) {
 
 int32
 comline_if_needed_load_ic(void) {
-    if (!loadicfile)
+    if (!loadicfile) {
         return 1;
+    }
     ggets_plintf("Loading external initial condition file: %s\n", icfilename);
     lunch_io_ic_file(icfilename, 1);
     return 1;

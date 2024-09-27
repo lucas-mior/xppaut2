@@ -120,24 +120,32 @@ calc_q_calc(void) {
     while (true) {
         XNextEvent(display, &event);
         draw_calc(event.xany.window);
-        if (event.type == ButtonPress)
-            if (event.xbutton.window == my_calc.quit)
+        if (event.type == ButtonPress) {
+            if (event.xbutton.window == my_calc.quit) {
                 break;
-        if (event.type == EnterNotify && event.xcrossing.window == my_calc.quit)
+            }
+        }
+        if (event.type == EnterNotify &&
+            event.xcrossing.window == my_calc.quit) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 2);
+        }
 
-        if (event.type == LeaveNotify && event.xcrossing.window == my_calc.quit)
+        if (event.type == LeaveNotify &&
+            event.xcrossing.window == my_calc.quit) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 1);
+        }
         ggets_edit_command_string(event, name, value, &done, &pos, &col);
         if (done == 1) {
             flag = calc_do_calc(value, &z);
-            if (flag != -1)
+            if (flag != -1) {
                 make_calc(z);
+            }
             ini_calc_string(name, value, &pos, &col);
             done = 0;
         }
-        if (done == -1)
+        if (done == -1) {
             break;
+        }
     }
 
     /* quit calc */
@@ -164,8 +172,9 @@ calc_do_calc(char *temp, double *z) {
     if (calc_has_eq(temp, val, &i)) {
         newz = calc(&temp[i], &ok); /*  calculate quantity  */
 
-        if (ok == 0)
+        if (ok == 0) {
             return -1;
+        }
         i = init_conds_find_user_name(Param, val);
         if (i > -1) {
             set_val(val, newz); /* a parameter set to value  */
@@ -187,8 +196,9 @@ calc_do_calc(char *temp, double *z) {
     }
 
     newz = calc(temp, &ok);
-    if (ok == 0)
+    if (ok == 0) {
         return -1;
+    }
     *z = newz;
     return 1;
 }
@@ -196,11 +206,14 @@ calc_do_calc(char *temp, double *z) {
 int32
 calc_has_eq(char *z, char *w, int32 *where) {
     int32 i;
-    for (i = 0; i < (int32)strlen(z); i++)
-        if (z[i] == ':')
+    for (i = 0; i < (int32)strlen(z); i++) {
+        if (z[i] == ':') {
             break;
-    if (i == (int32)strlen(z))
+        }
+    }
+    if (i == (int32)strlen(z)) {
         return 0;
+    }
     strncpy(w, z, (usize)i);
     w[i] = 0;
     *where = i + 1;

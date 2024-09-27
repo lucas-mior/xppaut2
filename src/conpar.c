@@ -77,8 +77,9 @@ conpar2_process(void *arg) {
        sum (with the true copy of d) in the
        master */
     else if (global_conpar_type == CONPAR_MPI) {
-        for (int32 i = 0; i < (*ncb)*(*nrc); i++)
+        for (int32 i = 0; i < (*ncb)*(*nrc); i++) {
             d[i] = 0.0;
+        }
     }
     /* In the shared memory case we create a local
        variable for doing this threads part of the
@@ -265,8 +266,9 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
     icf_dim1 = *nca;
 
     nex = *nca - (*nov << 1);
-    if (nex == 0)
+    if (nex == 0) {
         return 0;
+    }
 
     /*     Initialization */
     for (int32 i = 0; i < *na; ++i) {

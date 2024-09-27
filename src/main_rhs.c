@@ -9,30 +9,38 @@ main(int32 argc, char **argv) {
 
 void
 main_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
-    if (nod >= neq)
+    if (nod >= neq) {
         return;
+    }
     SETVAR(0, t);
-    for (int32 i = 0; i < nod; i++)
+    for (int32 i = 0; i < nod; i++) {
         SETVAR(i + 1, y__y[i]);
-    for (int32 i = nod + FIX_VAR; i < nod + FIX_VAR + NMarkov; i++)
+    }
+    for (int32 i = nod + FIX_VAR; i < nod + FIX_VAR + NMarkov; i++) {
         SETVAR(i + 1, y__y[i - FIX_VAR]);
-    for (int32 i = nod; i < nod + FIX_VAR; i++)
+    }
+    for (int32 i = nod; i < nod + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
+    }
 
-    for (int32 i = nod + NMarkov; i < neq; i++)
+    for (int32 i = nod + NMarkov; i < neq; i++) {
         y__y[i] = evaluate(my_ode[i + FIX_VAR - NMarkov]);
+    }
     return;
 }
 
 void
 main_rhs_set_fix(double t, double *y) {
     SETVAR(0, t);
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         SETVAR(i + 1, y[i]);
-    for (int32 i = 0; i < NMarkov; i++)
+    }
+    for (int32 i = 0; i < NMarkov; i++) {
         SETVAR(i + 1 + NODE + FIX_VAR, y[i + NODE]);
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
+    }
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
+    }
     simplenet_eval_all_nets();
 
     extra_do_in_out();
@@ -43,8 +51,9 @@ int32
 main_rhs(double t, double *y, double *ydot, int32 neq) {
     (void)neq;
     SETVAR(0, t);
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         SETVAR(i + 1, y[i]);
+    }
 
     for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
@@ -63,8 +72,9 @@ main_rhs(double t, double *y, double *ydot, int32 neq) {
 
 void
 main_rhs_update_based_on_current(void) {
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
+    }
 
     simplenet_eval_all_nets();
     extra_do_in_out();
@@ -73,8 +83,9 @@ main_rhs_update_based_on_current(void) {
 
 void
 main_rhs_fix_only(void) {
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
+    }
     return;
 }
 

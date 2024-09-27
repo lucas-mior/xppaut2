@@ -189,8 +189,9 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     nthl = x_auto.nthl;
 
     if (nthl > 0) {
-        for (int64 i = 0; i < nthl; ++i)
+        for (int64 i = 0; i < nthl; ++i) {
             thl[x_auto.ithl[i]] = x_auto.thl[i];
+        }
     }
 
     nuzr = x_auto.nuzr;
@@ -399,16 +400,19 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     dsmin = rap->dsmin;
     dsmax = rap->dsmax;
 
-    if (isw == 0)
+    if (isw == 0) {
         isw = 1;
+    }
 
     /* Check and perturb pseudo arclength stepsize and steplimits. */
     /* (Perturbed to avoid exact computation of certain singular points). */
 
-    if (ds == 0.)
+    if (ds == 0.) {
         ds = (double).1;
-    if (dsmin == 0.)
+    }
+    if (dsmin == 0.) {
         dsmin = fabs(ds)*1e-4;
+    }
     fc = HMACH1;
     ds = fc*ds;
     dsmin /= fc;
@@ -860,16 +864,18 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     rlcur[0] = par[icp[0]];
     stplae(iap, rap, par, icp, rlcur, u);
     istop = iap->istop;
-    if (istop == 1)
+    if (istop == 1) {
         goto L6;
+    }
 
     /* Starting procedure  (to get second point on first branch) : */
 
     stprae(iap, rap, par, icp, funi, &rds, &aa_first_dimension, aa, rhs, rlcur,
            rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, thl, thu);
     istop = iap->istop;
-    if (istop == 1)
+    if (istop == 1) {
         goto L5;
+    }
     itp = 0;
     iap->itp = itp;
     goto L3;
@@ -895,8 +901,9 @@ L2:
             uzr[i] = 0.;
         }
     }
-    if (ipos == 0 || mxbf < 0)
+    if (ipos == 0 || mxbf < 0) {
         ++ibr;
+    }
     iap->ibr = ibr;
 
     ntot = 0;
@@ -914,23 +921,26 @@ L2:
 
     stplae(iap, rap, par, icp, rlcur, u);
     istop = iap->istop;
-    if (istop == 1)
+    if (istop == 1) {
         goto L6;
+    }
 
     /* Determine the second point on the bifurcating branch */
 
     swprc(iap, rap, par, icp, funi, &aa_first_dimension, aa, rhs, rlcur, rlold,
           rldot, u, du, uold, udot, f, dfdu, dfdp, &rds, thl, thu);
     istop = iap->istop;
-    if (istop == 1)
+    if (istop == 1) {
         goto L5;
+    }
 
     /* Store plotting data for second point : */
 
     stplae(iap, rap, par, icp, rlcur, u);
     istop = iap->istop;
-    if (istop == 1)
+    if (istop == 1) {
         goto L6;
+    }
     rbp = 0.;
     rev = 0.;
     rlp = 0.;
@@ -945,8 +955,9 @@ L3:
     solvae(iap, rap, par, icp, funi, &rds, &aa_first_dimension, aa, rhs, rlcur,
            rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, thl, thu);
     istop = iap->istop;
-    if (istop == 1)
+    if (istop == 1) {
         goto L5;
+    }
 
     /* Check for user supplied parameter output parameter-values. */
 
@@ -1053,8 +1064,9 @@ L6:
     itp = 0;
     iap->itp = itp;
     istop = iap->istop;
-    if (istop == 0)
+    if (istop == 0) {
         goto L3;
+    }
 
     nbif = iap->nbif;
     if (nbif != 0 && nbfc < ABS(mxbf)) {
@@ -1168,8 +1180,9 @@ stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     ss += thl[icp[0]]*(du[ndim]*du[ndim]);
 
     sign = 1.;
-    if (du[ndim] < 0.)
+    if (du[ndim] < 0.) {
         sign = -1.;
+    }
     sc = sign / sqrt(ss);
     for (int64 i = 0; i < ndim + 1; ++i) {
         du[i] = sc*du[i];
@@ -1221,8 +1234,9 @@ contae(iap_type *iap, rap_type *rap, double *rds, double *rlcur, double *rlold,
         u[i] += udot[i]**rds;
     }
     /*      Save old time for time integration */
-    if (ips == -2)
+    if (ips == -2) {
         rap->tivp = rlold[0];
+    }
 
     return 0;
 }
@@ -1297,8 +1311,9 @@ L1:
     ntot = iap->ntot;
     ntop = (ntot + 1) % 10000;
     ndmr = ndim;
-    if (ndmr > 6)
+    if (ndmr > 6) {
         ndmr = 6;
+    }
     if (iid >= 2 && iap->mynode == 0) {
         if (last_ntop != ntop) {
             fprintf(fp9, "========================================");
@@ -1424,8 +1439,9 @@ L3:
         fprintf(fp9, "%4li%6li NOTE:No convergence with fixed step size\n", ibr,
                 ntop);
     }
-    if (iads == 0)
+    if (iads == 0) {
         goto L5;
+    }
 
     /* Reduce stepsize and try again */
 
@@ -1439,8 +1455,9 @@ L3:
     for (int64 i = 0; i < ndim; ++i) {
         u[i] = uold[i] + *rds*udot[i];
     }
-    if (iid >= 2 && iap->mynode == 0)
+    if (iid >= 2 && iap->mynode == 0) {
         fprintf(fp9, " NOTE:Retrying step\n");
+    }
     goto L1;
 
     /* Minimum stepsize reached */
@@ -1896,8 +1913,9 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     }
     rap->hbff = ret_val;
     nins = iap->nins;
-    if (nins1 != nins)
+    if (nins1 != nins) {
         *chng = true;
+    }
     nins = nins1;
     iap->nins = nins;
 
@@ -1907,8 +1925,9 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
         fprintf(fp9, "%4li%6li        Hopf Function %14.6E\n", ABS(ibr), ntop,
                 ret_val);
     }
-    if (nins1 == ndm)
+    if (nins1 == ndm) {
         ntotp1 = -ntotp1;
+    }
 
     if (iap->mynode == 0) {
         fprintf(fp9,
@@ -2112,8 +2131,9 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
     ds = rap->ds;
 
     *rds = ds;
-    if (ipos == 0)
+    if (ipos == 0) {
         *rds = -ds;
+    }
     rlcur[0] = stla[0];
     par[icp[0]] = rlcur[0];
     rldot[0] = stld[0];
@@ -2129,8 +2149,9 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
         ipos = 1 - ipos;
         iap->ipos = ipos;
     }
-    if (ipos == 0)
+    if (ipos == 0) {
         return 0;
+    }
 
     for (int64 i = 0; i < nbif; ++i) {
         stla[i] = stla[i + 1];
@@ -2223,8 +2244,9 @@ L2:
     /* Write additional output on unit 9 if requested : */
 
     ndmr = ndim;
-    if (ndmr > 6)
+    if (ndmr > 6) {
         ndmr = 6;
+    }
     if (iid >= 2 && iap->mynode == 0) {
         fprintf(fp9, " Branch %2ld N=%5ld IT=%2ld PAR(%2ld)=%11.3E U=", ibr,
                 ntop, nit, icp[0], rlcur[0]);
@@ -2319,8 +2341,9 @@ L2:
             "step size\n",
             ibr, ntop);
     }
-    if (iads == 0)
+    if (iads == 0) {
         goto L5;
+    }
 
     mxt = itnw;
     iap->nit = mxt;
@@ -2332,8 +2355,9 @@ L2:
     for (int64 i = 0; i < ndim; ++i) {
         u[i] = uold[i] + *rds*udot[i];
     }
-    if (iid >= 2 && iap->mynode == 0)
+    if (iid >= 2 && iap->mynode == 0) {
         fprintf(fp9, "%4li%6li NOTE:Retrying step\n", ibr, ntop);
+    }
     goto L2;
 
     /* Minimum stepsize reached. */
@@ -2447,8 +2471,9 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     epsu = rap->epsu;
     epss = rap->epss;
 
-    if (iap->mynode > 0)
+    if (iap->mynode > 0) {
         return 0;
+    }
 
     fprintf(fp7, "   0 %12.4E%12.4E%12.4E%12.4E\n", rl0, rl1, a0, a1);
     fprintf(fp7, "   0   EPSL=%11.4E  EPSU =%11.4E  EPSS =%11.4E\n", epsl, epsu,
@@ -2771,8 +2796,9 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 
     /* Write restart information for multi-parameter analysis : */
 
-    if (labw != 0)
+    if (labw != 0) {
         wrtsp8(iap, rap, par, icp, &labw, rlcur, u);
+    }
 
     return 0;
 }
@@ -2811,8 +2837,9 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
     if (n1 > 7) {
         n1 = 7;
         n2 = 0;
-    } else if (nt > 7)
+    } else if (nt > 7) {
         n2 = 7 - n1;
+    }
 
     /* Write a heading above the first line. */
 
@@ -2850,8 +2877,9 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
         strcpy(atype, "  ");
     }
 
-    if (iap->mynode > 0)
+    if (iap->mynode > 0) {
         return 0;
+    }
 
     mtot = *ntot % 10000;
     if (n2 == 0) {
@@ -2998,8 +3026,9 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
     t = 0.;
     amp = 0.;
     rap->amp = amp;
-    if (iap->mynode > 0)
+    if (iap->mynode > 0) {
         return 0;
+    }
 
     mtot = ntot % 10000;
     fprintf(fp8, "%5ld", ibr);
@@ -3016,16 +3045,19 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
     fprintf(fp8, "%5d\n", NPARX);
     fprintf(fp8, "    %19.10E", t);
     for (int64 i = 0; i < ndim; ++i) {
-        if ((i > 0) && ((i + 1) % 7 == 0))
+        if ((i > 0) && ((i + 1) % 7 == 0)) {
             fprintf(fp8, "\n    ");
+        }
         fprintf(fp8, "%19.10E", u[i]);
     }
     fprintf(fp8, "\n");
     for (int64 i = 0; i < NPARX; ++i) {
-        if (i == 0)
+        if (i == 0) {
             fprintf(fp8, "    ");
-        if ((i > 0) && (i % 7 == 0))
+        }
+        if ((i > 0) && (i % 7 == 0)) {
             fprintf(fp8, "\n    ");
+        }
         fprintf(fp8, "%19.10E", par[i]);
     }
     fprintf(fp8, "\n");
@@ -3040,8 +3072,9 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
 
     aa_dim1 = *m1aaloc;
 
-    if (iap->mynode > 0)
+    if (iap->mynode > 0) {
         return 0;
+    }
     fprintf(fp9, " Residual vector :\n");
 
     for (int64 i = 0; i < *n; ++i) {
@@ -3267,8 +3300,9 @@ cntdif(int64 *n, double *d) {
     /*                   0    1          N */
 
     d[0] = 1.;
-    if (*n == 0)
+    if (*n == 0) {
         return 0;
+    }
 
     for (int64 i = 0; i < *n; ++i) {
         d[i + 1] = 0.;
@@ -3410,12 +3444,14 @@ adptds(iap_type *iap, rap_type *rap, double *rds) {
         *rds *= (double)1.5;
     } else if (nit > 2 && nit <= n1) {
         *rds *= (double)1.1;
-    } else if (nit >= itnw)
+    } else if (nit >= itnw) {
         *rds *= .5;
+    }
 
     ards = fabs(*rds);
-    if (ards > dsmax)
+    if (ards > dsmax) {
         *rds = *rds*dsmax / ards;
+    }
 
     fprintf(fp9, "%4li%6li        Iterations     %3li\n", ABS(ibr), ntop - 1,
             nit);
@@ -3842,8 +3878,9 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
         ev[i].i = wi[i];
     }
 
-    if (*ier != 0)
+    if (*ier != 0) {
         *ier = 1;
+    }
     if (*ier == 1) {
         fprintf(fp9, "%4li%6li NOTE:Error return from EISPACK routine RG\n",
                 ibr, ntop);
@@ -4072,10 +4109,12 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
         *det *= ARRAY2D(a, ir[ipiv], ic[jpiv]);
 #define GE_PIVOTS_DEBUG
 #ifdef GE_PIVOTS_DEBUG
-        if (jj == 0)
+        if (jj == 0) {
             fprintf(fp9, "\n Pivots in GE");
-        if ((jj % 6) == 0)
+        }
+        if ((jj % 6) == 0) {
             fprintf(fp9, "\n");
+        }
         fprintf(fp9, " %4ld %12.3e ", jj, fabs(ARRAY2D(a, ir[ipiv], ic[jpiv])));
 #endif
         if (ipiv != jj) {
@@ -4115,8 +4154,9 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
     }
     *det *= ARRAY2D(a, ir[n - 1], ic[n - 1]);
 #ifdef GE_PIVOTS_DEBUG
-    if ((jj % 6) == 0)
+    if ((jj % 6) == 0) {
         fprintf(fp9, "\n");
+    }
     fprintf(fp9, " %4ld %12.3e \n", n - 1, ARRAY2D(a, ir[n - 1], ic[n - 1]));
 #endif
 
@@ -4228,13 +4268,16 @@ L1:
     while (fgetc(fp3) != '\n')
         ;
 
-    if (ibrs > mbr)
+    if (ibrs > mbr) {
         mbr = ibrs;
-    if (labrs > mlab)
+    }
+    if (labrs > mlab) {
         mlab = labrs;
+    }
     skip3(&nskip, &eof3);
-    if (!eof3)
+    if (!eof3) {
         goto L1;
+    }
 
 L2:
     lab = mlab;
@@ -4967,8 +5010,9 @@ L2:
            rldot, &ntst_plus_one, ups, dups, uoldps, udotps, upoldp, fa, fc, tm,
            dtm, p0, p1, thl, thu);
     istop = iap->istop;
-    if (istop == 1)
+    if (istop == 1) {
         goto L3;
+    }
 
     /* Check for user supplied parameter output parameter-values. */
 
@@ -5453,8 +5497,9 @@ L3:
         fprintf(fp9, "%4li%6li NOTE:No convergence with fixed step size\n", ibr,
                 ntop);
     }
-    if (iads == 0)
+    if (iads == 0) {
         goto L13;
+    }
 
     /* Reduce stepsize and try again. */
 
@@ -5473,8 +5518,9 @@ L3:
                 ARRAY2D(uoldps, j, i) + *rds*ARRAY2D(udotps, j, i);
         }
     }
-    if (iid >= 2 && iap->mynode == 0)
+    if (iid >= 2 && iap->mynode == 0) {
         fprintf(fp9, "%4li%6li NOTE:Retrying step\n", ibr, ntop);
+    }
     goto L1;
 
     /* Minimum stepsize reached. */
@@ -5577,15 +5623,17 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
         /* use the bigger of the size defined in fort.2 and the one defined in
          * fort.8 */
-        if (ntst_fort8 > ntst)
+        if (ntst_fort8 > ntst) {
             ntst_used = ntst_fort8;
-        else
+        } else {
             ntst_used = ntst;
+        }
 
-        if (ncol_fort8 > ncol)
+        if (ncol_fort8 > ncol) {
             ncol_used = ncol_fort8;
-        else
+        } else {
             ncol_used = ncol;
+        }
 
         *ndxloc = (ntst_used + 1)*4;
         ups_new = xmalloc(sizeof(*ups_new) *
@@ -5773,8 +5821,9 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     /*go to the end of the line*/
     while (fgetc(fp3) != '\n')
         ;
-    if (nskip1 > 0)
+    if (nskip1 > 0) {
         skip3(&nskip1, &eof3);
+    }
 
     for (int64 i = 0; i < nfprs; ++i) {
         fscanf(fp3, "%ld", &icprs[i]);
@@ -5806,8 +5855,9 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     /*go to the end of the line*/
     while (fgetc(fp3) != '\n')
         ;
-    if (nskip2 > 0)
+    if (nskip2 > 0) {
         skip3(&nskip2, &eof3);
+    }
 
     /* Read the parameter values. */
 
@@ -6065,8 +6115,9 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 #endif
     }
 
-    if (iap->mynode > 0)
+    if (iap->mynode > 0) {
         return 0;
+    }
 
     if (iid >= 2) {
         fprintf(fp9, "Starting direction of the free parameter(s) :\n");
@@ -6212,8 +6263,9 @@ L1:
         goto L1;
     }
 
-    if (iap->mynode > 0)
+    if (iap->mynode > 0) {
         return 0;
+    }
 
     fprintf(fp9, "%4li%6li NOTE:Possible special point\n", ibr, ntop);
     *q = 0.;
@@ -6882,10 +6934,12 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     /* Check whether limits of the bifurcation diagram have been reached : */
 
     iab = ABS(iplt);
-    if (iab == 0 || iab > ndm*3)
+    if (iab == 0 || iab > ndm*3) {
         amp = sqrt(rnrmsq(iap, &ndm, ndxloc, ups, dtm, thu));
-    if (iplt > 0 && iab <= ndm)
+    }
+    if (iplt > 0 && iab <= ndm) {
         amp = rmxups(iap, ndxloc, &iab, ups);
+    }
     if (iplt > ndm && iab <= (ndm*2)) {
         amp = rintg(iap, ndxloc, iab - ndm, ups, dtm);
     }
@@ -6893,8 +6947,9 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
         int64 tmp = iab - (ndm*2);
         amp = rnrm2(iap, ndxloc, &tmp, ups, dtm);
     }
-    if (iplt < 0 && iab <= ndm)
+    if (iplt < 0 && iab <= ndm) {
         amp = rmnups(iap, ndxloc, &iab, ups);
+    }
 
     rap->amp = amp;
     /* here is another place for byeauto
@@ -6932,8 +6987,9 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     /* Compute maxima of solution components. */
 
     n2 = ndm;
-    if (n2 > 7)
+    if (n2 > 7) {
         n2 = 7;
+    }
     for (int64 i = 0; i < n2; ++i) {
         itmp = i + 1;
         umx[i] = rmxups(iap, ndxloc, &itmp, ups);
@@ -6968,8 +7024,9 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 
     /* Write plotting and restart data on unit 8. */
 
-    if (itp % 10 != 0)
+    if (itp % 10 != 0) {
         wrtbv8(iap, rap, par, icp, rldot, ndxloc, ups, udotps, tm, dtm);
+    }
 
     return 0;
 }
@@ -7075,8 +7132,9 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     nrowpr = nrd*(ncol*ntst + 1) + (nfpr - 1) / 7 + 1 + (jtmp - 1) / 7 + 1 +
              (nfpr - 1) / 20 + 1;
 
-    if (iap->mynode > 0)
+    if (iap->mynode > 0) {
         return 0;
+    }
 
     mtot = ntot % 10000;
     fprintf(fp8, "%5ld", ibr);
@@ -7102,8 +7160,9 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
             t = tm[j] + (double)i*rn*dtm[j];
             fprintf(fp8, "    %19.10E", t);
             for (int64 k = k1; k < k2; ++k) {
-                if ((k + 1 - k1) % 7 == 0)
+                if ((k + 1 - k1) % 7 == 0) {
                     fprintf(fp8, "\n    ");
+                }
                 fprintf(fp8, "%19.10E", ARRAY2D(ups, j, k));
             }
             fprintf(fp8, "\n");
@@ -7111,8 +7170,9 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     }
     fprintf(fp8, "    %19.10E", tm[ntst]);
     for (int64 i = 0; i < ndim; ++i) {
-        if ((i + 1) % 7 == 0)
+        if ((i + 1) % 7 == 0) {
             fprintf(fp8, "\n    ");
+        }
         fprintf(fp8, "%19.10E", ARRAY2D(ups, ntst, i));
     }
     fprintf(fp8, "\n");
@@ -7126,8 +7186,9 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     /* Write the direction of the branch: */
     fprintf(fp8, "    ");
     for (int64 i = 0; i < nfpr; ++i) {
-        if ((i > 0) && ((i) % 7 == 0))
+        if ((i > 0) && ((i) % 7 == 0)) {
             fprintf(fp8, "\n    ");
+        }
         fprintf(fp8, "%19.10E", rldot[i]);
     }
     fprintf(fp8, "\n");
@@ -7139,8 +7200,9 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 
             fprintf(fp8, "    ");
             for (int64 k = k1; k < k2; ++k) {
-                if ((k != k1) && ((k - k1) % 7 == 0))
+                if ((k != k1) && ((k - k1) % 7 == 0)) {
                     fprintf(fp8, "\n    ");
+                }
                 fprintf(fp8, "%19.10E", ARRAY2D(udotps, j, k));
             }
             fprintf(fp8, "\n");
@@ -7149,8 +7211,9 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     fprintf(fp8, "    ");
 
     for (int64 k = 0; k < ndim; ++k) {
-        if ((k != 0) && (k % 7 == 0))
+        if ((k != 0) && (k % 7 == 0)) {
             fprintf(fp8, "\n    ");
+        }
         fprintf(fp8, "%19.10E", ARRAY2D(udotps, ntst, k));
     }
     fprintf(fp8, "\n");
@@ -7159,8 +7222,9 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 
     fprintf(fp8, "    ");
     for (int64 i = 0; i < NPARX; ++i) {
-        if ((i > 0) && (i % 7 == 0))
+        if ((i > 0) && (i % 7 == 0)) {
             fprintf(fp8, "\n    ");
+        }
         fprintf(fp8, "%19.10E", par[i]);
     }
     fprintf(fp8, "\n");
@@ -7216,12 +7280,15 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     ds = rap->ds;
 
     iab = ABS(iplt);
-    if (iab == 0 || iab > ndim)
+    if (iab == 0 || iab > ndim) {
         amp = sqrt(rnrmsq(iap, &ndm, ndxloc, ups, dtm, thu));
-    if (iplt > 0 && iab <= ndim)
+    }
+    if (iplt > 0 && iab <= ndim) {
         amp = rmxups(iap, ndxloc, &iab, ups);
-    if (iplt < 0 && iab <= ndim)
+    }
+    if (iplt < 0 && iab <= ndim) {
         amp = rmnups(iap, ndxloc, &iab, ups);
+    }
     rap->amp = amp;
     if (iid >= 2) {
         if (nfpr <= 5) {
@@ -7251,8 +7318,9 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
                 k2 = (i + 1)*ndim;
                 fprintf(fp9, " %14.6E", t);
                 for (int64 k = k1; k < k2; ++k) {
-                    if ((k + 1 - k1) % 7 == 0)
+                    if ((k + 1 - k1) % 7 == 0) {
                         fprintf(fp9, "\n ");
+                    }
                     fprintf(fp9, " %14.6E", ARRAY2D(ups, j, k));
                 }
                 fprintf(fp9, "\n");
@@ -7260,8 +7328,9 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
         }
         fprintf(fp9, " %14.6E", tm[ntst]);
         for (int64 i = 0; i < ndim; ++i) {
-            if ((i + 1) % 7 == 0)
+            if ((i + 1) % 7 == 0) {
                 fprintf(fp9, "\n ");
+            }
             fprintf(fp9, " %14.6E", ARRAY2D(ups, ntst, i));
         }
         fprintf(fp9, "\n");

@@ -33,8 +33,9 @@ void
 kinescope_do_movie_com(int32 c) {
     switch (c) {
     case 0:
-        if (kinescope_film_clip() == 0)
+        if (kinescope_film_clip() == 0) {
             pop_list_respond_box("Okay", "Out of film!");
+        }
         break;
     case 1:
         kinescope_reset_film();
@@ -59,10 +60,12 @@ kinescope_do_movie_com(int32 c) {
 
 void
 kinescope_reset_film(void) {
-    if (mov_ind == 0)
+    if (mov_ind == 0) {
         return;
-    for (int32 i = 0; i < mov_ind; i++)
+    }
+    for (int32 i = 0; i < mov_ind; i++) {
         XFreePixmap(display, movie[i].xi);
+    }
     mov_ind = 0;
     return;
 }
@@ -77,8 +80,9 @@ kinescope_film_clip(void) {
     uint32 d;
     Window root;
 
-    if (mov_ind >= MAXFILM)
+    if (mov_ind >= MAXFILM) {
         return 0;
+    }
     XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
     movie[mov_ind].h = (int32)h;
     movie[mov_ind].w = (int32)w;
@@ -116,8 +120,9 @@ kinescope_play_back(void) {
     int32 i = 0;
     XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
                  (uint32 *)&bw, (uint32 *)&d);
-    if (mov_ind == 0)
+    if (mov_ind == 0) {
         return;
+    }
     if (h < movie[i].h || w < movie[i].w) {
         kinescope_too_small();
         return;
@@ -131,10 +136,12 @@ kinescope_play_back(void) {
         switch (event.type) {
         case ButtonPress:
             i++;
-            if (i >= mov_ind)
+            if (i >= mov_ind) {
                 i = 0;
-            if (kinescope_show_frame(i, h, w))
+            }
+            if (kinescope_show_frame(i, h, w)) {
                 return;
+            }
             break;
         case KeyPress:
             switch (ggets_get_key_press(&event)) {
@@ -142,27 +149,33 @@ kinescope_play_back(void) {
                 return;
             case KEY_RIGHT:
                 i++;
-                if (i >= mov_ind)
+                if (i >= mov_ind) {
                     i = 0;
-                if (kinescope_show_frame(i, h, w))
+                }
+                if (kinescope_show_frame(i, h, w)) {
                     return;
+                }
                 break;
             case KEY_LEFT:
                 i--;
-                if (i < 0)
+                if (i < 0) {
                     i = mov_ind - 1;
-                if (kinescope_show_frame(i, h, w))
+                }
+                if (kinescope_show_frame(i, h, w)) {
                     return;
+                }
                 break;
             case KEY_HOME:
                 i = 0;
-                if (kinescope_show_frame(i, h, w))
+                if (kinescope_show_frame(i, h, w)) {
                     return;
+                }
                 break;
             case KEY_END:
                 i = mov_ind - 1;
-                if (kinescope_show_frame(i, h, w))
+                if (kinescope_show_frame(i, h, w)) {
                     return;
+                }
                 break;
             default:
                 break;
@@ -180,8 +193,9 @@ kinescope_save_kine(void) {
     int32 fmat = 2;
     sprintf(base, "frame");
     ggets_new_string("Base file name", base);
-    if (strlen(base) > 0)
+    if (strlen(base) > 0) {
         kinescope_save_movie(base, fmat);
+    }
     return;
 }
 
@@ -198,8 +212,9 @@ kinescope_make_anigif(void) {
     int32 d;
     XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
                  (uint32 *)&bw, (uint32 *)&d);
-    if (mov_ind == 0)
+    if (mov_ind == 0) {
         return;
+    }
     if (h < movie[i].h || w < movie[i].w) {
         kinescope_too_small();
         return;
@@ -242,23 +257,26 @@ kinescope_save_movie(char *basename, int32 fmat) {
     int32 d;
     XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
                  (uint32 *)&bw, (uint32 *)&d);
-    if (mov_ind == 0)
+    if (mov_ind == 0) {
         return;
+    }
     if (h < movie[i].h || w < movie[i].w) {
         kinescope_too_small();
         return;
     }
 
     for (i = 0; i < mov_ind; i++) {
-        if (fmat == 1)
+        if (fmat == 1) {
             sprintf(file, "%s_%d.ppm", basename, i);
-        else
+        } else {
             sprintf(file, "%s_%d.gif", basename, i);
+        }
         XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w,
                   (uint)h, 0, 0);
         XFlush(display);
-        if (fmat == 1)
+        if (fmat == 1) {
             ani_write_frame(file, draw_win, w, h);
+        }
 #ifndef NOGIF
         else {
             XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w,
@@ -298,14 +316,17 @@ kinescope_auto_play(void) {
 
     ggets_new_int("Number of cycles", &ks_ncycle);
     ggets_new_int("Msec between frames", &ks_speed);
-    if (ks_speed < 0)
+    if (ks_speed < 0) {
         ks_speed = 0;
-    if (ks_ncycle <= 0)
+    }
+    if (ks_ncycle <= 0) {
         return;
+    }
     XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
                  (uint32 *)&bw, (uint32 *)&d);
-    if (mov_ind == 0)
+    if (mov_ind == 0) {
         return;
+    }
     if (h < movie[i].h || w < movie[i].w) {
         kinescope_too_small();
         return;
@@ -324,17 +345,20 @@ kinescope_auto_play(void) {
                 return;
             case KeyPress:
                 key = ggets_get_key_press(&event);
-                if (key == 27)
+                if (key == 27) {
                     return;
+                }
                 if (key == ',') {
                     ks_speed -= dt;
-                    if (ks_speed < dt)
+                    if (ks_speed < dt) {
                         ks_speed = dt;
+                    }
                 }
                 if (key == '.') {
                     ks_speed += dt;
-                    if (ks_speed > smax)
+                    if (ks_speed > smax) {
                         ks_speed = smax;
+                    }
                 }
 
                 break;
@@ -356,8 +380,9 @@ kinescope_auto_play(void) {
         XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w,
                   (uint)h, 0, 0);
         XFlush(display);
-        if (cycle >= ks_ncycle)
+        if (cycle >= ks_ncycle) {
             return;
+        }
     }
 }
 

@@ -66,8 +66,9 @@ cuda_update_sums(double *s, double *wgt, int n) {
     int j;
     for (int32 i = 0; i < n; i++) {
         sum[i] = 0.0;
-        for (int32 j = 0; j < n; j++)
+        for (int32 j = 0; j < n; j++) {
             sum[i] += (s[j]*wgt[j + i*n]);
+        }
     }
 }
 
@@ -86,8 +87,9 @@ cuda_update_rhs(double *vp, double *wp, double *sp, double *v, double *w,
 
 void
 alloc_sum(int n) {
-    if (allocflag == 1)
+    if (allocflag == 1) {
         return;
+    }
     sum = malloc(n*sizeof(*sum));
     allocflag = 1;
 }

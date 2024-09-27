@@ -77,10 +77,11 @@ void
 adjoints_dump_transpose_info(FILE *fp, int32 f) {
     char bob[256];
 
-    if (f == READEM)
+    if (f == READEM) {
         fgets(bob, 255, fp);
-    else
+    } else {
         fprintf(fp, "# Transpose variables etc\n");
+    }
 
     lunch_io_string(my_trans.firstcol, 11, fp, f);
     lunch_io_int(&my_trans.ncol, fp, f, "n columns");
@@ -109,8 +110,9 @@ adjoints_do_transpose(void) {
     snprintf(values[5], sizeof(values[5]), "%d", my_trans.rowskip);
 
     if (my_trans.here) {
-        for (int32 i = 0; i <= my_trans.nrow; i++)
+        for (int32 i = 0; i <= my_trans.nrow; i++) {
             free(my_trans.data[i]);
+        }
         free(my_trans.data);
         my_trans.here = 0;
         adjoints_data_back();
@@ -118,20 +120,22 @@ adjoints_do_transpose(void) {
 
     status = pop_list_do_string_box(LENGTH(strings), LENGTH(strings), 1,
                                     "Transpose Data", strings, values, 33);
-    if (status == 0)
+    if (status == 0) {
         return 0;
+    }
 
     browse_find_variable(values[0], &ii);
-    if (ii > -1)
+    if (ii > -1) {
         my_trans.col0 = ii + 1;
-    else {
+    } else {
         ggets_err_msg("No such columns");
         return 0;
     }
     strncpy(my_trans.firstcol, values[0], sizeof(my_trans.firstcol));
     ii = atoi(values[4]);
-    if (ii >= NEQ)
+    if (ii >= NEQ) {
         ii = NEQ - 1;
+    }
     my_trans.nrow = ii;
     my_trans.ncol = atoi(values[1]);
     my_trans.colskip = atoi(values[2]);
@@ -139,22 +143,27 @@ adjoints_do_transpose(void) {
     my_trans.rowskip = atoi(values[5]);
 
     my_trans.data = xmalloc(sizeof(*(my_trans.data))*(usize)(NEQ + 1));
-    for (int32 i = 0; i <= my_trans.nrow; i++)
+    for (int32 i = 0; i <= my_trans.nrow; i++) {
         my_trans.data[i] =
             xmalloc(sizeof(my_trans.data[i])*(usize)my_trans.ncol);
-    for (int32 i = my_trans.nrow + 1; i <= NEQ; i++)
+    }
+    for (int32 i = my_trans.nrow + 1; i <= NEQ; i++) {
         my_trans.data[i] = storage[i];
-    for (int32 j = 0; j < my_trans.ncol; j++)
+    }
+    for (int32 j = 0; j < my_trans.ncol; j++) {
         my_trans.data[0][j] = (double)(j + 1);
+    }
 
     for (int32 i = 0; i < my_trans.ncol; i++) {
         incol = my_trans.col0 - 1 + i*my_trans.colskip;
-        if (incol > NEQ)
+        if (incol > NEQ) {
             incol = NEQ;
+        }
         for (int32 j = 0; j < my_trans.nrow; j++) {
             inrow = my_trans.row0 + j*my_trans.rowskip;
-            if (inrow > storind)
+            if (inrow > storind) {
                 inrow = storind;
+            }
             my_trans.data[j + 1][i] = storage[incol][inrow];
         }
     }
@@ -281,10 +290,12 @@ adjoints_new_h_fun(int32 silent2) {
     h_len = storind;
     adjoints_data_back();
     my_h = xmalloc(sizeof(*my_h)*(usize)(NEQ + 1));
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         my_h[i] = xmalloc(sizeof(*my_h)*(usize)h_len);
-    for (int32 i = n; i <= NEQ; i++)
+    }
+    for (int32 i = n; i <= NEQ; i++) {
         my_h[i] = storage[i];
+    }
     if (adjoints_make_h(storage, my_adj, h_len, NODE, silent2)) {
         H_HERE = 1;
         adjoints_h_back();
@@ -296,12 +307,14 @@ adjoints_new_h_fun(int32 silent2) {
 void
 adjoints_dump_h_stuff(FILE *fp, int32 f) {
     char bob[256];
-    if (f == READEM)
+    if (f == READEM) {
         fgets(bob, 255, fp);
-    else
+    } else {
         fprintf(fp, "# Coupling stuff for H funs\n");
-    for (int32 i = 0; i < NODE; i++)
+    }
+    for (int32 i = 0; i < NODE; i++) {
         lunch_io_string(coup_string[i], 79, fp, f);
+    }
     return;
 }
 
@@ -330,8 +343,9 @@ adjoints_make_h(double **orb, double **adj, int32 nt, int32 node,
 
         for (int32 k = 0; k < nt; k++) {
             k2 = k + j;
-            if (k2 >= nt)
+            if (k2 >= nt) {
                 k2 = k2 - nt + 1;
+            }
             for (int32 i = 0; i < node; i++) {
                 set_ivar(i + 1, (double)orb[i + 1][k]);
                 set_ivar(i + n0 + 1, (double)orb[i + 1][k2]);
@@ -367,17 +381,20 @@ adjoints_new_adjoint(void) {
     int32 n = NODE + 1;
     if (ADJ_HERE) {
         adjoints_data_back();
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             free(my_adj[i]);
+        }
         free(my_adj);
         ADJ_HERE = 0;
     }
     adj_len = storind;
     my_adj = xmalloc((usize)(NEQ + 1)*sizeof(*my_adj));
-    for (int32 i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++) {
         my_adj[i] = xmalloc(sizeof(*my_adj)*(usize)adj_len);
-    for (int32 i = n; i <= NEQ; i++)
+    }
+    for (int32 i = n; i <= NEQ; i++) {
         my_adj[i] = storage[i];
+    }
     if (adjoints_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS,
                          ADJ_ERR, ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
@@ -438,20 +455,23 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
      * transpose time reversed jacobian -- this is floatcomplex !! */
     for (int32 k = 0; k < nt; k++) {
         l = nt - 1 - k; /* reverse the limit cycle */
-        for (int32 i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++) {
             yold[i] = (double)orbit[i + 1][l];
+        }
         rhs_function(0.0, yold, fold, node);
         for (int32 j = 0; j < node; j++) {
             ytemp = yold[j];
             del = eps*fabs(ytemp);
-            if (del < eps)
+            if (del < eps) {
                 del = eps;
+            }
 
             yold[j] += del;
             rhs_function(0.0, yold, fdev, node);
             yold[j] = ytemp;
-            for (int32 i = 0; i < node; i++)
+            for (int32 i = 0; i < node; i++) {
                 jac[i + node*j][k] = (fdev[i] - fold[i]) / del;
+            }
         }
     }
 
@@ -472,8 +492,9 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
     for (l = 0; l < maxit; l++) {
         for (int32 k = 0; k < nt - 1; k++) {
             k2 = k + 1;
-            if (k2 >= nt)
+            if (k2 >= nt) {
                 k2 = k2 - nt;
+            }
             if (adjoints_step_eul(jac, k, k2, yold, work, node, dt) == 0) {
                 rval = 0;
                 goto bye;
@@ -498,8 +519,9 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
         }
         printf("%f %f \n", yold[0], yold[1]);
         ggets_plintf("err=%f \n", error);
-        if (error < minerr)
+        if (error < minerr) {
             break;
+        }
     }
     /* onelast time to compute the adjoint */
     prod = 0.0; /* for normalization   */
@@ -507,16 +529,18 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
     for (int32 k = 0; k < nt; k++) {
         l = nt - k - 1;
         t += dt;
-        for (int32 i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++) {
             fdev[i] = (double)orbit[i + 1][l];
+        }
         rhs_function(0.0, fdev, yprime, node);
         for (int32 j = 0; j < node; j++) {
             adjnt[j + 1][l] = (double)yold[j];
             prod += yold[j]*yprime[j]*dt;
         }
         k2 = k + 1;
-        if (k2 >= nt)
+        if (k2 >= nt) {
             k2 -= nt;
+        }
         if (adjoints_step_eul(jac, k, k2, yold, work, node, dt) == 0) {
             rval = 0;
             goto bye;
@@ -526,8 +550,9 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
     prod = prod / t;
     ggets_plintf(" Multiplying the adjoint by 1/%g to normalize\n", prod);
     for (int32 k = 0; k < nt; k++) {
-        for (int32 j = 0; j < node; j++)
+        for (int32 j = 0; j < node; j++) {
             adjnt[j + 1][k] = adjnt[j + 1][k] / (double)prod;
+        }
         adjnt[0][k] = orbit[0][k];
     }
     rval = 1;
@@ -538,8 +563,9 @@ bye:
     free(yold);
     free(fold);
     free(fdev);
-    for (int32 i = 0; i < n2; i++)
+    for (int32 i = 0; i < n2; i++) {
         free(jac[i]);
+    }
     free(jac);
     return rval;
 }
@@ -557,15 +583,19 @@ adjoints_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
 
     for (int32 j = 0; j < node; j++) {
         fold[j] = 0.0;
-        for (int32 i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++) {
             fold[j] = fold[j] + jac[i + j*node][k]*yold[i];
+        }
     }
-    for (int32 j = 0; j < node; j++)
+    for (int32 j = 0; j < node; j++) {
         yold[j] = yold[j] + .5*dt*fold[j];
-    for (int32 i = 0; i < n2; i++)
+    }
+    for (int32 i = 0; i < n2; i++) {
         mat[i] = -jac[i][k2]*dt*.5;
-    for (int32 i = 0; i < node; i++)
+    }
+    for (int32 i = 0; i < node; i++) {
         mat[i + i*node] = 1. + mat[i + i*node];
+    }
     gear_sgefa(mat, node, node, ipvt, &info);
     if (info != -1) {
         ggets_err_msg("Univertible Jacobian");
@@ -610,8 +640,9 @@ adjoints_do_liapunov(void) {
 
 void
 adjoints_alloc_liap(int32 n) {
-    if (LIAP_FLAG == 0)
+    if (LIAP_FLAG == 0) {
         return;
+    }
     my_liap[0] = xmalloc(sizeof(*my_liap)*(usize)(n + 1));
     my_liap[1] = xmalloc(sizeof(*my_liap)*(usize)(n + 1));
     LIAP_N = (n + 1);
@@ -622,8 +653,9 @@ adjoints_alloc_liap(int32 n) {
 void
 adjoints_do_this_liaprun(int32 i, double p) {
     double liap;
-    if (LIAP_FLAG == 0)
+    if (LIAP_FLAG == 0) {
         return;
+    }
     my_liap[0][i] = p;
     if (adjoints_hrw_liapunov(&liap, 1, NEWT_ERR)) {
         my_liap[1][i] = liap;
@@ -645,25 +677,29 @@ adjoints_hrw_liapunov(double *liap, int32 batch, double eps) {
     int32 istart = 1;
 
     if (storind < 2) {
-        if (batch == 0)
+        if (batch == 0) {
             ggets_err_msg("You need to compute an orbit first");
+        }
         return 0;
     }
 
     /* lets make an initial random perturbation */
-    for (int32 i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++) {
         dy[i] = 0;
+    }
     dy[0] = eps;
 
     for (int32 j = 0; j < (storind - 1); j++) {
         t0 = storage[0][j];
         t1 = storage[0][j + 1];
         istart = 1;
-        for (int32 i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++) {
             y[i] = storage[i + 1][j] + dy[i];
+        }
         do_fit_one_step_int(y, t0, t1, &istart);
-        for (int32 i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++) {
             yp[i] = (y[i] - storage[i + 1][j + 1]);
+        }
 
         {
             /* adj2 norm vec */
@@ -672,30 +708,35 @@ adjoints_hrw_liapunov(double *liap, int32 batch, double eps) {
             int32 n = NODE;
 
             double sum2 = 0.0;
-            for (int32 i2 = 0; i2 < n; i2++)
+            for (int32 i2 = 0; i2 < n; i2++) {
                 sum += (v[i2]*v[i2]);
+            }
             sum = sqrt(sum);
             if (sum > 0) {
-                for (int32 i2 = 0; i2 < n; i2++)
+                for (int32 i2 = 0; i2 < n; i2++) {
                     v[i2] = v[i2] / sum;
+                }
             }
             *mu = sum2;
         }
 
         nrm = nrm / eps;
         if (nrm == 0.0) {
-            if (batch == 0)
+            if (batch == 0) {
                 ggets_err_msg("Liapunov:-infinity exponent!");
+            }
             fprintf(stderr, "Something wrong here: %s\n", __func__);
             exit(EXIT_FAILURE);
         }
         sum = sum + log(nrm);
-        for (int32 i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++) {
             dy[i] = eps*yp[i];
+        }
     }
     t1 = storage[0][storind - 1] - storage[0][0];
-    if (fabs(t1) > 1e-12)
+    if (fabs(t1) > 1e-12) {
         sum = sum / t1;
+    }
     *liap = sum;
 
     if (batch == 0) {

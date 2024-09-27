@@ -347,8 +347,9 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     }
 
     /*     ** Time evolution computations (parabolic systems) */
-    if (ips == 14 || ips == 16)
+    if (ips == 14 || ips == 16) {
         rap->tivp = rlold[0];
+    }
 
     {
         setubv_parallel_arglist arglist;

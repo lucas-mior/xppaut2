@@ -152,21 +152,24 @@ diagram_redraw(void) {
     int32 flag = 0;
     auto_nox_draw_bix_axes();
     d = bifd;
-    if (d->next == NULL)
+    if (d->next == NULL) {
         return;
+    }
     while (true) {
         type = autevd_get_bif_type(d->ibr, d->ntot);
 
-        if (d->ntot == 1)
+        if (d->ntot == 1) {
             flag = 0;
-        else
+        } else {
             flag = 1;
+        }
         auto_nox_add_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm,
                            type, flag, d->lab, d->icp1, d->icp2, d->flag2,
                            d->evr, d->evi);
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     return;
 }
@@ -192,8 +195,9 @@ diagram_write_info_out(void) {
      */
     status = init_conds_file_selector("Write all info", filename, "*.dat");
 
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     fp = fopen(filename, "w");
     if (fp == NULL) {
         ggets_err_msg("Can't open file");
@@ -201,8 +205,9 @@ diagram_write_info_out(void) {
     }
 
     d = bifd;
-    if (d->next == NULL)
+    if (d->next == NULL) {
         return;
+    }
     while (true) {
         type = autevd_get_bif_type(d->ibr, d->ntot);
 
@@ -219,23 +224,28 @@ diagram_write_info_out(void) {
         /* u0=d->u0; Not used*/
         /* a=d->norm; Not used*/
         par1 = par[icp1];
-        if (icp2 < NAutoPar)
+        if (icp2 < NAutoPar) {
             par2 = par[icp2];
-        else
+        } else {
             par2 = par1;
+        }
 
         fprintf(fp, "%d %d %d %g %g %g ", type, d->ibr, d->flag2, par1, par2,
                 per);
-        for (int32 i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++) {
             fprintf(fp, "%g ", uhigh[i]);
-        for (int32 i = 0; i < NODE; i++)
+        }
+        for (int32 i = 0; i < NODE; i++) {
             fprintf(fp, "%g ", ulow[i]);
-        for (int32 i = 0; i < NODE; i++)
+        }
+        for (int32 i = 0; i < NODE; i++) {
             fprintf(fp, "%g %g ", d->evr[i], d->evi[i]);
+        }
         fprintf(fp, "\n");
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     fclose(fp);
     return;
@@ -266,8 +276,9 @@ diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     }
     nrows = last - first + 1;
     d = bifd;
-    if (d->next == NULL)
+    if (d->next == NULL) {
         return;
+    }
     j = 0;
     while (true) {
         pt = ABS(d->ntot);
@@ -278,13 +289,15 @@ diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
 
             par1 = par[icp1];
             storage[0][j] = par1;
-            for (i = 0; i < NODE; i++)
+            for (i = 0; i < NODE; i++) {
                 storage[i + 1][j] = u0[i];
+            }
             j++;
         }
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     storind = nrows;
     refresh_browser(nrows);
@@ -311,8 +324,9 @@ diagram_write_init_data_file(void) {
     status =
         init_conds_file_selector("Write init data file", filename, "*.dat");
 
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     fp = fopen(filename, "w");
     if (fp == NULL) {
         ggets_err_msg("Can't open file");
@@ -320,8 +334,9 @@ diagram_write_init_data_file(void) {
     }
 
     d = bifd;
-    if (d->next == NULL)
+    if (d->next == NULL) {
         return;
+    }
     while (true) {
         /*if(d->ntot==1)flag=0;
         else flag=1;
@@ -347,12 +362,14 @@ diagram_write_init_data_file(void) {
         /* fprintf(fp,"%d %d %g %g %g ",
            type,d->ibr,par1,par2,per); */
         fprintf(fp, "%g ", par1);
-        for (int32 i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++) {
             fprintf(fp, "%g ", u0[i]);
+        }
         fprintf(fp, "\n");
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     fclose(fp);
     return;
@@ -375,8 +392,9 @@ diagram_write_pts(void) {
     sprintf(filename, "diagram.dat");
     status = init_conds_file_selector("Write points", filename, "*.dat");
     /* dialog_box_get("Write points","Filename",filename,"Ok","Cancel",60); */
-    if (status == 0)
+    if (status == 0) {
         return;
+    }
     fp = fopen(filename, "w");
     if (fp == NULL) {
         ggets_err_msg("Can't open file");
@@ -384,8 +402,9 @@ diagram_write_pts(void) {
     }
 
     d = bifd;
-    if (d->next == NULL)
+    if (d->next == NULL) {
         return;
+    }
     while (true) {
         type = autevd_get_bif_type(d->ibr, d->ntot);
 
@@ -403,8 +422,9 @@ diagram_write_pts(void) {
         ubar = d->ubar;
         a = d->norm;
         par1 = par[icp1];
-        if (icp2 < NAutoPar)
+        if (icp2 < NAutoPar) {
             par2 = par[icp2];
+        }
 
         /* now we have to check is the diagram parameters correspond to the
            current view
@@ -416,8 +436,9 @@ diagram_write_pts(void) {
                     d->flag2);
         }
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     fclose(fp);
     return;
@@ -435,28 +456,33 @@ diagram_post_auto(void) {
     /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60);
      */
     status = init_conds_file_selector("Postscript", filename, "*.ps");
-    if (status == 0)
+    if (status == 0) {
         return;
-    if (!ps_init(filename, PS_Color))
+    }
+    if (!ps_init(filename, PS_Color)) {
         return;
+    }
     auto_nox_draw_ps_axes();
     d = bifd;
-    if (d->next == NULL)
+    if (d->next == NULL) {
         return;
+    }
     while (true) {
         type = autevd_get_bif_type(d->ibr, d->ntot);
         if (type < 0) {
             ggets_plintf("Unable to get bifurcation type.\n");
         }
-        if (d->ntot == 1)
+        if (d->ntot == 1) {
             flag = 0;
-        else
+        } else {
             flag = 1;
+        }
         auto_nox_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm,
                               type, flag, d->icp1, d->icp2, d->flag2);
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     ps_end();
     graphics_set_normal_scale();
@@ -475,28 +501,33 @@ diagram_svg_auto(void) {
     /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60);
      */
     status = init_conds_file_selector("SVG", filename, "*.svg");
-    if (status == 0)
+    if (status == 0) {
         return;
-    if (!svg_init(filename))
+    }
+    if (!svg_init(filename)) {
         return;
+    }
     auto_nox_draw_svg_axes();
     d = bifd;
-    if (d->next == NULL)
+    if (d->next == NULL) {
         return;
+    }
     while (true) {
         type = autevd_get_bif_type(d->ibr, d->ntot);
         if (type < 0) {
             ggets_plintf("Unable to get bifurcation type.\n");
         }
-        if (d->ntot == 1)
+        if (d->ntot == 1) {
             flag = 0;
-        else
+        } else {
             flag = 1;
+        }
         auto_nox_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm,
                               type, flag, d->icp1, d->icp2, d->flag2);
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     svg_end();
 
@@ -517,8 +548,9 @@ diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
     double par1;
     double par2 = 0.0;
     d = bifd;
-    if (d->next == NULL)
+    if (d->next == NULL) {
         return;
+    }
     *xlo = 1.e16;
     *ylo = *xlo;
     *xhi = -*xlo;
@@ -533,21 +565,27 @@ diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
         Unused here?
         */
         par1 = d->par[d->icp1];
-        if (d->icp2 < NAutoPar)
+        if (d->icp2 < NAutoPar) {
             par2 = d->par[d->icp2];
+        }
         auto_nox_xy_plot(&x, &y1, &y2, par1, par2, d->per, d->uhi, d->ulo,
                          d->ubar, d->norm);
-        if (x < *xlo)
+        if (x < *xlo) {
             *xlo = x;
-        if (x > *xhi)
+        }
+        if (x > *xhi) {
             *xhi = x;
-        if (y2 < *ylo)
+        }
+        if (y2 < *ylo) {
             *ylo = y2;
-        if (y1 > *yhi)
+        }
+        if (y1 > *yhi) {
             *yhi = y1;
+        }
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     return;
 }
@@ -556,23 +594,27 @@ int32
 diagram_save(FILE *fp, int32 n) {
     Diagram *d;
     fprintf(fp, "%d\n", NBifs - 1);
-    if (NBifs == 1)
+    if (NBifs == 1) {
         return -1;
+    }
     d = bifd;
     while (true) {
         fprintf(fp, "%d %d %d %d %d %d %d %d %d %d %d %d\n", d->calc, d->ibr,
                 d->ntot, d->itp, d->lab, d->index, d->nfpar, d->icp1, d->icp2,
                 d->icp3, d->icp4, d->flag2);
-        for (int32 i = 0; i < 8; i++)
+        for (int32 i = 0; i < 8; i++) {
             fprintf(fp, "%g ", d->par[i]);
+        }
         fprintf(fp, "%g %g \n", d->norm, d->per);
 
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             fprintf(fp, "%f %f %f %f %f %f\n", d->u0[i], d->uhi[i], d->ulo[i],
                     d->ubar[i], d->evr[i], d->evi[i]);
+        }
         d = d->next;
-        if (d == NULL)
+        if (d == NULL) {
             break;
+        }
     }
     return 1;
 }
@@ -602,24 +644,28 @@ diagram_load(FILE *fp, int32 node) {
     while (true) {
         fscanf(fp, "%d %d %d %d %d %d %d %d %d %d %d %d", &calc, &ibr, &ntot,
                &itp, &lab, &index, &nfpar, &icp1, &icp2, &icp3, &icp4, &flag2);
-        for (int32 i = 0; i < 8; i++)
+        for (int32 i = 0; i < 8; i++) {
             fscanf(fp, "%lg ", &par[i]);
+        }
         fscanf(fp, "%lg %lg ", &norm, &per);
-        for (int32 i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++) {
             fscanf(fp, "%lg %lg %lg %lg %lg %lg", &u0[i], &uhi[i], &ulo[i],
                    &ubar[i], &evr[i], &evi[i]);
+        }
         if (flag == 0) {
             diagram_edit_start(ibr, ntot, itp, lab, nfpar, norm, uhi, ulo, u0,
                                ubar, par, per, node, icp1, icp2, icp3, icp4,
                                evr, evi);
             flag = 1;
             DiagFlag = 1;
-        } else
+        } else {
             add_diagram(ibr, ntot, itp, lab, nfpar, norm, uhi, ulo, u0, ubar,
                         par, per, node, icp1, icp2, icp3, icp4, flag2, evr,
                         evi);
-        if (index >= n)
+        }
+        if (index >= n) {
             break;
+        }
     }
     return 1;
 }

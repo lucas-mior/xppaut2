@@ -7,17 +7,20 @@ z_abs(doublecomplex *z) {
     double real = z->r;
     double imag = z->i;
 
-    if (real < 0)
+    if (real < 0) {
         real = -real;
-    if (imag < 0)
+    }
+    if (imag < 0) {
         imag = -imag;
+    }
     if (imag > real) {
         temp = real;
         real = imag;
         imag = temp;
     }
-    if ((real + imag) == real)
+    if ((real + imag) == real) {
         return real;
+    }
 
     temp = imag / real;
     temp = real*sqrt(1.0 + temp*temp); /*overflow!!*/

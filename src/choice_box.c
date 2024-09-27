@@ -26,19 +26,23 @@ choice_box_display(Window window, ChoiceBox p) {
     XSetFillStyle(display, gc, FillSolid);
     XSetForeground(display, gc, MyForeColor);
 
-    if (window == p.ok)
+    if (window == p.ok) {
         XDrawString(display, window, gc, 0, CURY_OFF, "Ok", 2);
-    if (window == p.cancel)
+    }
+    if (window == p.cancel) {
         XDrawString(display, window, gc, 0, CURY_OFF, "Cancel", 6);
+    }
     for (int32 i = 0; i < n; i++) {
-        if (window != p.cw[i])
+        if (window != p.cw[i]) {
             continue;
+        }
         XDrawString(display, window, gc, 0, CURY_OFF, p.name[i],
                     (int)strlen(p.name[i]));
-        if (p.flag[i] == 1)
+        if (p.flag[i] == 1) {
             ggets_set_fore();
-        else
+        } else {
             ggets_set_back();
+        }
         XDrawString(display, window, gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
     ggets_set_fore();
@@ -48,10 +52,11 @@ choice_box_display(Window window, ChoiceBox p) {
 void
 choice_box_do_checks(ChoiceBox p) {
     for (int32 i = 0; i < p.n; i++) {
-        if (p.flag[i] == 1)
+        if (p.flag[i] == 1) {
             ggets_set_fore();
-        else
+        } else {
             ggets_set_back();
+        }
         XDrawString(display, p.cw[i], gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
     ggets_set_fore();
@@ -84,8 +89,9 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     XSizeHints size_hints;
     Window base;
     maxchar = mcc;
-    if (mcc < 10)
+    if (mcc < 10) {
         maxchar = 10;
+    }
     width = (maxchar + 5)*DCURX;
     height = (n + 4)*(DCURY + 16);
     base = pop_list_make_plain_window(root, 0, 0, width, height, 4);
@@ -152,8 +158,9 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
             for (int32 i = 0; i < nn; i++) {
                 if (event.xbutton.window == p.cw[i]) {
                     if (p.type == RADIO) {
-                        for (int32 j = 0; j < nn; j++)
+                        for (int32 j = 0; j < nn; j++) {
                             p.flag[j] = 0;
+                        }
                         p.flag[i] = 1;
                         choice_box_do_checks(p);
                     }
@@ -171,8 +178,9 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
             break;
         }
 
-        if (status != -1)
+        if (status != -1) {
             break;
+        }
     }
     /* choice box destroy */
     browse_wait_a_sec(ClickTime);
@@ -180,8 +188,9 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     XDestroyWindow(display, p.base);
 
     if (status == FORGET_ALL) {
-        for (int32 i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++) {
             check[i] = oldcheck[i];
+        }
     }
     return status;
 }

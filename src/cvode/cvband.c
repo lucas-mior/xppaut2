@@ -159,9 +159,10 @@ cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
             inc_inv = ONE / inc;
             i1 = MAX(0, j - mupper);
             i2 = MIN(j + mlower, N - 1);
-            for (i = i1; i <= i2; i++)
+            for (i = i1; i <= i2; i++) {
                 BAND_COL_ELEM(col_j, i, j) =
                     inc_inv*(ftemp_data[i] - fy_data[i]);
+            }
         }
     }
 
@@ -230,8 +231,9 @@ cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
 
     /* Return immediately if cvode_mem is NULL */
     cv_mem = (CVodeMem)cvode_mem;
-    if (cv_mem == NULL)
+    if (cv_mem == NULL) {
         return; /* CVode reports this error */
+    }
 
     /* Set four main function fields in cv_mem */
     linit = cv_band_init;
@@ -241,8 +243,9 @@ cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
 
     /* Get memory for CVBandMemRec */
     lmem = cvband_mem = xmalloc(sizeof(CVBandMemRec));
-    if (cvband_mem == NULL)
+    if (cvband_mem == NULL) {
         return; /* CVBandInit reports this error */
+    }
 
     /* Set Jacobian routine field to user's bjac or cv_band_dq_jac */
     if (bjac == NULL) {
@@ -359,8 +362,9 @@ cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     } else {
         /* If jok = false, call jac routine for new J value */
         nje++;
-        if (iopt != NULL)
+        if (iopt != NULL) {
             iopt[BAND_NJE] = nje;
+        }
         nstlj = nst;
         *jcurPtr = true;
         band_zero(M);
@@ -377,8 +381,9 @@ cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     ier = band_factor(M, pivots);
 
     /* Return 0 if the LU was complete; otherwise return 1 */
-    if (ier > 0)
+    if (ier > 0) {
         return 1;
+    }
     return 0;
 }
 
