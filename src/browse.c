@@ -45,7 +45,7 @@
 Browser my_browser;
 
 static double *old_rep;
-static int32  REPLACE = 0;
+static int32 REPLACE = 0;
 static int32 R_COL = 0;
 
 static void write_browser_data(FILE *fp, Browser *b);

@@ -176,7 +176,7 @@ static int32 ani_line;
 static int32 ani_speed = 10;
 static int32 ani_speed_inc = 2;
 
-static double  ani_xlo = 0;
+static double ani_xlo = 0;
 static double ani_xhi = 1;
 static double ani_ylo = 0;
 static double ani_yhi = 1;
