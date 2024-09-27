@@ -218,7 +218,7 @@ load_eqn_set_x_vals(void) {
     */
 
     tfBell = 1;
-    /*PaperWhite=0;*/
+    /*paper_white=0;*/
     /*
     No gradients tends to look cleaner but some
     may prefer gradients improved contrast/readability.
@@ -594,9 +594,9 @@ load_eqn_read_defaults(FILE *fp) {
         notAlreadySet.SMALL_FONT_NAME = 0;
     }
 
-    if (notAlreadySet.PaperWhite) {
-        load_eqn_fil_int(fp, &PaperWhite);
-        notAlreadySet.PaperWhite = 0;
+    if (notAlreadySet.paper_white) {
+        load_eqn_fil_int(fp, &paper_white);
+        notAlreadySet.paper_white = 0;
     }
     if (notAlreadySet.IXPLT) {
         load_eqn_fil_int(fp, &IXPLT);
@@ -612,7 +612,7 @@ load_eqn_read_defaults(FILE *fp) {
     }
     if (notAlreadySet.AXES) {
         load_eqn_fil_int(fp, &AXES);
-        notAlreadySet.PaperWhite = 0;
+        notAlreadySet.paper_white = 0;
     }
     if (notAlreadySet.NOUT) {
         load_eqn_fil_int(fp, &NJMP);
@@ -1238,14 +1238,14 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("BACK", s1)) {
-        if ((notAlreadySet.PaperWhite || force) ||
-            ((mask != NULL) && (mask->PaperWhite == 1))) {
+        if ((notAlreadySet.paper_white || force) ||
+            ((mask != NULL) && (mask->paper_white == 1))) {
             if (s2[0] == 'w' || s2[0] == 'W') {
-                PaperWhite = 1;
+                paper_white = 1;
             } else {
-                PaperWhite = 0;
+                paper_white = 0;
             }
-            notAlreadySet.PaperWhite = 0;
+            notAlreadySet.paper_white = 0;
         }
         return;
     }

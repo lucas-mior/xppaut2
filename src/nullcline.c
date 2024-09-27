@@ -155,7 +155,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
         double xmin, xmax, y_tp, y_bot;
         int32 col1 = XNullColor, col2 = YNullColor;
         int32 course = NMESH;
-        /* if(PaperWhite){
+        /* if(paper_white){
           col1=1;
           col2=9;
           } */
@@ -345,7 +345,7 @@ nullcline_redraw_froz(int32 flag) {
     NullClines *z;
     int32 col1 = XNullColor;
     int32 col2 = YNullColor;
-    /* if(PaperWhite){
+    /* if(paper_white){
       col1=1;
       col2=9;
       } */
@@ -791,7 +791,7 @@ void
 restore_nullclines(void) {
     int32 col1 = XNullColor;
     int32 col2 = YNullColor;
-    /* if(PaperWhite){
+    /* if(paper_white){
       col1=1;
       col2=9;
       } */

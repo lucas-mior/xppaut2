@@ -2982,7 +2982,7 @@ typedef struct OptionsSet {
     int32 UnstableManifoldColor;
     int32 START_LINE_TYPE;
     int32 RandSeed;
-    int32 PaperWhite;
+    int32 paper_white;
     int32 COLORMAP;
     int32 NPLOT;
     int32 DLL_LIB;
@@ -3143,7 +3143,7 @@ extern int32 use_ani_file;
 extern int32 XPPBatch;
 extern int32 batch_range;
 extern int32 BatchEquil;
-extern int32 PaperWhite;
+extern int32 paper_white;
 
 extern int32 UserGradients;
 extern int32 UserMinWidth;

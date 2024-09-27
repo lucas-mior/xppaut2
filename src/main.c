@@ -63,7 +63,7 @@ char font_name_big[100];
 char font_name_small[100];
 char plot_format[10];
 
-int32 PaperWhite = -1;
+int32 paper_white = -1;
 
 Window draw_win;
 Window main_win;
@@ -255,7 +255,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.UnstableManifoldColor = 1;
     notAlreadySet.START_LINE_TYPE = 1;
     notAlreadySet.RandSeed = 1;
-    notAlreadySet.PaperWhite = 1;
+    notAlreadySet.paper_white = 1;
     notAlreadySet.COLORMAP = 1;
     notAlreadySet.NPLOT = 1;
     notAlreadySet.DLL_LIB = 1;
@@ -646,7 +646,7 @@ main_init_x(void) {
         SCALEY = (int32)min_hgt;
     }
 
-    if (PaperWhite == 0) {
+    if (paper_white == 0) {
         GrFore = White;
         GrBack = Black;
     }
@@ -685,7 +685,7 @@ main_init_x(void) {
     MyForeColor = GrFore = Black;
     MyBackColor = GrBack = White;
 
-    if (PaperWhite == 1) {
+    if (paper_white == 1) {
         /* Respect the swapping implied by the -white option. */
         char swapcol[8];
         printf("Doing swap!\n");
