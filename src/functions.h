@@ -3766,7 +3766,8 @@ extern XFontStruct *font_small;
 typedef struct StringBox {
     Window base, ok, cancel;
     Window win[MAX_N_SBOX];
-    char name[MAX_N_SBOX][MAX_LEN_SBOX], value[MAX_N_SBOX][MAX_LEN_SBOX];
+    char name[MAX_N_SBOX][MAX_LEN_SBOX];
+    char value[MAX_N_SBOX][MAX_LEN_SBOX];
     int32 n;
     int32 hot;
     int32 hgt, wid;
