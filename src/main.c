@@ -699,8 +699,8 @@ main_init_x(void) {
     if (strlen(user_main_win_color) != 0) {
         XColor main_win_col;
 
-        XParseColor(display, DefaultColormap(display, screen), user_main_win_color,
-                    &main_win_col);
+        XParseColor(display, DefaultColormap(display, screen),
+                    user_main_win_color, &main_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &main_win_col);
 
         MyMainWinColor = (uint32)main_win_col.pixel;

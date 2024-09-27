@@ -2300,8 +2300,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                    { */
                 i_nan = 0;
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
-                for (i_nan = 1; i_nan <= ieqn;
-                     i_nan++) {
+                for (i_nan = 1; i_nan <= ieqn; i_nan++) {
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
                             xvold[i_nan], xv[i_nan]);
                 }
@@ -2324,8 +2323,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     { */
                 i_nan = 0;
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
-                for (i_nan = 1; i_nan <= ieqn;
-                     i_nan++) {
+                for (i_nan = 1; i_nan <= ieqn; i_nan++) {
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
                             xvold[i_nan], xv[i_nan]);
                 }

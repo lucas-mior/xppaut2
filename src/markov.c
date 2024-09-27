@@ -82,8 +82,7 @@ markov_add(int32 nstate, char *name) {
 }
 
 int32
-build_markov(
-    char **ma, char *name) {
+build_markov(char **ma, char *name) {
     int32 len = 0;
     int32 ll;
     char line[256];

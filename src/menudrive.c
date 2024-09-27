@@ -175,9 +175,9 @@ menudrive_message_box_kill(void) {
 
 int32
 menudrive_two_choice(char *c1, char *c2, char *q, char *key) {
-    int32 choice =
-        pop_list_two_choice(c1, c2, q, key, display_width / 2, display_height / 2,
-                            RootWindow(display, screen), NULL);
+    int32 choice = pop_list_two_choice(c1, c2, q, key, display_width / 2,
+                                       display_height / 2,
+                                       RootWindow(display, screen), NULL);
     return choice;
 }
 

@@ -221,8 +221,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
             if (mu == 0.0) {
                 alpbet = dt;
             } else {
-                alpbet =
-                    kernel[ker].al[n - i0 - i];
+                alpbet = kernel[ker].al[n - i0 - i];
             }
             if (kernel[ker].flag == CONV) {
                 sum[ker] += (alpbet*evaluate(kernel[ker].formula) *
