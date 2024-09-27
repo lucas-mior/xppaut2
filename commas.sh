@@ -13,7 +13,7 @@ awk " /^static [[:alnum:]_]+ ($IDENT(\[[^]]+\])?( = \S+)?, )+$IDENT(\[[^]]+\])?(
 
     split(\$0, array, \",\");
     for (i in array) {
-        printf(\"static %s%s;NEWLINELINE\", type, array[i]);
+        printf(\"%s%s;NEWLINELINE\", type, array[i]);
     }
     getline
 }{
