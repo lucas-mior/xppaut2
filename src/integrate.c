@@ -1107,13 +1107,13 @@ integrate_batch(void) {
 
     for (int32 i = 0; i < Nintern_set; i++) {
         sprintf(this_internset, "_%s", intern_set[i].name);
-        if (strlen(UserOUTFILE) == 0) /*Use the set name for outfile name*/
+        if (strlen(user_out_file) == 0) /*Use the set name for outfile name*/
         {
             sprintf(batchout, "%s.dat", intern_set[i].name);
         } else /*Use the command line supplied outfile name*/
         {
             /*Will get over-written each internal set*/
-            sprintf(batchout, "%s", UserOUTFILE);
+            sprintf(batchout, "%s", user_out_file);
         }
         ggets_plintf("out=%s\n", batchout);
         load_eqn_extract_internset(i);

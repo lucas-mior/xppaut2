@@ -55,7 +55,7 @@ int32 XPPBatch = 0;
 int32 batch_range = 0;
 int32 BatchEquil = -1;
 char batchout[XPP_MAX_NAME];
-char UserOUTFILE[XPP_MAX_NAME];
+char user_out_file[XPP_MAX_NAME];
 int32 DisplayHeight;
 int32 DisplayWidth;
 int32 TrueColorFlag;

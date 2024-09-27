@@ -3170,7 +3170,7 @@ extern double xpp_version_min;
 extern int32 Xup;
 
 extern char batchout[XPP_MAX_NAME];
-extern char UserOUTFILE[XPP_MAX_NAME];
+extern char user_out_file[XPP_MAX_NAME];
 extern int32 TrueColorFlag;
 extern char font_name_big[100];
 extern char font_name_small[100];
