@@ -237,7 +237,6 @@ color_bfun(double y, int32 per) {
 
 void
 color_new_map(int32 type) {
-    /*  printf(" My color map = %d\n",type); */
     if (flag_true_color == 0) {
         ggets_err_msg("New colormaps not supported without TrueColor");
         return;

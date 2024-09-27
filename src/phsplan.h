@@ -23,8 +23,6 @@ extern int32 FOREVER;
 
 extern int32 ENDSING;
 
-/*  extern GRAPH *MyGraph; */
-
 extern int32 METHOD;
 extern int32 NJMP;
 extern double HMIN;

@@ -616,7 +616,6 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = -1;
-        /* if(str[0]=='E')ntype=CONVE; */
         if (str[0] == '0' || str[0] == 'Z') {
             ntype = FFTCON0;
         }
@@ -780,9 +779,6 @@ simplenet_add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" bad function %s \n", fname);
             return 0;
         }
-        /*for(i=0;i<elen;i++)
-          printf("%d %d \n",i,my_net[ind].f[i]);
-        */
         my_net[ind].values =
             xmalloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
         simplenet_init(my_net[ind].values, ncon);
@@ -1117,11 +1113,8 @@ simplenet_add_special_name(char *name, char *rhs) {
 
 int32
 simplenet_is_network(char *s) {
-    /*int32 n;
-     */
     ani_de_space(s);
     strupr(s);
-    /* n=strlen(s); Not used*/
     if (s[0] == 'C' && s[1] == 'O' && s[2] == 'N' && s[3] == 'V') {
         return 1;
     }
@@ -1166,7 +1159,6 @@ simplenet_is_network(char *s) {
     if (s[0] == 'I' && s[1] == 'M' && s[2] == 'P' && s[3] == 'O') {
         return IMPORT;
     }
-    /* if(s[0]=='G'&& s[1]=='R' && s[2]=='O' && s[3]=='U')return 8; */
     return 0;
 }
 
@@ -1190,7 +1182,6 @@ simplenet_eval_all_nets(void) {
         cc = my_net[ind].index;
         w = my_net[ind].weight;
         values = my_net[ind].values;
-        /*  y=&variables[my_net[ind].root]; */
         switch (my_net[ind].type) {
         case FINDEXT:
             y = &variables[root];
@@ -1509,8 +1500,6 @@ simplenet_update_fft(int32 ind) {
         dims[0] = n;
         fftn(1, dims, fftr, ffti, 1, 1.);
     }
-    /* for(i=0;i<10;i++)printf("fftr,i=%g %g %g
-     * %g\n",fftr[i],ffti[i],fftr[n-1-i],ffti[n-1-i]); */
     return;
 }
 

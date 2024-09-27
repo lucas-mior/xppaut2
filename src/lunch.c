@@ -33,7 +33,6 @@ lunch_file_inf(void) {
     if (!init_conds_file_selector("Save info", filename, "*.pars*")) {
         return;
     }
-    /* if(ggets_new_string("Filename: ",filename)==0)return; */
     browse_open_write_file(&fp, filename, &ok);
     if (!ok) {
         return;
@@ -173,7 +172,6 @@ lunch_read(FILE *fp) {
         ne = atoi(bob);
         set_type = 0;
     }
-    /* lunch_io_int(&ne,fp,f); */
     lunch_io_int(&np, fp, f, " ");
     if (ne != NEQ || np != NUPAR) {
         ggets_plintf("Set file has incompatible parameters\n");
@@ -231,7 +229,6 @@ do_lunch(int32 f) {
             ne = atoi(bob);
             set_type = 0;
         }
-        /* lunch_io_int(&ne,fp,f); */
         lunch_io_int(&np, fp, f, " ");
         if (ne != NEQ || np != NUPAR) {
             ggets_err_msg("Incompatible parameters");
@@ -459,7 +456,6 @@ lunch_io_ic_file(char *fn, int32 flag) {
                 ggets_err_msg(msg);
                 return;
             }
-            /*printf("chk=%d\n",chk);*/
         }
 
         while (chk != EOF) {
@@ -473,30 +469,6 @@ lunch_io_ic_file(char *fn, int32 flag) {
         }
         fclose(fp);
     }
-
-    /* lunch_io_int(&np,fp,flag," ");
-     if(np!=NUPAR){
-       ggets_err_msg("Incompatible parameters");
-    fclose(fp);
-    return;
-     }
-     lunch_io_parameters(flag,fp);
-     fclose(fp);
-     init_conds_redo_stuff();
-
-     return;
-  }
-  fp=fopen(fnx,"w");
-  if(fp==NULL){
-       ggets_err_msg("Cannot open file");
-       return;
-     }
-  lunch_io_int(&NUPAR,fp,flag,"Number params");
-  lunch_io_parameters(flag,fp);
-  ttt=time(0);
-  fprintf(fp,"\n\nFile:%s\n%s",this_file, ctime(&ttt));
-  fclose(fp);
-  */
 }
 
 void

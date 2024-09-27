@@ -280,8 +280,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     if (NFlags == 0) {
         return 0;
     }
-    /* printf("dt=%g yold= %g ynew = %g \n",dt,yold[0],ynew[0]); */
-    /*  if(ABS(dt)<MY_DBL_EPS) return 0;  */
     for (int32 i = 0; i < NFlags; i++) {
         flag[i].tstar = 2.0;
         flag[i].hit = 0;
@@ -373,9 +371,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                 }
             }
         }
-        /* printf("step 7 \n");
-        for(i=0;i<neq;i++)
-        printf("%d %g %g\n",i,ynew[i],GETVAR(i+1)); */
         for (int32 i = 0; i < NFlags; i++) {
             nevents = flag[i].nevents;
             if (flag[i].hit == ncycle && flag[i].tstar <= smin) {
@@ -383,7 +378,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                     in = flag[i].lhs[j];
                     if (flag[i].type[j] == 0) {
                         ynew[in] = flag[i].vrhs[j];
-                        /* SETVAR(in+1,ynew[in]); if this screws up */
                     } else {
                         if (flag[i].type[j] == 1) {
                             set_val(upar_names[in], flag[i].vrhs[j]);
@@ -407,10 +401,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         }
 
         for (int32 i = 0; i < neq; i++) {
-            /* printf("step 8 %d %g %g\n",i,ynew[i],GETVAR(i+1)); */
-            /*  SETVAR(i+1,ynew[i]); */
             ynew[i] = GETVAR(i + 1); /* if this screws up */
-            /*      printf("step 9 %d %g %g\n",i,ynew[i],GETVAR(i+1)); */
         }
         for (int32 i = 0; i < NFlags; i++) {
             flag[i].f1 = evaluate(flag[i].comcond);

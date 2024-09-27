@@ -412,7 +412,6 @@ pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window,
     if (m > 0) {
         XDrawString(display, window, gc, l*DCURX, CURY_OFF, value, m);
     }
-    /* if(flag) ggets_show_char('_',DCURX*(l+m),0,w); */
     if (flag) {
         ggets_put_cursor_at(window, DCURX*l, pos);
     }
@@ -644,13 +643,6 @@ pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
         XParseColor(display, cmap, user_white, &bcolour);
         XParseColor(display, cmap, user_black, &diffcol);
 
-        /*l2rads = 3.1415926535897932384/(1.0*height);
-         */
-
-        /*win=XCreateSimpleWindow(display,root,x,y,width,height,
-               bw,diffcol.pixel,bcolour.pixel);
-        */
-
         for (yy = 0; yy < height; yy += 1) {
             if (yy < 1.0) {
                 col2.red = 65535;
@@ -726,8 +718,6 @@ pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
         XColor bcolour, col2, diffcol;
         Colormap cmap = DefaultColormap(display, DefaultScreen(display));
 
-        /*double l2rads;
-         */
         xx = 0;
 
         XParseColor(display, cmap, user_white, &bcolour);

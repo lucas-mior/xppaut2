@@ -155,7 +155,6 @@ ps_init(char *filename, int32 color) {
     if (!PS_Port) {
         fprintf(psfile, "90 rotate\n0 %d translate\n", -PS_YMAX);
     }
-    /* fprintf(psfile,"% 0 setgray\n"); */
     fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE*PS_SC);
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "newpath\n");
@@ -177,15 +176,10 @@ ps_do_color(int32 color) {
     if (PltFmtFlag == 0) {
         return;
     }
-    /* if(color==0) */
-    /* fprintf(psfile,"0 setgray\n"); */
     if (PSColorFlag == 0) {
         return;
     }
     color_get_ps(color, &r, &g, &b);
-    /*  if(LastPtLine)
-      fprintf(psfile,"%f %f %f RGB\n",r,g,b);
-      else */
     fprintf(psfile, "%f %f %f RGb\n", r, g, b);
     return;
 }
@@ -350,7 +344,6 @@ ps_special_put_text(int32 x, int32 y, char *str, int32 size) {
     int32 sup;
     int32 pssz;
     static int32 sz[] = {8, 10, 14, 18, 24};
-    /*cs=size; Not used anywhere*/
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     ps_abs(x, y);
     pssz = sz[size]*PS_SC;

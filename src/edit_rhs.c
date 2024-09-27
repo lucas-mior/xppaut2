@@ -491,7 +491,6 @@ edit_rhs_save_as(void) {
     char filename[sizeof(this_file)];
     strncpy(filename, this_file, sizeof(filename));
     ggets_ping();
-    /* if(ggets_new_string("Filename: ",filename)==0)return; */
     if (!init_conds_file_selector("Save As", filename, "*.ode")) {
         return -1;
     }

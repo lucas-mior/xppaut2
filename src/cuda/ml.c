@@ -57,7 +57,6 @@ cuda_lamn(double v) {
 double
 cuda_s_inf(double v) {
     return 1.0 / (1.0 + exp(-(v - vth) / vshp));
-    /* return 0.0; */
 }
 
 void
@@ -109,8 +108,6 @@ ML(int nn, int ivar, double *par, double *var, double *z[50], double *ydot) {
     sp = ydot + 2*n;
     wgt = z[0];
     p = par;
-    /*  printf("%g %g %g ... %g %g %g \n",iapp,phi,va,tsyn,gsyn,vsyn); */
-    /* printf("%g %g %g %g %g %g\n",v[0],v[1],w[0],w[1],s[0],s[1]); */
     alloc_sum(n);
     cuda_update_sums(s, wgt, n);
     cuda_update_rhs(vp, wp, sp, v, w, s, n);

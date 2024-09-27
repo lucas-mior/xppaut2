@@ -557,7 +557,6 @@ update_ani_motion_stuff(int32 x, int32 y) {
     double dt;
     ami.t2 = ami.t1;
     ami.t1 = ani_get_current_time();
-    /*  printf("%d %d %g %g %g  \n",x,y,ami.x,ami.y,ami.t1-ami.t2); */
     ami.ox = ami.x;
     ami.oy = ami.y;
     ani_ij_to_xy(x, y, &ami.x, &ami.y);
@@ -603,10 +602,7 @@ ani_buttonx(XEvent event, int32 flag) {
             }
         }
         if (flag == 0) { /* This is BUTTON RELEASE  */
-            /*  update_ani_motion_stuff(ev.xbutton.x,ev.xbutton.y); */
-
             if (who_was_grabbed < 0) {
-                /*  ani_grab_flag=0; */
                 return;
             }
             ani_do_grab_tasks(2);
@@ -657,7 +653,6 @@ ani_button(Window window) {
             vcr.pos = 0;
 
             show_grab_points = 1;
-            /* ani_flip1(0); */
             ani_frame(1);
             ani_frame(0);
             ani_grab_flag = 1;
@@ -900,9 +895,6 @@ ani_resize(int32 x, int32 y) {
         vcr.iexist = 0;
         return;
     }
-    /*  XSetFunction(display,ani_gc,GXclear);
-     XCopyArea(display,ani_pixmap,ani_pixmap,ani_gc,0,0,vcr.wid,vcr.hgt,0,0);
-     */
     XSetFunction(display, ani_gc, GXcopy);
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
     XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
@@ -1020,10 +1012,6 @@ ani_flip(void) {
     int32 count = 0;
     XEvent event;
     Window window;
-    /*Window root;
-    uint32 he,wi,bw,d;
-    int32 x0,y0;
-    */
     done = 0;
     if (n_anicom == 0) {
         return;
@@ -1113,9 +1101,7 @@ ani_flip(void) {
         mpeg_frame++;
         /* now check AVI stuff */
 
-        if (mpeg.aviflag == 1)
-        /* scrngif_add_ani_gif(ani_pixmap,angiffile,count); */
-        {
+        if (mpeg.aviflag == 1) {
             scrngif_add_ani_gif(vcr.view, angiffile, count);
         }
 
@@ -1144,7 +1130,6 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     uint32 lobits;
     uint32 midbits;
     uint32 hibits;
-    /*int32 vv; Not used anywhere?*/
     uint32 x;
     uint32 y;
     XColor palette[256];
@@ -1186,7 +1171,6 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
                     with byte order etc
                 */
                 value = XGetPixel(ximage, x, y) >> INIT_C_SHIFT;
-                /*vv=value; Not used?*/
                 /*  get the 3 colors   hopefully  */
                 lobits = value & CMSK;
                 value = value >> CSHIFT;
@@ -1213,8 +1197,6 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
             }
         }
     }
-    /* XDestroyImage(ximage); */
-
     return 1;
 }
 
@@ -1232,7 +1214,6 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
     uint32 lobits;
     uint32 midbits;
     uint32 hibits;
-    /*int32 vv; Not used anywhere...*/
     uint32 x;
     uint32 y;
     char head[100];
@@ -1285,8 +1266,6 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
                     with byte order etc
                 */
                 value = XGetPixel(ximage, x, y) >> INIT_C_SHIFT;
-                /*vv=value;
-                 */
                 /*  get the 3 colors   hopefully  */
                 lobits = value & CMSK;
                 value = value >> CSHIFT;
@@ -1353,7 +1332,6 @@ ani_get_file(char *fname) {
         vcr.ok = 1; /* loaded and compiled */
         ggets_plintf("Loaded %d lines successfully!\n", n_anicom);
         ani_grab_flag = 0;
-        /* ggets_err_msg(bob); */
     }
     return;
 }
@@ -1396,7 +1374,6 @@ load_ani_file(FILE *fp) {
         form_ode_search_array(old, new, &jj1, &jj2, &flag);
         for (jj = jj1; jj <= jj2; jj++) {
             form_ode_subsk(new, big, jj, flag);
-            /* strupr(big); */
             ans = parse_ani_string(big, fp);
         }
 
@@ -2736,7 +2713,6 @@ draw_ani_fcirc(int32 j) {
     ani_xyscale(x1, y1, &i1, &j1);
     ani_radscale(rad, &i2, &j2);
     ir = (i2 + j2) / 2;
-    /*  XFillArc(display,ani_pixmap,ani_gc,i1-i2,j1-j2,2*i2,2*j2,0,360*64); */
     XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir),
              (uint)(2*ir), 0, 360*64);
     return;
@@ -2899,13 +2875,11 @@ read_ani_line(FILE *fp, char *s) {
     int32 n;
     int32 ok;
     int32 ihat = 0;
-    /*int32 nn; Not used anywhere?*/
     s[0] = 0;
     ok = 1;
     while (ok) {
         ok = 0;
         fgets(temp, 256, fp);
-        /*nn=strlen(temp)+1;Not used*/
         n = (int32)strlen(temp);
         for (i = n - 1; i >= 0; i--) {
             if (temp[i] == '\\') {
@@ -2956,7 +2930,6 @@ ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
     double z;
     read_ani_line(fp, start);
     read_ani_line(fp, end);
-    /* printf(" %s %s %s \n %s \n %s \n",xs,ys,ts,start,end); */
 
     if (n_ani_grab >= MAX_ANI_GRAB) {
         ggets_plintf("Too many grabbables! \n");
@@ -3063,7 +3036,6 @@ ani_do_grab_tasks(int32 which) {
         n = ani_grab[i].start.n;
         for (int32 j = 0; j < n; j++) {
             z = evaluate(ani_grab[i].start.comrhs[j]);
-            /*      printf("%s=%g\n",ani_grab[i].start.lhsname[j],z); */
             set_val(ani_grab[i].start.lhsname[j], z);
         }
         return;
@@ -3110,7 +3082,6 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         if (strncmp("runnow", lhs, 6) == 0) {
             rn = atoi(rhs);
             ani_grab[igrab].end.runnow = rn;
-            /* printf("run now set to %d \n",rn); */
             return 1;
         }
         i = ani_grab[igrab].end.n;

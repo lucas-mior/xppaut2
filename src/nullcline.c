@@ -552,7 +552,6 @@ nullcline_redraw_dfield(void) {
 
     dup = (double)(DRight - DLeft) / (double)grid;
     dvp = (double)(DTop - DBottom) / (double)grid;
-    /* printf("dup=%g dvp=  %g \n",dup,dvp); */
     dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
@@ -1109,7 +1108,6 @@ nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
                 triangle_contour(p[0],p[4],p[3]); */
             /*   Uncomment for quad contour     */
             nullcline_quad_contour(p[0], p[1], p[2], p[3]);
-            /*     menudrive_flush_display(); */
         }
     }
 }

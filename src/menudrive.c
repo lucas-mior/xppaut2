@@ -386,8 +386,7 @@ menudrive_run_the_commands(int32 com) {
             tfBell = 1 - tfBell;
             break;
         case M_FH:
-            /*menudrive_xpp_hlp();
-             */
+            /*menudrive_xpp_hlp();*/
             break;
         case M_FX:
             menudrive_edit_xpprc();

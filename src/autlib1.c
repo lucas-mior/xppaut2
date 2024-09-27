@@ -476,10 +476,6 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
         nint = iap->nint;
         nuzr = iap->nuzr;
         nfpr = nbc + nint - ndim + 1;
-        /*    printf("%d %d %d %d %d\n",ndim,nbc,nint,nuzr,nfpr);
-         for(ii=0;ii<nfpr;ii++)
-             printf("%d %d \n",ii,icp[ii]);
-        */
     } else if (ips == 14 || ips == 16) {
         /*        **Evolution calculations for Parabolic Systems */
         ndim <<= 1;
@@ -2996,8 +2992,6 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
     int64 nar;
     int64 itp;
     int64 isw;
-
-    /*   static FILE *fp8=NULL; */
 
     if (fp8_is_open == 0) {
         fp8 = fopen(fort8, "w");

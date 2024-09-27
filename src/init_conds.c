@@ -444,20 +444,12 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "Cancel", 6);
     }
     if (f.up == window) {
-        /*XDrawString(display,w,small_gc,5+DCURX/2,CURY_OFFs,"^",1);
-         */
     }
     if (f.dn == window) {
-        /*XDrawString(display,w,small_gc,5+DCURX/2,CURY_OFFs,"vv",1);
-         */
     }
     if (f.pgup == window) {
-        /*XDrawString(display,w,small_gc,5,CURY_OFFs,"^^",2);
-         */
     }
     if (f.pgdn == window) {
-        /* XDrawString(display,w,small_gc,5,CURY_OFFs,"vv",2);
-         */
     }
     if (f.file == window) {
         XClearWindow(display, window);
@@ -718,7 +710,6 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     filesel.minhgt = height;
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
                                       height, 4);
-    /* printf("Here now 23!\n"); */
     filesel.base = base;
     XStringListToTextProperty(&title, 1, &winname);
     size_hints.flags = PPosition | PSize | PMinSize;
@@ -783,8 +774,6 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
                                       height - hgt, 7*DCURXs, DCURYs, 1);
     filesel.cancel = pop_list_make_window(base, width / 2 + 3, height - hgt,
                                           7*DCURXs, DCURYs, 1);
-    /*  XSelectInput(display,filesel.wild,BOXEVENT);
-        XSelectInput(display,filesel.file,BOXEVENT); */
     filesel.here = 1;
     filesel.hot = HOTFILE;
     filesel.pos = (int32)strlen(filesel.filetxt);
@@ -906,9 +895,6 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
     case KEY_TAB: /*KEY_TAB completion of file names */
     {
         struct dirent *dp;
-        /*char ft[100];
-        char ftpath[100];
-        */
 
         char ft[XPP_MAX_NAME];
         char ftpath[XPP_MAX_NAME];
@@ -1641,8 +1627,6 @@ init_conds_get_nrow_from_hgt(int32 h, int32 *n, int32 *w) {
 
 void
 init_conds_destroy_box(BoxList *b) {
-    /*int32 n,nrow;
-     */
     if (b->xuse == 0) {
         return;
     }
@@ -1657,9 +1641,6 @@ init_conds_destroy_box(BoxList *b) {
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);
 
-    /*n=b->n;
-    nrow=b->nwin;
-    */
     /* now free up stuff */
     free(b->w);
     free(b->we);

@@ -627,7 +627,6 @@ graf_par_get_3d_com(void) {
             if (mov3d.angle[0] == 'p' || mov3d.angle[0] == 'P') {
                 angle = 1;
             }
-            /*     XRaiseWindow(display,MyGraph->w); */
             graf_par_movie_rot(start, increment, nclip, angle);
         }
 

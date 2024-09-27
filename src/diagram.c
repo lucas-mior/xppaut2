@@ -57,7 +57,6 @@ edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
     d->norm = a;
     for (int32 i = 0; i < 8; i++) {
         d->par[i] = par[i];
-        /*  printf("%d %g\n",i,par[i]); */
     }
 
     d->per = per;
@@ -129,11 +128,6 @@ kill_diagrams(void) {
         free(d);
         d = dnew;
     }
-    /*  NBifs=1;
-      bifd->prev=NULL;
-      bifd->next=NULL;
-      bifd->index=0;
-      */
     free(bifd->uhi);
     free(bifd->ulo);
     free(bifd->u0);
@@ -209,18 +203,12 @@ diagram_write_info_out(void) {
     while (true) {
         type = autevd_get_bif_type(d->ibr, d->ntot);
 
-        /*if(d->ntot==1)flag=0;
-        else flag=1;
-        */
         icp1 = d->icp1;
         icp2 = d->icp2;
         par = d->par;
         per = d->per;
         uhigh = d->uhi;
         ulow = d->ulo;
-        /*ubar=d->ubar; Not used*/
-        /* u0=d->u0; Not used*/
-        /* a=d->norm; Not used*/
         par1 = par[icp1];
         if (icp2 < NAutoPar) {
             par2 = par[icp2];
@@ -255,8 +243,6 @@ diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     int32 i;
     int32 j;
     int32 pt;
-    /*int32 flag=0;
-     */
     int32 icp1;
     double *par;
     double par1;
@@ -305,8 +291,6 @@ void
 diagram_write_init_data_file(void) {
     char filename[XPP_MAX_NAME];
     Diagram *d;
-    /*int32 flag=0;
-     */
     int32 status;
     int32 icp1;
     double *par;
@@ -334,10 +318,6 @@ diagram_write_init_data_file(void) {
         return;
     }
     while (true) {
-        /*if(d->ntot==1)flag=0;
-        else flag=1;
-        Unused here?
-        */
         icp1 = d->icp1;
         par = d->par;
         /*
@@ -376,8 +356,6 @@ diagram_write_pts(void) {
     char filename[XPP_MAX_NAME];
     Diagram *d;
     int32 type;
-    /*int32 flag=0;
-     */
     int32 status;
     int32 icp1;
     int32 icp2;
@@ -386,7 +364,6 @@ diagram_write_pts(void) {
     FILE *fp;
     sprintf(filename, "diagram.dat");
     status = init_conds_file_selector("Write points", filename, "*.dat");
-    /* dialog_box_get("Write points","Filename",filename,"Ok","Cancel",60); */
     if (status == 0) {
         return;
     }
@@ -403,11 +380,6 @@ diagram_write_pts(void) {
     while (true) {
         type = autevd_get_bif_type(d->ibr, d->ntot);
 
-        /*if(d->ntot==1)flag=0;
-        else flag=1;
-
-        Unused here??
-        */
         icp1 = d->icp1;
         icp2 = d->icp2;
         par = d->par;
@@ -447,8 +419,6 @@ diagram_post_auto(void) {
     int32 flag = 0;
     int32 status;
     sprintf(filename, "auto.ps");
-    /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60);
-     */
     status = init_conds_file_selector("Postscript", filename, "*.ps");
     if (status == 0) {
         return;
@@ -491,8 +461,6 @@ diagram_svg_auto(void) {
     int32 flag = 0;
     int32 status;
     sprintf(filename, "auto.svg");
-    /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60);
-     */
     status = init_conds_file_selector("SVG", filename, "*.svg");
     if (status == 0) {
         return;
@@ -533,8 +501,6 @@ diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
     Diagram *d;
     int32 type;
 
-    /*int32 flag=0;
-     */
     double x;
     double y1;
     double y2;
@@ -553,10 +519,6 @@ diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
         if (type < 1) {
             ggets_plintf("Unable to get bifurcation type.\n");
         }
-        /*if(d->ntot==1)flag=0;
-        else flag=1;
-        Unused here?
-        */
         par1 = d->par[d->icp1];
         if (d->icp2 < NAutoPar) {
             par2 = d->par[d->icp2];
@@ -630,7 +592,6 @@ diagram_load(FILE *fp, int32 node) {
         flag2;
     fscanf(fp, "%d", &n);
     if (n == 0) {
-        /*    diagram_start(NODE); */
         return -1;
     }
 

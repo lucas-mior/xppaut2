@@ -289,8 +289,6 @@ form_ode_get_eqn(FILE *fptr) {
     BVP_N = 0;
     NUPAR = 0;
     NWiener = 0;
-    /* load_eqn_check_for_xpprc();  This is now done just once and in
-     * main_do_vis_env() */
     strcpy(options, "default.opt");
     parserslow_add_var("t", 0.0);
     fgets(bob, MAXEXPLEN, fptr);
@@ -1140,8 +1138,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
     int32 nstates = 0;
     char newfile[XPP_MAX_NAME];
     FILE *fnew;
-    /*int32 nlin;
-     */
     char big[MAXEXPLEN];
     char old[MAXEXPLEN];
     char new[MAXEXPLEN];
@@ -1204,7 +1200,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             }
         }
 
-        /*    printf("calling search %s \n",old); */
         form_ode_search_array(old, new, &jj1, &jj2, &is_array);
         jj = jj1;
         jjsgn = 1;
@@ -1220,7 +1215,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             strcpy(strings[0], new);
             break;
         case 2: /*  a for loop, so we will ignore the first line */
-            /* is_array=1; */
             while (true) {
                 form_ode_read_a_line(fp, old);
                 if (old[0] == '%') {
@@ -1297,8 +1291,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                                 name);
                             return -1;
                         }
-                        /*nlin=NLINES;
-                         */
                         markov_add(nstates, name);
                         if (jj ==
                             jj1) { /* test to see if this is the first one */
@@ -1310,7 +1302,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                             for (istates = 0; istates < nstates; istates++) {
                                 markovarrays[istates] = xmalloc(MAXEXPLEN);
                                 markovarrays2[istates] = xmalloc(MAXEXPLEN);
-                                /* fgets(markovarrays[istates],MAXEXPLEN,fp); */
 
                                 if (is_array == 2) {
                                     strcpy(markovarrays[istates],
@@ -1333,7 +1324,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         build_markov(markovarrays2, name);
                         v.type = MARKOV_VAR;
                         strcpy(v.lhs, name);
-                        /* strcpy(v.rhs,save_eqn[nlin]); */
                         strcpy(v.rhs, "...many states..");
                     }
 
@@ -1663,9 +1653,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         }
         dae_fun_add_svar_names();
 
-        /* NODE = nvars ; Naux = naux ; NEQ = NODE+NMarkov+Naux ; FIX_VAR =
-         * nfix; */
-
         IN_VARS = nvar;
         Naux = naux;
         NEQ = nvar + NMarkov + Naux;
@@ -1774,13 +1761,11 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
                 strcpy(ode_names[nvar], v2->rhs);
                 form_ode_find_ker(v2->rhs, &alt);
-                /*       ode_names[nvar][nn-1]=0; */
                 if (parserslow_add_expr(v2->rhs, my_ode[nvar], &leng[nvar])) {
                     printf("A\n");
                     ggets_plintf("ERROR compiling %s' \n", v2->lhs);
                     exit(0);
                 }
-                /* fpr_command(my_ode[nvar]); */
                 if (v2->type == MAP) {
                     ggets_plintf("%s(t+1)=%s\n", v2->lhs, v2->rhs);
                     is_a_map = 1;
@@ -1825,7 +1810,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 }
 
                 strcpy(ode_names[in1], v2->rhs);
-                /* ode_names[in1][nn]=0; */
                 if (parserslow_add_expr(v2->rhs, my_ode[in2], &leng[in2])) {
                     printf("B\n");
                     ggets_plintf("ERROR compiling %s \n", v2->lhs);
@@ -2076,7 +2060,6 @@ form_ode_parse_a_string(char *s1, VarInfo *v) {
         return 0;
     }
     if (s1[0] == '@') {
-        /*    printf("internopts from parse string\n"); */
         load_eqn_stor_internopts(s1);
         return 0;
     }
@@ -2551,7 +2534,6 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
             }
         }
     }
-    /*  printf(" I have extracted [%s] and [%s] \n",num1,num2); */
     *i1 = atoi(num1);
     *i2 = atoi(num2);
     /* now we have the numbers and will get rid of the junk inbetween */
@@ -2825,14 +2807,12 @@ form_ode_advance_past_first_word(char **sptr) {
 
 char *
 form_ode_new_string2(char *old, int32 length) {
-    /*cout << "form_ode_new_string2(\"" << old << "\", " << length << ")\n"; */
     char *s = xmalloc((usize)(length + 1)*sizeof(char));
     strncpy(s, old, (usize)length);
     s[length] = '\0';
     if (length > 0 && s[length - 1] == ',') {
         s[length - 1] = '\0';
     }
-    /* printf("s = %s; length = %d\n", s, length); */
     return s;
 }
 

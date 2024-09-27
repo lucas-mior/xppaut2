@@ -39,12 +39,6 @@ main() {
         printf("%s %d %d %d %d %g \n", m[i].name, m[i].len, m[i].com, m[i].arg,
                m[i].pri, v[i]);
     }
-    /*  m=(SYMBOL *)realloc(m,100*sizeof(SYMBOL));
-    v=(double *)realloc(v,100*sizeof(double));
-    for(i=0;i<10;i++)
-      printf("%s %d %d %d %d
-    %g\n",m[i].name,m[i].len,m[i].com,m[i].arg,m[i].pri,v[i]);
-    */
     for (i = 12; i < 80; i++) {
         sprintf(m[i].name, "var%d", i);
         v[i] = .05*i;

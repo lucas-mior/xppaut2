@@ -167,7 +167,6 @@ eig_list_create_eq_list(void) {
     XSelectInput(display, eq_list.up, MYMASK);
     XSelectInput(display, eq_list.down, MYMASK);
     XSelectInput(display, eq_list.close, MYMASK);
-    /* if(noicon==0)XIconifyWindow(display,base,screen); */
     eq_list.flag = 1;
     return;
 }

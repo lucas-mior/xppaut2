@@ -402,7 +402,6 @@ do_main(int32 argc, char **argv) {
         main_do_vis_env();
         load_eqn_set_all_vals();
         main_init_x();
-        /*       XSynchronize(display,1); */
         /* Now swap back the options for proper precedence ordering of options.
          */
         notAlreadySet = *tempNS;

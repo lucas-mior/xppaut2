@@ -86,7 +86,6 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     ggets_chk_xor();
 
     if (xorfix) {
-        /*XSetForeground(display,gc,GrBack); */
         XSetForeground(display, gc, MyForeColor);
         XSetBackground(display, gc, MyDrawWinColor);
     }

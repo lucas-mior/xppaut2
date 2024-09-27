@@ -427,7 +427,6 @@ scrngif_make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
     *pos++ = 0xff & rows;
     *pos++ = (0xff00 & rows) / 0x100;
     *pos++ = 0x7 & (depth - 1);
-    /* *pos++ = (depth==1)?2:depth; */
 
     fwrite(buffer, (usize)(pos - buffer), 1, dst);
 

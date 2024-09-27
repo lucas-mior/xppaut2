@@ -52,16 +52,6 @@ and save the file.
 #include <stdio.h>
 #include <sys/stat.h>
 
-/*Let's try to be consistent with file name buffer sizes and
-any strings that may hold a path name (e.g. dialog message etc.)*/
-/*#define MAXPATHLEN 1024*/
-
-/*static int32	file_entry_cnt, dir_entry_cnt;
-static char   **file_list, **dir_list;
-static char   **filelist, **dirlist;
-static char    *dirmask;
-static char	CurrentSelectionName[MAXPATHLEN];
-*/
 char cur_dir[MAXPATHLEN];
 
 static int32 read_dir_star(char *string, char *pattern);

@@ -411,7 +411,6 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
             if (i == (n - 1)) {
                 derv = (dat[dif_var][i] - old) / dt;
             }
-            /* if(i>0&&i<(n-1))derv=(dat[dif_var][i+1]-old)/(2*dt); */
             if (i > 0 && i < (n - 1)) {
                 derv = (dat[dif_var][i + 1] - dat[dif_var][i]) / dt;
             }
@@ -821,8 +820,6 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     int32 width;
     int32 height;
     Window base;
-    /* XWMHints wm_hints;
-     */
     XTextProperty winname;
     XTextProperty iconname;
     XSizeHints size_hints;
@@ -850,13 +847,8 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     size_hints.flags = PPosition | PSize | PMinSize;
     size_hints.x = 0;
     size_hints.y = 0;
-    /* size_hints.width=width;
-     size_hints.height=height; */
     size_hints.min_width = width - 15;
     size_hints.min_height = height;
-    /* wm_hints.initial_state=IconicState;
-    wm_hints.flags=StateHint;
-    */
     {
         XClassHint class_hints;
         class_hints.res_name = "";
@@ -903,7 +895,6 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     if (noicon == 0) {
         XIconifyWindow(display, base, screen);
     }
-    /*  XMapWindow(display,base);  */
     return;
 }
 
@@ -980,8 +971,6 @@ resize_browser(Window window, Browser *b) {
     if (window != b->base) {
         return;
     }
-    /* w=ev.xconfigure.width;
-    h=ev.xconfigure.height; */
     eig_list_get_new_size(window, &w, &h);
     hreal = h;
 
@@ -1523,10 +1512,6 @@ browse_data_read(Browser *b) {
     double z;
 
     strcpy(fil, "test.dat");
-    /*  XGetInputFocus(display,&w,&rev);
-    status=dialog_box_get("Load","Filename:",fil,"Ok","Cancel",40);
-    XSetInputFocus(display,w,rev,CurrentTime);
-    */
     status = init_conds_file_selector("Load data", fil, "*.dat");
     if (status == 0) {
         return;
@@ -1573,8 +1558,6 @@ browse_data_read(Browser *b) {
     fclose(fp);
     refresh_browser(len);
     storind = len;
-    /*  b->maxrow=len;
-    browse_draw_data(*b); */
     return;
 }
 
@@ -1588,15 +1571,6 @@ browse_data_write(Browser *b) {
 
     strcpy(fil, "test.dat");
 
-    /*
-    XGetInputFocus(display,&w,&rev);
-     XSetInputFocus(display,command_pop,RevertToParent,CurrentTime);
-     strcpy(fil,"test.dat");
-     ggets_new_string("Write to:",fil);
-    */
-    /* status=dialog_box_get("Write","Filename:",fil,"Ok","Cancel",40);
-
-       XSetInputFocus(display,w,rev,CurrentTime); */
     status = init_conds_file_selector("Write data", fil, "*.dat");
     if (status == 0) {
         return;

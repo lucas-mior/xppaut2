@@ -237,7 +237,6 @@ array_plot_do_events(XEvent event) {
          */
     case MotionNotify:
         if (event.xany.window == array_plot.wplot) {
-            /*printf("%d\n",ev.xmotion.y-first_aplot_press); */
             array_plot.nstart =
                 array_plot.nstart - event.xmotion.y + first_aplot_press;
             if (array_plot.nstart < 0) {
@@ -324,7 +323,6 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     XTextProperty winname;
     XTextProperty iconname;
     XSizeHints size_hints;
-    /* init_array_plot(ap); */
     width = ap->width;
     height = ap->height;
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
@@ -647,7 +645,6 @@ array_plot_gif_all(char *filename, int32 still) {
     uint32 bw;
     uint32 d;
     Window root;
-    /* FILE *fp; */
     if (still == 0) {
         if (array_plot_range_count == 0) {
             if ((ap_fp = fopen(filename, "w")) == NULL) {

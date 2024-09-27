@@ -68,7 +68,6 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     double bigneg = 1e10;
     int32 bpos = 0;
     int32 bneg = 0;
-    /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
     if ((work = xmalloc(sizeof(double)*(usize)kmem)) == NULL) {
         ggets_err_msg("Insufficient core ");
@@ -94,7 +93,6 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
         return;
     }
     DING;
-    /* for(i=0;i<n;i++)xl[i]=(double)x[i]; */
 
     for (int32 i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
@@ -396,10 +394,8 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     double bigpos = -1e10;
     double bigneg = 1e10;
 
-    /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
     if ((work = xmalloc(sizeof(double)*(usize)kmem)) == NULL) {
-        /* printf("Insufficient core \n");  */
         return;
     }
 
@@ -416,14 +412,11 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     gear_rooter(x, err, eps, big, work, ierr, maxit, n);
     if (*ierr != 0) {
         free(work);
-        /* ggets_err_msg("Could not converge to root"); */
         for (int32 i = 0; i < n; i++) {
             x[i] = old_x[i];
         }
         return;
     }
-
-    /* for(i=0;i<n;i++)xl[i]=(double)x[i]; */
 
     for (int32 i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
@@ -459,13 +452,13 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
             if (imag != 0.0) {
                 cn++;
                 if (real < bigneg) {
-                    bigneg = real; /*bneg=-1;Not used*/
+                    bigneg = real;
                 }
             } else {
                 rn++;
                 nege = i;
                 if (real < bigneg) {
-                    bigneg = real; /*bneg=i;Not used*/
+                    bigneg = real;
                 }
             }
         }
@@ -473,13 +466,13 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
             if (imag != 0.0) {
                 cp++;
                 if (real > bigpos) {
-                    bigpos = real; /*bpos=-1;Not used*/
+                    bigpos = real;
                 }
             } else {
                 rp++;
                 pose = i;
                 if (real > bigpos) {
-                    bigpos = real; /*bpos=i;Not used*/
+                    bigpos = real;
                 }
             }
         }
@@ -579,7 +572,6 @@ gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
             }
         }
     }
-    /* print_mat(a,6,6); */
     gear_get_evec(a, anew, b, bp, nn, maxit, err, ipivot, 0.0, ierr);
     if (*ierr == 0) {
         for (int32 i = 0; i < n; i++) {
@@ -1099,7 +1091,6 @@ gear_rooter(double *x, double err, double eps, double big, double *work,
                     dermat[i*(n + 1)] += 1.0;
                 }
             }
-            /* for(i=0;i<n*n;i++)printf("dm=%g \n",dermat[i]); */
             return; /* success !! */
         }
         if ((r / (double)n) > big) {
@@ -1135,7 +1126,6 @@ int32
 ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
       double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
       double *work, int32 *iwork) {
-    /* int32 ipivot[MAX_ODE]; */
     double deltat = 0.0, hnew = 0.0, hold = 0.0, h = 0.0, racum = 0.0,
            told = 0.0, r = 0.0, d = 0.0;
     double *a, pr1, pr2, pr3, r1;
@@ -1761,8 +1751,6 @@ gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
     int32 nm1;
     double t;
     nm1 = n - 1;
-    /* for(k=0;k<n;k++)printf("ipiv=%d  b=%f \n",
-                            ipvt[k],b[k]);*/
 
     if (job == 0) {
         if (nm1 >= 1) {

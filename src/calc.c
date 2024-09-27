@@ -230,7 +230,6 @@ calc(char *expr, int32 *ok) {
         *ok = 0;
         goto bye;
     }
-    /* fpr_command(com); */
     z = evaluate(com);
     *ok = 1;
 bye:

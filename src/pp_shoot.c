@@ -307,7 +307,6 @@ pp_shoot_find_bvp_com(int32 com) {
     double ystart[MAX_ODE];
     double oldtrans;
     double yend[MAX_ODE];
-    /*  Window temp=main_win; */
     if (NMarkov > 0 || NKernel > 0) {
         ggets_err_msg("Can't do BVP with integral or markov eqns");
         return;
@@ -438,7 +437,6 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
         get_val(upar_names[ipar], &y0[n]);
     }
 
-    /* dt=(t1-t0)/nt;  */
     while (true) {
         esc = (char)main_my_abort();
 

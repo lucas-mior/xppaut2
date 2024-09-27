@@ -39,9 +39,6 @@ int32 START_LINE_TYPE = 1;
 InternSet intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
 
-/*void load_eqn_set_option(char *s1,char *s2);
- */
-
 /*   this file has all of the phaseplane parameters defined
      and created.  All other files should use external stuff
     to use them. (Except eqn forming stuff)
@@ -426,7 +423,6 @@ load_eqn_set_all_vals(void) {
         notAlreadySet.MAXSTOR = 0;
     }
 
-    /* TORUS=0; */
     if (notAlreadySet.T0) {
         T0 = 0.0;
         notAlreadySet.T0 = 0;
@@ -439,7 +435,6 @@ load_eqn_set_all_vals(void) {
         DELTA_T = .05;
         notAlreadySet.DT = 0;
     }
-    /*  if (notAlreadySet.JAC_EPS){NEWT_ERR=.001;notAlreadySet.JAC_EPS=0;}; */
 
     if (notAlreadySet.XMIN) {
         x_3d[0] = -12;
@@ -474,7 +469,6 @@ load_eqn_set_all_vals(void) {
         TEND = 20.00;
         notAlreadySet.TEND = 0;
     }
-    /* TOR_PERIOD=6.2831853071795864770; */
     if (notAlreadySet.IXPLT) {
         IXPLT = 0;
         notAlreadySet.IXPLT = 0;
@@ -794,7 +788,6 @@ load_eqn_do_intern_set(char *name1, char *value) {
         if (i > -1) {
             set_val(name, atof(value));
         } else {
-            /*     load_eqn_set_option(name,value,0,NULL); */
             load_eqn_set_option(name, value, 1, NULL);
         }
     }
@@ -1104,7 +1097,6 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("MWCOLOR", s1)) {
         if ((notAlreadySet.user_main_win_color || force) ||
             ((mask != NULL) && (mask->user_main_win_color == 1))) {
-            /* printf("Setting MWCOLOR=%s\n",s2); */
             sprintf(user_main_win_color, "#%s", s2);
             notAlreadySet.user_main_win_color = 0;
         }
@@ -1661,7 +1653,6 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("XMIN", s1)) {
-        /*  printf("Trying to set XMIN %d =%s\n",notAlreadySet.XMIN,s2); */
         if ((notAlreadySet.XMIN || force) ||
             ((mask != NULL) && (mask->XMIN == 1))) {
             x_3d[0] = atof(s2);

@@ -262,7 +262,6 @@ integrate_cont_integ(void) {
         return;
     }
     dif = tetemp - fabs(MyTime);
-    /* TEND=tetemp; */
     MyStart = 1; /*  I know it is wasteful to restart, but lets be safe.... */
     integrate(&MyTime, x, dif, DELTA_T, 1, NJMP, &MyStart);
     ggets_ping();
@@ -413,10 +412,6 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
             fixptlist.x[i] = xmalloc((usize)NODE*sizeof(*(fixptlist.x)));
             fixptlist.er[i] = xmalloc((usize)NODE*sizeof(*(fixptlist.er)));
             fixptlist.em[i] = xmalloc((usize)NODE*sizeof(*(fixptlist.em)));
-            /* fixptlist.x1[i]=xmalloc(NODE*sizeof(double));
-            fixptlist.x2[i]=xmalloc(NODE*sizeof(double));
-            fixptlist.x3[i]=xmalloc(NODE*sizeof(double));
-            fixptlist.x4[i]=xmalloc(NODE*sizeof(double)); */
         }
         fixptlist.flag = 1;
     }
@@ -986,7 +981,6 @@ integrate_do_range(double *x, int32 flag) {
     derived_evaluate();
     MyGraph->color[0] = color;
     INFLAG = 1;
-    /* refresh_browser(storind); */
 
     ggets_ping();
     adj_range = false;
@@ -1243,14 +1237,6 @@ batch_integrate_once(void) {
         }
     }
     ggets_plintf(" Run complete ... \n");
-    /*   fp=fopen("run.gpl","w");
-
-    fprintf(fp,"set term pdf \n");
-    fprintf(fp,"set out \"%s.pdf\"\n",batch_out);
-    fprintf(fp,"plot \"%s\" with lines\n",batch_out);
-    fclose(fp);
-    system("gnuplot run.gpl");
-    */
     return;
 }
 
@@ -1454,7 +1440,6 @@ integrate_do_init_data(int32 com) {
         if (!init_conds_file_selector("Read initial data", icfile, "*.dat")) {
             return;
         }
-        /* if(ggets_new_string("Filename: ",icfile)==0)return; */
         if ((fp = fopen(icfile, "r")) == NULL) {
             ggets_err_msg(" Cant open IC file");
             return;
@@ -2027,7 +2012,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     } else {
         nit = (int32)((tend + fabs(dt)*.1) / fabs(dt));
     }
-    /* else nit=tend/fabs(dt); */
     nit = (nit + nout - 1) / nout;
     if (nit == 0) {
         return rval;
@@ -2291,27 +2275,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     if (x[ieqn] > TOR_PERIOD) {
                         x[ieqn] -= TOR_PERIOD;
                         torcross[ieqn] = -1;
-                        /* for (ip = 0; ip < NPlots; ip++) {
-                                if (ieqn == IYPLT[ip]-1)
-                                oldypl[ip] -= (double) TOR_PERIOD;
-                                if (ieqn == IXPLT[ip]-1)
-                                oldxpl[ip] -= (double) TOR_PERIOD;
-                        if ((ieqn == IZPLT[ip]-1) && (PLOT_3D == 1))
-                                oldzpl[ip] -= (double) TOR_PERIOD;
-                                } */
                     }
                     if (x[ieqn] < 0) {
                         x[ieqn] += TOR_PERIOD;
                         torcross[ieqn] = 1;
-                        /* for (ip = 0; ip < NPlots; ip++) {
-                                if (ieqn == IYPLT[ip]-1)
-                                oldypl[ip] += (double) TOR_PERIOD;
-                                if (ieqn == IXPLT[ip]-1)
-                                oldxpl[ip] += (double) TOR_PERIOD;
-                        if ((ieqn == IZPLT[ip]-1) &&
-                            (MyGraph->ThreeDFlag == 1))
-                                oldzpl[ip] += (double) TOR_PERIOD;
-                                } */
                     }
                 }
             }
@@ -2333,7 +2300,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                    { */
                 i_nan = 0;
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
-                /* storage[i_nan][storind]=*t;     */
                 for (i_nan = 1; i_nan <= ieqn;
                      i_nan++) {
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
@@ -2343,11 +2309,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
                             xv[i_nan], (double)x[i_nan - 1]);
                 }
-                /* storind++;
-                 if(!(storind<MAXSTOR))
-                 if(integrate_stor_full()==0)break;
-                }
-                */
                 ggets_err_msg(error_message);
                 rval = 1;
                 break;
@@ -2363,7 +2324,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     { */
                 i_nan = 0;
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
-                /* storage[i_nan][storind]=*t;     */
                 for (i_nan = 1; i_nan <= ieqn;
                      i_nan++) {
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],

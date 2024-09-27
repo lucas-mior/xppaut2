@@ -203,7 +203,6 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         y[i] = yold[i];
     }
 
-    /*do_fit_printem(yderv,yfit,t0,npars,nvars,npts);  */
     return;
 }
 

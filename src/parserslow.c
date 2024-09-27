@@ -281,9 +281,6 @@ init_rpn(void) {
     parserslow_add_con("mouse_vy", 0.0);
 
     /* end animator stuff */
-    /*  parserslow_add_con("c___1",0.0);
-        parserslow_add_con("c___2",0.0);
-        parserslow_add_con("c___3",0.0); */
 
     tabular_init_table();
     if (newseed == 1) {
@@ -367,7 +364,6 @@ get_type(int32 index) {
 
 int32
 parserslow_add_con(char *name, double value) {
-    /*  printf("Adding constant %s # %d\n",name,NCON); */
     if (NCON >= MAX_PAR) {
         if (ERROUT) {
             printf("too many constants !!\n");
@@ -487,12 +483,6 @@ parserslow_add_expr(char *expr, int32 *command, int32 *length) {
     convert(expr, dest);
     err = make_toks(dest, my_token);
 
-    /*  i=0;
-      while(1){
-      ggets_plintf(" %d %d \n",i,my_token[i]);
-      if(my_token[i]==ENDTOK)break;
-      i++;
-    } */
     if (err != 0) {
         return 1;
     }
@@ -505,7 +495,6 @@ parserslow_add_expr(char *expr, int32 *command, int32 *length) {
         i++;
     }
     *length = i + 1;
-    /*  for(i=0;i<*length;i++)printf("%d \n",command[i]);  */
     return 0;
 }
 
@@ -1004,8 +993,6 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
     while (true) {
     getnew:
         newtok = toklist[lstptr++];
-        /*    for(zip=0;zip<tokptr;zip++)
-                 ggets_plintf("%d %d\n",zip,tokstak[zip]);  */
         /*        check for delay symbol             */
         if (newtok == DELSYM) {
             temp = my_symb[toklist[lstptr + 1]].com;
@@ -1217,7 +1204,6 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
     }
     command[comptr] = my_symb[ENDTOK].com;
 
-    /* pr_command(command);  */
     return 0;
 }
 
@@ -1239,7 +1225,6 @@ pr_command(int32 *command) {
 void
 show_where(char *string, int32 index) {
     char junk[MAXEXPLEN];
-    /* exit(-1); */
     for (int32 i = 0; i < index; i++) {
         junk[i] = ' ';
     }
@@ -1928,7 +1913,6 @@ do_delay(double delay, double i) {
 
     if (del_stab_flag > 0) {
         if (DelayFlag && delay > 0.0) {
-            /* printf("do_delay for var #%d, delay %f\n", variable-1, delay); */
             return delay_handle_get_delay(variable - 1, delay);
         }
         return variables[variable];
@@ -1996,7 +1980,6 @@ heaviside(double z) {
 
 double
 rndom(double z) {
-    /* return z*(double)rand()/32767.00; */
     return z*markov_ndrand48();
 }
 

@@ -90,9 +90,6 @@ efmx(double *in, double *out, int nin, int nout, double *var, double *con) {
     struct timeval timer;
     gettimeofday(&timer, NULL);
     start = timer.tv_sec*1000 + timer.tv_usec / 1000;
-    /*  printf("nin=%d nout=%d\n",nin,nout);
-        printf(" ntrial=%d  niter=%d nstart=%d ibar=%g
-       isig=%g",ntrials,niter,nstart, ibar,isig); */
 
     out[0] = onerun(dt, n, ntrials, niter, nstart, ibar, isig, nsig, S, tau);
     gettimeofday(&timer, NULL);

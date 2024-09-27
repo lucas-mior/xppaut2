@@ -141,8 +141,6 @@ histogram_new_four(int32 nmodes, int32 col) {
     if (FOUR_HERE) {
         /* histogram four back */
         set_browser_data(my_four, 1);
-        /*   my_browser.data=my_four;
-             my_browser.col0=1; */
         refresh_browser(four_len);
     }
     ggets_ping();
@@ -405,8 +403,6 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         return;
     }
     if (which == 2) {
-        /* histogram_mycor(storage[col],storage[col2],storind,zlo,zhi,nbins,my_hist[1],1);
-         */
         histogram_mycor2(storage[col], storage[col2], storind, nbins,
                          my_hist[1], 1);
         histogram_back();
@@ -511,8 +507,6 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
     int32 kwin = (nr - win + 1) / shift;
     int32 kk;
     double *ct, *st, *f, *d, x, nrmf;
-    /*double sum;
-     */
     if (nr < 2) {
         return 0;
     }
@@ -550,24 +544,19 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
     for (int32 i = 0; i < shift; i++) {
         pow[i] = 0.0;
     }
-    /*sum=0;
-     */
 
     for (int32 j = 0; j < kwin; j++) {
         for (int32 i = 0; i < win; i++) {
             kk = (j*shift + i + nr) % nr;
             d[i] = f[i]*data[kk];
-            /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
         }
         histogram_fft(d, ct, st, shift, win);
         for (int32 i = 0; i < shift; i++) {
             x = ct[i]*ct[i] + st[i]*st[i];
             pow[i] = pow[i] + sqrt(x);
-            /* sum+=x; */
         }
     }
     for (int32 i = 0; i < shift; i++) {
-        /*  pow[i]=log(pow[i]/((kwin)*nrmf)); */
         pow[i] = pow[i] / ((kwin)*sqrt(nrmf));
     }
     free(f);
@@ -598,10 +587,8 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
                          int32 w_type, double *pow, int32 type) {
     int32 shift = win / 2;
     int32 kwin = (nr - win + 1) / shift;
-    /*  int32 kwin=nr/shift; */
     int32 kk;
     double *ct, *st, *f, *d, x, nrmwin;
-    /*double sum; Not used anywhere*/
     double *ct2, *st2, *d2;
     double *pxx;
     double *pyy;
@@ -656,11 +643,9 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
 
     for (int32 j = 0; j <= kwin; j++) {
         for (int32 i = 0; i < win; i++) {
-            /* kk=kk=(-shift+j*shift+i+nr)%nr; */
             kk = (i + j*shift) % nr;
             d[i] = f[i]*data[kk];
             d2[i] = f[i]*data2[kk];
-            /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
         }
         histogram_fft(d, ct, st, shift, win);
         histogram_fft(d2, ct2, st2, shift, win);
@@ -782,7 +767,6 @@ histogram_compute_fourier(void) {
         ggets_err_msg("Need at least three data columns");
         return;
     }
-    /* ggets_new_int("Number of modes ",&nmodes); */
     if (storind <= 1) {
         ggets_err_msg("No data!");
         return;
@@ -799,12 +783,6 @@ histogram_compute_correl(void) {
     int32 lag;
     double total = storage[0][storind - 1] - storage[0][0], dta;
     dta = total / (double)(storind - 1);
-    /*  ggets_new_int("(0) Xcor (1) Xspec (2) Coher ",&flag);
-    if(flag>0){
-      compute_cross(flag-1);
-      return;
-    }
-    */
 
     ggets_new_int("Number of bins ", &hist_inf.nbins);
     ggets_new_int("(0)Direct or (1) FFT ", &hist_inf.fftc);
@@ -815,8 +793,6 @@ histogram_compute_correl(void) {
     hist_inf.nbins = 2*(hist_inf.nbins / 2) + 1;
     lag = hist_inf.nbins / 2;
 
-    /* ggets_new_float("Low ",&hist_inf.xlo);
-       ggets_new_float("Hi ",&hist_inf.xhi); */
     /* lets try to get the lags correct for plotting */
     hist_inf.xlo = -lag*dta;
     hist_inf.xhi = lag*dta;
@@ -938,7 +914,6 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
     double av1 = 0.0;
     double av2 = 0.0;
     int32 dim[2];
-    /*int32 n2; Not used anywhere*/
     if (flag) {
         for (int32 i = 0; i < length; i++) {
             av1 += data1[i];

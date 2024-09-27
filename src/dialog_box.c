@@ -72,15 +72,11 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
     XSelectInput(display, d.mes, EV_MASK);
     XSelectInput(display, d.ok, BUT_MASK);
     XSelectInput(display, d.cancel, BUT_MASK);
-    /* txt=XCreateFontCursor(display,XC_xterm);
-    XDefineCursor(display,d.input,txt); */
     XMapWindow(display, d.base);
     XMapWindow(display, d.mes);
     XMapWindow(display, d.input);
     XMapWindow(display, d.ok);
     XMapWindow(display, d.cancel);
-    /*  CURS_X=strlen(d.input_s); */
-    /* ggets_show_char('_', DCURX*CURS_X, 0, d.input); */
     pos = (int32)strlen(d.input_s);
     colm = DCURX*pos;
     while (true) {
@@ -178,7 +174,6 @@ dialog_box_display(Window window, Dialog d, int32 col) {
         XDrawString(display, window, gc, 0, CURY_OFF, d.input_s,
                     (int32)strlen(d.input_s));
         ggets_put_cursor_at(window, col, 0);
-        /* ggets_show_char('_',DCURX*strlen(d.input_s),0,d.input); */
     }
     return;
 }

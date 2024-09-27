@@ -149,7 +149,6 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
     double per = par[10];
     type = autevd_get_bif_type((int32)ibrs, (int32)ntots);
 
-    /*if(my_ev.br==ABS(*ibr)&&my_ev.pt==ABS(*ntot)){evflag=1;}*/
     if (iap->ntot == 1) {
         auto_nox_add_point(par, per, uhigh, ulow, ubar, *a, type, 0, lab, icp1,
                            icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
@@ -159,7 +158,6 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
     }
 
     if (DiagFlag == 0) {
-        /* diagram_start(*ndim); */
         diagram_edit_start((int32)ibrs, (int32)ntots, (int32)iap->itp, lab,
                            (int32)iap->nfpr, *a, uhigh, ulow, u0, ubar, par,
                            per, (int32)iap->ndim, icp1, icp2, icp3, icp4,

@@ -410,9 +410,6 @@ create_the_menus(Window base) {
 
 void
 show_menu(int32 j) {
-    /*  XMapRaised(display,my_menus[j].base);
-    XMapSubwindows(display,my_menus[j].base);
-    */
     XRaiseWindow(display, my_menus[j].base);
     my_menus[j].visible = 1;
     help_menu = j;
@@ -425,8 +422,6 @@ unshow_menu(int32 j) {
         return;
     }
     my_menus[j].visible = 0;
-    /* XUnmapSubwindows(display,my_menus[j].base);
-     XUnmapWindow(display,my_menus[j].base); */
     return;
 }
 
@@ -501,9 +496,6 @@ menu_expose(Window win) {
         XDrawString(display, win, gc, DCURX / 2 + 5, CURY_OFF, z[0],
                     (int)strlen(z[0]));
         ggets_set_fore();
-        /* many_pops_base_col();
-        XDrawString(display,win,gc,0,CURY_OFF,z[0],strlen(z[0]));
-        */
         return;
     }
     for (int32 i = 0; i < n; i++) {
@@ -543,8 +535,6 @@ void
 menu_draw_help(void) {
     int32 j = help_menu;
     int32 n;
-    /*char **z;
-     */
     if (j < 0) {
         return;
     }
@@ -552,8 +542,6 @@ menu_draw_help(void) {
         return;
     }
     n = my_menus[j].n;
-    /*z=my_menus[j].names;
-     */
     menu_expose(my_menus[j].title);
     for (int32 i = 0; i < n; i++) {
         menu_expose(my_menus[j].window[i]);

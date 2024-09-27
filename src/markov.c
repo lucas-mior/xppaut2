@@ -83,10 +83,7 @@ markov_add(int32 nstate, char *name) {
 
 int32
 build_markov(
-    /*   FILE *fptr; */
     char **ma, char *name) {
-    /*int32 nn;
-     */
     int32 len = 0;
     int32 ll;
     char line[256];
@@ -117,7 +114,6 @@ build_markov(
     }
     ggets_plintf(" Building %s %d states...\n", name, nstates);
     for (int32 i = 0; i < nstates; i++) {
-        /* fgets(line,256,fptr); */
         snprintf(line, sizeof(line), "%s", ma[i]);
         if (ConvertStyle) {
             fprintf(convertf, "%s", line);
@@ -416,7 +412,6 @@ markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
     double rate = 0;
     double test;
     double r[1000];
-    /*double rold[1000]; Not used*/
 
     switch (meth) {
     case 0: /* std gillespie method */
@@ -441,9 +436,6 @@ markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
         break;
     case 1: /* tau stepping method  */
         perror("Tau stepping method not implemented yet.");
-        /*for(i=0;i<nrxn;i++)
-          rold[i]=get_ivar(rxn[i]);
-            */
         break;
     default:
         break;
@@ -535,8 +527,6 @@ void
 markov_mean_back(void) {
     if (STOCH_HERE) {
         set_browser_data(my_mean, 1);
-        /*    my_browser.data=my_mean;
-              my_browser.col0=1; */
         refresh_browser(stoch_len);
         storind = stoch_len;
     }
@@ -547,8 +537,6 @@ void
 markov_variance_back(void) {
     if (STOCH_HERE) {
         set_browser_data(my_variance, 1);
-        /*    my_browser.data=my_variance;
-              my_browser.col0=1; */
         refresh_browser(stoch_len);
         storind = stoch_len;
     }
@@ -596,7 +584,6 @@ void
 markov_do_stats(int32 ierr) {
     double ninv;
     double mean;
-    /*  STOCH_FLAG=0; */
     if (ierr != -1 && N_TRIALS > 0) {
         ninv = 1. / (double)(N_TRIALS);
         for (int32 i = 0; i < stoch_len; i++) {

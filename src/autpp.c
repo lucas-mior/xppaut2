@@ -62,7 +62,6 @@ stpnt(int64 ndim, double t, double *u, double *par) {
     if (HomoFlag != 1) {
         auto_nox_get_start_orbit(u, t, (int32)ndim);
     }
-    /*  printf("%d %d %g %g %g %g \n",ndim,HomoFlag,t,u[0],u[1],p); */
     if (HomoFlag == 1) {
         auto_nox_get_shifted_orbit(u, t, p, (int32)ndim);
         for (int32 i = 0; i < ndim; i++) {

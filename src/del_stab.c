@@ -130,8 +130,6 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
         }
         colnorm += colmax;
     }
-    /* sign=del_stab_plot_args(coef,delay_list,n,NDelay,DelayGrid,AlphaMax,OmegaMax);
-     */
     sign = del_stab_plot_args(coef, delay_list, n, NDelay, DelayGrid, colnorm,
                               colnorm);
 
@@ -150,7 +148,6 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     }
 
     eig_list_create_eq_box(ABS(i), 2, 0, 0, 0, x, n);
-    /* DING; */
     del_stab_flag = 1;
     free(ev);
     if (okroot == 1) {
@@ -269,7 +266,6 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
             } else {
                 temp = del_stab_rtoc(0.0, 0.0);
             }
-            /* cprintn(temp); */
             z[i + j*n] = del_stab_z_dif(
                 temp,
                 del_stab_rtoc(coef[i + j*n], 0.0)); /* initialize the array */
@@ -281,7 +277,6 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
                              0.0); /* convert delay to floatcomplex number */
         eld = del_stab_c_exp2(
             del_stab_z_mult(temp, lambda)); /* compute exp(-lambda*tau) */
-        /* cprintn(eld); */
         for (int32 j = 0; j < n; j++) {
             for (int32 i = 0; i < n; i++) {
                 z[i + j*n] = del_stab_z_dif(
@@ -407,7 +402,6 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
             } else {
                 temp = del_stab_rtoc(0.0, 0.0);
             }
-            /* cprintn(temp); */
             z[i + j*n] = del_stab_z_dif(
                 temp,
                 del_stab_rtoc(coef[i + j*n], 0.0)); /* initialize the array */
@@ -419,7 +413,6 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
                              0.0); /* convert delay to floatcomplex number */
         eld = del_stab_c_exp2(
             del_stab_z_mult(temp, lambda)); /* compute exp(-lambda*tau) */
-        /* cprintn(eld); */
         for (int32 j = 0; j < n; j++) {
             for (int32 i = 0; i < n; i++) {
                 z[i + j*n] = del_stab_z_dif(
@@ -430,11 +423,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
         }
     }
     /*  the array is done  */
-    /* cprintarr(z,n,n); */
     temp = del_stab_z_determ(z, n);
-    /* cprint(lambda);
-    cprint(temp);
-    ggets_plintf(" \n"); */
     free(z);
     arg = atan2(temp.i, temp.r);
     return arg;

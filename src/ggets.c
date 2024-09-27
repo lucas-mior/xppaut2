@@ -173,7 +173,6 @@ ggets_get_key_press(XEvent *event) {
     KeySym ks;
 
     XLookupString((XKeyEvent *)event, buf, maxlen, &ks, &comp);
-    /*       printf(" ks=%d buf[0]=%d char=%c \n",ks,(int32)buf[0],buf[0]); */
 
     if (ks == XK_Escape) {
         return KEY_ESC;
@@ -185,8 +184,6 @@ ggets_get_key_press(XEvent *event) {
                ((ks >= XK_space) && (ks <= XK_asciitilde))) {
         return (int32)buf[0];
     }
-    /*   else if ((ks>=XK_Shift_L)&&(ks<=XK_Hyper_R)) return 0;
-       else if ((ks>=XK_F1)&&(ks<=XK_F35))  return 0; */
 
     else if (ks == XK_BackSpace) {
         return KEY_BKSP;
@@ -235,7 +232,6 @@ ggets_cput_text(void) {
     } /* this makes it permanent */
 
     ggets_new_int("Size 0-4 :", &size);
-    /* ggets_new_int("Font  0-times/1-symbol :",&font); */
     if (size > 4) {
         size = 4;
     }
@@ -245,7 +241,6 @@ ggets_cput_text(void) {
     pop_list_message_box(&temp, 0, SCALEY - 5*DCURY, "Place text with mouse");
     if (menudrive_get_mouse_xy(&x, &y)) {
         many_pops_gr_col();
-        /* graphics_fancy_put_text_x11(x,y,string,size,font); */
         graphics_fillin_text(string, new);
         graphics_special_put_text_x11(x, y, new, size);
         many_pops_add_label(string, x, y, size, font);
@@ -375,7 +370,6 @@ ggets_display_command(char *name, char *value, int32 pos) {
     ggets_set_fore();
     if (m > 0) {
         XDrawString(display, command_pop, gc, l*DCURX, CURY_OFF, value, m);
-        /* ggets_show_char('_',DCURX*(l+m),0,command_pop); */
         ggets_put_cursor_at(command_pop, DCURX*l, pos);
     }
     return;
@@ -532,7 +526,6 @@ ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done2,
         break;
     case KeyPress:
         ch = (char)ggets_get_key_press(&event);
-        /* printf("ch= %ld \n",ch); */
         ggets_edit_window(command_pop, pos, value, col, done2, ch);
         break;
     default:

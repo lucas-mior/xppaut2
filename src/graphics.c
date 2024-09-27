@@ -304,8 +304,6 @@ graphics_set_linestyle(int32 ls) {
                                JoinBevel);
             return;
         }
-        /*width=0;
-         */
         if (ls == -1) {
             color_set(0);
             XSetDashes(display, gc_graph, 0, dashes[1], (int)strlen(dashes[1]));
@@ -472,8 +470,6 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
 void
 graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
                             int32 font) {
-    /*int32 yoff;
-     */
     if (strlen(str) == 0) {
         return;
     }
@@ -679,10 +675,6 @@ graphics_init(int32 i) {
         graph[i].color[j] = 0;
     }
 
-    /*sprintf(graph[i].xlabel,"");
-    sprintf(graph[i].ylabel,"");
-    sprintf(graph[i].zlabel,"");
-    */
     graph[i].xlabel[0] = '\0';
     graph[i].ylabel[0] = '\0';
     graph[i].zlabel[0] = '\0';
@@ -832,7 +824,6 @@ graphics_threedproj(double x2p, double y2p, double z2p, double *xp,
     double y1p;
     double z1p;
     double s;
-    /*  if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     graphics_rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
     if (MyGraph->PerspFlag == 0) {
@@ -873,7 +864,6 @@ graphics_threed_proj(double x, double y, double z, double *xp, double *yp) {
     double y2p;
     double z2p;
     graphics_scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
-    /* if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     graphics_rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
     if (MyGraph->PerspFlag == 0) {

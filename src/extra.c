@@ -253,7 +253,6 @@ extra_do_export_list(void) {
     }
     extra_parse_inout(in_out.lin, 0);
     extra_parse_inout(in_out.lout, 1);
-    /* check_inout(); */
     return;
 }
 

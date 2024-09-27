@@ -195,14 +195,12 @@ many_pops_gtitle_text(char *string, Window win) {
 void
 many_pops_restore_off(void) {
     MyGraph->Restore = 0;
-    /* MyGraph->Nullrestore=0; */
     return;
 }
 
 void
 many_pops_restore_on(void) {
     MyGraph->Restore = 1;
-    /*  MyGraph->Nullrestore=1; */
     return;
 }
 
@@ -562,7 +560,6 @@ many_pops_arrow_head(double xs, double ys, double xe, double ye, double size) {
     double l = xe - xs, h = ye - ys;
     double ar = (MyGraph->xhi - MyGraph->xlo) / (MyGraph->yhi - MyGraph->ylo);
     double x0 = xs + size*l, y0 = ys + size*h;
-    /* double tot=(double)sqrt((double)(l*l+h*h)); */
 
     double xp = x0 + .5*size*h*ar, yp = y0 - .5*size*l / ar;
     double xm = x0 - .5*size*h*ar, ym = y0 + .5*size*l / ar;
@@ -636,7 +633,6 @@ many_pops_add_grob(double xs, double ys, double xe, double ye, double size,
             grob[i].size = size;
             grob[i].color = color;
             grob[i].type = type;
-            /*     main_redraw_all(); */
             return;
         }
     }
@@ -726,10 +722,8 @@ many_pops_add_pntarr(int32 type) {
     if (ggets_new_int("Color: ", &color)) {
         return;
     }
-    /* pop_list_message_box(&temp,0,SCALEY-5*DCURY,"Choose start/end"); */
     menudrive_message_box("Choose start/end");
     flag = rubber(&i1, &j1, &i2, &j2, draw_win, 1);
-    /*  XDestroyWindow(display,temp); */
     menudrive_message_box_kill();
     XFlush(display);
     if (flag) {
@@ -814,8 +808,6 @@ many_pops_edit_object_com(int32 com) {
                 if (ans == 'y') {
                     ggets_new_string("Text: ", lb[ilab].s);
                     ggets_new_int("Size 0-4 :", &lb[ilab].size);
-                    /* ggets_new_int("Font  0-times/1-symbol :",&lb[ilab].font);
-                     */
                     if (lb[ilab].size > 4) {
                         lb[ilab].size = 4;
                     }
@@ -1079,7 +1071,6 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
     for (int32 i = 0; i < MAXFRZ; i++) {
         frz[i].use = 0;
     }
-    /* for(i=0;i<MAXNCLINE ... */
     for (int32 i = 0; i < MAXPOP; i++) {
         graph[i].Use = 0;
     }
@@ -1140,12 +1131,6 @@ many_pops_ps_restore(void) {
 
 void
 many_pops_svg_restore(void) {
-    /* integrate_restore(0,my_browser.maxrow);
-     */
-    /*ps_do_color(0);
-    if(MyGraph->Nullrestore){restore_nullclines();ps_stroke();}
-     */
-
     nullcline_redraw_dfield();
     if (MyGraph->Nullrestore) {
         restore_nullclines();
@@ -1225,10 +1210,8 @@ many_pops_do_expose(XEvent event) {
     temp = draw_win;
     main_top_button_draw(event.xany.window);
     array_plot_expose(event.xany.window);
-    /* txt_redraw_view(ev.xany.window);  */
     ani_expose(event.xany.window);
     expose_my_browser(event);
-    /* ggets_draw_info_pop(ev.xany.window); */
     menudrive_message_box_redraw(event.xany.window);
     eig_list_draw_eq_list(event.xany.window);
     eig_list_draw_eq_box(event.xany.window);
@@ -1265,7 +1248,6 @@ many_pops_do_expose(XEvent event) {
             }
             if ((event.type == Expose) && (graph[i].Use) &&
                 (event.xexpose.window == graph[i].window)) {
-                /* nullcline_redraw_dfield(); */
 
                 current_pop = i;
                 MyGraph = &graph[i];
@@ -1344,10 +1326,7 @@ many_pops_create_a_pop(void) {
     XRaiseWindow(display, graph[index].window);
     XSetWMProtocols(display, graph[index].window, &atom_delete_window, 1);
     many_pops_select_window(graph[index].window);
-    /*  many_pops_select_window(graph[0].window);
-        many_pops_select_window(graph[index].window); */
     XRaiseWindow(display, graph[0].window);
-    /*  XDestroyWindow(display,temp); */
     return;
 }
 
@@ -1483,7 +1462,6 @@ many_pops_canvas_xy(char *buf) {
         many_pops_small_base();
         XDrawString(display, MyGraph->w_info, small_gc, 0, CURY_OFFs, buf,
                     (int)strlen(buf));
-        /* many_pops_small_gr(); */
     }
     return;
 }
