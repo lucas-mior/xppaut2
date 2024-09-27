@@ -7,7 +7,7 @@ BRACKETS='\[.*\]'
 find src -iname "*.[ch]" | while read file; do
 
 awk \
-" /^extern [[:alnum:]_]+ ($IDENT(\[[^]]+\])?( = \S+)?, )+$IDENT(\[[^]]+\])?( = \S+)?;\$/ {
+" /^extern $IDENT ($IDENT(\[[^]]+\])?( = \S+)?, )+$IDENT(\[[^]]+\])?( = \S+)?;\$/ {
 # print; exit
     static = \$1
     type = \$2
