@@ -1,8 +1,20 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
-#include "stdbool.h"
-#include "integers.h"
+
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/cursorfont.h>
+#include <limits.h>
+#include <stdio.h>
+
 #include "X11/Xlib.h"
+#include "auto_nox.h"
+#include "integers.h"
+#include "newpars.h"
+#include "read_dir.h"
+#include "stdbool.h"
+#include "struct.h"
+#include "xpplim.h"
 
 extern Display *display;
 
@@ -58,8 +70,6 @@ extern char *browse_hint[];
 #ifndef ADJ2_H
 #define ADJ2_H
 
-#include <stdio.h>
-
 extern bool adj_range;
 
 int32 adjoints_do_transpose(void);
@@ -80,9 +90,6 @@ void adjoints_data_back(void);
 #ifndef ANI_H
 #define ANI_H
 
-#include <X11/Xlib.h>
-#include <stdio.h>
-
 extern int32 animation_on_the_fly;
 
 void ani_new_vcr(void);
@@ -100,9 +107,6 @@ int32 ani_check_pause(XEvent event);
 
 #ifndef ARRAY_PLOT_H
 #define ARRAY_PLOT_H
-
-#include <X11/Xlib.h>
-#include <stdio.h>
 
 extern int32 array_plot_range;
 
@@ -131,8 +135,6 @@ int32 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
 
 #ifndef AUTO_X11_H
 #define AUTO_X11_H
-
-#include <X11/Xlib.h>
 
 extern int32 auto_redraw_flag;
 
@@ -184,8 +186,6 @@ void auto_x11_do_range(void);
 
 #ifndef AXES2_H
 #define AXES2_H
-
-#include <X11/Xlib.h>
 
 extern int32 axes2_doing;
 extern int32 axes2_doing_box;
@@ -684,9 +684,6 @@ void band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 #define BMAXCOL 20
 
-#include <X11/Xlib.h>
-#include <stdio.h>
-
 typedef struct Browser {
     Window base;
     Window upper;
@@ -742,8 +739,6 @@ void data_get_my_browser(int32 row);
 #ifndef CALC_H
 #define CALC_H
 
-#include <X11/Xlib.h>
-
 void calc_q_calc(void);
 int32 calc_do_calc(char *temp, double *z);
 double calc(char *expr, int32 *ok);
@@ -753,9 +748,6 @@ double calc(char *expr, int32 *ok);
 #ifndef CHOICE_BOX_H
 #define CHOICE_BOX_H
 
-#include <X11/Xlib.h>
-#include "struct.h"
-
 void choice_box_base(char *wname, int32 n, int32 mcc, char **names,
                      int32 *check, int32 type);
 
@@ -763,8 +755,6 @@ void choice_box_base(char *wname, int32 n, int32 mcc, char **names,
 
 #ifndef COLOR_H
 #define COLOR_H
-
-#include <X11/Xlib.h>
 
 extern int32 custom_color;
 
@@ -785,8 +775,6 @@ uint32 color_map(int32 i);
 
 #ifndef GGETS_H
 #define GGETS_H
-
-#include <X11/Xlib.h>
 
 #define MAX_INCLUDE_FILES 10
 #define ClickTime 200
@@ -835,8 +823,6 @@ int32 ggets_new_string(char *name, char *value);
 
 #ifndef LOAD_EQN_H
 #define LOAD_EQN_H
-
-#include <stdio.h>
 
 typedef struct InternSet {
     char *name;
@@ -1448,11 +1434,8 @@ int32 derived_add(char *name, char *rhs);
 
 #ifndef DIAGRAM_H
 #define DIAGRAM_H
-#include "auto_nox.h"
 
 extern Diagram *bifd;
-
-#include <stdio.h>
 
 extern int32 NBifs;
 
@@ -1487,9 +1470,6 @@ void diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 
 #ifndef DIALOG_BOX_H
 #define DIALOG_BOX_H
-
-#include <X11/Xlib.h>
-#include "struct.h"
 
 int32 dialog_box_get(char *wname, char *name, char *value, char *ok,
                      char *cancel, int32 max);
@@ -1855,9 +1835,6 @@ nfcnRead    Number of function calls.
 
 */
 
-#include <stdio.h>
-#include <limits.h>
-
 typedef void (*FcnEqDiff)(uint32 n, double x, double *y, double *f);
 typedef void (*SolTrait)(long nr, double xold, double x, double *y, uint32 n,
                          int32 *irtrn);
@@ -1935,10 +1912,6 @@ int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 #ifndef EDIT_RHS_H
 #define EDIT_RHS_H
 
-#include <X11/Xlib.h>
-#include "xpplim.h"
-#include <stdio.h>
-
 #define NEQMAXFOREDIT 20
 #define MAX_N_EBOX MAX_ODE
 #define MAX_LEN_EBOX 86
@@ -1958,8 +1931,6 @@ int32 edit_rhs_save_as(void);
 
 #ifndef EIG_LIST_H
 #define EIG_LIST_H
-
-#include <X11/Xlib.h>
 
 void eig_list_draw_eq_list(Window window);
 void eig_list_create_eq_list(void);
@@ -2145,10 +2116,6 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 #ifndef FORM_ODE_H
 #define FORM_ODE_H
 
-#include "xpplim.h"
-#include "newpars.h"
-#include <stdio.h>
-
 #define MAXVNAM 33
 #define MAXLINES 5000
 #define MAXCOMMENTS 500
@@ -2284,9 +2251,6 @@ int32 go_go_auto(void);
 #define REAL_SMALL 1.e-6
 #define MAXBIFCRV 100
 #define LMAX(a, b) ((a > b) ? a : b)
-
-#include <X11/Xlib.h>
-#include <stdio.h>
 
 extern int32 AutoFreezeFlag;
 extern int32 colorline[];
@@ -2468,9 +2432,6 @@ void histogram_post_process_stuff(void);
 
 #ifndef INIT_CONDS_H
 #define INIT_CONDS_H
-
-#include <X11/Xlib.h>
-#include "read_dir.h"
 
 typedef struct BoxListold {
     int32 use;
@@ -3101,8 +3062,6 @@ void load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask);
 #ifndef LUNCH_NEW_H
 #define LUNCH_NEW_H
 
-#include <stdio.h>
-
 void lunch_file_inf(void);
 void lunch_ps_write_pars(FILE *fp);
 int32 lunch_read(FILE *fp);
@@ -3117,8 +3076,6 @@ void lunch_io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #ifndef MAIN_H
 #define MAIN_H
-
-#include <X11/Xlib.h>
 
 extern int32 all_win_vis;
 extern int32 use_ani_file;
@@ -3191,8 +3148,6 @@ int32 main_get_command_width(void);
 #ifndef MANY_POPS_H
 #define MANY_POPS_H
 
-#include <X11/Xlib.h>
-
 extern int32 manual_expose;
 extern int32 SimulPlotFlag;
 extern Graph graph[MAXPOP];
@@ -3241,8 +3196,6 @@ void many_pops_set_active_windows(void);
 #ifndef MARKOV_H
 #define MARKOV_H
 
-#include <stdio.h>
-
 extern int32 STOCH_FLAG;
 extern int32 NWiener;
 
@@ -3274,8 +3227,6 @@ extern int32 help_menu;
 
 #ifndef MENUDRIVE_H
 #define MENUDRIVE_H
-
-#include <X11/Xlib.h>
 
 #define M_IR 0
 #define M_I2 1
@@ -3528,8 +3479,6 @@ void menudrive_do_tutorial(void);
 #ifndef XPPMENU_H
 #define XPPMENU_H
 
-#include <X11/Xlib.h>
-
 void add_menu(Window base, int32 j, int32 n, char **names, char *key,
               char **hint);
 void create_the_menus(Window base);
@@ -3623,8 +3572,6 @@ extern char ColorVia[15];
 extern double ColorViaLo;
 extern double ColorViaHi;
 extern int32 ColorizeFlag;
-
-#include <stdio.h>
 
 typedef struct NullClines {
     double *xn;
@@ -3755,11 +3702,6 @@ void odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
 #ifndef POP_LIST_H
 #define POP_LIST_H
 
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/cursorfont.h>
-#include "xpplim.h"
-
 #define MAX_N_SBOX 22
 
 #define FORGET_ALL 0
@@ -3887,8 +3829,6 @@ Window pop_list_make_icon_window(Window root, int32 x, int32 y, int32 width,
 #ifndef PP_SHOOT_H
 #define PP_SHOOT_H
 
-#include <stdio.h>
-
 void pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
                     int32 n);
 void pp_shoot_compile_bvp(void);
@@ -3905,8 +3845,6 @@ void pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
 #ifndef RUBBER_H
 #define RUBBER_H
 
-#include <X11/Xlib.h>
-
 int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window,
              int32 f);
 
@@ -3914,9 +3852,6 @@ int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window,
 
 #ifndef SCRNGIF_H
 #define SCRNGIF_H
-
-#include <stdio.h>
-#include <X11/Xlib.h>
 
 typedef struct GifTree {
     char typ;   /* terminating, lookup, or search */
