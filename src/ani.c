@@ -85,6 +85,12 @@ static char *toons[] = {"Popeye the Sailor",
 #define COMNT 30
 #define SPEED 23
 
+/**************  New stuff for the Grabber ***************************/
+#define MAX_GEVENTS 20  /* maximum variables you can change per grabbable */
+#define MAX_ANI_GRAB 50 /* max grabbable objects  */
+
+/***************  End of grabber stuff  in header **************/
+
 /***************  stuff for grabber  *******************/
 /* tasks have the form {name1=formula1;name2=formula2;...} */
 typedef struct GrabTask {
