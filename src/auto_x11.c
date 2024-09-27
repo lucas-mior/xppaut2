@@ -53,7 +53,16 @@ int32 mark_iye;
 static uint32 DONT_XORCross = 0;
 
 static struct AutoWin {
-    Window canvas, axes, numerics, grab, next, run, clear, redraw, base, per;
+    Window canvas;
+    Window axes;
+    Window numerics;
+    Window grab;
+    Window next;
+    Window run;
+    Window clear;
+    Window redraw;
+    Window base;
+    Window per;
     Window info, param, file, abort, stab, hint, kill;
 } auto_win;
 
@@ -168,7 +177,9 @@ auto_x11_do_range(void) {
 
 void
 auto_x11_get_info(int32 *n, char *pname) {
-    int32 i1, i2, ibr;
+    int32 i1;
+    int32 i2;
+    int32 ibr;
     Diagram *d;
     Diagram *dnew;
 
@@ -247,7 +258,8 @@ void
 auto_x11_traverse_diagram(void) {
     Diagram *d, *dnew, *dold;
     int32 done = 0;
-    int32 ix, iy;
+    int32 ix;
+    int32 iy;
     int32 lalo;
     XEvent event;
     int32 kp;
@@ -720,14 +732,16 @@ auto_x11_update_view(double xlo, double xhi, double ylo, double yhi) {
 void
 auto_x11_scroll(void) {
     XEvent event;
-    int32 i = 0, j = 0;
+    int32 i = 0;
+    int32 j = 0;
     int32 i0 = 0, j0 = 0;
     int32 state = 0;
     double xlo = Auto.xmin;
     double ylo = Auto.ymin;
     double xhi = Auto.xmax;
     double yhi = Auto.ymax;
-    double dx = 0, dy = 0;
+    double dx = 0;
+    double dy = 0;
     int32 alldone = 0;
     XSelectInput(display, auto_win.canvas,
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
@@ -876,11 +890,15 @@ auto_x11_lil_button(Window root, int32 x, int32 y) {
 
 void
 auto_x11_make(char *wname, char *iname) {
-    int32 x, y, wid, hgt;
+    int32 x;
+    int32 y;
+    int32 wid;
+    int32 hgt;
     int32 addwid = 16*DCURX, addhgt = 3*DCURY, hinthgt = DCURY + 6;
     Window base = 0;
     int32 dely = DCURY + 5;
-    int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
+    int32 ymargin = 4*DCURYs;
+    int32 xmargin = 12*DCURXs;
     XTextProperty winname;
     XTextProperty iconname;
     XSizeHints size_hints;
@@ -980,7 +998,8 @@ auto_x11_resize_window(XEvent event) {
     int32 wid;
     int32 hgt;
     int32 addhgt = (int32)(3.5*DCURY);
-    int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
+    int32 ymargin = 4*DCURYs;
+    int32 xmargin = 12*DCURXs;
     STD_HGT_var = 20*DCURY;
     STD_WID_var = 50*DCURX;
 

@@ -375,7 +375,8 @@ int32
 parserslow_add_kernel(char *name, double mu, char *expr) {
     char string[100];
 
-    int32 len, in = -1;
+    int32 len;
+    int32 in = -1;
     if (duplicate_name(name) == 1)
         return 1;
     if (NKernel == MAX_KER) {
@@ -536,7 +537,9 @@ parserslow_add_net_name(int32 index, char *name) {
 int32
 parserslow_add_file_table(int32 index, char *file) {
     char file2[1000];
-    int32 i2 = 0, i1 = 0, n;
+    int32 i2 = 0;
+    int32 i1 = 0;
+    int32 n;
     char ch;
     n = (int32)strlen(file);
     for (i1 = 0; i1 < n; i1++) {
@@ -744,7 +747,8 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
 
 int32
 check_num(int32 *tok, double value) {
-    int32 bob, in;
+    int32 bob;
+    int32 in;
     /*int32 m;*/
     for (int32 i = 0; i < NSYM; i++) {
         if (strncmp(my_symb[i].name, "NUM##", 5) == 0) {
@@ -930,10 +934,14 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
     int32 ncomma = 0;
     int32 loopstk[100];
     int32 lptr = 0;
-    int32 nif = 0, nthen = 0, nelse = 0;
+    int32 nif = 0;
+    int32 nthen = 0;
+    int32 nelse = 0;
     int32 newtok;
     int32 oldtok;
-    int32 my_com, my_arg, jmp;
+    int32 my_com;
+    int32 my_arg;
+    int32 jmp;
 
     tokstak[0] = STARTTOK;
     tokptr = 1;
@@ -1317,7 +1325,8 @@ int32
 make_toks(char *dest, int32 *my_token) {
     char num[40];
     double value;
-    int32 old_tok = STARTTOK, tok_in = 0;
+    int32 old_tok = STARTTOK;
+    int32 tok_in = 0;
     int32 index = 0, token, nparen = 0, lastindex = 0;
     union /*  WARNING  -- ASSUMES 32 bit int32  and 64 bit double  */
     {
@@ -1397,7 +1406,9 @@ tokeninfo(int32 tok) {
 
 int32
 do_num(char *source, char *num, double *value, int32 *ind) {
-    int32 j = 0, i = *ind, error = 0;
+    int32 j = 0;
+    int32 i = *ind;
+    int32 error = 0;
     int32 ndec = 0, nexp = 0, ndig = 0;
     char ch;
     char oldch;
@@ -1453,7 +1464,8 @@ do_num(char *source, char *num, double *value, int32 *ind) {
 void
 convert(char *source, char *dest) {
     char ch;
-    int32 i = 0, j = 0;
+    int32 i = 0;
+    int32 j = 0;
     while (true) {
         ch = source[i];
         if (!isspace(ch))
@@ -1468,7 +1480,9 @@ convert(char *source, char *dest) {
 
 void
 find_tok(char *source, int32 *index, int32 *tok) {
-    int32 i = *index, maxlen = 0, symlen;
+    int32 i = *index;
+    int32 maxlen = 0;
+    int32 symlen;
     int32 my_tok, match;
     my_tok = NSYM;
     for (int32 k = 0; k < NSYM; k++) {
@@ -1525,7 +1539,11 @@ bessel_y(double x, double y) {
 double
 bessi(double nn, double x) {
     int32 n;
-    double bi, bim, bip, tox, ans;
+    double bi;
+    double bim;
+    double bip;
+    double tox;
+    double ans;
     n = (int32)nn;
     if (n == 0)
         return bessi0(x);
@@ -1615,7 +1633,11 @@ bessi1(double x) {
 double
 bessis(double nn, double x) {
     int32 n;
-    double bi, bim, bip, tox, ans;
+    double bi;
+    double bim;
+    double bip;
+    double tox;
+    double ans;
     n = (int32)nn;
     if (n == 0)
         return bessis0(x);
@@ -1728,7 +1750,8 @@ double
 do_shift(double shift, double variable) {
     int32 it;
     int32 in;
-    int32 i = (int32)(variable), ish = (int32)shift;
+    int32 i = (int32)(variable);
+    int32 ish = (int32)shift;
 
     if (i < 0)
         return 0.0;
@@ -1760,7 +1783,8 @@ do_ishift(double shift, double variable) {
 double
 do_delay_shift(double delay, double shift, double variable) {
     int32 in;
-    int32 i = (int32)(variable), ish = (int32)shift;
+    int32 i = (int32)(variable);
+    int32 ish = (int32)shift;
     if (i < 0)
         return 0.0;
     in = (i % MAXTYPE) + ish;
@@ -1803,7 +1827,10 @@ hom_bcs(int32 i) {
 
 double
 normal(double mean, double std) {
-    double fac, r, v1, v2;
+    double fac;
+    double r;
+    double v1;
+    double v2;
     if (BoxMullerFlag == 0) {
         do {
             v1 = 2.0*markov_ndrand48() - 1.0;
@@ -1924,7 +1951,10 @@ eval_rpn(int32 *equat) {
     int32 i, it, in, j, *tmpeq;
     int32 is;
 
-    int32 low, high, ijmp, iv;
+    int32 low;
+    int32 high;
+    int32 ijmp;
+    int32 iv;
     double temx, temy, temz;
     double sum;
     union /*  WARNING  -- ASSUMES 32 bit int32  and 64 bit double  */

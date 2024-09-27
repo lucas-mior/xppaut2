@@ -96,10 +96,20 @@ cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
                void *f_data, double tn, Vector y, Vector fy, Vector ewt,
                double h, double uround, void *jac_data, int32 *nfePtr,
                Vector vtemp1, Vector vtemp2, Vector vtemp3) {
-    double fnorm, minInc, inc, inc_inv, srur;
+    double fnorm;
+    double minInc;
+    double inc;
+    double inc_inv;
+    double srur;
     Vector ftemp;
     Vector ytemp;
-    int64 group, i, j, width, ngroups, i1, i2;
+    int64 group;
+    int64 i;
+    int64 j;
+    int64 width;
+    int64 ngroups;
+    int64 i1;
+    int64 i2;
     double *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
 
     (void)jac_data;

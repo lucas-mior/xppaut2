@@ -107,7 +107,8 @@ delay_handle_stor_delay(double *y) {
 void
 delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
                     double *dy) {
-    int32 m, ns = 1;
+    int32 m;
+    int32 ns = 1;
     double den, dif, dift, h0, hp, w;
     double c[10], d[10];
     dif = fabs(x - xa[0]);
@@ -147,7 +148,10 @@ delay_handle_get_delay(int32 in, double tau) {
     int32 nodes = NODE;
     int32 n0 = n1;
     int32 n3 = n2 + 1;
-    int32 i0, i1, i2, i3;
+    int32 i0;
+    int32 i1;
+    int32 i2;
+    int32 i3;
 
     if (tau < 0.0 || tau > DELAY) {
         ggets_err_msg("Delay negative or too large");

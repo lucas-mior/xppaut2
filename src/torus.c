@@ -151,10 +151,16 @@ torus_draw_var(int32 i) {
 
 void
 torus_make_box(char *title) {
-    int32 ndn, nac, width, height;
+    int32 ndn;
+    int32 nac;
+    int32 width;
+    int32 height;
     int32 nv;
     /*int32 nh; Not used anywhere*/
-    int32 i1, j1, xpos, ypos;
+    int32 i1;
+    int32 j1;
+    int32 xpos;
+    int32 ypos;
     int32 xstart = DCURXs;
     int32 ystart = DCURYs;
     Window base;

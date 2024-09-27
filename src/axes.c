@@ -271,7 +271,8 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     int32 xaxis_y;
     int32 yaxis_x;
 
-    int32 ybot = DBottom, ytop = DTop;
+    int32 ybot = DBottom;
+    int32 ytop = DTop;
     int32 xleft = DLeft, xright = DRight;
 
     axes2_doing = 1;
@@ -314,9 +315,13 @@ void
 axes2_draw_ytics(char *s1, double start, double incr, double end) {
     double ticvalue;
     double place;
-    double y_min = YMin, y_max = YMax, x_min = XMin;
+    double y_min = YMin;
+    double y_max = YMax;
+    double x_min = XMin;
     char bob[100];
-    int32 xt, yt, s = 1;
+    int32 xt;
+    int32 yt;
+    int32 s = 1;
     TextJustify = 2; /* Right justification  */
     for (ticvalue = start; ticvalue <= end; ticvalue += incr) {
         place = CheckZero(ticvalue, incr);
@@ -358,10 +363,13 @@ void
 axes2_draw_xtics(char *s2, double start, double incr, double end) {
     double ticvalue;
     double place;
-    double y_min = YMin, x_min = XMin, x_max = XMax;
+    double y_min = YMin;
+    double x_min = XMin;
+    double x_max = XMax;
 
     char bob[100];
-    int32 xt, yt = 0;
+    int32 xt;
+    int32 yt = 0;
     int32 s = 1;
     if (DTop < DBottom)
         s = -1;

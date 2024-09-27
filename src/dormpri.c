@@ -152,7 +152,16 @@ static double
 hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
       double *f1, double *yyy1, int32 iord, double hmax, double *atoler,
       double *rtoler, int32 itoler) {
-    double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
+    double dnf;
+    double dny;
+    double atoli;
+    double rtoli;
+    double sk;
+    double h;
+    double h1;
+    double der2;
+    double der12;
+    double sqr;
     uint32 i;
 
     dnf = 0.0;
@@ -226,27 +235,107 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
        SolTrait solout, int32 iout, long nmax, double uround, int32 meth,
        long nstiff, double safe, double beta, double fac1, double fac2,
        uint32 *icont) {
-    double facold, expo1, fac, facc1, facc2, fac11, posneg, xph;
+    double facold;
+    double expo1;
+    double fac;
+    double facc1;
+    double facc2;
+    double fac11;
+    double posneg;
+    double xph;
     double atoli, rtoli, hlamb, err, sk, hnew, ydiff, bspl;
-    double stnum, stden, sqr, err2, erri, deno;
+    double stnum;
+    double stden;
+    double sqr;
+    double err2;
+    double erri;
+    double deno;
     int32 iasti, iord, irtrn, reject, last, nonsti = 0;
     uint32 i;
     uint32 j;
-    double c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c14, c15, c16;
+    double c2;
+    double c3;
+    double c4;
+    double c5;
+    double c6;
+    double c7;
+    double c8;
+    double c9;
+    double c10;
+    double c11;
+    double c14;
+    double c15;
+    double c16;
     double b1, b6, b7, b8, b9, b10, b11, b12, bhh1, bhh2, bhh3;
-    double er1, er6, er7, er8, er9, er10, er11, er12;
+    double er1;
+    double er6;
+    double er7;
+    double er8;
+    double er9;
+    double er10;
+    double er11;
+    double er12;
     double a21, a31, a32, a41, a43, a51, a53, a54;
-    double a61, a64, a65, a71, a74, a75, a76;
+    double a61;
+    double a64;
+    double a65;
+    double a71;
+    double a74;
+    double a75;
+    double a76;
     double a81, a84, a85, a86, a87, a91, a94, a95, a96, a97, a98;
-    double a101, a104, a105, a106, a107, a108, a109;
+    double a101;
+    double a104;
+    double a105;
+    double a106;
+    double a107;
+    double a108;
+    double a109;
     double a111, a114, a115, a116, a117, a118, a119, a1110;
-    double a121, a124, a125, a126, a127, a128, a129, a1210, a1211;
+    double a121;
+    double a124;
+    double a125;
+    double a126;
+    double a127;
+    double a128;
+    double a129;
+    double a1210;
+    double a1211;
     double a141, a147, a148, a149, a1410, a1411, a1412, a1413;
-    double a151, a156, a157, a158, a1511, a1512, a1513, a1514;
+    double a151;
+    double a156;
+    double a157;
+    double a158;
+    double a1511;
+    double a1512;
+    double a1513;
+    double a1514;
     double a161, a166, a167, a168, a169, a1613, a1614, a1615;
-    double d41, d46, d47, d48, d49, d410, d411, d412, d413, d414, d415, d416;
+    double d41;
+    double d46;
+    double d47;
+    double d48;
+    double d49;
+    double d410;
+    double d411;
+    double d412;
+    double d413;
+    double d414;
+    double d415;
+    double d416;
     double d51, d56, d57, d58, d59, d510, d511, d512, d513, d514, d515, d516;
-    double d61, d66, d67, d68, d69, d610, d611, d612, d613, d614, d615, d616;
+    double d61;
+    double d66;
+    double d67;
+    double d68;
+    double d69;
+    double d610;
+    double d611;
+    double d612;
+    double d613;
+    double d614;
+    double d615;
+    double d616;
     double d71, d76, d77, d78, d79, d710, d711, d712, d713, d714, d715, d716;
 
     er1 = er6 = er7 = er8 = er9 = er10 = er11 = er12 = 0;
@@ -952,7 +1041,16 @@ static double
 hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
        double *f1, double *yyy1, int32 iord, double hmax, double *atoler,
        double *rtoler, int32 itoler) {
-    double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
+    double dnf;
+    double dny;
+    double atoli;
+    double rtoli;
+    double sk;
+    double h;
+    double h1;
+    double der2;
+    double der12;
+    double sqr;
     uint32 i;
 
     dnf = 0.0;
@@ -1026,15 +1124,48 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         SolTrait solout, int32 iout, long nmax, double uround, int32 meth,
         long nstiff, double safe, double beta, double fac1, double fac2,
         uint32 *icont) {
-    double facold, expo1, fac, facc1, facc2, fac11, posneg, xph;
+    double facold;
+    double expo1;
+    double fac;
+    double facc1;
+    double facc2;
+    double fac11;
+    double posneg;
+    double xph;
     double atoli, rtoli, hlamb, err, sk, hnew, yd0, ydiff, bspl;
-    double stnum, stden, sqr;
+    double stnum;
+    double stden;
+    double sqr;
     int32 iasti, iord, irtrn, reject, last, nonsti = 0;
     uint32 i;
     uint32 j;
-    double c2, c3, c4, c5, e1, e3, e4, e5, e6, e7, d1, d3, d4, d5, d6, d7;
+    double c2;
+    double c3;
+    double c4;
+    double c5;
+    double e1;
+    double e3;
+    double e4;
+    double e5;
+    double e6;
+    double e7;
+    double d1;
+    double d3;
+    double d4;
+    double d5;
+    double d6;
+    double d7;
     double a21, a31, a32, a41, a42, a43, a51, a52, a53, a54;
-    double a61, a62, a63, a64, a65, a71, a73, a74, a75, a76;
+    double a61;
+    double a62;
+    double a63;
+    double a64;
+    double a65;
+    double a71;
+    double a73;
+    double a74;
+    double a75;
+    double a76;
 
     c2 = c3 = c4 = c5 = e1 = e3 = e4 = e5 = e6 = e7 = d1 = d3 = d4 = d5 = d6 =
         d7 = 0;

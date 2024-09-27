@@ -98,7 +98,8 @@ adjoints_do_transpose(void) {
     static char *strings[] = {"*0Column 1", "NCols", "ColSkip",
                               "Row 1",      "NRows", "RowSkip"};
     char values[LENGTH(strings)][MAX_LEN_SBOX];
-    int32 inrow, incol;
+    int32 inrow;
+    int32 incol;
 
     snprintf(values[0], sizeof(values[0]), "%s", my_trans.firstcol);
     snprintf(values[1], sizeof(values[1]), "%d", my_trans.ncol);
@@ -306,7 +307,8 @@ adjoints_dump_h_stuff(FILE *fp, int32 f) {
 int32
 adjoints_make_h(double **orb, double **adj, int32 nt, int32 node,
                 int32 silent2) {
-    int32 n, rval = 0;
+    int32 n;
+    int32 rval = 0;
     double sum;
     int32 n0 = node + 1 + FIX_VAR, k2;
     if (silent2 == 0) {
@@ -407,7 +409,9 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime;
     double *work;
-    double t, prod, del;
+    double t;
+    double prod;
+    double del;
     int32 l, k2, rval = 0;
     int32 n2 = node*node;
     double error;
@@ -540,7 +544,8 @@ bye:
 int32
 adjoints_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
                   int32 node, double dt) {
-    int32 n2 = node*node, info;
+    int32 n2 = node*node;
+    int32 info;
     int32 ipvt[MAX_ODE];
     double *mat;
     double *fold;

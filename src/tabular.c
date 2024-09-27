@@ -87,7 +87,9 @@ tabular_set_table_name(char *name, int32 index) {
 void
 tabular_new_lookup_com(int32 i) {
     char file[128];
-    int32 index, ok, status;
+    int32 index;
+    int32 ok;
+    int32 status;
     double xlo;
     double xhi;
     int32 npts;
@@ -139,7 +141,12 @@ tabular_new_lookup_com(int32 i) {
 
 double
 tabular_lookup_xy(double x, int32 n, double *xv, double *yv) {
-    double dx, dy, x1, y1, x2, y2;
+    double dx;
+    double dy;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
     if (x <= xv[0])
         return yv[0] + (yv[1] - yv[0])*(x - xv[0]) / (xv[1] - xv[0]);
     if (x >= xv[n - 1])
@@ -163,7 +170,10 @@ tabular_lookup_xy(double x, int32 n, double *xv, double *yv) {
 
 double
 tabular_interp(double xlo, double h, double x, double *y, int32 i) {
-    double a, b, c, d;
+    double a;
+    double b;
+    double c;
+    double d;
     double ym, y0, y1, y2;
     double tt;
     ym = y[i - 1];
@@ -183,7 +193,9 @@ tabular_lookup(double x, int32 index) {
     double xlo = my_table[index].xlo, xhi = my_table[index].xhi,
            dx = my_table[index].dx;
     double *y;
-    double x1, y1, y2;
+    double x1;
+    double y1;
+    double y2;
     int32 i1, i2, n = my_table[index].n;
     y = my_table[index].y;
 
@@ -318,7 +330,8 @@ tabular_load_table(char *filename, int32 index) {
     char filename2[512], ch;
     char error[sizeof(filename2) + sizeof(cur_dir) + 20];
     int32 n = (int32)strlen(filename);
-    int32 j = 0, flag = 0;
+    int32 j = 0;
+    int32 flag = 0;
     for (int32 i = 0; i < n; i++) {
         ch = filename[i];
         if ((ch == '"') && flag == 1) {

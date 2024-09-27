@@ -6,13 +6,22 @@ struct {
 
 #define blbcn_1 blbcn_
 struct {
-    int32 ntst, ncol, iad, isp, isw, iplt, nbc, nint;
+    int32 ntst;
+    int32 ncol;
+    int32 iad;
+    int32 isp;
+    int32 isw;
+    int32 iplt;
+    int32 nbc;
+    int32 nint;
 } blcde_;
 
 #define blcde_1 blcde_
 
 struct {
-    double ds, dsmin, dsmax;
+    double ds;
+    double dsmin;
+    double dsmax;
     int32 iads;
 } bldls_;
 
@@ -21,13 +30,22 @@ struct {
 struct {
     int32 nmx;
     int32 nuzr;
-    double rl0, rl1, a0, a1;
+    double rl0;
+    double rl1;
+    double a0;
+    double a1;
 } bllim_;
 
 #define bllim_1 bllim_
 
 struct {
-    int32 npr, mxbf, iid, itmx, itnw, nwtn, jac;
+    int32 npr;
+    int32 mxbf;
+    int32 iid;
+    int32 itmx;
+    int32 itnw;
+    int32 nwtn;
+    int32 jac;
 } blmax_;
 
 #define blmax_1 blmax_

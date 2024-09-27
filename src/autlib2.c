@@ -64,12 +64,20 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *p1, double *thl, double *thu) {
     int64 ndim;
     int64 ipar;
-    int64 ncol, nclm, nfpr, nint, nrow, ntst, ntst0;
+    int64 ncol;
+    int64 nclm;
+    int64 nfpr;
+    int64 nint;
+    int64 nrow;
+    int64 ntst;
+    int64 ntst0;
 
     double *ff;
     double *ft;
 
-    int64 nbc, iid, iam;
+    int64 nbc;
+    int64 iid;
+    int64 iam;
     double det;
     int64 ips;
     int64 nrc;
@@ -321,7 +329,8 @@ faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
 
 int32
 partition(int64 *n, int64 *kwt, int64 *m) {
-    int64 s, t;
+    int64 s;
+    int64 t;
 
     /*     Linear distribution of NTST over all nodes */
 
@@ -365,14 +374,22 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
        double *fc, double *rlcur, double *rlold, double *rldot, double *ups,
        double *uoldps, double *udotps, double *upoldp, double *dups,
        double *dtm, double *thl, double *thu, double *p0, double *p1) {
-    int64 ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1;
+    int64 ups_dim1;
+    int64 dups_dim1;
+    int64 uoldps_dim1;
+    int64 udotps_dim1;
+    int64 upoldp_dim1;
     int64 fa_dim1, wt_dim1, wp_dim1, wploc_dim1;
 
-    int64 j, l, m;
+    int64 j;
+    int64 l;
+    int64 m;
     int64 mpart, i1, j1, k1, l1;
 
     double rlsum;
-    int64 ib, ic, jj;
+    int64 ib;
+    int64 ic;
+    int64 jj;
     int64 ic1;
 
     int64 jp1;
@@ -679,9 +696,25 @@ int32
 conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
        int64 *nrc, double *c, double *fa, double *fc, int64 *irf, int64 *icf,
        int64 *iam) {
-    int64 icf_dim1, irf_dim1, a_dim1, a_dim2, c_dim1, c_dim2, fa_dim1;
+    int64 icf_dim1;
+    int64 irf_dim1;
+    int64 a_dim1;
+    int64 a_dim2;
+    int64 c_dim1;
+    int64 c_dim2;
+    int64 fa_dim1;
 
-    int64 nbcp1, icfic, irfir, m1, m2, ic, ir, irfirp, ir1, nex, irp;
+    int64 nbcp1;
+    int64 icfic;
+    int64 irfir;
+    int64 m1;
+    int64 m2;
+    int64 ic;
+    int64 ir;
+    int64 irfirp;
+    int64 ir1;
+    int64 nex;
+    int64 irp;
 
     (void)iam;
 
@@ -736,7 +769,11 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
     int64 irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1,
         a1_dim2, a2_dim1, a2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2;
 
-    int64 irfir, ic, ir, ic1, nap1;
+    int64 irfir;
+    int64 ic;
+    int64 ir;
+    int64 ic1;
+    int64 nap1;
 
     (void)iam;
     (void)kwt;
@@ -796,9 +833,12 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
 
 int32
 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
-    int64 irf_dim1, fa_dim1, faa_dim1;
+    int64 irf_dim1;
+    int64 fa_dim1;
+    int64 faa_dim1;
 
-    int64 irfir, ir;
+    int64 irfir;
+    int64 ir;
 
     faa_dim1 = *nov;
     irf_dim1 = *nra;
@@ -829,11 +869,29 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     double zero;
     double tpiv;
     double xkwt;
-    int64 nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, k, l;
+    int64 nbcp1;
+    int64 ibuf1;
+    int64 ipiv1;
+    int64 jpiv1;
+    int64 ipiv2;
+    int64 jpiv2;
+    int64 k;
+    int64 l;
 
     int64 evenc[KREDO];
 
-    int64 i1, i2, k1, k2, i3, l1, iprow, k3, l2, l3, ic, ir;
+    int64 i1;
+    int64 i2;
+    int64 k1;
+    int64 k2;
+    int64 i3;
+    int64 l1;
+    int64 iprow;
+    int64 k3;
+    int64 l2;
+    int64 l3;
+    int64 ic;
+    int64 ir;
     double rm;
     int64 master[KREDO];
     int64 ib1, ib2, myleft[KREDO];
@@ -1579,9 +1637,16 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     int64 niam;
     int64 nlev;
     double xkwt;
-    int64 nbcp1, ipiv1, ipiv2;
+    int64 nbcp1;
+    int64 ipiv1;
+    int64 ipiv2;
 
-    int64 i1, i2, k1, l1, ic, ir;
+    int64 i1;
+    int64 i2;
+    int64 k1;
+    int64 l1;
+    int64 ic;
+    int64 ir;
     double rm;
     int64 master[KREDO];
     int64 myleft[KREDO];
@@ -1753,9 +1818,18 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
     int64 k;
 
-    int64 novpi, novpj, k1, k2;
+    int64 novpi;
+    int64 novpj;
+    int64 k1;
+    int64 k2;
 
-    int64 novpj2, kc, kr, ncrloc, msglen1, msglen2, nap1;
+    int64 novpj2;
+    int64 kc;
+    int64 kr;
+    int64 ncrloc;
+    int64 msglen1;
+    int64 msglen2;
+    int64 nap1;
 
     double *xe;
 
@@ -1947,7 +2021,10 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     int64 nlev;
     int64 hasright;
     double xkwt;
-    int64 rmsgtype, smsgtype, k, l;
+    int64 rmsgtype;
+    int64 smsgtype;
+    int64 k;
+    int64 l;
 
     int64 nlist[2], itest, l1, l2;
     double sm;
@@ -1959,7 +2036,8 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     int64 odd = false;
     int64 ism;
     int64 irm;
-    int64 hasleft, notsend;
+    int64 hasleft;
+    int64 notsend;
     int64 nam1, myright, nov2, nov3;
     double *buf = NULL;
 
@@ -2186,9 +2264,15 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1,
         sol1_dim1, sol2_dim1;
 
-    int64 nram, icfj1;
+    int64 nram;
+    int64 icfj1;
     double *x;
-    int64 nrapj, irfir, j1, novpj, icfnovpir, ir;
+    int64 nrapj;
+    int64 irfir;
+    int64 j1;
+    int64 novpj;
+    int64 icfnovpir;
+    int64 ir;
     double sm;
     int64 novpir;
     int64 irp1;
@@ -2325,9 +2409,17 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
 int32
 print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
        double *a, double *b, double *c, double *d, double *fa, double *fc) {
-    int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, d_dim1, fa_dim1;
+    int64 a_dim1;
+    int64 a_dim2;
+    int64 b_dim1;
+    int64 b_dim2;
+    int64 c_dim1;
+    int64 c_dim2;
+    int64 d_dim1;
+    int64 fa_dim1;
 
-    int64 ic, ir;
+    int64 ic;
+    int64 ir;
 
     (void)nov;
 

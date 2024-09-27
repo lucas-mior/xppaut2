@@ -148,7 +148,8 @@ kill_diagrams(void) {
 void
 diagram_redraw(void) {
     Diagram *d;
-    int32 type, flag = 0;
+    int32 type;
+    int32 flag = 0;
     auto_nox_draw_bix_axes();
     d = bifd;
     if (d->next == NULL)
@@ -243,14 +244,18 @@ diagram_write_info_out(void) {
 void
 diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     Diagram *d;
-    int32 i, j, pt;
+    int32 i;
+    int32 j;
+    int32 pt;
     /*int32 flag=0;
      */
     int32 icp1;
     double *par;
     double par1;
     double *u0;
-    int32 first, last, nrows;
+    int32 first;
+    int32 last;
+    int32 nrows;
     first = ABS(pts);
     last = ABS(pte);
     if (last <
@@ -423,7 +428,8 @@ diagram_post_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
-    int32 type, flag = 0;
+    int32 type;
+    int32 flag = 0;
     int32 status;
     sprintf(filename, "auto.ps");
     /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60);
@@ -462,7 +468,8 @@ diagram_svg_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
-    int32 type, flag = 0;
+    int32 type;
+    int32 flag = 0;
     int32 status;
     sprintf(filename, "auto.svg");
     /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60);
@@ -504,7 +511,11 @@ diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
 
     /*int32 flag=0;
      */
-    double x, y1, y2, par1, par2 = 0.0;
+    double x;
+    double y1;
+    double y2;
+    double par1;
+    double par2 = 0.0;
     d = bifd;
     if (d->next == NULL)
         return;

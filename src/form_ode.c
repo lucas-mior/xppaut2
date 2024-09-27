@@ -148,7 +148,10 @@ form_ode_strip_saveqn(void) {
 int32
 form_ode_idsc(char *string) {
     char c;
-    int32 i = 0, l = (int32)strlen(string), j = 0, flag = 0;
+    int32 i = 0;
+    int32 l = (int32)strlen(string);
+    int32 j = 0;
+    int32 flag = 0;
     char end[256];
     if (is_a_map == 1)
         return 1;
@@ -176,7 +179,8 @@ form_ode_format_list(char **s, int32 n) {
     int32 k;
     int32 j;
     char fmat[30];
-    int32 lmax = 0, l = 0;
+    int32 lmax = 0;
+    int32 l = 0;
     for (int32 i = 0; i < n; i++) {
         l = (int32)strlen(s[i]);
         if (lmax < l)
@@ -263,7 +267,9 @@ int32
 form_ode_get_eqn(FILE *fptr) {
     char bob[MAXEXPLEN];
     char filename[XPP_MAX_NAME + 4];
-    int32 done = 1, nn, i;
+    int32 done = 1;
+    int32 nn;
+    int32 i;
     int32 flag;
     init_rpn();
     NLINES = 0;
@@ -407,7 +413,9 @@ form_ode_get_eqn(FILE *fptr) {
 
 int32
 form_ode_compiler(char *bob, FILE *fptr) {
-    double value, xlo, xhi;
+    double value;
+    double xlo;
+    double xhi;
     int32 narg, done, nn, iflg = 0, VFlag = 0, nstates, alt, index, sign;
     char *ptr, *my_string, *command;
     char name[20], formula[MAXEXPLEN];
@@ -830,7 +838,8 @@ form_ode_compiler(char *bob, FILE *fptr) {
 /* ram: do I need to strip the name of any whitespace? */
 void
 form_ode_take_apart(char *bob, double *value, char *name) {
-    int32 k, l;
+    int32 k;
+    int32 l;
     char number[40];
     l = (int32)strlen(bob);
     k = (int32)strcspn(bob, "=");
@@ -867,7 +876,11 @@ form_ode_find_ker(char *string, int32 *alt) {
     /* this extracts the integral operators from the string */
     char new[MAXEXPLEN], form[MAXEXPLEN], num[MAXEXPLEN];
     double mu = 0.0;
-    int32 fflag = 0, in = 0, i = 0, ifr = 0, inum = 0;
+    int32 fflag = 0;
+    int32 in = 0;
+    int32 i = 0;
+    int32 ifr = 0;
+    int32 inum = 0;
     int32 n = (int32)strlen(string);
     char name[20], ch;
     *alt = 0;
@@ -1044,9 +1057,15 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
     VarInfo v;
     char **markovarrays = NULL;
     char *strings[256];
-    int32 nstrings = 0, ns;
+    int32 nstrings = 0;
+    int32 ns;
     char **markovarrays2 = NULL;
-    int32 done = 0, start = 0, i0, i1, i2, istates;
+    int32 done = 0;
+    int32 start = 0;
+    int32 i0;
+    int32 i1;
+    int32 i2;
+    int32 istates;
     int32 jj1 = 0, jj2 = 0, jj, notdone = 1, jjsgn = 1;
     char name[20];
     int32 nstates = 0;
@@ -1849,7 +1868,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
 void
 form_ode_create_plot_list(void) {
-    int32 j = 0, k;
+    int32 j = 0;
+    int32 k;
     if (N_only == 0)
         return;
     plotlist = xmalloc(sizeof(*plotlist)*(usize)(N_only + 1));
@@ -1879,7 +1899,9 @@ form_ode_add_only(char *s) {
 
 void
 form_ode_break_up_list(char *rhs) {
-    int32 i = 0, j = 0, l = (int32)strlen(rhs);
+    int32 i = 0;
+    int32 j = 0;
+    int32 l = (int32)strlen(rhs);
     char s[20], c;
     while (i < l) {
         c = rhs[i];
@@ -1913,7 +1935,8 @@ form_ode_find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name) {
 int32
 form_ode_formula_or_number(char *expr, double *z) {
     char num[80], form[80];
-    int32 flag, i = 0;
+    int32 flag;
+    int32 i = 0;
     int32 olderr = ERROUT;
     ERROUT = 0;
     *z = 0.0; /* initial it to 0 */
@@ -1937,9 +1960,13 @@ form_ode_strpiece(char *dest, char *src, int32 i0, int32 ie) {
 
 int32
 form_ode_parse_a_string(char *s1, VarInfo *v) {
-    int32 i0 = 0, i1, i2, i3;
+    int32 i0 = 0;
+    int32 i1;
+    int32 i2;
+    int32 i3;
     char lhs[MAXEXPLEN], rhs[MAXEXPLEN], args[MAXARG][NAMLEN + 1];
-    int32 type, type2;
+    int32 type;
+    int32 type2;
     int32 narg = 0;
     int32 n1 = (int32)strlen(s1) - 1;
     char s1old[MAXEXPLEN];
@@ -2124,7 +2151,8 @@ form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
 int32
 form_ode_extract(/* name is char 1-i1  ie is start of rhs */
                  char *s1, int32 *ie, int32 i1) {
-    int32 i = 0, n = (int32)strlen(s1);
+    int32 i = 0;
+    int32 n = (int32)strlen(s1);
 
     i = i1;
     while (i < n) {
@@ -2182,7 +2210,8 @@ form_ode_strparse(char *s1, char *s2, int32 i0, int32 *i1) {
 int32
 form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
                       char args[MAXARG][NAMLEN + 1]) {
-    int32 i = i0, n = (int32)strlen(s1);
+    int32 i = i0;
+    int32 n = (int32)strlen(s1);
     int32 type, na = 0, i1;
     while (i < n) {
         type = form_ode_find_char(s1, ",)", i, &i1);
@@ -2210,7 +2239,8 @@ form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
 
 int32
 form_ode_find_char(char *s1, char *s2, int32 i0, int32 *i1) {
-    int32 m = (int32)strlen(s2), n = (int32)strlen(s1);
+    int32 m = (int32)strlen(s2);
+    int32 n = (int32)strlen(s1);
     int32 i = i0;
     char ch;
     while (i < n) {
@@ -2246,7 +2276,9 @@ form_ode_next_nonspace(char *s1, int32 i0, int32 *i1) {
 /* removes starting blanks from s  */
 void
 form_ode_remove_blanks(char *s1) {
-    int32 i = 0, n = (int32)strlen(s1), l;
+    int32 i = 0;
+    int32 n = (int32)strlen(s1);
+    int32 l;
     char ch;
     while (i < n) {
         ch = s1[i];
@@ -2269,7 +2301,10 @@ form_ode_remove_blanks(char *s1) {
 void
 form_ode_read_a_line(FILE *fp, char *s) {
     char temp[MAXEXPLEN];
-    int32 n, nn, ok, ihat = 0;
+    int32 n;
+    int32 nn;
+    int32 ok;
+    int32 ihat = 0;
     s[0] = 0;
     ok = 1;
 
@@ -2314,7 +2349,8 @@ form_ode_read_a_line(FILE *fp, char *s) {
 
 int32
 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
-    int32 j, l;
+    int32 j;
+    int32 l;
     int32 ileft;
     int32 iright;
     int32 n = (int32)strlen(old);
@@ -2585,7 +2621,9 @@ void
 form_ode_add_comment(char *s) {
     char text[256], action[256], ch;
     int32 n = (int32)strlen(s);
-    int32 j1 = 0, ja = 0, noact = 1;
+    int32 j1 = 0;
+    int32 ja = 0;
+    int32 noact = 1;
     if (n_comments >= MAXCOMMENTS)
         return;
     for (int32 i = 0; i < n; i++) {

@@ -91,7 +91,10 @@ stiff_gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
     double h1 = *hguess;
     int32 nstp;
     double x1 = *xs;
-    double x, hnext, hdid, h;
+    double x;
+    double hnext;
+    double hdid;
+    double h;
     double *yscal, *y, *dydx, *work2;
     yscal = work;
     y = work + nvar;

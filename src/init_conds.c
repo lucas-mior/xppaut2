@@ -67,15 +67,21 @@ This also has the clone gadget
 
 #define FILESELNWIN 10
 static struct FileSel {
-    int32 n, n0, here;
+    int32 n;
+    int32 n0;
+    int32 here;
     Window base, cancel, ok, up, dn, pgup, pgdn, file, wild;
     Window window[FILESELNWIN];
-    Window dir, home, start;
+    Window dir;
+    Window home;
+    Window start;
     Window fw;
     Window ww;
     char wildtxt[256];
     char filetxt[256];
-    int32 nwin, minwid, minhgt;
+    int32 nwin;
+    int32 minwid;
+    int32 minhgt;
     int32 off, pos, hot;
     char title[256];
 } filesel;
@@ -83,13 +89,22 @@ static struct FileSel {
 static void init_conds_display_file_sel(struct FileSel f, Window window);
 
 static struct ParSlider {
-    int32 use, pos, l;
+    int32 use;
+    int32 pos;
+    int32 l;
     char parname[20];
-    double lo, hi, val;
+    double lo;
+    double hi;
+    double val;
     int32 hgt;
     int32 type;
     int32 index;
-    Window left, right, top, main, slide, go;
+    Window left;
+    Window right;
+    Window top;
+    Window main;
+    Window slide;
+    Window go;
 } my_par_slide[3];
 
 static void init_conds_do_slide_button(Window window, struct ParSlider *p);
@@ -146,7 +161,9 @@ static BoxList BCBox;
 /* CLONE */
 void
 init_conds_clone_ode(void) {
-    int32 j, x, y;
+    int32 j;
+    int32 x;
+    int32 y;
     FILE *fp;
     char clone[256];
 
@@ -220,7 +237,8 @@ init_conds_clone_ode(void) {
 int32
 init_conds_find_user_name(int32 type, char *oname) {
     char name[25];
-    int32 k = 0, i = -1;
+    int32 k = 0;
+    int32 i = -1;
     for (usize j = 0; j < strlen(oname); j++) {
         if (!isspace(oname[j])) {
             name[k] = oname[j];
@@ -270,7 +288,9 @@ init_conds_do_slide_button(Window window, struct ParSlider *p) {
     static char *n[] = {"*3Par/Var", "Value", "Low", "High"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
-    double lo, hi, val;
+    double lo;
+    double hi;
+    double val;
     if (window == p->go && p->use == 1)
         integrate_run_now();
 
@@ -457,7 +477,8 @@ init_conds_fs_scroll(int32 i) {
     int32 n0 = filesel.n0;
     int32 new;
     int32 nend;
-    int32 nw = filesel.nwin, n = filesel.n;
+    int32 nw = filesel.nwin;
+    int32 n = filesel.n;
     if (n <= nw)
         return;
     new = n0 - i;
@@ -473,7 +494,8 @@ init_conds_fs_scroll(int32 i) {
 int32
 init_conds_button_selector(Window window) {
     int32 i0;
-    int32 k, n = filesel.n;
+    int32 k;
+    int32 n = filesel.n;
     if (window == filesel.ok)
         return 1;
     if (window == filesel.cancel)
@@ -605,7 +627,8 @@ init_conds_button_selector(Window window) {
 
 void
 init_conds_crossing_selector(Window window, int32 c) {
-    int32 t1 = 1, t2 = 2;
+    int32 t1 = 1;
+    int32 t2 = 2;
     Window w = window;
     if (c == 1) {
         t1 = 0;
@@ -630,7 +653,8 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     int32 n = my_ff.ndirs + my_ff.nfiles;
     int32 nwin = FILESELNWIN;
     int32 hgt;
-    int32 width, height;
+    int32 width;
+    int32 height;
 
     Window base;
     XTextProperty winname;
@@ -746,7 +770,8 @@ static int32 init_conds_fit_em(int32 ch, char *string, Window window,
 int32
 init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
                   int32 *pos1, int32 mc) {
-    int32 l = (int32)strlen(string), cp;
+    int32 l = (int32)strlen(string);
+    int32 cp;
     int32 off = *off1, pos = *pos1, wpos = pos - off;
     switch (ch) {
     case KEY_LEFT:
@@ -1241,7 +1266,8 @@ init_conds_expose_slides(Window window) {
 
 void
 init_conds_expose_slider(Window window, struct ParSlider *p) {
-    int32 x, len = 12*DCURXs;
+    int32 x;
+    int32 len = 12*DCURXs;
     char top[256];
     if (window == p->slide) {
         init_conds_draw_slider(window, p->pos, p->hgt, p->l);
@@ -1564,9 +1590,11 @@ void
 init_conds_make_box_list_window(BoxList *b, int32 type) {
     int32 nrow;
     int32 n;
-    int32 x, y;
+    int32 x;
+    int32 y;
     int32 xb1, xb2, xb3, xb4;
-    int32 wid1, wid2;
+    int32 wid1;
+    int32 wid2;
     int32 width, height, wid, hgt;
 
     Window base;
@@ -1733,7 +1761,8 @@ init_conds_do_box_expose(Window window) {
 
 void
 init_conds_justify_string(Window w1, char *s1) {
-    int32 n1 = (int32)strlen(s1)*DCURXs, nt = 10*DCURXs;
+    int32 n1 = (int32)strlen(s1)*DCURXs;
+    int32 nt = 10*DCURXs;
     int32 i = 0;
     if (n1 < nt)
         i = nt - n1;
@@ -2089,7 +2118,8 @@ void
 init_conds_box_list_scroll(BoxList *b, int32 i) {
     int32 n0 = b->n0;
     int32 new;
-    int32 nw = b->nwin, n = b->n;
+    int32 nw = b->nwin;
+    int32 n = b->n;
     int32 nend;
     if (n <= nw)
         return; /* do nothing - there is nothing to do */
@@ -2170,7 +2200,10 @@ init_conds_do_box_key(BoxList *b, XEvent event, int32 *used) {
     Window window = event.xkey.window;
     char ch;
     Window focus;
-    int32 rev, n = b->nwin, j, flag;
+    int32 rev;
+    int32 n = b->nwin;
+    int32 j;
+    int32 flag;
     *used = 0;
     if (b->xuse == 0)
         return;
@@ -2219,7 +2252,8 @@ init_conds_do_box_key(BoxList *b, XEvent event, int32 *used) {
 
 void
 init_conds_man_ic(void) {
-    int32 done, index = 0;
+    int32 done;
+    int32 index = 0;
     double z;
     char name[256], junk[256];
     while (true) {

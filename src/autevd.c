@@ -90,7 +90,9 @@ autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
 
 void
 autevd_send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
-    double er, cs, sn;
+    double er;
+    double cs;
+    double sn;
     my_ev.pt = ABS(ntot);
     my_ev.br = ABS(ibr);
     for (int32 i = 0; i < n; i++) {

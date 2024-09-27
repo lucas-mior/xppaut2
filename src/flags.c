@@ -102,7 +102,12 @@ double STOL = 1.e-10;
 int32
 flags_add_global(char *cond, int32 sign, char *rest) {
     char temp[256];
-    int32 nevents, ii, k, l, lt, j = NFlags;
+    int32 nevents;
+    int32 ii;
+    int32 k;
+    int32 l;
+    int32 lt;
+    int32 j = NFlags;
     char ch;
     if (NFlags >= MAX_FLAG) {
         ggets_plintf("Too many global conditions\n");
@@ -180,7 +185,8 @@ flags_show(void) {
 
 int32
 flags_compile(void) {
-    int32 index, nc;
+    int32 index;
+    int32 nc;
     int32 command[256];
     if (NFlags == 0)
         return 0;
@@ -252,9 +258,16 @@ int32
 one_flag_step(double *yold, double *ynew, int32 *istart, double told,
               double *tnew, int32 neq, double *s) {
     double dt = *tnew - told;
-    double f0, f1, tol, tolmin = 1e-10;
+    double f0;
+    double f1;
+    double tol;
+    double tolmin = 1e-10;
     double smin = 2;
-    int32 sign, in, ncycle = 0, newhit, nevents;
+    int32 sign;
+    int32 in;
+    int32 ncycle = 0;
+    int32 newhit;
+    int32 nevents;
 
     if (NFlags == 0)
         return 0;
@@ -427,7 +440,8 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
                    int32 *istart) {
     double yold[MAX_ODE], told;
     int32 hit;
-    double s, dtt = dt;
+    double s;
+    double dtt = dt;
     int32 nstep = 0;
     while (true) {
         for (int32 i = 0; i < neq; i++)
@@ -454,7 +468,8 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
                     int32 *istart) {
     double yold[MAX_ODE], told;
     int32 hit;
-    double s, dtt = dt;
+    double s;
+    double dtt = dt;
     int32 nstep = 0;
     while (true) {
         for (int32 i = 0; i < neq; i++)
@@ -481,7 +496,8 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
                        double *tim, int32 *istart) {
     double yold[MAX_ODE], told;
     int32 hit;
-    double s, dtt = dt;
+    double s;
+    double dtt = dt;
     int32 nstep = 0;
     while (true) {
         for (int32 i = 0; i < neq; i++)
@@ -507,7 +523,8 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
                    double *tim, int32 *istart) {
     double yold[MAX_ODE], told;
     int32 hit;
-    double s, dtt = dt;
+    double s;
+    double dtt = dt;
     int32 nstep = 0;
     while (true) {
         for (int32 i = 0; i < neq; i++)
@@ -533,7 +550,8 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
                   int32 *istart) {
     double yold[MAX_ODE], told;
     int32 hit;
-    double s, dtt = dt;
+    double s;
+    double dtt = dt;
     int32 nstep = 0;
     while (true) {
         for (int32 i = 0; i < neq; i++)
@@ -590,7 +608,8 @@ int32
 one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
                     int32 n, double *work, int32 *ierr) {
     double yold[MAX_ODE], told;
-    int32 ok, hit;
+    int32 ok;
+    int32 hit;
     double s;
     int32 nstep = 0;
     while (true) {
@@ -654,7 +673,8 @@ one_flag_step_cvode(
     int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
     double yold[MAX_ODE], told;
-    int32 hit, neq = n;
+    int32 hit;
+    int32 neq = n;
     double s;
     int32 nstep = 0;
     while (true) {
@@ -719,7 +739,8 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
                       double *yp, double *yp2, double *ytemp, double *errvec,
                       double *jac, int32 *istart) {
     double yold[MAX_ODE], told;
-    int32 hit, j;
+    int32 hit;
+    int32 j;
     double s;
     double dtt = dt;
     int32 nstep = 0;

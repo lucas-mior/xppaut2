@@ -134,7 +134,9 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     double *v;
     int64 found;
 
-    int64 ndm, ips, irs;
+    int64 ndm;
+    int64 ips;
+    int64 irs;
 
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     v = xmalloc(sizeof(*v)*(usize)(iap->ndim));
@@ -620,7 +622,8 @@ ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     double thta;
 
-    double c1, s1;
+    double c1;
+    double s1;
     int64 ndm2;
 
     /* Parameter adjustments */
@@ -682,7 +685,9 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     double s1;
 
-    int64 ndm, irs, ndm2;
+    int64 ndm;
+    int64 irs;
+    int64 ndm2;
 
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     v = xmalloc(sizeof(*v)*(usize)(iap->ndim));
@@ -1239,7 +1244,8 @@ bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    int64 jtmp, nn;
+    int64 jtmp;
+    int64 nn;
 
     (void)iap;
     (void)rap;
@@ -1287,7 +1293,8 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    int64 jtmp, nn;
+    int64 jtmp;
+    int64 nn;
 
     (void)iap;
     (void)rap;
@@ -1333,7 +1340,9 @@ pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
     int64 ups_dim1;
     int64 udotps_dim1;
 
-    int64 i, i1, i2;
+    int64 i;
+    int64 i1;
+    int64 i2;
 
     (void)iap;
     (void)rap;
@@ -1379,14 +1388,19 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1, upoldp_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
+    int64 upoldp_dim1;
 
     int64 ndim;
     int64 ncol;
 
     double uold;
     double *smat;
-    int64 nfpr, ntst, ndim2, nfpr1;
+    int64 nfpr;
+    int64 ntst;
+    int64 ndim2;
+    int64 nfpr1;
     double c;
     double *f;
     double s, t, *u, rimhb;
@@ -1551,7 +1565,10 @@ int32
 ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
      int64 ndm, double *dfu, double *dfp) {
-    int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
+    int64 dfu_dim1;
+    int64 dfp_dim1;
 
     int64 nfpr;
     double c;
@@ -1683,7 +1700,9 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1, upoldp_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
+    int64 upoldp_dim1;
 
     int64 ndim;
     int64 ncol;
@@ -1692,7 +1711,9 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double *smat;
     int64 nfpr;
 
-    int64 ntst, ndim2, nfpr1;
+    int64 ntst;
+    int64 ndim2;
+    int64 nfpr1;
     double c;
     double *f;
     double s, t, *u, rimhb;
@@ -1853,7 +1874,10 @@ int32
 ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
      int64 ndm, double *dfu, double *dfp) {
-    int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
+    int64 dfu_dim1;
+    int64 dfp_dim1;
 
     double period;
 
@@ -1934,9 +1958,17 @@ int32
 ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
      int64 ndm, double *dfu, double *dfp) {
-    int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
+    int64 dfu_dim1;
+    int64 dfp_dim1;
 
-    double t, dsmin, rlold, ds, dt, period;
+    double t;
+    double dsmin;
+    double rlold;
+    double ds;
+    double dt;
+    double period;
 
     /* Parameter adjustments */
     dfdp_dim1 = ndim;
@@ -2130,7 +2162,9 @@ int32
 bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
-    int64 jtmp, nn, ndm;
+    int64 jtmp;
+    int64 nn;
+    int64 ndm;
 
     (void)rap;
     (void)icp;
@@ -2179,7 +2213,9 @@ icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    int64 jtmp, nn, ndm;
+    int64 jtmp;
+    int64 nn;
+    int64 ndm;
 
     (void)udot;
     (void)rap;
@@ -2239,17 +2275,30 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1, upoldp_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
+    int64 upoldp_dim1;
 
     int64 ndim;
     double temp[7];
-    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1;
+    int64 nfpr;
+    int64 nfpr1;
+    int64 ntpl1;
+    int64 nrsp1;
+    int64 ntot1;
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
     double rd1;
     double rd2;
-    int64 ibr, ndm, ips, irs, lab1, nar1, itp1, isw1;
+    int64 ibr;
+    int64 ndm;
+    int64 ips;
+    int64 irs;
+    int64 lab1;
+    int64 nar1;
+    int64 itp1;
+    int64 isw1;
 
     (void)thu;
     (void)thl;
@@ -2492,7 +2541,9 @@ bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    int64 jtmp, nn, ndm;
+    int64 jtmp;
+    int64 nn;
+    int64 ndm;
 
     (void)icp;
     (void)rap;
@@ -2548,7 +2599,9 @@ icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    int64 jtmp, nn, ndm;
+    int64 jtmp;
+    int64 nn;
+    int64 ndm;
 
     (void)udot;
     (void)uold;
@@ -2600,15 +2653,27 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1, upoldp_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
+    int64 upoldp_dim1;
 
     int64 ndim;
     double temp[7];
-    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1;
+    int64 nfpr;
+    int64 nfpr1;
+    int64 ntpl1;
+    int64 nrsp1;
+    int64 ntot1;
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
-    int64 ibr, ndm, irs, lab1, nar1, itp1, isw1;
+    int64 ibr;
+    int64 ndm;
+    int64 irs;
+    int64 lab1;
+    int64 nar1;
+    int64 itp1;
+    int64 isw1;
 
     (void)thu;
     (void)thl;
@@ -2913,7 +2978,10 @@ ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    int64 jtmp, nn, ndm, ndm2;
+    int64 jtmp;
+    int64 nn;
+    int64 ndm;
+    int64 ndm2;
 
     (void)udot;
     (void)uold;
@@ -2976,11 +3044,22 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ndim;
     double temp[7];
-    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1;
+    int64 nfpr;
+    int64 nfpr1;
+    int64 ntpl1;
+    int64 nrsp1;
+    int64 ntot1;
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, k3, nskip1;
 
-    int64 ibr, ndm, k2p1, irs, lab1, nar1, itp1, isw1;
+    int64 ibr;
+    int64 ndm;
+    int64 k2p1;
+    int64 irs;
+    int64 lab1;
+    int64 nar1;
+    int64 itp1;
+    int64 isw1;
 
     (void)thu;
     (void)thl;
@@ -3242,7 +3321,8 @@ bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    int64 nfpr, nbc0;
+    int64 nfpr;
+    int64 nbc0;
 
     (void)rap;
 
@@ -3374,7 +3454,9 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nint, int64 nnt0, double *u, double *uold, double *udot,
      double *upold, double *fi, double *dint, int64 ndmt, double *dfdu,
      double *dfdp) {
-    int64 dint_dim1, dfdu_dim1, dfdp_dim1;
+    int64 dint_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 nfpr;
     int64 indx;
@@ -3452,7 +3534,9 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1, upoldp_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
+    int64 upoldp_dim1;
 
     int64 ndim;
     double temp[7];
@@ -3460,18 +3544,28 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double dump;
 
     double dumu;
-    int64 nfpr1, ntpl1, nrsp1, ntot1;
+    int64 nfpr1;
+    int64 ntpl1;
+    int64 nrsp1;
+    int64 ntot1;
     double *u;
     int64 found;
     int64 icprs[NPARX], nparr;
 
-    int64 k1, k2, nskip1;
+    int64 k1;
+    int64 k2;
+    int64 nskip1;
     double fs;
 
-    int64 ibr, ndm, irs, lab1, nar1;
+    int64 ibr;
+    int64 ndm;
+    int64 irs;
+    int64 lab1;
+    int64 nar1;
     double rld1;
     double rld2;
-    int64 itp1, isw1;
+    int64 itp1;
+    int64 isw1;
 
     double *temporary_storage;
     int64 temporary_storage_dim1;
@@ -3721,7 +3815,8 @@ ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 nfpr, nfpx;
+    int64 nfpr;
+    int64 nfpx;
 
     (void)ndim;
 
@@ -3860,7 +3955,9 @@ fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, int64 nbc0, double *u0, double *u1, double *f, double *dbc) {
     int64 dbc_dim1;
 
-    int64 nfpr, nfpx, ndm;
+    int64 nfpr;
+    int64 nfpx;
+    int64 ndm;
 
     (void)nbc;
 
@@ -3982,7 +4079,9 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *upold, double *f, double *dint) {
     int64 dint_dim1;
 
-    int64 nfpr, nfpx = 0, ndm;
+    int64 nfpr;
+    int64 nfpx = 0;
+    int64 ndm;
 
     (void)ndim;
 
@@ -4035,11 +4134,23 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ndim;
     double temp[7];
-    int64 nfpr, nfpx, nfpr0, nfpr1, ntpl1, nrsp1, ntot1;
+    int64 nfpr;
+    int64 nfpx;
+    int64 nfpr0;
+    int64 nfpr1;
+    int64 ntpl1;
+    int64 nrsp1;
+    int64 ntot1;
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
-    int64 ibr, ndm, irs, lab1, nar1, itp1, isw1;
+    int64 ibr;
+    int64 ndm;
+    int64 irs;
+    int64 lab1;
+    int64 nar1;
+    int64 itp1;
+    int64 isw1;
 
     (void)thu;
     (void)thl;
@@ -4478,7 +4589,9 @@ fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
     int64 nfpr;
 
     double rtmp;
-    double f1, f2, ep;
+    double f1;
+    double f2;
+    double ep;
     int64 jac;
     int64 ijc;
     double umx;

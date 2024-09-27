@@ -13,12 +13,17 @@ setubv_make_aa_bb_cc(void *arg) {
         uoldps_dim1, udotps_dim1, upoldp_dim1, dbc_dim1, dicd_dim1, wploc_dim1,
         dfdu_dim1, dfdp_dim1, wp_dim1, wt_dim1;
 
-    int64 j, l, m;
+    int64 j;
+    int64 l;
+    int64 m;
     int64 k1;
     int64 l1;
-    int64 i1, j1;
+    int64 i1;
+    int64 j1;
 
-    int64 ib, ic, jj;
+    int64 ib;
+    int64 ic;
+    int64 jj;
     double dt;
     int64 ib1;
     int64 ic1;
@@ -277,7 +282,13 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
        double *rlcur, double *rlold, double *rldot, double *ups, double *uoldps,
        double *udotps, double *upoldp, double *dups, double *dtm, double *thl,
        double *thu, double *p0, double *p1) {
-    int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
+    int64 aa_dim1;
+    int64 aa_dim2;
+    int64 bb_dim1;
+    int64 bb_dim2;
+    int64 cc_dim1;
+    int64 cc_dim2;
+    int64 dd_dim1;
 
     double *wi, *wp, *wt;
 
@@ -363,9 +374,13 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
 
 void
 setubv_make_fa(setubv_parallel_arglist larg) {
-    int64 j, l;
+    int64 j;
+    int64 l;
     int64 ic, k1, ib;
-    int64 jj, jp1, l1, ic1;
+    int64 jj;
+    int64 jp1;
+    int64 l1;
+    int64 ic1;
     double dt;
     double ddt;
 
@@ -451,7 +466,12 @@ setubv_make_fa(setubv_parallel_arglist larg) {
 void
 setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
                   double *rlold, double rds) {
-    int64 j, jj, jp1, i1, m, j1;
+    int64 j;
+    int64 jj;
+    int64 jp1;
+    int64 i1;
+    int64 m;
+    int64 j1;
     double rlsum;
 
     int64 dups_dim1 = larg.ndxloc;

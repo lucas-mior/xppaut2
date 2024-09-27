@@ -15,7 +15,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     XEvent event;
     int32 there = 0;
     int32 error = 0;
-    int32 dragx = 0, dragy = 0;
+    int32 dragx = 0;
+    int32 dragy = 0;
     int32 oldx = 0, oldy = 0;
     int32 state = 0;
     xor_flag = 1;
@@ -104,7 +105,10 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
 
 void
 rubber_box(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f) {
-    int32 x1 = i1, x2 = i2, y1 = j1, y2 = j2;
+    int32 x1 = i1;
+    int32 x2 = i2;
+    int32 y1 = j1;
+    int32 y2 = j2;
     if (f == RUBLINE) {
         XDrawLine(display, window, gc, i1, j1, i2, j2);
         return;

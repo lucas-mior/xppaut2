@@ -71,7 +71,10 @@ int32
 kinescope_film_clip(void) {
     int32 x;
     int32 y;
-    uint32 h, w, bw, d;
+    uint32 h;
+    uint32 w;
+    uint32 bw;
+    uint32 d;
     Window root;
     if (mov_ind >= MAXFILM)
         return 0;
@@ -102,7 +105,10 @@ void
 kinescope_play_back(void) {
     int32 x;
     int32 y;
-    int32 h, w, bw, d;
+    int32 h;
+    int32 w;
+    int32 bw;
+    int32 d;
 
     Window root;
     XEvent event;
@@ -185,7 +191,10 @@ kinescope_make_anigif(void) {
     int32 y;
     FILE *fp;
     Window root;
-    int32 h, w, bw, d;
+    int32 h;
+    int32 w;
+    int32 bw;
+    int32 d;
     XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
                  (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
@@ -226,7 +235,10 @@ kinescope_save_movie(char *basename, int32 fmat) {
     FILE *fp;
     Window root;
     Pixmap xi;
-    int32 h, w, bw, d;
+    int32 h;
+    int32 w;
+    int32 bw;
+    int32 d;
     XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
                  (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
@@ -270,13 +282,18 @@ kinescope_auto_play(void) {
     static int32 ks_speed = 50;
     int32 x;
     int32 y;
-    int32 h, w, bw, d, key;
+    int32 h;
+    int32 w;
+    int32 bw;
+    int32 d;
+    int32 key;
     Window root;
 
     int32 dt = 20;
     int32 smax = 500;
     XEvent event;
-    int32 i = 0, cycle = 0;
+    int32 i = 0;
+    int32 cycle = 0;
 
     ggets_new_int("Number of cycles", &ks_ncycle);
     ggets_new_int("Msec between frames", &ks_speed);

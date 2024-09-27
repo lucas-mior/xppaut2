@@ -85,11 +85,13 @@ build_markov(
     char **ma, char *name) {
     /*int32 nn;
      */
-    int32 len = 0, ll;
+    int32 len = 0;
+    int32 ll;
     char line[256], expr[256];
     int32 istart;
 
-    int32 nstates, index;
+    int32 nstates;
+    int32 index;
     index = -1;
     /* find it -- if not defined, then abort  */
     for (int32 i = 0; i < NMarkov; i++) {
@@ -133,11 +135,13 @@ build_markov(
 int32
 markov_old_build(FILE *fptr, char *name) {
     /*int32 nn;*/
-    int32 len = 0, ll;
+    int32 len = 0;
+    int32 ll;
     char line[256], expr[256];
     int32 istart;
 
-    int32 nstates, index;
+    int32 nstates;
+    int32 index;
     index = -1;
     /* find it -- if not defined, then abort  */
     for (int32 i = 0; i < NMarkov; i++) {
@@ -255,7 +259,9 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
 
 void
 markov_compile_all(void) {
-    int32 index, ns, l0;
+    int32 index;
+    int32 ns;
+    int32 l0;
     if (NMarkov == 0)
         return;
     for (index = 0; index < NMarkov; index++) {
@@ -320,7 +326,8 @@ markov_new_state(double old, int32 index, double dt) {
     double prob;
     double sum;
     double coin = markov_ndrand48();
-    int32 row = -1, rns;
+    int32 row = -1;
+    int32 rns;
     double *st;
     int32 ns = markov[index].nstates;
     int32 type = markov[index].type;
@@ -393,7 +400,8 @@ markov_make_gill_nu(double *nu, int32 n, int32 m, double *v) {
 
 void
 markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
-    double rate = 0, test;
+    double rate = 0;
+    double test;
     double r[1000];
     /*double rold[1000]; Not used*/
 
@@ -570,7 +578,8 @@ markov_append_stoch(int32 first, int32 length) {
 
 void
 markov_do_stats(int32 ierr) {
-    double ninv, mean;
+    double ninv;
+    double mean;
     /*  STOCH_FLAG=0; */
     if (ierr != -1 && N_TRIALS > 0) {
         ninv = 1. / (double)(N_TRIALS);
@@ -587,7 +596,10 @@ markov_do_stats(int32 ierr) {
 
 double
 markov_gammln(double xx) {
-    double x, y, tmp, ser;
+    double x;
+    double y;
+    double tmp;
+    double ser;
     static double cof[6] = {76.18009172947146,     -86.50532032941677,
                             24.01409824083091,     -1.231739572450155,
                             0.1208650973866179e-2, -0.5395239384953e-5};
@@ -604,7 +616,9 @@ double
 markov_poidev(double xm) {
     static double sq, alxm, g, oldm = (-1.0);
 
-    double em, t, y;
+    double em;
+    double t;
+    double y;
 
     if (xm < 12.0) {
         if (xm != oldm) {

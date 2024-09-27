@@ -22,7 +22,9 @@
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
 static struct MyCalc {
-    Window base, quit, answer;
+    Window base;
+    Window quit;
+    Window answer;
     double last_val;
     int32 use;
 } my_calc;
@@ -107,7 +109,10 @@ calc_q_calc(void) {
     char value[80], name[10];
     double z = 0.0;
     XEvent event;
-    int32 done = 0, pos, col, flag;
+    int32 done = 0;
+    int32 pos;
+    int32 col;
+    int32 flag;
     my_calc.use = 0;
     make_calc(z);
     ini_calc_string(name, value, &pos, &col);

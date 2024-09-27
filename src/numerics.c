@@ -307,7 +307,8 @@ void
 numerics_compute_one_period(double period, double *x, char *name) {
     int32 opm = POIMAP;
     char filename[256];
-    double ot = TRANS, ote = TEND;
+    double ot = TRANS;
+    double ote = TEND;
     FILE *fp;
     TRANS = 0;
     T0 = 0;
@@ -433,7 +434,9 @@ void
 numerics_set_col_par_com(int32 i) {
     int32 ivar;
     double temp[2];
-    double maxder = 0.0, minder = 0.0, sum = 0.0;
+    double maxder = 0.0;
+    double minder = 0.0;
+    double sum = 0.0;
     char ch, name[20];
     MyGraph->ColorFlag = i;
     if (MyGraph->ColorFlag == 0) {

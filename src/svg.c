@@ -391,7 +391,9 @@ svg_write(char *str) {
 
 void
 svg_do_color(int32 color) {
-    int32 r, g, b;
+    int32 r;
+    int32 g;
+    int32 b;
 
     if (PltFmtFlag == SCRNFMT)
         return;

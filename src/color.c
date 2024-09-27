@@ -77,13 +77,20 @@ color_set(int32 col) {
 void
 color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     double x;
-    int32 i1, i2, i3;
+    int32 i1;
+    int32 i2;
+    int32 i3;
     double pii = 3.1415926;
     /* for CUBHLX  */
-    double start = .5, rots = -1.5, hue = 1.2, gamma = 1.;
+    double start = .5;
+    double rots = -1.5;
+    double hue = 1.2;
+    double gamma = 1.;
     double angle;
     double amp;
-    double rr, gg, bb;
+    double rr;
+    double gg;
+    double bb;
 
     switch (type) {
     case C_NORM:

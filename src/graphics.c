@@ -114,7 +114,10 @@ void
 graphics_get_draw_area_flag(int32 flag) {
     int32 x;
     int32 y;
-    uint32 w, h, bw, de;
+    uint32 w;
+    uint32 h;
+    uint32 bw;
+    uint32 de;
     Window root;
     if (flag == 1) {
         XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &de);
@@ -379,9 +382,11 @@ graphics_put_text_x11(int32 x, int32 y, char *str) {
 
 void
 graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
-    int32 i = 0, j = 0;
+    int32 i = 0;
+    int32 j = 0;
     int32 cx = x, cy = y;
-    int32 cf = 0, cs;
+    int32 cf = 0;
+    int32 cs;
     int32 n = (int32)strlen(str), dx = 0;
     char tmp[256], c;
     int32 sub;
@@ -511,7 +516,8 @@ graphics_scale_to_real(/* Not needed except for X */
                        int32 i, int32 j, double *x, double *y) {
     int32 i1;
     int32 j1;
-    double x1, y1;
+    double x1;
+    double y1;
     graphics_get_draw_area();
     i1 = i - DLeft;
     j1 = j - DBottom;
@@ -771,7 +777,8 @@ graphics_copy_graph(/*  Graph[i]=Graph[l]  */
 
 void
 graphics_make_rot(double theta, double phi) {
-    double ct = cos(DEGTORAD*theta), st = sin(DEGTORAD*theta);
+    double ct = cos(DEGTORAD*theta);
+    double st = sin(DEGTORAD*theta);
     double sp = sin(DEGTORAD*phi), cp = cos(DEGTORAD*phi);
     MyGraph->Theta = theta;
     MyGraph->Phi = phi;
@@ -799,7 +806,10 @@ graphics_scale3d(double x, double y, double z, double *xp, double *yp,
 int32
 graphics_threedproj(double x2p, double y2p, double z2p, double *xp,
                     double *yp) {
-    double x1p, y1p, z1p, s;
+    double x1p;
+    double y1p;
+    double z1p;
+    double s;
     /*  if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     graphics_rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
@@ -830,7 +840,10 @@ graphics_text3d(double x, double y, double z, char *s) {
 
 int32
 graphics_threed_proj(double x, double y, double z, double *xp, double *yp) {
-    double x1p, y1p, z1p, s;
+    double x1p;
+    double y1p;
+    double z1p;
+    double s;
     double x2p, y2p, z2p;
     graphics_scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
     /* if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
@@ -865,7 +878,9 @@ void
 graphics_line3dn(/* unscaled version  unclipped */
                  double xs1, double ys1, double zs1, double xsp1, double ysp1,
                  double zsp1) {
-    double xs, ys, zs;
+    double xs;
+    double ys;
+    double zs;
     double xsp, ysp, zsp;
     graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
@@ -880,9 +895,13 @@ void
 graphics_line3d(/* unscaled version     */
                 double x01, double y01, double z01, double x02, double y02,
                 double z02) {
-    double xs, ys, zs;
+    double xs;
+    double ys;
+    double zs;
     double xs1, ys1, zs1;
-    double xsp, ysp, zsp;
+    double xsp;
+    double ysp;
+    double zsp;
     double xsp1, ysp1, zsp1;
     if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1,
                          &ysp1, &zsp1))
@@ -899,11 +918,20 @@ graphics_line3d(/* unscaled version     */
 void
 graphics_line_3d(double x, double y, double z, double xp, double yp,
                  double zp) {
-    double xs, ys, zs;
+    double xs;
+    double ys;
+    double zs;
     double xs1, ys1, zs1;
-    double xsp, ysp, zsp;
+    double xsp;
+    double ysp;
+    double zsp;
     double xsp1, ysp1, zsp1;
-    double x01, x02, y01, y02, z01, z02;
+    double x01;
+    double x02;
+    double y01;
+    double y02;
+    double z01;
+    double z02;
     graphics_scale3d(x, y, z, &x01, &y01, &z01); /* scale to a cube  */
     graphics_scale3d(xp, yp, zp, &x02, &y02, &z02);
     if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1,
@@ -921,7 +949,8 @@ graphics_line_3d(double x, double y, double z, double xp, double yp,
 void
 graphics_pers_line(double x, double y, double z, double xp, double yp,
                    double zp) {
-    double Zv = (double)MyGraph->ZView, Zp = (double)MyGraph->ZPlane;
+    double Zv = (double)MyGraph->ZView;
+    double Zp = (double)MyGraph->ZPlane;
     double d = Zv - Zp, s;
     double eps = .005*d;
 
@@ -998,7 +1027,10 @@ graphics_point_abs(double x1, double y1) {
 
 void
 graphics_line_nabs(double x1_out, double y1_out, double x2_out, double y2_out) {
-    int32 xp1, yp1, xp2, yp2;
+    int32 xp1;
+    int32 yp1;
+    int32 xp2;
+    int32 yp2;
 
     graphics_scale_to_screen(x1_out, y1_out, &xp1, &yp1);
     graphics_scale_to_screen(x2_out, y2_out, &xp2, &yp2);
@@ -1023,7 +1055,10 @@ graphics_bead_abs(double x1, double y1) {
 
 void
 graphics_frect_abs(double x1, double y1, double w, double h) {
-    int32 i1, i2, j1, j2;
+    int32 i1;
+    int32 i2;
+    int32 j1;
+    int32 j2;
     int32 ih;
     int32 iw;
     double x2 = x1 + w;
@@ -1038,9 +1073,15 @@ graphics_frect_abs(double x1, double y1, double w, double h) {
 
 void
 graphics_line_abs(double x1, double y1, double x2, double y2) {
-    double x1_out, y1_out, x2_out, y2_out;
+    double x1_out;
+    double y1_out;
+    double x2_out;
+    double y2_out;
 
-    int32 xp1, yp1, xp2, yp2;
+    int32 xp1;
+    int32 yp1;
+    int32 xp2;
+    int32 yp2;
     if (graphics_clip(x1, x2, y1, y2, &x1_out, &y1_out, &x2_out, &y2_out)) {
         graphics_scale_to_screen(x1_out, y1_out, &xp1, &yp1);
         graphics_scale_to_screen(x2_out, y2_out, &xp2, &yp2);
@@ -1060,7 +1101,8 @@ graphics_text_abs(double x, double y, char *text) {
 
 void
 graphics_fillin_text(char *old, char *new) {
-    int32 i, l = (int32)strlen(old);
+    int32 i;
+    int32 l = (int32)strlen(old);
     int32 j, m, ans;
     char name[256], c, c2;
     double z;
@@ -1144,7 +1186,13 @@ graphics_clip3d(double x1, double y1, double z1, double x2, double y2,
     int32 istack, ix1 = 0, ix2 = 0, iy1 = 0, iy2 = 0, iz1 = 0, iz2 = 0,
                   iflag = 0;
 
-    double wh, wv, wo, xhat, yhat, zhat, del;
+    double wh;
+    double wv;
+    double wo;
+    double xhat;
+    double yhat;
+    double zhat;
+    double del;
 
     istack = 1;
     *x1p = x1;
@@ -1301,7 +1349,13 @@ C4:
 int32
 graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
               double *y1_out, double *x2_out, double *y2_out) {
-    int32 istack, ix1, ix2, iy1, iy2, isum, iflag;
+    int32 istack;
+    int32 ix1;
+    int32 ix2;
+    int32 iy1;
+    int32 iy2;
+    int32 isum;
+    int32 iflag;
     double wh, xhat, yhat, wv;
     double x_left = XMin;
     double x_right = XMax;
@@ -1439,7 +1493,8 @@ graphics_draw_symbol(double x, double y, double size, int32 my_symb) {
          -2, -2, 1, -1, -3, 1, 1, -3, 1, 2, -2, 1, 3, -1, 1,  3,
          1,  1,  2, 2,  1,  1, 3, 3,  0, 0, 3,  0, 0, 3,  0,  0},
     };
-    int32 ind = 0, pen = 0;
+    int32 ind = 0;
+    int32 pen = 0;
     double x1 = x, y1 = y, x2, y2;
 
     while (pen != 3) {

@@ -139,7 +139,9 @@ int64
 dense_gefa(double **a, int64 n, int64 *p) {
     int64 l;
     double *col_j, *col_k, *diag_k;
-    double temp, mult, a_kj;
+    double temp;
+    double mult;
+    double a_kj;
     bool swap;
 
     /* k = elimination step number */

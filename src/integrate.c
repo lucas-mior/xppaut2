@@ -81,7 +81,10 @@ typedef struct FixPointList {
     double *er[MAXFP];
     double *em[MAXFP];
     double *x1[MAXFP], *x2[MAXFP], *x3[MAXFP], *x4[MAXFP];
-    int32 t1, t2, t3, t4;
+    int32 t1;
+    int32 t2;
+    int32 t3;
+    int32 t4;
 } FixPointList;
 
 static FixPointList fixptlist;
@@ -340,7 +343,9 @@ integrate_set_up_range(void) {
 void
 integrate_monte_carlo(void) {
     int32 append = 0;
-    int32 i = 0, done = 0, ishoot = 0;
+    int32 i = 0;
+    int32 done = 0;
+    int32 ishoot = 0;
     double z;
     char name[256];
     ggets_new_int("Append(1/0", &append);
@@ -372,7 +377,8 @@ integrate_monte_carlo(void) {
 
 void
 integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
-    int32 m, n = fixptguess.n;
+    int32 m;
+    int32 n = fixptguess.n;
     int32 ierr, new = 1;
     double x[MAX_ODE], sum;
     double er[MAX_ODE], em[MAX_ODE];
@@ -457,7 +463,10 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
 
 void
 integrate_eq_range(double *x) {
-    double parlo, parhi, dpar, temp;
+    double parlo;
+    double parhi;
+    double dpar;
+    double temp;
     int32 npar, stabcol, i, ierr;
     int32 mc;
     char bob[256];
@@ -609,13 +618,17 @@ integrate_do_range(double *x, int32 flag) {
     /* flag: 0 for 1-param 1 for 2 parameter 2 for Auto range */
     char parn[256];
     char bob[sizeof(parn) + 30];
-    int32 ivar = 0, ivar2 = 0, res = 0, oldic = 0;
+    int32 ivar = 0;
+    int32 ivar2 = 0;
+    int32 res = 0;
+    int32 oldic = 0;
     int32 nit = 20, itype = 0, itype2 = 0, cycle = 0, icol = 0, nit2 = 0,
           iii = 0;
     int32 color = MyGraph->color[0];
     double t, dpar, plow = 0.0, phigh = 1.0, p = 0.0, plow2 = 0.0, phigh2 = 0.0,
                     p2 = 0.0, dpar2 = 0.0;
-    double temp = 0.0, temp2 = 0.0;
+    double temp = 0.0;
+    double temp2 = 0.0;
     int32 ierr = 0;
     if (flag == 0 || flag == 2) {
         range.rtype = 0;
@@ -932,7 +945,8 @@ integrate_find_equilib_com(int32 com) {
     int32 ierr;
     double xm;
     double ym;
-    int32 im, jm;
+    int32 im;
+    int32 jm;
     int32 iv;
     int32 jv;
     double stabinfo;
@@ -1174,7 +1188,12 @@ integrate_do_init_data(int32 com) {
     char icfile[XPP_MAX_NAME];
     double xm;
     double ym;
-    int32 im, jm, oldstart, iv, jv, badmouse;
+    int32 im;
+    int32 jm;
+    int32 oldstart;
+    int32 iv;
+    int32 jv;
+    int32 badmouse;
 
     oldstart = MyStart;
     MyStart = 1;
@@ -1508,7 +1527,9 @@ integrate_evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
 
 int32
 integrate_extract_ic_data(char *big) {
-    int32 i, n, j;
+    int32 i;
+    int32 n;
+    int32 j;
     int32 j1, j2, flag2;
     char front[40], new[50], c;
     char back[256];
@@ -1562,10 +1583,14 @@ int32
 integrate_set_array_ic(void) {
     char junk[50];
     char new[50];
-    int32 i, index0, myar = -1;
+    int32 i;
+    int32 index0;
+    int32 myar = -1;
     int32 i1;
     int32 in;
-    int32 j1, j2, flag2;
+    int32 j1;
+    int32 j2;
+    int32 flag2;
     double z;
     int32 flag;
     junk[0] = 0;
@@ -1658,9 +1683,11 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
 
     int32 kflag;
     int32 nodes = xpv.node + xpv.nvec;
-    int32 nit, nout = NJMP;
+    int32 nit;
+    int32 nout = NJMP;
     double tend = TEND;
-    double dt = DELTA_T, tout;
+    double dt = DELTA_T;
+    double tout;
     if (METHOD == 0) {
         nit = (int32)tend;
         dt = dt / fabs(dt);
@@ -1815,13 +1842,17 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
     int32 rval = 0;
     double oldx[MAX_ODE], oldt = 0, dint, dxp, sect, sect1, tout, tzero = *t;
-    double sss, tnew = *t;
+    double sss;
+    double tnew = *t;
     int32 iflagstart = 1;
-    double tscal = tend, tv;
+    double tscal = tend;
+    double tv;
 
     char esc;
     char error_message[50];
-    int32 ieqn, i, pflag = 0;
+    int32 ieqn;
+    int32 i;
+    int32 pflag = 0;
     int32 icount = 0;
     int32 nit;
     int32 cwidth = 0;
@@ -2393,7 +2424,8 @@ integrate_send_output(double *y, double t) {
 void
 integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
                double *ypl, double *zpl) {
-    int32 ip, np = MyGraph->nvars;
+    int32 ip;
+    int32 np = MyGraph->nvars;
 
     for (ip = 0; ip < np; ip++) {
         if (MyGraph->ColorFlag == 0) {
@@ -2420,9 +2452,12 @@ integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
 
 void
 integrate_export_data(FILE *fp) {
-    int32 ip, np = MyGraph->nvars;
+    int32 ip;
+    int32 np = MyGraph->nvars;
     int32 ZSHFT, YSHFT, XSHFT;
-    int32 kxoff, kyoff, kzoff;
+    int32 kxoff;
+    int32 kyoff;
+    int32 kzoff;
     int32 iiXPLT, iiYPLT, iiZPLT;
     int32 strind = get_max_row_browser();
     int32 i1 = 0;
@@ -2521,11 +2556,19 @@ integrate_plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
 
 void
 integrate_restore(int32 i1, int32 i2) {
-    int32 ip, np = MyGraph->nvars;
+    int32 ip;
+    int32 np = MyGraph->nvars;
     int32 ZSHFT, YSHFT, XSHFT;
-    int32 kxoff, kyoff, kzoff;
+    int32 kxoff;
+    int32 kyoff;
+    int32 kzoff;
     int32 iiXPLT, iiYPLT, iiZPLT;
-    double oldxpl, oldypl, oldzpl, xpl, ypl, zpl;
+    double oldxpl;
+    double oldypl;
+    double oldzpl;
+    double xpl;
+    double ypl;
+    double zpl;
     double v1[MAX_ODE + 1], v2[MAX_ODE + 1];
     double **data;
 

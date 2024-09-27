@@ -23,7 +23,10 @@
 
 static struct ShootRange {
     char item[30];
-    int32 steps, side, cycle, movie;
+    int32 steps;
+    int32 side;
+    int32 cycle;
+    int32 movie;
     double plow;
     double phigh;
 } shoot_range;
@@ -134,9 +137,15 @@ pp_shoot_bad(int32 iret) {
 
 void
 pp_shoot_do_range(double *ystart, double *yend) {
-    double parlo, parhi, dpar, temp;
+    double parlo;
+    double parhi;
+    double dpar;
+    double temp;
     int32 npar, ierr;
-    int32 side, cycle, icol, color;
+    int32 side;
+    int32 cycle;
+    int32 icol;
+    int32 color;
     char bob[sizeof(shoot_range.item) + 30];
 
     int32 find;
@@ -271,7 +280,8 @@ pp_shoot_set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
 
 void
 pp_shoot_find_bvp_com(int32 com) {
-    int32 ishow = 0, iret;
+    int32 ishow = 0;
+    int32 iret;
     int32 iper = 0, ivar = 0, ipar = 0, pflag;
     double sect = 0.0;
     double oldpar = 0.0;
@@ -371,13 +381,16 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
             int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar,
             int32 ivar, double sect) {
     double *jac, *f, *fdev, *y0, *y1;
-    double dev, error, ytemp;
+    double dev;
+    double error;
+    double ytemp;
 
     int32 ntot = n;
     int32 istart = 1;
     int32 ipvt[MAX_ODE1];
     char esc;
-    int32 info, niter = 0;
+    int32 info;
+    int32 niter = 0;
     double dt = DELTA_T, t;
     double t0 = T0;
     double t1 = T0 + TEND*dt / fabs(dt);

@@ -144,10 +144,15 @@ band_alloc_piv2(int64 n) {
 
 int64
 band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
-    int64 c, r, num_rows;
+    int64 c;
+    int64 r;
+    int64 num_rows;
     int64 i, l, storage_l, storage_k, last_col_k, last_row_k;
     double *a_c, *col_k, *diag_k, *sub_diag_k, *col_j, *kptr, *jptr;
-    double max, temp, mult, a_kj;
+    double max;
+    double temp;
+    double mult;
+    double a_kj;
     bool swap;
 
     /* zero out the first smu - mu rows of the rectangular array a */
@@ -250,7 +255,10 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 
 void
 band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
-    int64 l, i, first_row_k, last_row_k;
+    int64 l;
+    int64 i;
+    int64 first_row_k;
+    int64 last_row_k;
     double mult;
     double *diag_k;
 
@@ -351,7 +359,8 @@ band_free2(double **a) {
 
 void
 band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
-    int64 start, finish;
+    int64 start;
+    int64 finish;
 
     ggets_plintf("\n");
     for (int64 i = 0; i < n; i++) {

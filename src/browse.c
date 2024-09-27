@@ -145,7 +145,9 @@ write_my_browser_data(FILE *fp) {
 
 void
 write_browser_data(FILE *fp, Browser *b) {
-    int32 i, j, l;
+    int32 i;
+    int32 j;
+    int32 l;
 
     for (i = b->istart; i < b->iend; i++) {
         if (N_plist > 0) {
@@ -288,7 +290,9 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
     int32 intflag = 0;
     int32 dif_var = -1;
     int32 seq = 0;
-    double a1 = 0, a2 = 0, da = 0.0;
+    double a1 = 0;
+    double a2 = 0;
+    double da = 0.0;
     double old = 0.0, dt, derv = 0.0;
     double sum = 0.0;
     if (n < 2)
@@ -401,7 +405,8 @@ browse_wipe_rep(void) {
 void
 browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
                     Browser b) {
-    int32 npts, ok;
+    int32 npts;
+    int32 ok;
     FILE *fp;
     browse_open_write_file(&fp, filename, &ok);
     if (!ok)
@@ -616,7 +621,8 @@ reset_browser(void) {
 
 void
 browse_draw_data(Browser b) {
-    int32 i0, j0;
+    int32 i0;
+    int32 j0;
     int32 x0;
     char string[50];
     int32 dcol = DCURXs*14;
@@ -865,7 +871,9 @@ expose_browser(XEvent event, Browser b) {
 
 void
 resize_browser(Window window, Browser *b) {
-    uint32 w, h, hreal;
+    uint32 w;
+    uint32 h;
+    uint32 hreal;
     int32 dcol = 17*DCURXs, drow = DCURYs + 6;
     int32 i0;
     int32 newrow;
@@ -1300,7 +1308,8 @@ browse_data_table(Browser *b) {
     static char *name[] = {"Variable", "Xlo", "Xhi", "File"};
     char value[LENGTH(name)][MAX_LEN_SBOX];
 
-    double xlo = 0, xhi = 1;
+    double xlo = 0;
+    double xhi = 1;
     int32 col;
 
     strncpy(value[0], uvar_names[0], sizeof(value[0]));
@@ -1330,7 +1339,8 @@ browse_data_find(Browser *b) {
 
     static char *name[] = {"*0Variable", "Value"};
     char value[LENGTH(name)][MAX_LEN_SBOX];
-    int32 col, row = 0;
+    int32 col;
+    int32 row = 0;
 
     double val;
 
@@ -1382,7 +1392,9 @@ browse_data_read(Browser *b) {
     char fil[256];
     char ch;
     FILE *fp;
-    int32 len, count = 0, white = 1;
+    int32 len;
+    int32 count = 0;
+    int32 white = 1;
     double z;
 
     strcpy(fil, "test.dat");

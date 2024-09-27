@@ -156,9 +156,18 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
     /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
-    double beta, rotation_product, r_norm, s_product, rho = 0.0;
+    double beta;
+    double rotation_product;
+    double r_norm;
+    double s_product;
+    double rho = 0.0;
     bool preOnLeft, preOnRight, scale_x, scale_b, converged;
-    int32 l, l_plus_1, l_max, krydim = 0, ier, ntries;
+    int32 l;
+    int32 l_plus_1;
+    int32 l_max;
+    int32 krydim = 0;
+    int32 ier;
+    int32 ntries;
 
     if (mem == NULL)
         return SPGMR_MEM_NULL;

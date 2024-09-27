@@ -31,7 +31,8 @@ static struct InOut {
     int32 *in, *intype;
     int32 *out;
     int32 *outtype;
-    int32 nin, nout;
+    int32 nin;
+    int32 nout;
     double *vin;
     double *vout;
 } in_out;
@@ -248,7 +249,8 @@ extra_do_export_list(void) {
 
 void
 extra_parse_inout(char *l, int32 flag) {
-    int32 i = 0, j = 0;
+    int32 i = 0;
+    int32 j = 0;
     int32 k = 0, index;
     char new[20], c;
     int32 done = 1;

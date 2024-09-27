@@ -687,9 +687,22 @@ void band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 typedef struct Browser {
     Window base;
     Window upper;
-    Window find, up, down, pgup, pgdn, home, end, left, right;
+    Window find;
+    Window up;
+    Window down;
+    Window pgup;
+    Window pgdn;
+    Window home;
+    Window end;
+    Window left;
+    Window right;
     Window first, last, restore, write, get, close;
-    Window load, repl, unrepl, table, addcol, delcol;
+    Window load;
+    Window repl;
+    Window unrepl;
+    Window table;
+    Window addcol;
+    Window delcol;
     Window main;
     Window label[BMAXCOL];
     Window time;
@@ -697,7 +710,10 @@ typedef struct Browser {
     char hinttxt[256];
     int32 dataflag;
     int32 xflag;
-    int32 col0, row0, ncol, nrow;
+    int32 col0;
+    int32 row0;
+    int32 ncol;
+    int32 nrow;
     int32 maxrow;
     int32 maxcol;
     double **data;
@@ -2370,15 +2386,24 @@ void graphics_draw_many_lines(void);
 #define HISTOGRAM_H
 
 typedef struct BoxList {
-    int32 use, type, xuse;
+    int32 use;
+    int32 type;
+    int32 xuse;
     int32 n;
     int32 n0;
-    int32 nwin, minwid, minhgt;
+    int32 nwin;
+    int32 minwid;
+    int32 minhgt;
     Window up;
     Window dn;
-    Window pgup, pgdn;
+    Window pgup;
+    Window pgdn;
     Window base;
-    Window cancel, ok, def, go, close;
+    Window cancel;
+    Window ok;
+    Window def;
+    Window go;
+    Window close;
     Window xvt, pp, arr;
     Window *w;
     Window *we;
@@ -2389,10 +2414,16 @@ typedef struct BoxList {
 } BoxList;
 
 typedef struct HistInfo {
-    int32 nbins, nbins2, type, col, col2, fftc;
+    int32 nbins;
+    int32 nbins2;
+    int32 type;
+    int32 col;
+    int32 col2;
+    int32 fftc;
     double xlo;
     double xhi;
-    double ylo, yhi;
+    double ylo;
+    double yhi;
     char cond[80];
 } HistInfo;
 
@@ -2438,7 +2469,10 @@ typedef struct BoxListold {
     int32 type;
     int32 n;
     Window base;
-    Window cancel, ok, def, go;
+    Window cancel;
+    Window ok;
+    Window def;
+    Window go;
     Window *w;
     Window *we;
     char **value;
@@ -2493,7 +2527,16 @@ extern int32 SuppressBounds;
 typedef struct Range {
     char item[30];
     char item2[30];
-    int32 steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
+    int32 steps;
+    int32 steps2;
+    int32 reset;
+    int32 oldic;
+    int32 index;
+    int32 index2;
+    int32 cycle;
+    int32 type;
+    int32 type2;
+    int32 movie;
     double plow, phigh, plow2, phigh2;
     int32 rtype;
 } Range;
@@ -3576,7 +3619,8 @@ extern int32 ColorizeFlag;
 typedef struct NullClines {
     double *xn;
     double *yn;
-    int32 nmx, nmy;
+    int32 nmx;
+    int32 nmy;
     int32 n_ix;
     int32 n_iy;
     struct NullClines *n, *p;
@@ -3764,13 +3808,16 @@ extern XFontStruct *font_small;
  */
 
 typedef struct StringBox {
-    Window base, ok, cancel;
+    Window base;
+    Window ok;
+    Window cancel;
     Window win[MAX_N_SBOX];
     char name[MAX_N_SBOX][MAX_LEN_SBOX];
     char value[MAX_N_SBOX][MAX_LEN_SBOX];
     int32 n;
     int32 hot;
-    int32 hgt, wid;
+    int32 hgt;
+    int32 wid;
     int32 hh[MAX_N_SBOX];
 } StringBox;
 
@@ -4138,10 +4185,15 @@ int32 storage_realloc(int32 ncol, int32 nrow);
 #define TABULAR_H
 
 typedef struct Tabular {
-    double xlo, xhi, dx;
+    double xlo;
+    double xhi;
+    double dx;
     double *y;
     double *x;
-    int32 n, flag, interp, autoeval;
+    int32 n;
+    int32 flag;
+    int32 interp;
+    int32 autoeval;
     int32 xyvals;
     /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
                              interp=0 for normal interpolation, interp=1 for

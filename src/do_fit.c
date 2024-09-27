@@ -24,7 +24,11 @@ static struct FitInfo {
     char file[25];
     char varlist[25], collist[25];
     char parlist1[25], parlist2[25];
-    int32 dim, npars, nvars, npts, maxiter;
+    int32 dim;
+    int32 npars;
+    int32 nvars;
+    int32 npts;
+    int32 maxiter;
     int32 icols[50], ipar[50], ivar[50];
     double tol;
     double eps;
@@ -75,7 +79,12 @@ void
 do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
                 double *yfit, double **yderv, int32 npts, int32 npars,
                 int32 nvars, int32 *ivar, int32 *ipar) {
-    int32 iv, ip, istart = 1, l, k0, ok;
+    int32 iv;
+    int32 ip;
+    int32 istart = 1;
+    int32 l;
+    int32 k0;
+    int32 ok;
     double yold[MAX_ODE], dp;
     double par;
     *flag = 0;
@@ -321,7 +330,9 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
 void
 do_fit_test(void) {
     double *yfit, a[1000], y0[1000];
-    int32 nvars, npars, ok;
+    int32 nvars;
+    int32 npars;
+    int32 ok;
     char collist[30], parlist1[30], parlist2[30], varlist[30];
 
     static char *n[] = {"File",  "Fitvar", "Params", "Tolerance", "Npts",
@@ -465,9 +476,12 @@ do_fit_run(/* double arrays */
            int32 *icols, double *y0, double *a, double *yfit) {
     double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda,
         **yderv, *work;
-    int32 ioff, ictrl = 0, ok = 0;
+    int32 ioff;
+    int32 ictrl = 0;
+    int32 ok = 0;
     FILE *fp;
-    int32 niter = 0, good_flag = 0;
+    int32 niter = 0;
+    int32 good_flag = 0;
     double tol10 = 10*tol;
     double t, ytemp[MAX_ODE];
     /*printf(" %s %d %d %d %d %d \n",
@@ -691,7 +705,9 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
               int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
               double *alpha, double *chisq, double *beta, double **yderv,
               double *yfit, double eps) {
-    int32 flag, l, k0;
+    int32 flag;
+    int32 l;
+    int32 k0;
     double sig2i, dy, wt;
 
     do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars,
@@ -734,7 +750,8 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
 void
 do_fit_parse_collist(char *collist, int32 *icols, int32 *n) {
     char *item;
-    int32 v, i = 0;
+    int32 v;
+    int32 i = 0;
 
     item = form_ode_get_first(collist, " ,");
 
@@ -755,7 +772,8 @@ do_fit_parse_collist(char *collist, int32 *icols, int32 *n) {
 void
 do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n) {
     char *item;
-    int32 v, i = 0;
+    int32 v;
+    int32 i = 0;
 
     item = form_ode_get_first(varlist, " ,");
     if (item[0] == 0)
@@ -779,7 +797,8 @@ do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n) {
 void
 do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n) {
     char *item;
-    int32 v, i = 0;
+    int32 v;
+    int32 i = 0;
     usize j;
     for (j = 0; j < strlen(parlist); j++) {
         if (parlist[j] != ' ')

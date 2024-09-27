@@ -183,9 +183,13 @@ dae_fun_do_daes(void) {
     /* Newton solver for algebraic stuff */
     int32 n;
     int32 info;
-    double err, del, z, yold;
+    double err;
+    double del;
+    double z;
+    double yold;
     double tol = EVEC_ERR, eps = NEWT_ERR;
-    int32 maxit = EVEC_ITER, iter = 0;
+    int32 maxit = EVEC_ITER;
+    int32 iter = 0;
     double *y, *ynew, *f, *fnew, *jac, *errvec;
     n = nsvar;
     if (nsvar == 0)

@@ -22,7 +22,10 @@
 #define HTMARK .0016
 
 static struct Grob {
-    double xs, ys, xe, ye;
+    double xs;
+    double ys;
+    double xe;
+    double ye;
     double size;
     int16 use;
     Window window;
@@ -43,7 +46,9 @@ static struct Label {
 static struct MarkInfo {
     int32 type;
     int32 color;
-    int32 number, start, skip;
+    int32 number;
+    int32 start;
+    int32 skip;
     double size;
 } markinfo = {2, 0, 1, 0, 1, 1.0};
 
@@ -219,7 +224,10 @@ many_pops_add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
 void
 many_pops_draw_marker(double x, double y, double size, int32 type) {
     int32 pen = 0;
-    double x1 = x, y1 = y, x2, y2;
+    double x1 = x;
+    double y1 = y;
+    double x2;
+    double y2;
     int32 ind = 0;
     int32 offset;
 
@@ -647,7 +655,9 @@ many_pops_select_marker_type(int32 *type) {
 
 void
 many_pops_add_marker(void) {
-    int32 flag, i1, j1;
+    int32 flag;
+    int32 i1;
+    int32 j1;
     double xe = 0.0, ye = 0.0, xs, ys;
     {
         /* many pops get marker info */
@@ -681,7 +691,11 @@ many_pops_add_marker(void) {
 void
 many_pops_add_pntarr(int32 type) {
     double size = .1;
-    int32 i1, j1, i2, j2, color = 0;
+    int32 i1;
+    int32 j1;
+    int32 i2;
+    int32 j2;
+    int32 color = 0;
     double xe, ye, xs, ys;
     /*Window temp;*/
     int32 flag;
@@ -710,10 +724,15 @@ many_pops_add_pntarr(int32 type) {
 void
 many_pops_edit_object_com(int32 com) {
     char ans, str[80];
-    int32 i, j, ilab = -1, flag, type;
+    int32 i;
+    int32 j;
+    int32 ilab = -1;
+    int32 flag;
+    int32 type;
     double x;
     double y;
-    double dist = 1e20, dd;
+    double dist = 1e20;
+    double dd;
 
     menudrive_message_box("Choose Object");
     flag = menudrive_get_mouse_xy(&i, &j);
@@ -1116,7 +1135,10 @@ int32
 many_pops_rotate_3dcheck(XEvent event) {
     Window window = event.xbutton.window;
     XEvent z;
-    int32 xini, yini, dx, dy;
+    int32 xini;
+    int32 yini;
+    int32 dx;
+    int32 dy;
     double theta;
     double phi;
     if (window == draw_win && MyGraph->ThreeDFlag) {
@@ -1431,7 +1453,8 @@ many_pops_check_draw_button(XEvent event) {
     int32 button;
     int32 i;
     int32 j;
-    double x, y;
+    double x;
+    double y;
     int32 flag = 0;
     Window window;
     button = (int32)event.xbutton.button;

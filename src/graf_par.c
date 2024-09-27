@@ -244,7 +244,9 @@ graf_par_check_val(double *x1, double *x2, double *xb, double *xd) {
 
 void
 graf_par_get_max(int32 index, double *vmin, double *vmax) {
-    double x0, x1, z;
+    double x0;
+    double x1;
+    double z;
     double temp;
     x0 = my_browser.data[index][0];
     x1 = x0;
@@ -269,7 +271,10 @@ void
 graf_par_corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
     double x;
     double y;
-    double x1, x2, y1, y2;
+    double x1;
+    double x2;
+    double y1;
+    double y2;
     graphics_threedproj(-1., -1., -1., &x, &y);
     x1 = x;
     x2 = x;
@@ -377,7 +382,12 @@ graf_par_default_window(void) {
 
 void
 graf_par_fit_window(void) {
-    double Mx = -1.e25, My = -1.e25, Mz = -1.e25, mx = -Mx, my = -My, mz = -Mz;
+    double Mx = -1.e25;
+    double My = -1.e25;
+    double Mz = -1.e25;
+    double mx = -Mx;
+    double my = -My;
+    double mz = -Mz;
     int32 n = MyGraph->nvars;
     if (storind < 2)
         return;
@@ -504,7 +514,8 @@ graf_par_redraw_the_graph(void) {
 
 void
 graf_par_movie_rot(double start, double increment, int32 nclip, int32 angle) {
-    double thetaold = MyGraph->Theta, phiold = MyGraph->Phi;
+    double thetaold = MyGraph->Theta;
+    double phiold = MyGraph->Phi;
     kinescope_reset_film();
     for (int32 i = 0; i <= nclip; i++) {
         if (angle == 0)
@@ -534,7 +545,8 @@ graf_par_get_3d_com(void) {
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
 
-    int32 nclip = 8, angle = 0;
+    int32 nclip = 8;
+    int32 angle = 0;
     double start, increment = 45;
     if (MyGraph->grtype < 5)
         return;
@@ -599,7 +611,10 @@ graf_par_update_view(double xlo, double xhi, double ylo, double yhi) {
 
 void
 graf_par_window_zoom_com(int32 c) {
-    int32 i1, i2, j1, j2;
+    int32 i1;
+    int32 i2;
+    int32 j1;
+    int32 j2;
     switch (c) {
     case 0: {
         /* graf par user window */
@@ -711,7 +726,10 @@ graf_par_window_zoom_com(int32 c) {
 
 void
 graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
-    double x1, y1, x2, y2;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
     double dx = MyGraph->xhi - MyGraph->xlo;
     double dy = MyGraph->yhi - MyGraph->ylo;
     graphics_scale_to_real(i1, j1, &x1, &y1);
@@ -752,7 +770,10 @@ graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
 
 void
 graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
-    double x1, y1, x2, y2;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
     double bx, mux, by, muy;
     double dx = MyGraph->xhi - MyGraph->xlo;
     double dy = MyGraph->yhi - MyGraph->ylo;
@@ -1085,7 +1106,9 @@ graf_par_auto_freeze_it(void) {
 int32
 graf_par_create_crv(int32 ind) {
     int32 type;
-    int32 ix, iy, iz;
+    int32 ix;
+    int32 iy;
+    int32 iz;
 
     for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 0) {
@@ -1153,7 +1176,8 @@ graf_par_draw_frozen_cline(int32 index, Window window) {
 
 void
 graf_par_draw_freeze(Window window) {
-    int32 type = MyGraph->grtype, lt = 0;
+    int32 type = MyGraph->grtype;
+    int32 lt = 0;
     double oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
     double *xv, *yv, *zv;
     for (int32 i = 0; i < MAXNCLINE; i++)
@@ -1254,7 +1278,13 @@ graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
 
 void
 graf_par_read_bd(FILE *fp) {
-    int32 oldtype, type, oldbr, br, ncrv = 0, len, f2;
+    int32 oldtype;
+    int32 type;
+    int32 oldbr;
+    int32 br;
+    int32 ncrv = 0;
+    int32 len;
+    int32 f2;
     double x[8000], ylo[8000], yhi[8000];
     len = 0;
     fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &oldtype,

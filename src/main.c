@@ -215,7 +215,8 @@ void
 do_main(int32 argc, char **argv) {
     char myfile[XPP_MAX_NAME];
     char pptitle[sizeof(this_file) + 40];
-    uint32 min_wid = 450, min_hgt = 360;
+    uint32 min_wid = 450;
+    uint32 min_hgt = 360;
     OptionsSet *tempNS;
 
     /* Track which options have not been set already */
@@ -619,7 +620,8 @@ void
 main_init_x(void) {
     char *icon_name = "xpp";
     char *win_name = "XPPAUT";
-    int32 x = 0, y = 0;
+    int32 x = 0;
+    int32 y = 0;
     uint32 min_wid = 450, min_hgt = 360;
 
     static uint32 Black;
@@ -1426,7 +1428,10 @@ int32
 main_get_command_width(void) {
     int32 x;
     int32 y;
-    uint32 w, h, bw, de;
+    uint32 w;
+    uint32 h;
+    uint32 bw;
+    uint32 de;
 
     Window root;
     XGetGeometry(display, command_pop, &root, &x, &y, &w, &h, &bw, &de);

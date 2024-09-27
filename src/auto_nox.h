@@ -16,23 +16,43 @@ typedef struct {
 
 typedef struct {
     int32 exist;
-    int32 ntst, nmx, npr;
+    int32 ntst;
+    int32 nmx;
+    int32 npr;
     double ds, dsmax, dsmin, rl0, rl1, a0, a1;
-    double xmin, xmax, ymin, ymax;
+    double xmin;
+    double xmax;
+    double ymin;
+    double ymax;
     double lastx;
     double lasty;
-    int32 wid, hgt, x0, y0, st_wid;
+    int32 wid;
+    int32 hgt;
+    int32 x0;
+    int32 y0;
+    int32 st_wid;
     int32 nfpar;
     int32 nbc;
-    int32 ips, irs, ilp, isp, isw, itp;
+    int32 ips;
+    int32 irs;
+    int32 ilp;
+    int32 isp;
+    int32 isw;
+    int32 itp;
     int32 plot;
     int32 var;
-    int32 icp1, icp2, icp3, icp4, icp5;
+    int32 icp1;
+    int32 icp2;
+    int32 icp3;
+    int32 icp4;
+    int32 icp5;
     int32 nper;
     char hinttxt[256];
     double period[MAX_AUT_PER];
     int64 uzrpar[MAX_AUT_PER];
-    double epsl, epsu, epss;
+    double epsl;
+    double epsu;
+    double epss;
     int32 ncol;
 } Bifurcation;
 
@@ -48,27 +68,51 @@ typedef struct {
 
 typedef struct {
     int32 package;
-    int32 ibr, ntot, itp, lab;
+    int32 ibr;
+    int32 ntot;
+    int32 itp;
+    int32 lab;
     double norm, uhi[NAUTO], ulo[NAUTO], u0[NAUTO], ubar[NAUTO];
     double par[20], per, torper;
-    int32 index, nfpar, icp1, icp2, icp3, icp4, icp5;
+    int32 index;
+    int32 nfpar;
+    int32 icp1;
+    int32 icp2;
+    int32 icp3;
+    int32 icp4;
+    int32 icp5;
     int32 flag;
 } GrabPoint;
 
 typedef struct diagram {
     int32 package;
-    int32 ibr, ntot, itp, lab, calc;
+    int32 ibr;
+    int32 ntot;
+    int32 itp;
+    int32 lab;
+    int32 calc;
     double norm, *uhi, *ulo, *u0, *ubar, *evr, *evi;
     double par[20], per, torper;
     int32 index;
     int32 nfpar;
-    int32 icp1, icp2, icp3, icp4, icp5, flag2;
+    int32 icp1;
+    int32 icp2;
+    int32 icp3;
+    int32 icp4;
+    int32 icp5;
+    int32 flag2;
     struct diagram *prev;
     struct diagram *next;
 } Diagram;
 
 typedef struct {
-    int32 plot, var, icp1, icp2, icp3, icp4, icp5;
+    int32 plot;
+    int32 var;
+    int32 icp1;
+    int32 icp2;
+    int32 icp3;
+    int32 icp4;
+    int32 icp5;
     double xmin, ymin, xmax, ymax;
 } AutoAX;
 

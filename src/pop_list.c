@@ -30,7 +30,9 @@ typedef struct ScrollBox {
     Window base;
     Window slide;
     Window *w;
-    int32 nw, nent, i0;
+    int32 nw;
+    int32 nent;
+    int32 i0;
     int32 len;
     int32 exist;
     char **list;
@@ -169,7 +171,8 @@ pop_list_create_scroll_box(Window root, int32 x0, int32 y0, int32 nent,
     int32 slen = 0;
     int32 hgt;
     int32 wid;
-    int32 ww, len;
+    int32 ww;
+    int32 len;
     int32 hw = DCURYs + 4;
     for (int32 i = 0; i < nent; i++) {
         if (slen < (int32)strlen(list[i]))
@@ -310,7 +313,8 @@ pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title,
                        int32 maxchar) {
     StringBox sb;
     int32 status;
-    int32 colm, pos;
+    int32 colm;
+    int32 pos;
     ScrollBox scrb;
     scrb.exist = 0;
 
@@ -431,9 +435,11 @@ int32
 pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
                           ScrollBox *scrb) {
     XEvent event;
-    int32 status = -1, inew;
+    int32 status = -1;
+    int32 inew;
     int32 nn = sb->n;
-    int32 done = 0, j;
+    int32 done = 0;
+    int32 j;
     int32 item;
     char ch;
     int32 ihot = sb->hot;
@@ -534,7 +540,9 @@ pop_list_make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
                            int32 maxchar) {
     int32 width;
     int32 height;
-    int32 xpos, ypos, n = sb->n;
+    int32 xpos;
+    int32 ypos;
+    int32 n = sb->n;
     int32 xstart;
     int32 ystart;
 
@@ -788,9 +796,12 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                       (uint)DefaultDepth(display, DefaultScreen(display)));
     int32 xx;
     int32 yy;
-    int32 row = 0, col = 0;
+    int32 row = 0;
+    int32 col = 0;
 
-    XColor bcolour, col2, diffcol;
+    XColor bcolour;
+    XColor col2;
+    XColor diffcol;
     Colormap cmap = DefaultColormap(display, DefaultScreen(display));
     XParseColor(display, cmap, UserWhite, &bcolour);
     XParseColor(display, cmap, UserBlack, &diffcol);
@@ -984,7 +995,9 @@ pop_list_respond_box(char *button, char *message) {
     int32 height;
     int32 done = 0;
     XEvent event;
-    Window wmain, wb, wm;
+    Window wmain;
+    Window wb;
+    Window wm;
     width = l1;
     if (l1 < l2)
         width = l2;
@@ -1066,14 +1079,20 @@ pop_list_expose_choice(char *choice1, char *choice2, char *msg, Window c1,
 int32
 pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
                     int32 x, int32 y, Window window, char *title) {
-    Window base, c1, c2, wm;
+    Window base;
+    Window c1;
+    Window c2;
+    Window wm;
     XEvent event;
     int32 not_done = 1;
     int32 value = 0;
     int32 l1 = (int32)strlen(choice1)*DCURX;
     int32 l2 = (int32)strlen(choice2)*DCURX;
     int32 lm = (int32)strlen(string)*DCURX;
-    int32 tot = lm, xm, x1, x2;
+    int32 tot = lm;
+    int32 xm;
+    int32 x1;
+    int32 x2;
 
     if (lm < (l1 + l2 + 4*DCURX))
         tot = (l1 + l2 + 4*DCURX);
@@ -1168,7 +1187,8 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     XEvent event;
     Window window;
     Cursor txt;
-    int32 done = 0, value;
+    int32 done = 0;
+    int32 value;
     int32 width = DCURX*(max + 5);
     int32 length = (DCURY + 6)*(n + 2);
     window = pop_list_make_plain_window(*root, x, y, width, length, 2);

@@ -553,7 +553,9 @@ auto_nox_per_par(void) {
     char bob[100], *ptr;
     static char *n[] = {"Uzr1", "Uzr2", "Uzr3", "Uzr4", "Uzr5",
                         "Uzr6", "Uzr7", "Uzr8", "Uzr9"};
-    int32 status, i, in;
+    int32 status;
+    int32 i;
+    int32 in;
     char ch;
     ch = (char)auto_x11_pop_up_list("Number", m, key, 10, 12, Auto.nper, 10, 10,
                                     no_hint, Auto.hinttxt);
@@ -691,7 +693,10 @@ auto_nox_plot_par(void) {
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     int32 i;
-    int32 ii1, ii2, ji1, ji2;
+    int32 ii1;
+    int32 ii2;
+    int32 ji1;
+    int32 ji2;
     int32 i1 = Auto.var + 1;
     char n1[15];
     ch = (char)auto_x11_pop_up_list("Plot Type", m, key, 14, 10, Auto.plot, 10,
@@ -812,7 +817,10 @@ auto_nox_plot_par(void) {
 
 void
 auto_nox_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
-    double x1, y1, x2, y2;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
     int32 temp;
     double dx = (Auto.xmax - Auto.xmin);
     double dy = (Auto.ymax - Auto.ymin);
@@ -860,11 +868,17 @@ auto_nox_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
 
 void
 auto_nox_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
-    double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
     int32 temp;
     double dx = (Auto.xmax - Auto.xmin);
     double dy = (Auto.ymax - Auto.ymin);
-    double a1, a2, b1, b2;
+    double a1;
+    double a2;
+    double b1;
+    double b2;
 
     if (i1 > i2) {
         temp = i1;
@@ -974,7 +988,11 @@ void
 auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
                       double *ubar, double a, int32 type, int32 flag,
                       int32 icp1, int32 icp2, int32 flag2) {
-    double x, y1, y2, par1, par2 = 0;
+    double x;
+    double y1;
+    double y2;
+    double par1;
+    double par2 = 0;
     int32 type1 = type;
     par1 = par[icp1];
     if (icp2 < NAutoPar)
@@ -1067,9 +1085,15 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
 
 void
 auto_nox_line(double x1i, double y1i, double x2i, double y2i) {
-    double xmin, ymin, xmax, ymax;
+    double xmin;
+    double ymin;
+    double xmax;
+    double ymax;
     double x1 = x1i, x2 = x2i, y1 = y1i, y2 = y2i;
-    double x1d, x2d, y1d, y2d;
+    double x1d;
+    double x2d;
+    double y1d;
+    double y2d;
     double x1_out, y1_out, x2_out, y2_out;
 
     graphics_get_scale(&xmin, &ymin, &xmax, &ymax);
@@ -1106,7 +1130,11 @@ auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
                    double *ubar, double a, int32 type, int32 flg, int32 lab,
                    int32 icp1, int32 icp2, int32 flag2, double *evr,
                    double *evi) {
-    double x, y1, y2, par1, par2 = 0;
+    double x;
+    double y1;
+    double y2;
+    double par1;
+    double par2 = 0;
     int32 ix, iy1, iy2, type1 = type;
     char bob[5];
     sprintf(bob, "%d", lab);
@@ -1285,7 +1313,8 @@ void
 auto_nox_new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
                   double norm, double u0, double per, int32 icp1, int32 icp2) {
     char bob[80];
-    double p1, p2 = 0.0;
+    double p1;
+    double p2 = 0.0;
     auto_x11_clear_info();
     auto_nox_info_header(icp1, icp2);
     p1 = par[icp1];
@@ -1300,7 +1329,12 @@ auto_nox_new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
 void
 auto_nox_traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     double norm, per, *par, par1, par2 = 0, *evr, *evi;
-    int32 pt, itp, ibr, lab, icp1, icp2;
+    int32 pt;
+    int32 itp;
+    int32 ibr;
+    int32 lab;
+    int32 icp1;
+    int32 icp2;
     double x, y1, y2;
     char symb[3];
     if (d == NULL) {
@@ -1511,7 +1545,9 @@ auto_nox_init_win(void) {
 
 void
 auto_nox_plot_stab(double *evr, double *evi, int32 n) {
-    int32 i, ix, iy;
+    int32 i;
+    int32 ix;
+    int32 iy;
     int32 r = Auto.st_wid;
 
     double x;
@@ -1611,7 +1647,10 @@ auto_nox_find_best_homo_shift(int32 n) {
 void
 auto_nox_get_shifted_orbit(double *u, double t, double p, int32 n) {
     double ts;
-    int32 i, i1, i2, ip;
+    int32 i;
+    int32 i1;
+    int32 i2;
+    int32 ip;
     double lam;
     if (t > 1.0)
         t -= 1.0;
@@ -1637,7 +1676,8 @@ void
 auto_nox_get_start_orbit(double *u, double t, int32 n) {
     double tnorm;
     double lam;
-    int32 i1, i2;
+    int32 i1;
+    int32 i2;
     if (t > 1.0)
         t -= 1.0;
     if (t < 0.0)
@@ -1656,7 +1696,10 @@ auto_nox_get_start_orbit(double *u, double t, int32 n) {
 
 void
 auto_nox_run(void) {
-    int32 itp1, itp2, itp, ips;
+    int32 itp1;
+    int32 itp2;
+    int32 itp;
+    int32 ips;
     char ch;
     if (grabpt.flag == 0) { /* the first call to AUTO   */
         /* auto start choice */
@@ -2127,7 +2170,8 @@ NICP=2, ISW=2 at Hopf
 
 void
 auto_nox_new_ss(void) {
-    int32 opn = NO_OPEN_3, cls = OVERWRITE;
+    int32 opn = NO_OPEN_3;
+    int32 cls = OVERWRITE;
     NewPeriodFlag = 0;
 
     if (NBifs > 1)
@@ -2428,11 +2472,15 @@ void
 auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     FILE *fp;
     double *x;
-    int32 i, nstor;
+    int32 i;
+    int32 nstor;
     double u[NAUTO], t;
     double period;
     char string[256];
-    int32 nrow, ndim, label, flg;
+    int32 nrow;
+    int32 ndim;
+    int32 label;
+    int32 flg;
 
     if ((ibr > 0 && (Auto.ips != 4) && (Auto.ips != 3) && (Auto.ips != 9)) ||
         flag == 0)
@@ -2664,7 +2712,15 @@ auto_nox_load(void) {
 
 int32
 auto_nox_move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp) {
-    int32 ibr, ntot, itp, lab, nfpar, isw, ntpl, nar, nskip;
+    int32 ibr;
+    int32 ntot;
+    int32 itp;
+    int32 lab;
+    int32 nfpar;
+    int32 isw;
+    int32 ntpl;
+    int32 nar;
+    int32 nskip;
     int32 i;
     char line[MAXLINELENGTH];
     while (true) {

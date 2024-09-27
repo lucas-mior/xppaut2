@@ -25,7 +25,10 @@ static int64 c__2 = 2;
 int32
 rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
    double *z__, int64 *iv1, double *fv1, int64 *ierr) {
-    int64 a_dim1, a_offset, z_dim1, z_offset;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 z_dim1;
+    int64 z_offset;
 
     static int64 is1, is2;
 
@@ -118,7 +121,11 @@ L50:
 int32
 hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     double *wi, int64 *ierr) {
-    int64 h_dim1, h_offset, i__1, i__2, i__3;
+    int64 h_dim1;
+    int64 h_offset;
+    int64 i__1;
+    int64 i__2;
+    int64 i__3;
     double d__1;
     double d__2;
 
@@ -458,7 +465,13 @@ L1001:
 int32
 hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
      double *wi, double *z__, int64 *ierr) {
-    int64 h_dim1, h_offset, z_dim1, z_offset, i__1, i__2, i__3;
+    int64 h_dim1;
+    int64 h_offset;
+    int64 z_dim1;
+    int64 z_offset;
+    int64 i__1;
+    int64 i__2;
+    int64 i__3;
     double d__1, d__2, d__3, d__4;
 
     static double norm;
@@ -1162,7 +1175,10 @@ cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
 
 int32
 balanc(int64 *nm, int64 *n, double *a, int64 *low, int64 *igh, double *scale) {
-    int64 a_dim1, a_offset, i__1, i__2;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 i__1;
+    int64 i__2;
     double d__1;
 
     static int64 iexc;
@@ -1411,7 +1427,10 @@ L280:
 int32
 balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
        double *z__) {
-    int64 z_dim1, z_offset, i__1, i__2;
+    int64 z_dim1;
+    int64 z_offset;
+    int64 i__1;
+    int64 i__2;
 
     static int64 i__, j, k;
     static double s;
@@ -1516,7 +1535,11 @@ L200:
 
 int32
 elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
-    int64 a_dim1, a_offset, i__1, i__2, i__3;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 i__1;
+    int64 i__2;
+    int64 i__3;
     double d__1;
 
     static int64 i__, j, m;
@@ -1654,7 +1677,12 @@ L200:
 int32
 eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
        double *z__) {
-    int64 a_dim1, a_offset, z_dim1, z_offset, i__1, i__2;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 z_dim1;
+    int64 z_offset;
+    int64 i__1;
+    int64 i__2;
 
     static int64 i__, j, kl, mm, mp, mp1;
 
@@ -2046,7 +2074,9 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
      double *z__, int64 *ierr) {
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
-    double d__1, d__2, d__3;
+    double d__1;
+    double d__2;
+    double d__3;
 
     static double epsa, epsb;
     static int64 i__, j, k, l;
@@ -2567,7 +2597,14 @@ L1001:
 int32
 qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
       double *beta, int64 matz, double *z__) {
-    int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 b_dim1;
+    int64 b_offset;
+    int64 z_dim1;
+    int64 z_offset;
+    int64 i__1;
+    int64 i__2;
     double d__1, d__2, d__3, d__4;
 
     static double epsb, c__, d__, e;
@@ -3012,7 +3049,8 @@ dnrm2(int64 *n, double *dx, int64 *incx) {
 
     int64 i__1;
     int64 i__2;
-    double ret_val, d__1;
+    double ret_val;
+    double d__1;
 
     static double xmax;
     static int64 next, i__, j, nn;
@@ -3591,7 +3629,12 @@ L40:
 int32
 dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
       int64 *trans) {
-    int64 a_dim1, a_offset, b_dim1, b_offset, i__1, i__2;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 b_dim1;
+    int64 b_offset;
+    int64 i__1;
+    int64 i__2;
 
     static int64 i__, j, mm, mmp1;
 
@@ -3827,7 +3870,12 @@ int32
 dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
       double *a, int64 *lda, double *b, int64 *ldb, double *beta, double *c__,
       int64 *ldc, int64 transa_len, int64 transb_len) {
-    int64 a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 b_dim1;
+    int64 b_offset;
+    int64 c_dim1;
+    int64 c_offset;
     int64 i__1, i__2, i__3;
     static int64 info;
     static int64 nota, notb;
@@ -4221,7 +4269,12 @@ int32
 ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
       double *u, int64 *ldu, double *v, int64 *ldv, double *work, int64 *job,
       int64 *info, double *tol) {
-    int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset;
+    int64 x_dim1;
+    int64 x_offset;
+    int64 u_dim1;
+    int64 u_offset;
+    int64 v_dim1;
+    int64 v_offset;
 
     static int64 idbg, skip, iidir, ifull;
 
@@ -4347,7 +4400,10 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
       double *maxsin, int64 *iidir) {
     int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset, i__1, i__2,
         i__3;
-    double d__1, d__2, d__3, d__4;
+    double d__1;
+    double d__2;
+    double d__3;
+    double d__4;
 
     static double abse;
 
@@ -5940,7 +5996,9 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
 
 double
 sigmin(double *a, double *b, double *c__) {
-    double ret_val, d__1, d__2;
+    double ret_val;
+    double d__1;
+    double d__2;
 
     static double acmn, acmx, aa, ab, ac, as, at, au;
 
@@ -6033,7 +6091,11 @@ int32
 hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
        double *er, double *ei, int64 *type__, int64 *na, int64 *nv,
        int64 *imfd) {
-    int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 v_dim1;
+    int64 v_offset;
+    int64 i__1;
     double d__1, d__2, d__3;
 
     static int64 fail;
@@ -6409,7 +6471,11 @@ L310:
 int32
 split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
       int64 *na, int64 *nv) {
-    int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 v_dim1;
+    int64 v_offset;
+    int64 i__1;
     double d__1;
     double d__2;
 
@@ -6546,7 +6612,11 @@ L80:
 int32
 exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
        double *eps, int64 *fail, int64 *na, int64 *nv) {
-    int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 v_dim1;
+    int64 v_offset;
+    int64 i__1;
     double d__1, d__2, d__3;
 
     static int64 i__, j, m;
@@ -6710,7 +6780,12 @@ L90:
 int32
 qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
        int64 *nu, int64 *n, int64 *na, int64 *nv) {
-    int64 a_dim1, a_offset, v_dim1, v_offset, i__1, i__2;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 v_dim1;
+    int64 v_offset;
+    int64 i__1;
+    int64 i__2;
     double d__1, d__2, d__3;
 
     static int64 last;
@@ -6860,7 +6935,11 @@ L30:
 
 int32
 orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
-    int64 a_dim1, a_offset, i__1, i__2, i__3;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 i__1;
+    int64 i__2;
+    int64 i__3;
     double d__1;
 
     static double f, g, h__;
@@ -7010,7 +7089,13 @@ L200:
 int32
 ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
        double *z__) {
-    int64 a_dim1, a_offset, z_dim1, z_offset, i__1, i__2, i__3;
+    int64 a_dim1;
+    int64 a_offset;
+    int64 z_dim1;
+    int64 z_offset;
+    int64 i__1;
+    int64 i__2;
+    int64 i__3;
 
     static double g;
     static int64 i__, j, kl, mm, mp, mp1;

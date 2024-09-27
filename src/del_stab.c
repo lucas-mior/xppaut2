@@ -43,7 +43,9 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
                        int32 maxit, int32 n, int32 *ierr, double *stabinfo) {
     double rr[2];
 
-    double colnorm = 0, colmax, colsum;
+    double colnorm = 0;
+    double colmax;
+    double colsum;
     double *work, old_x[MAX_ODE], sign;
     double *coef, yp[MAX_ODE], y[MAX_ODE], xp[MAX_ODE], dx;
     int32 kmem = n*(2*n + 5) + 50, i, okroot;
@@ -283,7 +285,11 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
     COMPLEX lambdap;
     COMPLEX det, *z, detp;
     double jac[4];
-    double xl, yl, r, xlp, ylp;
+    double xl;
+    double yl;
+    double r;
+    double xlp;
+    double ylp;
 
     lambda.r = AlphaMax;
     lambda.i = OmegaMax;
@@ -447,7 +453,10 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
                    double almax, double wmax) {
     int32 sign = 0;
     COMPLEX lambda;
-    double x, y, arg, oldarg = 0.0;
+    double x;
+    double y;
+    double arg;
+    double oldarg = 0.0;
     double ds; /* steplength */
     /* first the contour from i wmax -- -i wmax */
     ds = 2*wmax / npts;

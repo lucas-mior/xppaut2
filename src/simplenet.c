@@ -136,14 +136,19 @@
 
 typedef struct Vectorizer {
     char name[20];
-    int32 root, length, il, ir;
+    int32 root;
+    int32 length;
+    int32 il;
+    int32 ir;
 } Vectorizer;
 
 static Vectorizer my_vec[MAXVEC];
 static int32 n_vector = 0;
 
 typedef struct Network {
-    int32 type, ncon, n;
+    int32 type;
+    int32 ncon;
+    int32 n;
     char name[20];
     char soname[256], sofun[256];
 
@@ -208,7 +213,10 @@ simplenet_interp(double x, int32 i) {
 
 int32
 simplenet_add_vectorizer(char *name, char *rhs) {
-    int32 i, ivar, il, ir;
+    int32 i;
+    int32 ivar;
+    int32 il;
+    int32 ir;
     int32 ind;
     int32 len;
     int32 flag;
@@ -289,9 +297,15 @@ simplenet_init(double *v, int32 n) {
 
 int32
 simplenet_add_spec_fun(char *name, char *rhs) {
-    int32 i, ind, elen;
+    int32 i;
+    int32 ind;
+    int32 elen;
     int32 type;
-    int32 iwgt, itau, iind, ivar, ivar2;
+    int32 iwgt;
+    int32 itau;
+    int32 iind;
+    int32 ivar;
+    int32 ivar2;
     int32 ntype, ntot, ncon, ntab;
     char *str;
     char junk[256];
@@ -1491,9 +1505,13 @@ simplenet_fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
 
 int32
 simplenet_gil_parse(char *s, int32 *ind, int32 *nn) {
-    int32 i = 0, n = (int32)strlen(s);
+    int32 i = 0;
+    int32 n = (int32)strlen(s);
     char piece[50], b[20], bn[25], c;
-    int32 i1, i2, jp = 0, f;
+    int32 i1;
+    int32 i2;
+    int32 jp = 0;
+    int32 f;
     int32 k = 0, iv;
     int32 id;
     int32 m;
@@ -1545,7 +1563,10 @@ simplenet_gil_parse(char *s, int32 *ind, int32 *nn) {
 /* plucks info out of  xxx{aa-bb}  or returns string */
 int32
 simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
-    int32 i, n = (int32)strlen(s), ir = -1, j = 0;
+    int32 i;
+    int32 n = (int32)strlen(s);
+    int32 ir = -1;
+    int32 j = 0;
     char c, num[20];
     *flag = 0;
     for (i = 0; i < n; i++)

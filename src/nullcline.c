@@ -17,7 +17,9 @@
 #define MAX_NULL 10000
 
 typedef struct Point {
-    double x, y, z;
+    double x;
+    double y;
+    double z;
 } Point;
 
 static int32 NCSuppress = 0;
@@ -320,7 +322,8 @@ nullcline_save_frozen(char *fn) {
 void
 nullcline_redraw_froz(int32 flag) {
     NullClines *z;
-    int32 col1 = XNullColor, col2 = YNullColor;
+    int32 col1 = XNullColor;
+    int32 col2 = YNullColor;
     /* if(PaperWhite){
       col1=1;
       col2=9;
@@ -388,7 +391,9 @@ void
 nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
                          double du, double dv, int32 n, int32 inx, int32 iny,
                          double *mdf) {
-    double amp, dxp, dyp;
+    double amp;
+    double dxp;
+    double dyp;
     *mdf = 0.0;
     for (int32 i = 0; i <= n; i++) {
         y[inx] = u0 + du*i;
@@ -484,7 +489,15 @@ nullcline_redraw_dfield(void) {
     double amp;
     double mdf;
 
-    double du, dv, u0, v0, dxp, dyp, dz, dup, dvp;
+    double du;
+    double dv;
+    double u0;
+    double v0;
+    double dxp;
+    double dyp;
+    double dz;
+    double dup;
+    double dvp;
 
     int32 grid = DF_GRID;
     if (DF_FLAG == 0 || MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
@@ -582,7 +595,15 @@ nullcline_direct_field_com(int32 c) {
     double amp;
     double mdf;
     double t;
-    double du, dv, u0, v0, dxp, dyp, dz, dup, dvp;
+    double du;
+    double dv;
+    double u0;
+    double v0;
+    double dxp;
+    double dyp;
+    double dz;
+    double dup;
+    double dvp;
     double oldtrans = TRANS;
 
     int32 grid = DF_GRID;
@@ -718,7 +739,8 @@ nullcline_direct_field_com(int32 c) {
 
 void
 restore_nullclines(void) {
-    int32 col1 = XNullColor, col2 = YNullColor;
+    int32 col1 = XNullColor;
+    int32 col2 = YNullColor;
     /* if(PaperWhite){
       col1=1;
       col2=9;
@@ -758,7 +780,8 @@ void
 nullcline_restor(/* d=1 for x and 2 for y  */
                  double *v, int32 n, int32 d) {
     int32 i4;
-    double xm, ym;
+    double xm;
+    double ym;
     int32 x1;
     int32 y1;
     if (PltFmtFlag == SVGFMT)
@@ -800,7 +823,10 @@ nullcline_create_new_cline(void) {
 void
 nullcline_new_clines_com(int32 c) {
     int32 course = NMESH;
-    double xmin, xmax, y_tp, y_bot;
+    double xmin;
+    double xmax;
+    double y_tp;
+    double y_bot;
     int32 col1 = XNullColor, col2 = YNullColor;
 
     if (MyGraph->ThreeDFlag || MyGraph->TimeFlag ||

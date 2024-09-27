@@ -76,7 +76,8 @@ volterra_alloc_memory(void) {
 
 void
 volterra_allocate(int32 npts, int32 flag) {
-    int32 i, oldmem = MaxPoints;
+    int32 i;
+    int32 oldmem = MaxPoints;
     int32 ntot = NODE + FIX_VAR + NMarkov;
     npts = ABS(npts);
     MaxPoints = npts;
@@ -172,7 +173,9 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
     double t = t0 + n*dt, tp = t0 + i0*dt;
     double sum[MAX_ODE], al, alpbet, mu;
     int32 nvar = FIX_VAR + NODE + NMarkov;
-    int32 l, ioff, ker;
+    int32 l;
+    int32 ioff;
+    int32 ker;
     SETVAR(0, t);
     SETVAR(PrimeStart, tp);
     for (l = 0; l < nvar; l++)
@@ -276,7 +279,9 @@ int32
 volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
          double *work) {
     double *jac, *yg, *yp, *yp2, *ytemp, *errvec;
-    double z, mu, bet;
+    double z;
+    double mu;
+    double bet;
     int32 j;
     yp = work;
     yg = yp + neq;
@@ -338,7 +343,8 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
               double *yp2, double *errvec, double *jac) {
     int32 i0, iend, ishift, iter = 0, info, ipivot[MAX_ODE1], ind;
     int32 n1 = NODE + 1;
-    double dt2 = .5*dt, err;
+    double dt2 = .5*dt;
+    double err;
     double del, yold, fac, delinv;
     i0 = MAX(0, CurrentPoint - MaxPoints);
     iend = MIN(CurrentPoint - 1, MaxPoints - 1);

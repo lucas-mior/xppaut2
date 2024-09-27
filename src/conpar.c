@@ -15,12 +15,22 @@ static int32 conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra,
 
 void *
 conpar2_process(void *arg) {
-    int64 icf_dim1, irf_dim1, d_dim1;
+    int64 icf_dim1;
+    int64 irf_dim1;
+    int64 d_dim1;
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2;
 
-    int64 ipiv, jpiv, itmp;
+    int64 ipiv;
+    int64 jpiv;
+    int64 itmp;
     double tpiv;
-    int64 l, k1, k2, m1, m2, ic, ir;
+    int64 l;
+    int64 k1;
+    int64 k2;
+    int64 m1;
+    int64 m2;
+    int64 ic;
+    int64 ir;
     double rm;
     int64 ir1;
     int64 irp;
@@ -36,7 +46,8 @@ conpar2_process(void *arg) {
     double *c, *d;
     int64 *irf;
     int64 *icf;
-    int64 loop_start, loop_end;
+    int64 loop_start;
+    int64 loop_end;
 
     nov = ((conpar_parallel_arglist *)arg)->nov;
     nra = ((conpar_parallel_arglist *)arg)->nra;

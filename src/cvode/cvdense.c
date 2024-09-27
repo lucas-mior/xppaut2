@@ -87,10 +87,16 @@ void
 cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
                 Vector fy, Vector ewt, double h, double uround, void *jac_data,
                 int32 *nfePtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
-    double fnorm, minInc, inc, inc_inv, yjsaved, srur;
+    double fnorm;
+    double minInc;
+    double inc;
+    double inc_inv;
+    double yjsaved;
+    double srur;
     double *y_data;
     double *ewt_data;
-    Vector ftemp, jthCol;
+    Vector ftemp;
+    Vector jthCol;
     int64 j;
 
     (void)jac_data;

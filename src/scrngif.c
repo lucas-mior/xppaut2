@@ -62,7 +62,9 @@ static void scrngif_write_local_header(int32 cols, int32 rows, FILE *fout,
                                        int32 colflag, int32 delay);
 
 typedef struct GifCol {
-    uchar r, g, b;
+    uchar r;
+    uchar g;
+    uchar b;
 } GifCol;
 
 static GifCol gifcol[256];
@@ -146,7 +148,9 @@ scrngif_local_to_global(void) {
 
 int32
 scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
-    uchar r, g, b;
+    uchar r;
+    uchar g;
+    uchar b;
     int32 k = 0, l = 0;
     int32 pix;
     int32 nc;
@@ -168,9 +172,12 @@ scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
 
 int32
 scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
-    uchar r, g, b;
+    uchar r;
+    uchar g;
+    uchar b;
     int32 k = 0, l = 0;
-    int32 pix, ncol = 0;
+    int32 pix;
+    int32 ncol = 0;
     for (int32 i = 0; i < h; i++) {
         for (int32 j = 0; j < w; j++) {
             r = ppm[k];
@@ -196,7 +203,10 @@ scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
 void
 scrngif_stuff(Window win, FILE *fp, int32 task) {
     Window root;
-    uint32 h, w, bw, d;
+    uint32 h;
+    uint32 w;
+    uint32 bw;
+    uint32 d;
     int32 x0;
     int32 y0;
     uchar *ppm;
@@ -423,7 +433,10 @@ int32
 scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     GifTree *first = &GifRoot, *newNode, *curNode;
     uchar *end;
-    int32 cc, eoi, next, tel = 0;
+    int32 cc;
+    int32 eoi;
+    int32 next;
+    int32 tel = 0;
     int16 cLength;
 
     uchar *pos;

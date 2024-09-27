@@ -22,11 +22,19 @@ typedef struct RangeInfo {
     double xlo;
     double xhi;
     char rv[10];
-    int32 nstep, ic, stor;
+    int32 nstep;
+    int32 ic;
+    int32 stor;
 } RangeInfo;
 
 typedef struct IcBox {
-    Window base, ok, cancel, old, last, more, range;
+    Window base;
+    Window ok;
+    Window cancel;
+    Window old;
+    Window last;
+    Window more;
+    Window range;
     Window wrlo, wrhi, wstep, wreset, woldic;
     RangeInfo *rinf;
     double *yold, *y, *ylast;
@@ -55,17 +63,31 @@ typedef struct Graph {
     double rm[3][3];
     double min_scale;
     double color_scale;
-    double xmin, ymin, zmin, xmax, ymax, zmax, xorg, yorg, zorg;
+    double xmin;
+    double ymin;
+    double zmin;
+    double xmax;
+    double ymax;
+    double zmax;
+    double xorg;
+    double yorg;
+    double zorg;
     double xbar, ybar, zbar, dx, dy, dz;
     int32 xv[MAXPERPLOT], yv[MAXPERPLOT], zv[MAXPERPLOT];
     int32 line[MAXPERPLOT], color[MAXPERPLOT];
     double Theta;
     double Phi;
-    double ZPlane, ZView;
+    double ZPlane;
+    double ZView;
     double xlo, ylo, xhi, yhi, oldxlo, oldxhi, oldylo, oldyhi;
-    int32 grtype, ThreeDFlag, TimeFlag, PerspFlag;
+    int32 grtype;
+    int32 ThreeDFlag;
+    int32 TimeFlag;
+    int32 PerspFlag;
     int32 xshft, yshft, zshft;
-    int32 xorgflag, yorgflag, zorgflag;
+    int32 xorgflag;
+    int32 yorgflag;
+    int32 zorgflag;
     int32 ColorFlag;
     int32 ColorValue;
     char xlabel[30], ylabel[30], zlabel[30];
@@ -74,7 +96,9 @@ typedef struct Graph {
 
 typedef struct TextGC {
     GC gc;
-    int32 dx, dy, yoff;
+    int32 dx;
+    int32 dy;
+    int32 yoff;
     uint32 fcol;
     uint32 bcol;
 } TextGC;
@@ -95,7 +119,10 @@ typedef struct NullCline {
     int16 use;
     double *x_n;
     double *y_n;
-    int32 ix, iy, num_x, num_y;
+    int32 ix;
+    int32 iy;
+    int32 num_x;
+    int32 num_y;
 } NullCline;
 
 typedef struct Dialog {
@@ -146,7 +173,10 @@ typedef struct TChoice {
 
 typedef struct TxtChoice {
     char title[100];
-    Window who, what, cancel, ok;
+    Window who;
+    Window what;
+    Window cancel;
+    Window ok;
     TChoice tc[100];
 } TxtChoice;
 

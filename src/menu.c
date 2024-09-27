@@ -456,7 +456,8 @@ menu_help_file(void) {
 
 void
 menu_crossing(Window win, int32 yn) {
-    int32 n, j = help_menu;
+    int32 n;
+    int32 j = help_menu;
     char **z;
     if (j < 0)
         return;
@@ -477,7 +478,8 @@ menu_crossing(Window win, int32 yn) {
 
 void
 menu_expose(Window win) {
-    int32 n, j = help_menu;
+    int32 n;
+    int32 j = help_menu;
     char **z;
     if (j < 0)
         return;
@@ -510,7 +512,8 @@ menu_expose(Window win) {
 
 void
 menu_button(Window win) {
-    int32 n, j = help_menu;
+    int32 n;
+    int32 j = help_menu;
     if (j < 0)
         return;
     if (my_menus[j].visible == 0)
@@ -528,7 +531,8 @@ menu_button(Window win) {
 
 void
 menu_draw_help(void) {
-    int32 j = help_menu, n;
+    int32 j = help_menu;
+    int32 n;
     /*char **z;
      */
     if (j < 0)

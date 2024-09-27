@@ -75,7 +75,9 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     int32 height;
     int32 maxchar;
     int32 oldcheck[MAXENTRY];
-    int32 xpos, ypos, status;
+    int32 xpos;
+    int32 ypos;
+    int32 status;
     int32 xstart;
     int32 ystart;
     XTextProperty winname;

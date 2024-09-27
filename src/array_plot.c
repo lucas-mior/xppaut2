@@ -57,13 +57,31 @@ static int32 array_plot_range_count = 0;
 static char array_plot_range_stem[256] = "rangearray";
 static int32 array_plot_still = 1, array_plot_tag = 0;
 static struct ArrayPlot {
-    Window base, wclose, wedit, wprint, wstyle, wscale, wmax, wmin;
+    Window base;
+    Window wclose;
+    Window wedit;
+    Window wprint;
+    Window wstyle;
+    Window wscale;
+    Window wmax;
+    Window wmin;
     Window wplot, wredraw, wtime, wgif, wrange, wfit;
-    int32 index0, indexn, alive, nacross, ndown, plotdef;
+    int32 index0;
+    int32 indexn;
+    int32 alive;
+    int32 nacross;
+    int32 ndown;
+    int32 plotdef;
     int32 height, width, ploth, plotw;
-    int32 nstart, nskip, ncskip;
+    int32 nstart;
+    int32 nskip;
+    int32 ncskip;
     char name[20];
-    double tstart, tend, zmin, zmax, dt;
+    double tstart;
+    double tend;
+    double zmin;
+    double zmax;
+    double dt;
     char xtitle[256];
     char ytitle[256];
     char filename[256];
@@ -113,7 +131,8 @@ array_plot_optimize(int32 *plist) {
     int32 i1 = plist[1] - 1;
     int32 nr;
     int32 ns;
-    double zmax, zmin;
+    double zmax;
+    double zmin;
     int32 nrows = my_browser.maxrow;
     int32 ncol = i1 + 1 - i0;
     if (ncol < 2 || nrows < 2)
@@ -149,7 +168,10 @@ array_plot_make_my(char *name) {
 
 void
 array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin) {
-    int32 ib, jb, row0 = ap->nstart, col0 = ap->index0;
+    int32 ib;
+    int32 jb;
+    int32 row0 = ap->nstart;
+    int32 col0 = ap->index0;
     int32 nrows = my_browser.maxrow;
     double z;
     ib = col0;
@@ -330,7 +352,8 @@ void
 array_plot_print(struct ArrayPlot *ap) {
     double tlo;
     double thi;
-    int32 status, errflag;
+    int32 status;
+    int32 errflag;
     static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
                         "Render(-1,0,1,2)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -522,7 +545,8 @@ int32
 array_plot_edit2(struct ArrayPlot *ap) {
     int32 i;
     int32 status;
-    double zmax, zmin;
+    double zmax;
+    double zmin;
     char *n[] = {"*0Column 1", "NCols", "Row 1",         "NRows",  "RowSkip",
                  "Zmin",       "Zmax",  "Autoplot(0/1)", "ColSkip"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -578,7 +602,10 @@ array_plot_gif_all(char *filename, int32 still) {
     Pixmap xi;
     int32 x;
     int32 y;
-    uint32 h, w, bw, d;
+    uint32 h;
+    uint32 w;
+    uint32 bw;
+    uint32 d;
     Window root;
     /* FILE *fp; */
     if (still == 0) {
@@ -630,11 +657,19 @@ array_plot_gif(void) {
 void
 array_plot_redraw(struct ArrayPlot ap) {
     Window window = ap.wplot;
-    double z, dx, dy, x, y, tlo, thi;
+    double z;
+    double dx;
+    double dy;
+    double x;
+    double y;
+    double tlo;
+    double thi;
     char bob[100];
     int32 nrows = my_browser.maxrow, colr, cmax = FIRSTCOLOR + color_total;
     int32 row0 = ap.nstart;
-    int32 col0 = ap.index0, delx, dely;
+    int32 col0 = ap.index0;
+    int32 delx;
+    int32 dely;
     int32 ib, jb, ix, iy;
     if (nrows <= 2)
         return;

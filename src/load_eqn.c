@@ -155,7 +155,8 @@ load_eqn_dump_torus(FILE *fp, int32 f) {
 
 void
 load_eqn(void) {
-    int32 no_eqn = 1, okay = 0;
+    int32 no_eqn = 1;
+    int32 okay = 0;
     int32 std = 0;
     FILE *fptr;
     struct dirent *dp;
@@ -702,7 +703,9 @@ load_eqn_fil_int(FILE *fpt, int32 *val) {
 void
 load_eqn_add_intern_set(char *name, char *does) {
     char bob[1024], ch;
-    int32 n, j = Nintern_set, k = 0;
+    int32 n;
+    int32 j = Nintern_set;
+    int32 k = 0;
     if (Nintern_set >= MAX_INTERN_SET) {
         ggets_plintf(" %s not added -- too many must be less than %d \n", name,
                      MAX_INTERN_SET);
@@ -950,7 +953,8 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
 
 void
 load_eqn_split_apart(char *bob, char *name, char *value) {
-    int32 k, l;
+    int32 k;
+    int32 l;
 
     l = (int32)strlen(bob);
     k = (int32)strcspn(bob, "=");
@@ -1002,7 +1006,8 @@ load_eqn_stor_internopts(char *s1) {
 
 void
 load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
-    int32 i, f;
+    int32 i;
+    int32 f;
     char xx[4], yy[4], zz[4];
     char xxl[6], xxh[6], yyl[6], yyh[6];
     static char mkey[] = "demragvbqsc582y";

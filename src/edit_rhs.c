@@ -23,7 +23,10 @@
      EnterWindowMask | LeaveWindowMask)
 
 typedef struct EditBox {
-    Window base, ok, cancel, reset;
+    Window base;
+    Window ok;
+    Window cancel;
+    Window reset;
     Window win[MAX_N_EBOX];
     char name[MAX_N_EBOX][MAX_LEN_EBOX];
     char value[MAX_N_EBOX][MAX_LEN_EBOX];
@@ -68,7 +71,8 @@ int32
 edit_rhs_box(int32 n, char *title, char **names, char **values) {
     EditBox sb;
     int32 status;
-    int32 colm, pos;
+    int32 colm;
+    int32 pos;
 
     for (int32 i = 0; i < n; i++) {
         sprintf(sb.name[i], "%s=", names[i]);
@@ -158,7 +162,8 @@ edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
 int32
 edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     XEvent event;
-    int32 status = -1, inew;
+    int32 status = -1;
+    int32 inew;
     int32 nn = sb->n;
     int32 done = 0;
     char ch;
@@ -235,7 +240,9 @@ void
 edit_rhs_make_box_windows(EditBox *sb, char *title) {
     int32 width;
     int32 height;
-    int32 xpos, ypos, n = sb->n;
+    int32 xpos;
+    int32 ypos;
+    int32 n = sb->n;
     int32 xstart;
     int32 ystart;
 
@@ -317,7 +324,10 @@ void
 edit_rhs(void) {
     char **names, **values;
     int32 **command;
-    int32 status, err, len, i0;
+    int32 status;
+    int32 err;
+    int32 len;
+    int32 i0;
     int32 n = NEQ;
     char fstr[20], msg[200];
     if (NEQ > NEQMAXFOREDIT)
@@ -395,7 +405,9 @@ void
 edit_rhs_functions(void) {
     char **names, **values;
     int32 **command;
-    int32 status, err, len;
+    int32 status;
+    int32 err;
+    int32 len;
     int32 n = NFUN;
     char msg[200];
     if (n == 0 || n > NEQMAXFOREDIT)

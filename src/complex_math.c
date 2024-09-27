@@ -26,7 +26,8 @@ z_abs(doublecomplex *z) {
 
 void
 z_exp(doublecomplex *r, doublecomplex *z) {
-    double expx, zi = z->i;
+    double expx;
+    double zi = z->i;
 
     expx = exp(z->r);
     r->r = expx*cos(zi);

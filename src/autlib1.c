@@ -53,25 +53,54 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     double biff;
     int64 nbif;
     double fldf;
-    int64 iads, ndim, nicp, ncol, mxbf;
+    int64 iads;
+    int64 ndim;
+    int64 nicp;
+    int64 ncol;
+    int64 mxbf;
     double epsl;
-    int64 nthl, nfpr, nins, iplt, nint, jtmp;
+    int64 nthl;
+    int64 nfpr;
+    int64 nins;
+    int64 iplt;
+    int64 nint;
+    int64 jtmp;
     double epsu;
     double epss;
-    int64 itmx, itnw, ntot, ipos, nwtn;
+    int64 itmx;
+    int64 itnw;
+    int64 ntot;
+    int64 ipos;
+    int64 nwtn;
     double tivp;
     int64 ntst;
     int64 iuzr;
     double spbf;
     int64 nuzr;
-    double dsold, dsmin, dsmax, a0, a1;
+    double dsold;
+    double dsmin;
+    double dsmax;
+    double a0;
+    double a1;
     int64 istop;
     int64 itpst;
-    double ds, rl0, rl1;
+    double ds;
+    double rl0;
+    double rl1;
     int64 iad, jac, lab, nbc, iid, ibr, ndm;
     double amp;
     double det;
-    int64 ilp, nit, ips, isp, irs, itp, npr, isw, nmx, nbc0, nnt0;
+    int64 ilp;
+    int64 nit;
+    int64 ips;
+    int64 isp;
+    int64 irs;
+    int64 itp;
+    int64 npr;
+    int64 isw;
+    int64 nmx;
+    int64 nbc0;
+    int64 nnt0;
     double *thu;
 
     for (int64 i = 0; i < NPARX; ++i) {
@@ -314,9 +343,15 @@ autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
 int32
 autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
-    int64 ndim, ncol, nicp;
+    int64 ndim;
+    int64 ncol;
+    int64 nicp;
 
-    int64 nneg, nfpr, nint, jtmp, nuzr;
+    int64 nneg;
+    int64 nfpr;
+    int64 nint;
+    int64 jtmp;
+    int64 nuzr;
     double dsmin, dsmax, fc;
     int64 ic;
     int64 jc;
@@ -686,7 +721,9 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double *udot;
     int64 ipos;
     double *stud;
-    int64 ntot, iuzr, nuzr;
+    int64 ntot;
+    int64 iuzr;
+    int64 nuzr;
     double *f;
     double *u, dsold;
 
@@ -701,7 +738,8 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     int64 lab;
     int64 ibr;
-    double rbp, rds;
+    double rbp;
+    double rds;
     int64 ips;
     double *rhs;
     int64 irs;
@@ -1180,7 +1218,9 @@ solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ndim;
     double drlm;
     int64 ndmr;
-    double epsl, epsu, dumx;
+    double epsl;
+    double epsu;
+    double dumx;
     int64 ntop, itnw, ntot;
     double dsold;
     double dsmin;
@@ -1190,14 +1230,17 @@ solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 istop;
 
     double au;
-    double delref = 0.0, ss, delmax;
+    double delref = 0.0;
+    double ss;
+    double delmax;
 
     int64 iid;
     double dds;
     int64 ibr;
     double det;
     double adu;
-    int64 nit, mxt;
+    int64 nit;
+    int64 mxt;
     double umx;
     int64 nit1;
     static int64 last_ntop = 0;
@@ -1412,11 +1455,21 @@ lcspae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 itmx;
     double rtmp;
     int64 ntot;
-    double s, dsold, dsmax;
+    double s;
+    double dsold;
+    double dsmax;
     int64 istop;
-    double q0, q1, s0, s1, dq, ds, pq;
+    double q0;
+    double q1;
+    double s0;
+    double s1;
+    double dq;
+    double ds;
+    double pq;
 
-    int64 itlcsp, iid, ibr;
+    int64 itlcsp;
+    int64 iid;
+    int64 ibr;
     double rds;
     int64 itp;
 
@@ -1515,7 +1568,14 @@ L1:
 int32
 mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
         double *rds) {
-    double a, b, c, d, r, h0, h1, dq;
+    double a;
+    double b;
+    double c;
+    double d;
+    double r;
+    double h0;
+    double h1;
+    double dq;
 
     /* Mueller's method with bracketing */
 
@@ -1557,7 +1617,10 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     double ret_val;
 
-    int64 ntop, ntot, iid, ibr;
+    int64 ntop;
+    int64 ntot;
+    int64 iid;
+    int64 ibr;
     double det;
 
     (void)par;
@@ -1604,7 +1667,9 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     int64 aa_dim1;
     double ret_val;
 
-    int64 ndim, ntop, ntot;
+    int64 ndim;
+    int64 ntop;
+    int64 ntot;
 
     double *ud;
     int64 iid;
@@ -1672,16 +1737,24 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     int64 ndim;
     double arev;
     double rmax;
-    int64 nins, ntop, ntot;
+    int64 nins;
+    int64 ntop;
+    int64 ntot;
     doublecomplex ztmp;
     int64 nins1;
-    double rimhb, ar;
+    double rimhb;
+    double ar;
     int64 ntotp1;
 
     doublecomplex *ev;
     double rp;
 
-    int64 iid, ibr, ndm, ier, loc = 0, ips;
+    int64 iid;
+    int64 ibr;
+    int64 ndm;
+    int64 ier;
+    int64 loc = 0;
+    int64 ips;
     double rev;
     int64 isw;
 
@@ -1845,7 +1918,11 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     double ret_val;
 
-    int64 ntop, ntot, iuzr, iid, ibr;
+    int64 ntop;
+    int64 ntot;
+    int64 iuzr;
+    int64 iid;
+    int64 ibr;
 
     (void)rap;
     (void)icp;
@@ -1889,12 +1966,15 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
       double *stld, double *rlcur, double *rlold, double *rldot, double *u,
       double *du, double *udot, double *dfdu, double *dfdp, double *thl,
       double *thu) {
-    int64 aa_dim1, stud_dim1, stu_dim1;
+    int64 aa_dim1;
+    int64 stud_dim1;
+    int64 stu_dim1;
 
     int64 nbif;
     int64 ndim;
 
-    int64 ntop, ntot;
+    int64 ntop;
+    int64 ntot;
     double sc;
     double ss;
     int64 ibr;
@@ -1982,7 +2062,11 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
     int64 stud_dim1;
     int64 stu_dim1;
 
-    int64 nbif, ndim, mxbf, ipos, i1;
+    int64 nbif;
+    int64 ndim;
+    int64 mxbf;
+    int64 ipos;
+    int64 i1;
     double ds;
     int64 isw;
 
@@ -2049,7 +2133,9 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     int64 ndim;
     double drlm;
     int64 ndmr;
-    double epsl, epsu, dumx;
+    double epsl;
+    double epsu;
+    double dumx;
     int64 ntop, itnw, ntot;
     double dsold;
     double dsmin;
@@ -2068,7 +2154,8 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     double det;
     int64 nit;
     int64 mxt;
-    double umx, rlm1;
+    double umx;
+    double rlm1;
 
     u1 = xmalloc(sizeof(*(u1))*(usize)(iap->ndim + 1));
 
@@ -2255,14 +2342,34 @@ L5:
 int32
 sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
      double *thu) {
-    int64 ndim, ncol, mxbf, nicp;
+    int64 ndim;
+    int64 ncol;
+    int64 mxbf;
+    int64 nicp;
     double epsl;
-    int64 nfpr, iplt, nint;
+    int64 nfpr;
+    int64 iplt;
+    int64 nint;
     double epsu;
     double epss;
-    int64 jtmp, itmx, itnw, nwtn, ntst, nuzr;
+    int64 jtmp;
+    int64 itmx;
+    int64 itnw;
+    int64 nwtn;
+    int64 ntst;
+    int64 nuzr;
     double dsmin, dsmax, a0, a1, ds, rl0, rl1;
-    int64 iad, jac, nbc, iid, ilp, ips, isp, irs, npr, isw, nmx;
+    int64 iad;
+    int64 jac;
+    int64 nbc;
+    int64 iid;
+    int64 ilp;
+    int64 ips;
+    int64 isp;
+    int64 irs;
+    int64 npr;
+    int64 isw;
+    int64 nmx;
 
     (void)par;
     (void)thl;
@@ -2366,7 +2473,8 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 int32
 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
        int64 *n1, int64 *n2) {
-    int64 iplt, j;
+    int64 iplt;
+    int64 j;
     char col[9][34];
     int64 ndm;
     int64 ips;
@@ -2485,17 +2593,30 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
 int32
 stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        double *u) {
-    int64 labw, ndim, nins, iplt, ntot;
+    int64 labw;
+    int64 ndim;
+    int64 nins;
+    int64 iplt;
+    int64 ntot;
     double a0;
     double a1;
-    int64 istop, itpst, ntots;
+    int64 istop;
+    int64 itpst;
+    int64 ntots;
     double ss;
 
     double rl0;
     double rl1;
-    int64 iab, lab, ibr, ndm;
+    int64 iab;
+    int64 lab;
+    int64 ibr;
+    int64 ndm;
     double amp;
-    int64 ips, itp, npr, isw, nmx;
+    int64 ips;
+    int64 itp;
+    int64 npr;
+    int64 isw;
+    int64 nmx;
     int32 iflag = 0;
 
     /* Stores the bifurcation diagram on unit 7 (Algebraic Problems). */
@@ -2628,12 +2749,16 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 int32
 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
        int64 *ibr, int64 *ntot, int64 *lab, double *vaxis, double *u) {
-    int64 nicp, mtot;
+    int64 nicp;
+    int64 mtot;
     char atype[3];
     int64 n1;
     int64 n2;
 
-    int64 nt, ndm, itp, lb;
+    int64 nt;
+    int64 ndm;
+    int64 itp;
+    int64 lb;
 
     (void)icp;
     lb = *lab;
@@ -2799,12 +2924,19 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
 int32
 wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
        double *rlcur, double *u) {
-    int64 ndim, nfpr, ntpl, jtmp, mtot, ntot;
+    int64 ndim;
+    int64 nfpr;
+    int64 ntpl;
+    int64 jtmp;
+    int64 mtot;
+    int64 ntot;
     double t;
     int64 nrowpr;
     int64 ibr;
     double amp;
-    int64 nar, itp, isw;
+    int64 nar;
+    int64 itp;
+    int64 isw;
 
     /*   static FILE *fp8=NULL; */
 
@@ -2925,7 +3057,8 @@ genwts(int64 ncol, int64 n1, double *wt, double *wp) {
 
     double d;
     int64 l;
-    double p, denom;
+    double p;
+    double denom;
 
     int64 ib;
     int64 ic;
@@ -2999,7 +3132,11 @@ genwts(int64 ncol, int64 n1, double *wt, double *wp) {
 
 int32
 cpnts(int64 ncol, double *zm) {
-    double c, r, c1, c2, c3;
+    double c;
+    double r;
+    double c1;
+    double c2;
+    double c3;
 
     /* Generates the collocation points with respect to [0,1]. */
     if (ncol > 7) {
@@ -3209,9 +3346,13 @@ L8:
 int32
 adptds(iap_type *iap, rap_type *rap, double *rds) {
     double ards;
-    int64 ntop, itnw, ntot;
+    int64 ntop;
+    int64 itnw;
+    int64 ntot;
     double dsmax;
-    int64 n1, ibr, nit;
+    int64 n1;
+    int64 ibr;
+    int64 nit;
 
     /* The stepsize along the branch of solutions is adapted depending on the
      */
@@ -3262,7 +3403,8 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
 
     int64 ndim;
     int64 iper;
-    int64 noldp1, nnewp1;
+    int64 noldp1;
+    int64 nnewp1;
 
     int64 nrwnew;
     int64 ips;
@@ -3360,7 +3502,9 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
     double d;
     int64 j;
     double *w, *x, z__;
-    int64 j1, k1, l1;
+    int64 j1;
+    int64 k1;
+    int64 l1;
     double ri;
 
     int64 n1m1;
@@ -3421,7 +3565,9 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
     int64 ndim;
 
     double x;
-    int64 j1, noldp1, nnewp1;
+    int64 j1;
+    int64 noldp1;
+    int64 nnewp1;
     double dal;
 
     double *uneq;
@@ -3470,7 +3616,9 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
 int32
 ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
      int64 *itm1) {
-    int64 k0, j1, k1 = 0;
+    int64 k0;
+    int64 j1;
+    int64 k1 = 0;
 
     (void)iap;
     (void)rap;
@@ -3628,7 +3776,9 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 int32
 eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     int64 *ier) {
-    int64 matz, ntop, ntot;
+    int64 matz;
+    int64 ntop;
+    int64 ntot;
     double *z__;
 
     double *wi, *wr, *fv1;
@@ -3680,12 +3830,17 @@ int32
 nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     int64 a_dim1;
 
-    int64 ipiv, jpiv, l;
+    int64 ipiv;
+    int64 jpiv;
+    int64 l;
     double p;
-    int64 i1, jj, kk;
+    int64 i1;
+    int64 jj;
+    int64 kk;
     double rm;
     double sm;
-    int64 ip1, nmk;
+    int64 ip1;
+    int64 nmk;
     double piv;
     int64 jjp1;
 
@@ -3814,13 +3969,20 @@ pi(double r) {
 int32
 ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
    int64 m1f, double *f, double *det) {
-    int64 a_dim1, u_dim1, f_dim1;
+    int64 a_dim1;
+    int64 u_dim1;
+    int64 f_dim1;
 
-    int64 ipiv, jpiv, i, k, l;
+    int64 ipiv;
+    int64 jpiv;
+    int64 i;
+    int64 k;
+    int64 l;
     double p;
     int64 i1;
     int64 jj;
-    double rm, sm;
+    double rm;
+    double sm;
     int64 ip1;
     int64 irh;
     double piv;
@@ -3972,9 +4134,17 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
 
 int32
 newlab(iap_type *iap) {
-    int64 mlab, ibrs, nars;
+    int64 mlab;
+    int64 ibrs;
+    int64 nars;
 
-    int64 labrs, nskip, nfprs, itprs, iswrs, ntplrs, ntotrs;
+    int64 labrs;
+    int64 nskip;
+    int64 nfprs;
+    int64 itprs;
+    int64 iswrs;
+    int64 ntplrs;
+    int64 ntotrs;
     int64 lab, ibr, mbr, ips, itp, irs, isw;
     int64 eof3;
 
@@ -4049,7 +4219,15 @@ int32
 findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr, int64 *found) {
     int64 nars;
 
-    int64 labrs, nskip, itpst, iswrs, ntplrs, ntotrs, ibr, itp, isw;
+    int64 labrs;
+    int64 nskip;
+    int64 itpst;
+    int64 iswrs;
+    int64 ntplrs;
+    int64 ntotrs;
+    int64 ibr;
+    int64 itp;
+    int64 isw;
     int64 eof3;
 
     (void)rap;
@@ -4125,9 +4303,20 @@ findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr, int64 *found) {
 
 int32
 readlb(double *u, double *par) {
-    int64 labr, ndim, ibrr, itpr, iswr;
+    int64 labr;
+    int64 ndim;
+    int64 ibrr;
+    int64 itpr;
+    int64 iswr;
     double t;
-    int64 nparr, nfprr, n1, n2, ntotr, nskipr, ntplrs, nar;
+    int64 nparr;
+    int64 nfprr;
+    int64 n1;
+    int64 n2;
+    int64 ntotr;
+    int64 nskipr;
+    int64 ntplrs;
+    int64 nar;
 
     /* Reads the restart data for algebraic problems. */
 
@@ -4353,7 +4542,10 @@ rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     int64 ups_dim1;
     double ret_val;
 
-    int64 ndim, ncol, ntst, k1;
+    int64 ndim;
+    int64 ncol;
+    int64 ntst;
+    int64 k1;
 
     /* Computes the maximum of the I'th component of UPS. */
 
@@ -4385,7 +4577,10 @@ rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     int64 ups_dim1;
     double ret_val;
 
-    int64 ndim, ncol, ntst, k1;
+    int64 ndim;
+    int64 ncol;
+    int64 ntst;
+    int64 k1;
 
     /* Computes the minimum of the I'th component of UPS. */
 
@@ -4417,7 +4612,11 @@ scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
        double *dtm, double *thl, double *thu) {
     int64 dvps_dim1;
 
-    int64 ndim, ncol, nfpr, nrow, ntst;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 nrow;
+    int64 ntst;
     double sc;
     double ss;
 
@@ -4465,7 +4664,9 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
        STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), double *thl,
        double *thu, int64 *iuz, double *vuz) {
-    int64 iads, ndim, ncol;
+    int64 iads;
+    int64 ndim;
+    int64 ncol;
     int64 ntot, ntst, iuzr, nuzr;
     double dsold;
     int64 nodir = 0;
@@ -4477,10 +4678,14 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double bp1;
     double sp1;
     int64 iad;
-    int64 ilp, ips, isp, irs;
+    int64 ilp;
+    int64 ips;
+    int64 isp;
+    int64 irs;
     double rds;
     double rlp;
-    int64 isw, itp;
+    int64 isw;
+    int64 itp;
     double *uzr;
 
     int64 ntst_plus_one = iap->ntst + 1;
@@ -4845,9 +5050,15 @@ contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rds, double *rlcur, double *rlold,
        double *rldot, int64 *ndxloc, double *ups, double *uoldps,
        double *udotps, double *upoldp, double *dtm, double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1, uoldps_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
+    int64 uoldps_dim1;
 
-    int64 ndim, ncol, nfpr, nrow, ntst;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 nrow;
+    int64 ntst;
     double dsold;
 
     double dds;
@@ -4900,9 +5111,15 @@ int32
 extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
        double *rlcur, double *rlold, double *rldot, int64 *ndxloc, double *ups,
        double *uoldps, double *udotps) {
-    int64 ups_dim1, udotps_dim1, uoldps_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
+    int64 uoldps_dim1;
 
-    int64 ndim, ncol, nfpr, nrow, ntst;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 nrow;
+    int64 ntst;
 
     (void)rap;
     (void)funi;
@@ -4939,11 +5156,14 @@ int32
 stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rlcur, double *rlold, double *rldot,
        int64 *ndxloc, double *ups, double *uoldps, double *upoldp) {
-    int64 ups_dim1, uoldps_dim1, upoldp_dim1;
+    int64 ups_dim1;
+    int64 uoldps_dim1;
+    int64 upoldp_dim1;
 
     int64 ndim;
     int64 ncol;
-    int64 nfpr, ntst;
+    int64 nfpr;
+    int64 ntst;
     int64 n1, ips;
     double *dfdp, *dfdu, *uold, *f, *u;
 
@@ -5026,20 +5246,29 @@ stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *rldot, int64 *ndxloc, double *ups, double *dups, double *uoldps,
        double *udotps, double *upoldp, double *fa, double *fc, double *tm,
        double *dtm, double *p0, double *p1, double *thl, double *thu) {
-    int64 ups_dim1, uoldps_dim1, udotps_dim1, fa_dim1;
+    int64 ups_dim1;
+    int64 uoldps_dim1;
+    int64 udotps_dim1;
+    int64 fa_dim1;
 
     int64 iads;
     double adrl;
     int64 done;
     int64 ndim;
     int64 ncol;
-    double epsl, rdrl;
+    double epsl;
+    double rdrl;
     int64 nfpr;
     int64 ifst;
     double epsu;
-    int64 ntop, itnw, nllv;
+    int64 ntop;
+    int64 itnw;
+    int64 nllv;
     double dumx;
-    int64 ntot, nrow = 0, nwtn, ntst;
+    int64 ntot;
+    int64 nrow = 0;
+    int64 nwtn;
+    int64 ntst;
     double dsold;
     double dsmin;
     int64 nitps;
@@ -5047,7 +5276,8 @@ stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 istop;
     double au;
 
-    double delref = 0.0, delmax;
+    double delref = 0.0;
+    double delmax;
 
     int64 iid;
     double adu;
@@ -5239,10 +5469,15 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        doublecomplex *ev, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1;
     int64 uoldps_dim1;
-    int64 ndim, ncol, nfpr, ntst;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 ntst;
     int64 ntsrs;
     int64 ncolrs;
-    int64 ntst_fort8, ncol_fort8, junk;
+    int64 ntst_fort8;
+    int64 ncol_fort8;
+    int64 junk;
 
     (void)rds;
     (void)dups;
@@ -5406,9 +5641,23 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     int64 found;
     int64 icprs[NPARX], nparr, nskip;
 
-    int64 nfprs, k1, k2, itprs, iswrs, nskip1, nskip2;
+    int64 nfprs;
+    int64 k1;
+    int64 k2;
+    int64 itprs;
+    int64 iswrs;
+    int64 nskip1;
+    int64 nskip2;
 
-    int64 ndimrd, ndimrs, ntplrs, ntotrs, lab, ibr, ips, irs, isw;
+    int64 ndimrd;
+    int64 ndimrs;
+    int64 ntplrs;
+    int64 ntotrs;
+    int64 lab;
+    int64 ibr;
+    int64 ips;
+    int64 irs;
+    int64 isw;
     int64 eof3;
 
     (void)upoldp;
@@ -5570,10 +5819,15 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     int64 ups_dim1;
     int64 udotps_dim1;
 
-    int64 ndim, ncol, nfpr, ntst, ncol1;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 ntst;
+    int64 ncol1;
     double t;
     double *u;
-    int64 k1, k2;
+    int64 k1;
+    int64 k2;
 
     double dt;
     int64 lab;
@@ -5681,9 +5935,14 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* Builtin Local */
 
     /* variables functions */
-    int64 ndim, ncol, nfpr, ifst, nllv;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 ifst;
+    int64 nllv;
     double rdsz;
-    int64 nrow, ntst;
+    int64 nrow;
+    int64 ntst;
 
     int64 iid;
 
@@ -5791,13 +6050,21 @@ lcspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double epss;
     int64 ntop;
     int64 itmx;
-    double rtmp, rrds;
+    double rtmp;
+    double rrds;
     int64 ntot;
-    double s, dsold, dsmax;
+    double s;
+    double dsold;
+    double dsmax;
     int64 istop;
-    double q0, q1, s0, s1;
+    double q0;
+    double q1;
+    double s0;
+    double s1;
     int64 nitsp1;
-    double dq, ds, pq;
+    double dq;
+    double ds;
+    double pq;
 
     int64 iid;
     int64 ibr;
@@ -5921,9 +6188,15 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     int64 fa_dim1;
     double ret_val;
 
-    int64 ndim, ncol, nfpr, ifst, nllv, ntop;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 ifst;
+    int64 nllv;
+    int64 ntop;
     double rdsz;
-    int64 ntot, ntst;
+    int64 ntot;
+    int64 ntst;
 
     int64 iid;
     int64 ibr;
@@ -5998,7 +6271,9 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        double *vuz) {
     double ret_val;
 
-    int64 ndim, ntop, ntot;
+    int64 ndim;
+    int64 ntop;
+    int64 ntot;
     double f;
     double u;
 
@@ -6090,12 +6365,19 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     double ret_val;
 
     double amin;
-    int64 ndim, nins, ntop, ntot;
+    int64 ndim;
+    int64 nins;
+    int64 ntop;
+    int64 ntot;
     doublecomplex ztmp;
     int64 nins1 = 0;
     double d;
 
-    int64 iid, ibr, loc = 0, isp, isw;
+    int64 iid;
+    int64 ibr;
+    int64 loc = 0;
+    int64 isp;
+    int64 isw;
     double *wrk;
     double azm1;
 
@@ -6319,7 +6601,11 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        double *vuz) {
     double ret_val;
 
-    int64 ntop, ntot, iuzr, iid, ibr;
+    int64 ntop;
+    int64 ntot;
+    int64 iuzr;
+    int64 iid;
+    int64 ibr;
 
     (void)rap;
     (void)icp;
@@ -6371,7 +6657,9 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double d;
     int64 itpst;
     double ad;
-    int64 loc, itp, loc1;
+    int64 loc;
+    int64 itp;
+    int64 loc1;
     double azm1;
 
     (void)icp;
@@ -6443,7 +6731,14 @@ int32
 stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm,
        double *thl, double *thu) {
-    int64 labw, ndim, ibrs, nins, iplt, itmp, jtmp, ntot;
+    int64 labw;
+    int64 ndim;
+    int64 ibrs;
+    int64 nins;
+    int64 iplt;
+    int64 itmp;
+    int64 jtmp;
+    int64 ntot;
     int32 iflag = 0;
     double u_high[1000], u_low[1000], u_0[1000], u_bar[1000];
     double a0;
@@ -6451,14 +6746,24 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     /* used a fixed array here for maximum AUTO size
       double u_high[NAUTO], u_low, u0, ubar   */
 
-    int64 istop, itpst, n2, ntots;
+    int64 istop;
+    int64 itpst;
+    int64 n2;
+    int64 ntots;
 
     double rl0;
     double rl1;
 
-    int64 iab, lab, ibr, ndm;
+    int64 iab;
+    int64 lab;
+    int64 ibr;
+    int64 ndm;
     double amp = 0;
-    int64 ips, itp, npr, isw, nmx;
+    int64 ips;
+    int64 itp;
+    int64 npr;
+    int64 isw;
+    int64 nmx;
     double umx[7];
 
     (void)thl;
@@ -6627,12 +6932,25 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     int64 ups_dim1;
     int64 udotps_dim1;
 
-    int64 ndim, ncol, nfpr, ntpl, jtmp, mtot, ntot, ntst;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 ntpl;
+    int64 jtmp;
+    int64 mtot;
+    int64 ntot;
+    int64 ntst;
     double t;
     int64 k1;
     int64 k2;
     double rn;
-    int64 nrowpr, lab, ibr, nar, nrd, itp, isw;
+    int64 nrowpr;
+    int64 lab;
+    int64 ibr;
+    int64 nar;
+    int64 nrd;
+    int64 itp;
+    int64 isw;
 
     (void)rap;
 
@@ -6808,13 +7126,25 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        double *thu) {
     int64 ups_dim1;
 
-    int64 ndim, ncol, nfpr, iplt, mtot, ntot, ntst;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 iplt;
+    int64 mtot;
+    int64 ntot;
+    int64 ntst;
     double t;
-    int64 nfprp, k1, nitps, k2;
+    int64 nfprp;
+    int64 k1;
+    int64 nitps;
+    int64 k2;
     double ds;
     double rn;
 
-    int64 iab, iid, ibr, ndm;
+    int64 iab;
+    int64 iid;
+    int64 ibr;
+    int64 ndm;
     double amp = 0.0;
 
     (void)par;

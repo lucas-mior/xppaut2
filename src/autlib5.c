@@ -15,7 +15,14 @@
    the Homcont code.
 */
 static struct {
-    int64 itwist, istart, iequib, nfixed, npsi, nunstab, nstab, nrev;
+    int64 itwist;
+    int64 istart;
+    int64 iequib;
+    int64 nfixed;
+    int64 npsi;
+    int64 nunstab;
+    int64 nstab;
+    int64 nrev;
 } blhom_1;
 
 static struct {
@@ -307,7 +314,8 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     int64 ip;
     int64 kp;
 
-    int64 ijc = 0, ndm;
+    int64 ijc = 0;
+    int64 ndm;
     double dum, dum1, dum2;
 
     double *f;
@@ -760,7 +768,15 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
 int32
 inho(iap_type *iap, int64 *icp, double *par) {
-    int64 ndim, nint, nuzr, nfree, icorr, nbc, ndm, irs, isw;
+    int64 ndim;
+    int64 nint;
+    int64 nuzr;
+    int64 nfree;
+    int64 icorr;
+    int64 nbc;
+    int64 ndm;
+    int64 irs;
+    int64 isw;
 
     /* Allocate memory for global structures. */
     free(blhmp_1.ipsi);
@@ -926,9 +942,12 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
 
     int64 jmin;
     double upsi;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double tmmin;
-    int64 k1, k2, ii;
+    int64 k1;
+    int64 k2;
+    int64 ii;
     double upsmin;
     int64 ist;
 
@@ -1032,10 +1051,15 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 ups_dim1;
     int64 udotps_dim1;
 
-    int64 ndim, ncol, nfpr, ntst, ncol1;
+    int64 ndim;
+    int64 ncol;
+    int64 nfpr;
+    int64 ntst;
+    int64 ncol1;
     double t;
     double *u;
-    int64 k1, k2;
+    int64 k1;
+    int64 k2;
 
     double dt;
     int64 lab;
@@ -1240,7 +1264,9 @@ L3:
 int32
 pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
-    int64 ups_dim1, p0_dim1, p1_dim1;
+    int64 ups_dim1;
+    int64 p0_dim1;
+    int64 p1_dim1;
 
     double orient;
 
@@ -1592,7 +1618,9 @@ int32
 eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *xequib, int64 *icp, double *par, int64 *ndm, double *dfdu,
       double *dfdp, double *zz) {
-    int64 dfdu_dim1, dfdp_dim1, zz_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
+    int64 zz_dim1;
 
     int64 ifail;
     double vdot;
@@ -1789,7 +1817,10 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 mcond, k1, k2, m0;
+    int64 mcond;
+    int64 k1;
+    int64 k2;
+    int64 m0;
 
     double det;
     double eps;

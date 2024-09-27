@@ -25,7 +25,12 @@
      LeaveWindowMask | EnterWindowMask)
 
 static struct EqBox {
-    Window base, stab, rest, top, close, import;
+    Window base;
+    Window stab;
+    Window rest;
+    Window top;
+    Window close;
+    Window import;
     double y[MAX_ODE], ev[MAX_ODE + MAX_ODE];
     int32 n;
     int32 flag;
@@ -34,7 +39,12 @@ static struct EqBox {
 } eq_box;
 
 static struct EqList {
-    Window base, up, down, list, main, close;
+    Window base;
+    Window up;
+    Window down;
+    Window list;
+    Window main;
+    Window close;
     int32 istart, nlines, flag;
 } eq_list;
 
@@ -81,7 +91,10 @@ eig_list_draw_eq_list(Window window) {
 
 void
 eig_list_create_eq_list(void) {
-    int32 width, height, hlist, hmain;
+    int32 width;
+    int32 height;
+    int32 hlist;
+    int32 hmain;
     Window base;
     static char *wname[] = {"Equations"};
     static char *iname[] = {"Eqns"};
@@ -266,7 +279,8 @@ void
 eig_list_get_new_size(Window win, uint32 *wid, uint32 *hgt) {
     int32 x;
     int32 y;
-    uint32 bw, de;
+    uint32 bw;
+    uint32 de;
     Window root;
     XGetGeometry(display, win, &root, &x, &y, wid, hgt, &bw, &de);
     return;
@@ -293,7 +307,10 @@ eig_list_resize_eq_list(Window win) {
 void
 eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
                        double *y, int32 n) {
-    int32 width, hstab, hequil, height;
+    int32 width;
+    int32 hstab;
+    int32 hequil;
+    int32 height;
     static char *name[] = {"Equilibria"};
     static char *iname[] = {"Equil"};
     int32 tpos;
@@ -374,7 +391,9 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
 
 void
 eig_list_draw_eq_box(Window window) {
-    int32 ncol, n = eq_box.n, nrow;
+    int32 ncol;
+    int32 n = eq_box.n;
+    int32 nrow;
     int32 in;
     char temp[50];
     if (eq_box.flag == 0)

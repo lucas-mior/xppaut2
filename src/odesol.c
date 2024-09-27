@@ -92,7 +92,8 @@ int32
 odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
                     double *yp, double *yp2, double *ytemp, double *errvec,
                     double *jac) {
-    double err = 0.0, err1 = 0.0;
+    double err = 0.0;
+    double err1 = 0.0;
 
     int32 iter = 0, info, ipivot[MAX_ODE1];
     int32 ml = cv_bandlower, mr = cv_bandupper, mt = ml + mr + 1;
@@ -179,7 +180,9 @@ odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq, double *t) {
 void
 odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq,
                     double *tim) {
-    double t = *tim, t1, t2;
+    double t = *tim;
+    double t1;
+    double t2;
     markov_set_wieners(dt, y, t);
     rhs_function(t, y, yval[1], neq);
     for (int32 i = 0; i < neq; i++) {
@@ -208,7 +211,8 @@ odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq,
 void
 odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq,
                      double *tim) {
-    double t = *tim, t1;
+    double t = *tim;
+    double t1;
     markov_set_wieners(dt, y, *tim);
     rhs_function(t, y, yval[0], neq);
     for (int32 i = 0; i < neq; i++)
@@ -294,10 +298,14 @@ odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq,
 int32
 odesol_adams(double *y, double *tim, double dt, int32 nstep, int32 neq,
              int32 *ist, double *work) {
-    int32 istart = *ist, istpst, ik, n;
+    int32 istart = *ist;
+    int32 istpst;
+    int32 ik;
+    int32 n;
     int32 irk;
     double *work1;
-    double x0 = *tim, xst = *tim;
+    double x0 = *tim;
+    double xst = *tim;
     work1 = work;
     if (istart == 1) {
         for (int32 i = 0; i < 4; i++) {
@@ -377,7 +385,8 @@ n1000:
 
 int32
 odesol_abmpc(double *y, double *t, double dt, int32 neq) {
-    double x1, x0 = *t;
+    double x1;
+    double x0 = *t;
     for (int32 i = 0; i < neq; i++) {
         ypred[i] = 0;
         for (int32 k = 0; k < 4; k++)
@@ -422,9 +431,12 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
              double *work, int32 *ierr) {
     static double htry;
     double epsjac = NEWT_ERR;
-    double eps = 1e-15, hmin, hmax;
+    double eps = 1e-15;
+    double hmin;
+    double hmax;
     double tdir = 1, t0 = *tstart, t = t0;
-    double atol = ATOLER, rtol = TOLER;
+    double atol = ATOLER;
+    double rtol = TOLER;
     double sqrteps = sqrt(eps);
     double thresh = atol / rtol, absh, h = 0;
     double d = 1 / (2. + sqrt(2.)), e32 = 6. + sqrt(2.), tnew;
@@ -432,7 +444,9 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     int32 n2 = n*n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
           mt = ml + mr + 1;
     int32 ipivot[MAX_ODE1], nofailed;
-    double temp, err, tdel;
+    double temp;
+    double err;
+    double tdel;
     double *ypnew, *k1, *k2, *k3, *f0, *f1, *f2, *dfdt, *ynew, *dfdy;
     *ierr = 1;
     ypnew = work;
@@ -563,7 +577,9 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
 void
 odesol_get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
                    int32 neq, double eps, double scal) {
-    double yold, del, dsy;
+    double yold;
+    double del;
+    double dsy;
     if (cv_bandflag)
         odesol_get_band_jac(dfdy, y, t, ypnew, yp, neq, eps, scal);
     else {
@@ -584,7 +600,8 @@ odesol_get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
 void
 odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
                     double *ypold, int32 n, double eps, double scal) {
-    int32 ml = cv_bandlower, mr = cv_bandupper;
+    int32 ml = cv_bandlower;
+    int32 mr = cv_bandupper;
     int32 k, n1 = n - 1, mt = ml + mr + 1;
     double yhat;
     double dy;

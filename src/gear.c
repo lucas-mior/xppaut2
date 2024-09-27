@@ -47,7 +47,11 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     int32 kmem, ipivot[MAX_ODE];
     int32 oldcol;
     int32 dummy;
-    int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
+    int32 rp = 0;
+    int32 rn = 0;
+    int32 cp = 0;
+    int32 cn = 0;
+    int32 im = 0;
     int32 pose = 0, nege = 0, pr;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, oldt = DELTA_T, old_x[MAX_ODE];
@@ -55,7 +59,8 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     char ch;
     double real;
     double imag;
-    double bigpos = -1e10, bigneg = 1e10;
+    double bigpos = -1e10;
+    double bigneg = 1e10;
     int32 bpos = 0, bneg = 0;
     /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
@@ -314,7 +319,10 @@ gear_save_batch_shoot(void) {
 void
 gear_shoot_this_now(void) {
     /* this uses the current labeled saddle point stuff to integrate */
-    int32 k, type, oldcol, dummy;
+    int32 k;
+    int32 type;
+    int32 oldcol;
+    int32 dummy;
     double x[MAX_ODE], olddt;
     if (ShootIndex < 1)
         return;
@@ -348,14 +356,18 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr) {
     int32 kmem, ipivot[MAX_ODE];
 
-    int32 rp = 0, rn = 0, cp = 0, cn = 0;
+    int32 rp = 0;
+    int32 rn = 0;
+    int32 cp = 0;
+    int32 cn = 0;
     int32 pose = 0, nege = 0;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAX_ODE];
 
     double real;
     double imag;
-    double bigpos = -1e10, bigneg = 1e10;
+    double bigpos = -1e10;
+    double bigneg = 1e10;
 
     /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
@@ -551,7 +563,8 @@ void
 gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
               int32 maxit, double err, int32 *ipivot, double eval,
               int32 *ierr) {
-    int32 iter, jmax;
+    int32 iter;
+    int32 jmax;
     double temp;
     double zz = fabs(eval);
     if (zz < err)
@@ -628,7 +641,17 @@ gear_eigen(int32 n, double *a, double *ev, double *work, int32 *ierr) {
 
 void
 gear_hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr) {
-    int32 j, k, l = 0, m = 0, en, ll, mm, na, its, mp2, enm2;
+    int32 j;
+    int32 k;
+    int32 l = 0;
+    int32 m = 0;
+    int32 en;
+    int32 ll;
+    int32 mm;
+    int32 na;
+    int32 its;
+    int32 mp2;
+    int32 enm2;
     double p = 0.0, q = 0.0, r = 0.0, s, t, w, x, y, zz, norm, machep = 1.e-10;
     int32 notlas;
     *ierr = 0;
@@ -795,7 +818,14 @@ l1000:
 
 void
 gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
-    int32 i, j, m, ii, jj, la, mp, kp1;
+    int32 i;
+    int32 j;
+    int32 m;
+    int32 ii;
+    int32 jj;
+    int32 la;
+    int32 mp;
+    int32 kp1;
     double f, g, h, scale;
     la = igh - 1;
     kp1 = low + 1;
@@ -1521,7 +1551,9 @@ gear_min(double x, double y) {
 
 void
 gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
-    int32 kp1, l, nm1;
+    int32 kp1;
+    int32 l;
+    int32 nm1;
     double t;
     *info = -1;
     nm1 = n - 1;
@@ -1559,7 +1591,10 @@ gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
 
 void
 gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
-    int32 k, kb, l, nm1;
+    int32 k;
+    int32 kb;
+    int32 l;
+    int32 nm1;
     double t;
     nm1 = n - 1;
     /* for(k=0;k<n;k++)printf("ipiv=%d  b=%f \n",
@@ -1607,7 +1642,8 @@ gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
 
 void
 gear_saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy) {
-    int32 ix, iy;
+    int32 ix;
+    int32 iy;
     if (n <= 0)
         return;
     if (sa == 0.0)
@@ -1625,7 +1661,8 @@ gear_saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy) {
 
 int32
 gear_is_amax(int32 n, double *sx, int32 incx) {
-    int32 ix, imax;
+    int32 ix;
+    int32 imax;
     double smax;
     if (n < 1)
         return -1;
@@ -1657,7 +1694,8 @@ gear_is_amax(int32 n, double *sx, int32 incx) {
 
 double
 gear_sdot(int32 n, double *sx, int32 incx, int32 incy) {
-    int32 ix, iy;
+    int32 ix;
+    int32 iy;
     double stemp = 0.0;
     if (n <= 0)
         return 0.0;

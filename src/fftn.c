@@ -459,11 +459,18 @@ Dimension_Error:
 int32
 FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
          int32 iSign, int32 maxFactors, int32 maxPerm) {
-    int32 ii, nFactor, kspan, ispan, inc;
+    int32 ii;
+    int32 nFactor;
+    int32 kspan;
+    int32 ispan;
+    int32 inc;
     int32 j, jc, jf, jj, k, k1, k3, kk, kt, nn, ns, nt;
 
     REAL radf;
-    REAL c1, c2, c3, cd;
+    REAL c1;
+    REAL c2;
+    REAL c3;
+    REAL cd;
     REAL s1, s2, s3, sd;
 
     REAL *Rtmp = NULL; /* temp space for real part*/

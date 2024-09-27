@@ -56,7 +56,9 @@
 int32
 flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
        doublecomplex *ev) {
-    int64 c0_dim1, c1_dim1, rwork_dim1;
+    int64 c0_dim1;
+    int64 c1_dim1;
+    int64 rwork_dim1;
 
     double beta, *svde, *svds, svdu[1], *svdv;
 

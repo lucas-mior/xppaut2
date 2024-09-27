@@ -213,7 +213,10 @@ ggets_get_key_press(XEvent *event) {
 void
 ggets_cput_text(void) {
     char string[256], new[256];
-    int32 x, y, size = 2, font = 0;
+    int32 x;
+    int32 y;
+    int32 size = 2;
+    int32 font = 0;
     Window temp;
     temp = main_win;
     strcpy(string, "");

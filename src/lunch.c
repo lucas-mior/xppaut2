@@ -45,7 +45,8 @@ lunch_file_inf(void) {
 
 void
 lunch_ps_write_pars(FILE *fp) {
-    int32 div, rem;
+    int32 div;
+    int32 rem;
     double z;
 
     fprintf(fp, "\n %%%% %s \n %%%% Parameters ...\n", this_file);
@@ -149,7 +150,10 @@ lunch_do_info(FILE *fp) {
 
 int32
 lunch_read(FILE *fp) {
-    int32 f = READEM, ne, np, temp;
+    int32 f = READEM;
+    int32 ne;
+    int32 np;
+    int32 temp;
     char bob[256];
 
     fgets(bob, 255, fp);
@@ -189,7 +193,10 @@ lunch_read(FILE *fp) {
 void
 do_lunch(int32 f) {
     /* f=1 to read and 0 to write */
-    int32 ne, np, ok, temp;
+    int32 ne;
+    int32 np;
+    int32 ok;
+    int32 temp;
     char bob[256];
     FILE *fp;
     time_t ttt;

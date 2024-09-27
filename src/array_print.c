@@ -8,10 +8,15 @@
 #define GREYSCALE -1
 
 static struct DevScale {
-    double xmin, xmax, ymin, ymax;
+    double xmin;
+    double xmax;
+    double ymin;
+    double ymax;
     double xscale, yscale, xoff, yoff;
     double tx, ty, angle, slant; /* text attributes   */
-    double linecol, letx, lety;
+    double linecol;
+    double letx;
+    double lety;
     int32 linewid;
 } ps_scale;
 
@@ -69,12 +74,16 @@ void
 array_print_ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
                       int32 ncskip, int32 maxrow, int32 maxcol, int32 nacross,
                       int32 ndown, double zmin, double zmax, int32 type) {
-    int32 ib, jb;
+    int32 ib;
+    int32 jb;
 
-    double fill, x, y;
+    double fill;
+    double x;
+    double y;
     double dx = (ps_scale.xmax - ps_scale.xmin);
     double dy = (ps_scale.ymax - ps_scale.ymin);
-    double xhi = .95*dx, yhi = .85*dy;
+    double xhi = .95*dx;
+    double yhi = .85*dy;
     double delx;
     double dely;
     delx = .8*dx / (double)ndown;
@@ -107,7 +116,10 @@ array_print_ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
 void
 array_print_ps_begin(double xlo, double ylo, double xhi, double yhi, double sx,
                      double sy) {
-    double x0, y0, x1, y1;
+    double x0;
+    double y0;
+    double x1;
+    double y1;
     ps_scale.xmin = xlo;
     ps_scale.ymin = ylo;
     ps_scale.ymax = yhi;
@@ -190,7 +202,10 @@ array_print_ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo,
     double z = ps_scale.linecol;
     double dx = ps_scale.xmax - ps_scale.xmin;
     double dy = ps_scale.ymax - ps_scale.ymin;
-    double xlo = .15*dx, ylo = .05*dy, xhi = .95*dx, yhi = .85*dy;
+    double xlo = .15*dx;
+    double ylo = .05*dy;
+    double xhi = .95*dx;
+    double yhi = .85*dy;
 
     array_print_ps_setline(0.0, 10);
     array_print_ps_rect(xlo, ylo, .8*dx, .8*dy);
@@ -227,7 +242,9 @@ array_print_ps_text2(char *str, double xr, double yr,
     double slant = .0174532*ps_scale.slant;
     double x;
     double y;
-    double sizex = ps_scale.tx, sizey = ps_scale.ty, rot = ps_scale.angle;
+    double sizex = ps_scale.tx;
+    double sizey = ps_scale.ty;
+    double rot = ps_scale.angle;
     double a = sizex*cos(slant), b = sizey*sin(slant),
            c = -sizex*sin(slant), d = sizey*cos(slant);
     array_print_ps_convert(xr, yr, &x, &y);
@@ -272,7 +289,10 @@ array_print_ps_set_text(double angle, double slant, double x_size,
 
 void
 array_print_ps_rect(double x, double y, double wid, double len) {
-    double x1, y1, x2, y2;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
     array_print_ps_convert(x, y, &x1, &y1);
     array_print_ps_convert(x + wid, y + len, &x2, &y2);
     fprintf(my_plot_file,
@@ -285,7 +305,10 @@ array_print_ps_rect(double x, double y, double wid, double len) {
 void
 array_print_ps_bar(double x, double y, double wid, double len, double fill,
                    int32 flag) {
-    double x1, y1, x2, y2;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
     fprintf(my_plot_file, "%f G\n", fill);
     array_print_ps_convert(x, y, &x1, &y1);
     array_print_ps_convert(x + wid, y + len, &x2, &y2);
@@ -303,7 +326,10 @@ array_print_ps_bar(double x, double y, double wid, double len, double fill,
 void
 array_print_ps_rgb_bar(double x, double y, double wid, double len, double fill,
                        int32 flag, int32 rgb) {
-    double x1, y1, x2, y2;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
     double r = 0.0, g = 0.0, b = 0.0;
     if (rgb == 2) {
         array_print_ps_hsb_bar(x, y, wid, len, fill, flag);
@@ -353,7 +379,10 @@ array_print_ps_rgb_bar(double x, double y, double wid, double len, double fill,
 void
 array_print_ps_hsb_bar(double x, double y, double wid, double len, double fill,
                        int32 flag) {
-    double x1, y1, x2, y2;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
     fprintf(my_plot_file, "%f 1.0 1.0 HSB\n", fill);
     array_print_ps_convert(x, y, &x1, &y1);
     array_print_ps_convert(x + wid, y + len, &x2, &y2);

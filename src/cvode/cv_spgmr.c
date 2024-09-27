@@ -359,7 +359,9 @@ cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     double bnorm;
     double res_norm;
     CVSpgmrMem cvspgmr_mem;
-    int32 nli_inc, nps_inc, ier;
+    int32 nli_inc;
+    int32 nps_inc;
+    int32 ier;
 
     cvspgmr_mem = (CVSpgmrMem)lmem;
 

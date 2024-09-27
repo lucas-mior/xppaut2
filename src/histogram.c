@@ -63,7 +63,8 @@ histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
             bin k = int32 ((y-ylo)/dy)
             if j<0 or j>=nxbin then skip etc
     */
-    int32 i, j;
+    int32 i;
+    int32 j;
     double dx, dy, norm;
     double x;
     double y;
@@ -292,9 +293,11 @@ histogram_new_2d(void) {
 void
 histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
               char *condition, int32 which) {
-    int32 i, index;
+    int32 i;
+    int32 index;
     int32 command[256];
-    int32 cond = 0, flag = 1;
+    int32 cond = 0;
+    int32 flag = 1;
     double z;
     double y;
     double dz;
@@ -398,7 +401,9 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
 void
 histogram_column_mean(void) {
     char bob[100];
-    double sum, sum2, ss;
+    double sum;
+    double sum2;
+    double ss;
     double mean;
     double sdev;
     if (storind <= 1) {
@@ -796,7 +801,8 @@ histogram_compute_stacor(void) {
 void
 histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
                 int32 nbins, double *z, int32 flag) {
-    int32 k, count = 0;
+    int32 k;
+    int32 count = 0;
     double sum, avx = 0.0, avy = 0.0;
     double dz = (zhi - zlo) / (double)nbins, jz;
     if (flag) {
@@ -829,7 +835,9 @@ void
 histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z,
                  int32 flag) {
     int32 k, count = 0, lag = nbins / 2;
-    double sum, avx = 0.0, avy = 0.0;
+    double sum;
+    double avx = 0.0;
+    double avy = 0.0;
     if (flag) {
         for (int32 i = 0; i < n; i++) {
             avx += x[i];
@@ -875,7 +883,8 @@ void
 histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
                     double *cr, int32 flag) {
     double *re1, *re2, *im1, *im2, x, y, sum;
-    double av1 = 0.0, av2 = 0.0;
+    double av1 = 0.0;
+    double av2 = 0.0;
     int32 dim[2];
     /*int32 n2; Not used anywhere*/
     if (flag) {

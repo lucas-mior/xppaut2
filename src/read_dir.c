@@ -95,7 +95,8 @@ read_dir_get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     DIR *dirp;
     int32 mlf;
     int32 mld;
-    int32 nf, nd;
+    int32 nf;
+    int32 nd;
     struct dirent *dp;
     ans = read_dir_fil_count(direct, &nd, &nf, wild, &mld, &mlf);
     if (ans == 0)
@@ -151,7 +152,8 @@ read_dir_get_fileinfo(char *wild, char *direct, FileInfo *ff) {
     DIR *dirp;
     int32 mlf;
     int32 mld;
-    int32 nf, nd;
+    int32 nf;
+    int32 nd;
     struct dirent *dp;
     ans = read_dir_fil_count(direct, &nd, &nf, wild, &mld, &mlf);
     if (ans == 0)
