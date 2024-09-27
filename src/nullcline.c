@@ -486,7 +486,8 @@ nullcline_redraw_dfield(void) {
     double ydot[MAX_ODE];
     double xv1;
     double xv2;
-    double v1[MAX_ODE], v2[MAX_ODE];
+    double v1[MAX_ODE];
+    double v2[MAX_ODE];
     FILE *fp = NULL;
 
     double amp;

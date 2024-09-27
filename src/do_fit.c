@@ -24,7 +24,8 @@ static struct FitInfo {
     char file[25];
     char varlist[25];
     char collist[25];
-    char parlist1[25], parlist2[25];
+    char parlist1[25];
+    char parlist2[25];
     int32 dim;
     int32 npars;
     int32 nvars;

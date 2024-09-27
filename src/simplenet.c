@@ -317,7 +317,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
     char wgtname[20];
     char tauname[20];
     char indname[20];
-    char root2name[20], fname[20];
+    char root2name[20];
+    char fname[20];
     char sofun[256], soname[256], *tname[MAXW];
     type = simplenet_is_network(rhs);
     if (type == 0)

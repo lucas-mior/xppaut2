@@ -86,7 +86,8 @@ typedef struct Graph {
     int32 xv[MAXPERPLOT];
     int32 yv[MAXPERPLOT];
     int32 zv[MAXPERPLOT];
-    int32 line[MAXPERPLOT], color[MAXPERPLOT];
+    int32 line[MAXPERPLOT];
+    int32 color[MAXPERPLOT];
     double Theta;
     double Phi;
     double ZPlane;

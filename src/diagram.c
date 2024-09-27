@@ -583,7 +583,8 @@ diagram_load(FILE *fp, int32 node) {
     double uhi[NAUTO];
     double ulo[NAUTO];
     double ubar[NAUTO];
-    double evr[NAUTO], evi[NAUTO];
+    double evr[NAUTO];
+    double evi[NAUTO];
     double norm;
     double par[8];
     double per;

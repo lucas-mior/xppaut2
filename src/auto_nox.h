@@ -83,7 +83,9 @@ typedef struct {
     double ulo[NAUTO];
     double u0[NAUTO];
     double ubar[NAUTO];
-    double par[20], per, torper;
+    double par[20];
+    double per;
+    double torper;
     int32 index;
     int32 nfpar;
     int32 icp1;

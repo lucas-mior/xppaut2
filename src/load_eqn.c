@@ -1013,7 +1013,10 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     char xx[4];
     char yy[4];
     char zz[4];
-    char xxl[6], xxh[6], yyl[6], yyh[6];
+    char xxl[6];
+    char xxh[6];
+    char yyl[6];
+    char yyh[6];
     static char mkey[] = "demragvbqsc582y";
     static char Mkey[] = "DEMRAGVBQSC582Y";
     strupr(s1);

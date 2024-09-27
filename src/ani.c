@@ -2775,7 +2775,8 @@ ani_grab_tasks(char *graphics_line, int32 igrab, int32 which) {
     int32 n = (int32)strlen(graphics_line);
     char form[256];
     char c;
-    char rhs[256], lhs[20];
+    char rhs[256];
+    char lhs[20];
     k = 0;
     for (int32 i = 0; i < n; i++) {
         c = graphics_line[i];

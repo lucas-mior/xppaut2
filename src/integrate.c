@@ -384,7 +384,8 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
     int32 new = 1;
     double x[MAX_ODE];
     double sum;
-    double er[MAX_ODE], em[MAX_ODE];
+    double er[MAX_ODE];
+    double em[MAX_ODE];
     if (append == 0)
         fixptlist.n = 0;
 
@@ -2552,7 +2553,9 @@ integrate_plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
     double oldxpl[MAXPERPLOT];
     double oldypl[MAXPERPLOT];
     double oldzpl[MAXPERPLOT];
-    double xpl[MAXPERPLOT], ypl[MAXPERPLOT], zpl[MAXPERPLOT];
+    double xpl[MAXPERPLOT];
+    double ypl[MAXPERPLOT];
+    double zpl[MAXPERPLOT];
     NPlots = MyGraph->nvars;
     ixplt = MyGraph->xv;
     iyplt = MyGraph->yv;
