@@ -30,7 +30,8 @@ static struct Aeqn {
     int32 *form;
 } aeqn[MAXDAE];
 
-static int32 nsvar = 0, naeqn = 0;
+static int32  nsvar = 0;
+static int32 naeqn = 0;
 
 /* this adds an algebraically defined variable  and a formula
    for the first guess */

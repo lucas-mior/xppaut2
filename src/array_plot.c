@@ -55,7 +55,8 @@
 int32 array_plot_range;
 static int32 array_plot_range_count = 0;
 static char array_plot_range_stem[256] = "rangearray";
-static int32 array_plot_still = 1, array_plot_tag = 0;
+static int32  array_plot_still = 1;
+static int32 array_plot_tag = 0;
 static struct ArrayPlot {
     Window base;
     Window wclose;
