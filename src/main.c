@@ -49,7 +49,7 @@ double xpp_version_maj;
 double xpp_version_min;
 
 int32 Xup;
-int32 TipsFlag = 1;
+int32 flag_tips = 1;
 Atom deleteWindowAtom = 0;
 int32 XPPBatch = 0;
 int32 batch_range = 0;
@@ -58,7 +58,7 @@ char batchout[XPP_MAX_NAME];
 char user_out_file[XPP_MAX_NAME];
 int32 display_height;
 int32 display_width;
-int32 TrueColorFlag;
+int32 flag_true_color;
 char font_name_big[100];
 char font_name_small[100];
 char PlotFormat[10];
@@ -555,7 +555,7 @@ do_main(int32 argc, char **argv) {
         /* main test color info */
         XColor *colors;
         XWindowAttributes xwa;
-        TrueColorFlag = 0;
+        flag_true_color = 0;
 
         XGetWindowAttributes(display, main_win, &xwa);
         main_get_x_colors(&xwa, &colors);
@@ -1141,7 +1141,7 @@ main_commander(int32 ch) {
             many_pops_get_intern_set();
             break;
         case 'i':
-            TipsFlag = 1 - TipsFlag;
+            flag_tips = 1 - flag_tips;
             break;
         case 'p':
             txt_make_view();
@@ -1406,9 +1406,9 @@ main_get_x_colors(XWindowAttributes *win_info, XColor **colors) {
     int32 ncolors;
 
     *colors = (XColor *)NULL;
-    TrueColorFlag = 0;
+    flag_true_color = 0;
     if (win_info->visual->class == TrueColor) {
-        TrueColorFlag = 1;
+        flag_true_color = 1;
         ggets_plintf("TrueColor visual:  no colormap needed\n");
         return 0;
     }

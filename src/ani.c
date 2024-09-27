@@ -1164,7 +1164,7 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
         palette[i].pixel = i;
     }
     XQueryColors(display, cmap, palette, 256);
-    if (TrueColorFlag == 1) {
+    if (flag_true_color == 1) {
         bbp = (uint32)ximage->bits_per_pixel; /* is it 16 or 24 bit */
         if (bbp > 24) {
             bbp = 24;
@@ -1180,7 +1180,7 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     dst = out;
     for (y = 0; y < (uint32)(ximage->height); y++) {
         for (x = 0; x < (uint32)(ximage->width); x++) {
-            if (TrueColorFlag == 1) {
+            if (flag_true_color == 1) {
                 /*  use the slow way to get the pixel
                     but then you dont need to screw around
                     with byte order etc
@@ -1260,7 +1260,7 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
     /*    this worked for me - but you may want to change
           it for your machine
     */
-    if (TrueColorFlag == 1) {
+    if (flag_true_color == 1) {
         bbp = (uint32)ximage->bits_per_pixel; /* is it 16 or 24 bit */
         if (bbp > 24) {
             bbp = 24;
@@ -1279,7 +1279,7 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
     dst = out;
     for (y = 0; y < (uint32)(ximage->height); y++) {
         for (x = 0; x < (uint32)(ximage->width); x++) {
-            if (TrueColorFlag == 1) {
+            if (flag_true_color == 1) {
                 /*  use the slow way to get the pixel
                     but then you dont need to screw around
                     with byte order etc

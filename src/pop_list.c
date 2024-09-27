@@ -1283,7 +1283,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
             for (int32 i = 0; i < p.n; i++) {
                 if (event.xcrossing.window == p.w[i]) {
                     XSetWindowBorderWidth(display, p.w[i], 1);
-                    if (TipsFlag) {
+                    if (flag_tips) {
                         strcpy(httxt, hints[i]);
                         XClearWindow(display, hwin);
                         XDrawString(display, hwin, gc, 5, CURY_OFF, hints[i],

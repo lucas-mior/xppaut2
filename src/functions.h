@@ -3173,7 +3173,7 @@ extern int32 Xup;
 
 extern char batchout[XPP_MAX_NAME];
 extern char user_out_file[XPP_MAX_NAME];
-extern int32 TrueColorFlag;
+extern int32 flag_true_color;
 extern char font_name_big[100];
 extern char font_name_small[100];
 extern char PlotFormat[10];
@@ -3795,7 +3795,7 @@ extern GC small_gc;
 extern uint32 MyBackColor;
 extern uint32 MyForeColor;
 
-extern int32 TipsFlag;
+extern int32 flag_tips;
 extern char UserBlack[8];
 extern char UserWhite[8];
 extern int32 UserGradients;

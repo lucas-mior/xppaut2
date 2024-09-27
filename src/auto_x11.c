@@ -1064,7 +1064,7 @@ auto_x11_resize_window(XEvent event) {
 
         Auto.hgt = (int32)chgt - ymargin;
         Auto.wid = (int32)cwid - xmargin;
-        if (TrueColorFlag > 0) {
+        if (flag_true_color > 0) {
             XMoveResizeWindow(display, auto_win.info, xloc,
                               yloc + (int32)chgt + 4, (uint)wid, (uint)addhgt);
 
@@ -1083,7 +1083,7 @@ auto_x11_resize_window(XEvent event) {
 
 void
 auto_x11_msg(int32 i, int32 v) {
-    if (v == 0 || TipsFlag == 0) {
+    if (v == 0 || flag_tips == 0) {
         return;
     }
     strncpy(Auto.hinttxt, auto_hint[i], sizeof(Auto.hinttxt));

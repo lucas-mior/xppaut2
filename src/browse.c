@@ -496,7 +496,7 @@ browse_but_on(Browser *b, int32 i, Window window, int32 yn) {
         val = 2;
     }
     XSetWindowBorderWidth(display, window, val);
-    if (yn && TipsFlag && i >= 0) {
+    if (yn && flag_tips && i >= 0) {
         strcpy(b->hinttxt, browse_hint[i]);
         display_browser(b->hint, *b);
     }

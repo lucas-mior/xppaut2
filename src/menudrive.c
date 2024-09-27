@@ -365,7 +365,7 @@ menudrive_run_the_commands(int32 com) {
             many_pops_get_intern_set();
             break;
         case M_FI:
-            TipsFlag = 1 - TipsFlag;
+            flag_tips = 1 - flag_tips;
             break;
         case M_FP:
             txt_make_view();

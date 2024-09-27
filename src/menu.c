@@ -472,7 +472,7 @@ menu_crossing(Window win, int32 yn) {
     for (int32 i = 0; i < n; i++) {
         if (win == my_menus[j].window[i]) {
             XSetWindowBorderWidth(display, win, (uint)yn);
-            if (yn && TipsFlag) {
+            if (yn && flag_tips) {
                 ggets_bottom_msg(z[i]);
             }
             return;
