@@ -293,7 +293,9 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
     double a1 = 0;
     double a2 = 0;
     double da = 0.0;
-    double old = 0.0, dt, derv = 0.0;
+    double old = 0.0;
+    double dt;
+    double derv = 0.0;
     double sum = 0.0;
     if (n < 2)
         return;

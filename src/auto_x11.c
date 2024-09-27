@@ -63,7 +63,13 @@ static struct AutoWin {
     Window redraw;
     Window base;
     Window per;
-    Window info, param, file, abort, stab, hint, kill;
+    Window info;
+    Window param;
+    Window file;
+    Window abort;
+    Window stab;
+    Window hint;
+    Window kill;
 } auto_win;
 
 static Diagram *CUR_DIAGRAM;
@@ -734,7 +740,8 @@ auto_x11_scroll(void) {
     XEvent event;
     int32 i = 0;
     int32 j = 0;
-    int32 i0 = 0, j0 = 0;
+    int32 i0 = 0;
+    int32 j0 = 0;
     int32 state = 0;
     double xlo = Auto.xmin;
     double ylo = Auto.ymin;

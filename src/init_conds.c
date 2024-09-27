@@ -70,7 +70,15 @@ static struct FileSel {
     int32 n;
     int32 n0;
     int32 here;
-    Window base, cancel, ok, up, dn, pgup, pgdn, file, wild;
+    Window base;
+    Window cancel;
+    Window ok;
+    Window up;
+    Window dn;
+    Window pgup;
+    Window pgdn;
+    Window file;
+    Window wild;
     Window window[FILESELNWIN];
     Window dir;
     Window home;
@@ -82,7 +90,9 @@ static struct FileSel {
     int32 nwin;
     int32 minwid;
     int32 minhgt;
-    int32 off, pos, hot;
+    int32 off;
+    int32 pos;
+    int32 hot;
     char title[256];
 } filesel;
 
@@ -1592,10 +1602,16 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
     int32 n;
     int32 x;
     int32 y;
-    int32 xb1, xb2, xb3, xb4;
+    int32 xb1;
+    int32 xb2;
+    int32 xb3;
+    int32 xb4;
     int32 wid1;
     int32 wid2;
-    int32 width, height, wid, hgt;
+    int32 width;
+    int32 height;
+    int32 wid;
+    int32 hgt;
 
     Window base;
     XTextProperty winname;

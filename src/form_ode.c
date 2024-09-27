@@ -416,7 +416,15 @@ form_ode_compiler(char *bob, FILE *fptr) {
     double value;
     double xlo;
     double xhi;
-    int32 narg, done, nn, iflg = 0, VFlag = 0, nstates, alt, index, sign;
+    int32 narg;
+    int32 done;
+    int32 nn;
+    int32 iflg = 0;
+    int32 VFlag = 0;
+    int32 nstates;
+    int32 alt;
+    int32 index;
+    int32 sign;
     char *ptr, *my_string, *command;
     char name[20], formula[MAXEXPLEN];
     char condition[MAXEXPLEN];
@@ -1066,7 +1074,11 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
     int32 i1;
     int32 i2;
     int32 istates;
-    int32 jj1 = 0, jj2 = 0, jj, notdone = 1, jjsgn = 1;
+    int32 jj1 = 0;
+    int32 jj2 = 0;
+    int32 jj;
+    int32 notdone = 1;
+    int32 jjsgn = 1;
     char name[20];
     int32 nstates = 0;
     /*char newfile[256];*/
@@ -2212,7 +2224,9 @@ form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
                       char args[MAXARG][NAMLEN + 1]) {
     int32 i = i0;
     int32 n = (int32)strlen(s1);
-    int32 type, na = 0, i1;
+    int32 type;
+    int32 na = 0;
+    int32 i1;
     while (i < n) {
         type = form_ode_find_char(s1, ",)", i, &i1);
         if (type == 0) {

@@ -547,7 +547,8 @@ graf_par_get_3d_com(void) {
 
     int32 nclip = 8;
     int32 angle = 0;
-    double start, increment = 45;
+    double start;
+    double increment = 45;
     if (MyGraph->grtype < 5)
         return;
 
@@ -774,7 +775,10 @@ graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
     double y1;
     double x2;
     double y2;
-    double bx, mux, by, muy;
+    double bx;
+    double mux;
+    double by;
+    double muy;
     double dx = MyGraph->xhi - MyGraph->xlo;
     double dy = MyGraph->yhi - MyGraph->ylo;
     graphics_scale_to_real(i1, j1, &x1, &y1);
@@ -1178,7 +1182,12 @@ void
 graf_par_draw_freeze(Window window) {
     int32 type = MyGraph->grtype;
     int32 lt = 0;
-    double oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
+    double oldxpl;
+    double oldypl;
+    double oldzpl = 0.0;
+    double xpl;
+    double ypl;
+    double zpl = 0.0;
     double *xv, *yv, *zv;
     for (int32 i = 0; i < MAXNCLINE; i++)
         graf_par_draw_frozen_cline(i, window);

@@ -622,7 +622,8 @@ main_init_x(void) {
     char *win_name = "XPPAUT";
     int32 x = 0;
     int32 y = 0;
-    uint32 min_wid = 450, min_hgt = 360;
+    uint32 min_wid = 450;
+    uint32 min_hgt = 360;
 
     static uint32 Black;
     static uint32 White;

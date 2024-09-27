@@ -316,7 +316,9 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 ijc = 0;
     int64 ndm;
-    double dum, dum1, dum2;
+    double dum;
+    double dum1;
+    double dum2;
 
     double *f;
     double *bound;

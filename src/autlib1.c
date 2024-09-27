@@ -87,7 +87,13 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     double ds;
     double rl0;
     double rl1;
-    int64 iad, jac, lab, nbc, iid, ibr, ndm;
+    int64 iad;
+    int64 jac;
+    int64 lab;
+    int64 nbc;
+    int64 iid;
+    int64 ibr;
+    int64 ndm;
     double amp;
     double det;
     int64 ilp;
@@ -352,7 +358,9 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     int64 nint;
     int64 jtmp;
     int64 nuzr;
-    double dsmin, dsmax, fc;
+    double dsmin;
+    double dsmax;
+    double fc;
     int64 ic;
     int64 jc;
     double ds;
@@ -1221,7 +1229,9 @@ solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double epsl;
     double epsu;
     double dumx;
-    int64 ntop, itnw, ntot;
+    int64 ntop;
+    int64 itnw;
+    int64 ntot;
     double dsold;
     double dsmin;
 
@@ -2136,7 +2146,9 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     double epsl;
     double epsu;
     double dumx;
-    int64 ntop, itnw, ntot;
+    int64 ntop;
+    int64 itnw;
+    int64 ntot;
     double dsold;
     double dsmin;
 
@@ -2358,7 +2370,13 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     int64 nwtn;
     int64 ntst;
     int64 nuzr;
-    double dsmin, dsmax, a0, a1, ds, rl0, rl1;
+    double dsmin;
+    double dsmax;
+    double a0;
+    double a1;
+    double ds;
+    double rl0;
+    double rl1;
     int64 iad;
     int64 jac;
     int64 nbc;
@@ -4145,7 +4163,13 @@ newlab(iap_type *iap) {
     int64 iswrs;
     int64 ntplrs;
     int64 ntotrs;
-    int64 lab, ibr, mbr, ips, itp, irs, isw;
+    int64 lab;
+    int64 ibr;
+    int64 mbr;
+    int64 ips;
+    int64 itp;
+    int64 irs;
+    int64 isw;
     int64 eof3;
 
     /* Determine a suitable label when restarting. */
@@ -4667,7 +4691,10 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 iads;
     int64 ndim;
     int64 ncol;
-    int64 ntot, ntst, iuzr, nuzr;
+    int64 ntot;
+    int64 ntst;
+    int64 iuzr;
+    int64 nuzr;
     double dsold;
     int64 nodir = 0;
     double rlold[NPARX], rldot[NPARX], rlcur[NPARX];
@@ -5164,7 +5191,8 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ncol;
     int64 nfpr;
     int64 ntst;
-    int64 n1, ips;
+    int64 n1;
+    int64 ips;
     double *dfdp, *dfdu, *uold, *f, *u;
 
     (void)rldot;

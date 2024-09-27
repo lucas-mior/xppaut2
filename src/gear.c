@@ -52,7 +52,9 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     int32 cp = 0;
     int32 cn = 0;
     int32 im = 0;
-    int32 pose = 0, nege = 0, pr;
+    int32 pose = 0;
+    int32 nege = 0;
+    int32 pr;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, oldt = DELTA_T, old_x[MAX_ODE];
 
@@ -61,7 +63,8 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     double imag;
     double bigpos = -1e10;
     double bigneg = 1e10;
-    int32 bpos = 0, bneg = 0;
+    int32 bpos = 0;
+    int32 bneg = 0;
     /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
     if ((work = xmalloc(sizeof(double)*(usize)kmem)) == NULL) {
@@ -360,7 +363,8 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     int32 rn = 0;
     int32 cp = 0;
     int32 cn = 0;
-    int32 pose = 0, nege = 0;
+    int32 pose = 0;
+    int32 nege = 0;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAX_ODE];
 
@@ -652,7 +656,17 @@ gear_hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr) {
     int32 its;
     int32 mp2;
     int32 enm2;
-    double p = 0.0, q = 0.0, r = 0.0, s, t, w, x, y, zz, norm, machep = 1.e-10;
+    double p = 0.0;
+    double q = 0.0;
+    double r = 0.0;
+    double s;
+    double t;
+    double w;
+    double x;
+    double y;
+    double zz;
+    double norm;
+    double machep = 1.e-10;
     int32 notlas;
     *ierr = 0;
     norm = 0.0;
@@ -826,7 +840,10 @@ gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
     int32 la;
     int32 mp;
     int32 kp1;
-    double f, g, h, scale;
+    double f;
+    double g;
+    double h;
+    double scale;
     la = igh - 1;
     kp1 = low + 1;
     if (la < kp1)
@@ -1049,7 +1066,13 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
     double enq1 = 0.0, enq2 = 0.0, enq3 = 0.0, pepsh = 0.0, e = 0.0, edwn = 0.0,
            eup = 0.0, bnd = 0.0;
     double *ytable[8], *ymax, *work2;
-    int32 iret = 0, maxder = 0, k = 0, iret1 = 0, nqold = 0, nq = 0, newq = 0;
+    int32 iret = 0;
+    int32 maxder = 0;
+    int32 k = 0;
+    int32 iret1 = 0;
+    int32 nqold = 0;
+    int32 nq = 0;
+    int32 newq = 0;
     int32 idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0,
           job = 0, nt = 0;
     for (int32 i = 0; i < 8; i++) {

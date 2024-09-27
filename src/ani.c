@@ -203,7 +203,9 @@ static struct VCR {
     Window wfast;
     Window wslow;
     Window wmpeg;
-    Window wfly, kill, slider;
+    Window wfly;
+    Window kill;
+    Window slider;
     Window wup;
     Window wdn;
     Window wskip;
@@ -1069,7 +1071,8 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     uint32 CMSK = 0;
     uint32 CSHIFT = 0;
     uint32 CMULT = 0;
-    uint32 bbp = 0, bbc = 0;
+    uint32 bbp = 0;
+    uint32 bbc = 0;
     uint32 lobits;
     uint32 midbits;
     uint32 hibits;
@@ -1152,7 +1155,8 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
     uint32 CMSK = 0;
     uint32 CSHIFT = 0;
     uint32 CMULT = 0;
-    uint32 bbp = 0, bbc = 0;
+    uint32 bbp = 0;
+    uint32 bbc = 0;
     uint32 lobits;
     uint32 midbits;
     uint32 hibits;
@@ -1304,7 +1308,8 @@ load_ani_file(FILE *fp) {
     int32 jj1;
     int32 jj2;
     int32 jj;
-    int32 ans = 0, flag;
+    int32 ans = 0;
+    int32 flag;
     ani_line = 1;
     while (notdone) {
         read_ani_line(fp, old);
@@ -2361,7 +2366,10 @@ void
 draw_ani_comet(int32 j) {
     double x1 = my_ani[j].zx1;
     double y1 = my_ani[j].zy1;
-    int32 i1, j1, i2, j2;
+    int32 i1;
+    int32 j1;
+    int32 i2;
+    int32 j2;
     int32 nn;
     int32 ir;
     set_ani_thick(my_ani[j].zthick);
@@ -2473,7 +2481,11 @@ draw_ani_circ(int32 j) {
     double x1 = my_ani[j].zx1;
     double y1 = my_ani[j].zy1;
     double rad = my_ani[j].zrad;
-    int32 i1, j1, i2, j2, ir;
+    int32 i1;
+    int32 j1;
+    int32 i2;
+    int32 j2;
+    int32 ir;
 
     set_ani_col(j);
     set_ani_thick(my_ani[j].zthick);
@@ -2490,7 +2502,11 @@ draw_ani_fcirc(int32 j) {
     double x1 = my_ani[j].zx1;
     double y1 = my_ani[j].zy1;
     double rad = my_ani[j].zrad;
-    int32 i1, j1, i2, j2, ir;
+    int32 i1;
+    int32 j1;
+    int32 i2;
+    int32 j2;
+    int32 ir;
 
     set_ani_col(j);
     set_ani_thick(my_ani[j].zthick);

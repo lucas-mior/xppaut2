@@ -708,7 +708,9 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
     int32 flag;
     int32 l;
     int32 k0;
-    double sig2i, dy, wt;
+    double sig2i;
+    double dy;
+    double wt;
 
     do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars,
                     ivar, ipar);

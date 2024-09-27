@@ -187,7 +187,8 @@ dae_fun_do_daes(void) {
     double del;
     double z;
     double yold;
-    double tol = EVEC_ERR, eps = NEWT_ERR;
+    double tol = EVEC_ERR;
+    double eps = NEWT_ERR;
     int32 maxit = EVEC_ITER;
     int32 iter = 0;
     double *y, *ynew, *f, *fnew, *jac, *errvec;

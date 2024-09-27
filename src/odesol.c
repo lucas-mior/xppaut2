@@ -434,7 +434,9 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     double eps = 1e-15;
     double hmin;
     double hmax;
-    double tdir = 1, t0 = *tstart, t = t0;
+    double tdir = 1;
+    double t0 = *tstart;
+    double t = t0;
     double atol = ATOLER;
     double rtol = TOLER;
     double sqrteps = sqrt(eps);

@@ -934,7 +934,9 @@ cvode_dky(void *cvode_mem, double t, int32 k, Vector dky) {
     double s;
     double c;
     double r;
-    double tfuzz, tp, tn1;
+    double tfuzz;
+    double tp;
+    double tn1;
     int32 i;
     int32 j;
     CVodeMem cv_mem;
@@ -1211,7 +1213,12 @@ cv_hin(CVodeMem cv_mem, double tout) {
     double tround;
     double hlb;
     double hub;
-    double hg, hgs, hnew, hrat, h0, yddnrm;
+    double hg;
+    double hgs;
+    double hnew;
+    double hrat;
+    double h0;
+    double yddnrm;
 
     /* Test for tout too close to tn */
 
@@ -1880,7 +1887,9 @@ cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
     double A4;
     double A5;
     double A6;
-    double C, CPrime, CPrimePrime;
+    double C;
+    double CPrime;
+    double CPrimePrime;
 
     A1 = ONE - alpha0_hat + alpha0;
     A2 = ONE + q*A1;

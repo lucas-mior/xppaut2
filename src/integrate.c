@@ -379,7 +379,8 @@ void
 integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
     int32 m;
     int32 n = fixptguess.n;
-    int32 ierr, new = 1;
+    int32 ierr;
+    int32 new = 1;
     double x[MAX_ODE], sum;
     double er[MAX_ODE], em[MAX_ODE];
     if (append == 0)
@@ -467,7 +468,10 @@ integrate_eq_range(double *x) {
     double parhi;
     double dpar;
     double temp;
-    int32 npar, stabcol, i, ierr;
+    int32 npar;
+    int32 stabcol;
+    int32 i;
+    int32 ierr;
     int32 mc;
     char bob[256];
     double stabinfo = 0.0;
@@ -1530,7 +1534,9 @@ integrate_extract_ic_data(char *big) {
     int32 i;
     int32 n;
     int32 j;
-    int32 j1, j2, flag2;
+    int32 j1;
+    int32 j2;
+    int32 flag2;
     char front[40], new[50], c;
     char back[256];
     ani_de_space(big);
@@ -2454,11 +2460,15 @@ void
 integrate_export_data(FILE *fp) {
     int32 ip;
     int32 np = MyGraph->nvars;
-    int32 ZSHFT, YSHFT, XSHFT;
+    int32 ZSHFT;
+    int32 YSHFT;
+    int32 XSHFT;
     int32 kxoff;
     int32 kyoff;
     int32 kzoff;
-    int32 iiXPLT, iiYPLT, iiZPLT;
+    int32 iiXPLT;
+    int32 iiYPLT;
+    int32 iiZPLT;
     int32 strind = get_max_row_browser();
     int32 i1 = 0;
     double **data;
@@ -2558,11 +2568,15 @@ void
 integrate_restore(int32 i1, int32 i2) {
     int32 ip;
     int32 np = MyGraph->nvars;
-    int32 ZSHFT, YSHFT, XSHFT;
+    int32 ZSHFT;
+    int32 YSHFT;
+    int32 XSHFT;
     int32 kxoff;
     int32 kyoff;
     int32 kzoff;
-    int32 iiXPLT, iiYPLT, iiZPLT;
+    int32 iiXPLT;
+    int32 iiYPLT;
+    int32 iiZPLT;
     double oldxpl;
     double oldypl;
     double oldzpl;

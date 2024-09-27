@@ -696,7 +696,12 @@ typedef struct Browser {
     Window end;
     Window left;
     Window right;
-    Window first, last, restore, write, get, close;
+    Window first;
+    Window last;
+    Window restore;
+    Window write;
+    Window get;
+    Window close;
     Window load;
     Window repl;
     Window unrepl;
@@ -2404,7 +2409,9 @@ typedef struct BoxList {
     Window def;
     Window go;
     Window close;
-    Window xvt, pp, arr;
+    Window xvt;
+    Window pp;
+    Window arr;
     Window *w;
     Window *we;
     Window *ck;
@@ -2537,7 +2544,10 @@ typedef struct Range {
     int32 type;
     int32 type2;
     int32 movie;
-    double plow, phigh, plow2, phigh2;
+    double plow;
+    double phigh;
+    double plow2;
+    double phigh2;
     int32 rtype;
 } Range;
 

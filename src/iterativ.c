@@ -28,7 +28,10 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
                      double *new_vk_norm) {
     int32 k_minus_1;
     int32 i0;
-    double new_norm_2, new_product, vk_norm, temp;
+    double new_norm_2;
+    double new_product;
+    double vk_norm;
+    double temp;
 
     vk_norm = llnlmath_rsqrt(vector_dot_prod(v[k], v[k]));
     k_minus_1 = k - 1;
@@ -142,7 +145,10 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
     double temp1;
     double temp2;
     double temp3;
-    int32 i, q_ptr, n_minus_1, code = 0;
+    int32 i;
+    int32 q_ptr;
+    int32 n_minus_1;
+    int32 code = 0;
 
     switch (job) {
     case 0:
@@ -237,7 +243,8 @@ iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
     double s;
     double temp1;
     double temp2;
-    int32 q_ptr, code = 0;
+    int32 q_ptr;
+    int32 code = 0;
 
     /* Compute Q*b. */
 

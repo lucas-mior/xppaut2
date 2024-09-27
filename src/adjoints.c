@@ -412,7 +412,9 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
     double t;
     double prod;
     double del;
-    int32 l, k2, rval = 0;
+    int32 l;
+    int32 k2;
+    int32 rval = 0;
     int32 n2 = node*node;
     double error;
 

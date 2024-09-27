@@ -345,7 +345,10 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     int32 n1 = NODE + 1;
     double dt2 = .5*dt;
     double err;
-    double del, yold, fac, delinv;
+    double del;
+    double yold;
+    double fac;
+    double delinv;
     i0 = MAX(0, CurrentPoint - MaxPoints);
     iend = MIN(CurrentPoint - 1, MaxPoints - 1);
     ishift = i0 % MaxPoints;

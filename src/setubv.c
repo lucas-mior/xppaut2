@@ -376,7 +376,9 @@ void
 setubv_make_fa(setubv_parallel_arglist larg) {
     int64 j;
     int64 l;
-    int64 ic, k1, ib;
+    int64 ic;
+    int64 k1;
+    int64 ib;
     int64 jj;
     int64 jp1;
     int64 l1;

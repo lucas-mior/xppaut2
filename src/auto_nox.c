@@ -1089,12 +1089,18 @@ auto_nox_line(double x1i, double y1i, double x2i, double y2i) {
     double ymin;
     double xmax;
     double ymax;
-    double x1 = x1i, x2 = x2i, y1 = y1i, y2 = y2i;
+    double x1 = x1i;
+    double x2 = x2i;
+    double y1 = y1i;
+    double y2 = y2i;
     double x1d;
     double x2d;
     double y1d;
     double y2d;
-    double x1_out, y1_out, x2_out, y2_out;
+    double x1_out;
+    double y1_out;
+    double x2_out;
+    double y2_out;
 
     graphics_get_scale(&xmin, &ymin, &xmax, &ymax);
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
@@ -1135,7 +1141,10 @@ auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
     double y2;
     double par1;
     double par2 = 0;
-    int32 ix, iy1, iy2, type1 = type;
+    int32 ix;
+    int32 iy1;
+    int32 iy2;
+    int32 type1 = type;
     char bob[5];
     sprintf(bob, "%d", lab);
     par1 = par[icp1];
@@ -1335,7 +1344,9 @@ auto_nox_traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     int32 lab;
     int32 icp1;
     int32 icp2;
-    double x, y1, y2;
+    double x;
+    double y1;
+    double y2;
     char symb[3];
     if (d == NULL) {
         /*ggets_err_msg("Can not traverse to NULL diagram.");*/

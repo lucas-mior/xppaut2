@@ -384,10 +384,12 @@ void
 graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
     int32 i = 0;
     int32 j = 0;
-    int32 cx = x, cy = y;
+    int32 cx = x;
+    int32 cy = y;
     int32 cf = 0;
     int32 cs;
-    int32 n = (int32)strlen(str), dx = 0;
+    int32 n = (int32)strlen(str);
+    int32 dx = 0;
     char tmp[256], c;
     int32 sub;
     int32 sup;
@@ -779,7 +781,8 @@ void
 graphics_make_rot(double theta, double phi) {
     double ct = cos(DEGTORAD*theta);
     double st = sin(DEGTORAD*theta);
-    double sp = sin(DEGTORAD*phi), cp = cos(DEGTORAD*phi);
+    double sp = sin(DEGTORAD*phi);
+    double cp = cos(DEGTORAD*phi);
     MyGraph->Theta = theta;
     MyGraph->Phi = phi;
     MyGraph->rm[0][0] = ct;
@@ -844,7 +847,9 @@ graphics_threed_proj(double x, double y, double z, double *xp, double *yp) {
     double y1p;
     double z1p;
     double s;
-    double x2p, y2p, z2p;
+    double x2p;
+    double y2p;
+    double z2p;
     graphics_scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
     /* if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     graphics_rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
@@ -881,7 +886,9 @@ graphics_line3dn(/* unscaled version  unclipped */
     double xs;
     double ys;
     double zs;
-    double xsp, ysp, zsp;
+    double xsp;
+    double ysp;
+    double zsp;
     graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
     if (MyGraph->PerspFlag)
@@ -898,11 +905,15 @@ graphics_line3d(/* unscaled version     */
     double xs;
     double ys;
     double zs;
-    double xs1, ys1, zs1;
+    double xs1;
+    double ys1;
+    double zs1;
     double xsp;
     double ysp;
     double zsp;
-    double xsp1, ysp1, zsp1;
+    double xsp1;
+    double ysp1;
+    double zsp1;
     if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1,
                          &ysp1, &zsp1))
         return;
@@ -921,11 +932,15 @@ graphics_line_3d(double x, double y, double z, double xp, double yp,
     double xs;
     double ys;
     double zs;
-    double xs1, ys1, zs1;
+    double xs1;
+    double ys1;
+    double zs1;
     double xsp;
     double ysp;
     double zsp;
-    double xsp1, ysp1, zsp1;
+    double xsp1;
+    double ysp1;
+    double zsp1;
     double x01;
     double x02;
     double y01;
@@ -1103,7 +1118,9 @@ void
 graphics_fillin_text(char *old, char *new) {
     int32 i;
     int32 l = (int32)strlen(old);
-    int32 j, m, ans;
+    int32 j;
+    int32 m;
+    int32 ans;
     char name[256], c, c2;
     double z;
     char val[25];
@@ -1356,7 +1373,10 @@ graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
     int32 iy2;
     int32 isum;
     int32 iflag;
-    double wh, xhat, yhat, wv;
+    double wh;
+    double xhat;
+    double yhat;
+    double wv;
     double x_left = XMin;
     double x_right = XMax;
     double y_top = YMax;
@@ -1495,7 +1515,10 @@ graphics_draw_symbol(double x, double y, double size, int32 my_symb) {
     };
     int32 ind = 0;
     int32 pen = 0;
-    double x1 = x, y1 = y, x2, y2;
+    double x1 = x;
+    double y1 = y;
+    double x2;
+    double y2;
 
     while (pen != 3) {
         x2 = sym_dir[my_symb][3*ind + 1]*dx + x1;

@@ -141,7 +141,8 @@ pp_shoot_do_range(double *ystart, double *yend) {
     double parhi;
     double dpar;
     double temp;
-    int32 npar, ierr;
+    int32 npar;
+    int32 ierr;
     int32 side;
     int32 cycle;
     int32 icol;
@@ -282,7 +283,10 @@ void
 pp_shoot_find_bvp_com(int32 com) {
     int32 ishow = 0;
     int32 iret;
-    int32 iper = 0, ivar = 0, ipar = 0, pflag;
+    int32 iper = 0;
+    int32 ivar = 0;
+    int32 ipar = 0;
+    int32 pflag;
     double sect = 0.0;
     double oldpar = 0.0;
     double ystart[MAX_ODE], oldtrans;
@@ -391,7 +395,8 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
     char esc;
     int32 info;
     int32 niter = 0;
-    double dt = DELTA_T, t;
+    double dt = DELTA_T;
+    double t;
     double t0 = T0;
     double t1 = T0 + TEND*dt / fabs(dt);
 

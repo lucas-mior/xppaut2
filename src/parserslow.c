@@ -1327,7 +1327,10 @@ make_toks(char *dest, int32 *my_token) {
     double value;
     int32 old_tok = STARTTOK;
     int32 tok_in = 0;
-    int32 index = 0, token, nparen = 0, lastindex = 0;
+    int32 index = 0;
+    int32 token;
+    int32 nparen = 0;
+    int32 lastindex = 0;
     union /*  WARNING  -- ASSUMES 32 bit int32  and 64 bit double  */
     {
         struct {
@@ -1409,7 +1412,9 @@ do_num(char *source, char *num, double *value, int32 *ind) {
     int32 j = 0;
     int32 i = *ind;
     int32 error = 0;
-    int32 ndec = 0, nexp = 0, ndig = 0;
+    int32 ndec = 0;
+    int32 nexp = 0;
+    int32 ndig = 0;
     char ch;
     char oldch;
     oldch = '\0';
@@ -1483,7 +1488,8 @@ find_tok(char *source, int32 *index, int32 *tok) {
     int32 i = *index;
     int32 maxlen = 0;
     int32 symlen;
-    int32 my_tok, match;
+    int32 my_tok;
+    int32 match;
     my_tok = NSYM;
     for (int32 k = 0; k < NSYM; k++) {
         symlen = my_symb[k].len;
@@ -1955,7 +1961,9 @@ eval_rpn(int32 *equat) {
     int32 high;
     int32 ijmp;
     int32 iv;
-    double temx, temy, temz;
+    double temx;
+    double temy;
+    double temz;
     double sum;
     union /*  WARNING  -- ASSUMES 32 bit int32  and 64 bit double  */
     {

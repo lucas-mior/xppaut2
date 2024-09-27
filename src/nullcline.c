@@ -827,7 +827,8 @@ nullcline_new_clines_com(int32 c) {
     double xmax;
     double y_tp;
     double y_bot;
-    int32 col1 = XNullColor, col2 = YNullColor;
+    int32 col1 = XNullColor;
+    int32 col2 = YNullColor;
 
     if (MyGraph->ThreeDFlag || MyGraph->TimeFlag ||
         MyGraph->xv[0] == MyGraph->yv[0])

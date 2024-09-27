@@ -472,7 +472,10 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     int64 i__1;
     int64 i__2;
     int64 i__3;
-    double d__1, d__2, d__3, d__4;
+    double d__1;
+    double d__2;
+    double d__3;
+    double d__4;
 
     static double norm;
     static int64 i__, j, k, l, m;
@@ -2605,7 +2608,10 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     int64 z_offset;
     int64 i__1;
     int64 i__2;
-    double d__1, d__2, d__3, d__4;
+    double d__1;
+    double d__2;
+    double d__3;
+    double d__4;
 
     static double epsb, c__, d__, e;
     static int64 i__, j;
@@ -3876,7 +3882,9 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     int64 b_offset;
     int64 c_dim1;
     int64 c_offset;
-    int64 i__1, i__2, i__3;
+    int64 i__1;
+    int64 i__2;
+    int64 i__3;
     static int64 info;
     static int64 nota, notb;
     static double temp;
@@ -6096,7 +6104,9 @@ hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
     int64 v_dim1;
     int64 v_offset;
     int64 i__1;
-    double d__1, d__2, d__3;
+    double d__1;
+    double d__2;
+    double d__3;
 
     static int64 fail;
     static int64 i__, l;
@@ -6617,7 +6627,9 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     int64 v_dim1;
     int64 v_offset;
     int64 i__1;
-    double d__1, d__2, d__3;
+    double d__1;
+    double d__2;
+    double d__3;
 
     static int64 i__, j, m;
     static double p, q, r__, s, w, x, y, z__;
@@ -6786,7 +6798,9 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
     int64 v_offset;
     int64 i__1;
     int64 i__2;
-    double d__1, d__2, d__3;
+    double d__1;
+    double d__2;
+    double d__3;
 
     static int64 last;
     static int64 i__, j, k;

@@ -174,7 +174,10 @@ tabular_interp(double xlo, double h, double x, double *y, int32 i) {
     double b;
     double c;
     double d;
-    double ym, y0, y1, y2;
+    double ym;
+    double y0;
+    double y1;
+    double y2;
     double tt;
     ym = y[i - 1];
     y0 = y[i];
@@ -196,7 +199,9 @@ tabular_lookup(double x, int32 index) {
     double x1;
     double y1;
     double y2;
-    int32 i1, i2, n = my_table[index].n;
+    int32 i1;
+    int32 i2;
+    int32 n = my_table[index].n;
     y = my_table[index].y;
 
     if (my_table[index].flag == 0)

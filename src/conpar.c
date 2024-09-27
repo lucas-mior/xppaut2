@@ -18,7 +18,12 @@ conpar2_process(void *arg) {
     int64 icf_dim1;
     int64 irf_dim1;
     int64 d_dim1;
-    int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2;
+    int64 a_dim1;
+    int64 a_dim2;
+    int64 b_dim1;
+    int64 b_dim2;
+    int64 c_dim1;
+    int64 c_dim2;
 
     int64 ipiv;
     int64 jpiv;

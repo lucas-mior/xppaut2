@@ -151,7 +151,8 @@ scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
     uchar r;
     uchar g;
     uchar b;
-    int32 k = 0, l = 0;
+    int32 k = 0;
+    int32 l = 0;
     int32 pix;
     int32 nc;
     for (int32 i = 0; i < h; i++) {
@@ -175,7 +176,8 @@ scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
     uchar r;
     uchar g;
     uchar b;
-    int32 k = 0, l = 0;
+    int32 k = 0;
+    int32 l = 0;
     int32 pix;
     int32 ncol = 0;
     for (int32 i = 0; i < h; i++) {

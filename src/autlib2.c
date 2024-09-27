@@ -379,12 +379,19 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     int64 uoldps_dim1;
     int64 udotps_dim1;
     int64 upoldp_dim1;
-    int64 fa_dim1, wt_dim1, wp_dim1, wploc_dim1;
+    int64 fa_dim1;
+    int64 wt_dim1;
+    int64 wp_dim1;
+    int64 wploc_dim1;
 
     int64 j;
     int64 l;
     int64 m;
-    int64 mpart, i1, j1, k1, l1;
+    int64 mpart;
+    int64 i1;
+    int64 j1;
+    int64 k1;
+    int64 l1;
 
     double rlsum;
     int64 ib;
@@ -2038,7 +2045,10 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     int64 irm;
     int64 hasleft;
     int64 notsend;
-    int64 nam1, myright, nov2, nov3;
+    int64 nam1;
+    int64 myright;
+    int64 nov2;
+    int64 nov3;
     double *buf = NULL;
 
     icf2_dim1 = *nov;

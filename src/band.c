@@ -147,7 +147,12 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     int64 c;
     int64 r;
     int64 num_rows;
-    int64 i, l, storage_l, storage_k, last_col_k, last_row_k;
+    int64 i;
+    int64 l;
+    int64 storage_l;
+    int64 storage_k;
+    int64 last_col_k;
+    int64 last_row_k;
     double *a_c, *col_k, *diag_k, *sub_diag_k, *col_j, *kptr, *jptr;
     double max;
     double temp;

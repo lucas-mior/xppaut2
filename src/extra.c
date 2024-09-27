@@ -251,7 +251,8 @@ void
 extra_parse_inout(char *l, int32 flag) {
     int32 i = 0;
     int32 j = 0;
-    int32 k = 0, index;
+    int32 k = 0;
+    int32 index;
     char new[20], c;
     int32 done = 1;
     while (done) {

@@ -19,7 +19,13 @@ typedef struct {
     int32 ntst;
     int32 nmx;
     int32 npr;
-    double ds, dsmax, dsmin, rl0, rl1, a0, a1;
+    double ds;
+    double dsmax;
+    double dsmin;
+    double rl0;
+    double rl1;
+    double a0;
+    double a1;
     double xmin;
     double xmax;
     double ymin;
@@ -113,7 +119,10 @@ typedef struct {
     int32 icp3;
     int32 icp4;
     int32 icp5;
-    double xmin, ymin, xmax, ymax;
+    double xmin;
+    double ymin;
+    double xmax;
+    double ymax;
 } AutoAX;
 
 extern GrabPoint grabpt;

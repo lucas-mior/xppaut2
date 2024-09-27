@@ -45,7 +45,9 @@ static struct EqList {
     Window list;
     Window main;
     Window close;
-    int32 istart, nlines, flag;
+    int32 istart;
+    int32 nlines;
+    int32 flag;
 } eq_list;
 
 static int32 sparity;

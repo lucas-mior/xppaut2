@@ -273,7 +273,8 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 
     int32 ybot = DBottom;
     int32 ytop = DTop;
-    int32 xleft = DLeft, xright = DRight;
+    int32 xleft = DLeft;
+    int32 xright = DRight;
 
     axes2_doing = 1;
 

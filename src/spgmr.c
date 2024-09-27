@@ -161,7 +161,11 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     double r_norm;
     double s_product;
     double rho = 0.0;
-    bool preOnLeft, preOnRight, scale_x, scale_b, converged;
+    bool preOnLeft;
+    bool preOnRight;
+    bool scale_x;
+    bool scale_b;
+    bool converged;
     int32 l;
     int32 l_plus_1;
     int32 l_max;

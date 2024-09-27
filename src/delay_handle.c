@@ -109,7 +109,12 @@ delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
                     double *dy) {
     int32 m;
     int32 ns = 1;
-    double den, dif, dift, h0, hp, w;
+    double den;
+    double dif;
+    double dift;
+    double h0;
+    double hp;
+    double w;
     double c[10], d[10];
     dif = fabs(x - xa[0]);
     for (int32 i = 1; i <= n; i++) {

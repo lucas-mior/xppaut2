@@ -65,14 +65,22 @@ static struct ArrayPlot {
     Window wscale;
     Window wmax;
     Window wmin;
-    Window wplot, wredraw, wtime, wgif, wrange, wfit;
+    Window wplot;
+    Window wredraw;
+    Window wtime;
+    Window wgif;
+    Window wrange;
+    Window wfit;
     int32 index0;
     int32 indexn;
     int32 alive;
     int32 nacross;
     int32 ndown;
     int32 plotdef;
-    int32 height, width, ploth, plotw;
+    int32 height;
+    int32 width;
+    int32 ploth;
+    int32 plotw;
     int32 nstart;
     int32 nskip;
     int32 ncskip;
@@ -670,7 +678,10 @@ array_plot_redraw(struct ArrayPlot ap) {
     int32 col0 = ap.index0;
     int32 delx;
     int32 dely;
-    int32 ib, jb, ix, iy;
+    int32 ib;
+    int32 jb;
+    int32 ix;
+    int32 iy;
     if (nrows <= 2)
         return;
     if (ap.plotdef == 0 || ap.nacross < 2 || ap.ndown < 2)

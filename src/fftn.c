@@ -464,14 +464,28 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
     int32 kspan;
     int32 ispan;
     int32 inc;
-    int32 j, jc, jf, jj, k, k1, k3, kk, kt, nn, ns, nt;
+    int32 j;
+    int32 jc;
+    int32 jf;
+    int32 jj;
+    int32 k;
+    int32 k1;
+    int32 k3;
+    int32 kk;
+    int32 kt;
+    int32 nn;
+    int32 ns;
+    int32 nt;
 
     REAL radf;
     REAL c1;
     REAL c2;
     REAL c3;
     REAL cd;
-    REAL s1, s2, s3, sd;
+    REAL s1;
+    REAL s2;
+    REAL s3;
+    REAL sd;
 
     REAL *Rtmp = NULL; /* temp space for real part*/
     REAL *Itmp = NULL; /* temp space for imaginary part */

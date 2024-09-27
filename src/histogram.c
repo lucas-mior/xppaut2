@@ -65,7 +65,9 @@ histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
     */
     int32 i;
     int32 j;
-    double dx, dy, norm;
+    double dx;
+    double dy;
+    double norm;
     double x;
     double y;
     dx = (xhi - xlo) / (double)n1;
@@ -803,7 +805,9 @@ histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
                 int32 nbins, double *z, int32 flag) {
     int32 k;
     int32 count = 0;
-    double sum, avx = 0.0, avy = 0.0;
+    double sum;
+    double avx = 0.0;
+    double avy = 0.0;
     double dz = (zhi - zlo) / (double)nbins, jz;
     if (flag) {
         for (int32 i = 0; i < n; i++) {

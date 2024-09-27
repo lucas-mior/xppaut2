@@ -306,7 +306,10 @@ simplenet_add_spec_fun(char *name, char *rhs) {
     int32 iind;
     int32 ivar;
     int32 ivar2;
-    int32 ntype, ntot, ncon, ntab;
+    int32 ntype;
+    int32 ntot;
+    int32 ncon;
+    int32 ntab;
     char *str;
     char junk[256];
     char rootname[20], wgtname[20], tauname[20], indname[20];
@@ -1512,7 +1515,8 @@ simplenet_gil_parse(char *s, int32 *ind, int32 *nn) {
     int32 i2;
     int32 jp = 0;
     int32 f;
-    int32 k = 0, iv;
+    int32 k = 0;
+    int32 iv;
     int32 id;
     int32 m;
     ggets_plintf("s=|%s|", s);

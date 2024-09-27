@@ -36,7 +36,12 @@ static struct TxtView {
     Window text;
     Window src;
     Window action;
-    int32 here, first, hgt, wid, nlines, which;
+    int32 here;
+    int32 first;
+    int32 hgt;
+    int32 wid;
+    int32 nlines;
+    int32 which;
     int32 dh;
     int32 dw;
 } txtview;

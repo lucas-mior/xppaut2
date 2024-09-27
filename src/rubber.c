@@ -17,7 +17,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     int32 error = 0;
     int32 dragx = 0;
     int32 dragy = 0;
-    int32 oldx = 0, oldy = 0;
+    int32 oldx = 0;
+    int32 oldy = 0;
     int32 state = 0;
     xor_flag = 1;
     XFlush(display);

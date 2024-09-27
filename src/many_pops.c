@@ -658,7 +658,10 @@ many_pops_add_marker(void) {
     int32 flag;
     int32 i1;
     int32 j1;
-    double xe = 0.0, ye = 0.0, xs, ys;
+    double xe = 0.0;
+    double ye = 0.0;
+    double xs;
+    double ys;
     {
         /* many pops get marker info */
         static char *n[] = {"*5Type", "*4Color", "Size"};
@@ -696,7 +699,10 @@ many_pops_add_pntarr(int32 type) {
     int32 i2;
     int32 j2;
     int32 color = 0;
-    double xe, ye, xs, ys;
+    double xe;
+    double ye;
+    double xs;
+    double ys;
     /*Window temp;*/
     int32 flag;
     /*temp=main_win;*/
