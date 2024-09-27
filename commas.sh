@@ -6,14 +6,14 @@ BRACKETS='\[.*\]'
 
 find src -iname "*.[ch]" | while read file; do
 
-awk " /^    [[:alnum:]_]+ ($IDENT(\[[^]]+\])?( = \S+)?, )+$IDENT(\[[^]]+\])?( = \S+)?;\$/ {
+awk " /^static [[:alnum:]_]+ ($IDENT(\[[^]]+\])?( = \S+)?, )+$IDENT(\[[^]]+\])?( = \S+)?;\$/ {
 # print; exit
     type = \$1
     \$1 = \"\"
 
     split(\$0, array, \",\");
     for (i in array) {
-        printf(\"    %s%s;NEWLINELINE\", type, array[i]);
+        printf(\"static %s%s;NEWLINELINE\", type, array[i]);
     }
     getline
 }{
