@@ -3774,8 +3774,8 @@ void odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-extern int32 DisplayWidth;
-extern int32 DisplayHeight;
+extern int32 display_width;
+extern int32 display_height;
 extern int32 screen;
 extern Atom deleteWindowAtom;
 extern Window main_win;

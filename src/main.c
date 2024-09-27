@@ -56,8 +56,8 @@ int32 batch_range = 0;
 int32 BatchEquil = -1;
 char batchout[XPP_MAX_NAME];
 char user_out_file[XPP_MAX_NAME];
-int32 DisplayHeight;
-int32 DisplayWidth;
+int32 display_height;
+int32 display_width;
 int32 TrueColorFlag;
 char font_name_big[100];
 char font_name_small[100];
@@ -1220,8 +1220,8 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
     }
     dp_w = DisplayWidth(display, screen);
     dp_h = DisplayHeight(display, screen);
-    DisplayWidth = dp_w;
-    DisplayHeight = dp_h;
+    display_width = dp_w;
+    display_height = dp_h;
     if (SCALEX > dp_w) {
         SCALEX = dp_w;
     }

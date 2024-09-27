@@ -1040,7 +1040,7 @@ pop_list_respond_box(char *button, char *message) {
     width = width + 4;
     height = 5*DCURY;
     wmain = pop_list_make_plain_window(RootWindow(display, screen),
-                                       DisplayWidth / 2, DisplayHeight / 2,
+                                       display_width / 2, display_height / 2,
                                        width*DCURX, height, 4);
     many_pops_make_icon((char *)alert_bits, alert_width, alert_height, wmain);
     wm = pop_list_make_plain_window(wmain, ((width - l1)*DCURX) / 2,
