@@ -345,7 +345,13 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
 int32
 volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
               double *yp2, double *errvec, double *jac) {
-    int32 i0, iend, ishift, iter = 0, info, ipivot[MAX_ODE1], ind;
+    int32 i0;
+    int32 iend;
+    int32 ishift;
+    int32 iter = 0;
+    int32 info;
+    int32 ipivot[MAX_ODE1];
+    int32 ind;
     int32 n1 = NODE + 1;
     double dt2 = .5*dt;
     double err;

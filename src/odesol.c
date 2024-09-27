@@ -95,7 +95,9 @@ odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
     double err = 0.0;
     double err1 = 0.0;
 
-    int32 iter = 0, info, ipivot[MAX_ODE1];
+    int32 iter = 0;
+    int32 info;
+    int32 ipivot[MAX_ODE1];
     int32 ml = cv_bandlower, mr = cv_bandupper, mt = ml + mr + 1;
     markov_set_wieners(dt, y, *t);
     *t = *t + dt;

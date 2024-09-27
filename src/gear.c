@@ -57,7 +57,9 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     int32 nege = 0;
     int32 pr;
     double *work, *eval, *b, *bp, *oldwork, *ework;
-    double temp, oldt = DELTA_T, old_x[MAX_ODE];
+    double temp;
+    double oldt = DELTA_T;
+    double old_x[MAX_ODE];
 
     char ch;
     double real;

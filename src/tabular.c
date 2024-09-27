@@ -265,7 +265,9 @@ tabular_eval_fun(int32 n, double xlo, double xhi, char *formula, double *y) {
 
     double dx;
     double oldt;
-    int32 command[200], ncold = NCON, nsym = NSYM;
+    int32 command[200];
+    int32 ncold = NCON;
+    int32 nsym = NSYM;
     if (parserslow_add_expr(formula, command, &i)) {
         ggets_err_msg("Illegal formula...");
         NCON = ncold;

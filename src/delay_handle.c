@@ -198,7 +198,9 @@ delay_handle_get_delay(int32 in, double tau) {
 /*  Handling of the initial data  */
 int32
 delay_handle_do_init_delay(double big) {
-    double t = T0, old_t, y[MAX_ODE];
+    double t = T0;
+    double old_t;
+    double y[MAX_ODE];
     int32 nt;
     int32 len;
 

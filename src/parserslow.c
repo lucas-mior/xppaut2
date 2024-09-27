@@ -930,7 +930,11 @@ get_ivar(int32 i) {
 
 int32
 parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
-    int32 tokstak[500], comptr = 0, tokptr = 0, lstptr = 0, temp;
+    int32 tokstak[500];
+    int32 comptr = 0;
+    int32 tokptr = 0;
+    int32 lstptr = 0;
+    int32 temp;
     int32 ncomma = 0;
     int32 loopstk[100];
     int32 lptr = 0;

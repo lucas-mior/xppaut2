@@ -1850,14 +1850,23 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     double xvold[MAX_ODE + 1];
     double oldperiod = 0.0;
     double error[MAX_ODE];
-    double xprime[MAX_ODE], oldxprime[MAX_ODE], hguess = dt;
+    double xprime[MAX_ODE];
+    double oldxprime[MAX_ODE];
+    double hguess = dt;
     int32 kflag;
 
     int32 torcross[MAX_ODE];
     int32 nodes = xpv.node + xpv.nvec - NMarkov;
 
     int32 rval = 0;
-    double oldx[MAX_ODE], oldt = 0, dint, dxp, sect, sect1, tout, tzero = *t;
+    double oldx[MAX_ODE];
+    double oldt = 0;
+    double dint;
+    double dxp;
+    double sect;
+    double sect1;
+    double tout;
+    double tzero = *t;
     double sss;
     double tnew = *t;
     int32 iflagstart = 1;
