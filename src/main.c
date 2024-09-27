@@ -53,8 +53,8 @@ int32 flag_tips = 1;
 Atom atom_delete_window = 0;
 int32 xpp_batch = 0;
 int32 batch_range = 0;
-int32 BatchEquil = -1;
-char batchout[XPP_MAX_NAME];
+int32 batch_equil = -1;
+char batch_out[XPP_MAX_NAME];
 char user_out_file[XPP_MAX_NAME];
 int32 display_height;
 int32 display_width;
@@ -73,11 +73,11 @@ GC gc;
 GC gc_graph;
 GC small_gc;
 GC font_gc;
-char UserBlack[8];
-char UserWhite[8];
-char UserMainWinColor[8];
+char user_black[8];
+char user_white[8];
+char user_main_win_color[8];
 char UserDrawWinColor[8];
-char UserBGBitmap[XPP_MAX_NAME];
+char user_bg_bitmap[XPP_MAX_NAME];
 
 int32 UserGradients = -1;
 int32 UserMinWidth = 0;
@@ -241,12 +241,12 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.XHI = 1;
     notAlreadySet.YLO = 1;
     notAlreadySet.YHI = 1;
-    notAlreadySet.UserBlack = 1;
-    notAlreadySet.UserWhite = 1;
-    notAlreadySet.UserMainWinColor = 1;
+    notAlreadySet.user_black = 1;
+    notAlreadySet.user_white = 1;
+    notAlreadySet.user_main_win_color = 1;
     notAlreadySet.UserDrawWinColor = 1;
     notAlreadySet.UserGradients = 1;
-    notAlreadySet.UserBGBitmap = 1;
+    notAlreadySet.user_bg_bitmap = 1;
     notAlreadySet.UserMinWidth = 1;
     notAlreadySet.UserMinHeight = 1;
     notAlreadySet.YNullColor = 1;
@@ -381,7 +381,7 @@ do_main(int32 argc, char **argv) {
     SCALEY = 480;
 
     Xup = 0;
-    snprintf(batchout, sizeof(batchout), "output.dat");
+    snprintf(batch_out, sizeof(batch_out), "output.dat");
     snprintf(plot_format, sizeof(plot_format), "ps");
 
     /* Read visualization environement variables here
@@ -659,10 +659,10 @@ main_init_x(void) {
     Black = (uint32)BlackPixel(display, screen);
     White = (uint32)WhitePixel(display, screen);
 
-    if (strlen(UserBlack) != 0) {
+    if (strlen(user_black) != 0) {
         XColor user_col;
 
-        XParseColor(display, DefaultColormap(display, screen), UserBlack,
+        XParseColor(display, DefaultColormap(display, screen), user_black,
                     &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
@@ -670,10 +670,10 @@ main_init_x(void) {
         Black = MyForeColor;
     }
 
-    if (strlen(UserWhite) != 0) {
+    if (strlen(user_white) != 0) {
         XColor user_col;
 
-        XParseColor(display, DefaultColormap(display, screen), UserWhite,
+        XParseColor(display, DefaultColormap(display, screen), user_white,
                     &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
@@ -689,18 +689,18 @@ main_init_x(void) {
         /* Respect the swapping implied by the -white option. */
         char swapcol[8];
         printf("Doing swap!\n");
-        strcpy(swapcol, UserWhite);
-        strcpy(UserWhite, UserBlack);
-        strcpy(UserBlack, swapcol);
+        strcpy(swapcol, user_white);
+        strcpy(user_white, user_black);
+        strcpy(user_black, swapcol);
 
         MyForeColor = GrFore = White;
         MyBackColor = GrBack = Black;
     }
 
-    if (strlen(UserMainWinColor) != 0) {
+    if (strlen(user_main_win_color) != 0) {
         XColor main_win_col;
 
-        XParseColor(display, DefaultColormap(display, screen), UserMainWinColor,
+        XParseColor(display, DefaultColormap(display, screen), user_main_win_color,
                     &main_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &main_win_col);
 
@@ -801,28 +801,28 @@ main_init_x(void) {
     main_get_gc(&small_gc);
     main_get_gc(&font_gc);
 
-    if (strlen(UserBGBitmap) != 0) {
+    if (strlen(user_bg_bitmap) != 0) {
         uint32 width_return, height_return;
         int32 x_hot, y_hot;
         uchar *pixdata;
 
         int32 success =
-            XReadBitmapFileData(UserBGBitmap, &width_return, &height_return,
+            XReadBitmapFileData(user_bg_bitmap, &width_return, &height_return,
                                 &pixdata, &x_hot, &y_hot);
 
         if (success != BitmapSuccess) {
             if (success == BitmapOpenFailed) {
                 ggets_plintf(
                     "Problem reading bitmap file %s -> BitmapOpenFailed\n",
-                    UserBGBitmap);
+                    user_bg_bitmap);
             } else if (success == BitmapFileInvalid) {
                 ggets_plintf(
                     "Problem reading bitmap file %s -> BitmapFileInvalid\n",
-                    UserBGBitmap);
+                    user_bg_bitmap);
             } else if (success == BitmapNoMemory) {
                 ggets_plintf(
                     "Problem reading bitmap file %s -> BitmapNoMemory\n",
-                    UserBGBitmap);
+                    user_bg_bitmap);
             }
         } else {
             Pixmap pmap = XCreatePixmapFromBitmapData(

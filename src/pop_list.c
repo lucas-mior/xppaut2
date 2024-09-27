@@ -643,8 +643,8 @@ pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
         /*double l2rads;*/
         xx = 0;
 
-        XParseColor(display, cmap, UserWhite, &bcolour);
-        XParseColor(display, cmap, UserBlack, &diffcol);
+        XParseColor(display, cmap, user_white, &bcolour);
+        XParseColor(display, cmap, user_black, &diffcol);
 
         /*l2rads = 3.1415926535897932384/(1.0*height);
          */
@@ -732,8 +732,8 @@ pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
          */
         xx = 0;
 
-        XParseColor(display, cmap, UserWhite, &bcolour);
-        XParseColor(display, cmap, UserBlack, &diffcol);
+        XParseColor(display, cmap, user_white, &bcolour);
+        XParseColor(display, cmap, user_black, &diffcol);
 
         /*l2rads = 3.1415926535897932384/(1.0*height);*/
 
@@ -833,8 +833,8 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
     XColor col2;
     XColor diffcol;
     Colormap cmap = DefaultColormap(display, DefaultScreen(display));
-    XParseColor(display, cmap, UserWhite, &bcolour);
-    XParseColor(display, cmap, UserBlack, &diffcol);
+    XParseColor(display, cmap, user_white, &bcolour);
+    XParseColor(display, cmap, user_black, &diffcol);
 
     if (UserGradients == 1) {
         double cosine;

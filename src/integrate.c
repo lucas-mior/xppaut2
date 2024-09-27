@@ -960,7 +960,7 @@ integrate_do_range(double *x, int32 flag) {
             if (res == 1 || STOCH_FLAG) {
                 if (batch_range == 1) {
                     histogram_post_process_stuff();
-                    integrate_write_this_run(batchout, i);
+                    integrate_write_this_run(batch_out, i);
                 }
                 storind = 0;
             }
@@ -1004,7 +1004,7 @@ integrate_silent_equilibria(void) {
     double em[MAX_ODE];
     int32 ierr;
     FILE *fp;
-    if (BatchEquil < 0) {
+    if (batch_equil < 0) {
         return;
     }
     for (int32 i = 0; i < NODE; i++) {
@@ -1019,7 +1019,7 @@ integrate_silent_equilibria(void) {
             fprintf(fp, "%g %g %g\n", x[i], er[i], em[i]);
         }
         fclose(fp);
-        if (BatchEquil == 1) {
+        if (batch_equil == 1) {
             gear_save_batch_shoot();
         }
     }
@@ -1109,13 +1109,13 @@ integrate_batch(void) {
         sprintf(this_internset, "_%s", intern_set[i].name);
         if (strlen(user_out_file) == 0) /*Use the set name for outfile name*/
         {
-            sprintf(batchout, "%s.dat", intern_set[i].name);
+            sprintf(batch_out, "%s.dat", intern_set[i].name);
         } else /*Use the command line supplied outfile name*/
         {
             /*Will get over-written each internal set*/
-            sprintf(batchout, "%s", user_out_file);
+            sprintf(batch_out, "%s", user_out_file);
         }
-        ggets_plintf("out=%s\n", batchout);
+        ggets_plintf("out=%s\n", batch_out);
         load_eqn_extract_internset(i);
         numerics_chk_delay();
         ggets_plintf(" Ok integrating now \n");
@@ -1136,9 +1136,9 @@ integrate_batch_dry_run(void) {
 
     ggets_plintf("It's a dry run...\n");
 
-    fp = fopen(batchout, "w");
+    fp = fopen(batch_out, "w");
     if (fp == NULL) {
-        printf(" Unable to open %s to write \n", batchout);
+        printf(" Unable to open %s to write \n", batch_out);
         return;
     }
 
@@ -1229,9 +1229,9 @@ batch_integrate_once(void) {
             markov_variance_back();
         }
         if (!SuppressOut) {
-            fp = fopen(batchout, "w");
+            fp = fopen(batch_out, "w");
             if (fp == NULL) {
-                ggets_plintf(" Unable to open %s to write \n", batchout);
+                ggets_plintf(" Unable to open %s to write \n", batch_out);
                 return;
             }
             write_my_browser_data(fp);
@@ -1246,8 +1246,8 @@ batch_integrate_once(void) {
     /*   fp=fopen("run.gpl","w");
 
     fprintf(fp,"set term pdf \n");
-    fprintf(fp,"set out \"%s.pdf\"\n",batchout);
-    fprintf(fp,"plot \"%s\" with lines\n",batchout);
+    fprintf(fp,"set out \"%s.pdf\"\n",batch_out);
+    fprintf(fp,"plot \"%s\" with lines\n",batch_out);
     fclose(fp);
     system("gnuplot run.gpl");
     */

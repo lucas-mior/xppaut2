@@ -235,16 +235,16 @@ load_eqn_set_x_vals(void) {
         strcpy(font_name_small, "6x13");
     }
 
-    if (strlen(UserBlack) == 0) {
-        sprintf(UserBlack, "#%s", "000000");
+    if (strlen(user_black) == 0) {
+        sprintf(user_black, "#%s", "000000");
     }
 
-    if (strlen(UserWhite) == 0) {
-        sprintf(UserWhite, "#%s", "EDE9E3");
+    if (strlen(user_white) == 0) {
+        sprintf(user_white, "#%s", "EDE9E3");
     }
 
-    if (strlen(UserMainWinColor) == 0) {
-        sprintf(UserMainWinColor, "#%s", "808080");
+    if (strlen(user_main_win_color) == 0) {
+        sprintf(user_main_win_color, "#%s", "808080");
     }
 
     if (strlen(UserDrawWinColor) == 0) {
@@ -839,7 +839,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
                 /*
                 if (strcmp("mwcolor",name)==0)
                 {
-                        if (strlen(UserMainWinColor)!=0)
+                        if (strlen(user_main_win_color)!=0)
                         {
                                 continue;
                         }
@@ -855,7 +855,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
 
                 if (strcmp("forecolor",name)==0)
                 {
-                        if (strlen(UserWhite)!=0)
+                        if (strlen(user_white)!=0)
                         {
                                 continue;
                         }
@@ -863,7 +863,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
 
                 if (strcmp("backcolor",name)==0)
                 {
-                        if (strlen(UserBlack)!=0)
+                        if (strlen(user_black)!=0)
                         {
                                 continue;
                         }
@@ -871,7 +871,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
 
                 if (strcmp("backimage",name)==0)
                 {
-                        if (strlen(UserBGBitmap)!=0)
+                        if (strlen(user_bg_bitmap)!=0)
                         {
                                 continue;
                         }
@@ -1089,27 +1089,27 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("FORECOLOR", s1)) {
-        if ((notAlreadySet.UserBlack || force) ||
-            ((mask != NULL) && (mask->UserBlack == 1))) {
-            sprintf(UserBlack, "#%s", s2);
-            notAlreadySet.UserBlack = 0;
+        if ((notAlreadySet.user_black || force) ||
+            ((mask != NULL) && (mask->user_black == 1))) {
+            sprintf(user_black, "#%s", s2);
+            notAlreadySet.user_black = 0;
         }
         return;
     }
     if (load_eqn_msc("BACKCOLOR", s1)) {
-        if ((notAlreadySet.UserWhite || force) ||
-            ((mask != NULL) && (mask->UserWhite == 1))) {
-            sprintf(UserWhite, "#%s", s2);
-            notAlreadySet.UserWhite = 0;
+        if ((notAlreadySet.user_white || force) ||
+            ((mask != NULL) && (mask->user_white == 1))) {
+            sprintf(user_white, "#%s", s2);
+            notAlreadySet.user_white = 0;
         }
         return;
     }
     if (load_eqn_msc("MWCOLOR", s1)) {
-        if ((notAlreadySet.UserMainWinColor || force) ||
-            ((mask != NULL) && (mask->UserMainWinColor == 1))) {
+        if ((notAlreadySet.user_main_win_color || force) ||
+            ((mask != NULL) && (mask->user_main_win_color == 1))) {
             /* printf("Setting MWCOLOR=%s\n",s2); */
-            sprintf(UserMainWinColor, "#%s", s2);
-            notAlreadySet.UserMainWinColor = 0;
+            sprintf(user_main_win_color, "#%s", s2);
+            notAlreadySet.user_main_win_color = 0;
         }
         return;
     }
@@ -1144,10 +1144,10 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("BACKIMAGE", s1)) {
-        if ((notAlreadySet.UserBGBitmap || force) ||
-            ((mask != NULL) && (mask->UserBGBitmap == 1))) {
-            strcpy(UserBGBitmap, s2);
-            notAlreadySet.UserBGBitmap = 0;
+        if ((notAlreadySet.user_bg_bitmap || force) ||
+            ((mask != NULL) && (mask->user_bg_bitmap == 1))) {
+            strcpy(user_bg_bitmap, s2);
+            notAlreadySet.user_bg_bitmap = 0;
         }
         return;
     }
@@ -1731,7 +1731,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("OUTPUT", s1)) {
         if ((notAlreadySet.OUTPUT || force) ||
             ((mask != NULL) && (mask->OUTPUT == 1))) {
-            strcpy(batchout, s2);
+            strcpy(batch_out, s2);
             notAlreadySet.OUTPUT = 0;
         }
         return;

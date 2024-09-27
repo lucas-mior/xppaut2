@@ -51,7 +51,7 @@ This also has the clone gadget
 #define READEM 1
 #define WRITEM 0
 
-/*extern char UserBGBitmap[100];*/
+/*extern char user_bg_bitmap[100];*/
 #define PARAMBOX 1
 #define ICBOX 2
 #define DELAYBOX 3

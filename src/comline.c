@@ -178,7 +178,7 @@ comline_do(int32 argc, char **argv) {
         }
         if (k == 5) {
             ggets_plintf(argv[i + 1]);
-            strncpy(batchout, argv[i + 1], sizeof(batchout));
+            strncpy(batch_out, argv[i + 1], sizeof(batch_out));
             strncpy(user_out_file, argv[i + 1], sizeof(user_out_file));
             i++;
         }
@@ -307,9 +307,9 @@ comline_do(int32 argc, char **argv) {
             externaloptionsflag = 2;
         }
         if (k == 30) { /* -equil */
-            BatchEquil = atoi(argv[i + 1]);
+            batch_equil = atoi(argv[i + 1]);
             i++;
-            printf(" Batch equilibria %d \n", BatchEquil);
+            printf(" Batch equilibria %d \n", batch_equil);
         }
     }
     return;
