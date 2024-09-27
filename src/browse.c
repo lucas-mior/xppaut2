@@ -190,7 +190,8 @@ browse_data_add_col(Browser *b) {
     Window window;
     int32 rev;
     int32 status;
-    char var[20], form[80];
+    char var[20];
+    char form[80];
     if (browse_check_for_stor(b->data) == 0)
         return;
     XGetInputFocus(display, &window, &rev);
@@ -208,7 +209,8 @@ browse_data_add_col(Browser *b) {
 
 int32
 browse_add_stor_col(char *name, char *formula, Browser *b) {
-    int32 com[4000], i;
+    int32 com[4000];
+    int32 i;
 
     if (parserslow_add_expr(formula, com, &i)) {
         ggets_err_msg("Bad Formula .... ");
@@ -255,7 +257,8 @@ browse_add_stor_col(char *name, char *formula, Browser *b) {
 void
 browse_chk_seq(char *f, int32 *seq, double *a1, double *a2) {
     int32 j = -1;
-    char n1[256], n2[256];
+    char n1[256];
+    char n2[256];
     int32 n = (int32)strlen(f);
     *seq = 0;
     *a1 = 0.0;
@@ -286,7 +289,8 @@ browse_chk_seq(char *f, int32 *seq, double *a1, double *a2) {
 
 void
 browse_replace_column(char *var, char *form, double **dat, int32 n) {
-    int32 com[200], i;
+    int32 com[200];
+    int32 i;
     int32 intflag = 0;
     int32 dif_var = -1;
     int32 seq = 0;
@@ -1270,7 +1274,8 @@ browse_data_replace(Browser *b) {
     Window window;
     int32 rev;
     int32 status;
-    char var[20], form[80];
+    char var[20];
+    char form[80];
     XGetInputFocus(display, &window, &rev);
     strcpy(var, uvar_names[0]);
     strcpy(form, uvar_names[0]);

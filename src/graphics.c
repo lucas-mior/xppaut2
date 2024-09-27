@@ -390,7 +390,8 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
     int32 cs;
     int32 n = (int32)strlen(str);
     int32 dx = 0;
-    char tmp[256], c;
+    char tmp[256];
+    char c;
     int32 sub;
     int32 sup;
     cs = size;
@@ -1008,7 +1009,8 @@ graphics_pers_line(double x, double y, double z, double xp, double yp,
 void
 graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp,
                    double *zp) {
-    double vt[3], vnew[3];
+    double vt[3];
+    double vnew[3];
     vt[0] = x;
     vt[1] = y;
     vt[2] = z;
@@ -1121,7 +1123,9 @@ graphics_fillin_text(char *old, char *new) {
     int32 j;
     int32 m;
     int32 ans;
-    char name[256], c, c2;
+    char name[256];
+    char c;
+    char c2;
     double z;
     char val[25];
     i = 0;

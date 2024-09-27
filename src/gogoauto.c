@@ -17,7 +17,8 @@ int32
 go_go_auto(void) {
     /* this is the entry at this point, x_auto has been set */
     int64 icp[NPARX2];
-    double par[NPARX2], thl[NPARX];
+    double par[NPARX2];
+    double thl[NPARX];
     double *thu;
     int64 iuz[100];
     double vuz[100];

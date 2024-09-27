@@ -702,7 +702,8 @@ load_eqn_fil_int(FILE *fpt, int32 *val) {
 
 void
 load_eqn_add_intern_set(char *name, char *does) {
-    char bob[1024], ch;
+    char bob[1024];
+    char ch;
     int32 n;
     int32 j = Nintern_set;
     int32 k = 0;
@@ -743,7 +744,8 @@ load_eqn_add_intern_set(char *name, char *does) {
 
 void
 load_eqn_extract_action(char *ptr) {
-    char name[256], value[256];
+    char name[256];
+    char value[256];
     char tmp[2048];
     char *junk;
     char *mystring;
@@ -1008,7 +1010,9 @@ void
 load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     int32 i;
     int32 f;
-    char xx[4], yy[4], zz[4];
+    char xx[4];
+    char yy[4];
+    char zz[4];
     char xxl[6], xxh[6], yyl[6], yyh[6];
     static char mkey[] = "demragvbqsc582y";
     static char Mkey[] = "DEMRAGVBQSC582Y";

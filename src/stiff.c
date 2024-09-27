@@ -147,7 +147,8 @@ int32
 stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
       double yscal[], double *hdid, double *hnext, double *work, double epjac,
       int32 *ier) {
-    int32 jtry, indx[700];
+    int32 jtry;
+    int32 indx[700];
     int32 info;
     double errmax, h, xsav, *a, *dfdx, *dfdy, *dysav, *err;
     double *g1, *g2, *g3, *g4, *ysav, *work2;

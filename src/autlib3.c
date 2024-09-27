@@ -2287,7 +2287,11 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 nrsp1;
     int64 ntot1;
     int64 found;
-    int64 icprs[NPARX], nparr, k1, k2, nskip1;
+    int64 icprs[NPARX];
+    int64 nparr;
+    int64 k1;
+    int64 k2;
+    int64 nskip1;
 
     double rd1;
     double rd2;
@@ -2665,7 +2669,11 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 nrsp1;
     int64 ntot1;
     int64 found;
-    int64 icprs[NPARX], nparr, k1, k2, nskip1;
+    int64 icprs[NPARX];
+    int64 nparr;
+    int64 k1;
+    int64 k2;
+    int64 nskip1;
 
     int64 ibr;
     int64 ndm;
@@ -3050,7 +3058,12 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 nrsp1;
     int64 ntot1;
     int64 found;
-    int64 icprs[NPARX], nparr, k1, k2, k3, nskip1;
+    int64 icprs[NPARX];
+    int64 nparr;
+    int64 k1;
+    int64 k2;
+    int64 k3;
+    int64 nskip1;
 
     int64 ibr;
     int64 ndm;
@@ -3550,7 +3563,8 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 ntot1;
     double *u;
     int64 found;
-    int64 icprs[NPARX], nparr;
+    int64 icprs[NPARX];
+    int64 nparr;
 
     int64 k1;
     int64 k2;
@@ -4142,7 +4156,11 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 nrsp1;
     int64 ntot1;
     int64 found;
-    int64 icprs[NPARX], nparr, k1, k2, nskip1;
+    int64 icprs[NPARX];
+    int64 nparr;
+    int64 k1;
+    int64 k2;
+    int64 nskip1;
 
     int64 ibr;
     int64 ndm;

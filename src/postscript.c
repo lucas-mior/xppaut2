@@ -335,7 +335,8 @@ ps_special_put_text(int32 x, int32 y, char *str, int32 size) {
     /*int32 cs;*/
     int32 n = (int32)strlen(str);
     int32 cy = 0;
-    char tmp[256], c;
+    char tmp[256];
+    char c;
     int32 sub;
     int32 sup;
     int32 pssz;

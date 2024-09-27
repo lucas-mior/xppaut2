@@ -131,7 +131,9 @@ axes2_redraw_cube_pt(double theta, double phi) {
 
 void
 axes2_do(void) {
-    char s1[20], s2[20], s3[20];
+    char s1[20];
+    char s2[20];
+    char s3[20];
     axes2_get_title_str(s1, s2, s3);
     graphics_set_linestyle(0);
     if (Xup) {

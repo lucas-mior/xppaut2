@@ -364,7 +364,18 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     int64 ic;
     int64 jc;
     double ds;
-    int64 nxploc, jac, nbc, ndm, ict[NPARX], ilp, ips, isp, irs, itp, isw, nmx;
+    int64 nxploc;
+    int64 jac;
+    int64 nbc;
+    int64 ndm;
+    int64 ict[NPARX];
+    int64 ilp;
+    int64 ips;
+    int64 isp;
+    int64 irs;
+    int64 itp;
+    int64 isw;
+    int64 nmx;
 
     /* General initialization. Redefinition of constants. */
 
@@ -735,7 +746,9 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double *f;
     double *u, dsold;
 
-    double rlold[NPARX], rldot[NPARX], rlcur[NPARX];
+    double rlold[NPARX];
+    double rldot[NPARX];
+    double rlcur[NPARX];
     int64 istop;
     int64 itpst;
 
@@ -4697,7 +4710,9 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 nuzr;
     double dsold;
     int64 nodir = 0;
-    double rlold[NPARX], rldot[NPARX], rlcur[NPARX];
+    double rlold[NPARX];
+    double rldot[NPARX];
+    double rlcur[NPARX];
     int64 nitps;
     int64 istop;
     int64 itpst;
@@ -5667,7 +5682,9 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     int64 nfpr;
 
     int64 found;
-    int64 icprs[NPARX], nparr, nskip;
+    int64 icprs[NPARX];
+    int64 nparr;
+    int64 nskip;
 
     int64 nfprs;
     int64 k1;
@@ -6768,7 +6785,10 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     int64 jtmp;
     int64 ntot;
     int32 iflag = 0;
-    double u_high[1000], u_low[1000], u_0[1000], u_bar[1000];
+    double u_high[1000];
+    double u_low[1000];
+    double u_0[1000];
+    double u_bar[1000];
     double a0;
     double a1;
     /* used a fixed array here for maximum AUTO size

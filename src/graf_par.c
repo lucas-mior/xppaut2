@@ -463,7 +463,8 @@ graf_par_check_windows(void) {
 void
 graf_par_xi_vs_t(void) {
     /*  a short cut   */
-    char name[20], value[20];
+    char name[20];
+    char value[20];
     int32 i = MyGraph->yv[0];
 
     graf_par_ind_to_sym(i, value);
@@ -881,7 +882,9 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
     int32 i;
     int32 i1 = MyGraph->xv[in_it], i2 = MyGraph->yv[in_it],
           i3 = MyGraph->zv[in_it];
-    char n1[15], n2[15], n3[15];
+    char n1[15];
+    char n2[15];
+    char n3[15];
 
     graf_par_ind_to_sym(i1, n1);
     graf_par_ind_to_sym(i2, n2);
@@ -1294,7 +1297,9 @@ graf_par_read_bd(FILE *fp) {
     int32 ncrv = 0;
     int32 len;
     int32 f2;
-    double x[8000], ylo[8000], yhi[8000];
+    double x[8000];
+    double ylo[8000];
+    double yhi[8000];
     len = 0;
     fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &oldtype,
            &oldbr, &f2);
@@ -1342,7 +1347,8 @@ graf_par_read_bd(FILE *fp) {
 int32
 graf_par_get_frz_index(Window window) {
     char *n[MAXFRZ];
-    char key[MAXFRZ], ch;
+    char key[MAXFRZ];
+    char ch;
 
     int32 count = 0;
     Window temp = main_win;

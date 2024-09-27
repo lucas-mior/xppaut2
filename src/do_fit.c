@@ -22,14 +22,17 @@
 
 static struct FitInfo {
     char file[25];
-    char varlist[25], collist[25];
+    char varlist[25];
+    char collist[25];
     char parlist1[25], parlist2[25];
     int32 dim;
     int32 npars;
     int32 nvars;
     int32 npts;
     int32 maxiter;
-    int32 icols[50], ipar[50], ivar[50];
+    int32 icols[50];
+    int32 ipar[50];
+    int32 ivar[50];
     double tol;
     double eps;
 } fit_info;
@@ -85,7 +88,8 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
     int32 l;
     int32 k0;
     int32 ok;
-    double yold[MAX_ODE], dp;
+    double yold[MAX_ODE];
+    double dp;
     double par;
     *flag = 0;
     /* set up all initial data and parameter guesses  */
@@ -333,7 +337,10 @@ do_fit_test(void) {
     int32 nvars;
     int32 npars;
     int32 ok;
-    char collist[30], parlist1[30], parlist2[30], varlist[30];
+    char collist[30];
+    char parlist1[30];
+    char parlist2[30];
+    char varlist[30];
 
     static char *n[] = {"File",  "Fitvar", "Params", "Tolerance", "Npts",
                         "NCols", "To Col", "Params", "Epsilon",   "Max iter"};
@@ -483,7 +490,8 @@ do_fit_run(/* double arrays */
     int32 niter = 0;
     int32 good_flag = 0;
     double tol10 = 10*tol;
-    double t, ytemp[MAX_ODE];
+    double t;
+    double ytemp[MAX_ODE];
     /*printf(" %s %d %d %d %d %d \n",
               filename,
             npts,npars,nvars,maxiter,ndim); */
@@ -631,7 +639,8 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
                    int32 *ipar, double *covar, double *alpha, double *chisq,
                    double *alambda, double *work, double **yderv, double *yfit,
                    double *ochisq, int32 ictrl, double eps) {
-    int32 ierr, ipivot[1000];
+    int32 ierr;
+    int32 ipivot[1000];
 
     double *da, *atry, *beta, *oneda;
     da = work;

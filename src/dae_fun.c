@@ -82,7 +82,8 @@ dae_fun_add_aeqn(char *rhs) {
 /* this compiles formulas to set to zero */
 int32
 dae_fun_compile_svars(void) {
-    int32 f[256], n;
+    int32 f[256];
+    int32 n;
     if (nsvar != naeqn) {
         ggets_plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar,
                      naeqn);

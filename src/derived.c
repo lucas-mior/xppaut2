@@ -21,7 +21,8 @@ It is called only once during the session
 */
 int32
 derived_compile(void) {
-    int32 f[256], n;
+    int32 f[256];
+    int32 n;
     for (int64 i = 0; i < nderived; i++) {
         if (parserslow_add_expr(derived[i].rhs, f, &n) == 1) {
             ggets_plintf(" Bad right-hand side for derived parameters \n");

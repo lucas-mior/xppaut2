@@ -1699,7 +1699,9 @@ cv_set(CVodeMem cv_mem) {
 
 static void
 cv_set_adams(CVodeMem cv_mem) {
-    double m[L_MAX], M[3], hsum;
+    double m[L_MAX];
+    double M[3];
+    double hsum;
 
     if (q == 1) {
         l[0] = l[1] = tq[1] = tq[5] = ONE;

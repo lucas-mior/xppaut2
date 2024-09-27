@@ -4209,7 +4209,8 @@ typedef struct Tabular {
                              interp=0 for normal interpolation, interp=1 for
        'step' interp=2 for cubic spline table   and finally, xyvals=1 if both x
        and y vals are needed (xyvals=0 is faster lookup )*/
-    char filename[128], name[12];
+    char filename[128];
+    char name[12];
 } Tabular;
 
 extern Tabular my_table[MAX_TAB];

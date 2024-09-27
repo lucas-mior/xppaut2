@@ -359,7 +359,8 @@ lunch_io_numerics(int32 f, FILE *fp) {
 
 void
 lunch_io_parameter_file(char *fn, int32 flag) {
-    char fnx[256], c;
+    char fnx[256];
+    char c;
     int32 j = 0;
     int32 np;
     FILE *fp;
@@ -407,7 +408,8 @@ lunch_io_parameter_file(char *fn, int32 flag) {
 
 void
 lunch_io_ic_file(char *fn, int32 flag) {
-    char fnx[256], c;
+    char fnx[256];
+    char c;
     int32 j = 0;
     int32 chk = 0;
     FILE *fp;

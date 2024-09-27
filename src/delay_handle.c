@@ -115,7 +115,8 @@ delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
     double h0;
     double hp;
     double w;
-    double c[10], d[10];
+    double c[10];
+    double d[10];
     dif = fabs(x - xa[0]);
     for (int32 i = 1; i <= n; i++) {
         if ((dift = fabs(x - xa[i - 1])) < dif) {
@@ -147,7 +148,10 @@ double
 delay_handle_get_delay(int32 in, double tau) {
     double x = tau / fabs(DELTA_T);
     double dd = fabs(DELTA_T);
-    double y, ya[4], xa[4], dy;
+    double y;
+    double ya[4];
+    double xa[4];
+    double dy;
     int32 n1 = (int32)x;
     int32 n2 = n1 + 1;
     int32 nodes = NODE;

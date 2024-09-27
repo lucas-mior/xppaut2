@@ -150,7 +150,8 @@ typedef struct Network {
     int32 ncon;
     int32 n;
     char name[20];
-    char soname[256], sofun[256];
+    char soname[256];
+    char sofun[256];
 
     int32 root;
     int32 root2;
@@ -312,7 +313,10 @@ simplenet_add_spec_fun(char *name, char *rhs) {
     int32 ntab;
     char *str;
     char junk[256];
-    char rootname[20], wgtname[20], tauname[20], indname[20];
+    char rootname[20];
+    char wgtname[20];
+    char tauname[20];
+    char indname[20];
     char root2name[20], fname[20];
     char sofun[256], soname[256], *tname[MAXW];
     type = simplenet_is_network(rhs);
@@ -1510,7 +1514,10 @@ int32
 simplenet_gil_parse(char *s, int32 *ind, int32 *nn) {
     int32 i = 0;
     int32 n = (int32)strlen(s);
-    char piece[50], b[20], bn[25], c;
+    char piece[50];
+    char b[20];
+    char bn[25];
+    char c;
     int32 i1;
     int32 i2;
     int32 jp = 0;
@@ -1571,7 +1578,8 @@ simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
     int32 n = (int32)strlen(s);
     int32 ir = -1;
     int32 j = 0;
-    char c, num[20];
+    char c;
+    char num[20];
     *flag = 0;
     for (i = 0; i < n; i++)
         if (s[i] == '{')

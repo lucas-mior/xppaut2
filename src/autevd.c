@@ -21,7 +21,8 @@ int32 DiagFlag = 0;
 static struct MyEV {
     int32 pt;
     int32 br;
-    double evr[NAUTO], evi[NAUTO];
+    double evr[NAUTO];
+    double evi[NAUTO];
 } my_ev;
 
 void

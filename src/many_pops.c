@@ -729,7 +729,8 @@ many_pops_add_pntarr(int32 type) {
 
 void
 many_pops_edit_object_com(int32 com) {
-    char ans, str[80];
+    char ans;
+    char str[80];
     int32 i;
     int32 j;
     int32 ilab = -1;

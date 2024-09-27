@@ -86,7 +86,8 @@ typedef struct {
     int32 *comcond;
     int32 sign;
     int32 nevents;
-    int32 hit, type[MAX_EVENTS];
+    int32 hit;
+    int32 type[MAX_EVENTS];
     int32 anypars;
     int32 nointerp;
 } FLAG;
@@ -438,7 +439,8 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
 int32
 one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
                    int32 *istart) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     double s;
     double dtt = dt;
@@ -466,7 +468,8 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
 int32
 one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
                     int32 *istart) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     double s;
     double dtt = dt;
@@ -494,7 +497,8 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
 int32
 one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
                        double *tim, int32 *istart) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     double s;
     double dtt = dt;
@@ -521,7 +525,8 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
 int32
 one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
                    double *tim, int32 *istart) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     double s;
     double dtt = dt;
@@ -548,7 +553,8 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
 int32
 one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
                   int32 *istart) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     double s;
     double dtt = dt;
@@ -576,7 +582,8 @@ int32
 one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
                    double hmax, double eps, int32 mf, double *error,
                    int32 *kflag, int32 *jstart, double *work, int32 *iwork) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     double s;
     int32 nstep = 0;
@@ -607,7 +614,8 @@ one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
 int32
 one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
                     int32 n, double *work, int32 *ierr) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 ok;
     int32 hit;
     double s;
@@ -639,7 +647,8 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
 int32
 one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
                  double *tol, double *atol, int32 flag2, int32 *kflag) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     double s;
     int32 nstep = 0;
@@ -672,7 +681,8 @@ one_flag_step_cvode(
     /* command =0 continue, 1 is start 2 finish */
     int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     int32 neq = n;
     double s;
@@ -706,7 +716,8 @@ int32
 one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
                    double *hguess, double hmin, double *work, int32 *ier,
                    double epjac, int32 iflag, int32 *jstart) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     double s;
     int32 nstep = 0;
@@ -738,7 +749,8 @@ int32
 one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
                       double *yp, double *yp2, double *ytemp, double *errvec,
                       double *jac, int32 *istart) {
-    double yold[MAX_ODE], told;
+    double yold[MAX_ODE];
+    double told;
     int32 hit;
     int32 j;
     double s;

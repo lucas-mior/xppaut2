@@ -332,7 +332,8 @@ tabular_load_table(char *filename, int32 index) {
     double xlo;
     double xhi;
     FILE *fp;
-    char filename2[512], ch;
+    char filename2[512];
+    char ch;
     char error[sizeof(filename2) + sizeof(cur_dir) + 20];
     int32 n = (int32)strlen(filename);
     int32 j = 0;

@@ -901,14 +901,26 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     int64 ir;
     double rm;
     int64 master[KREDO];
-    int64 ib1, ib2, myleft[KREDO];
+    int64 ib1;
+    int64 ib2;
+    int64 myleft[KREDO];
 
     int64 worker[KREDO];
-    int64 ir1, iprown, iprown2, ism[KREDO], irm[KREDO], nrcmnbc;
+    int64 ir1;
+    int64 iprown;
+    int64 iprown2;
+    int64 ism[KREDO];
+    int64 irm[KREDO];
+    int64 nrcmnbc;
     double tmp;
     int64 myleftc[KREDO];
     int64 notsend;
-    int64 nap1, myright[KREDO], nam1, len1, len2, icp1;
+    int64 nap1;
+    int64 myright[KREDO];
+    int64 nam1;
+    int64 len1;
+    int64 len2;
+    int64 icp1;
     double piv1;
     double piv2;
     double *buf = NULL;
@@ -1659,10 +1671,14 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     int64 myleft[KREDO];
     int64 worker[KREDO];
     double buf[2];
-    int64 ism[KREDO], irm[KREDO];
+    int64 ism[KREDO];
+    int64 irm[KREDO];
     double tmp;
     int64 notsend;
-    int64 nap1, nam1, myright[KREDO], icp1;
+    int64 nap1;
+    int64 nam1;
+    int64 myright[KREDO];
+    int64 icp1;
 
     (void)ncb;
 
@@ -2033,7 +2049,10 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     int64 k;
     int64 l;
 
-    int64 nlist[2], itest, l1, l2;
+    int64 nlist[2];
+    int64 itest;
+    int64 l1;
+    int64 l2;
     double sm;
     int64 msglen;
 
@@ -2352,7 +2371,10 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     double xkwt;
     int64 n;
 
-    int64 nredo, msglen, rmtype[KREDO], smtype[KREDO];
+    int64 nredo;
+    int64 msglen;
+    int64 rmtype[KREDO];
+    int64 smtype[KREDO];
     int64 odd[KREDO];
 
     double *buf;

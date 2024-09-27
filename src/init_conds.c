@@ -2271,7 +2271,8 @@ init_conds_man_ic(void) {
     int32 done;
     int32 index = 0;
     double z;
-    char name[256], junk[256];
+    char name[256];
+    char junk[256];
     while (true) {
         sprintf(name, "%s :", uvar_names[index]);
         z = last_ic[index];

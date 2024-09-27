@@ -1303,7 +1303,9 @@ ani_new_file(char *filename) {
 
 int32
 load_ani_file(FILE *fp) {
-    char old[300], new[300], big[300];
+    char old[300];
+    char new[300];
+    char big[300];
     int32 notdone = 1;
     int32 jj1;
     int32 jj2;
@@ -1337,7 +1339,12 @@ load_ani_file(FILE *fp) {
 */
 int32
 parse_ani_string(char *s, FILE *fp) {
-    char x1[300], x2[300], x3[300], x4[300], col[300], thick[300];
+    char x1[300];
+    char x2[300];
+    char x3[300];
+    char x4[300];
+    char col[300];
+    char thick[300];
     char *ptr;
     char *nxt;
     char *command;
@@ -2718,7 +2725,8 @@ ani_de_space(char *s) {
 
 int32
 ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
-    char start[256], end[256];
+    char start[256];
+    char end[256];
     int32 com[256];
     int32 nc;
     int32 j;
@@ -2765,7 +2773,8 @@ int32
 ani_grab_tasks(char *graphics_line, int32 igrab, int32 which) {
     int32 k;
     int32 n = (int32)strlen(graphics_line);
-    char form[256], c;
+    char form[256];
+    char c;
     char rhs[256], lhs[20];
     k = 0;
     for (int32 i = 0; i < n; i++) {

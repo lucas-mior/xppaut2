@@ -31,7 +31,8 @@ static struct EqBox {
     Window top;
     Window close;
     Window import;
-    double y[MAX_ODE], ev[MAX_ODE + MAX_ODE];
+    double y[MAX_ODE];
+    double ev[MAX_ODE + MAX_ODE];
     int32 n;
     int32 flag;
     int32 info[5];

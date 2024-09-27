@@ -87,7 +87,8 @@ build_markov(
      */
     int32 len = 0;
     int32 ll;
-    char line[256], expr[256];
+    char line[256];
+    char expr[256];
     int32 istart;
 
     int32 nstates;
@@ -137,7 +138,8 @@ markov_old_build(FILE *fptr, char *name) {
     /*int32 nn;*/
     int32 len = 0;
     int32 ll;
-    char line[256], expr[256];
+    char line[256];
+    char expr[256];
     int32 istart;
 
     int32 nstates;

@@ -1,6 +1,10 @@
 #include "integers.h"
 struct {
-    int32 ndim, ips, irs, ilp, icp[20];
+    int32 ndim;
+    int32 ips;
+    int32 irs;
+    int32 ilp;
+    int32 icp[20];
     double par[20];
 } blbcn_;
 
@@ -51,7 +55,9 @@ struct {
 #define blmax_1 blmax_
 
 struct {
-    double epsl[20], epsu, epss;
+    double epsl[20];
+    double epsu;
+    double epss;
 } bleps_;
 
 #define bleps_1 bleps_

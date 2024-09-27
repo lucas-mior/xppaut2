@@ -106,7 +106,8 @@ ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
 
 void
 calc_q_calc(void) {
-    char value[80], name[10];
+    char value[80];
+    char name[10];
     double z = 0.0;
     XEvent event;
     int32 done = 0;
@@ -207,7 +208,8 @@ calc_has_eq(char *z, char *w, int32 *where) {
 
 double
 calc(char *expr, int32 *ok) {
-    int32 com[400], i;
+    int32 com[400];
+    int32 i;
     double z = 0.0;
     if (parserslow_add_expr(expr, com, &i)) {
         ggets_err_msg("Illegal formula ..");

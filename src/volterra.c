@@ -42,7 +42,8 @@ volterra_ker_val(int32 in) {
 
 void
 volterra_alloc_memory(void) {
-    int32 len, formula[256];
+    int32 len;
+    int32 formula[256];
 
     /* First parse the kernels   since these were deferred */
     for (int32 i = 0; i < NKernel; i++) {
@@ -171,7 +172,10 @@ void
 volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
                    int32 ishift) {
     double t = t0 + n*dt, tp = t0 + i0*dt;
-    double sum[MAX_ODE], al, alpbet, mu;
+    double sum[MAX_ODE];
+    double al;
+    double alpbet;
+    double mu;
     int32 nvar = FIX_VAR + NODE + NMarkov;
     int32 l;
     int32 ioff;

@@ -329,7 +329,8 @@ edit_rhs(void) {
     int32 len;
     int32 i0;
     int32 n = NEQ;
-    char fstr[20], msg[200];
+    char fstr[20];
+    char msg[200];
     if (NEQ > NEQMAXFOREDIT)
         return;
     names = xmalloc((usize)n*sizeof(char *));

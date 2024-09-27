@@ -579,7 +579,10 @@ diagram_save(FILE *fp, int32 n) {
 
 int32
 diagram_load(FILE *fp, int32 node) {
-    double u0[NAUTO], uhi[NAUTO], ulo[NAUTO], ubar[NAUTO];
+    double u0[NAUTO];
+    double uhi[NAUTO];
+    double ulo[NAUTO];
+    double ubar[NAUTO];
     double evr[NAUTO], evi[NAUTO];
     double norm;
     double par[8];

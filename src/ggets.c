@@ -212,7 +212,8 @@ ggets_get_key_press(XEvent *event) {
 
 void
 ggets_cput_text(void) {
-    char string[256], new[256];
+    char string[256];
+    char new[256];
     int32 x;
     int32 y;
     int32 size = 2;

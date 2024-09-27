@@ -253,7 +253,8 @@ extra_parse_inout(char *l, int32 flag) {
     int32 j = 0;
     int32 k = 0;
     int32 index;
-    char new[20], c;
+    char new[20];
+    char c;
     int32 done = 1;
     while (done) {
         c = l[i];

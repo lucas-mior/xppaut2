@@ -12,7 +12,9 @@ int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
     double zz[NAUTO];
-    double y[NAUTO], yp[NAUTO], xp[NAUTO];
+    double y[NAUTO];
+    double yp[NAUTO];
+    double xp[NAUTO];
 
     (void)icp;
     (void)dfdu;

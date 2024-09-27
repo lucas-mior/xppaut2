@@ -78,7 +78,11 @@ typedef struct {
     int32 ntot;
     int32 itp;
     int32 lab;
-    double norm, uhi[NAUTO], ulo[NAUTO], u0[NAUTO], ubar[NAUTO];
+    double norm;
+    double uhi[NAUTO];
+    double ulo[NAUTO];
+    double u0[NAUTO];
+    double ubar[NAUTO];
     double par[20], per, torper;
     int32 index;
     int32 nfpar;
@@ -98,7 +102,9 @@ typedef struct diagram {
     int32 lab;
     int32 calc;
     double norm, *uhi, *ulo, *u0, *ubar, *evr, *evi;
-    double par[20], per, torper;
+    double par[20];
+    double per;
+    double torper;
     int32 index;
     int32 nfpar;
     int32 icp1;

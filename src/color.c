@@ -254,7 +254,9 @@ color_map_make(void) {
     Colormap cmap;
     int32 clo = 20;
 
-    int32 r[256], g[256], b[256];
+    int32 r[256];
+    int32 g[256];
+    int32 b[256];
 
     cmap = (Colormap)NULL;
     color_min = 30;

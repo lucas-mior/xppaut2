@@ -46,7 +46,8 @@ typedef struct IcBox {
     int32 node;
     char **name;
     char ascval[MAX_ODE][ICLENGTH];
-    Window wname[ICMAX], wval[ICMAX];
+    Window wname[ICMAX];
+    Window wval[ICMAX];
 } IcBox;
 
 typedef struct Graph {
@@ -82,7 +83,9 @@ typedef struct Graph {
     double dx;
     double dy;
     double dz;
-    int32 xv[MAXPERPLOT], yv[MAXPERPLOT], zv[MAXPERPLOT];
+    int32 xv[MAXPERPLOT];
+    int32 yv[MAXPERPLOT];
+    int32 zv[MAXPERPLOT];
     int32 line[MAXPERPLOT], color[MAXPERPLOT];
     double Theta;
     double Phi;
@@ -108,7 +111,9 @@ typedef struct Graph {
     int32 zorgflag;
     int32 ColorFlag;
     int32 ColorValue;
-    char xlabel[30], ylabel[30], zlabel[30];
+    char xlabel[30];
+    char ylabel[30];
+    char zlabel[30];
     char gr_info[256];
 } Graph;
 
@@ -123,7 +128,8 @@ typedef struct TextGC {
 
 typedef struct Curve {
     Window window;
-    char key[20], name[10];
+    char key[20];
+    char name[10];
     int16 use;
     int16 type;
     double *xv, *yv, *zv;

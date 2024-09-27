@@ -44,7 +44,8 @@ static double gear_max(double x, double y);
 void
 gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
              int32 n, int32 *ierr, double *stabinfo) {
-    int32 kmem, ipivot[MAX_ODE];
+    int32 kmem;
+    int32 ipivot[MAX_ODE];
     int32 oldcol;
     int32 dummy;
     int32 rp = 0;
@@ -284,7 +285,8 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
 void
 gear_save_batch_shoot(void) {
     int32 type;
-    double x[MAX_ODE], olddt;
+    double x[MAX_ODE];
+    double olddt;
     char name[256];
     FILE *fp;
     if (ShootIndex < 1)
@@ -326,7 +328,8 @@ gear_shoot_this_now(void) {
     int32 type;
     int32 oldcol;
     int32 dummy;
-    double x[MAX_ODE], olddt;
+    double x[MAX_ODE];
+    double olddt;
     if (ShootIndex < 1)
         return;
     olddt = DELTA_T;
@@ -357,7 +360,8 @@ gear_shoot_this_now(void) {
 void
 gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr) {
-    int32 kmem, ipivot[MAX_ODE];
+    int32 kmem;
+    int32 ipivot[MAX_ODE];
 
     int32 rp = 0;
     int32 rn = 0;
@@ -366,7 +370,8 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     int32 pose = 0;
     int32 nege = 0;
     double *work, *eval, *b, *bp, *oldwork, *ework;
-    double temp, old_x[MAX_ODE];
+    double temp;
+    double old_x[MAX_ODE];
 
     double real;
     double imag;
@@ -974,7 +979,9 @@ gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
 void
 gear_rooter(double *x, double err, double eps, double big, double *work,
             int32 *ierr, int32 maxit, int32 n) {
-    int32 iter, ipivot[MAX_ODE], info;
+    int32 iter;
+    int32 ipivot[MAX_ODE];
+    int32 info;
     char ch;
     double *xp, *yp, *y, *xg, *dermat, *dely;
     double r;

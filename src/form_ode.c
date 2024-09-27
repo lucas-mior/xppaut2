@@ -114,7 +114,8 @@ static void form_ode_format_list(char **s, int32 n);
 int32
 form_ode_make_eqn(void) {
     FILE *fptr;
-    char wild[256], string[256];
+    char wild[256];
+    char string[256];
     int32 okay;
     NEQ = 2;
     FIX_VAR = 0;
@@ -426,7 +427,8 @@ form_ode_compiler(char *bob, FILE *fptr) {
     int32 index;
     int32 sign;
     char *ptr, *my_string, *command;
-    char name[20], formula[MAXEXPLEN];
+    char name[20];
+    char formula[MAXEXPLEN];
     char condition[MAXEXPLEN];
     char fixname[MAX_ODE1][12];
     int32 nlin;
@@ -882,7 +884,9 @@ form_ode_do_fit_get_next(char *src) {
 void
 form_ode_find_ker(char *string, int32 *alt) {
     /* this extracts the integral operators from the string */
-    char new[MAXEXPLEN], form[MAXEXPLEN], num[MAXEXPLEN];
+    char new[MAXEXPLEN];
+    char form[MAXEXPLEN];
+    char num[MAXEXPLEN];
     double mu = 0.0;
     int32 fflag = 0;
     int32 in = 0;
@@ -890,7 +894,8 @@ form_ode_find_ker(char *string, int32 *alt) {
     int32 ifr = 0;
     int32 inum = 0;
     int32 n = (int32)strlen(string);
-    char name[20], ch;
+    char name[20];
+    char ch;
     *alt = 0;
     while (i < n) {
         ch = string[i];
@@ -1086,7 +1091,9 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
     FILE *fnew;
     /*int32 nlin;
      */
-    char big[MAXEXPLEN], old[MAXEXPLEN], new[MAXEXPLEN];
+    char big[MAXEXPLEN];
+    char old[MAXEXPLEN];
+    char new[MAXEXPLEN];
     char *my_string;
     int32 is_array = 0;
     if (nnn == 0)
@@ -1914,7 +1921,8 @@ form_ode_break_up_list(char *rhs) {
     int32 i = 0;
     int32 j = 0;
     int32 l = (int32)strlen(rhs);
-    char s[20], c;
+    char s[20];
+    char c;
     while (i < l) {
         c = rhs[i];
         if (c == ' ' || c == ',') {
@@ -1946,7 +1954,8 @@ form_ode_find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name) {
  */
 int32
 form_ode_formula_or_number(char *expr, double *z) {
-    char num[80], form[80];
+    char num[80];
+    char form[80];
     int32 flag;
     int32 i = 0;
     int32 olderr = ERROUT;
@@ -2368,7 +2377,8 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
     int32 ileft;
     int32 iright;
     int32 n = (int32)strlen(old);
-    char num1[20], num2[20];
+    char num1[20];
+    char num2[20];
     char ch;
     char chp;
     ileft = n - 1;
@@ -2519,7 +2529,9 @@ void
 form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
     int32 i, n = (int32)strlen(big), inew, add, inum, m, isign, ok,
              multflag = 0;
-    char ch, chp, num[20];
+    char ch;
+    char chp;
+    char num[20];
     inew = 0;
     i = 0;
     /*  if(big[0]=='#'){   */
@@ -2633,7 +2645,9 @@ form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
 
 void
 form_ode_add_comment(char *s) {
-    char text[256], action[256], ch;
+    char text[256];
+    char action[256];
+    char ch;
     int32 n = (int32)strlen(s);
     int32 j1 = 0;
     int32 ja = 0;

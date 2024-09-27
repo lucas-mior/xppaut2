@@ -437,7 +437,8 @@ numerics_set_col_par_com(int32 i) {
     double maxder = 0.0;
     double minder = 0.0;
     double sum = 0.0;
-    char ch, name[20];
+    char ch;
+    char name[20];
     MyGraph->ColorFlag = i;
     if (MyGraph->ColorFlag == 0) {
         /* set color to black/white */

@@ -445,7 +445,8 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     /*double ninf;  Is this needed?*/
     int32 n2 = n*n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
           mt = ml + mr + 1;
-    int32 ipivot[MAX_ODE1], nofailed;
+    int32 ipivot[MAX_ODE1];
+    int32 nofailed;
     double temp;
     double err;
     double tdel;

@@ -482,7 +482,10 @@ void
 nullcline_redraw_dfield(void) {
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
-    double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
+    double y[MAX_ODE];
+    double ydot[MAX_ODE];
+    double xv1;
+    double xv2;
     double v1[MAX_ODE], v2[MAX_ODE];
     FILE *fp = NULL;
 
@@ -588,9 +591,13 @@ nullcline_direct_field_com(int32 c) {
     int32 start;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
-    double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
+    double y[MAX_ODE];
+    double ydot[MAX_ODE];
+    double xv1;
+    double xv2;
     double dtold = DELTA_T;
-    double v1[MAX_ODE], v2[MAX_ODE];
+    double v1[MAX_ODE];
+    double v2[MAX_ODE];
 
     double amp;
     double mdf;
@@ -940,7 +947,8 @@ nullcline_store(double x1, double y1, double x2, double y2) {
 
 double
 nullcline_fnull(double x, double y) {
-    double y1[MAX_ODE], ydot[MAX_ODE];
+    double y1[MAX_ODE];
+    double ydot[MAX_ODE];
     for (int32 i = 0; i < NODE; i++)
         y1[i] = last_ic[i];
 
@@ -963,7 +971,8 @@ nullcline_interpolate(Point p1, Point p2, double z, double *x, double *y) {
 
 void
 nullcline_quad_contour(Point p1, Point p2, Point p3, Point p4) {
-    double x[4], y[4];
+    double x[4];
+    double y[4];
     int32 count = 0;
     if (p1.z*p2.z <= 0.0)
         if (nullcline_interpolate(p1, p2, 0.0, &x[count], &y[count]))

@@ -92,7 +92,8 @@ static FixPointList fixptlist;
 typedef struct FixPointGuess {
     int32 n;
     double tol;
-    double xlo[MAX_ODE], xhi[MAX_ODE];
+    double xlo[MAX_ODE];
+    double xhi[MAX_ODE];
 } FixPointGuess;
 
 static FixPointGuess fixptguess;
@@ -381,7 +382,8 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
     int32 n = fixptguess.n;
     int32 ierr;
     int32 new = 1;
-    double x[MAX_ODE], sum;
+    double x[MAX_ODE];
+    double sum;
     double er[MAX_ODE], em[MAX_ODE];
     if (append == 0)
         fixptlist.n = 0;
@@ -923,7 +925,9 @@ integrate_do_range(double *x, int32 flag) {
 
 void
 integrate_silent_equilibria(void) {
-    double x[MAX_ODE], er[MAX_ODE], em[MAX_ODE];
+    double x[MAX_ODE];
+    double er[MAX_ODE];
+    double em[MAX_ODE];
     int32 ierr;
     FILE *fp;
     if (BatchEquil < 0)
@@ -1183,7 +1187,8 @@ integrate_write_this_run(char *file, int32 i) {
 
 void
 integrate_do_init_data(int32 com) {
-    char sr[20], ch;
+    char sr[20];
+    char ch;
     int32 si;
     double *x;
     double old_dt = DELTA_T;
@@ -1512,7 +1517,8 @@ integrate_evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
     int32 i;
     int32 flag;
     double z;
-    char vp[25], fp[256];
+    char vp[25];
+    char fp[256];
     for (int32 j = j1; j <= j2; j++) {
         i = -1;
         form_ode_subsk(v, vp, j, 1);
@@ -1537,7 +1543,9 @@ integrate_extract_ic_data(char *big) {
     int32 j1;
     int32 j2;
     int32 flag2;
-    char front[40], new[50], c;
+    char front[40];
+    char new[50];
+    char c;
     char back[256];
     ani_de_space(big);
     i = 0;
@@ -1837,7 +1845,8 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
 int32
 integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
           int32 *start) {
-    double xv[MAX_ODE + 1], xvold[MAX_ODE + 1];
+    double xv[MAX_ODE + 1];
+    double xvold[MAX_ODE + 1];
     double oldperiod = 0.0;
     double error[MAX_ODE];
     double xprime[MAX_ODE], oldxprime[MAX_ODE], hguess = dt;
@@ -2540,7 +2549,9 @@ integrate_plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
     int32 *izplt;
     int32 NPlots;
     int32 ip;
-    double oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];
+    double oldxpl[MAXPERPLOT];
+    double oldypl[MAXPERPLOT];
+    double oldzpl[MAXPERPLOT];
     double xpl[MAXPERPLOT], ypl[MAXPERPLOT], zpl[MAXPERPLOT];
     NPlots = MyGraph->nvars;
     ixplt = MyGraph->xv;
@@ -2583,7 +2594,8 @@ integrate_restore(int32 i1, int32 i2) {
     double xpl;
     double ypl;
     double zpl;
-    double v1[MAX_ODE + 1], v2[MAX_ODE + 1];
+    double v1[MAX_ODE + 1];
+    double v2[MAX_ODE + 1];
     double **data;
 
     data = get_browser_data();

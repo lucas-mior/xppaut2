@@ -289,7 +289,8 @@ pp_shoot_find_bvp_com(int32 com) {
     int32 pflag;
     double sect = 0.0;
     double oldpar = 0.0;
-    double ystart[MAX_ODE], oldtrans;
+    double ystart[MAX_ODE];
+    double oldtrans;
     double yend[MAX_ODE];
     /*  Window temp=main_win; */
     if (NMarkov > 0 || NKernel > 0) {

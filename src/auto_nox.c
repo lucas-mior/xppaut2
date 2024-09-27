@@ -285,7 +285,8 @@ auto_nox_get_str(char *xlabel, char *ylabel) {
 
 void
 auto_nox_draw_ps_axes(void) {
-    char sx[20], sy[20];
+    char sx[20];
+    char sy[20];
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     auto_nox_get_str(sx, sy);
     axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
@@ -294,7 +295,8 @@ auto_nox_draw_ps_axes(void) {
 
 void
 auto_nox_draw_svg_axes(void) {
-    char sx[20], sy[20];
+    char sx[20];
+    char sy[20];
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     auto_nox_get_str(sx, sy);
     axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
@@ -308,7 +310,9 @@ auto_nox_draw_bix_axes(void) {
     int32 ii;
     int32 i0;
     int32 x1 = x0 + Auto.wid, y1 = y0 + Auto.hgt;
-    char junk[20], xlabel[20], ylabel[20];
+    char junk[20];
+    char xlabel[20];
+    char ylabel[20];
 
     auto_x11_clear_plot();
     auto_x11_line(x0, y0, x1, y0);
@@ -1304,7 +1308,8 @@ auto_nox_get_bif_sym(char *at, int32 itp) {
 void
 auto_nox_info_header(int32 icp1, int32 icp2) {
     char bob[80];
-    char p1name[12], p2name[12];
+    char p1name[12];
+    char p2name[12];
 
     strncpy(p1name, upar_names[AutoPar[icp1]], sizeof(p1name));
     if (icp2 < NAutoPar)
@@ -2485,7 +2490,8 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     double *x;
     int32 i;
     int32 nstor;
-    double u[NAUTO], t;
+    double u[NAUTO];
+    double t;
     double period;
     char string[256];
     int32 nrow;
