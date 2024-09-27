@@ -72,6 +72,7 @@ extra_auto_load_dll(void) {
 void
 extra_load_new_dll(void) {
     int32 status;
+
     if (dlf.loaded != 0 && dlhandle != NULL)
         dlclose(dlhandle);
     status = init_conds_file_selector("Library:", dlf.libfile, "*.so");

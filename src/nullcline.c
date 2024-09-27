@@ -76,6 +76,7 @@ static void nullcline_save_frozen(char *fn);
 void
 nullcline_froz_cline_stuff_com(int32 i) {
     int32 delay = 200;
+
     if (n_nstore == 0) {
         /* nullcline start */
         n_nstore = 1;

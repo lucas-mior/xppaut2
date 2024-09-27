@@ -119,6 +119,7 @@ graphics_get_draw_area_flag(int32 flag) {
     uint32 bw;
     uint32 de;
     Window root;
+
     if (flag == 1) {
         XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &de);
         MyGraph->x11Wid = (int32)w;

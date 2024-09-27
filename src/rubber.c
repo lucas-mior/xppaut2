@@ -110,6 +110,7 @@ rubber_box(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f) {
     int32 x2 = i2;
     int32 y1 = j1;
     int32 y2 = j2;
+
     if (f == RUBLINE) {
         XDrawLine(display, window, gc, i1, j1, i2, j2);
         return;

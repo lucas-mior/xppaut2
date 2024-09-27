@@ -179,6 +179,7 @@ browse_data_del_col(Browser *b) {
     /*  this only works with storage  */
     Window window;
     int32 rev;
+
     if (browse_check_for_stor(b->data) == 0)
         return;
     XGetInputFocus(display, &window, &rev);

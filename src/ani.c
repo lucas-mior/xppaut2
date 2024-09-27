@@ -368,6 +368,7 @@ void
 ani_new_vcr(void) {
     int32 tt;
     int32 i;
+
     if (vcr.iexist == 1)
         return;
     tt = browse_get_time_now();

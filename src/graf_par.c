@@ -389,6 +389,7 @@ graf_par_fit_window(void) {
     double my = -My;
     double mz = -Mz;
     int32 n = MyGraph->nvars;
+
     if (storind < 2)
         return;
     if (MyGraph->ThreeDFlag) {

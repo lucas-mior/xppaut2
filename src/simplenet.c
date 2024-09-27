@@ -262,6 +262,7 @@ simplenet_vector_value(double x, int32 i) {
     int32 il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length,
           k = (int32)x;
     int32 root = my_vec[i].root;
+
     if ((k >= 0) && (k < n))
         return variables[root + k];
     if (il == PERIODIC)

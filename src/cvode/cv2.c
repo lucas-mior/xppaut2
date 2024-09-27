@@ -96,6 +96,7 @@ cvode(
     int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
     int32 err = 0;
+
     if (NFlags == 0)
         return ccvode(command, y, t, n, tout, kflag, atol, rtol);
     err = one_flag_step_cvode(command, y, t, n, tout, kflag, atol, rtol);

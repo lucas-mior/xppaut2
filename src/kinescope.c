@@ -76,6 +76,7 @@ kinescope_film_clip(void) {
     uint32 bw;
     uint32 d;
     Window root;
+
     if (mov_ind >= MAXFILM)
         return 0;
     XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);

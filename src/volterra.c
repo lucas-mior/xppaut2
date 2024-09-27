@@ -232,6 +232,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
 double
 volterra_alpha1n(double mu, double dt, double t, double t0) {
     double m1;
+
     if (mu == .5)
         return sqrt(fabs(t - t0)) - sqrt(fabs(t - t0 - dt));
     m1 = 1 - mu;

@@ -707,6 +707,7 @@ load_eqn_add_intern_set(char *name, char *does) {
     int32 n;
     int32 j = Nintern_set;
     int32 k = 0;
+
     if (Nintern_set >= MAX_INTERN_SET) {
         ggets_plintf(" %s not added -- too many must be less than %d \n", name,
                      MAX_INTERN_SET);

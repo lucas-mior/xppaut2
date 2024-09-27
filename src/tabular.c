@@ -147,6 +147,7 @@ tabular_lookup_xy(double x, int32 n, double *xv, double *yv) {
     double y1;
     double x2;
     double y2;
+
     if (x <= xv[0])
         return yv[0] + (yv[1] - yv[0])*(x - xv[0]) / (xv[1] - xv[0]);
     if (x >= xv[n - 1])

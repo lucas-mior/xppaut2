@@ -321,6 +321,7 @@ comline_if_needed_load_ext_options(void) {
     char myoptsx[1026];
     if (externaloptionsflag == 0)
         return 1;
+
     if (externaloptionsflag == 1) {
         fp = fopen(readsetfile, "r");
         if (fp == NULL) {

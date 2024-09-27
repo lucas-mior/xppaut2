@@ -26,6 +26,7 @@ go_go_auto(void) {
     rap_type rap;
     function_list list;
     int32 irs = x_auto.irs;
+
     if (irs > 0) {
         fp3 = fopen(fort3, "r");
     } else {

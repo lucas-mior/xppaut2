@@ -514,6 +514,7 @@ void
 menu_button(Window win) {
     int32 n;
     int32 j = help_menu;
+
     if (j < 0)
         return;
     if (my_menus[j].visible == 0)

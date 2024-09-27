@@ -301,6 +301,7 @@ init_conds_do_slide_button(Window window, struct ParSlider *p) {
     double lo;
     double hi;
     double val;
+
     if (window == p->go && p->use == 1)
         integrate_run_now();
 

@@ -304,6 +304,7 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
     double y;
     double dz;
     int32 length = nbins + 1;
+
     if (length >= MAXSTOR)
         length = MAXSTOR - 1;
     dz = (zhi - zlo) / (double)(length - 1);

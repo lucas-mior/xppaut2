@@ -26,6 +26,7 @@ static void axes2_draw_xtics(char *s2, double start, double incr, double end);
 void
 axes2_get_title_str(char *s1, char *s2, char *s3) {
     int32 i;
+
     if ((i = MyGraph->xv[0]) == 0)
         strcpy(s1, "T");
     else

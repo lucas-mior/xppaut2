@@ -336,6 +336,7 @@ array_print_ps_rgb_bar(double x, double y, double wid, double len, double fill,
     double r = 0.0;
     double g = 0.0;
     double b = 0.0;
+
     if (rgb == 2) {
         array_print_ps_hsb_bar(x, y, wid, len, fill, flag);
         return;

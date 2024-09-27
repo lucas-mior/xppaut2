@@ -110,6 +110,7 @@ flags_add_global(char *cond, int32 sign, char *rest) {
     int32 lt;
     int32 j = NFlags;
     char ch;
+
     if (NFlags >= MAX_FLAG) {
         ggets_plintf("Too many global conditions\n");
         return 1;

@@ -430,6 +430,7 @@ svg_bead(void) {
 void
 svg_frect(int32 x, int32 y, int32 w, int32 h) {
     double gray = 0;
+
     if (DOING_SVG_COLOR) {
         fprintf(svgfile,
                 "      <rect x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" "

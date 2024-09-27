@@ -175,6 +175,7 @@ ggets_get_key_press(XEvent *event) {
 
     if (ks == XK_Escape)
         return KEY_ESC;
+
     if ((ks == XK_Return) || (ks == XK_KP_Enter) || (ks == XK_Linefeed))
         return KEY_FINE;
     else if (((ks >= XK_KP_Space) && (ks <= XK_KP_9)) ||

@@ -376,6 +376,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
     COMPLEX temp;
     COMPLEX eld;
     double arg;
+
     if (m == 0)
         return 0; /* no delays so don't use this! */
     z = xmalloc(sizeof(*z)*(usize)(n*n));

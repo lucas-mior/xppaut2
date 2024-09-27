@@ -84,6 +84,7 @@ scrngif_set_global_map(int32 flag) {
 int32
 scrngif_ppm_to_pix(uchar r, uchar g, uchar b, int32 *n) {
     int32 nc = *n;
+
     if (UseGlobalMap == 1) {
         for (int32 i = 0; i < NGlobalColors; i++) {
             if (r == gifGcol[i].r && g == gifGcol[i].g && b == gifGcol[i].b)

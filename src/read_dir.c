@@ -269,6 +269,7 @@ read_dir_is_directory(char *root, char *path) {
     if (stat(fullpath, &statbuf)) /* some error, report that it is not
                                    * a directory */
         return 0;
+
     if (statbuf.st_mode & S_IFDIR)
         return 1;
     else

@@ -210,6 +210,7 @@ void
 create_markov(int32 nstates, double *st, int32 type, char *name) {
     int32 n2 = nstates*nstates;
     int32 j = NMarkov;
+
     if (j >= MAX_MARK) {
         ggets_plintf("Too many Markov chains...\n");
         exit(0);

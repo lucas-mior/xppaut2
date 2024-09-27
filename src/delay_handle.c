@@ -93,6 +93,7 @@ void
 delay_handle_stor_delay(double *y) {
     int32 in;
     int32 nodes = NODE;
+
     if (DelayFlag == 0)
         return;
     --LatestDelay;

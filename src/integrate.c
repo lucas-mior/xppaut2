@@ -244,6 +244,7 @@ integrate_cont_integ(void) {
     double tetemp;
     double *x;
     double dif;
+
     if (INFLAG == 0 || FFT != 0 || HIST != 0)
         return;
     tetemp = TEND;

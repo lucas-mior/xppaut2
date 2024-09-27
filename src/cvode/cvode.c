@@ -2195,6 +2195,7 @@ cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
     /* Return if lsetup or lsolve failed unrecoverably */
     if (nflag == SETUP_FAIL_UNREC)
         return SETUP_FAILED;
+
     if (nflag == SOLVE_FAIL_UNREC)
         return SOLVE_FAILED;
 

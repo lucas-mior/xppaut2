@@ -221,6 +221,7 @@ menudrive_drw_all_scrns(void) {
 void
 menudrive_clr_all_scrns(void) {
     int32 ic = current_pop;
+
     if (SimulPlotFlag == 0) {
         main_clr_scrn();
         many_pops_hi_lite(draw_win);

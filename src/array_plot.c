@@ -144,6 +144,7 @@ array_plot_optimize(int32 *plist) {
     double zmin;
     int32 nrows = my_browser.maxrow;
     int32 ncol = i1 + 1 - i0;
+
     if (ncol < 2 || nrows < 2)
         return;
     array_plot_make_my("Array!");

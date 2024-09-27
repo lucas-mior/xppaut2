@@ -104,6 +104,7 @@ eig_list_create_eq_list(void) {
     XTextProperty winname;
     XTextProperty iconame;
     XSizeHints size_hints;
+
     if (eq_list.flag == 1) {
         XRaiseWindow(display, eq_list.base);
         return;

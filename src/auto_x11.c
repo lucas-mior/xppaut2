@@ -214,6 +214,7 @@ void
 auto_x11_set_mark(int32 i) {
     int32 pt;
     int32 ibr;
+
     if (mark_flag == 2) {
         ibr = mark_ibrs;
         if (ABS(mark_ipts) < ABS(mark_ipte))

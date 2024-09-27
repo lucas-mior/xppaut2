@@ -420,6 +420,7 @@ int32
 odesol_rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
             double *work, int32 *ierr) {
     int32 out = -1;
+
     if (NFlags == 0) {
         out = odesol_rosen(y, tstart, tfinal, istart, n, work, ierr);
     } else {

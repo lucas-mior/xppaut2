@@ -512,6 +512,7 @@ void
 lunch_io_exprs(int32 f, FILE *fp) {
     char temp[256];
     double z;
+
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }

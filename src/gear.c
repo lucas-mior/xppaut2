@@ -332,6 +332,7 @@ gear_shoot_this_now(void) {
     int32 dummy;
     double x[MAX_ODE];
     double olddt;
+
     if (ShootIndex < 1)
         return;
     olddt = DELTA_T;

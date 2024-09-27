@@ -156,6 +156,7 @@ calc_do_calc(char *temp, double *z) {
     int32 ok;
     int32 i;
     double newz;
+
     if (strlen(temp) == 0) {
         *z = 0.0;
         return 1;

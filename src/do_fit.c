@@ -322,6 +322,7 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
 
     if (kflag < 0)
         return 0;
+
     if ((dt < 0 && t > t1) || (dt > 0 && t < t1)) {
         dt = t1 - t;
         kflag = solver(y, &t, dt, 1, NODE, istart, WORK);

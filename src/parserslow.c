@@ -312,6 +312,7 @@ parserslow_add_constant(char *junk) {
     char string[100];
     if (duplicate_name(junk) == 1)
         return 1;
+
     if (NCON >= MAX_PAR) {
         if (ERROUT)
             printf("too many constants !!\n");

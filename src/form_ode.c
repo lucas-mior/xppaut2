@@ -1032,6 +1032,7 @@ form_ode_if_include_file(char *old, char *nf) {
     int32 i = 0;
     int32 n = (int32)strlen(old);
     char c;
+
     if (strncmp(old, "#include", 8) == 0) {
         while (true) {
             c = old[i];

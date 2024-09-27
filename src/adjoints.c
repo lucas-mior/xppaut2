@@ -254,6 +254,7 @@ adjoints_make_adj_com(int32 com) {
 void
 adjoints_new_h_fun(int32 silent2) {
     int32 n = 2;
+
     if (!ADJ_HERE) {
         ggets_err_msg("Must compute adjoint first!");
         return;

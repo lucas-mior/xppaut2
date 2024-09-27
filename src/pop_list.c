@@ -252,6 +252,7 @@ pop_list_scroll_box_motion(XEvent event, ScrollBox *sb) {
     x = event.xmotion.y;
     if (sb->nw >= sb->nent)
         return 0;
+
     if (window == sb->slide) {
         len = sb->len;
         if (x < 2)

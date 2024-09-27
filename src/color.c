@@ -324,6 +324,7 @@ uint32
 color_map(int32 i) {
     if (i == -1)
         return GrBack;
+
     if (i == 0)
         return GrFore;
     if (color_mode) {

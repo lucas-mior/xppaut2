@@ -54,6 +54,7 @@ int32
 derived_add(char *name, char *rhs) {
     int32 n = (int32)strlen(rhs) + 2;
     int32 i0;
+
     if (nderived >= MAXDERIVED) {
         ggets_plintf(" Too many derived constants! \n");
         return 1;

@@ -262,6 +262,7 @@ L100:
     w = h__[en + na*h_dim1]*h__[na + en*h_dim1];
     if (l == na)
         goto L280;
+
     if (itn == 0)
         goto L1000;
     if (its != 10 && its != 20)

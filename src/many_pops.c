@@ -107,6 +107,7 @@ many_pops_get_intern_set(void) {
     int32 j;
     int32 count = Nintern_set;
     Window temp = main_win;
+
     if (count == 0)
         return;
     for (int32 i = 0; i < Nintern_set; i++) {

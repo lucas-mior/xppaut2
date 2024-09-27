@@ -62,6 +62,7 @@ void
 txt_view_events(XEvent event) {
     int32 x;
     int32 y;
+
     if (txtview.here == 0)
         return;
 

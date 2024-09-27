@@ -981,6 +981,7 @@ auto_nox_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
 int32
 auto_nox_plot_point(int32 flag2, int32 icp1, int32 icp2) {
     int32 j = 1;
+
     if (icp1 != Auto.icp1)
         j = 0;
     if (flag2 > 0 && icp2 != Auto.icp2)
