@@ -1049,8 +1049,7 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
     double enq1 = 0.0, enq2 = 0.0, enq3 = 0.0, pepsh = 0.0, e = 0.0, edwn = 0.0,
            eup = 0.0, bnd = 0.0;
     double *ytable[8], *ymax, *work2;
-    int32 iret = 0, maxder = 0, k = 0, iret1 = 0, nqold = 0, nq = 0,
-          newq = 0;
+    int32 iret = 0, maxder = 0, k = 0, iret1 = 0, nqold = 0, nq = 0, newq = 0;
     int32 idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0,
           job = 0, nt = 0;
     for (int32 i = 0; i < 8; i++) {

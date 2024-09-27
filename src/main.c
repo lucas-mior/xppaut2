@@ -1300,8 +1300,7 @@ main_top_button_events(XEvent report) {
     case LeaveNotify:
         main_top_button_cross(report.xcrossing.window, 1);
         break;
-    case ButtonPress:
-    {
+    case ButtonPress: {
         Window window = report.xbutton.window;
         /* main top button press */
         if (window == TopButton[0])
