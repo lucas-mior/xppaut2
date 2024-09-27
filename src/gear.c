@@ -1065,7 +1065,7 @@ gear_rooter(double *x, double err, double eps, double big, double *work,
             ch = (char)main_my_abort();
 
             {
-                if (ch == 27) {
+                if (ch == PAUSE_NUMBER) {
                     *ierr = 1;
                     return;
                 }

@@ -481,7 +481,7 @@ ani_check_pause(XEvent event) {
         return 0;
     }
     if (event.type == ButtonPress && event.xbutton.window == vcr.wpause) {
-        return 27;
+        return PAUSE_NUMBER;
     }
     return 0;
 }

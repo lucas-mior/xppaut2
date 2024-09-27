@@ -187,8 +187,8 @@ main_my_abort(void) {
         XEvent event;
         XNextEvent(display, &event);
 
-        if (ani_check_pause(event) == 27) {
-            return 27;
+        if (ani_check_pause(event) == PAUSE_NUMBER) {
+            return PAUSE_NUMBER;
         }
 
         switch (event.type) {

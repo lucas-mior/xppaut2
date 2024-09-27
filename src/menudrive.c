@@ -562,7 +562,7 @@ menudrive_do_gr_objs(void) {
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, title, list, key, 7, 10, 0, 10,
                            10*DCURY + 8, text_hint, info_pop, info_message);
-    if (ch == 27) {
+    if (ch == PAUSE_NUMBER) {
         return;
     }
     if (ch == 'e') {
@@ -571,7 +571,7 @@ menudrive_do_gr_objs(void) {
 
                                edit_hint, info_pop, info_message);
 
-        if (ch == 27) {
+        if (ch == PAUSE_NUMBER) {
             return;
         }
         for (i = 0; i < 3; i++) {
@@ -624,7 +624,7 @@ menudrive_find_bvp(void) {
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, "Bndry Value Prob", n, key, 4, 16, 1, 10,
                            6*DCURY + 8, bvp_hint, info_pop, info_message);
-    if (ch == 27) {
+    if (ch == PAUSE_NUMBER) {
         return;
     }
     for (i = 0; i < 4; i++) {
@@ -910,7 +910,7 @@ menudrive_find_equilibrium(void) {
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, "Equilibria", n, key, 4, 12, 1, 10,
                            6*DCURY + 8, sing_hint, info_pop, info_message);
-    if (ch == 27) {
+    if (ch == PAUSE_NUMBER) {
         return;
     }
     for (i = 0; i < 4; i++) {
@@ -938,7 +938,7 @@ menudrive_ini_data_menu(void) {
     ch = (char)pop_up_list(&temp, "Integrate", n, key, 14, 13, 3, 10,
                            3*DCURY + 8, ic_hint, info_pop, info_message);
 
-    if (ch == 27) {
+    if (ch == PAUSE_NUMBER) {
         return;
     }
 

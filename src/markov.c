@@ -464,7 +464,7 @@ markov_do_stochast_com(int32 i) {
     static char key[] = "ncdmvhofpislaxe2";
     char ch = key[i];
 
-    if (ch == 27) {
+    if (ch == PAUSE_NUMBER) {
         return;
     }
     switch (ch) {

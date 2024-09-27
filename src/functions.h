@@ -22,6 +22,8 @@ enum {
     FIX_MAX_SIZE = 1,
 };
 
+#define PAUSE_NUMBER 27
+
 extern Display *display;
 
 extern char *timesfonts[];

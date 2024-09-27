@@ -345,7 +345,7 @@ kinescope_auto_play(void) {
                 return;
             case KeyPress:
                 key = ggets_get_key_press(&event);
-                if (key == 27) {
+                if (key == PAUSE_NUMBER) {
                     return;
                 }
                 if (key == ',') {

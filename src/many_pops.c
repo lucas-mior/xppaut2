@@ -652,7 +652,7 @@ many_pops_select_marker_type(int32 *type) {
     char ch;
     ch = (char)pop_up_list(&temp, "Markers", list, key, 6, 9, ival, 10,
                            4*DCURY + 8, no_hint, info_pop, info_message);
-    if (ch == 27) {
+    if (ch == PAUSE_NUMBER) {
         return 0;
     }
     for (int32 i = 0; i < 6; i++) {
