@@ -1346,7 +1346,7 @@ many_pops_create_a_pop(void) {
                      ButtonReleaseMask | ButtonMotionMask);
     XMapWindow(display, graph[index].window);
     XRaiseWindow(display, graph[index].window);
-    XSetWMProtocols(display, graph[index].window, &deleteWindowAtom, 1);
+    XSetWMProtocols(display, graph[index].window, &atom_delete_window, 1);
     many_pops_select_window(graph[index].window);
     /*  many_pops_select_window(graph[0].window);
         many_pops_select_window(graph[index].window); */

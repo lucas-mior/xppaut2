@@ -980,7 +980,7 @@ pop_list_make_icon_window(Window root, int32 x, int32 y, int32 width,
     win = pop_list_make_unmapped_icon_window(root, x, y, width, height, bw,
                                              icdata);
     if (root == RootWindow(display, screen)) {
-        XSetWMProtocols(display, win, &deleteWindowAtom, 1);
+        XSetWMProtocols(display, win, &atom_delete_window, 1);
     }
     XMapWindow(display, win);
     return win;
@@ -992,7 +992,7 @@ pop_list_make_window(Window root, int32 x, int32 y, int32 width, int32 height,
     Window win;
     win = pop_list_make_unmapped_window(root, x, y, width, height, bw);
     if (root == RootWindow(display, screen)) {
-        XSetWMProtocols(display, win, &deleteWindowAtom, 1);
+        XSetWMProtocols(display, win, &atom_delete_window, 1);
     }
     XMapWindow(display, win);
     return win;
@@ -1004,7 +1004,7 @@ pop_list_make_plain_window(Window root, int32 x, int32 y, int32 width,
     Window win;
     win = pop_list_make_plain_unmapped_window(root, x, y, width, height, bw);
     if (root == RootWindow(display, screen)) {
-        XSetWMProtocols(display, win, &deleteWindowAtom, 1);
+        XSetWMProtocols(display, win, &atom_delete_window, 1);
     }
     XMapWindow(display, win);
     return win;

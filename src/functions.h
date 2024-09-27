@@ -3779,7 +3779,7 @@ void odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
 extern int32 display_width;
 extern int32 display_height;
 extern int32 screen;
-extern Atom deleteWindowAtom;
+extern Atom atom_delete_window;
 extern Window main_win;
 extern Window info_pop;
 extern Window draw_win;

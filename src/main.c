@@ -50,7 +50,7 @@ double xpp_version_min;
 
 int32 Xup;
 int32 flag_tips = 1;
-Atom deleteWindowAtom = 0;
+Atom atom_delete_window = 0;
 int32 XPPBatch = 0;
 int32 batch_range = 0;
 int32 BatchEquil = -1;
@@ -1215,8 +1215,8 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
         exit(-1);
     }
     screen = DefaultScreen(display);
-    if (!deleteWindowAtom) {
-        deleteWindowAtom = XInternAtom(display, "WM_DELETE_WINDOW", 0);
+    if (!atom_delete_window) {
+        atom_delete_window = XInternAtom(display, "WM_DELETE_WINDOW", 0);
     }
     dp_w = DisplayWidth(display, screen);
     dp_h = DisplayHeight(display, screen);
@@ -1276,7 +1276,7 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
 
         XSetWMProperties(display, wine, &winname, &iconname, argv, argc,
                          &size_hints, &wm_hints, &class_hints);
-        XSetWMProtocols(display, wine, &deleteWindowAtom, 1);
+        XSetWMProtocols(display, wine, &atom_delete_window, 1);
     }
 #endif
     return wine;
