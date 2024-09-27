@@ -1137,7 +1137,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("PLOTFMT", s1)) {
         if ((notAlreadySet.PLOTFORMAT || force) ||
             ((mask != NULL) && (mask->PLOTFORMAT == 1))) {
-            strcpy(PlotFormat, s2);
+            strcpy(plot_format, s2);
             notAlreadySet.PLOTFORMAT = 0;
         }
         return;

@@ -970,22 +970,22 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
 void
 graf_par_dump_ps(int32 i) {
 #define FILENAME_SIZE                                                          \
-    (sizeof(this_file) + sizeof(this_internset) + sizeof(PlotFormat) + 10)
+    (sizeof(this_file) + sizeof(this_internset) + sizeof(plot_format) + 10)
     char filename[FILENAME_SIZE];
 #undef FILENAME_SIZE
     if (i < 0) {
         snprintf(filename, sizeof(filename), "%s%s.%s", this_file,
-                 this_internset, PlotFormat);
+                 this_internset, plot_format);
     } else {
         snprintf(filename, sizeof(filename), "%s%s_%04d.%s", this_file,
-                 this_internset, i, PlotFormat);
+                 this_internset, i, plot_format);
     }
 
-    if (strcmp(PlotFormat, "ps") == 0) {
+    if (strcmp(plot_format, "ps") == 0) {
         if (ps_init(filename, PS_Color)) {
             many_pops_ps_restore();
         }
-    } else if (strcmp(PlotFormat, "svg") == 0) {
+    } else if (strcmp(plot_format, "svg") == 0) {
         if (svg_init(filename)) {
             many_pops_svg_restore();
         }

@@ -61,7 +61,7 @@ int32 display_width;
 int32 flag_true_color;
 char font_name_big[100];
 char font_name_small[100];
-char PlotFormat[10];
+char plot_format[10];
 
 int32 PaperWhite = -1;
 
@@ -382,7 +382,7 @@ do_main(int32 argc, char **argv) {
 
     Xup = 0;
     snprintf(batchout, sizeof(batchout), "output.dat");
-    snprintf(PlotFormat, sizeof(PlotFormat), "ps");
+    snprintf(plot_format, sizeof(plot_format), "ps");
 
     /* Read visualization environement variables here
        since some may be overridden by command line */

@@ -3176,7 +3176,7 @@ extern char user_out_file[XPP_MAX_NAME];
 extern int32 flag_true_color;
 extern char font_name_big[100];
 extern char font_name_small[100];
-extern char PlotFormat[10];
+extern char plot_format[10];
 
 extern Window command_pop;
 extern GC gc_graph;
