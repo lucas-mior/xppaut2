@@ -432,7 +432,7 @@ comline_parse_it(char *com) {
             MakePlotFlag = 1;
             break;
         case SILENT:
-            XPPBatch = 1;
+            xpp_batch = 1;
             break;
         case XORFX:
             xorfix = 0;
@@ -521,17 +521,17 @@ comline_parse_it(char *com) {
         case EQUIL:
             return 30;
         case QSETS:
-            XPPBatch = 1;
+            xpp_batch = 1;
             querysets = 1;
             dryrun = 1;
             break;
         case QPARS:
-            XPPBatch = 1;
+            xpp_batch = 1;
             querypars = 1;
             dryrun = 1;
             break;
         case QICS:
-            XPPBatch = 1;
+            xpp_batch = 1;
             queryics = 1;
             dryrun = 1;
             break;

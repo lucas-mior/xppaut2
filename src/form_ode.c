@@ -217,7 +217,7 @@ form_ode_format_list(char **s, int32 n) {
 
 int32
 form_ode_get_a_filename(char *filename, char *wild) {
-    if (XPPBatch) {
+    if (xpp_batch) {
         char string[MAXEXPLEN];
         form_ode_list_em(wild);
         while (true) {

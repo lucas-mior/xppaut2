@@ -441,7 +441,7 @@ nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
 
 void
 nullcline_do_batch_nclines(void) {
-    if (!XPPBatch) {
+    if (!xpp_batch) {
         return;
     }
     if (!NCBatch) {
@@ -462,7 +462,7 @@ nullcline_set_colorization_stuff(void) {
 
 void
 nullcline_do_batch_dfield(void) {
-    if (!XPPBatch) {
+    if (!xpp_batch) {
         return;
     }
     switch (DFBatch) {

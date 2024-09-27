@@ -51,7 +51,7 @@ double xpp_version_min;
 int32 Xup;
 int32 flag_tips = 1;
 Atom atom_delete_window = 0;
-int32 XPPBatch = 0;
+int32 xpp_batch = 0;
 int32 batch_range = 0;
 int32 BatchEquil = -1;
 char batchout[XPP_MAX_NAME];
@@ -393,7 +393,7 @@ do_main(int32 argc, char **argv) {
 
     /* We need to init_X here if there is no file on command line
      * so that a file browser can be opened.  */
-    if (!XPPBatch) {
+    if (!xpp_batch) {
         /* Swap out the current options for a temporary place holder */
         tempNS = xmalloc(sizeof(OptionsSet));
         *tempNS = notAlreadySet;
@@ -449,7 +449,7 @@ do_main(int32 argc, char **argv) {
     form_ode_create_plot_list();
     extra_auto_load_dll();
 
-    if (XPPBatch) {
+    if (xpp_batch) {
         color_map_make();
         init_browser();
         graphics_init_all();

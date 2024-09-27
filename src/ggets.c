@@ -29,7 +29,7 @@ static void ggets_clr_line_at(Window window, int32 col0, int32 pos, int32 n);
 
 void
 ggets_ping(void) {
-    if (tfBell && !XPPBatch) {
+    if (tfBell && !xpp_batch) {
         /*
         XkbBell allows window managers to react
         to bell events using possibly user-specified
@@ -39,7 +39,7 @@ ggets_ping(void) {
         XkbBell(display, command_pop, 100, (Atom)NULL);
     }
     /* Call to XBell seems to be ignored by many window managers
-     * where XkbBell is not. if(tfBell&&!XPPBatch) XBell(display,100); */
+     * where XkbBell is not. if(tfBell&&!xpp_batch) XBell(display,100); */
     return;
 }
 

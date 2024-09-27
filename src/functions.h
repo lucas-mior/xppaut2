@@ -3140,7 +3140,7 @@ void lunch_io_string(char *s, int32 len, FILE *fp, int32 f);
 
 extern int32 all_win_vis;
 extern int32 use_ani_file;
-extern int32 XPPBatch;
+extern int32 xpp_batch;
 extern int32 batch_range;
 extern int32 BatchEquil;
 extern int32 paper_white;

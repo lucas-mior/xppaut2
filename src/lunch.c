@@ -513,7 +513,7 @@ lunch_io_parameters(int32 f, FILE *fp) {
             lunch_io_double(&z, fp, f, " ");
             set_val(upar_names[i], z);
 
-            if (!XPPBatch) {
+            if (!xpp_batch) {
                 index = init_conds_find_user_name(PARAMBOX, upar_names[i]);
                 if (index >= 0) {
                     sprintf(junk, "%.16g", z);
@@ -524,7 +524,7 @@ lunch_io_parameters(int32 f, FILE *fp) {
         }
     }
 
-    if (!XPPBatch) {
+    if (!xpp_batch) {
         init_conds_reset_sliders();
     }
     return;
