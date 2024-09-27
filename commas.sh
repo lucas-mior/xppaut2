@@ -2,7 +2,6 @@
 
 # int32 auto_ntst = 15, auto_nmx = 200, auto_npr = 50, auto_ncol = 4;
 IDENT="[[:alnum:]_]+"
-BRACKETS='\[.*\]'
 
 find src -iname "*.[ch]" | while read file; do
 
