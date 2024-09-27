@@ -1138,7 +1138,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
     int32 jjsgn = 1;
     char name[20];
     int32 nstates = 0;
-    /*char newfile[256];*/
     char newfile[XPP_MAX_NAME];
     FILE *fnew;
     /*int32 nlin;
@@ -1167,14 +1166,12 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         ggets_plintf("Can't open include file <%s>\n",
                                      includefilename[j]);
                         exit(-1);
-                        /*continue;*/
                     }
                     ggets_plintf("Including %s \n", includefilename[j]);
                     IN_INCLUDED_FILE++;
                     form_ode_do_new_parser(fnew, includefilename[j], 1);
                     fclose(fnew);
                 }
-                /*continue;*/
             }
 
             strcpy(old, first); /* pass the first line ....  */

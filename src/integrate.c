@@ -1256,7 +1256,6 @@ batch_integrate_once(void) {
 
 int32
 integrate_write_this_run(char *file, int32 i) {
-    /*char outfile[256];*/
     char outfile[XPP_MAX_NAME];
     FILE *fp;
     if (!SuppressOut) {
@@ -1283,7 +1282,6 @@ integrate_do_init_data(int32 com) {
     double *x;
     double old_dt = DELTA_T;
     FILE *fp;
-    /*char icfile[256];*/
     char icfile[XPP_MAX_NAME];
     double xm;
     double ym;
@@ -2337,12 +2335,11 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
                 /* storage[i_nan][storind]=*t;     */
                 for (i_nan = 1; i_nan <= ieqn;
-                     i_nan++) { /*storage[i_nan][storind]=xv[i_nan];*/
+                     i_nan++) {
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
                             xvold[i_nan], xv[i_nan]);
                 }
                 for (; i_nan <= NEQ; i_nan++) {
-                    /*storage[i_nan][storind]=(double)x[i_nan-1];*/
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
                             xv[i_nan], (double)x[i_nan - 1]);
                 }
@@ -2368,20 +2365,14 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
                 /* storage[i_nan][storind]=*t;     */
                 for (i_nan = 1; i_nan <= ieqn;
-                     i_nan++) { /*storage[i_nan][storind]=xv[i_nan];*/
+                     i_nan++) {
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
                             xvold[i_nan], xv[i_nan]);
                 }
                 for (; i_nan <= NEQ; i_nan++) {
-                    /*storage[i_nan][storind]=(double)x[i_nan-1];*/
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
                             xv[i_nan], (double)x[i_nan - 1]);
                 }
-                /* storind++;
-                 if(!(storind<MAXSTOR))
-                 if(integrate_stor_full()==0)break;
-                }
-                */
                 ggets_err_msg(error_message);
                 rval = 1;
 

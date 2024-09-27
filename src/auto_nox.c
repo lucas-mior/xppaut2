@@ -618,7 +618,7 @@ auto_nox_params(void) {
         if (i < NAutoPar) {
             sprintf(values[i], "%s", upar_names[AutoPar[i]]);
         } else {
-            values[i][0] = '\0'; /*sprintf(values[i],"");*/
+            values[i][0] = '\0';
         }
     }
     status = pop_list_do_string_box(8, 8, 1, "Parameters", n, values, 38);
@@ -1426,7 +1426,6 @@ auto_nox_traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     double y2;
     char symb[3];
     if (d == NULL) {
-        /*ggets_err_msg("Can not traverse to NULL diagram.");*/
         return;
     }
     norm = d->norm;
@@ -2195,7 +2194,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             blrtn.torper = grabpt.torper;
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
-            Auto.nfpar = 1; /*grabpt.nfpar;*/
+            Auto.nfpar = 1;
             Auto.ilp = 1;
             Auto.isw = -1;
             Auto.isp = 2;
@@ -2679,7 +2678,6 @@ void
 auto_nox_save(void) {
     int32 ok;
     FILE *fp;
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     int32 status;
     /* XGetInputFocus(display,&w,&rev); */
@@ -2829,7 +2827,6 @@ void
 auto_nox_load(void) {
     int32 ok;
     FILE *fp;
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     int32 status;
     if (NBifs > 1) {

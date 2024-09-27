@@ -27,7 +27,6 @@ void
 lunch_file_inf(void) {
     int32 ok;
     FILE *fp;
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME + 5];
     sprintf(filename, "%s.pars", this_file);
     ggets_ping();

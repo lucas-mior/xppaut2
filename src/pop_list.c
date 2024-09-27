@@ -205,7 +205,6 @@ pop_list_create_scroll_box(Window root, int32 x0, int32 y0, int32 nent,
 
 void
 pop_list_expose_scroll_box(Window window, ScrollBox sb) {
-    /*int32 flag=-1;*/
     for (int32 i = 0; i < sb.nw; i++) {
         if (window == sb.w[i]) {
             pop_list_redraw_scroll_box(sb);
@@ -640,7 +639,6 @@ pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
             XCreatePixmap(display, root, (uint)width, (uint)height,
                           (uint)DefaultDepth(display, DefaultScreen(display)));
 
-        /*double l2rads;*/
         xx = 0;
 
         XParseColor(display, cmap, user_white, &bcolour);
@@ -734,12 +732,6 @@ pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
 
         XParseColor(display, cmap, user_white, &bcolour);
         XParseColor(display, cmap, user_black, &diffcol);
-
-        /*l2rads = 3.1415926535897932384/(1.0*height);*/
-
-        /* win=XCreateSimpleWindow(display,root,x,y,width,height,
-                bw,diffcol.pixel,bcolour.pixel);
-         */
 
         for (yy = 0; yy < height; yy += 1) {
             if (yy < 1.0) {
@@ -839,15 +831,7 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
     if (UserGradients == 1) {
         double cosine;
 
-        /*double l2rads;
-         */
         xx = 0;
-
-        /*l2rads = 3.1415926535897932384/(1.0*height);*/
-
-        /* win=XCreateSimpleWindow(display,root,x,y,width,height,
-                bw,diffcol.pixel,bcolour.pixel);
-         */
 
         for (yy = 0; yy < height; yy += 1) {
             if (yy < 1.0) {
@@ -931,7 +915,6 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                 for (q = 0; q < 8; q++) /*8 bits per byte*/
                 {
                     if (col >= width) {
-                        /*myint[z] = 0;*/
                     } else {
                         if (intstack[q] == 1) {
                             XDrawPoint(display, pmap, gc, col, row);

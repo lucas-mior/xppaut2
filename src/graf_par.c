@@ -1522,7 +1522,6 @@ graf_par_add_a_curve_com(int32 c) {
         strcpy(filename, this_file);
         filename[strlen(filename) - 4] = '\0';
         strcat(filename, ".svg");
-        /*snprintf(filename, sizeof(filename),"%s.svg",tmp);*/
         if (!init_conds_file_selector("Print svg", filename, "*.svg")) {
             return;
         }
@@ -1564,7 +1563,6 @@ graf_par_add_a_curve_com(int32 c) {
     case 8: {
         /* export graf data */
         FILE *fp;
-        /*char filename[256];*/
         char filename[XPP_MAX_NAME];
         snprintf(filename, sizeof(filename), "curve.dat");
         ggets_ping();

@@ -276,11 +276,6 @@ menudrive_run_the_commands(int32 com) {
         }
         nullcline_create_new_cline();
         graf_par_redraw_the_graph();
-        /*nullcline_redraw_dfield();*/
-        /*nullcline_create_new_cline();
-        integrate_run_now();*/
-        /*main_redraw_all();
-         */
         return;
     }
 

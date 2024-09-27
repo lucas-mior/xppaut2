@@ -122,10 +122,6 @@ build_markov(
         if (ConvertStyle) {
             fprintf(convertf, "%s", line);
         }
-        /*nn=strlen(line)+1;*/
-        /* if((save_eqn[NLINES]=xmalloc(nn))==NULL){
-          ggets_plintf("saveeqn-prob\n");exit(0);}
-          strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
         for (int32 j = 0; j < nstates; j++) {
             markov_extract_expr(line, expr, &istart);
@@ -139,7 +135,6 @@ build_markov(
 
 int32
 markov_old_build(FILE *fptr, char *name) {
-    /*int32 nn;*/
     int32 len = 0;
     int32 ll;
     char line[256];
@@ -175,9 +170,6 @@ markov_old_build(FILE *fptr, char *name) {
         if (ConvertStyle) {
             fprintf(convertf, "%s", line);
         }
-        /*nn=strlen(line)+1;*/
-        /* if((save_eqn[NLINES]=xmalloc(nn))==NULL)exit(0);
-           strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
         for (int32 j = 0; j < nstates; j++) {
             markov_extract_expr(line, expr, &istart);

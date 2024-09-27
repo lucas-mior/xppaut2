@@ -393,7 +393,6 @@ ggets_put_cursor_at(Window window, int32 col0, int32 pos) {
     int32 x1 = col0 + pos*DCURX;
     int32 x2 = x1 + 1;
     int32 y1 = DCURY - 2, y2 = 2;
-    /* XDrawString(display,w,gc,col0+pos*DCURX-1,DCURY,"^",1);*/
     XDrawLine(display, window, gc, x1, y1, x1, y2);
     XDrawLine(display, window, gc, x2, y1, x2, y2);
     return;

@@ -51,7 +51,6 @@ This also has the clone gadget
 #define READEM 1
 #define WRITEM 0
 
-/*extern char user_bg_bitmap[100];*/
 #define PARAMBOX 1
 #define ICBOX 2
 #define DELAYBOX 3
@@ -713,12 +712,10 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     strcpy(filesel.wildtxt, wild);
     strcpy(filesel.filetxt, file);
     width = 80*DCURXs;
-    /*wid=30*DCURXs;*/
     hgt = DCURYs + 4;
     height = (5 + nwin)*hgt;
     filesel.minwid = width;
     filesel.minhgt = height;
-    /* printf("Here now 23!\n");*/
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
                                       height, 4);
     /* printf("Here now 23!\n"); */

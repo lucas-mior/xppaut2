@@ -72,7 +72,6 @@ void
 vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
     int64 N;
     double c, *xd, *yd, *zd;
-    /*Vector v, v1, v2;*/
     Vector v1;
     Vector v2;
     bool test;

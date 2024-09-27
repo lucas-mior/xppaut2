@@ -789,12 +789,10 @@ int32
 check_num(int32 *tok, double value) {
     int32 bob;
     int32 in;
-    /*int32 m;*/
     for (int32 i = 0; i < NSYM; i++) {
         if (strncmp(my_symb[i].name, "NUM##", 5) == 0) {
             bob = my_symb[i].com;
             in = bob % MAXTYPE;
-            /*m=bob/MAXTYPE;*/
             if (constants[in] == value) {
                 *tok = i;
                 return 1;

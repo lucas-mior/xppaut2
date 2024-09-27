@@ -176,7 +176,6 @@ diagram_redraw(void) {
 
 void
 diagram_write_info_out(void) {
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
     int32 type;
@@ -187,7 +186,6 @@ diagram_write_info_out(void) {
     int32 icp2;
     double *par;
     double par1, par2 = 0, *uhigh, *ulow, per;
-    /*double a,*ubar,*u0;*/
     FILE *fp;
     sprintf(filename, "allinfo.dat");
     /* status=dialog_box_get("Write all
@@ -305,7 +303,6 @@ diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
 
 void
 diagram_write_init_data_file(void) {
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
     /*int32 flag=0;
@@ -315,7 +312,6 @@ diagram_write_init_data_file(void) {
     double *par;
     double par1;
     double *u0;
-    /*double a,*uhigh,*ulow,*ubar;*/
     FILE *fp;
     sprintf(filename, "initdata.dat");
     /* status=dialog_box_get("Write all
@@ -377,7 +373,6 @@ diagram_write_init_data_file(void) {
 
 void
 diagram_write_pts(void) {
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
     int32 type;
@@ -446,7 +441,6 @@ diagram_write_pts(void) {
 
 void
 diagram_post_auto(void) {
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
     int32 type;
@@ -491,7 +485,6 @@ diagram_post_auto(void) {
 
 void
 diagram_svg_auto(void) {
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
     int32 type;

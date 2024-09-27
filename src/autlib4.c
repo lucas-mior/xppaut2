@@ -112,8 +112,6 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
     /*  Make sure that you have enough local storage. */
 
-    /* Parameter adjustments */
-    /*--ev;*/
     rwork_dim1 = *ndim;
     c1_dim1 = *ndim;
     c0_dim1 = *ndim;
@@ -448,10 +446,6 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 
     /*  Test the input parameters. */
 
-    /* Parameter adjustments */
-    /*--v;*/
-    /*--x;*/
-
     if (*k < 1 || *k > *j) {
         fprintf(fp9, "Domain error for K in DHHPR\n");
         exit(0);
@@ -599,8 +593,6 @@ dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
 
     /*  Test the input parameters. */
 
-    /* Parameter adjustments */
-    /*--v;*/
     a_dim1 = *lda;
 
     if (*job != 1 && *job != 2) {

@@ -177,7 +177,6 @@ torus_make_box(char *title) {
     XSizeHints size_hints;
 
     nv = 4*display_height / (5*(DCURYs + 8));
-    /*nh=display_width/(18*DCURXs);*/
 
     if (NEQ < nv) {
         ndn = NEQ;

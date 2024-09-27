@@ -654,7 +654,6 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
         pxym[i] = 0.0;
     }
 
-    /*sum=0;*/
     for (int32 j = 0; j <= kwin; j++) {
         for (int32 i = 0; i < win; i++) {
             /* kk=kk=(-shift+j*shift+i+nr)%nr; */
@@ -948,7 +947,6 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
         av1 = av1 / (double)length;
         av2 = av2 / (double)length;
     }
-    /* n2=length/2;*/
 
     dim[0] = length;
     re1 = xmalloc((usize)length*sizeof(*(re1)));

@@ -150,7 +150,6 @@ extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
         value into  a variable, and check whether this saved value is not NULL.
         */
         dlerror();
-        /*fun=dlsym(dlhandle,dlf.fun);*/
         /*Following is the new C99 standard way to do this.
         See the Example in the dlsym man page
         for detailed explanation...*/

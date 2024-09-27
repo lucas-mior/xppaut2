@@ -3997,10 +3997,6 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
         u[ic[i]] = -sm / ARRAY2D(a, ir[i], ic[i]);
     }
 
-    /* Since the pointers for ir and ic were adjusted we need to put the
-         back here. */
-    /*ir \+= 1;*/
-    /*ic \+= 1;*/
     free(ir);
     free(ic);
     return 0;
@@ -4161,10 +4157,6 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
 #endif
 
     if (nrhs == 0) {
-        /* Since the pointers for ir and ic were adjusted we need to put the
-           back here. */
-        /*ir \+= 1;*/
-        /*ic \+= 1;*/
         free(ir);
         free(ic);
         return 0;
@@ -4193,10 +4185,6 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
         }
     }
 
-    /* Since the pointers for ir and ic were adjusted we need to put the
-         back here. */
-    /*ir \+= 1;*/
-    /*ic \+= 1;*/
     free(ir);
     free(ic);
 

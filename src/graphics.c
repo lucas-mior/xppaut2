@@ -297,7 +297,6 @@ graphics_set_linestyle(int32 ls) {
         svg_linetype(ls);
     } else {
         /* graphics set line style x11 */
-        /*int32 width=0;*/
         int32 type = 0;
         if (ls == -2) { /*  Border  */
             color_set(0);
@@ -482,10 +481,8 @@ graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
     case 1:
         if (avsymfonts[size] == 1) {
             XSetFont(display, font_gc, symfonts[size]->fid);
-            /*yoff=symfonts[size]->ascent;*/
         } else {
             XSetFont(display, font_gc, font_small->fid);
-            /*yoff=font_small->ascent;*/
         }
         XSetForeground(display, font_gc, GrFore);
         XDrawString(display, draw_win, font_gc, x, y, str, (int)strlen(str));
@@ -494,11 +491,9 @@ graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
     default:
         if (avromfonts[size] == 1) {
             XSetFont(display, font_gc, romfonts[size]->fid);
-            /*yoff=romfonts[size]->ascent;*/
 
         } else {
             XSetFont(display, font_gc, font_small->fid);
-            /*yoff=font_small->ascent;*/
         }
         XSetForeground(display, font_gc, GrFore);
         XDrawString(display, draw_win, font_gc, x, y, str, (int)strlen(str));
@@ -562,7 +557,6 @@ graphics_init_all(void) {
         graphics_init(i);
     }
     MyGraph = &graph[0];
-    /*graphics_set_extra();*/
     graphics_set_normal_scale();
     return;
 }

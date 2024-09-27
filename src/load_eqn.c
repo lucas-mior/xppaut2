@@ -218,13 +218,10 @@ load_eqn_set_x_vals(void) {
     */
 
     tfBell = 1;
-    /*paper_white=0;*/
     /*
     No gradients tends to look cleaner but some
     may prefer gradients improved contrast/readability.
     */
-    /*UserGradients=1;
-     */
     /*fixed is the new X11 default fixed font. 9x15 is dead and gone.
      */
     if (strlen(font_name_big) == 0) {

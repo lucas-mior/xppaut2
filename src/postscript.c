@@ -342,7 +342,6 @@ ps_special_put_text(int32 x, int32 y, char *str, int32 size) {
     int32 j = 0;
     int32 type = 1;
     int32 cf = 0;
-    /*int32 cs;*/
     int32 n = (int32)strlen(str);
     int32 cy = 0;
     char tmp[256];

@@ -1331,7 +1331,6 @@ ani_zero(void) {
     } else {
         strcpy(vcr.file, this_file);
         snprintf(vcr.file, sizeof(vcr.file), "%s/", dirname(vcr.file));
-        /*strcpy(vcr.file,"foo.ani");*/
     }
     return;
 }

@@ -269,7 +269,6 @@ array_plot_do_events(XEvent event) {
         if (event.xany.window == array_plot.wplot) {
             first_aplot_press = event.xbutton.y;
         }
-        /*array_plot_button(ev.xbutton.window,array_plot);*/
         array_plot_button(event.xbutton.window);
         break;
     default:

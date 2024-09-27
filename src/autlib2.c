@@ -2030,7 +2030,6 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
     /* free the memory*/
     /* Not the we have modified these parameter before, so
        we undo the modifications here and then free them. */
-    /*xe \+= 1;*/
     free(xe);
 
     return 0;

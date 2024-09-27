@@ -79,11 +79,6 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--u;*/
-    /*--icp;*/
-    /*--par;*/
-    /*--f;*/
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
@@ -150,12 +145,6 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     double dum1;
 
-    /* Parameter adjustments */
-    /*--u;*/
-    /*--uold;*/
-    /*--icp;*/
-    /*--par;*/
-    /*--f;*/
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -211,12 +200,6 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--f;*/
-    /*--u0;*/
-    /*--u1;*/
     dbc_dim1 = nbc;
 
     nbc0 = iap->nbc0;
@@ -355,12 +338,6 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--u0;*/
-    /*--u1;*/
-    /*--fb;*/
     dbc_dim1 = nbc;
 
     ndm = iap->ndm;
@@ -639,14 +616,6 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--u;*/
-    /*--uold;*/
-    /*--udot;*/
-    /*--upold;*/
-    /*--f;*/
     dint_dim1 = nint;
 
     nnt0 = iap->nnt0;
@@ -824,10 +793,6 @@ inho(iap_type *iap, int64 *icp, double *par) {
 
     /* set various constants */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-
     ndim = iap->ndim;
     irs = iap->irs;
     isw = iap->isw;
@@ -959,9 +924,6 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
     /* Preprocesses (perturbs) restart data to enable */
     /* initial computation of the adjoint variable */
 
-    /* Parameter adjustments */
-    /*--tm;*/
-    /*--par;*/
     udotps_dim1 = *ndx;
     ups_dim1 = *ndx;
 
@@ -1085,13 +1047,6 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--rlcur;*/
-    /*--rldot;*/
-    /*--tm;*/
-    /*--dtm;*/
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -1158,11 +1113,6 @@ stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
     /* If ISTART=3 it sets up the homotopy method. */
 
     /* Local */
-
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--u;*/
-    /*--icp;*/
 
     ndm = iap->ndm;
 
@@ -1278,10 +1228,6 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
     int64 iid;
     int64 ndm;
 
-    /* Parameter adjustments */
-    /*--icp;*/
-    /*--dtm;*/
-    /*--par;*/
     ups_dim1 = *ndxloc;
     p1_dim1 = *ndim;
     p0_dim1 = *ndim;
@@ -1364,11 +1310,6 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--ri;*/
-    /*--rr;*/
     vt -= ((iap->ndm) + 1);
     v -= ((iap->ndm) + 1);
 
@@ -1871,10 +1812,6 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--xequib;*/
-    /*--icp;*/
-    /*--par;*/
     bound -= ((*ndm) + 1);
     dfdp_dim1 = *ndm;
     dfdu_dim1 = *ndm;

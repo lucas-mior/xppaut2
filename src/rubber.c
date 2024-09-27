@@ -26,7 +26,6 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     if (xorfix) {
         XSetForeground(display, gc, MyDrawWinColor);
         XSetBackground(display, gc, MyForeColor);
-        /*XSetForeground(display,gc,GrFore);*/
     }
 
     XSelectInput(display, window,
@@ -42,7 +41,6 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
             if (xorfix) {
                 XSetForeground(display, gc, MyDrawWinColor);
                 XSetBackground(display, gc, MyForeColor);
-                /*XSetForeground(display,gc,GrFore);*/
             }
             break;
 

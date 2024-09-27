@@ -719,9 +719,7 @@ many_pops_add_pntarr(int32 type) {
     double ye;
     double xs;
     double ys;
-    /*Window temp;*/
     int32 flag;
-    /*temp=main_win;*/
     if (ggets_new_float("Size: ", &size)) {
         return;
     }
@@ -1153,7 +1151,6 @@ many_pops_svg_restore(void) {
         restore_nullclines();
     }
     svg_last_pt_off();
-    /*ps_do_color(0);*/
     integrate_restore(0, my_browser.maxrow);
     axes2_do();
     if (Xup) {
@@ -1320,7 +1317,6 @@ many_pops_create_a_pop(void) {
         }
     }
     if (i >= MAXPOP) {
-        /*pop_list_respond_box(main_win,0,0,"Okay","Too many windows!");*/
         pop_list_respond_box("Okay", "Too many windows!");
         return;
     }

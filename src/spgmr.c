@@ -163,7 +163,6 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             double *res_norm, int32 *nli, int32 *nps) {
     Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
-    /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
     double beta;
     double rotation_product;
     double r_norm;
