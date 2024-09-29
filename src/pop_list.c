@@ -629,7 +629,7 @@ pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
     win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
                               (uint)bw, my_fore_color, my_back_color);
 
-    if (UserGradients == 1) {
+    if (user_gradients == 1) {
         int32 xx, yy;
         double cosine;
         XColor bcolour, col2, diffcol;
@@ -709,7 +709,7 @@ pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
 
     // Gradient stuff
 
-    if (UserGradients == 1) {
+    if (user_gradients == 1) {
         int32 xx, yy;
         double cosine;
         Pixmap pmap =
@@ -818,7 +818,7 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
     XParseColor(display, cmap, user_white, &bcolour);
     XParseColor(display, cmap, user_black, &diffcol);
 
-    if (UserGradients == 1) {
+    if (user_gradients == 1) {
         double cosine;
 
         xx = 0;

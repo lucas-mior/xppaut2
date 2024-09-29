@@ -76,12 +76,12 @@ GC font_gc;
 char user_black[8];
 char user_white[8];
 char user_main_win_color[8];
-char UserDrawWinColor[8];
+char user_draw_win_color[8];
 char user_bg_bitmap[XPP_MAX_NAME];
 
-int32 UserGradients = -1;
-int32 UserMinWidth = 0;
-int32 UserMinHeight = 0;
+int32 user_gradients = -1;
+int32 user_min_width = 0;
+int32 user_min_height = 0;
 uint32 my_back_color;
 uint32 my_fore_color;
 uint32 my_main_win_color;
@@ -244,11 +244,11 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.user_black = 1;
     notAlreadySet.user_white = 1;
     notAlreadySet.user_main_win_color = 1;
-    notAlreadySet.UserDrawWinColor = 1;
-    notAlreadySet.UserGradients = 1;
+    notAlreadySet.user_draw_win_color = 1;
+    notAlreadySet.user_gradients = 1;
     notAlreadySet.user_bg_bitmap = 1;
-    notAlreadySet.UserMinWidth = 1;
-    notAlreadySet.UserMinHeight = 1;
+    notAlreadySet.user_min_width = 1;
+    notAlreadySet.user_min_height = 1;
     notAlreadySet.YNullColor = 1;
     notAlreadySet.XNullColor = 1;
     notAlreadySet.StableManifoldColor = 1;
@@ -635,13 +635,13 @@ main_init_x(void) {
 
     char teststr[] = "The Quick Brown Fox Jumped Over The Lazy Dog?";
 
-    if (UserMinWidth > 0) {
-        min_wid = (uint32)UserMinWidth;
+    if (user_min_width > 0) {
+        min_wid = (uint32)user_min_width;
         SCALEX = (int32)min_wid;
     }
 
-    if (UserMinHeight > 0) {
-        min_hgt = (uint32)UserMinHeight;
+    if (user_min_height > 0) {
+        min_hgt = (uint32)user_min_height;
         SCALEY = (int32)min_hgt;
     }
 
@@ -711,9 +711,9 @@ main_init_x(void) {
     XSetWindowBorder(display, main_win, my_fore_color);
     XSetWindowBackground(display, main_win, my_main_win_color);
 
-    if (strlen(UserDrawWinColor) != 0) {
+    if (strlen(user_draw_win_color) != 0) {
         XColor draw_win_col;
-        XParseColor(display, DefaultColormap(display, screen), UserDrawWinColor,
+        XParseColor(display, DefaultColormap(display, screen), user_draw_win_color,
                     &draw_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &draw_win_col);
 
@@ -849,11 +849,11 @@ main_init_x(void) {
     /* If the user didn't specify specifically heights and widths
      * we try to set the initial size to fit everything nicely especially
      * if they are using wacky fonts...  */
-    if (UserMinWidth <= 0) {
+    if (user_min_width <= 0) {
         SCALEX = 10 + 36*2*dcur_xs + 32*dcur_xs;
     }
 
-    if (UserMinHeight <= 0) {
+    if (user_min_height <= 0) {
         SCALEY = 25*dcur_yb + 7*dcur_ys;
     }
 

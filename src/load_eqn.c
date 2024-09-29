@@ -241,12 +241,12 @@ load_eqn_set_x_vals(void) {
         sprintf(user_main_win_color, "#%s", "808080");
     }
 
-    if (strlen(UserDrawWinColor) == 0) {
-        sprintf(UserDrawWinColor, "#%s", "FFFFFF");
+    if (strlen(user_draw_win_color) == 0) {
+        sprintf(user_draw_win_color, "#%s", "FFFFFF");
     }
 
-    if (UserGradients < 0) {
-        UserGradients = 1;
+    if (user_gradients < 0) {
+        user_gradients = 1;
     }
     return;
 }
@@ -837,7 +837,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
 
                 if (strcmp("dwcolor",name)==0)
                 {
-                        if (strlen(UserDrawWinColor)!=0)
+                        if (strlen(user_draw_win_color)!=0)
                         {
                                 continue;
                         }
@@ -1103,22 +1103,22 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("DWCOLOR", s1)) {
-        if ((notAlreadySet.UserDrawWinColor || force) ||
-            ((mask != NULL) && (mask->UserDrawWinColor == 1))) {
-            sprintf(UserDrawWinColor, "#%s", s2);
-            notAlreadySet.UserDrawWinColor = 0;
+        if ((notAlreadySet.user_draw_win_color || force) ||
+            ((mask != NULL) && (mask->user_draw_win_color == 1))) {
+            sprintf(user_draw_win_color, "#%s", s2);
+            notAlreadySet.user_draw_win_color = 0;
         }
         return;
     }
     if (load_eqn_msc("GRADS", s1)) {
-        if ((notAlreadySet.UserGradients || force) ||
-            ((mask != NULL) && (mask->UserGradients == 1))) {
+        if ((notAlreadySet.user_gradients || force) ||
+            ((mask != NULL) && (mask->user_gradients == 1))) {
             if (!(load_eqn_msc(s2, "0") || load_eqn_msc(s2, "1"))) {
                 ggets_plintf("GRADS option must be 0 or 1.\n");
                 exit(-1);
             }
-            UserGradients = atoi(s2);
-            notAlreadySet.UserGradients = 0;
+            user_gradients = atoi(s2);
+            notAlreadySet.user_gradients = 0;
         }
         return;
     }
@@ -1141,18 +1141,18 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("WIDTH", s1)) {
-        if ((notAlreadySet.UserMinWidth || force) ||
-            ((mask != NULL) && (mask->UserMinWidth == 1))) {
-            UserMinWidth = atoi(s2);
-            notAlreadySet.UserMinWidth = 0;
+        if ((notAlreadySet.user_min_width || force) ||
+            ((mask != NULL) && (mask->user_min_width == 1))) {
+            user_min_width = atoi(s2);
+            notAlreadySet.user_min_width = 0;
         }
         return;
     }
     if (load_eqn_msc("HEIGHT", s1)) {
-        if ((notAlreadySet.UserMinHeight || force) ||
-            ((mask != NULL) && (mask->UserMinHeight == 1))) {
-            UserMinHeight = atoi(s2);
-            notAlreadySet.UserMinHeight = 0;
+        if ((notAlreadySet.user_min_height || force) ||
+            ((mask != NULL) && (mask->user_min_height == 1))) {
+            user_min_height = atoi(s2);
+            notAlreadySet.user_min_height = 0;
         }
         return;
     }
