@@ -389,7 +389,7 @@ do_main(int32 argc, char **argv) {
     logfile = stdout;
     main_check_for_quiet(argc, argv);
 
-    comline_do(argc, argv);
+    cli_do(argc, argv);
 
     /* We need to init_X here if there is no file on command line
      * so that a file browser can be opened.  */
@@ -452,11 +452,11 @@ do_main(int32 argc, char **argv) {
         color_map_make();
         browser_init();
         graphics_init_all();
-        comline_if_needed_load_set();
-        comline_if_needed_load_par();
-        comline_if_needed_load_ic();
-        comline_if_needed_select_sets();
-        comline_if_needed_load_ext_options();
+        cli_if_needed_load_set();
+        cli_if_needed_load_par();
+        cli_if_needed_load_ic();
+        cli_if_needed_select_sets();
+        cli_if_needed_load_ext_options();
         graphics_set_extra();
         nullcline_set_colorization_stuff();
         integrate_batch();
@@ -563,10 +563,10 @@ do_main(int32 argc, char **argv) {
             free((char *)colors);
         }
     }
-    comline_if_needed_load_set();
-    comline_if_needed_load_par();
-    comline_if_needed_load_ic();
-    comline_if_needed_load_ext_options();
+    cli_if_needed_load_set();
+    cli_if_needed_load_par();
+    cli_if_needed_load_ic();
+    cli_if_needed_load_ext_options();
     if (use_ani_file) {
         ani_new_vcr();
         ani_get_file(anifile);
@@ -617,7 +617,7 @@ void
 main_do_vis_env(void) {
     load_eqn_set_x_vals();
     load_eqn_check_for_xpprc();
-    load_eqn_set_internopts_xpprc_and_comline();
+    load_eqn_set_internopts_xpprc_and_cli();
     return;
 }
 

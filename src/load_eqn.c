@@ -896,7 +896,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
 }
 
 void
-load_eqn_set_internopts_xpprc_and_comline(void) {
+load_eqn_set_internopts_xpprc_and_cli(void) {
     char *ptr, name[20], value[80], *junk, *mystring;
     OptionsSet *tempNAS;
     //  parsem here
@@ -934,7 +934,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
 
     // We make a BOOLEAN MASK using the current OptionsSet
     /*This allows options to be overwritten multiple times within .xpprc
-    but prevents overwriting across comline, .xpprc etc.
+    but prevents overwriting across cli, .xpprc etc.
     */
     tempNAS = xmalloc(sizeof(*tempNAS));
     *tempNAS = notAlreadySet;

@@ -72,9 +72,9 @@ static struct SetName {
     struct SetName *next;
 } *sets2use, *setsNOTuse;
 
-static int32 comline_is_set_name(struct SetName *set, char *nam);
-static struct SetName *comline_add_set(struct SetName *set, char *nam);
-static int32 comline_parse_it(char *com);
+static int32 cli_is_set_name(struct SetName *set, char *nam);
+static struct SetName *cli_add_set(struct SetName *set, char *nam);
+static int32 cli_parse_it(char *com);
 
 static int32 loadsetfile = 0;
 static int32 loadparfile = 0;
@@ -107,7 +107,7 @@ static Vocab my_cmd[NCMD] = {
     {"-equil", 6}};
 
 int32
-comline_is_set_name(struct SetName *set, char *nam) {
+cli_is_set_name(struct SetName *set, char *nam) {
     struct SetName *curr;
     if (set == NULL) {
         return 0;
@@ -126,8 +126,8 @@ comline_is_set_name(struct SetName *set, char *nam) {
 }
 
 struct SetName *
-comline_add_set(struct SetName *set, char *nam) {
-    if (!comline_is_set_name(set, nam)) {
+cli_add_set(struct SetName *set, char *nam) {
+    if (!cli_is_set_name(set, nam)) {
         struct SetName *curr;
         curr = xmalloc(sizeof(struct SetName));
         curr->name = (char *)nam;
@@ -139,7 +139,7 @@ comline_add_set(struct SetName *set, char *nam) {
 }
 
 void
-comline_do(int32 argc, char **argv) {
+cli_do(int32 argc, char **argv) {
     int32 i;
     int32 k;
 
@@ -150,7 +150,7 @@ comline_do(int32 argc, char **argv) {
     parfilename[0] = 0;
     icfilename[0] = 0;
     for (i = 1; i < argc; i++) {
-        k = comline_parse_it(argv[i]);
+        k = cli_parse_it(argv[i]);
         if (k == 1) {
             strcpy(setfilename, argv[i + 1]);
             i++;
@@ -245,12 +245,12 @@ comline_do(int32 argc, char **argv) {
             i++;
         }
         if (k == 17) {
-            sets2use = comline_add_set(sets2use, argv[i + 1]);
+            sets2use = cli_add_set(sets2use, argv[i + 1]);
             i++;
             select_intern_sets = 1;
         }
         if (k == 18) {
-            setsNOTuse = comline_add_set(setsNOTuse, argv[i + 1]);
+            setsNOTuse = cli_add_set(setsNOTuse, argv[i + 1]);
             i++;
             select_intern_sets = 1;
         }
@@ -316,7 +316,7 @@ comline_do(int32 argc, char **argv) {
 }
 
 int32
-comline_if_needed_load_ext_options(void) {
+cli_if_needed_load_ext_options(void) {
     FILE *fp;
     char myopts[1024];
     char myoptsx[1026];
@@ -347,7 +347,7 @@ comline_if_needed_load_ext_options(void) {
 }
 
 int32
-comline_if_needed_select_sets(void) {
+cli_if_needed_select_sets(void) {
     if (!select_intern_sets) {
         return 1;
     }
@@ -355,7 +355,7 @@ comline_if_needed_select_sets(void) {
         intern_set[j].use = (uint32)use_intern_sets;
         Nintern_2_use += use_intern_sets;
 
-        if (comline_is_set_name(sets2use, intern_set[j].name)) {
+        if (cli_is_set_name(sets2use, intern_set[j].name)) {
             ggets_plintf("Internal set %s was included\n", intern_set[j].name);
             if (intern_set[j].use == 0) {
                 Nintern_2_use++;
@@ -363,7 +363,7 @@ comline_if_needed_select_sets(void) {
             intern_set[j].use = 1;
         }
 
-        if (comline_is_set_name(setsNOTuse, intern_set[j].name)) {
+        if (cli_is_set_name(setsNOTuse, intern_set[j].name)) {
             ggets_plintf("Internal set %s was excluded\n", intern_set[j].name);
             if (intern_set[j].use == 1) {
                 Nintern_2_use--;
@@ -378,7 +378,7 @@ comline_if_needed_select_sets(void) {
 }
 
 int32
-comline_if_needed_load_set(void) {
+cli_if_needed_load_set(void) {
     FILE *fp;
     if (!loadsetfile) {
         return 1;
@@ -394,7 +394,7 @@ comline_if_needed_load_set(void) {
 }
 
 int32
-comline_if_needed_load_par(void) {
+cli_if_needed_load_par(void) {
     if (!loadparfile) {
         return 1;
     }
@@ -404,7 +404,7 @@ comline_if_needed_load_par(void) {
 }
 
 int32
-comline_if_needed_load_ic(void) {
+cli_if_needed_load_ic(void) {
     if (!loadicfile) {
         return 1;
     }
@@ -414,7 +414,7 @@ comline_if_needed_load_ic(void) {
 }
 
 int32
-comline_parse_it(char *com) {
+cli_parse_it(char *com) {
     int32 j;
     for (j = 0; j < NCMD; j++) {
         if (strncmp(com, my_cmd[j].name, (size_t)my_cmd[j].len) == 0) {

@@ -457,8 +457,8 @@ extern int32 NULL_HERE;
 
 #endif
 
-#ifndef COMLINE_H
-#define COMLINE_H
+#ifndef CLI_H
+#define CLI_H
 
 extern int32 NincludedFiles;
 extern int32 Nintern_2_use;
@@ -472,12 +472,12 @@ extern int32 newseed;
 
 extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
-void comline_do(int32 argc, char **argv);
-int32 comline_if_needed_select_sets(void);
-int32 comline_if_needed_load_set(void);
-int32 comline_if_needed_load_par(void);
-int32 comline_if_needed_load_ic(void);
-int32 comline_if_needed_load_ext_options(void);
+void cli_do(int32 argc, char **argv);
+int32 cli_if_needed_select_sets(void);
+int32 cli_if_needed_load_set(void);
+int32 cli_if_needed_load_par(void);
+int32 cli_if_needed_load_ic(void);
+int32 cli_if_needed_load_ext_options(void);
 
 #endif
 
@@ -2199,7 +2199,7 @@ void load_eqn_extract_action(char *ptr);
 void load_eqn_extract_internset(int32 j);
 int32 load_eqn_msc(char *s1, char *s2);
 void load_eqn_set_internopts(OptionsSet *mask);
-void load_eqn_set_internopts_xpprc_and_comline(void);
+void load_eqn_set_internopts_xpprc_and_cli(void);
 void load_eqn_check_for_xpprc(void);
 void load_eqn_stor_internopts(char *s1);
 void load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask);
