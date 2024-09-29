@@ -1240,7 +1240,7 @@ typedef struct Action {
     int32 aflag;
 } Action;
 
-typedef struct {
+typedef struct BcStruct {
     int32 *com;
     char *string;
     char *name;
