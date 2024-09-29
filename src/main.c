@@ -483,7 +483,7 @@ do_main(int32 argc, char **argv) {
         uint32 h, w, bw, d;
         Window wn;
         XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
-        create_the_menus(main_win);
+        menu_create_them(main_win);
         command_pop =
             XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
                                 (uint)DCURY + 4, 2, MyForeColor, MyBackColor);

@@ -368,7 +368,7 @@ static void unshow_menu(int32 j);
 static void show_menu(int32 j);
 
 void
-add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
+menu_add(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     Window window;
     Cursor cursor;
     cursor = XCreateFontCursor(display, XC_hand2);
@@ -393,17 +393,17 @@ add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
 }
 
 void
-create_the_menus(Window base) {
+menu_create_them(Window base) {
     char key[30];
     strcpy(key, "icndwakgufpemtsvxr3b");
-    add_menu(base, MAIN_MENU, MAIN_ENTRIES, main_menu, key, main_hint);
+    menu_add(base, MAIN_MENU, MAIN_ENTRIES, main_menu, key, main_hint);
     strcpy(key, "tsrdniobmechpukva");
     key[17] = 27;
     key[18] = 0;
-    add_menu(base, NUM_MENU, NUM_ENTRIES, num_menu, key, num_hint);
+    menu_add(base, NUM_MENU, NUM_ENTRIES, num_menu, key, num_hint);
     // CLONE
     strcpy(key, "pwracesbhqtiglxu");
-    add_menu(base, FILE_MENU, FILE_ENTRIES, fileon_menu, key, file_hint);
+    menu_add(base, FILE_MENU, FILE_ENTRIES, fileon_menu, key, file_hint);
     help_menu = -1;
     return;
 }

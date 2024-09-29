@@ -2621,9 +2621,9 @@ void menudrive_do_tutorial(void);
 
 extern int32 help_menu;
 
-void add_menu(Window base, int32 j, int32 n, char **names, char *key,
+void menu_add(Window base, int32 j, int32 n, char **names, char *key,
               char **hint);
-void create_the_menus(Window base);
+void menu_create_them(Window base);
 void menu_help(void);
 void menu_help_num(void);
 void menu_help_file(void);
