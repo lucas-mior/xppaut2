@@ -582,12 +582,12 @@ graphics_set_extra(void) {
             graph[i].yv[0] = IY_PLT[i + 1];
             graph[i].zv[0] = IZ_PLT[i + 1];  // irrelevant probably
             graph[i].grtype = 0;             // force 2D
-            graph[i].xlo = X_LO[i + 1];
-            graph[i].xhi = X_HI[i + 1];
+            graph[i].xlo = x_lo[i + 1];
+            graph[i].xhi = x_hi[i + 1];
             graph[i].ylo = y_lo[i + 1];
             graph[i].yhi = y_hi[i + 1];
             /*  printf(" %g %g %g %g
-             * \n",X_LO[i+1],X_HI[i+1],y_lo[i+1],y_hi[i+1]); */
+             * \n",x_lo[i+1],x_hi[i+1],y_lo[i+1],y_hi[i+1]); */
         }
         many_pops_set_active_windows();
         many_pops_make_active(0, 1);
