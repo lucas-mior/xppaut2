@@ -694,8 +694,8 @@ int32
 auto_x11_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
                      int32 def, int32 x, int32 y, char **hints, char *httxt) {
     Window temp = auto_win.base;
-    int32 value = pop_list_popup_list_new(&temp, title, list, key, n, max, def, x, y, hints,
-                              auto_win.hint, httxt);
+    int32 value = pop_list_popup_list_new(&temp, title, list, key, n, max, def,
+                                          x, y, hints, auto_win.hint, httxt);
     return value;
 }
 

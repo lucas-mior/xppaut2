@@ -429,4 +429,3 @@ void dense_free2(double **a);
 void dense_print2(double **a, int64 n);
 
 #endif
-

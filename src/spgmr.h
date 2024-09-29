@@ -181,16 +181,16 @@ int32 spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
 /* Return values for spgmr_solve */
 
-#define SPGMR_SUCCESS 0            // Converged
-#define SPGMR_RES_REDUCED 1    // Did not converge, but reduced norm of residual
-#define SPGMR_CONV_FAIL 2          // Failed to converge
-#define SPGMR_QRFACT_FAIL 3        // QRfact found singular matrix
-#define SPGMR_PSOLVE_FAIL_REC 4    // psolve failed recoverably
-#define SPGMR_MEM_NULL -1          // mem argument is NULL
-#define SPGMR_ATIMES_FAIL -2       // atimes returned failure flag
-#define SPGMR_PSOLVE_FAIL_UNREC -3 // psolve failed unrecoverably
-#define SPGMR_GS_FAIL -4           // Gram-Schmidt routine returned failure flag
-#define SPGMR_QRSOL_FAIL -5        // QRsol found singular R
+#define SPGMR_SUCCESS 0      // Converged
+#define SPGMR_RES_REDUCED 1  // Did not converge, but reduced norm of residual
+#define SPGMR_CONV_FAIL 2    // Failed to converge
+#define SPGMR_QRFACT_FAIL 3  // QRfact found singular matrix
+#define SPGMR_PSOLVE_FAIL_REC 4     // psolve failed recoverably
+#define SPGMR_MEM_NULL -1           // mem argument is NULL
+#define SPGMR_ATIMES_FAIL -2        // atimes returned failure flag
+#define SPGMR_PSOLVE_FAIL_UNREC -3  // psolve failed unrecoverably
+#define SPGMR_GS_FAIL -4     // Gram-Schmidt routine returned failure flag
+#define SPGMR_QRSOL_FAIL -5  // QRsol found singular R
 
 /******************************************************************
  * Function : SpgmrFree                                           *
@@ -201,4 +201,3 @@ int32 spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 void spgmr_free(SpgmrMem mem);
 
 #endif
-

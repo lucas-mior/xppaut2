@@ -20,7 +20,7 @@ typedef struct {
     double *cc;     /*array output (but must be initialized to 0) size: *nca X
                      *nrc X *na */
     double *dd;     // array output (but must be initialized to 0) size: *ncb X
-                 // *nrc
+                    // *nrc
     double *fa;  // array output (but must be initialized to 0) size: *nra X *na
     double *fc;  // array output (but must be initialized to 0) size: *nrc
     double *ups;        // array input size: *ndxloc X (*ndim X *ncol)

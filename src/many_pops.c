@@ -89,8 +89,8 @@ many_pops_select_table(void) {
         sprintf(n[i], "%c: %s", key[i], my_table[i].name);
     }
     key[NTable] = 0;
-    ch = (char)pop_list_popup_list_new(&temp, "Table", n, key, NTable, 12, 0, 10, 0,
-                           no_hint, info_pop, info_message);
+    ch = (char)pop_list_popup_list_new(&temp, "Table", n, key, NTable, 12, 0,
+                                       10, 0, no_hint, info_pop, info_message);
     for (int32 i = 0; i < NTable; i++) {
         free(n[i]);
     }
@@ -118,8 +118,8 @@ many_pops_get_intern_set(void) {
         sprintf(n[i], "%c: %s", key[i], intern_set[i].name);
     }
     key[count] = 0;
-    ch = (char)pop_list_popup_list_new(&temp, "Param set", n, key, count, 12, 0, 10, 0,
-                           no_hint, info_pop, info_message);
+    ch = (char)pop_list_popup_list_new(&temp, "Param set", n, key, count, 12, 0,
+                                       10, 0, no_hint, info_pop, info_message);
     for (int32 i = 0; i < count; i++) {
         free(n[i]);
     }
@@ -646,8 +646,9 @@ many_pops_select_marker_type(int32 *type) {
     static char key[] = "bdtpxc";
     Window temp = main_win;
     char ch;
-    ch = (char)pop_list_popup_list_new(&temp, "Markers", list, key, 6, 9, ival, 10,
-                           4*DCURY + 8, no_hint, info_pop, info_message);
+    ch = (char)pop_list_popup_list_new(&temp, "Markers", list, key, 6, 9, ival,
+                                       10, 4*DCURY + 8, no_hint, info_pop,
+                                       info_message);
     if (ch == PAUSE_NUMBER) {
         return 0;
     }
@@ -936,8 +937,8 @@ many_pops_do_gr_objs_com(int32 com) {
 
         for (int32 i = 0; i < markinfo.number; i++) {
             browser_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0],
-                                MyGraph->zv[0],
-                                markinfo.start + i*markinfo.skip);
+                                 MyGraph->zv[0],
+                                 markinfo.start + i*markinfo.skip);
             if (MyGraph->ThreeDFlag == 0) {
                 xs = x;
                 ys = y;

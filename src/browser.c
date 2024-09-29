@@ -54,9 +54,10 @@ static void browser_data_del_col(Browser *b);
 static void browser_data_add_col(Browser *b);
 static int32 browser_add_stor_col(char *name, char *formula, Browser *b);
 static void browser_chk_seq(char *f, int32 *seq, double *a1, double *a2);
-static void browser_replace_column(char *var, char *form, double **dat, int32 n);
+static void browser_replace_column(char *var, char *form, double **dat,
+                                   int32 n);
 static void browser_make_d_table(double xlo, double xhi, int32 col,
-                                char *filename, Browser b);
+                                 char *filename, Browser b);
 static void browser_find_value(int32 col, double val, int32 *row, Browser b);
 static void browser_but_on(Browser *b, int32 i, Window window, int32 yn);
 static void enter_browser(XEvent event, Browser *b, int32 yn);
@@ -435,7 +436,7 @@ browser_wipe_rep(void) {
 
 void
 browser_make_d_table(double xlo, double xhi, int32 col, char *filename,
-                    Browser b) {
+                     Browser b) {
     int32 npts;
     int32 ok;
     FILE *fp;
@@ -796,7 +797,8 @@ browser_button2(Window root, int32 row, int32 col, int32 iflag) {
 }
 
 Window
-browser_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
+browser_button_data(Window root, int32 row, int32 col, char *name,
+                    int32 iflag) {
     Window window;
     int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
@@ -1333,7 +1335,7 @@ browser_data_end(Browser *b) {
 
 void
 browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
-                    int32 i3, int32 off) {
+                     int32 i3, int32 off) {
     int32 in = my_browser.row0 + off;
     *x = my_browser.data[i1][in];
     *y = my_browser.data[i2][in];

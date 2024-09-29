@@ -160,7 +160,7 @@ axes_do(void) {
     switch (MyGraph->grtype) {
     case 0:
         axes_box(MyGraph->xlo, MyGraph->xhi, MyGraph->ylo, MyGraph->yhi,
-                  MyGraph->xlabel, MyGraph->ylabel, 1);
+                 MyGraph->xlabel, MyGraph->ylabel, 1);
         break;
     case 5: {
         double tx, ty, tz;
@@ -283,7 +283,7 @@ axes_redraw_cube(double theta, double phi) {
 
 void
 axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
-          char *sy, int32 flag) {
+         char *sy, int32 flag) {
     double ytic;
     double xtic;
 
@@ -325,9 +325,9 @@ axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     graphics_line(xright, ytop, xleft, ytop);
     graphics_line(xleft, ytop, xleft, ybot);
     axes_draw_ytics(sy, ytic*floor(y_min / ytic), ytic,
-                     ytic*ceil(y_max / ytic));
+                    ytic*ceil(y_max / ytic));
     axes_draw_xtics(sx, xtic*floor(x_min / xtic), xtic,
-                     xtic*ceil(x_max / xtic));
+                    xtic*ceil(x_max / xtic));
     TextJustify = 0;
     graphics_set_linestyle(0);
 

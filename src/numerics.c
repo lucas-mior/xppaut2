@@ -172,8 +172,9 @@ numerics_get_num_par(int32 ch) {
 #else
         nmeth = 15;
 #endif
-        ch2 = (char)pop_list_popup_list_new(&temp2, "Method", n, key, nmeth, 15, METHOD, 10,
-                                DCURY + 8, meth_hint, info_pop, info_message);
+        ch2 = (char)pop_list_popup_list_new(&temp2, "Method", n, key, nmeth, 15,
+                                            METHOD, 10, DCURY + 8, meth_hint,
+                                            info_pop, info_message);
         for (i2 = 0; i2 < nmeth; i2++) {
             if (ch2 == key[i2]) {
                 METHOD = i2;

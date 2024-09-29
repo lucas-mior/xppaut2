@@ -202,7 +202,7 @@ void axes_redraw_cube_pt(double theta, double phi);
 void axes_do(void);
 void axes_redraw_cube(double theta, double phi);
 void axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
-               char *sy, int32 flag);
+              char *sy, int32 flag);
 
 #endif
 
@@ -270,14 +270,14 @@ void browser_init(void);
 void browser_make_new(void);
 Window browser_button2(Window root, int32 row, int32 col, int32 iflag);
 Window browser_button_data(Window root, int32 row, int32 col, char *name,
-                          int32 iflag);
+                           int32 iflag);
 void browser_my_expose(XEvent event);
 void browser_my_enter(XEvent event, int32 yn);
 void browser_my_button(XEvent event);
 void browser_my_keypress(XEvent event, int32 *used);
 void browser_my_resize(Window win);
 void browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
-                         int32 i3, int32 off);
+                          int32 i3, int32 off);
 void browser_open_write_file(FILE **fp, char *fil, int32 *ok);
 void browser_my_write_data(FILE *fp);
 void browser_my_get_data(int32 row);
@@ -961,26 +961,27 @@ int32 dop853(
     double *rtoler,  // relative error tolerance
     double *atoler,  // absolute error tolerance
     int32 itoler,    // switch for rtoler and atoler
-    SolTrait solout, // function providing the numerical solution during integration
-    int32 iout,      // switch for calling solout
-    FILE *fileout,   // messages stream
-    double uround,   // rounding unit
-    double safe,     // safety factor
-    double fac1,     // parameters for step size selection
+    SolTrait
+        solout,  // function providing the numerical solution during integration
+    int32 iout,  // switch for calling solout
+    FILE *fileout,  // messages stream
+    double uround,  // rounding unit
+    double safe,    // safety factor
+    double fac1,    // parameters for step size selection
     double fac2,
-    double beta,     // for stabilized step size control
-    double hmax,     // maximal step size
-    double h,        // initial step size
-    long nmax,       // maximal number of allowed steps
-    int32 meth,      // switch for the choice of the coefficients
-    long nstiff,     // test for stiffness
-    uint32 nrdens,   // number of components for which dense outpout is required
-    uint32 *icont,   // indexes of components for which dense output is required, >= nrdens */
-    uint32 licont,   // declared length of icon
+    double beta,    // for stabilized step size control
+    double hmax,    // maximal step size
+    double h,       // initial step size
+    long nmax,      // maximal number of allowed steps
+    int32 meth,     // switch for the choice of the coefficients
+    long nstiff,    // test for stiffness
+    uint32 nrdens,  // number of components for which dense outpout is required
+    uint32 *icont,  // indexes of components for which dense output is required,
+                    // >= nrdens */
+    uint32 licont,  // declared length of icon
     double *work);
 
-extern int32
-dopri5(
+extern int32 dopri5(
     uint32 n,        // dimension of the system <= UINT_MAX-1
     FcnEqDiff fcn,   // function computing the value of f(x,y)
     double x,        // initial x-value
@@ -989,22 +990,24 @@ dopri5(
     double *rtoler,  // relative error tolerance
     double *atoler,  // absolute error tolerance
     int32 itoler,    // switch for rtoler and atoler
-    SolTrait solout, // function providing the numerical solution during integration
-    int32 iout,      // switch for calling solout
-    FILE *fileout,   // messages stream
-    double uround,   // rounding unit
-    double safe,     // safety factor
-    double fac1,     // parameters for step size selection
+    SolTrait
+        solout,  // function providing the numerical solution during integration
+    int32 iout,  // switch for calling solout
+    FILE *fileout,  // messages stream
+    double uround,  // rounding unit
+    double safe,    // safety factor
+    double fac1,    // parameters for step size selection
     double fac2,
-    double beta,     // for stabilized step size control
-    double hmax,     // maximal step size
-    double h,        // initial step size
-    long nmax,       // maximal number of allowed steps
-    int32 meth,      // switch for the choice of the coefficients
-    long nstiff,     // test for stiffness
-    uint32 nrdens,   // number of components for which dense outpout is required
-    uint32 *icont,   // indexes of components for which dense output is required, >= nrdens
-    uint32 licont,   // declared length of icon
+    double beta,    // for stabilized step size control
+    double hmax,    // maximal step size
+    double h,       // initial step size
+    long nmax,      // maximal number of allowed steps
+    int32 meth,     // switch for the choice of the coefficients
+    long nstiff,    // test for stiffness
+    uint32 nrdens,  // number of components for which dense outpout is required
+    uint32 *icont,  // indexes of components for which dense output is required,
+                    // >= nrdens
+    uint32 licont,  // declared length of icon
     double *work);
 
 void dormpri_dp_err(int32 k);
@@ -1171,12 +1174,12 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
 extern void fft_free(void);
 
 /* double precision routine */
-extern int32 fftn(int32 ndim, int32 dims[], double Re[],
-                  double Im[], int32, double scaling);
+extern int32 fftn(int32 ndim, int32 dims[], double Re[], double Im[], int32,
+                  double scaling);
 
 /* double precision routine */
-extern int32 fftnf(int32 ndim, int32 dims[], double Re[],
-                   double Im[], int32 isign, double scaling);
+extern int32 fftnf(int32 ndim, int32 dims[], double Re[], double Im[],
+                   int32 isign, double scaling);
 
 #endif
 
@@ -2960,9 +2963,9 @@ void pop_list_expose_choice(char *choice1, char *choice2, char *msg, Window c1,
 int32 pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
                           int32 x, int32 y, Window window, char *title);
 int32 pop_list_yes_no_box(void);
-int32 pop_list_popup_list_new(Window *root, char *title, char **list, char *key, int32 n,
-                  int32 max, int32 def, int32 x, int32 y, char **hints,
-                  Window hwin, char *httxt);
+int32 pop_list_popup_list_new(Window *root, char *title, char **list, char *key,
+                              int32 n, int32 max, int32 def, int32 x, int32 y,
+                              char **hints, Window hwin, char *httxt);
 Window pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y,
                                           int32 width, int32 height, int32 bw,
                                           uchar *icdata);
@@ -3080,7 +3083,7 @@ typedef struct Tabular {
     // flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
     int32 flag;
     /* interp=0 for normal interpolation, interp=1 for 'step' interp=2 for cubic
-     * spline table */ 
+     * spline table */
     int32 interp;
     int32 autoeval;
     /* xyvals=1 if both x and y vals are needed (xyvals=0 is faster lookup) */
