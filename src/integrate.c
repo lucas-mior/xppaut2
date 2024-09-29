@@ -58,7 +58,7 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #define DP83 12
 #define RB23 13
 
-int32 MakePlotFlag = 0;
+int32 make_plot_flag = 0;
 
 static int32 OnTheFly = 1;
 
@@ -1232,7 +1232,7 @@ batch_integrate_once(void) {
 
             fclose(fp);
         }
-        if (MakePlotFlag) {
+        if (make_plot_flag) {
             graf_par_dump_ps(-1);
         }
     }
@@ -1254,7 +1254,7 @@ integrate_write_this_run(char *file, int32 i) {
         browser_my_write_data(fp);
         fclose(fp);
     }
-    if (MakePlotFlag) {
+    if (make_plot_flag) {
         graf_par_dump_ps(i);
     }
     return 1;
@@ -2296,7 +2296,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (isnan(x[ieqn - 1]) != 0) {
                 sprintf(error_message, " %s is NaN at t = %f ",
                         uvar_names[ieqn - 1], *t);
-                /* if((STORFLAG==1)&&(storind<MAXSTOR))
+                /* if((STORFLAG==1)&&(storind<max_stor))
                    { */
                 i_nan = 0;
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
@@ -2319,7 +2319,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
                 sprintf(error_message, " %s out of bounds at t = %f ",
                         uvar_names[ieqn - 1], *t);
-                /* if((STORFLAG==1)&&(storind<MAXSTOR))
+                /* if((STORFLAG==1)&&(storind<max_stor))
                     { */
                 i_nan = 0;
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
@@ -2495,7 +2495,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             integrate_plot_the_graphs(xv, xvold, fabs(dt*NJMP), torcross, 0);
         }
 
-        if ((STORFLAG == 1) && (count != 0) && (storind < MAXSTOR) &&
+        if ((STORFLAG == 1) && (count != 0) && (storind < max_stor) &&
             !(fabs(*t) < TRANS)) {
             if (animation_on_the_fly) {
                 ani_on_the_fly(0);
@@ -2504,7 +2504,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 storage[ieqn][storind] = xv[ieqn];
             }
             storind++;
-            if (!(storind < MAXSTOR)) {
+            if (!(storind < max_stor)) {
                 if (integrate_stor_full() == 0) {
                     break;
                 }
@@ -2545,7 +2545,7 @@ integrate_send_output(double *y, double t) {
         yy[i] = y[i];
     }
     main_rhs_extra(yy, t, NODE, NEQ);
-    if ((STORFLAG == 1) && (storind < MAXSTOR)) {
+    if ((STORFLAG == 1) && (storind < max_stor)) {
         for (int32 i = 0; i < NEQ; i++) {
             storage[i + 1][storind] = (double)yy[i];
         }
@@ -2890,9 +2890,9 @@ integrate_stop_integration(void) {
 int32
 integrate_stor_full(void) {
     char ch;
-    int32 nrow = 2*MAXSTOR;
+    int32 nrow = 2*max_stor;
     if (storage_realloc(NEQ + 1, nrow)) {
-        MAXSTOR = nrow;
+        max_stor = nrow;
         return 1;
     }
 

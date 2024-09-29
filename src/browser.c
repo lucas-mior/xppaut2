@@ -230,7 +230,7 @@ browser_add_stor_col(char *name, char *formula, Browser *b) {
         ggets_err_msg("Cant allocate formula space");
         return 0;
     }
-    if ((storage[NEQ + 1] = xmalloc((usize)MAXSTOR*sizeof(double))) == NULL) {
+    if ((storage[NEQ + 1] = xmalloc((usize)max_stor*sizeof(double))) == NULL) {
         ggets_err_msg("Cant allocate space ....");
         free(my_ode[NEQ]);
         return 0;
@@ -1553,7 +1553,7 @@ browser_data_read(Browser *b) {
             }
         }
         ++len;
-        if (len >= MAXSTOR) {
+        if (len >= max_stor) {
             break;
         }
     }

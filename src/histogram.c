@@ -225,8 +225,8 @@ int32
 histogram_two_d2(void) {
     int32 length;
     length = hist_inf.nbins*hist_inf.nbins2;
-    if (length >= MAXSTOR) {
-        length = MAXSTOR - 1;
+    if (length >= max_stor) {
+        length = max_stor - 1;
     }
 
     if (HIST_HERE) {
@@ -318,8 +318,8 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
     double dz;
     int32 length = nbins + 1;
 
-    if (length >= MAXSTOR) {
-        length = MAXSTOR - 1;
+    if (length >= max_stor) {
+        length = max_stor - 1;
     }
     dz = (zhi - zlo) / (double)(length - 1);
     if (HIST_HERE) {

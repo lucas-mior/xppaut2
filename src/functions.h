@@ -420,7 +420,7 @@ extern int32 mov_ind;
 extern int32 storind;
 extern int32 STORFLAG;
 extern int32 in_flag;
-extern int32 MAXSTOR;
+extern int32 max_stor;
 
 extern double x_3d[2];
 extern double y_3d[2];
@@ -435,10 +435,10 @@ extern int32 TIMPLOT;
 
 extern int32 TIMPLOT;
 extern int32 PLOT_3D;
-extern double MY_XLO;
-extern double MY_YLO;
-extern double MY_XHI;
-extern double MY_YHI;
+extern double my_xlo;
+extern double my_ylo;
+extern double my_xhi;
+extern double my_yhi;
 
 extern char options[100];
 extern double atoler;
@@ -1622,7 +1622,7 @@ void init_conds_set_edit_params(BoxList *b, int32 i, char *string);
 
 #include <stdio.h>
 
-extern int32 MakePlotFlag;
+extern int32 make_plot_flag;
 extern int32 SuppressOut;
 extern int32 SuppressBounds;
 
@@ -2043,7 +2043,7 @@ typedef struct OptionsSet {
     int32 NMESH;
     int32 METHOD;
     int32 TIMEPLOT;
-    int32 MAXSTOR;
+    int32 max_stor;
     int32 TEND;
     int32 DT;
     int32 T0;

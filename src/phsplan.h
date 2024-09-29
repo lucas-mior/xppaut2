@@ -14,9 +14,9 @@ extern int32 PLOT_3D;
 
 extern double **storage;
 extern int32 storind;
-extern int32 MAXSTOR;
+extern int32 max_stor;
 extern int32 in_flag;
-extern int32 MY_STOR;
+extern int32 my_stor;
 extern int32 STORFLAG;
 
 extern int32 forever;

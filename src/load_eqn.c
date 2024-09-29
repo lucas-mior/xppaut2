@@ -54,7 +54,7 @@ int32 mov_ind;
 int32 storind;
 int32 STORFLAG;
 int32 in_flag;
-int32 MAXSTOR;
+int32 max_stor;
 double x_3d[2];
 double y_3d[2];
 double z_3d[2];
@@ -64,10 +64,10 @@ int32 iz_plt;
 int32 axes;
 int32 TIMPLOT;
 int32 PLOT_3D;
-double MY_XLO;
-double MY_YLO;
-double MY_XHI;
-double MY_YHI;
+double my_xlo;
+double my_ylo;
+double my_xhi;
+double my_yhi;
 double TOR_PERIOD = 6.2831853071795864770;
 int32 TORUS = 0;
 int32 NEQ;
@@ -390,26 +390,26 @@ load_eqn_set_all_vals(void) {
         notAlreadySet.METHOD = 0;
     }
     if (notAlreadySet.XLO) {
-        MY_XLO = 0.0;
-        x_3d[0] = MY_XLO;
+        my_xlo = 0.0;
+        x_3d[0] = my_xlo;
         notAlreadySet.XLO = 0;
         notAlreadySet.XMIN = 0;
     }
     if (notAlreadySet.XHI) {
-        MY_XHI = 20.0;
-        x_3d[1] = MY_XHI;
+        my_xhi = 20.0;
+        x_3d[1] = my_xhi;
         notAlreadySet.XHI = 0;
         notAlreadySet.XMAX = 0;
     }
     if (notAlreadySet.YLO) {
-        MY_YLO = -1;
-        y_3d[0] = MY_YLO;
+        my_ylo = -1;
+        y_3d[0] = my_ylo;
         notAlreadySet.YLO = 0;
         notAlreadySet.YMIN = 0;
     }
     if (notAlreadySet.YHI) {
-        MY_YHI = 1;
-        y_3d[0] = MY_YHI;
+        my_yhi = 1;
+        y_3d[0] = my_yhi;
         notAlreadySet.YHI = 0;
         notAlreadySet.YMAX = 0;
     }
@@ -418,9 +418,9 @@ load_eqn_set_all_vals(void) {
         bound = 100;
         notAlreadySet.bound = 0;
     }
-    if (notAlreadySet.MAXSTOR) {
-        MAXSTOR = 5000;
-        notAlreadySet.MAXSTOR = 0;
+    if (notAlreadySet.max_stor) {
+        max_stor = 5000;
+        notAlreadySet.max_stor = 0;
     }
 
     if (notAlreadySet.T0) {
@@ -540,21 +540,21 @@ load_eqn_set_all_vals(void) {
         z_3d[0] = -1;
         z_3d[1] = 1;
     }
-    if (MY_XLO >= MY_XHI) {
-        MY_XLO = -2.0;
-        MY_XHI = 2.0;
+    if (my_xlo >= my_xhi) {
+        my_xlo = -2.0;
+        my_xhi = 2.0;
     }
-    if (MY_YLO >= MY_YHI) {
-        MY_YLO = -2.0;
-        MY_YHI = 2.0;
+    if (my_ylo >= my_yhi) {
+        my_ylo = -2.0;
+        my_yhi = 2.0;
     }
     if (axes < 5) {
-        x_3d[0] = MY_XLO;
-        y_3d[0] = MY_YLO;
-        x_3d[1] = MY_XHI;
-        y_3d[1] = MY_YHI;
+        x_3d[0] = my_xlo;
+        y_3d[0] = my_ylo;
+        x_3d[1] = my_xhi;
+        y_3d[1] = my_yhi;
     }
-    storage_init_stor(MAXSTOR, NEQ + 1);
+    storage_init_stor(max_stor, NEQ + 1);
     if (axes >= 5) {
         PLOT_3D = 1;
     }
@@ -622,9 +622,9 @@ load_eqn_read_defaults(FILE *fp) {
         load_eqn_fil_int(fp, &TIMPLOT);
         notAlreadySet.TIMEPLOT = 0;
     }
-    if (notAlreadySet.MAXSTOR) {
-        load_eqn_fil_int(fp, &MAXSTOR);
-        notAlreadySet.MAXSTOR = 0;
+    if (notAlreadySet.max_stor) {
+        load_eqn_fil_int(fp, &max_stor);
+        notAlreadySet.max_stor = 0;
     }
     if (notAlreadySet.TEND) {
         load_eqn_fil_flt(fp, &TEND);
@@ -663,19 +663,19 @@ load_eqn_read_defaults(FILE *fp) {
         notAlreadySet.delay = 0;
     }
     if (notAlreadySet.XLO) {
-        load_eqn_fil_flt(fp, &MY_XLO);
+        load_eqn_fil_flt(fp, &my_xlo);
         notAlreadySet.XLO = 0;
     }
     if (notAlreadySet.XHI) {
-        load_eqn_fil_flt(fp, &MY_XHI);
+        load_eqn_fil_flt(fp, &my_xhi);
         notAlreadySet.XHI = 0;
     }
     if (notAlreadySet.YLO) {
-        load_eqn_fil_flt(fp, &MY_YLO);
+        load_eqn_fil_flt(fp, &my_ylo);
         notAlreadySet.YLO = 0;
     }
     if (notAlreadySet.YHI) {
-        load_eqn_fil_flt(fp, &MY_YHI);
+        load_eqn_fil_flt(fp, &my_yhi);
         notAlreadySet.YHI = 0;
     }
     return;
@@ -1427,11 +1427,11 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         }
         return;
     }
-    if (load_eqn_msc("MAXSTOR", s1)) {
-        if ((notAlreadySet.MAXSTOR || force) ||
-            ((mask != NULL) && (mask->MAXSTOR == 1))) {
-            MAXSTOR = atoi(s2);
-            notAlreadySet.MAXSTOR = 0;
+    if (load_eqn_msc("max_stor", s1)) {
+        if ((notAlreadySet.max_stor || force) ||
+            ((mask != NULL) && (mask->max_stor == 1))) {
+            max_stor = atoi(s2);
+            notAlreadySet.max_stor = 0;
         }
         return;
     }
@@ -1598,7 +1598,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("XLO", s1)) {
         if ((notAlreadySet.XLO || force) ||
             ((mask != NULL) && (mask->XLO == 1))) {
-            MY_XLO = atof(s2);
+            my_xlo = atof(s2);
             notAlreadySet.XLO = 0;
         }
         return;
@@ -1606,7 +1606,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("YLO", s1)) {
         if ((notAlreadySet.YLO || force) ||
             ((mask != NULL) && (mask->YLO == 1))) {
-            MY_YLO = atof(s2);
+            my_ylo = atof(s2);
             notAlreadySet.YLO = 0;
         }
         return;
@@ -1615,7 +1615,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("XHI", s1)) {
         if ((notAlreadySet.XHI || force) ||
             ((mask != NULL) && (mask->XHI == 1))) {
-            MY_XHI = atof(s2);
+            my_xhi = atof(s2);
             notAlreadySet.XHI = 0;
         }
         return;
@@ -1623,7 +1623,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("YHI", s1)) {
         if ((notAlreadySet.YHI || force) ||
             ((mask != NULL) && (mask->YHI == 1))) {
-            MY_YHI = atof(s2);
+            my_yhi = atof(s2);
             notAlreadySet.YHI = 0;
         }
         return;
@@ -1659,7 +1659,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             notAlreadySet.XMIN = 0;
             if ((notAlreadySet.XLO || force) ||
                 ((mask != NULL) && (mask->XLO == 1))) {
-                MY_XLO = atof(s2);
+                my_xlo = atof(s2);
                 notAlreadySet.XLO = 0;
             }
         }
@@ -1672,7 +1672,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             notAlreadySet.YMIN = 0;
             if ((notAlreadySet.YLO || force) ||
                 ((mask != NULL) && (mask->YLO == 1))) {
-                MY_YLO = atof(s2);
+                my_ylo = atof(s2);
                 notAlreadySet.YLO = 0;
             }
         }

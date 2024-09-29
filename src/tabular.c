@@ -107,8 +107,8 @@ tabular_new_lookup_com(int32 i) {
         double dx = my_table[index].dx;
         xlo = my_table[index].xlo;
         len = n;
-        if (len >= MAXSTOR) {
-            len = MAXSTOR - 1;
+        if (len >= max_stor) {
+            len = max_stor - 1;
         }
         for (int32 i2 = 0; i2 < len; i2++) {
             storage[0][i2] = xlo + i2*dx;

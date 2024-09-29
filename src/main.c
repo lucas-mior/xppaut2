@@ -229,7 +229,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.NMESH = 1;
     notAlreadySet.METHOD = 1;
     notAlreadySet.TIMEPLOT = 1;
-    notAlreadySet.MAXSTOR = 1;
+    notAlreadySet.max_stor = 1;
     notAlreadySet.TEND = 1;
     notAlreadySet.DT = 1;
     notAlreadySet.T0 = 1;

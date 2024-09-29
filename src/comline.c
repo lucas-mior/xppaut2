@@ -429,7 +429,7 @@ cli_parse_it(char *com) {
                 " C files are no longer part of this version. \n Sorry \n");
             break;
         case MKPLOT:
-            MakePlotFlag = 1;
+            make_plot_flag = 1;
             break;
         case SILENT:
             xpp_batch = 1;

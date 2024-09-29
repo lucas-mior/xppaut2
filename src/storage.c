@@ -73,7 +73,7 @@ storage_init_stor(int32 nrow, int32 ncol) {
     int32 i;
     WORK = NULL;
     storage = xmalloc((MAX_ODE + 1)*sizeof(double *));
-    MAXSTOR = nrow;
+    max_stor = nrow;
     storind = 0;
     if (storage != NULL) {
         i = 0;
