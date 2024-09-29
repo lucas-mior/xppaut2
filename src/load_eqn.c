@@ -59,8 +59,8 @@ double x_3d[2];
 double y_3d[2];
 double z_3d[2];
 int32 ix_plt;
-int32 IYPLT;
-int32 IZPLT;
+int32 iy_plt;
+int32 iz_plt;
 int32 axes;
 int32 TIMPLOT;
 int32 PLOT_3D;
@@ -473,26 +473,26 @@ load_eqn_set_all_vals(void) {
         ix_plt = 0;
         notAlreadySet.ix_plt = 0;
     }
-    if (notAlreadySet.IYPLT) {
-        IYPLT = 1;
-        notAlreadySet.IYPLT = 0;
+    if (notAlreadySet.iy_plt) {
+        iy_plt = 1;
+        notAlreadySet.iy_plt = 0;
     }
-    if (notAlreadySet.IZPLT) {
-        IZPLT = 1;
-        notAlreadySet.IZPLT = 0;
+    if (notAlreadySet.iz_plt) {
+        iz_plt = 1;
+        notAlreadySet.iz_plt = 0;
     }
 
     if (notAlreadySet.NPLOT) {
         if (NEQ > 2) {
-            if (notAlreadySet.IZPLT) {
-                IZPLT = 2;
+            if (notAlreadySet.iz_plt) {
+                iz_plt = 2;
             }
         }
         NPltV = 1;
         for (int32 i = 0; i < 10; i++) {
             IX_PLT[i] = ix_plt;
-            IY_PLT[i] = IYPLT;
-            IZ_PLT[i] = IZPLT;
+            IY_PLT[i] = iy_plt;
+            IZ_PLT[i] = iz_plt;
             X_LO[i] = 0;
             Y_LO[i] = -1;
             X_HI[i] = 20;
@@ -517,13 +517,13 @@ load_eqn_set_all_vals(void) {
 
     //
 
-    if (IZPLT > NEQ) {
-        IZPLT = NEQ;
+    if (iz_plt > NEQ) {
+        iz_plt = NEQ;
     }
-    if (IYPLT > NEQ) {
-        IYPLT = NEQ;
+    if (iy_plt > NEQ) {
+        iy_plt = NEQ;
     }
-    if (ix_plt == 0 || IYPLT == 0) {
+    if (ix_plt == 0 || iy_plt == 0) {
         TIMPLOT = 1;
     } else {
         TIMPLOT = 0;
@@ -593,13 +593,13 @@ load_eqn_read_defaults(FILE *fp) {
         load_eqn_fil_int(fp, &ix_plt);
         notAlreadySet.ix_plt = 0;
     }
-    if (notAlreadySet.IYPLT) {
-        load_eqn_fil_int(fp, &IYPLT);
-        notAlreadySet.IYPLT = 0;
+    if (notAlreadySet.iy_plt) {
+        load_eqn_fil_int(fp, &iy_plt);
+        notAlreadySet.iy_plt = 0;
     }
-    if (notAlreadySet.IZPLT) {
-        load_eqn_fil_int(fp, &IZPLT);
-        notAlreadySet.IZPLT = 0;
+    if (notAlreadySet.iz_plt) {
+        load_eqn_fil_int(fp, &iz_plt);
+        notAlreadySet.iz_plt = 0;
     }
     if (notAlreadySet.axes) {
         load_eqn_fil_int(fp, &axes);
@@ -1348,10 +1348,10 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             ((mask != NULL) && (mask->YP == 1))) {
             browser_find_variable(s2, &i);
             if (i > -1) {
-                IYPLT = i;
+                iy_plt = i;
             }
             notAlreadySet.YP = 0;
-            notAlreadySet.IYPLT = 0;
+            notAlreadySet.iy_plt = 0;
         }
         return;
     }
@@ -1360,11 +1360,11 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             ((mask != NULL) && (mask->ZP == 1))) {
             browser_find_variable(s2, &i);
             if (i > -1) {
-                IZPLT = i;
+                iz_plt = i;
             }
 
             notAlreadySet.ZP = 0;
-            notAlreadySet.IZPLT = 0;
+            notAlreadySet.iz_plt = 0;
         }
         return;
     }

@@ -427,8 +427,8 @@ extern double y_3d[2];
 extern double z_3d[2];
 
 extern int32 ix_plt;
-extern int32 IYPLT;
-extern int32 IZPLT;
+extern int32 iy_plt;
+extern int32 iz_plt;
 
 extern int32 axes;
 extern int32 TIMPLOT;
@@ -2037,8 +2037,8 @@ typedef struct OptionsSet {
     int32 SMALL_FONT_NAME;
     int32 BACKGROUND;
     int32 ix_plt;
-    int32 IYPLT;
-    int32 IZPLT;
+    int32 iy_plt;
+    int32 iz_plt;
     int32 axes;
     int32 NMESH;
     int32 METHOD;

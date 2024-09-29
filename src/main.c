@@ -223,8 +223,8 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.SMALL_FONT_NAME = 1;
     notAlreadySet.BACKGROUND = 1;
     notAlreadySet.ix_plt = 1;
-    notAlreadySet.IYPLT = 1;
-    notAlreadySet.IZPLT = 1;
+    notAlreadySet.iy_plt = 1;
+    notAlreadySet.iz_plt = 1;
     notAlreadySet.axes = 1;
     notAlreadySet.NMESH = 1;
     notAlreadySet.METHOD = 1;
