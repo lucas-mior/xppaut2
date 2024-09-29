@@ -71,7 +71,7 @@ type =2 output
 type =3 halt
 */
 
-#define MAX_EVENTS 20 /*  this is the maximum number of events per flag */
+#define MAX_EVENTS 20  //  this is the maximum number of events per flag 
 
 typedef struct {
     double f0;
@@ -165,7 +165,7 @@ flags_add_global(char *cond, int32 sign, char *rest) {
         ggets_plintf(" No events for condition %s \n", cond);
         return 1;
     }
-    /*  we now have the condition, the names, and the formulae */
+     //  we now have the condition, the names, and the formulae 
     flag[j].sign = sign;
     flag[j].nevents = nevents;
     NFlags++;
@@ -174,7 +174,7 @@ flags_add_global(char *cond, int32 sign, char *rest) {
 
 void
 flags_show(void) {
-    /* uncomment for debugging */
+     // uncomment for debugging 
     /*
     for(i=0;i<NFlags;i++){
       n=flag[i].nevents;
@@ -284,7 +284,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         flag[i].tstar = 2.0;
         flag[i].hit = 0;
     }
-    /* If this is the first call, then need f1  */
+     // If this is the first call, then need f1  
     if (*istart == 1) {
         for (int32 i = 0; i < neq; i++) {
             SETVAR(i + 1, yold[i]);
@@ -320,7 +320,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
             }
             break;
         case 0:
-            /* if(f1==0.0){ */
+             // if(f1==0.0){ 
             if (fabs(f1) < MY_DBL_EPS) {
                 flag[i].hit = ncycle + 1;
                 flag[i].tstar = told;
@@ -336,7 +336,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         if (smin > flag[i].tstar) {
             smin = flag[i].tstar;
         }
-    } /* run through flags */
+    }  // run through flags 
 
     if (smin < STOL) {
         smin = STOL;
@@ -356,7 +356,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     for (int32 i = 0; i < NFlags; i++) {
         flag[i].f0 = evaluate(flag[i].comcond);
     }
-    while (true) { /* run through all possible events  */
+    while (true) {  // run through all possible events  
         ncycle++;
         newhit = 0;
         for (int32 i = 0; i < NFlags; i++) {
@@ -401,12 +401,12 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         }
 
         for (int32 i = 0; i < neq; i++) {
-            ynew[i] = GETVAR(i + 1); /* if this screws up */
+            ynew[i] = GETVAR(i + 1);  // if this screws up 
         }
         for (int32 i = 0; i < NFlags; i++) {
             flag[i].f1 = evaluate(flag[i].comcond);
             if (flag[i].hit > 0) {
-                continue; /* already hit so dont do anything */
+                continue;  // already hit so dont do anything 
             }
             f1 = flag[i].f1;
             sign = flag[i].sign;
@@ -467,7 +467,7 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
@@ -498,7 +498,7 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
@@ -529,7 +529,7 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
@@ -559,7 +559,7 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
@@ -589,7 +589,7 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
@@ -623,9 +623,9 @@ one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
         if ((hit = one_flag_step(yold, y, jstart, told, t, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
-        *jstart = 0; /* for gear always reset  */
+        *jstart = 0;  // for gear always reset  
         if (*t == tout) {
             break;
         }
@@ -659,7 +659,7 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
         if ((hit = one_flag_step(yold, y, istart, told, tstart, n, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
 
         if (*tstart == tfinal) {
@@ -695,7 +695,7 @@ one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
         if ((hit = one_flag_step(yold, y, istart, told, t, n, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
 
         if (*t == tout) {
@@ -713,7 +713,7 @@ one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
 #ifdef CVODE_YES
 int32
 one_flag_step_cvode(
-    /* command =0 continue, 1 is start 2 finish */
+     // command =0 continue, 1 is start 2 finish 
     int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
     double yold[MAX_ODE];
@@ -734,10 +734,10 @@ one_flag_step_cvode(
         if ((hit = one_flag_step(yold, y, command, told, t, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
         cv_end();
-        *command = 1; /* for cvode always reset  */
+        *command = 1;  // for cvode always reset  
         if (*t == tout) {
             break;
         }
@@ -773,7 +773,7 @@ one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
         if ((hit = one_flag_step(yold, y, jstart, told, t, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
 
         if (*t == tout) {
@@ -811,7 +811,7 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
         if ((hit = one_flag_step(yold, y, istart, told, t, neq, &s)) == 0) {
             break;
         }
-        /* Its a hit !! */
+         // Its a hit !! 
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {

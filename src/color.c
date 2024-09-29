@@ -85,7 +85,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     int32 i2;
     int32 i3;
     double pii = 3.1415926;
-    /* for CUBHLX  */
+     // for CUBHLX  
     double start = .5;
     double rots = -1.5;
     double hue = 1.2;
@@ -162,7 +162,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
             g[i] = i*256*255 / n;
         }
         break;
-        /* https://www.mrao.cam.ac.uk/~dag/CUBEHELIX/ */
+         // https://www.mrao.cam.ac.uk/~dag/CUBEHELIX/ 
     case C_CUBHLX:
         for (int32 i = 0; i < n; i++) {
             x = (double)i / ((double)n);

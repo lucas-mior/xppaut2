@@ -151,13 +151,13 @@ dense_gefa(double **a, int64 n, int64 *p) {
     double a_kj;
     bool swap;
 
-    /* k = elimination step number */
+     // k = elimination step number 
 
     for (int32 k = 0; k < n - 1; k++, p++) {
         col_k = a[k];
         diag_k = col_k + k;
 
-        /* find l = pivot row number */
+         // find l = pivot row number 
 
         l = k;
         for (int64 i = k + 1; i < n; i++) {
@@ -167,13 +167,13 @@ dense_gefa(double **a, int64 n, int64 *p) {
         }
         *p = l;
 
-        /* check for zero pivot element */
+         // check for zero pivot element 
 
         if (col_k[l] == ZERO) {
             return k + 1;
         }
 
-        /* swap a(l,k) and a(k,k) if necessary */
+         // swap a(l,k) and a(k,k) if necessary 
 
         if ((swap = (l != k))) {
             temp = col_k[l];
@@ -181,35 +181,35 @@ dense_gefa(double **a, int64 n, int64 *p) {
             *diag_k = temp;
         }
 
-        /* Scale the elements below the diagonal in         */
-        /* column k by -1.0 / a(k,k). After the above swap, */
-        /* a(k,k) holds the pivot element. This scaling     */
-        /* stores the pivot row multipliers -a(i,k)/a(k,k)  */
-        /* in a(i,k), i=k+1, ..., n-1.                      */
+         // Scale the elements below the diagonal in         
+         // column k by -1.0 / a(k,k). After the above swap, 
+         // a(k,k) holds the pivot element. This scaling     
+         // stores the pivot row multipliers -a(i,k)/a(k,k)  
+         // in a(i,k), i=k+1, ..., n-1.                      
 
         mult = -ONE / (*diag_k);
         for (int64 i = k + 1; i < n; i++) {
             col_k[i] *= mult;
         }
 
-        /* row_i = row_i - [a(i,k)/a(k,k)] row_k, i=k+1, ..., n-1 */
-        /* row k is the pivot row after swapping with row l.      */
-        /* The computation is done one column at a time,          */
-        /* column j=k+1, ..., n-1.                                */
+         // row_i = row_i - [a(i,k)/a(k,k)] row_k, i=k+1, ..., n-1 
+         // row k is the pivot row after swapping with row l.      
+         // The computation is done one column at a time,          
+         // column j=k+1, ..., n-1.                                
 
         for (int32 j = k + 1; j < n; j++) {
             col_j = a[j];
             a_kj = col_j[l];
 
-            /* Swap the elements a(k,j) and a(k,l) if l!=k. */
+             // Swap the elements a(k,j) and a(k,l) if l!=k. 
 
             if (swap) {
                 col_j[l] = col_j[k];
                 col_j[k] = a_kj;
             }
 
-            /* a(i,j) = a(i,j) - [a(i,k)/a(k,k)]*a(k,j)  */
-            /* a_kj = a(k,j), col_k[i] = - a(i,k)/a(k,k) */
+             // a(i,j) = a(i,j) - [a(i,k)/a(k,k)]*a(k,j)  
+             // a_kj = a(k,j), col_k[i] = - a(i,k)/a(k,k) 
 
             if (a_kj != ZERO) {
                 for (int64 i = k + 1; i < n; i++) {
@@ -219,14 +219,14 @@ dense_gefa(double **a, int64 n, int64 *p) {
         }
     }
 
-    /* set the last pivot row to be n-1 and check for a zero pivot */
+     // set the last pivot row to be n-1 and check for a zero pivot 
 
     *p = n - 1;
     if (a[n - 1][n - 1] == ZERO) {
         return n;
     }
 
-    /* return 0 to indicate success */
+     // return 0 to indicate success 
 
     return 0;
 }
@@ -237,7 +237,7 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
     double mult;
     double *col_k;
 
-    /* Solve Ly = Pb, store solution y in b */
+     // Solve Ly = Pb, store solution y in b 
 
     for (int32 k = 0; k < n - 1; k++) {
         l = p[k];
@@ -252,7 +252,7 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
         }
     }
 
-    /* Solve Ux = y, store solution x in b */
+     // Solve Ux = y, store solution x in b 
 
     for (int64 k = n - 1; k >= 0; k--) {
         col_k = a[k];

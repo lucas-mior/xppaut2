@@ -68,7 +68,7 @@ stpnt(int64 ndim, double t, double *u, double *par) {
             par[11 + i] = homo_l[i];
         }
     }
-    if (HomoFlag == 2) { /* heteroclinic */
+    if (HomoFlag == 2) {  // heteroclinic 
         for (int32 i = 0; i < ndim; i++) {
             par[11 + i] = homo_l[i];
             par[11 + i + ndim] = homo_r[i];
@@ -84,7 +84,7 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
     (void)ijac;
     (void)icp;
     (void)ndim;
-    /* Hooks to the XPP bc parser!! */
+     // Hooks to the XPP bc parser!! 
 
     for (int32 i = 0; i < NAutoPar; i++) {
         constants[Auto_index_to_array[i]] = par[i];

@@ -470,7 +470,7 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     double sqrteps = sqrt(eps);
     double thresh = atol / rtol, absh, h = 0;
     double d = 1 / (2. + sqrt(2.)), e32 = 6. + sqrt(2.), tnew;
-    /*double ninf;  Is this needed?*/
+     //double ninf;  Is this needed?
     int32 n2 = n*n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
           mt = ml + mr + 1;
     int32 ipivot[MAX_ODE1];
@@ -517,7 +517,7 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
         for (int32 i = 0; i < n; i++) {
             dfdt[i] = (f1[i] - f0[i]) / tdel;
         }
-        while (true) { /* advance a step  */
+        while (true) {  // advance a step  
             for (int32 i = 0; i < n2; i++) {
                 dfdy[i] = -h*d*dfdy[i];
             }
@@ -674,7 +674,7 @@ odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
 }
 
 int32
-odesol_bandfac(/*   factors the matrix    */
+odesol_bandfac( //   factors the matrix    
                double *a, int32 ml, int32 mr, int32 n) {
     int32 n1 = n - 1, mt = ml + mr + 1, row, rowi, m, r0, ri0;
     double al;
@@ -709,7 +709,7 @@ odesol_bandfac(/*   factors the matrix    */
 }
 
 void
-odesol_bandsol(/* requires that the matrix be factored   */
+odesol_bandsol( // requires that the matrix be factored   
                double *a, double *b, int32 ml, int32 mr, int32 n) {
     int32 r0;
     int32 mt = ml + mr + 1;

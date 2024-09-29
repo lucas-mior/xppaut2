@@ -23,7 +23,7 @@ z_abs(doublecomplex *z) {
     }
 
     temp = imag / real;
-    temp = real*sqrt(1.0 + temp*temp); /*overflow!!*/
+    temp = real*sqrt(1.0 + temp*temp);  //overflow!!
     return temp;
 }
 

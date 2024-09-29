@@ -401,7 +401,7 @@ create_the_menus(Window base) {
     key[17] = 27;
     key[18] = 0;
     add_menu(base, NUM_MENU, NUM_ENTRIES, num_menu, key, num_hint);
-    /* CLONE */
+     // CLONE 
     strcpy(key, "pwracesbhqtiglxu");
     add_menu(base, FILE_MENU, FILE_ENTRIES, fileon_menu, key, file_hint);
     help_menu = -1;

@@ -71,7 +71,7 @@ static struct Symbol {
     int32 arg;
     int32 pri;
 } my_symb[MAX_SYMBS] = {
-    {"(", 1, 999, 0, 1}, /*  0   */
+    {"(", 1, 999, 0, 1},  //  0   
     {")", 1, 999, 0, 2},
     {",", 1, 999, 0, 3},
     {"+", 1, COM(FUN2TYPE, 0), 0, 4},
@@ -81,7 +81,7 @@ static struct Symbol {
     {"^", 1, COM(FUN2TYPE, 5), 0, 7},
     {"**", 2, COM(FUN2TYPE, 5), 0, 7},
     {"~", 1, COM(FUN1TYPE, 14), 0, 6},
-    {"START", 5, -1, 0, 0}, /* 10  */
+    {"START", 5, -1, 0, 0},  // 10  
     {"END", 3, 999, 0, -1},
     {"ATAN2", 5, COM(FUN2TYPE, 4), 2, 10},
     {"MAX", 3, COM(FUN2TYPE, 6), 2, 10},
@@ -91,7 +91,7 @@ static struct Symbol {
     {"TAN", 3, COM(FUN1TYPE, 2), 0, 10},
     {"ASIN", 4, COM(FUN1TYPE, 3), 0, 10},
     {"ACOS", 4, COM(FUN1TYPE, 4), 0, 10},
-    {"ATAN", 4, COM(FUN1TYPE, 5), 0, 10}, /* 20  */
+    {"ATAN", 4, COM(FUN1TYPE, 5), 0, 10},  // 20  
     {"SINH", 4, COM(FUN1TYPE, 6), 0, 10},
     {"TANH", 4, COM(FUN1TYPE, 7), 0, 10},
     {"COSH", 4, COM(FUN1TYPE, 8), 0, 10},
@@ -101,7 +101,7 @@ static struct Symbol {
     {"LOG", 3, COM(FUN1TYPE, 11), 0, 10},
     {"LOG10", 5, COM(FUN1TYPE, 12), 0, 10},
     {"SQRT", 4, COM(FUN1TYPE, 13), 0, 10},
-    {"HEAV", 4, COM(FUN1TYPE, 16), 0, 10}, /*  30 */
+    {"HEAV", 4, COM(FUN1TYPE, 16), 0, 10},  //  30 
     {"SIGN", 4, COM(FUN1TYPE, 17), 0, 10},
     {"#$%1", 4, COM(USTACKTYPE, 0), 0, 10},
     {"#$%2", 4, COM(USTACKTYPE, 1), 0, 10},
@@ -111,41 +111,41 @@ static struct Symbol {
     {"#$%6", 4, COM(USTACKTYPE, 5), 0, 10},
     {"#$%7", 4, COM(USTACKTYPE, 6), 0, 10},
     {"#$%8", 4, COM(USTACKTYPE, 7), 0, 10},
-    {"FLR", 3, COM(FUN1TYPE, 18), 0, 10}, /*  40 */
-    {"MOD", 3, COM(FUN2TYPE, 8), 2, 10},  /*  41 */
+    {"FLR", 3, COM(FUN1TYPE, 18), 0, 10},  //  40 
+    {"MOD", 3, COM(FUN2TYPE, 8), 2, 10},   //  41 
     {"DELAY", 5, ENDDELAY, 2, 10},
-    /*  42 */                             /*  Delay symbol */
-    {"RAN", 3, COM(FUN1TYPE, 19), 1, 10}, /* 43 */
-    {"&", 1, COM(FUN2TYPE, 9), 0, 6},     /* logical stuff  */
+    /*  42 */                              //  Delay symbol 
+    {"RAN", 3, COM(FUN1TYPE, 19), 1, 10},  // 43 
+    {"&", 1, COM(FUN2TYPE, 9), 0, 6},      // logical stuff  
     {"|", 1, COM(FUN2TYPE, 10), 0, 4},
     {">", 1, COM(FUN2TYPE, 11), 0, 7},
     {"<", 1, COM(FUN2TYPE, 12), 0, 7},
     {"==", 2, COM(FUN2TYPE, 13), 0, 7},
     {">=", 2, COM(FUN2TYPE, 14), 0, 7},
-    {"<=", 2, COM(FUN2TYPE, 15), 0, 7}, /*50 */
+    {"<=", 2, COM(FUN2TYPE, 15), 0, 7},  //50 
     {"IF", 2, 995, 1, 10},
     {"THEN", 4, 994, 1, 10},
     {"ELSE", 4, 993, 1, 10},
     {"!=", 2, COM(FUN2TYPE, 16), 0, 7},
     {"NOT", 3, COM(FUN1TYPE, 20), 0, 6},
-    {"NORMAL", 6, COM(FUN2TYPE, 17), 2, 10},  /* returns normally dist number */
-    {"BESSELJ", 7, COM(FUN2TYPE, 18), 2, 10}, /* Bessel J   */
-    {"BESSELY", 7, COM(FUN2TYPE, 19), 2, 10}, /* Bessel Y */
+    {"NORMAL", 6, COM(FUN2TYPE, 17), 2, 10},   // returns normally dist number 
+    {"BESSELJ", 7, COM(FUN2TYPE, 18), 2, 10},  // Bessel J   
+    {"BESSELY", 7, COM(FUN2TYPE, 19), 2, 10},  // Bessel Y 
     {"NXXQQ", 5, NUMSYM, 0, 10},
-    {"ERF", 3, COM(FUN1TYPE, 21), 0, 10}, /* 60 */
+    {"ERF", 3, COM(FUN1TYPE, 21), 0, 10},  // 60 
     {"ERFC", 4, COM(FUN1TYPE, 22), 0, 10},
     {"SUM", 3, SUMSYM, 2, 10},
     {"OF", 2, ENDSUM, 0, 10},
     {"SHIFT", 5, ENDSHIFT, 2, 10},
-    {"DEL_SHFT", 8, ENDDELSHFT, 3, 10}, /* 65 */
+    {"DEL_SHFT", 8, ENDDELSHFT, 3, 10},  // 65 
     {"HOM_BCS", 7, COM(FUN1TYPE, 23), 0, 10},
-    {"ISHIFT", 6, ENDISHIFT, 2, 10}, /* 67 */
-    {"@", 1, INDXCOM, 0, 10},        /*68 */
+    {"ISHIFT", 6, ENDISHIFT, 2, 10},  // 67 
+    {"@", 1, INDXCOM, 0, 10},         //68 
     {"]", 1, ENDSHIFT, 0, 10},
-    {"[", 1, ENDSHIFT, 0, 10},                /*70 */
-    {"POISSON", 7, COM(FUN1TYPE, 24), 0, 10}, /* 71 */
-    {"SET", 3, ENDSET, 3, 10},                /* 72 */
-    {"ARG1", 4, COM(USTACKTYPE, 0), 0, 10},   /*  FIXXX ????  */
+    {"[", 1, ENDSHIFT, 0, 10},                 //70 
+    {"POISSON", 7, COM(FUN1TYPE, 24), 0, 10},  // 71 
+    {"SET", 3, ENDSET, 3, 10},                 // 72 
+    {"ARG1", 4, COM(USTACKTYPE, 0), 0, 10},    //  FIXXX ????  
     {"ARG2", 4, COM(USTACKTYPE, 1), 0, 10},
     {"ARG3", 4, COM(USTACKTYPE, 2), 0, 10},
     {"ARG4", 4, COM(USTACKTYPE, 3), 0, 10},
@@ -165,9 +165,9 @@ static struct Symbol {
     {"ARG18", 5, COM(USTACKTYPE, 17), 0, 10},
     {"ARG19", 5, COM(USTACKTYPE, 18), 0, 10},
     {"ARG20", 5, COM(USTACKTYPE, 19), 0, 10},
-    {"BESSELI", 7, COM(FUN2TYPE, 20), 2, 10},  /* Bessel I  # 93 */
-    {"LGAMMA", 6, COM(FUN1TYPE, 25), 1, 10},   /* Log Gamma  #94 */
-    {"BESSELIS", 8, COM(FUN2TYPE, 21), 2, 10}, /* Bessel I Scaled  # 95 */
+    {"BESSELI", 7, COM(FUN2TYPE, 20), 2, 10},   // Bessel I  # 93 
+    {"LGAMMA", 6, COM(FUN1TYPE, 25), 1, 10},    // Log Gamma  #94 
+    {"BESSELIS", 8, COM(FUN2TYPE, 21), 2, 10},  // Bessel I Scaled  # 95 
 };
 
 int32 NCON = 0;
@@ -226,7 +226,7 @@ init_rpn(void) {
     fun2[5] = (void *)pow;
     fun2[6] = (void *)max;
     fun2[7] = (void *)min;
-    /*  fun2[8]= (void*)mod;  */
+     //  fun2[8]= (void*)mod;  
     fun2[8] =
         (void *)pmod;  // This always gives an answer in [0,y) for mod(x,y)
     fun2[9] = (void *)dand;
@@ -281,7 +281,7 @@ init_rpn(void) {
     parserslow_add_con("mouse_vx", 0.0);
     parserslow_add_con("mouse_vy", 0.0);
 
-    /* end animator stuff */
+     // end animator stuff 
 
     tabular_init_table();
     if (newseed == 1) {
@@ -994,7 +994,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
     while (true) {
     getnew:
         newtok = toklist[lstptr++];
-        /*        check for delay symbol             */
+         //        check for delay symbol             
         if (newtok == DELSYM) {
             temp = my_symb[toklist[lstptr + 1]].com;
             /* !! */ if (is_uvar(temp)) {
@@ -1002,7 +1002,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                  * happening here
                  */
                 my_symb[LASTTOK].com = COM(
-                    SVARTYPE, temp % MAXTYPE); /* create a temporary sybol */
+                    SVARTYPE, temp % MAXTYPE);  // create a temporary sybol 
                 NDELAYS++;
                 toklist[lstptr + 1] = LASTTOK;
 
@@ -1014,13 +1014,13 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
             }
         }
 
-        /*        check for delshft symbol             */
+         //        check for delshft symbol             
         if (newtok == DELSHFTSYM) {
             temp = my_symb[toklist[lstptr + 1]].com;
             /* !! */ if (is_uvar(temp)) {
-                /* ram -- same issue */
+                 // ram -- same issue 
                 my_symb[LASTTOK].com = COM(
-                    SVARTYPE, temp % MAXTYPE); /* create a temporary sybol */
+                    SVARTYPE, temp % MAXTYPE);  // create a temporary sybol 
                 NDELAYS++;
                 toklist[lstptr + 1] = LASTTOK;
 
@@ -1035,9 +1035,9 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
         if (newtok == SETSYM) {
             temp = my_symb[toklist[lstptr + 1]].com;
             if (is_uvar(temp)) {
-                /* ram -- same issue */
+                 // ram -- same issue 
                 my_symb[LASTTOK].com = COM(
-                    SVARTYPE, temp % MAXTYPE); /* create a temporary sybol */
+                    SVARTYPE, temp % MAXTYPE);  // create a temporary sybol 
                 toklist[lstptr + 1] = LASTTOK;
 
                 my_symb[LASTTOK].pri = 10;
@@ -1047,18 +1047,18 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
             }
         }
 
-        /* check for shift  */
+         // check for shift  
         if (newtok == SHIFTSYM || newtok == ISHIFTSYM) {
             temp = my_symb[toklist[lstptr + 1]].com;
             /* !! */ if (is_uvar(temp) || is_ucon(temp)) {
-                /* ram -- same issue */
+                 // ram -- same issue 
                 if (is_uvar(temp)) {
                     my_symb[LASTTOK].com = COM(SVARTYPE, temp % MAXTYPE);
                 }
                 if (is_ucon(temp)) {
                     my_symb[LASTTOK].com = COM(SCONTYPE, temp % MAXTYPE);
                 }
-                /* create a temporary sybol */
+                 // create a temporary sybol 
 
                 toklist[lstptr + 1] = LASTTOK;
 
@@ -1101,7 +1101,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
             tokptr++;
             goto getnew;
         }
-        /* ram -- the THOUS problem */
+         // ram -- the THOUS problem 
         /*           if(my_symb[oldtok%THOUS].pri>=my_symb[newtok%THOUS].pri)
         {
          command[comptr]=my_symb[oldtok%THOUS].com;
@@ -1116,7 +1116,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
             }
             my_com = command[comptr];
             comptr++;
-            /*   New code   3/95      */
+             //   New code   3/95      
             if (my_com == NUMSYM) {
                 tokptr--;
                 command[comptr] = tokstak[tokptr - 1];
@@ -1125,7 +1125,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 command[comptr] = tokstak[tokptr - 1];
                 comptr++;
             }
-            /*   end new code    3/95    */
+             //   end new code    3/95    
             if (my_com == SUMSYM) {
                 loopstk[lptr] = comptr;
                 comptr++;
@@ -1138,17 +1138,17 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 command[loopstk[lptr]] = jmp;
             }
             if (my_com == MYIF) {
-                loopstk[lptr] = comptr; /* add some space for jump */
+                loopstk[lptr] = comptr;  // add some space for jump 
                 comptr++;
                 lptr++;
                 nif++;
             }
             if (my_com == MYTHEN) {
-                /* First resolve the if jump */
+                 // First resolve the if jump 
                 lptr--;
-                jmp = comptr - loopstk[lptr]; /* -1 is old */
+                jmp = comptr - loopstk[lptr];  // -1 is old 
                 command[loopstk[lptr]] = jmp;
-                /* Then set up for the then jump */
+                 // Then set up for the then jump 
                 loopstk[lptr] = comptr;
                 lptr++;
                 comptr++;
@@ -1172,24 +1172,24 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                ncomma-=1;
               }  */
 
-            /*    CHECK FOR USER FUNCTION       */
+             //    CHECK FOR USER FUNCTION       
             if (is_ufun(my_com)) {
                 my_arg = my_symb[oldtok].arg;
                 command[comptr] = my_arg;
                 comptr++;
                 ncomma = ncomma + 1 - my_arg;
             }
-            /*      USER FUNCTION OKAY          */
+             //      USER FUNCTION OKAY          
             tokptr--;
             oldtok = tokstak[tokptr - 1];
             goto next;
         }
-        /*    NEW code       3/95     */
+         //    NEW code       3/95     
         if (newtok == NUMTOK) {
             tokstak[tokptr++] = toklist[lstptr++];
             tokstak[tokptr++] = toklist[lstptr++];
         }
-        /*  end  3/95     */
+         //  end  3/95     
         tokstak[tokptr] = newtok;
         oldtok = newtok;
         tokptr++;
@@ -1237,15 +1237,15 @@ show_where(char *string, int32 index) {
 
 int32
 function_sym(int32 token) {
-    /* functions should have ( after them  */
+     // functions should have ( after them  
     int32 com = my_symb[token].com;
     int32 i1 = com / MAXTYPE;
 
     if (i1 == FUN1TYPE && !unary_sym(token)) {
-        return 1; /* single variable functions */
+        return 1;  // single variable functions 
     }
     if (i1 == FUN2TYPE && !binary_sym(token)) {
-        return 1; /* two-variable function */
+        return 1;  // two-variable function 
     }
     /* ram this was: if(i1==UFUN||i1==7||i1==6||i1==5)return 1; recall: 5 was
      * bad
@@ -1263,7 +1263,7 @@ function_sym(int32 token) {
 
 int32
 unary_sym(int32 token) {
-    /* ram: these are tokens not byte code, so no change here? */
+     // ram: these are tokens not byte code, so no change here? 
     if (token == 9 || token == 55) {
         return 1;
     }
@@ -1272,7 +1272,7 @@ unary_sym(int32 token) {
 
 int32
 binary_sym(int32 token) {
-    /* ram: these are tokens not byte code, so no change here? */
+     // ram: these are tokens not byte code, so no change here? 
     if (token > 2 && token < 9) {
         return 1;
     }
@@ -1307,12 +1307,12 @@ gives_number(int32 token) {
         return 1;
     }
     if (i1 == FUN1TYPE && !unary_sym(token)) {
-        return 1; /* single variable functions */
+        return 1;  // single variable functions 
     }
     if (i1 == FUN2TYPE && !binary_sym(token)) {
-        return 1; /* two-variable function */
+        return 1;  // two-variable function 
     }
-    /* !! */
+     // !! 
     /* ram: 5 issue; was
      * if(i1==8||isvar(i1)||iscnst(i1)||i1==7||i1==6||i1==5||isker(i1)||i1==UFUN)return
      * 1;
@@ -1330,7 +1330,7 @@ gives_number(int32 token) {
 }
 
 int32
-check_syntax(/* 1 is BAD!   */
+check_syntax( // 1 is BAD!   
              int32 oldtoken, int32 newtoken) {
     int32 com2 = my_symb[newtoken].com;
 
@@ -1400,7 +1400,7 @@ make_toks(char *dest, int32 *my_token) {
     int32 token;
     int32 nparen = 0;
     int32 lastindex = 0;
-    union /*  WARNING  -- ASSUMES 32 bit int32  and 64 bit double  */
+    union  //  WARNING  -- ASSUMES 32 bit int32  and 64 bit double  
     {
         struct {
             int32 int1;
@@ -1430,7 +1430,7 @@ make_toks(char *dest, int32 *my_token) {
                 show_where(dest, index);
                 return 1;
             }
-            /*    new code        3/95      */
+             //    new code        3/95      
             encoder.num.z = value;
             my_token[tok_in++] = NUMTOK;
             my_token[tok_in++] = encoder.pieces.int1;
@@ -1925,7 +1925,7 @@ do_delay(double delay, double i) {
 double
 hom_bcs(int32 i) {
     (void)i;
-    return 0.0; /* this is deprecated so no longer used */
+    return 0.0;  // this is deprecated so no longer used 
 }
 
 double
@@ -2064,7 +2064,7 @@ eval_rpn(int32 *equat) {
     double temy;
     double temz;
     double sum;
-    union /*  WARNING  -- ASSUMES 32 bit int32  and 64 bit double  */
+    union  //  WARNING  -- ASSUMES 32 bit int32  and 64 bit double  
     {
         struct {
             int32 int1;
@@ -2223,7 +2223,7 @@ eval_rpn(int32 *equat) {
                 PUSH(variables[in]);
                 break;
 
-            /* indexes for shift and delay operators... */
+             // indexes for shift and delay operators... 
             case SCONTYPE:
 
                 PUSH((double)(COM(CONTYPE, in)));

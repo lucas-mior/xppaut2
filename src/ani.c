@@ -86,8 +86,8 @@ static char *toons[] = {"Popeye the Sailor",
 #define SPEED 23
 
 /**************  New stuff for the Grabber ***************************/
-#define MAX_GEVENTS 20  /* maximum variables you can change per grabbable */
-#define MAX_ANI_GRAB 50 /* max grabbable objects  */
+#define MAX_GEVENTS 20   // maximum variables you can change per grabbable 
+#define MAX_ANI_GRAB 50  // max grabbable objects  
 
 /***************  End of grabber stuff  in header **************/
 
@@ -99,7 +99,7 @@ typedef struct GrabTask {
     int32 lhsivar[MAX_GEVENTS];
     int32 *comrhs[MAX_GEVENTS];
     int32 runnow;
-    int32 n; /* number of tasks <= MAX_GEVENTS */
+    int32 n;  // number of tasks <= MAX_GEVENTS 
 } GrabTask;
 
 static struct AniMotionInfo {
@@ -588,7 +588,7 @@ update_ani_motion_stuff(int32 x, int32 y) {
 void
 ani_buttonx(XEvent event, int32 flag) {
     Window window = event.xbutton.window;
-    /*   ADDED FOR THE GRAB FEATURE IN ANIMATOR  This is BUTTON PRESS */
+     //   ADDED FOR THE GRAB FEATURE IN ANIMATOR  This is BUTTON PRESS 
     if ((window == vcr.view) && (ani_grab_flag == 1)) {
         if (flag == 1) {
             ami.t1 = ani_get_current_time();
@@ -601,13 +601,13 @@ ani_buttonx(XEvent event, int32 flag) {
                 printf("Nothing grabbed\n");
             }
         }
-        if (flag == 0) { /* This is BUTTON RELEASE  */
+        if (flag == 0) {  // This is BUTTON RELEASE  
             if (who_was_grabbed < 0) {
                 return;
             }
             ani_do_grab_tasks(2);
 
-            /* ani set to init data */
+             // ani set to init data 
             for (int32 i = 0; i < NODE; i++) {
                 last_ic[i] = get_ivar(i + 1);
             }
@@ -621,7 +621,7 @@ ani_buttonx(XEvent event, int32 flag) {
             init_conds_redraw_params();
 
             if (who_was_grabbed >= 0) {
-                /* ani run now grab */
+                 // ani run now grab 
                 if (ani_grab[who_was_grabbed].end.runnow) {
                     integrate_run_now();
                     ani_grab_flag = 0;
@@ -633,7 +633,7 @@ ani_buttonx(XEvent event, int32 flag) {
     if (flag == 0) {
         return;
     }
-    /*   END OF ADDED STUFF  ************************/
+     //   END OF ADDED STUFF  ***********************
 
     ani_button(window);
     return;
@@ -644,7 +644,7 @@ ani_button(Window window) {
     if (ani_grab_flag == 1) {
         return;
     }
-    /* Grab button resets and shows first frame */
+     // Grab button resets and shows first frame 
     if (window == vcr.wgrab) {
         if (n_ani_grab == 0) {
             return;
@@ -659,7 +659,7 @@ ani_button(Window window) {
         }
     }
     if (window == vcr.wmpeg) {
-        /* ani create mpeg */
+         // ani create mpeg 
         static char *n[] = {"PPM 0/1", "Basename", "AniGif(0/1)"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
@@ -682,7 +682,7 @@ ani_button(Window window) {
             mpeg.flag = 0;
         }
         if (mpeg.flag == 1) {
-            /* ani disk warn */
+             // ani disk warn 
             char junk[256];
             char ans;
             int32 total;
@@ -703,7 +703,7 @@ ani_button(Window window) {
         ani_flip();
     }
     if (window == vcr.wskip) {
-        /* ani newskip */
+         // ani newskip 
         char bob[20];
         Window win;
         int32 rev;
@@ -741,7 +741,7 @@ ani_button(Window window) {
         ani_flip1(0);
     }
     if (window == vcr.kill) {
-        /* ani destroy vcr */
+         // ani destroy vcr 
         vcr.iexist = 0;
         XDestroySubwindows(display, vcr.base);
         XDestroyWindow(display, vcr.base);
@@ -936,11 +936,11 @@ ani_frame(int32 task) {
         return;
     }
 
-    /* now draw the stuff  */
+     // now draw the stuff  
 
     render_ani();
 
-    /*  done drawing   */
+     //  done drawing   
 
     XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
               (uint)vcr.hgt, 0, 0);
@@ -985,11 +985,11 @@ ani_flip1(int32 n) {
     }
     main_rhs_set_fix(t, y);
 
-    /* now draw the stuff  */
+     // now draw the stuff  
 
     render_ani();
 
-    /*  done drawing   */
+     //  done drawing   
 
     XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
               (uint)vcr.hgt, 0, 0);
@@ -1020,14 +1020,14 @@ ani_flip(void) {
         return;
     }
     ss = my_browser.data;
-    set_ani_perm(); /* evaluate all permanent structures  */
-    /* check avi_flags for initialization */
+    set_ani_perm();  // evaluate all permanent structures  
+     // check avi_flags for initialization 
     if (mpeg.aviflag == 1) {
         angiffile = fopen("anim.gif", "wb");
         scrngif_set_global_map(1);
     }
     count = 0;
-    while (!done) { /* Ignore all events except the button presses */
+    while (!done) {  // Ignore all events except the button presses 
         if (XPending(display) > 0) {
             XNextEvent(display, &event);
             switch (event.type) {
@@ -1056,9 +1056,9 @@ ani_flip(void) {
                 break;
             }
         }
-        /* Okay no events  so lets go! */
+         // Okay no events  so lets go! 
 
-        /* first set all the variables */
+         // first set all the variables 
         XSetForeground(display, ani_gc, WhitePixel(display, screen));
         XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
                        (uint)vcr.hgt);
@@ -1070,11 +1070,11 @@ ani_flip(void) {
         }
         main_rhs_set_fix(t, y);
 
-        /* now draw the stuff  */
+         // now draw the stuff  
 
         render_ani();
 
-        /*  done drawing   */
+         //  done drawing   
 
         XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
                   (uint)vcr.hgt, 0, 0);
@@ -1092,14 +1092,14 @@ ani_flip(void) {
             ani_reset_comets();
         }
 
-        /* now check mpeg stuff */
+         // now check mpeg stuff 
         if (mpeg.flag > 0 && ((mpeg_frame % mpeg.skip) == 0)) {
             snprintf(fname, sizeof(fname), "%s_%d.ppm", mpeg.root, mpeg_write);
             mpeg_write++;
             ani_write_frame(fname, ani_pixmap, vcr.wid, vcr.hgt);
         }
         mpeg_frame++;
-        /* now check AVI stuff */
+         // now check AVI stuff 
 
         if (mpeg.aviflag == 1) {
             scrngif_add_ani_gif(vcr.view, angiffile, count);
@@ -1107,7 +1107,7 @@ ani_flip(void) {
 
         count++;
     }
-    /* always stop mpeg writing */
+     // always stop mpeg writing 
     mpeg.flag = 0;
     if (mpeg.aviflag == 1) {
         scrngif_end_ani_gif(angiffile);
@@ -1144,20 +1144,20 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     if (!ximage) {
         return -1;
     }
-    /* this is only good for 256 color displays */
+     // this is only good for 256 color displays 
     for (uint32 i = 0; i < 256; i++) {
         palette[i].pixel = i;
     }
     XQueryColors(display, cmap, palette, 256);
     if (flag_true_color == 1) {
-        bbp = (uint32)ximage->bits_per_pixel; /* is it 16 or 24 bit */
+        bbp = (uint32)ximage->bits_per_pixel;  // is it 16 or 24 bit 
         if (bbp > 24) {
             bbp = 24;
         }
-        bbc = bbp / 3; /*  divide up the 3 colors equally to bbc bits  */
-        CMSK = (1 << bbc) - 1; /*  make a mask  2^bbc  -1  */
-        CSHIFT = bbc;          /*  how far to shift to get the next color */
-        CMULT = 8 - bbc;       /* multiply 5 bit color to get to 8 bit */
+        bbc = bbp / 3;  //  divide up the 3 colors equally to bbc bits  
+        CMSK = (1 << bbc) - 1;  //  make a mask  2^bbc  -1  
+        CSHIFT = bbc;           //  how far to shift to get the next color 
+        CMULT = 8 - bbc;        // multiply 5 bit color to get to 8 bit 
     }
     *wid = ximage->width;
     *hgt = ximage->height;
@@ -1171,7 +1171,7 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
                     with byte order etc
                 */
                 value = XGetPixel(ximage, x, y) >> INIT_C_SHIFT;
-                /*  get the 3 colors   hopefully  */
+                 //  get the 3 colors   hopefully  
                 lobits = value & CMSK;
                 value = value >> CSHIFT;
                 if (bbc == 5) {
@@ -1184,12 +1184,12 @@ ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
                  ggets_plintf("(%d,%d): %x %x %x %x
                  \n",x,y,vv,hibits,midbits,lobits);
                 */
-                /* store them for ppm dumping  */
+                 // store them for ppm dumping  
                 *dst++ = (uchar)(hibits << CMULT);
                 *dst++ = (uchar)(midbits << CMULT);
                 *dst++ = (uchar)(lobits << CMULT);
             } else {
-                /* 256 color is easier sort of  */
+                 // 256 color is easier sort of  
                 pix = palette[*pixel++];
                 *dst++ = (uchar)pix.red;
                 *dst++ = (uchar)pix.green;
@@ -1229,7 +1229,7 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
     if (!ximage) {
         return -1;
     }
-    /* this is only good for 256 color displays */
+     // this is only good for 256 color displays 
     for (uint32 i = 0; i < 256; i++) {
         palette[i].pixel = i;
     }
@@ -1242,14 +1242,14 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
           it for your machine
     */
     if (flag_true_color == 1) {
-        bbp = (uint32)ximage->bits_per_pixel; /* is it 16 or 24 bit */
+        bbp = (uint32)ximage->bits_per_pixel;  // is it 16 or 24 bit 
         if (bbp > 24) {
             bbp = 24;
         }
-        bbc = bbp / 3; /*  divide up the 3 colors equally to bbc bits  */
-        CMSK = (1 << bbc) - 1; /*  make a mask  2^bbc  -1  */
-        CSHIFT = bbc;          /*  how far to shift to get the next color */
-        CMULT = 8 - bbc;       /* multiply 5 bit color to get to 8 bit */
+        bbc = bbp / 3;  //  divide up the 3 colors equally to bbc bits  
+        CMSK = (1 << bbc) - 1;  //  make a mask  2^bbc  -1  
+        CSHIFT = bbc;           //  how far to shift to get the next color 
+        CMULT = 8 - bbc;        // multiply 5 bit color to get to 8 bit 
     }
     snprintf(head, sizeof(head), "P6\n%d %d\n255\n", ximage->width,
              ximage->height);
@@ -1266,7 +1266,7 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
                     with byte order etc
                 */
                 value = XGetPixel(ximage, x, y) >> INIT_C_SHIFT;
-                /*  get the 3 colors   hopefully  */
+                 //  get the 3 colors   hopefully  
                 lobits = value & CMSK;
                 value = value >> CSHIFT;
                 if (bbc == 5) {
@@ -1275,12 +1275,12 @@ ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
                 midbits = value & CMSK;
                 value = value >> CSHIFT;
                 hibits = value & CMSK;
-                /* store them for ppm dumping  */
+                 // store them for ppm dumping  
                 *dst++ = (uchar)(hibits << CMULT);
                 *dst++ = (uchar)(midbits << CMULT);
                 *dst++ = (uchar)(lobits << CMULT);
             } else {
-                /* 256 color is easier sort of  */
+                 // 256 color is easier sort of  
                 pix = palette[*pixel++];
                 *dst++ = (uchar)pix.red;
                 *dst++ = (uchar)pix.green;
@@ -1329,7 +1329,7 @@ ani_get_file(char *fname) {
     }
     err = ani_new_file(vcr.file);
     if (err >= 0) {
-        vcr.ok = 1; /* loaded and compiled */
+        vcr.ok = 1;  // loaded and compiled 
         ggets_plintf("Loaded %d lines successfully!\n", n_anicom);
         ani_grab_flag = 0;
     }
@@ -1380,7 +1380,7 @@ load_ani_file(FILE *fp) {
         if (ans == 0 || feof(fp)) {
             break;
         }
-        if (ans < 0) { /* error occurred !! */
+        if (ans < 0) {  // error occurred !! 
             ggets_plintf(" error at graphics_line %d\n", ani_line);
             free_ani();
             return 0;
@@ -1419,7 +1419,7 @@ parse_ani_string(char *s, FILE *fp) {
         return -1;
     }
     strupr(command);
-    /************** GRAB STUFF *****************/
+     //************* GRAB STUFF ****************
     if (load_eqn_msc("GR", command)) {
         type = GRAB;
     }
@@ -1866,7 +1866,7 @@ free_ani(void) {
     }
     n_anicom = 0;
     {
-        /* ani free grabber */
+         // ani free grabber 
         int32 m;
         for (int32 i = 0; i < n_ani_grab; i++) {
             free(ani_grab[i].x);
@@ -1885,7 +1885,7 @@ free_ani(void) {
         }
     }
 
-    /* init ani stuff */
+     // init ani stuff 
     ani_text_size = 1;
     ani_text_font = 0;
     ani_text_color = 0;
@@ -1898,7 +1898,7 @@ free_ani(void) {
     ani_lastx = 0.0;
     ani_lasty = 0.0;
     vcr.pos = 0;
-    ani_grab_flag = 0; /*********** GRABBER *******************/
+    ani_grab_flag = 0;  //********** GRABBER ******************
     n_ani_grab = 0;
     return;
 }
@@ -1989,14 +1989,14 @@ void
 ani_roll_comet(AniCom *a, int32 xn, int32 yn, int32 col) {
     int32 n = a->c.n;
     int32 ii = a->c.i;
-    if (ii < n) { /* not loaded yet */
+    if (ii < n) {  // not loaded yet 
         a->c.x[ii] = xn;
         a->c.y[ii] = yn;
         a->c.col[ii] = col;
         a->c.i = a->c.i + 1;
         return;
     }
-    /* its full so push down eliminating last */
+     // its full so push down eliminating last 
     for (int32 i = 1; i < n; i++) {
         a->c.x[i - 1] = a->c.x[i];
         a->c.y[i - 1] = a->c.y[i];
@@ -2343,8 +2343,8 @@ render_ani(void) {
         }
     }
     if (show_grab_points == 1) {
-        /* ani draw grab points */
-        /* Draw little black x's where the grab points are */
+         // ani draw grab points 
+         // Draw little black x's where the grab points are 
         double xc;
         double yc;
         double x1, y1, x2, y2, z;
@@ -2377,7 +2377,7 @@ void
 set_ani_perm(void) {
     int32 type;
 
-    /* ani set from init data */
+     // ani set from init data 
     double y[MAX_ODE];
     for (int32 i = 0; i < NODE + NMarkov; i++) {
         y[i] = last_ic[i];
@@ -2573,9 +2573,9 @@ draw_ani_comet(int32 j) {
     set_ani_thick(my_ani[j].zthick);
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
-    /* we now have the latest x1,y1 */
+     // we now have the latest x1,y1 
     ani_roll_comet(&my_ani[j], i1, j1, LastAniColor);
-    /* now we draw this thing  */
+     // now we draw this thing  
     nn = my_ani[j].c.i;
     if (my_ani[j].zthick < 0) {
         ir = -my_ani[j].zthick;
@@ -2621,7 +2621,7 @@ draw_ani_null(int32 j, int32 id) {
     }
 
     set_ani_col(j);
-    who = (int32)z; /* the nullcline that you want  -1 is the default cline */
+    who = (int32)z;  // the nullcline that you want  -1 is the default cline 
     err = get_nullcline_floats(&v, &n, who, id);
     if (err == 1) {
         return;
@@ -3025,12 +3025,12 @@ ani_search_for_grab(double x, double y) {
 
 void
 ani_do_grab_tasks(int32 which) {
-    /* which=1 for start, 2 for end */
+     // which=1 for start, 2 for end 
     int32 i = who_was_grabbed;
     int32 n;
     double z;
     if (i < 0) {
-        return; /*  no legal grab graphics_point */
+        return;  //  no legal grab graphics_point 
     }
     if (which == 1) {
         n = ani_grab[i].start.n;
@@ -3061,7 +3061,7 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
     if (which == 1) {
         i = ani_grab[igrab].start.n;
         if (i >= MAX_GEVENTS) {
-            return -1; /* too many events */
+            return -1;  // too many events 
         }
         strcpy(ani_grab[igrab].start.lhsname[i], lhs);
         if (parserslow_add_expr(rhs, com, &nc)) {
@@ -3086,7 +3086,7 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         }
         i = ani_grab[igrab].end.n;
         if (i >= MAX_GEVENTS) {
-            return -1; /* too many events */
+            return -1;  // too many events 
         }
 
         strcpy(ani_grab[igrab].end.lhsname[i], lhs);

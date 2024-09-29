@@ -296,9 +296,9 @@ graphics_set_linestyle(int32 ls) {
     } else if (PltFmtFlag == SVGFMT) {
         svg_linetype(ls);
     } else {
-        /* graphics set line style x11 */
+         // graphics set line style x11 
         int32 type = 0;
-        if (ls == -2) { /*  Border  */
+        if (ls == -2) {  //  Border  
             color_set(0);
             XSetLineAttributes(display, gc_graph, 2, LineSolid, CapButt,
                                JoinBevel);
@@ -311,7 +311,7 @@ graphics_set_linestyle(int32 ls) {
                                JoinBevel);
             return;
         }
-        if (!COLOR) { /* Mono  */
+        if (!COLOR) {  // Mono  
             ls = (ls % 8) + 2;
             if (ls == 2) {
                 type = LineSolid;
@@ -324,7 +324,7 @@ graphics_set_linestyle(int32 ls) {
             XSetLineAttributes(display, gc_graph, 0, type, CapButt, JoinBevel);
             return;
         }
-        /* color system  */
+         // color system  
         ls = ls % 11;
         XSetLineAttributes(display, gc_graph, 0, LineSolid, CapButt, JoinBevel);
         color_set(colorline[ls]);
@@ -412,10 +412,10 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
         if (c == '\\') {
             i++;
             c = str[i];
-            tmp[j] = 0; /* end the current buffer */
+            tmp[j] = 0;  // end the current buffer 
 
             graphics_fancy_put_text_x11(cx, cy, tmp, cs,
-                                        cf); /* render the current buffer */
+                                        cf);  // render the current buffer 
             if (cf == 0) {
                 if (avromfonts[cs] == 1) {
                     dx = XTextWidth(romfonts[cs], tmp, (int)strlen(tmp));
@@ -509,7 +509,7 @@ graphics_scale_dxdy(double x, double y, double *i, double *j) {
 }
 
 void
-graphics_scale_to_screen(/* not really the screen!  */
+graphics_scale_to_screen( // not really the screen!  
                          double x, double y, int32 *i, int32 *j) {
     double dx = (DRight - DLeft) / (XMax - XMin);
     double dy = (DTop - DBottom) / (YMax - YMin);
@@ -519,7 +519,7 @@ graphics_scale_to_screen(/* not really the screen!  */
 }
 
 void
-graphics_scale_to_real(/* Not needed except for X */
+graphics_scale_to_real( // Not needed except for X 
                        int32 i, int32 j, double *x, double *y) {
     int32 i1;
     int32 j1;
@@ -580,8 +580,8 @@ graphics_set_extra(void) {
             many_pops_create_a_pop();
             graph[i].xv[0] = IX_PLT[i + 1];
             graph[i].yv[0] = IY_PLT[i + 1];
-            graph[i].zv[0] = IZ_PLT[i + 1]; /* irrelevant probably */
-            graph[i].grtype = 0;            /* force 2D */
+            graph[i].zv[0] = IZ_PLT[i + 1];  // irrelevant probably 
+            graph[i].grtype = 0;             // force 2D 
             graph[i].xlo = X_LO[i + 1];
             graph[i].xhi = X_HI[i + 1];
             graph[i].ylo = Y_LO[i + 1];
@@ -730,7 +730,7 @@ graphics_init(int32 i) {
 }
 
 void
-graphics_copy_graph(/*  Graph[i]=Graph[l]  */
+graphics_copy_graph( //  Graph[i]=Graph[l]  
                     int32 i, int32 l) {
     graph[i].Use = graph[l].Use;
     graph[i].Restore = graph[l].Restore;
@@ -863,7 +863,7 @@ graphics_threed_proj(double x, double y, double z, double *xp, double *yp) {
     double x2p;
     double y2p;
     double z2p;
-    graphics_scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
+    graphics_scale3d(x, y, z, &x2p, &y2p, &z2p);  // scale to a cube  
     graphics_rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
     if (MyGraph->PerspFlag == 0) {
@@ -895,7 +895,7 @@ graphics_point_3d(double x, double y, double z) {
 }
 
 void
-graphics_line3dn(/* unscaled version  unclipped */
+graphics_line3dn( // unscaled version  unclipped 
                  double xs1, double ys1, double zs1, double xsp1, double ysp1,
                  double zsp1) {
     double xs;
@@ -904,7 +904,7 @@ graphics_line3dn(/* unscaled version  unclipped */
     double xsp;
     double ysp;
     double zsp;
-    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
+    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs);  // rotate the line 
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
     if (MyGraph->PerspFlag) {
         graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
@@ -915,7 +915,7 @@ graphics_line3dn(/* unscaled version  unclipped */
 }
 
 void
-graphics_line3d(/* unscaled version     */
+graphics_line3d( // unscaled version     
                 double x01, double y01, double z01, double x02, double y02,
                 double z02) {
     double xs;
@@ -934,7 +934,7 @@ graphics_line3d(/* unscaled version     */
                          &ysp1, &zsp1)) {
         return;
     }
-    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
+    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs);  // rotate the line 
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
     if (MyGraph->PerspFlag) {
         graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
@@ -965,13 +965,13 @@ graphics_line_3d(double x, double y, double z, double xp, double yp,
     double y02;
     double z01;
     double z02;
-    graphics_scale3d(x, y, z, &x01, &y01, &z01); /* scale to a cube  */
+    graphics_scale3d(x, y, z, &x01, &y01, &z01);  // scale to a cube  
     graphics_scale3d(xp, yp, zp, &x02, &y02, &z02);
     if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1,
                          &ysp1, &zsp1)) {
         return;
     }
-    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
+    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs);  // rotate the line 
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
     if (MyGraph->PerspFlag) {
         graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
@@ -1187,19 +1187,19 @@ graphics_fillin_text(char *old, char *new) {
                         m++;
                     }
                     i++;
-                    if (i >= l) { /* oops - end of string */
+                    if (i >= l) {  // oops - end of string 
                         new[j] = '?';
                         new[j + 1] = 0;
                         return;
                     }
                 }
-            } /* ok - we have found matching and are done */
-            goto nc; /* sometimes its just easier to use the !#$$# goto */
+            }  // ok - we have found matching and are done 
+            goto nc;  // sometimes its just easier to use the !#$$# goto 
         }
     na:
         new[j] = c;
         j++;
-    nc: /* normal characters */
+    nc:  // normal characters 
         i++;
         if (i >= l) {
             break;
@@ -1290,7 +1290,7 @@ graphics_clip3d(double x1, double y1, double z1, double x2, double y2,
         return 1;
     }
 
-    /*  Both are outside the cube  */
+     //  Both are outside the cube  
 
     if ((ix1 == ix2) && (ix1 != 0)) {
         return 0;
@@ -1473,7 +1473,7 @@ graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
     }
     isum = ABS(ix1) + ABS(ix2) + abs(iy1) + abs(iy2);
     if (isum == 0) {
-        return 1; /* both inside window so plottem' */
+        return 1;  // both inside window so plottem' 
     }
 
     if (((ix1 == ix2) && (ix1 != 0)) || ((iy1 == iy2) && (iy1 != 0))) {
@@ -1574,22 +1574,22 @@ graphics_draw_symbol(double x, double y, double size, int32 my_symb) {
     double dx = (double)(MyGraph->xhi - MyGraph->xlo)*size;
     double dy = (double)(MyGraph->yhi - MyGraph->ylo)*size;
     static int32 sym_dir[4][48] = {
-        /*          box              */
+         //          box              
         {0, -6, -6, 1, 12, 0, 1, 0, 12, 1, -12, 0, 1, 0, -12, 3,
          0, 0,  3,  0, 0,  3, 0, 0, 3,  0, 0,   3, 0, 0, 3,   0,
          0, 3,  0,  0, 3,  0, 0, 3, 0,  0, 3,   0, 0, 3, 0,   0},
 
-        /*          triangle         */
+         //          triangle         
         {0, -6, -6, 1, 12, 0, 1, -6, 12, 1, -6, -12, 3, 0, 0, 3,
          0, 0,  3,  0, 0,  3, 0, 0,  3,  0, 0,  3,   0, 0, 3, 0,
          0, 3,  0,  0, 3,  0, 0, 3,  0,  0, 3,  0,   0, 3, 0, 0},
 
-        /*          cross            */
+         //          cross            
         {0, -6, 0, 1, 12, 0, 0, -6, -6, 1, 0, 12, 3, 0, 0, 3,
          0, 0,  3, 0, 0,  3, 0, 0,  3,  0, 0, 3,  0, 0, 3, 0,
          0, 3,  0, 0, 3,  0, 0, 3,  0,  0, 3, 0,  0, 3, 0, 0},
 
-        /*          circle           */
+         //          circle           
         {0,  6,  0, 1,  -1, 3, 1, -2, 2, 1, -3, 1, 1, -3, -1, 1,
          -2, -2, 1, -1, -3, 1, 1, -3, 1, 2, -2, 1, 3, -1, 1,  3,
          1,  1,  2, 2,  1,  1, 3, 3,  0, 0, 3,  0, 0, 3,  0,  0},

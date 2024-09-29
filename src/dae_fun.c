@@ -115,7 +115,7 @@ dae_fun_compile_svars(void) {
         }
     }
 
-    /* dae fun init work */
+     // dae fun init work 
     dae_work.work =
         xmalloc(sizeof(*(dae_work.work))*(usize)(nsvar*nsvar + 10*nsvar));
     dae_work.iwork = xmalloc(sizeof(*(dae_work.iwork))*(usize)nsvar);
@@ -172,7 +172,7 @@ dae_fun_err_dae(void) {
 
 void
 get_dae_fun(double *y, double *f) {
-    /* better do this in case fixed variables depend on sol_var */
+     // better do this in case fixed variables depend on sol_var 
     for (int32 i = 0; i < nsvar; i++) {
         SETVAR(svar[i].index, y[i]);
     }
@@ -189,8 +189,8 @@ void
 dae_fun_do_daes(void) {
     int32 ans;
 
-    /* dae fun solve */
-    /* Newton solver for algebraic stuff */
+     // dae fun solve 
+     // Newton solver for algebraic stuff 
     int32 n;
     int32 info;
     double err;
@@ -207,7 +207,7 @@ dae_fun_do_daes(void) {
         ans = 1;
     }
     if (dae_work.status < 0) {
-        ans = dae_work.status; /* accepts no change error */
+        ans = dae_work.status;  // accepts no change error 
     }
     y = dae_work.work;
     f = y + nsvar;
@@ -215,9 +215,9 @@ dae_fun_do_daes(void) {
     ynew = fnew + nsvar;
     errvec = ynew + nsvar;
     jac = errvec + nsvar;
-    for (int32 i = 0; i < n; i++) { /* copy current value as initial guess */
+    for (int32 i = 0; i < n; i++) {  // copy current value as initial guess 
         y[i] = svar[i].last;
-        ynew[i] = y[i]; /* keep old guess */
+        ynew[i] = y[i];  // keep old guess 
     }
     while (true) {
         get_dae_fun(y, f);
@@ -226,7 +226,7 @@ dae_fun_do_daes(void) {
             err += fabs(f[i]);
             errvec[i] = f[i];
         }
-        if (err < tol) { /* success */
+        if (err < tol) {  // success 
             for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, y[i]);
                 svar[i].last = y[i];
@@ -234,7 +234,7 @@ dae_fun_do_daes(void) {
             ans = 1;
             break;
         }
-        /* compute jacobian */
+         // compute jacobian 
         for (int32 i = 0; i < n; i++) {
             z = fabs(y[i]);
             if (z < eps) {
@@ -254,10 +254,10 @@ dae_fun_do_daes(void) {
             for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, ynew[i]);
             }
-            ans = -1; /* singular jacobian */
+            ans = -1;  // singular jacobian 
             break;
         }
-        gear_sgesl(jac, n, n, dae_work.iwork, errvec, 0); /* get x=J^(-1) f */
+        gear_sgesl(jac, n, n, dae_work.iwork, errvec, 0);  // get x=J^(-1) f 
         err = 0.0;
         for (int32 i = 0; i < n; i++) {
             y[i] -= errvec[i];
@@ -267,10 +267,10 @@ dae_fun_do_daes(void) {
             for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, svar[i].last);
             }
-            ans = -3; /* getting too big */
+            ans = -3;  // getting too big 
             break;
         }
-        if (err < tol) /* not much change */
+        if (err < tol)  // not much change 
         {
             for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, y[i]);
@@ -284,13 +284,13 @@ dae_fun_do_daes(void) {
             for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, svar[i].last);
             }
-            ans = -2; /* too many iterates */
+            ans = -2;  // too many iterates 
             break;
         }
     }
     dae_work.status = ans;
     if (ans == 1 || ans == 2) {
-        return; /* accepts a no change error! */
+        return;  // accepts a no change error! 
     }
     DelayErr = 1;
     return;

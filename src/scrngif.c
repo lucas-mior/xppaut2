@@ -73,7 +73,7 @@ static int32 NGlobalColors = 0;
 
 void
 scrngif_set_global_map(int32 flag) {
-    if (NGlobalColors == 0) { /* Cant use it if it aint there */
+    if (NGlobalColors == 0) {  // Cant use it if it aint there 
         UseGlobalMap = 0;
         return;
     }
@@ -241,7 +241,7 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
         NGlobalColors = ncol;
 
         break;
-    case MAKE_ONE_GIF: /* don't need global map! */
+    case MAKE_ONE_GIF:  // don't need global map! 
         ncol = scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
         scrngif_make_gif(pixels, (int32)w, (int32)h, fp);
         break;
@@ -254,12 +254,12 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
                 scrngif_write_local_header((int32)w, (int32)h, fp, 0,
                                            GifFrameDelay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
-            } else /* first map cant be encoded */
+            } else  // first map cant be encoded 
             {
                 UseGlobalMap = 0;
                 scrngif_local_to_global();
                 scrngif_write_global_header((int32)w, (int32)h,
-                                            fp); /* write global header */
+                                            fp);  // write global header 
                 scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
                 scrngif_write_local_header((int32)w, (int32)h, fp, 1,
                                            GifFrameDelay);
@@ -349,9 +349,9 @@ scrngif_loop(FILE *fout, uint32 repeats) {
 
     fputc(0x03, fout);
     fputc(0x01, fout);
-    GifPutShort(repeats, fout); /* repeat count */
+    GifPutShort(repeats, fout);  // repeat count 
 
-    fputc(0x00, fout); /* terminator */
+    fputc(0x00, fout);  // terminator 
     return;
 }
 
@@ -361,11 +361,11 @@ scrngif_write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
     fputc(0x21, fout);
     fputc(0xF9, fout);
     fputc(0x04, fout);
-    fputc(0x80, fout); /* flag ??? */
+    fputc(0x80, fout);  // flag ??? 
     GifPutShort(delay, fout);
     fputc(0x00, fout);
     fputc(0x00, fout);
-    fputc(',', fout); /* image separator */
+    fputc(',', fout);  // image separator 
     GifPutShort(0, fout);
     GifPutShort(0, fout);
     GifPutShort(cols, fout);
@@ -430,7 +430,7 @@ scrngif_make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
 
     fwrite(buffer, (usize)(pos - buffer), 1, dst);
 
-    /* header info done */
+     // header info done 
 
     scrngif_encode(dst, pixels, depth, rows*cols);
     fputc(';', dst);
@@ -535,7 +535,7 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
                 curNode->nxt = NULL;
                 break;
             }
-            /*   otherwise do as we do with a TERMIN node  */
+             //   otherwise do as we do with a TERMIN node  
             __attribute__((fallthrough));
         case TERMIN:
             newNode->alt = curNode->nxt;

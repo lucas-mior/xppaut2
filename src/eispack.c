@@ -32,55 +32,55 @@ rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
 
     static int64 is1, is2;
 
-    /*     THIS SUBROUTINE CALLS THE RECOMMENDED SEQUENCE OF */
-    /*     SUBROUTINES FROM THE EIGENSYSTEM SUBROUTINE PACKAGE (EISPACK) */
-    /*     TO FIND THE EIGENVALUES AND EIGENVECTORS (IF DESIRED) */
-    /*     OF A REAL GENERAL MATRIX. */
+     //     THIS SUBROUTINE CALLS THE RECOMMENDED SEQUENCE OF 
+     //     SUBROUTINES FROM THE EIGENSYSTEM SUBROUTINE PACKAGE (EISPACK) 
+     //     TO FIND THE EIGENVALUES AND EIGENVECTORS (IF DESIRED) 
+     //     OF A REAL GENERAL MATRIX. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM  MUST BE SET TO THE ROW DIMENSION OF THE TWO-DIMENSIONAL */
-    /*        DIMENSION STATEMENT. */
+     //        NM  MUST BE SET TO THE ROW DIMENSION OF THE TWO-DIMENSIONAL 
+     //        DIMENSION STATEMENT. 
 
-    /*        N  IS THE ORDER OF THE MATRIX  A. */
+     //        N  IS THE ORDER OF THE MATRIX  A. 
 
-    /*        A  CONTAINS THE REAL GENERAL MATRIX. */
+     //        A  CONTAINS THE REAL GENERAL MATRIX. 
 
-    /*        MATZ  IS AN int64 VARIABLE SET EQUAL TO ZERO IF */
-    /*        ONLY EIGENVALUES ARE DESIRED.  OTHERWISE IT IS SET TO */
-    /*        ANY NON-ZERO int64 FOR BOTH EIGENVALUES AND EIGENVECTORS. */
+     //        MATZ  IS AN int64 VARIABLE SET EQUAL TO ZERO IF 
+     //        ONLY EIGENVALUES ARE DESIRED.  OTHERWISE IT IS SET TO 
+     //        ANY NON-ZERO int64 FOR BOTH EIGENVALUES AND EIGENVECTORS. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        WR  AND  WI  CONTAIN THE REAL AND IMAGINARY PARTS, */
-    /*        RESPECTIVELY, OF THE EIGENVALUES.  COMPLEX CONJUGATE */
-    /*        PAIRS OF EIGENVALUES APPEAR CONSECUTIVELY WITH THE */
-    /*        EIGENVALUE HAVING THE POSITIVE IMAGINARY PART FIRST. */
+     //        WR  AND  WI  CONTAIN THE REAL AND IMAGINARY PARTS, 
+     //        RESPECTIVELY, OF THE EIGENVALUES.  COMPLEX CONJUGATE 
+     //        PAIRS OF EIGENVALUES APPEAR CONSECUTIVELY WITH THE 
+     //        EIGENVALUE HAVING THE POSITIVE IMAGINARY PART FIRST. 
 
-    /*        Z  CONTAINS THE REAL AND IMAGINARY PARTS OF THE EIGENVECTORS */
-    /*        IF MATZ IS NOT ZERO.  IF THE J-TH EIGENVALUE IS REAL, THE */
-    /*        J-TH COLUMN OF  Z  CONTAINS ITS EIGENVECTOR.  IF THE J-TH */
-    /*        EIGENVALUE IS COMPLEX WITH POSITIVE IMAGINARY PART, THE */
-    /*        J-TH AND (J+1)-TH COLUMNS OF  Z  CONTAIN THE REAL AND */
-    /*        IMAGINARY PARTS OF ITS EIGENVECTOR.  THE CONJUGATE OF THIS */
-    /*        VECTOR IS THE EIGENVECTOR FOR THE CONJUGATE EIGENVALUE. */
+     //        Z  CONTAINS THE REAL AND IMAGINARY PARTS OF THE EIGENVECTORS 
+     //        IF MATZ IS NOT ZERO.  IF THE J-TH EIGENVALUE IS REAL, THE 
+     //        J-TH COLUMN OF  Z  CONTAINS ITS EIGENVECTOR.  IF THE J-TH 
+     //        EIGENVALUE IS COMPLEX WITH POSITIVE IMAGINARY PART, THE 
+     //        J-TH AND (J+1)-TH COLUMNS OF  Z  CONTAIN THE REAL AND 
+     //        IMAGINARY PARTS OF ITS EIGENVECTOR.  THE CONJUGATE OF THIS 
+     //        VECTOR IS THE EIGENVECTOR FOR THE CONJUGATE EIGENVALUE. 
 
-    /*        IERR  IS AN int64 OUTPUT VARIABLE SET EQUAL TO AN ERROR */
-    /*           COMPLETION CODE DESCRIBED IN THE DOCUMENTATION FOR HQR */
-    /*           AND HQR2.  THE NORMAL COMPLETION CODE IS ZERO. */
+     //        IERR  IS AN int64 OUTPUT VARIABLE SET EQUAL TO AN ERROR 
+     //           COMPLETION CODE DESCRIBED IN THE DOCUMENTATION FOR HQR 
+     //           AND HQR2.  THE NORMAL COMPLETION CODE IS ZERO. 
 
-    /*        IV1  AND  FV1  ARE TEMPORARY STORAGE ARRAYS. */
+     //        IV1  AND  FV1  ARE TEMPORARY STORAGE ARRAYS. 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --fv1;
     --iv1;
     z_dim1 = nm;
@@ -92,7 +92,7 @@ rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
     a_offset = a_dim1 + 1;
     a -= a_offset;
 
-    /* Function Body */
+     // Function Body 
     if (n <= nm) {
         goto L10;
     }
@@ -105,7 +105,7 @@ L10:
     if (matz != 0) {
         goto L20;
     }
-    /*     .......... FIND EIGENVALUES ONLY .......... */
+     //     .......... FIND EIGENVALUES ONLY .......... 
     hqr(&nm, &n, &is1, &is2, &a[a_offset], &wr[1], &wi[1], ierr);
     goto L50;
 /*     .......... FIND BOTH EIGENVALUES AND EIGENVECTORS .......... */
@@ -141,75 +141,75 @@ hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     static int64 mp2, itn, its, enm2;
     static double tst1, tst2;
 
-    /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR, */
-    /*     NUM. MATH. 14, 219-231(1970) BY MARTIN, PETERS, AND WILKINSON. */
-    /*     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 359-371(1971). */
+     //     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR, 
+     //     NUM. MATH. 14, 219-231(1970) BY MARTIN, PETERS, AND WILKINSON. 
+     //     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 359-371(1971). 
 
-    /*     THIS SUBROUTINE FINDS THE EIGENVALUES OF A REAL */
-    /*     UPPER HESSENBERG MATRIX BY THE QR METHOD. */
+     //     THIS SUBROUTINE FINDS THE EIGENVALUES OF A REAL 
+     //     UPPER HESSENBERG MATRIX BY THE QR METHOD. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRIX. */
+     //        N IS THE ORDER OF THE MATRIX. 
 
-    /*        LOW AND IGH ARE INTEGERS DETERMINED BY THE BALANCING */
-    /*          SUBROUTINE  BALANC.  IF  BALANC  HAS NOT BEEN USED, */
-    /*          SET LOW=1, IGH=N. */
+     //        LOW AND IGH ARE INTEGERS DETERMINED BY THE BALANCING 
+     //          SUBROUTINE  BALANC.  IF  BALANC  HAS NOT BEEN USED, 
+     //          SET LOW=1, IGH=N. 
 
-    /*        H CONTAINS THE UPPER HESSENBERG MATRIX.  INFORMATION ABOUT */
-    /*          THE TRANSFORMATIONS USED IN THE REDUCTION TO HESSENBERG */
-    /*          FORM BY  ELMHES  OR  ORTHES, IF PERFORMED, IS STORED */
-    /*          IN THE REMAINING TRIANGLE UNDER THE HESSENBERG MATRIX. */
+     //        H CONTAINS THE UPPER HESSENBERG MATRIX.  INFORMATION ABOUT 
+     //          THE TRANSFORMATIONS USED IN THE REDUCTION TO HESSENBERG 
+     //          FORM BY  ELMHES  OR  ORTHES, IF PERFORMED, IS STORED 
+     //          IN THE REMAINING TRIANGLE UNDER THE HESSENBERG MATRIX. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        H HAS BEEN DESTROYED.  THEREFORE, IT MUST BE SAVED */
-    /*          BEFORE CALLING  HQR  IF SUBSEQUENT CALCULATION AND */
-    /*          BACK TRANSFORMATION OF EIGENVECTORS IS TO BE PERFORMED. */
+     //        H HAS BEEN DESTROYED.  THEREFORE, IT MUST BE SAVED 
+     //          BEFORE CALLING  HQR  IF SUBSEQUENT CALCULATION AND 
+     //          BACK TRANSFORMATION OF EIGENVECTORS IS TO BE PERFORMED. 
 
-    /*        WR AND WI CONTAIN THE REAL AND IMAGINARY PARTS, */
-    /*          RESPECTIVELY, OF THE EIGENVALUES.  THE EIGENVALUES */
-    /*          ARE UNORDERED EXCEPT THAT COMPLEX CONJUGATE PAIRS */
-    /*          OF VALUES APPEAR CONSECUTIVELY WITH THE EIGENVALUE */
-    /*          HAVING THE POSITIVE IMAGINARY PART FIRST.  IF AN */
-    /*          ERROR EXIT IS MADE, THE EIGENVALUES SHOULD BE CORRECT */
-    /*          FOR INDICES IERR+1,...,N. */
+     //        WR AND WI CONTAIN THE REAL AND IMAGINARY PARTS, 
+     //          RESPECTIVELY, OF THE EIGENVALUES.  THE EIGENVALUES 
+     //          ARE UNORDERED EXCEPT THAT COMPLEX CONJUGATE PAIRS 
+     //          OF VALUES APPEAR CONSECUTIVELY WITH THE EIGENVALUE 
+     //          HAVING THE POSITIVE IMAGINARY PART FIRST.  IF AN 
+     //          ERROR EXIT IS MADE, THE EIGENVALUES SHOULD BE CORRECT 
+     //          FOR INDICES IERR+1,...,N. 
 
-    /*        IERR IS SET TO */
-    /*          ZERO       FOR NORMAL RETURN, */
-    /*          J          IF THE LIMIT OF 30*N ITERATIONS IS EXHAUSTED */
-    /*                     WHILE THE J-TH EIGENVALUE IS BEING SOUGHT. */
+     //        IERR IS SET TO 
+     //          ZERO       FOR NORMAL RETURN, 
+     //          J          IF THE LIMIT OF 30*N ITERATIONS IS EXHAUSTED 
+     //                     WHILE THE J-TH EIGENVALUE IS BEING SOUGHT. 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --wi;
     --wr;
     h_dim1 = *nm;
     h_offset = h_dim1 + 1;
     h__ -= h_offset;
 
-    /* Function Body */
+     // Function Body 
     *ierr = 0;
     norm = 0.;
     k = 1;
-    /*     .......... STORE ROOTS ISOLATED BY BALANC */
-    /*                AND COMPUTE MATRIX NORM .......... */
+     //     .......... STORE ROOTS ISOLATED BY BALANC 
+     //                AND COMPUTE MATRIX NORM .......... 
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
-            /* L40: */
+             // L40: 
             d__1 = h__[i__ + j*h_dim1];
             norm += fabs(d__1);
         }
@@ -255,7 +255,7 @@ L70:
         if (tst2 == tst1) {
             goto L100;
         }
-        /* L80: */
+         // L80: 
     }
 /*     .......... FORM SHIFT .......... */
 L100:
@@ -275,12 +275,12 @@ L100:
     if (its != 10 && its != 20) {
         goto L130;
     }
-    /*     .......... FORM EXCEPTIONAL SHIFT .......... */
+     //     .......... FORM EXCEPTIONAL SHIFT .......... 
     t += x;
 
     i__1 = en;
     for (i__ = *low; i__ <= i__1; ++i__) {
-        /* L120: */
+         // L120: 
         h__[i__ + i__*h_dim1] -= x;
     }
     d__1 = h__[en + na*h_dim1];
@@ -292,9 +292,9 @@ L100:
 L130:
     ++its;
     --itn;
-    /*     .......... LOOK FOR TWO CONSECUTIVE SMALL */
-    /*                SUB-DIAGONAL ELEMENTS. */
-    /*                FOR M=EN-2 STEP -1 UNTIL L DO -- .......... */
+     //     .......... LOOK FOR TWO CONSECUTIVE SMALL 
+     //                SUB-DIAGONAL ELEMENTS. 
+     //                FOR M=EN-2 STEP -1 UNTIL L DO -- .......... 
     i__1 = enm2;
     for (mm = l; mm <= i__1; ++mm) {
         m = enm2 + l - mm;
@@ -319,7 +319,7 @@ L130:
         if (tst2 == tst1) {
             goto L150;
         }
-        /* L140: */
+         // L140: 
     }
 
 L150:
@@ -334,8 +334,8 @@ L150:
         h__[i__ + (i__ - 3)*h_dim1] = 0.;
     L160:;
     }
-    /*     .......... DOUBLE QR STEP INVOLVING ROWS L TO EN AND */
-    /*                COLUMNS M TO EN .......... */
+     //     .......... DOUBLE QR STEP INVOLVING ROWS L TO EN AND 
+     //                COLUMNS M TO EN .......... 
     i__1 = na;
     for (k = m; k <= i__1; ++k) {
         notlas = k != na;
@@ -377,30 +377,30 @@ L150:
         if (notlas) {
             goto L225;
         }
-        /*     .......... ROW MODIFICATION .......... */
+         //     .......... ROW MODIFICATION .......... 
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1];
             h__[k + j*h_dim1] -= p*x;
             h__[k + 1 + j*h_dim1] -= p*y;
-            /* L200: */
+             // L200: 
         }
 
-        /* Computing MIN */
+         // Computing MIN 
         i__2 = en;
         i__3 = k + 3;
         j = min(i__2, i__3);
-        /*     .......... COLUMN MODIFICATION .......... */
+         //     .......... COLUMN MODIFICATION .......... 
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
             p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1)*h_dim1];
             h__[i__ + k*h_dim1] -= p;
             h__[i__ + (k + 1)*h_dim1] -= p*q;
-            /* L210: */
+             // L210: 
         }
         goto L255;
     L225:
-        /*     .......... ROW MODIFICATION .......... */
+         //     .......... ROW MODIFICATION .......... 
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1] +
@@ -408,14 +408,14 @@ L150:
             h__[k + j*h_dim1] -= p*x;
             h__[k + 1 + j*h_dim1] -= p*y;
             h__[k + 2 + j*h_dim1] -= p*zz;
-            /* L230: */
+             // L230: 
         }
 
-        /* Computing MIN */
+         // Computing MIN 
         i__2 = en;
         i__3 = k + 3;
         j = min(i__2, i__3);
-        /*     .......... COLUMN MODIFICATION .......... */
+         //     .......... COLUMN MODIFICATION .......... 
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
             p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1)*h_dim1] +
@@ -423,7 +423,7 @@ L150:
             h__[i__ + k*h_dim1] -= p;
             h__[i__ + (k + 1)*h_dim1] -= p*q;
             h__[i__ + (k + 2)*h_dim1] -= p*r__;
-            /* L240: */
+             // L240: 
         }
     L255:
 
@@ -446,7 +446,7 @@ L280:
     if (q < 0.) {
         goto L320;
     }
-    /*     .......... REAL PAIR .......... */
+     //     .......... REAL PAIR .......... 
     zz = p + d_sign(zz, p);
     wr[na] = x + zz;
     wr[en] = wr[na];
@@ -499,75 +499,75 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     static int64 mp2, itn, its, enm2;
     static double tst1, tst2;
 
-    /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR2, */
-    /*     NUM. MATH. 16, 181-204(1970) BY PETERS AND WILKINSON. */
-    /*     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 372-395(1971). */
+     //     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR2, 
+     //     NUM. MATH. 16, 181-204(1970) BY PETERS AND WILKINSON. 
+     //     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 372-395(1971). 
 
-    /*     THIS SUBROUTINE FINDS THE EIGENVALUES AND EIGENVECTORS */
-    /*     OF A REAL UPPER HESSENBERG MATRIX BY THE QR METHOD.  THE */
-    /*     EIGENVECTORS OF A REAL GENERAL MATRIX CAN ALSO BE FOUND */
-    /*     IF  ELMHES  AND  ELTRAN  OR  ORTHES  AND  ORTRAN  HAVE */
-    /*     BEEN USED TO REDUCE THIS GENERAL MATRIX TO HESSENBERG FORM */
-    /*     AND TO ACCUMULATE THE SIMILARITY TRANSFORMATIONS. */
+     //     THIS SUBROUTINE FINDS THE EIGENVALUES AND EIGENVECTORS 
+     //     OF A REAL UPPER HESSENBERG MATRIX BY THE QR METHOD.  THE 
+     //     EIGENVECTORS OF A REAL GENERAL MATRIX CAN ALSO BE FOUND 
+     //     IF  ELMHES  AND  ELTRAN  OR  ORTHES  AND  ORTRAN  HAVE 
+     //     BEEN USED TO REDUCE THIS GENERAL MATRIX TO HESSENBERG FORM 
+     //     AND TO ACCUMULATE THE SIMILARITY TRANSFORMATIONS. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRIX. */
+     //        N IS THE ORDER OF THE MATRIX. 
 
-    /*        LOW AND IGH ARE INTEGERS DETERMINED BY THE BALANCING */
-    /*          SUBROUTINE  BALANC.  IF  BALANC  HAS NOT BEEN USED, */
-    /*          SET LOW=1, IGH=N. */
+     //        LOW AND IGH ARE INTEGERS DETERMINED BY THE BALANCING 
+     //          SUBROUTINE  BALANC.  IF  BALANC  HAS NOT BEEN USED, 
+     //          SET LOW=1, IGH=N. 
 
-    /*        H CONTAINS THE UPPER HESSENBERG MATRIX. */
+     //        H CONTAINS THE UPPER HESSENBERG MATRIX. 
 
-    /*        Z CONTAINS THE TRANSFORMATION MATRIX PRODUCED BY  ELTRAN */
-    /*          AFTER THE REDUCTION BY  ELMHES, OR BY  ORTRAN  AFTER THE */
-    /*          REDUCTION BY  ORTHES, IF PERFORMED.  IF THE EIGENVECTORS */
-    /*          OF THE HESSENBERG MATRIX ARE DESIRED, Z MUST CONTAIN THE */
-    /*          IDENTITY MATRIX. */
+     //        Z CONTAINS THE TRANSFORMATION MATRIX PRODUCED BY  ELTRAN 
+     //          AFTER THE REDUCTION BY  ELMHES, OR BY  ORTRAN  AFTER THE 
+     //          REDUCTION BY  ORTHES, IF PERFORMED.  IF THE EIGENVECTORS 
+     //          OF THE HESSENBERG MATRIX ARE DESIRED, Z MUST CONTAIN THE 
+     //          IDENTITY MATRIX. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        H HAS BEEN DESTROYED. */
+     //        H HAS BEEN DESTROYED. 
 
-    /*        WR AND WI CONTAIN THE REAL AND IMAGINARY PARTS, */
-    /*          RESPECTIVELY, OF THE EIGENVALUES.  THE EIGENVALUES */
-    /*          ARE UNORDERED EXCEPT THAT COMPLEX CONJUGATE PAIRS */
-    /*          OF VALUES APPEAR CONSECUTIVELY WITH THE EIGENVALUE */
-    /*          HAVING THE POSITIVE IMAGINARY PART FIRST.  IF AN */
-    /*          ERROR EXIT IS MADE, THE EIGENVALUES SHOULD BE CORRECT */
-    /*          FOR INDICES IERR+1,...,N. */
+     //        WR AND WI CONTAIN THE REAL AND IMAGINARY PARTS, 
+     //          RESPECTIVELY, OF THE EIGENVALUES.  THE EIGENVALUES 
+     //          ARE UNORDERED EXCEPT THAT COMPLEX CONJUGATE PAIRS 
+     //          OF VALUES APPEAR CONSECUTIVELY WITH THE EIGENVALUE 
+     //          HAVING THE POSITIVE IMAGINARY PART FIRST.  IF AN 
+     //          ERROR EXIT IS MADE, THE EIGENVALUES SHOULD BE CORRECT 
+     //          FOR INDICES IERR+1,...,N. 
 
-    /*        Z CONTAINS THE REAL AND IMAGINARY PARTS OF THE EIGENVECTORS. */
-    /*          IF THE I-TH EIGENVALUE IS REAL, THE I-TH COLUMN OF Z */
+     //        Z CONTAINS THE REAL AND IMAGINARY PARTS OF THE EIGENVECTORS. 
+     //          IF THE I-TH EIGENVALUE IS REAL, THE I-TH COLUMN OF Z 
     /*          CONTAINS ITS EIGENVECTOR.  IF THE I-TH EIGENVALUE IS COMPLEX
      */
-    /*          WITH POSITIVE IMAGINARY PART, THE I-TH AND (I+1)-TH */
-    /*          COLUMNS OF Z CONTAIN THE REAL AND IMAGINARY PARTS OF ITS */
-    /*          EIGENVECTOR.  THE EIGENVECTORS ARE UNNORMALIZED.  IF AN */
+     //          WITH POSITIVE IMAGINARY PART, THE I-TH AND (I+1)-TH 
+     //          COLUMNS OF Z CONTAIN THE REAL AND IMAGINARY PARTS OF ITS 
+     //          EIGENVECTOR.  THE EIGENVECTORS ARE UNNORMALIZED.  IF AN 
     /*          ERROR EXIT IS MADE, NONE OF THE EIGENVECTORS HAS BEEN FOUND.
      */
 
-    /*        IERR IS SET TO */
-    /*          ZERO       FOR NORMAL RETURN, */
-    /*          J          IF THE LIMIT OF 30*N ITERATIONS IS EXHAUSTED */
-    /*                     WHILE THE J-TH EIGENVALUE IS BEING SOUGHT. */
+     //        IERR IS SET TO 
+     //          ZERO       FOR NORMAL RETURN, 
+     //          J          IF THE LIMIT OF 30*N ITERATIONS IS EXHAUSTED 
+     //                     WHILE THE J-TH EIGENVALUE IS BEING SOUGHT. 
 
-    /*     CALLS CDIV FOR COMPLEX DIVISION. */
+     //     CALLS CDIV FOR COMPLEX DIVISION. 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     z_dim1 = *nm;
     z_offset = z_dim1 + 1;
     z__ -= z_offset;
@@ -577,17 +577,17 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     h_offset = h_dim1 + 1;
     h__ -= h_offset;
 
-    /* Function Body */
+     // Function Body 
     *ierr = 0;
     norm = 0.;
     k = 1;
-    /*     .......... STORE ROOTS ISOLATED BY BALANC */
-    /*                AND COMPUTE MATRIX NORM .......... */
+     //     .......... STORE ROOTS ISOLATED BY BALANC 
+     //                AND COMPUTE MATRIX NORM .......... 
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
-            /* L40: */
+             // L40: 
             d__1 = h__[i__ + j*h_dim1];
             norm += fabs(d__1);
         }
@@ -633,7 +633,7 @@ L70:
         if (tst2 == tst1) {
             goto L100;
         }
-        /* L80: */
+         // L80: 
     }
 /*     .......... FORM SHIFT .......... */
 L100:
@@ -652,12 +652,12 @@ L100:
     if (its != 10 && its != 20) {
         goto L130;
     }
-    /*     .......... FORM EXCEPTIONAL SHIFT .......... */
+     //     .......... FORM EXCEPTIONAL SHIFT .......... 
     t += x;
 
     i__1 = en;
     for (i__ = *low; i__ <= i__1; ++i__) {
-        /* L120: */
+         // L120: 
         h__[i__ + i__*h_dim1] -= x;
     }
 
@@ -670,9 +670,9 @@ L100:
 L130:
     ++its;
     --itn;
-    /*     .......... LOOK FOR TWO CONSECUTIVE SMALL */
-    /*                SUB-DIAGONAL ELEMENTS. */
-    /*                FOR M=EN-2 STEP -1 UNTIL L DO -- .......... */
+     //     .......... LOOK FOR TWO CONSECUTIVE SMALL 
+     //                SUB-DIAGONAL ELEMENTS. 
+     //                FOR M=EN-2 STEP -1 UNTIL L DO -- .......... 
     i__1 = enm2;
     for (mm = l; mm <= i__1; ++mm) {
         m = enm2 + l - mm;
@@ -697,7 +697,7 @@ L130:
         if (tst2 == tst1) {
             goto L150;
         }
-        /* L140: */
+         // L140: 
     }
 
 L150:
@@ -712,8 +712,8 @@ L150:
         h__[i__ + (i__ - 3)*h_dim1] = 0.;
     L160:;
     }
-    /*     .......... DOUBLE QR STEP INVOLVING ROWS L TO EN AND */
-    /*                COLUMNS M TO EN .......... */
+     //     .......... DOUBLE QR STEP INVOLVING ROWS L TO EN AND 
+     //                COLUMNS M TO EN .......... 
     i__1 = na;
     for (k = m; k <= i__1; ++k) {
         notlas = k != na;
@@ -755,38 +755,38 @@ L150:
         if (notlas) {
             goto L225;
         }
-        /*     .......... ROW MODIFICATION .......... */
+         //     .......... ROW MODIFICATION .......... 
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1];
             h__[k + j*h_dim1] -= p*x;
             h__[k + 1 + j*h_dim1] -= p*y;
-            /* L200: */
+             // L200: 
         }
 
-        /* Computing MIN */
+         // Computing MIN 
         i__2 = en;
         i__3 = k + 3;
         j = min(i__2, i__3);
-        /*     .......... COLUMN MODIFICATION .......... */
+         //     .......... COLUMN MODIFICATION .......... 
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
             p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1)*h_dim1];
             h__[i__ + k*h_dim1] -= p;
             h__[i__ + (k + 1)*h_dim1] -= p*q;
-            /* L210: */
+             // L210: 
         }
-        /*     .......... ACCUMULATE TRANSFORMATIONS .......... */
+         //     .......... ACCUMULATE TRANSFORMATIONS .......... 
         i__2 = *igh;
         for (i__ = *low; i__ <= i__2; ++i__) {
             p = x*z__[i__ + k*z_dim1] + y*z__[i__ + (k + 1)*z_dim1];
             z__[i__ + k*z_dim1] -= p;
             z__[i__ + (k + 1)*z_dim1] -= p*q;
-            /* L220: */
+             // L220: 
         }
         goto L255;
     L225:
-        /*     .......... ROW MODIFICATION .......... */
+         //     .......... ROW MODIFICATION .......... 
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1] +
@@ -794,14 +794,14 @@ L150:
             h__[k + j*h_dim1] -= p*x;
             h__[k + 1 + j*h_dim1] -= p*y;
             h__[k + 2 + j*h_dim1] -= p*zz;
-            /* L230: */
+             // L230: 
         }
 
-        /* Computing MIN */
+         // Computing MIN 
         i__2 = en;
         i__3 = k + 3;
         j = min(i__2, i__3);
-        /*     .......... COLUMN MODIFICATION .......... */
+         //     .......... COLUMN MODIFICATION .......... 
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
             p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1)*h_dim1] +
@@ -809,9 +809,9 @@ L150:
             h__[i__ + k*h_dim1] -= p;
             h__[i__ + (k + 1)*h_dim1] -= p*q;
             h__[i__ + (k + 2)*h_dim1] -= p*r__;
-            /* L240: */
+             // L240: 
         }
-        /*     .......... ACCUMULATE TRANSFORMATIONS .......... */
+         //     .......... ACCUMULATE TRANSFORMATIONS .......... 
         i__2 = *igh;
         for (i__ = *low; i__ <= i__2; ++i__) {
             p = x*z__[i__ + k*z_dim1] + y*z__[i__ + (k + 1)*z_dim1] +
@@ -819,7 +819,7 @@ L150:
             z__[i__ + k*z_dim1] -= p;
             z__[i__ + (k + 1)*z_dim1] -= p*q;
             z__[i__ + (k + 2)*z_dim1] -= p*r__;
-            /* L250: */
+             // L250: 
         }
     L255:
 
@@ -845,7 +845,7 @@ L280:
     if (q < 0.) {
         goto L320;
     }
-    /*     .......... REAL PAIR .......... */
+     //     .......... REAL PAIR .......... 
     zz = p + d_sign(zz, p);
     wr[na] = x + zz;
     wr[en] = wr[na];
@@ -861,29 +861,29 @@ L280:
     r__ = sqrt(p*p + q*q);
     p /= r__;
     q /= r__;
-    /*     .......... ROW MODIFICATION .......... */
+     //     .......... ROW MODIFICATION .......... 
     i__1 = *n;
     for (j = na; j <= i__1; ++j) {
         zz = h__[na + j*h_dim1];
         h__[na + j*h_dim1] = q*zz + p*h__[en + j*h_dim1];
         h__[en + j*h_dim1] = q*h__[en + j*h_dim1] - p*zz;
-        /* L290: */
+         // L290: 
     }
-    /*     .......... COLUMN MODIFICATION .......... */
+     //     .......... COLUMN MODIFICATION .......... 
     i__1 = en;
     for (i__ = 1; i__ <= i__1; ++i__) {
         zz = h__[i__ + na*h_dim1];
         h__[i__ + na*h_dim1] = q*zz + p*h__[i__ + en*h_dim1];
         h__[i__ + en*h_dim1] = q*h__[i__ + en*h_dim1] - p*zz;
-        /* L300: */
+         // L300: 
     }
-    /*     .......... ACCUMULATE TRANSFORMATIONS .......... */
+     //     .......... ACCUMULATE TRANSFORMATIONS .......... 
     i__1 = *igh;
     for (i__ = *low; i__ <= i__1; ++i__) {
         zz = z__[i__ + na*z_dim1];
         z__[i__ + na*z_dim1] = q*zz + p*z__[i__ + en*z_dim1];
         z__[i__ + en*z_dim1] = q*z__[i__ + en*z_dim1] - p*zz;
-        /* L310: */
+         // L310: 
     }
 
     goto L330;
@@ -902,7 +902,7 @@ L340:
     if (norm == 0.) {
         goto L1001;
     }
-    /*     .......... FOR EN=N STEP -1 UNTIL 1 DO -- .......... */
+     //     .......... FOR EN=N STEP -1 UNTIL 1 DO -- .......... 
     i__1 = *n;
     for (nn = 1; nn <= i__1; ++nn) {
         en = *n + 1 - nn;
@@ -916,14 +916,14 @@ L340:
         } else {
             goto L800;
         }
-    /*     .......... REAL VECTOR .......... */
+     //     .......... REAL VECTOR .......... 
     L600:
         m = en;
         h__[en + en*h_dim1] = 1.;
         if (na == 0) {
             goto L800;
         }
-        /*     .......... FOR I=EN-1 STEP -1 UNTIL 1 DO -- .......... */
+         //     .......... FOR I=EN-1 STEP -1 UNTIL 1 DO -- .......... 
         i__2 = na;
         for (ii = 1; ii <= i__2; ++ii) {
             i__ = en - ii;
@@ -932,7 +932,7 @@ L340:
 
             i__3 = en;
             for (j = m; j <= i__3; ++j) {
-                /* L610: */
+                 // L610: 
                 r__ += h__[i__ + j*h_dim1]*h__[j + en*h_dim1];
             }
 
@@ -962,7 +962,7 @@ L340:
         L635:
             h__[i__ + en*h_dim1] = -r__ / t;
             goto L680;
-        /*     .......... SOLVE REAL EQUATIONS .......... */
+         //     .......... SOLVE REAL EQUATIONS .......... 
         L640:
             x = h__[i__ + (i__ + 1)*h_dim1];
             y = h__[i__ + 1 + i__*h_dim1];
@@ -977,7 +977,7 @@ L340:
         L650:
             h__[i__ + 1 + en*h_dim1] = (-s - y*t) / zz;
 
-        /*     .......... OVERFLOW CONTROL .......... */
+         //     .......... OVERFLOW CONTROL .......... 
         L680:
             d__1 = h__[i__ + en*h_dim1];
             t = fabs(d__1);
@@ -992,18 +992,18 @@ L340:
             i__3 = en;
             for (j = i__; j <= i__3; ++j) {
                 h__[j + en*h_dim1] /= t;
-                /* L690: */
+                 // L690: 
             }
 
         L700:;
         }
-        /*     .......... END REAL VECTOR .......... */
+         //     .......... END REAL VECTOR .......... 
         goto L800;
-    /*     .......... COMPLEX VECTOR .......... */
+     //     .......... COMPLEX VECTOR .......... 
     L710:
         m = na;
-        /*     .......... LAST VECTOR COMPONENT CHOSEN IMAGINARY SO THAT */
-        /*                EIGENVECTOR MATRIX IS TRIANGULAR .......... */
+         //     .......... LAST VECTOR COMPONENT CHOSEN IMAGINARY SO THAT 
+         //                EIGENVECTOR MATRIX IS TRIANGULAR .......... 
         d__1 = h__[en + na*h_dim1];
         d__2 = h__[na + en*h_dim1];
         if (fabs(d__1) <= fabs(d__2)) {
@@ -1025,7 +1025,7 @@ L340:
         if (enm2 == 0) {
             goto L800;
         }
-        /*     .......... FOR I=EN-2 STEP -1 UNTIL 1 DO -- .......... */
+         //     .......... FOR I=EN-2 STEP -1 UNTIL 1 DO -- .......... 
         i__2 = enm2;
         for (ii = 1; ii <= i__2; ++ii) {
             i__ = na - ii;
@@ -1037,7 +1037,7 @@ L340:
             for (j = m; j <= i__3; ++j) {
                 ra += h__[i__ + j*h_dim1]*h__[j + na*h_dim1];
                 sa += h__[i__ + j*h_dim1]*h__[j + en*h_dim1];
-                /* L760: */
+                 // L760: 
             }
 
             if (wi[i__] >= 0.) {
@@ -1057,7 +1057,7 @@ L340:
             cdiv(&d__1, &d__2, &w, &q, &h__[i__ + na*h_dim1],
                  &h__[i__ + en*h_dim1]);
             goto L790;
-        /*     .......... SOLVE COMPLEX EQUATIONS .......... */
+         //     .......... SOLVE COMPLEX EQUATIONS .......... 
         L780:
             x = h__[i__ + (i__ + 1)*h_dim1];
             y = h__[i__ + 1 + i__*h_dim1];
@@ -1095,9 +1095,9 @@ L340:
             cdiv(&d__1, &d__2, &zz, &q, &h__[i__ + 1 + na*h_dim1],
                  &h__[i__ + 1 + en*h_dim1]);
 
-        /*     .......... OVERFLOW CONTROL .......... */
+         //     .......... OVERFLOW CONTROL .......... 
         L790:
-            /* Computing MAX */
+             // Computing MAX 
             d__1 = h__[i__ + na*h_dim1];
             d__3 = fabs(d__1);
             d__2 = h__[i__ + en*h_dim1];
@@ -1115,16 +1115,16 @@ L340:
             for (j = i__; j <= i__3; ++j) {
                 h__[j + na*h_dim1] /= t;
                 h__[j + en*h_dim1] /= t;
-                /* L792: */
+                 // L792: 
             }
 
         L795:;
         }
-    /*     .......... END COMPLEX VECTOR .......... */
+     //     .......... END COMPLEX VECTOR .......... 
     L800:;
     }
-    /*     .......... END BACK SUBSTITUTION. */
-    /*                VECTORS OF ISOLATED ROOTS .......... */
+     //     .......... END BACK SUBSTITUTION. 
+     //                VECTORS OF ISOLATED ROOTS .......... 
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         if (i__ >= *low && i__ <= *igh) {
@@ -1133,15 +1133,15 @@ L340:
 
         i__2 = *n;
         for (j = i__; j <= i__2; ++j) {
-            /* L820: */
+             // L820: 
             z__[i__ + j*z_dim1] = h__[i__ + j*h_dim1];
         }
 
     L840:;
     }
-    /*     .......... MULTIPLY BY TRANSFORMATION MATRIX TO GIVE */
-    /*                VECTORS OF ORIGINAL FULL MATRIX. */
-    /*                FOR J=N STEP -1 UNTIL LOW DO -- .......... */
+     //     .......... MULTIPLY BY TRANSFORMATION MATRIX TO GIVE 
+     //                VECTORS OF ORIGINAL FULL MATRIX. 
+     //                FOR J=N STEP -1 UNTIL LOW DO -- .......... 
     i__1 = *n;
     for (jj = *low; jj <= i__1; ++jj) {
         j = *n + *low - jj;
@@ -1153,12 +1153,12 @@ L340:
 
             i__3 = m;
             for (k = *low; k <= i__3; ++k) {
-                /* L860: */
+                 // L860: 
                 zz += z__[i__ + k*z_dim1]*h__[k + j*h_dim1];
             }
 
             z__[i__ + j*z_dim1] = zz;
-            /* L880: */
+             // L880: 
         }
     }
 
@@ -1178,16 +1178,16 @@ cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
 
     static double s, ais, bis, ars, brs;
 
-    /*     COMPLEX DIVISION, (CR,CI) = (AR,AI)/(BR,BI) */
+     //     COMPLEX DIVISION, (CR,CI) = (AR,AI)/(BR,BI) 
 
     s = fabs(*br) + fabs(*bi);
     ars = *ar / s;
     ais = *ai / s;
     brs = *br / s;
     bis = *bi / s;
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__1 = brs;
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__2 = bis;
     s = d__1*d__1 + d__2*d__2;
     *cr = (ars*brs + ais*bis) / s;
@@ -1210,66 +1210,66 @@ balanc(int64 *nm, int64 *n, double *a, int64 *low, int64 *igh, double *scale) {
     static int64 jj;
     static int64 noconv;
 
-    /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALANCE, */
-    /*     NUM. MATH. 13, 293-304(1969) BY PARLETT AND REINSCH. */
-    /*     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 315-326(1971). */
+     //     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALANCE, 
+     //     NUM. MATH. 13, 293-304(1969) BY PARLETT AND REINSCH. 
+     //     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 315-326(1971). 
 
-    /*     THIS SUBROUTINE BALANCES A REAL MATRIX AND ISOLATES */
-    /*     EIGENVALUES WHENEVER POSSIBLE. */
+     //     THIS SUBROUTINE BALANCES A REAL MATRIX AND ISOLATES 
+     //     EIGENVALUES WHENEVER POSSIBLE. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRIX. */
+     //        N IS THE ORDER OF THE MATRIX. 
 
-    /*        A CONTAINS THE INPUT MATRIX TO BE BALANCED. */
+     //        A CONTAINS THE INPUT MATRIX TO BE BALANCED. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        A CONTAINS THE BALANCED MATRIX. */
+     //        A CONTAINS THE BALANCED MATRIX. 
 
-    /*        LOW AND IGH ARE TWO INTEGERS SUCH THAT A(I,J) */
-    /*          IS EQUAL TO ZERO IF */
-    /*           (1) I IS GREATER THAN J AND */
-    /*           (2) J=1,...,LOW-1 OR I=IGH+1,...,N. */
+     //        LOW AND IGH ARE TWO INTEGERS SUCH THAT A(I,J) 
+     //          IS EQUAL TO ZERO IF 
+     //           (1) I IS GREATER THAN J AND 
+     //           (2) J=1,...,LOW-1 OR I=IGH+1,...,N. 
 
-    /*        SCALE CONTAINS INFORMATION DETERMINING THE */
-    /*           PERMUTATIONS AND SCALING FACTORS USED. */
+     //        SCALE CONTAINS INFORMATION DETERMINING THE 
+     //           PERMUTATIONS AND SCALING FACTORS USED. 
 
-    /*     SUPPOSE THAT THE PRINCIPAL SUBMATRIX IN ROWS LOW THROUGH IGH */
-    /*     HAS BEEN BALANCED, THAT P(J) DENOTES THE INDEX INTERCHANGED */
-    /*     WITH J DURING THE PERMUTATION STEP, AND THAT THE ELEMENTS */
-    /*     OF THE DIAGONAL MATRIX USED ARE DENOTED BY D(I,J).  THEN */
-    /*        SCALE(J) = P(J),    FOR J = 1,...,LOW-1 */
-    /*                 = D(J,J),      J = LOW,...,IGH */
-    /*                 = P(J)         J = IGH+1,...,N. */
-    /*     THE ORDER IN WHICH THE INTERCHANGES ARE MADE IS N TO IGH+1, */
-    /*     THEN 1 TO LOW-1. */
+     //     SUPPOSE THAT THE PRINCIPAL SUBMATRIX IN ROWS LOW THROUGH IGH 
+     //     HAS BEEN BALANCED, THAT P(J) DENOTES THE INDEX INTERCHANGED 
+     //     WITH J DURING THE PERMUTATION STEP, AND THAT THE ELEMENTS 
+     //     OF THE DIAGONAL MATRIX USED ARE DENOTED BY D(I,J).  THEN 
+     //        SCALE(J) = P(J),    FOR J = 1,...,LOW-1 
+     //                 = D(J,J),      J = LOW,...,IGH 
+     //                 = P(J)         J = IGH+1,...,N. 
+     //     THE ORDER IN WHICH THE INTERCHANGES ARE MADE IS N TO IGH+1, 
+     //     THEN 1 TO LOW-1. 
 
-    /*     NOTE THAT 1 IS RETURNED FOR IGH IF IGH IS ZERO FORMALLY. */
+     //     NOTE THAT 1 IS RETURNED FOR IGH IF IGH IS ZERO FORMALLY. 
 
-    /*     THE ALGOL PROCEDURE EXC CONTAINED IN BALANCE APPEARS IN */
-    /*     BALANC  IN LINE.  (NOTE THAT THE ALGOL ROLES OF IDENTIFIERS */
-    /*     K,L HAVE BEEN REVERSED.) */
+     //     THE ALGOL PROCEDURE EXC CONTAINED IN BALANCE APPEARS IN 
+     //     BALANC  IN LINE.  (NOTE THAT THE ALGOL ROLES OF IDENTIFIERS 
+     //     K,L HAVE BEEN REVERSED.) 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --scale;
     a_dim1 = *nm;
     a_offset = a_dim1 + 1;
     a -= a_offset;
 
-    /* Function Body */
+     // Function Body 
     radix = 16.;
 
     b2 = radix*radix;
@@ -1289,7 +1289,7 @@ L20:
         f = a[i__ + j*a_dim1];
         a[i__ + j*a_dim1] = a[i__ + m*a_dim1];
         a[i__ + m*a_dim1] = f;
-        /* L30: */
+         // L30: 
     }
 
     i__1 = *n;
@@ -1297,7 +1297,7 @@ L20:
         f = a[j + i__*a_dim1];
         a[j + i__*a_dim1] = a[m + i__*a_dim1];
         a[m + i__*a_dim1] = f;
-        /* L40: */
+         // L40: 
     }
 
 L50:
@@ -1365,10 +1365,10 @@ L140:
         goto L20;
     L170:;
     }
-    /*     .......... NOW BALANCE THE SUBMATRIX IN ROWS K TO L .......... */
+     //     .......... NOW BALANCE THE SUBMATRIX IN ROWS K TO L .......... 
     i__1 = l;
     for (i__ = k; i__ <= i__1; ++i__) {
-        /* L180: */
+         // L180: 
         scale[i__] = 1.;
     }
 /*     .......... ITERATIVE LOOP FOR NORM REDUCTION .......... */
@@ -1415,7 +1415,7 @@ L190:
         f /= radix;
         c__ /= b2;
         goto L230;
-    /*     .......... NOW BALANCE .......... */
+     //     .......... NOW BALANCE .......... 
     L240:
         if ((c__ + r__) / f >= s*.95) {
             goto L270;
@@ -1426,13 +1426,13 @@ L190:
 
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
-            /* L250: */
+             // L250: 
             a[i__ + j*a_dim1] *= g;
         }
 
         i__2 = l;
         for (j = 1; j <= i__2; ++j) {
-            /* L260: */
+             // L260: 
             a[j + i__*a_dim1] *= f;
         }
 
@@ -1461,52 +1461,52 @@ balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
     static double s;
     static int64 ii;
 
-    /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALBAK, */
-    /*     NUM. MATH. 13, 293-304(1969) BY PARLETT AND REINSCH. */
-    /*     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 315-326(1971). */
+     //     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALBAK, 
+     //     NUM. MATH. 13, 293-304(1969) BY PARLETT AND REINSCH. 
+     //     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 315-326(1971). 
 
-    /*     THIS SUBROUTINE FORMS THE EIGENVECTORS OF A REAL GENERAL */
-    /*     MATRIX BY BACK TRANSFORMING THOSE OF THE CORRESPONDING */
-    /*     BALANCED MATRIX DETERMINED BY  BALANC. */
+     //     THIS SUBROUTINE FORMS THE EIGENVECTORS OF A REAL GENERAL 
+     //     MATRIX BY BACK TRANSFORMING THOSE OF THE CORRESPONDING 
+     //     BALANCED MATRIX DETERMINED BY  BALANC. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRIX. */
+     //        N IS THE ORDER OF THE MATRIX. 
 
-    /*        LOW AND IGH ARE INTEGERS DETERMINED BY  BALANC. */
+     //        LOW AND IGH ARE INTEGERS DETERMINED BY  BALANC. 
 
-    /*        SCALE CONTAINS INFORMATION DETERMINING THE PERMUTATIONS */
-    /*          AND SCALING FACTORS USED BY  BALANC. */
+     //        SCALE CONTAINS INFORMATION DETERMINING THE PERMUTATIONS 
+     //          AND SCALING FACTORS USED BY  BALANC. 
 
-    /*        M IS THE NUMBER OF COLUMNS OF Z TO BE BACK TRANSFORMED. */
+     //        M IS THE NUMBER OF COLUMNS OF Z TO BE BACK TRANSFORMED. 
 
-    /*        Z CONTAINS THE REAL AND IMAGINARY PARTS OF THE EIGEN- */
-    /*          VECTORS TO BE BACK TRANSFORMED IN ITS FIRST M COLUMNS. */
+     //        Z CONTAINS THE REAL AND IMAGINARY PARTS OF THE EIGEN- 
+     //          VECTORS TO BE BACK TRANSFORMED IN ITS FIRST M COLUMNS. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        Z CONTAINS THE REAL AND IMAGINARY PARTS OF THE */
-    /*          TRANSFORMED EIGENVECTORS IN ITS FIRST M COLUMNS. */
+     //        Z CONTAINS THE REAL AND IMAGINARY PARTS OF THE 
+     //          TRANSFORMED EIGENVECTORS IN ITS FIRST M COLUMNS. 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --scale;
     z_dim1 = *nm;
     z_offset = z_dim1 + 1;
     z__ -= z_offset;
 
-    /* Function Body */
+     // Function Body 
     if (*m == 0) {
         goto L200;
     }
@@ -1517,16 +1517,16 @@ balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
     i__1 = *igh;
     for (i__ = *low; i__ <= i__1; ++i__) {
         s = scale[i__];
-        /*     .......... LEFT HAND EIGENVECTORS ARE BACK TRANSFORMED */
-        /*                IF THE FOREGOING STATEMENT IS REPLACED BY */
-        /*                S=1.0D0/SCALE(I). .......... */
+         //     .......... LEFT HAND EIGENVECTORS ARE BACK TRANSFORMED 
+         //                IF THE FOREGOING STATEMENT IS REPLACED BY 
+         //                S=1.0D0/SCALE(I). .......... 
         i__2 = *m;
         for (j = 1; j <= i__2; ++j) {
-            /* L100: */
+             // L100: 
             z__[i__ + j*z_dim1] *= s;
         }
 
-        /* L110: */
+         // L110: 
     }
 /*     ......... FOR I=LOW-1 STEP -1 UNTIL 1, */
 /*               IGH+1 STEP 1 UNTIL N DO -- .......... */
@@ -1550,7 +1550,7 @@ L120:
             s = z__[i__ + j*z_dim1];
             z__[i__ + j*z_dim1] = z__[k + j*z_dim1];
             z__[k + j*z_dim1] = s;
-            /* L130: */
+             // L130: 
         }
 
     L140:;
@@ -1573,54 +1573,54 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
     static double x, y;
     static int64 la, mm1, kp1, mp1;
 
-    /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMHES, */
-    /*     NUM. MATH. 12, 349-368(1968) BY MARTIN AND WILKINSON. */
-    /*     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 339-358(1971). */
+     //     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMHES, 
+     //     NUM. MATH. 12, 349-368(1968) BY MARTIN AND WILKINSON. 
+     //     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 339-358(1971). 
 
-    /*     GIVEN A REAL GENERAL MATRIX, THIS SUBROUTINE */
-    /*     REDUCES A SUBMATRIX SITUATED IN ROWS AND COLUMNS */
-    /*     LOW THROUGH IGH TO UPPER HESSENBERG FORM BY */
-    /*     STABILIZED ELEMENTARY SIMILARITY TRANSFORMATIONS. */
+     //     GIVEN A REAL GENERAL MATRIX, THIS SUBROUTINE 
+     //     REDUCES A SUBMATRIX SITUATED IN ROWS AND COLUMNS 
+     //     LOW THROUGH IGH TO UPPER HESSENBERG FORM BY 
+     //     STABILIZED ELEMENTARY SIMILARITY TRANSFORMATIONS. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRIX. */
+     //        N IS THE ORDER OF THE MATRIX. 
 
-    /*        LOW AND IGH ARE INTEGERS DETERMINED BY THE BALANCING */
-    /*          SUBROUTINE  BALANC.  IF  BALANC  HAS NOT BEEN USED, */
-    /*          SET LOW=1, IGH=N. */
+     //        LOW AND IGH ARE INTEGERS DETERMINED BY THE BALANCING 
+     //          SUBROUTINE  BALANC.  IF  BALANC  HAS NOT BEEN USED, 
+     //          SET LOW=1, IGH=N. 
 
-    /*        A CONTAINS THE INPUT MATRIX. */
+     //        A CONTAINS THE INPUT MATRIX. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        A CONTAINS THE HESSENBERG MATRIX.  THE MULTIPLIERS */
-    /*          WHICH WERE USED IN THE REDUCTION ARE STORED IN THE */
-    /*          REMAINING TRIANGLE UNDER THE HESSENBERG MATRIX. */
+     //        A CONTAINS THE HESSENBERG MATRIX.  THE MULTIPLIERS 
+     //          WHICH WERE USED IN THE REDUCTION ARE STORED IN THE 
+     //          REMAINING TRIANGLE UNDER THE HESSENBERG MATRIX. 
 
-    /*        INT CONTAINS INFORMATION ON THE ROWS AND COLUMNS */
-    /*          INTERCHANGED IN THE REDUCTION. */
-    /*          ONLY ELEMENTS LOW THROUGH IGH ARE USED. */
+     //        INT CONTAINS INFORMATION ON THE ROWS AND COLUMNS 
+     //          INTERCHANGED IN THE REDUCTION. 
+     //          ONLY ELEMENTS LOW THROUGH IGH ARE USED. 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     a_dim1 = *nm;
     a_offset = a_dim1 + 1;
     a -= a_offset;
     --int__;
 
-    /* Function Body */
+     // Function Body 
     la = *igh - 1;
     kp1 = *low + 1;
     if (la < kp1) {
@@ -1648,13 +1648,13 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
         if (i__ == m) {
             goto L130;
         }
-        /*     .......... INTERCHANGE ROWS AND COLUMNS OF A .......... */
+         //     .......... INTERCHANGE ROWS AND COLUMNS OF A .......... 
         i__2 = *n;
         for (j = mm1; j <= i__2; ++j) {
             y = a[i__ + j*a_dim1];
             a[i__ + j*a_dim1] = a[m + j*a_dim1];
             a[m + j*a_dim1] = y;
-            /* L110: */
+             // L110: 
         }
 
         i__2 = *igh;
@@ -1662,9 +1662,9 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
             y = a[j + i__*a_dim1];
             a[j + i__*a_dim1] = a[j + m*a_dim1];
             a[j + m*a_dim1] = y;
-            /* L120: */
+             // L120: 
         }
-    /*     .......... END INTERCHANGE .......... */
+     //     .......... END INTERCHANGE .......... 
     L130:
         if (x == 0.) {
             goto L180;
@@ -1682,13 +1682,13 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
 
             i__3 = *n;
             for (j = m; j <= i__3; ++j) {
-                /* L140: */
+                 // L140: 
                 a[i__ + j*a_dim1] -= y*a[m + j*a_dim1];
             }
 
             i__3 = *igh;
             for (j = 1; j <= i__3; ++j) {
-                /* L150: */
+                 // L150: 
                 a[j + m*a_dim1] += y*a[j + i__*a_dim1];
             }
 
@@ -1716,48 +1716,48 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMTRANS,
      */
-    /*     NUM. MATH. 16, 181-204(1970) BY PETERS AND WILKINSON. */
-    /*     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 372-395(1971). */
+     //     NUM. MATH. 16, 181-204(1970) BY PETERS AND WILKINSON. 
+     //     HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 372-395(1971). 
 
-    /*     THIS SUBROUTINE ACCUMULATES THE STABILIZED ELEMENTARY */
-    /*     SIMILARITY TRANSFORMATIONS USED IN THE REDUCTION OF A */
-    /*     REAL GENERAL MATRIX TO UPPER HESSENBERG FORM BY  ELMHES. */
+     //     THIS SUBROUTINE ACCUMULATES THE STABILIZED ELEMENTARY 
+     //     SIMILARITY TRANSFORMATIONS USED IN THE REDUCTION OF A 
+     //     REAL GENERAL MATRIX TO UPPER HESSENBERG FORM BY  ELMHES. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRIX. */
+     //        N IS THE ORDER OF THE MATRIX. 
 
-    /*        LOW AND IGH ARE INTEGERS DETERMINED BY THE BALANCING */
-    /*          SUBROUTINE  BALANC.  IF  BALANC  HAS NOT BEEN USED, */
-    /*          SET LOW=1, IGH=N. */
+     //        LOW AND IGH ARE INTEGERS DETERMINED BY THE BALANCING 
+     //          SUBROUTINE  BALANC.  IF  BALANC  HAS NOT BEEN USED, 
+     //          SET LOW=1, IGH=N. 
 
-    /*        A CONTAINS THE MULTIPLIERS WHICH WERE USED IN THE */
-    /*          REDUCTION BY  ELMHES  IN ITS LOWER TRIANGLE */
-    /*          BELOW THE SUBDIAGONAL. */
+     //        A CONTAINS THE MULTIPLIERS WHICH WERE USED IN THE 
+     //          REDUCTION BY  ELMHES  IN ITS LOWER TRIANGLE 
+     //          BELOW THE SUBDIAGONAL. 
 
-    /*        INT CONTAINS INFORMATION ON THE ROWS AND COLUMNS */
-    /*          INTERCHANGED IN THE REDUCTION BY  ELMHES. */
-    /*          ONLY ELEMENTS LOW THROUGH IGH ARE USED. */
+     //        INT CONTAINS INFORMATION ON THE ROWS AND COLUMNS 
+     //          INTERCHANGED IN THE REDUCTION BY  ELMHES. 
+     //          ONLY ELEMENTS LOW THROUGH IGH ARE USED. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        Z CONTAINS THE TRANSFORMATION MATRIX PRODUCED IN THE */
-    /*          REDUCTION BY  ELMHES. */
+     //        Z CONTAINS THE TRANSFORMATION MATRIX PRODUCED IN THE 
+     //          REDUCTION BY  ELMHES. 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /*     .......... INITIALIZE Z TO IDENTITY MATRIX .......... */
-    /* Parameter adjustments */
+     //     .......... INITIALIZE Z TO IDENTITY MATRIX .......... 
+     // Parameter adjustments 
     z_dim1 = *nm;
     z_offset = z_dim1 + 1;
     z__ -= z_offset;
@@ -1766,24 +1766,24 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
     a_offset = a_dim1 + 1;
     a -= a_offset;
 
-    /* Function Body */
+     // Function Body 
     i__1 = *n;
     for (j = 1; j <= i__1; ++j) {
         i__2 = *n;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            /* L60: */
+             // L60: 
             z__[i__ + j*z_dim1] = 0.;
         }
 
         z__[j + j*z_dim1] = 1.;
-        /* L80: */
+         // L80: 
     }
 
     kl = *igh - *low - 1;
     if (kl < 1) {
         goto L200;
     }
-    /*     .......... FOR MP=IGH-1 STEP -1 UNTIL LOW+1 DO -- .......... */
+     //     .......... FOR MP=IGH-1 STEP -1 UNTIL LOW+1 DO -- .......... 
     i__1 = kl;
     for (mm = 1; mm <= i__1; ++mm) {
         mp = *igh - mm;
@@ -1791,7 +1791,7 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
 
         i__2 = *igh;
         for (i__ = mp1; i__ <= i__2; ++i__) {
-            /* L100: */
+             // L100: 
             z__[i__ + mp*z_dim1] = a[i__ + (mp - 1)*a_dim1];
         }
 
@@ -1804,7 +1804,7 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
         for (j = mp; j <= i__2; ++j) {
             z__[mp + j*z_dim1] = z__[i__ + j*z_dim1];
             z__[i__ + j*z_dim1] = 0.;
-            /* L130: */
+             // L130: 
         }
 
         z__[i__ + mp*z_dim1] = 1.;
@@ -1832,54 +1832,54 @@ qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
     static int64 lb, nk1, nm1, nm2;
     static double rho;
 
-    /*     THIS SUBROUTINE IS THE FIRST STEP OF THE QZ ALGORITHM */
-    /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
-    /*     SIAM J. NUMER. ANAL. 10, 241-256(1973) BY MOLER AND STEWART. */
+     //     THIS SUBROUTINE IS THE FIRST STEP OF THE QZ ALGORITHM 
+     //     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, 
+     //     SIAM J. NUMER. ANAL. 10, 241-256(1973) BY MOLER AND STEWART. 
 
-    /*     THIS SUBROUTINE ACCEPTS A PAIR OF REAL GENERAL MATRICES AND */
-    /*     REDUCES ONE OF THEM TO UPPER HESSENBERG FORM AND THE OTHER */
-    /*     TO UPPER TRIANGULAR FORM USING ORTHOGONAL TRANSFORMATIONS. */
-    /*     IT IS USUALLY FOLLOWED BY  QZIT,  QZVAL  AND, POSSIBLY,  QZVEC. */
+     //     THIS SUBROUTINE ACCEPTS A PAIR OF REAL GENERAL MATRICES AND 
+     //     REDUCES ONE OF THEM TO UPPER HESSENBERG FORM AND THE OTHER 
+     //     TO UPPER TRIANGULAR FORM USING ORTHOGONAL TRANSFORMATIONS. 
+     //     IT IS USUALLY FOLLOWED BY  QZIT,  QZVAL  AND, POSSIBLY,  QZVEC. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRICES. */
+     //        N IS THE ORDER OF THE MATRICES. 
 
-    /*        A CONTAINS A REAL GENERAL MATRIX. */
+     //        A CONTAINS A REAL GENERAL MATRIX. 
 
-    /*        B CONTAINS A REAL GENERAL MATRIX. */
+     //        B CONTAINS A REAL GENERAL MATRIX. 
 
     /*        MATZ SHOULD BE SET TO .true. IF THE RIGHT HAND TRANSFORMATIONS
      */
-    /*          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING */
-    /*          EIGENVECTORS, AND TO .false. OTHERWISE. */
+     //          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING 
+     //          EIGENVECTORS, AND TO .false. OTHERWISE. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        A HAS BEEN REDUCED TO UPPER HESSENBERG FORM.  THE ELEMENTS */
-    /*          BELOW THE FIRST SUBDIAGONAL HAVE BEEN SET TO ZERO. */
+     //        A HAS BEEN REDUCED TO UPPER HESSENBERG FORM.  THE ELEMENTS 
+     //          BELOW THE FIRST SUBDIAGONAL HAVE BEEN SET TO ZERO. 
 
-    /*        B HAS BEEN REDUCED TO UPPER TRIANGULAR FORM.  THE ELEMENTS */
-    /*          BELOW THE MAIN DIAGONAL HAVE BEEN SET TO ZERO. */
+     //        B HAS BEEN REDUCED TO UPPER TRIANGULAR FORM.  THE ELEMENTS 
+     //          BELOW THE MAIN DIAGONAL HAVE BEEN SET TO ZERO. 
 
-    /*        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS IF */
+     //        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS IF 
     /*          MATZ HAS BEEN SET TO .true.  OTHERWISE, Z IS NOT REFERENCED.
      */
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /*     .......... INITIALIZE Z .......... */
-    /* Parameter adjustments */
+     //     .......... INITIALIZE Z .......... 
+     // Parameter adjustments 
     z_dim1 = nm;
     z_offset = z_dim1 + 1;
     z__ -= z_offset;
@@ -1890,7 +1890,7 @@ qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
     a_offset = a_dim1 + 1;
     a -= a_offset;
 
-    /* Function Body */
+     // Function Body 
     if (!(matz)) {
         goto L10;
     }
@@ -1900,11 +1900,11 @@ qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
         i__2 = n;
         for (i__ = 1; i__ <= i__2; ++i__) {
             z__[i__ + j*z_dim1] = 0.;
-            /* L2: */
+             // L2: 
         }
 
         z__[j + j*z_dim1] = 1.;
-        /* L3: */
+         // L3: 
     }
 /*     .......... REDUCE B TO UPPER TRIANGULAR FORM .......... */
 L10:
@@ -1922,7 +1922,7 @@ L10:
         for (i__ = l1; i__ <= i__2; ++i__) {
             d__1 = b[i__ + l*b_dim1];
             s += (fabs(d__1));
-            /* L20: */
+             // L20: 
         }
 
         if (s == 0.) {
@@ -1935,10 +1935,10 @@ L10:
         i__2 = n;
         for (i__ = l; i__ <= i__2; ++i__) {
             b[i__ + l*b_dim1] /= s;
-            /* Computing 2nd power */
+             // Computing 2nd power 
             d__1 = b[i__ + l*b_dim1];
             r__ += d__1*d__1;
-            /* L25: */
+             // L25: 
         }
 
         d__1 = sqrt(r__);
@@ -1953,7 +1953,7 @@ L10:
             i__3 = n;
             for (i__ = l; i__ <= i__3; ++i__) {
                 t += b[i__ + l*b_dim1]*b[i__ + j*b_dim1];
-                /* L30: */
+                 // L30: 
             }
 
             t = -t / rho;
@@ -1961,10 +1961,10 @@ L10:
             i__3 = n;
             for (i__ = l; i__ <= i__3; ++i__) {
                 b[i__ + j*b_dim1] += t*b[i__ + l*b_dim1];
-                /* L40: */
+                 // L40: 
             }
 
-            /* L50: */
+             // L50: 
         }
 
         i__2 = n;
@@ -1974,7 +1974,7 @@ L10:
             i__3 = n;
             for (i__ = l; i__ <= i__3; ++i__) {
                 t += b[i__ + l*b_dim1]*a[i__ + j*a_dim1];
-                /* L60: */
+                 // L60: 
             }
 
             t = -t / rho;
@@ -1982,10 +1982,10 @@ L10:
             i__3 = n;
             for (i__ = l; i__ <= i__3; ++i__) {
                 a[i__ + j*a_dim1] += t*b[i__ + l*b_dim1];
-                /* L70: */
+                 // L70: 
             }
 
-            /* L80: */
+             // L80: 
         }
 
         b[l + l*b_dim1] = -s*r__;
@@ -1993,13 +1993,13 @@ L10:
         i__2 = n;
         for (i__ = l1; i__ <= i__2; ++i__) {
             b[i__ + l*b_dim1] = 0.;
-            /* L90: */
+             // L90: 
         }
 
     L100:;
     }
-    /*     .......... REDUCE A TO UPPER HESSENBERG FORM, WHILE */
-    /*                KEEPING B TRIANGULAR .......... */
+     //     .......... REDUCE A TO UPPER HESSENBERG FORM, WHILE 
+     //                KEEPING B TRIANGULAR .......... 
     if (n == 2) {
         goto L170;
     }
@@ -2008,12 +2008,12 @@ L10:
     i__1 = nm2;
     for (k = 1; k <= i__1; ++k) {
         nk1 = nm1 - k;
-        /*     .......... FOR L=N-1 STEP -1 UNTIL K+1 DO -- .......... */
+         //     .......... FOR L=N-1 STEP -1 UNTIL K+1 DO -- .......... 
         i__2 = nk1;
         for (lb = 1; lb <= i__2; ++lb) {
             l = n - lb;
             l1 = l + 1;
-            /*     .......... ZERO A(L+1,K) .......... */
+             //     .......... ZERO A(L+1,K) .......... 
             d__1 = a[l + k*a_dim1];
             d__2 = a[l1 + k*a_dim1];
             s = (fabs(d__1)) + (fabs(d__2));
@@ -2033,7 +2033,7 @@ L10:
                 t = a[l + j*a_dim1] + u2*a[l1 + j*a_dim1];
                 a[l + j*a_dim1] += t*v1;
                 a[l1 + j*a_dim1] += t*v2;
-                /* L110: */
+                 // L110: 
             }
 
             a[l1 + k*a_dim1] = 0.;
@@ -2043,9 +2043,9 @@ L10:
                 t = b[l + j*b_dim1] + u2*b[l1 + j*b_dim1];
                 b[l + j*b_dim1] += t*v1;
                 b[l1 + j*b_dim1] += t*v2;
-                /* L120: */
+                 // L120: 
             }
-            /*     .......... ZERO B(L+1,L) .......... */
+             //     .......... ZERO B(L+1,L) .......... 
             d__1 = b[l1 + l1*b_dim1];
             d__2 = b[l1 + l*b_dim1];
             s = (fabs(d__1)) + (fabs(d__2));
@@ -2065,7 +2065,7 @@ L10:
                 t = b[i__ + l1*b_dim1] + u2*b[i__ + l*b_dim1];
                 b[i__ + l1*b_dim1] += t*v1;
                 b[i__ + l*b_dim1] += t*v2;
-                /* L130: */
+                 // L130: 
             }
 
             b[l1 + l*b_dim1] = 0.;
@@ -2075,7 +2075,7 @@ L10:
                 t = a[i__ + l1*a_dim1] + u2*a[i__ + l*a_dim1];
                 a[i__ + l1*a_dim1] += t*v1;
                 a[i__ + l*a_dim1] += t*v2;
-                /* L140: */
+                 // L140: 
             }
 
             if (!(matz)) {
@@ -2087,13 +2087,13 @@ L10:
                 t = z__[i__ + l1*z_dim1] + u2*z__[i__ + l*z_dim1];
                 z__[i__ + l1*z_dim1] += t*v1;
                 z__[i__ + l*z_dim1] += t*v2;
-                /* L145: */
+                 // L145: 
             }
 
         L150:;
         }
 
-        /* L160: */
+         // L160: 
     }
 
 L170:
@@ -2129,77 +2129,77 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
     static double ani, bni;
     static int64 ish, itn, its, enm2, lor1;
 
-    /*     THIS SUBROUTINE IS THE SECOND STEP OF THE QZ ALGORITHM */
-    /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
-    /*     SIAM J. NUMER. ANAL. 10, 241-256(1973) BY MOLER AND STEWART, */
-    /*     AS MODIFIED IN TECHNICAL NOTE NASA TN D-7305(1973) BY WARD. */
+     //     THIS SUBROUTINE IS THE SECOND STEP OF THE QZ ALGORITHM 
+     //     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, 
+     //     SIAM J. NUMER. ANAL. 10, 241-256(1973) BY MOLER AND STEWART, 
+     //     AS MODIFIED IN TECHNICAL NOTE NASA TN D-7305(1973) BY WARD. 
 
-    /*     THIS SUBROUTINE ACCEPTS A PAIR OF REAL MATRICES, ONE OF THEM */
-    /*     IN UPPER HESSENBERG FORM AND THE OTHER IN UPPER TRIANGULAR FORM. */
-    /*     IT REDUCES THE HESSENBERG MATRIX TO QUASI-TRIANGULAR FORM USING */
-    /*     ORTHOGONAL TRANSFORMATIONS WHILE MAINTAINING THE TRIANGULAR FORM */
-    /*     OF THE OTHER MATRIX.  IT IS USUALLY PRECEDED BY  QZHES  AND */
-    /*     FOLLOWED BY  QZVAL  AND, POSSIBLY,  QZVEC. */
+     //     THIS SUBROUTINE ACCEPTS A PAIR OF REAL MATRICES, ONE OF THEM 
+     //     IN UPPER HESSENBERG FORM AND THE OTHER IN UPPER TRIANGULAR FORM. 
+     //     IT REDUCES THE HESSENBERG MATRIX TO QUASI-TRIANGULAR FORM USING 
+     //     ORTHOGONAL TRANSFORMATIONS WHILE MAINTAINING THE TRIANGULAR FORM 
+     //     OF THE OTHER MATRIX.  IT IS USUALLY PRECEDED BY  QZHES  AND 
+     //     FOLLOWED BY  QZVAL  AND, POSSIBLY,  QZVEC. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRICES. */
+     //        N IS THE ORDER OF THE MATRICES. 
 
-    /*        A CONTAINS A REAL UPPER HESSENBERG MATRIX. */
+     //        A CONTAINS A REAL UPPER HESSENBERG MATRIX. 
 
-    /*        B CONTAINS A REAL UPPER TRIANGULAR MATRIX. */
+     //        B CONTAINS A REAL UPPER TRIANGULAR MATRIX. 
 
-    /*        EPS1 IS A TOLERANCE USED TO DETERMINE NEGLIGIBLE ELEMENTS. */
-    /*          EPS1 = 0.0 (OR NEGATIVE) MAY BE INPUT, IN WHICH CASE AN */
-    /*          ELEMENT WILL BE NEGLECTED ONLY IF IT IS LESS THAN ROUNDOFF */
-    /*          ERROR TIMES THE NORM OF ITS MATRIX.  IF THE INPUT EPS1 IS */
-    /*          POSITIVE, THEN AN ELEMENT WILL BE CONSIDERED NEGLIGIBLE */
-    /*          IF IT IS LESS THAN EPS1 TIMES THE NORM OF ITS MATRIX.  A */
-    /*          POSITIVE VALUE OF EPS1 MAY RESULT IN FASTER EXECUTION, */
-    /*          BUT LESS ACCURATE RESULTS. */
+     //        EPS1 IS A TOLERANCE USED TO DETERMINE NEGLIGIBLE ELEMENTS. 
+     //          EPS1 = 0.0 (OR NEGATIVE) MAY BE INPUT, IN WHICH CASE AN 
+     //          ELEMENT WILL BE NEGLECTED ONLY IF IT IS LESS THAN ROUNDOFF 
+     //          ERROR TIMES THE NORM OF ITS MATRIX.  IF THE INPUT EPS1 IS 
+     //          POSITIVE, THEN AN ELEMENT WILL BE CONSIDERED NEGLIGIBLE 
+     //          IF IT IS LESS THAN EPS1 TIMES THE NORM OF ITS MATRIX.  A 
+     //          POSITIVE VALUE OF EPS1 MAY RESULT IN FASTER EXECUTION, 
+     //          BUT LESS ACCURATE RESULTS. 
 
     /*        MATZ SHOULD BE SET TO .true. IF THE RIGHT HAND TRANSFORMATIONS
      */
-    /*          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING */
-    /*          EIGENVECTORS, AND TO .false. OTHERWISE. */
+     //          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING 
+     //          EIGENVECTORS, AND TO .false. OTHERWISE. 
 
-    /*        Z CONTAINS, IF MATZ HAS BEEN SET TO .true., THE */
-    /*          TRANSFORMATION MATRIX PRODUCED IN THE REDUCTION */
-    /*          BY  QZHES, IF PERFORMED, OR ELSE THE IDENTITY MATRIX. */
-    /*          IF MATZ HAS BEEN SET TO .false., Z IS NOT REFERENCED. */
+     //        Z CONTAINS, IF MATZ HAS BEEN SET TO .true., THE 
+     //          TRANSFORMATION MATRIX PRODUCED IN THE REDUCTION 
+     //          BY  QZHES, IF PERFORMED, OR ELSE THE IDENTITY MATRIX. 
+     //          IF MATZ HAS BEEN SET TO .false., Z IS NOT REFERENCED. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        A HAS BEEN REDUCED TO QUASI-TRIANGULAR FORM.  THE ELEMENTS */
-    /*          BELOW THE FIRST SUBDIAGONAL ARE STILL ZERO AND NO TWO */
-    /*          CONSECUTIVE SUBDIAGONAL ELEMENTS ARE NONZERO. */
+     //        A HAS BEEN REDUCED TO QUASI-TRIANGULAR FORM.  THE ELEMENTS 
+     //          BELOW THE FIRST SUBDIAGONAL ARE STILL ZERO AND NO TWO 
+     //          CONSECUTIVE SUBDIAGONAL ELEMENTS ARE NONZERO. 
 
-    /*        B IS STILL IN UPPER TRIANGULAR FORM, ALTHOUGH ITS ELEMENTS */
-    /*          HAVE BEEN ALTERED.  THE LOCATION B(N,1) IS USED TO STORE */
+     //        B IS STILL IN UPPER TRIANGULAR FORM, ALTHOUGH ITS ELEMENTS 
+     //          HAVE BEEN ALTERED.  THE LOCATION B(N,1) IS USED TO STORE 
     /*          EPS1 TIMES THE NORM OF B FOR LATER USE BY  QZVAL  AND  QZVEC.
      */
 
-    /*        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS */
-    /*          (FOR BOTH STEPS) IF MATZ HAS BEEN SET TO .true.. */
+     //        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS 
+     //          (FOR BOTH STEPS) IF MATZ HAS BEEN SET TO .true.. 
 
-    /*        IERR IS SET TO */
-    /*          ZERO       FOR NORMAL RETURN, */
-    /*          J          IF THE LIMIT OF 30*N ITERATIONS IS EXHAUSTED */
-    /*                     WHILE THE J-TH EIGENVALUE IS BEING SOUGHT. */
+     //        IERR IS SET TO 
+     //          ZERO       FOR NORMAL RETURN, 
+     //          J          IF THE LIMIT OF 30*N ITERATIONS IS EXHAUSTED 
+     //                     WHILE THE J-TH EIGENVALUE IS BEING SOUGHT. 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     z_dim1 = nm;
     z_offset = z_dim1 + 1;
     z__ -= z_offset;
@@ -2210,9 +2210,9 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
     a_offset = a_dim1 + 1;
     a -= a_offset;
 
-    /* Function Body */
+     // Function Body 
     *ierr = 0;
-    /*     .......... COMPUTE EPSA,EPSB .......... */
+     //     .......... COMPUTE EPSA,EPSB .......... 
     anorm = 0.;
     bnorm = 0.;
 
@@ -2231,7 +2231,7 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
             ani += (fabs(d__1));
             d__1 = b[i__ + j*b_dim1];
             bni += (fabs(d__1));
-            /* L20: */
+             // L20: 
         }
 
         if (ani > anorm) {
@@ -2240,7 +2240,7 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
         if (bni > bnorm) {
             bnorm = bni;
         }
-        /* L30: */
+         // L30: 
     }
 
     if (anorm == 0.) {
@@ -2253,13 +2253,13 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
     if (ep > 0.) {
         goto L50;
     }
-    /*     .......... USE ROUNDOFF LEVEL IF EPS1 IS ZERO .......... */
+     //     .......... USE ROUNDOFF LEVEL IF EPS1 IS ZERO .......... 
     ep = epslon(1.0);
 L50:
     epsa = ep*anorm;
     epsb = ep*bnorm;
-    /*     .......... REDUCE A TO QUASI-TRIANGULAR FORM, WHILE */
-    /*                KEEPING B TRIANGULAR .......... */
+     //     .......... REDUCE A TO QUASI-TRIANGULAR FORM, WHILE 
+     //                KEEPING B TRIANGULAR .......... 
     lor1 = 1;
     enorn = n;
     en = n;
@@ -2277,8 +2277,8 @@ L60:
     enm2 = na - 1;
 L70:
     ish = 2;
-    /*     .......... CHECK FOR CONVERGENCE OR REDUCIBILITY. */
-    /*                FOR L=EN STEP -1 UNTIL 1 DO -- .......... */
+     //     .......... CHECK FOR CONVERGENCE OR REDUCIBILITY. 
+     //                FOR L=EN STEP -1 UNTIL 1 DO -- .......... 
     i__1 = en;
     for (ll = 1; ll <= i__1; ++ll) {
         lm1 = en - ll;
@@ -2290,7 +2290,7 @@ L70:
         if ((fabs(d__1)) <= epsa) {
             goto L90;
         }
-        /* L80: */
+         // L80: 
     }
 
 L90:
@@ -2298,7 +2298,7 @@ L90:
     if (l < na) {
         goto L95;
     }
-    /*     .......... 1-BY-1 OR 2-BY-2 BLOCK ISOLATED .......... */
+     //     .......... 1-BY-1 OR 2-BY-2 BLOCK ISOLATED .......... 
     en = lm1;
     goto L60;
 /*     .......... CHECK FOR SMALL TOP OF B .......... */
@@ -2330,7 +2330,7 @@ L100:
         t = b[l + j*b_dim1] + u2*b[l1 + j*b_dim1];
         b[l + j*b_dim1] += t*v1;
         b[l1 + j*b_dim1] += t*v2;
-        /* L110: */
+         // L110: 
     }
 
     if (l != 1) {
@@ -2345,14 +2345,14 @@ L120:
     if (ish == 1) {
         goto L140;
     }
-    /*     .......... ITERATION STRATEGY .......... */
+     //     .......... ITERATION STRATEGY .......... 
     if (itn == 0) {
         goto L1000;
     }
     if (its == 10) {
         goto L155;
     }
-    /*     .......... DETERMINE TYPE OF SHIFT .......... */
+     //     .......... DETERMINE TYPE OF SHIFT .......... 
     b22 = b[l1 + l1*b_dim1];
     if (fabs(b22) < epsb) {
         b22 = epsb;
@@ -2375,7 +2375,7 @@ L120:
     if (r__ < 0.) {
         goto L150;
     }
-    /*     .......... DETERMINE SINGLE SHIFT ZEROTH COLUMN OF A .......... */
+     //     .......... DETERMINE SINGLE SHIFT ZEROTH COLUMN OF A .......... 
     ish = 1;
     r__ = sqrt(r__);
     sh = -t + r__;
@@ -2385,9 +2385,9 @@ L120:
     if ((fabs(d__1)) < (fabs(d__2))) {
         sh = s;
     }
-    /*     .......... LOOK FOR TWO CONSECUTIVE SMALL */
-    /*                SUB-DIAGONAL ELEMENTS OF A. */
-    /*                FOR L=EN-2 STEP -1 UNTIL LD DO -- .......... */
+     //     .......... LOOK FOR TWO CONSECUTIVE SMALL 
+     //                SUB-DIAGONAL ELEMENTS OF A. 
+     //                FOR L=EN-2 STEP -1 UNTIL LD DO -- .......... 
     i__1 = enm2;
     for (ll = ld; ll <= i__1; ++ll) {
         l = enm2 + ld - ll;
@@ -2406,7 +2406,7 @@ L120:
         if ((fabs(d__1)) <= (fabs(d__2))*epsa) {
             goto L100;
         }
-        /* L130: */
+         // L130: 
     }
 
 L140:
@@ -2437,23 +2437,23 @@ L160:
     if (!(matz)) {
         lor1 = ld;
     }
-    /*     .......... MAIN LOOP .......... */
+     //     .......... MAIN LOOP .......... 
     i__1 = na;
     for (k = l; k <= i__1; ++k) {
         notlas = k != na && ish == 2;
         k1 = k + 1;
         k2 = k + 2;
-        /* Computing MAX */
+         // Computing MAX 
         i__2 = k - 1;
         km1 = max(i__2, l);
-        /* Computing MIN */
+         // Computing MIN 
         i__2 = en;
         i__3 = k1 + ish;
         ll = min(i__2, i__3);
         if (notlas) {
             goto L190;
         }
-        /*     .......... ZERO A(K+1,K-1) .......... */
+         //     .......... ZERO A(K+1,K-1) .......... 
         if (k == l) {
             goto L170;
         }
@@ -2480,14 +2480,14 @@ L160:
             t = b[k + j*b_dim1] + u2*b[k1 + j*b_dim1];
             b[k + j*b_dim1] += t*v1;
             b[k1 + j*b_dim1] += t*v2;
-            /* L180: */
+             // L180: 
         }
 
         if (k != l) {
             a[k1 + km1*a_dim1] = 0.;
         }
         goto L240;
-    /*     .......... ZERO A(K+1,K-1) AND A(K+2,K-1) .......... */
+     //     .......... ZERO A(K+1,K-1) AND A(K+2,K-1) .......... 
     L190:
         if (k == l) {
             goto L200;
@@ -2523,7 +2523,7 @@ L160:
             b[k + j*b_dim1] += t*v1;
             b[k1 + j*b_dim1] += t*v2;
             b[k2 + j*b_dim1] += t*v3;
-            /* L210: */
+             // L210: 
         }
 
         if (k == l) {
@@ -2531,7 +2531,7 @@ L160:
         }
         a[k1 + km1*a_dim1] = 0.;
         a[k2 + km1*a_dim1] = 0.;
-    /*     .......... ZERO B(K+2,K+1) AND B(K+2,K) .......... */
+     //     .......... ZERO B(K+2,K+1) AND B(K+2,K) .......... 
     L220:
         d__1 = b[k2 + k2*b_dim1];
         d__2 = b[k2 + k1*b_dim1];
@@ -2563,7 +2563,7 @@ L160:
             b[i__ + k2*b_dim1] += t*v1;
             b[i__ + k1*b_dim1] += t*v2;
             b[i__ + k*b_dim1] += t*v3;
-            /* L230: */
+             // L230: 
         }
 
         b[k2 + k*b_dim1] = 0.;
@@ -2579,9 +2579,9 @@ L160:
             z__[i__ + k2*z_dim1] += t*v1;
             z__[i__ + k1*z_dim1] += t*v2;
             z__[i__ + k*z_dim1] += t*v3;
-            /* L235: */
+             // L235: 
         }
-    /*     .......... ZERO B(K+1,K) .......... */
+     //     .......... ZERO B(K+1,K) .......... 
     L240:
         d__1 = b[k1 + k1*b_dim1];
         d__2 = b[k1 + k*b_dim1];
@@ -2605,7 +2605,7 @@ L160:
             t = b[i__ + k1*b_dim1] + u2*b[i__ + k*b_dim1];
             b[i__ + k1*b_dim1] += t*v1;
             b[i__ + k*b_dim1] += t*v2;
-            /* L250: */
+             // L250: 
         }
 
         b[k1 + k*b_dim1] = 0.;
@@ -2618,12 +2618,12 @@ L160:
             t = z__[i__ + k1*z_dim1] + u2*z__[i__ + k*z_dim1];
             z__[i__ + k1*z_dim1] += t*v1;
             z__[i__ + k*z_dim1] += t*v2;
-            /* L255: */
+             // L255: 
         }
 
     L260:;
     }
-    /*     .......... END QZ STEP .......... */
+     //     .......... END QZ STEP .......... 
     goto L70;
 /*     .......... SET ERROR -- ALL EIGENVALUES HAVE NOT */
 /*                CONVERGED AFTER 30*N ITERATIONS .......... */
@@ -2667,74 +2667,74 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     static int64 isw;
     static double sqr, szi, ssr, szr;
 
-    /*     THIS SUBROUTINE IS THE THIRD STEP OF THE QZ ALGORITHM */
-    /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
-    /*     SIAM J. NUMER. ANAL. 10, 241-256(1973) BY MOLER AND STEWART. */
+     //     THIS SUBROUTINE IS THE THIRD STEP OF THE QZ ALGORITHM 
+     //     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, 
+     //     SIAM J. NUMER. ANAL. 10, 241-256(1973) BY MOLER AND STEWART. 
 
-    /*     THIS SUBROUTINE ACCEPTS A PAIR OF REAL MATRICES, ONE OF THEM */
-    /*     IN QUASI-TRIANGULAR FORM AND THE OTHER IN UPPER TRIANGULAR FORM. */
-    /*     IT REDUCES THE QUASI-TRIANGULAR MATRIX FURTHER, SO THAT ANY */
-    /*     REMAINING 2-BY-2 BLOCKS CORRESPOND TO PAIRS OF COMPLEX */
-    /*     EIGENVALUES, AND RETURNS QUANTITIES WHOSE RATIOS GIVE THE */
-    /*     GENERALIZED EIGENVALUES.  IT IS USUALLY PRECEDED BY  QZHES */
-    /*     AND  QZIT  AND MAY BE FOLLOWED BY  QZVEC. */
+     //     THIS SUBROUTINE ACCEPTS A PAIR OF REAL MATRICES, ONE OF THEM 
+     //     IN QUASI-TRIANGULAR FORM AND THE OTHER IN UPPER TRIANGULAR FORM. 
+     //     IT REDUCES THE QUASI-TRIANGULAR MATRIX FURTHER, SO THAT ANY 
+     //     REMAINING 2-BY-2 BLOCKS CORRESPOND TO PAIRS OF COMPLEX 
+     //     EIGENVALUES, AND RETURNS QUANTITIES WHOSE RATIOS GIVE THE 
+     //     GENERALIZED EIGENVALUES.  IT IS USUALLY PRECEDED BY  QZHES 
+     //     AND  QZIT  AND MAY BE FOLLOWED BY  QZVEC. 
 
-    /*     ON INPUT */
+     //     ON INPUT 
 
-    /*        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL */
-    /*          DIMENSION STATEMENT. */
+     //        NM MUST BE SET TO THE ROW DIMENSION OF TWO-DIMENSIONAL 
+     //          DIMENSION STATEMENT. 
 
-    /*        N IS THE ORDER OF THE MATRICES. */
+     //        N IS THE ORDER OF THE MATRICES. 
 
-    /*        A CONTAINS A REAL UPPER QUASI-TRIANGULAR MATRIX. */
+     //        A CONTAINS A REAL UPPER QUASI-TRIANGULAR MATRIX. 
 
-    /*        B CONTAINS A REAL UPPER TRIANGULAR MATRIX.  IN ADDITION, */
-    /*          LOCATION B(N,1) CONTAINS THE TOLERANCE QUANTITY (EPSB) */
-    /*          COMPUTED AND SAVED IN  QZIT. */
+     //        B CONTAINS A REAL UPPER TRIANGULAR MATRIX.  IN ADDITION, 
+     //          LOCATION B(N,1) CONTAINS THE TOLERANCE QUANTITY (EPSB) 
+     //          COMPUTED AND SAVED IN  QZIT. 
 
     /*        MATZ SHOULD BE SET TO .true. IF THE RIGHT HAND TRANSFORMATIONS
      */
-    /*          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING */
-    /*          EIGENVECTORS, AND TO .false. OTHERWISE. */
+     //          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING 
+     //          EIGENVECTORS, AND TO .false. OTHERWISE. 
 
-    /*        Z CONTAINS, IF MATZ HAS BEEN SET TO .true., THE */
-    /*          TRANSFORMATION MATRIX PRODUCED IN THE REDUCTIONS BY QZHES */
-    /*          AND QZIT, IF PERFORMED, OR ELSE THE IDENTITY MATRIX. */
-    /*          IF MATZ HAS BEEN SET TO .false., Z IS NOT REFERENCED. */
+     //        Z CONTAINS, IF MATZ HAS BEEN SET TO .true., THE 
+     //          TRANSFORMATION MATRIX PRODUCED IN THE REDUCTIONS BY QZHES 
+     //          AND QZIT, IF PERFORMED, OR ELSE THE IDENTITY MATRIX. 
+     //          IF MATZ HAS BEEN SET TO .false., Z IS NOT REFERENCED. 
 
-    /*     ON OUTPUT */
+     //     ON OUTPUT 
 
-    /*        A HAS BEEN REDUCED FURTHER TO A QUASI-TRIANGULAR MATRIX */
-    /*          IN WHICH ALL NONZERO SUBDIAGONAL ELEMENTS CORRESPOND TO */
-    /*          PAIRS OF COMPLEX EIGENVALUES. */
+     //        A HAS BEEN REDUCED FURTHER TO A QUASI-TRIANGULAR MATRIX 
+     //          IN WHICH ALL NONZERO SUBDIAGONAL ELEMENTS CORRESPOND TO 
+     //          PAIRS OF COMPLEX EIGENVALUES. 
 
-    /*        B IS STILL IN UPPER TRIANGULAR FORM, ALTHOUGH ITS ELEMENTS */
-    /*          HAVE BEEN ALTERED.  B(N,1) IS UNALTERED. */
+     //        B IS STILL IN UPPER TRIANGULAR FORM, ALTHOUGH ITS ELEMENTS 
+     //          HAVE BEEN ALTERED.  B(N,1) IS UNALTERED. 
 
-    /*        ALFR AND ALFI CONTAIN THE REAL AND IMAGINARY PARTS OF THE */
-    /*          DIAGONAL ELEMENTS OF THE TRIANGULAR MATRIX THAT WOULD BE */
-    /*          OBTAINED IF A WERE REDUCED COMPLETELY TO TRIANGULAR FORM */
-    /*          BY UNITARY TRANSFORMATIONS.  NON-ZERO VALUES OF ALFI OCCUR */
+     //        ALFR AND ALFI CONTAIN THE REAL AND IMAGINARY PARTS OF THE 
+     //          DIAGONAL ELEMENTS OF THE TRIANGULAR MATRIX THAT WOULD BE 
+     //          OBTAINED IF A WERE REDUCED COMPLETELY TO TRIANGULAR FORM 
+     //          BY UNITARY TRANSFORMATIONS.  NON-ZERO VALUES OF ALFI OCCUR 
     /*          IN PAIRS, THE FIRST MEMBER POSITIVE AND THE SECOND NEGATIVE.
      */
 
-    /*        BETA CONTAINS THE DIAGONAL ELEMENTS OF THE CORRESPONDING B, */
-    /*          NORMALIZED TO BE REAL AND NON-NEGATIVE.  THE GENERALIZED */
-    /*          EIGENVALUES ARE THEN THE RATIOS ((ALFR+I*ALFI)/BETA). */
+     //        BETA CONTAINS THE DIAGONAL ELEMENTS OF THE CORRESPONDING B, 
+     //          NORMALIZED TO BE REAL AND NON-NEGATIVE.  THE GENERALIZED 
+     //          EIGENVALUES ARE THEN THE RATIOS ((ALFR+I*ALFI)/BETA). 
 
-    /*        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS */
-    /*          (FOR ALL THREE STEPS) IF MATZ HAS BEEN SET TO .true. */
+     //        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS 
+     //          (FOR ALL THREE STEPS) IF MATZ HAS BEEN SET TO .true. 
 
-    /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
+     //     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, 
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
      */
 
-    /*     THIS VERSION DATED AUGUST 1983. */
+     //     THIS VERSION DATED AUGUST 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     z_dim1 = nm;
     z_offset = z_dim1 + 1;
     z__ -= z_offset;
@@ -2748,11 +2748,11 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     a_offset = a_dim1 + 1;
     a -= a_offset;
 
-    /* Function Body */
+     // Function Body 
     epsb = b[n + b_dim1];
     isw = 1;
-    /*     .......... FIND EIGENVALUES OF QUASI-TRIANGULAR MATRICES. */
-    /*                FOR EN=N STEP -1 UNTIL 1 DO -- .......... */
+     //     .......... FIND EIGENVALUES OF QUASI-TRIANGULAR MATRICES. 
+     //                FOR EN=N STEP -1 UNTIL 1 DO -- .......... 
     i__1 = n;
     for (nn = 1; nn <= i__1; ++nn) {
         en = n + 1 - nn;
@@ -2766,7 +2766,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         if (a[en + na*a_dim1] != 0.) {
             goto L420;
         }
-    /*     .......... 1-BY-1 BLOCK, ONE REAL ROOT .......... */
+     //     .......... 1-BY-1 BLOCK, ONE REAL ROOT .......... 
     L410:
         alfr[en] = a[en + en*a_dim1];
         if (b[en + en*b_dim1] < 0.) {
@@ -2776,7 +2776,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         beta[en] = (fabs(d__1));
         alfi[en] = 0.;
         goto L510;
-    /*     .......... 2-BY-2 BLOCK .......... */
+     //     .......... 2-BY-2 BLOCK .......... 
     L420:
         d__1 = b[na + na*b_dim1];
         if ((fabs(d__1)) <= epsb) {
@@ -2822,8 +2822,8 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         if (d__ < 0.) {
             goto L480;
         }
-        /*     .......... TWO REAL ROOTS. */
-        /*                ZERO BOTH A(EN,NA) AND B(EN,NA) .......... */
+         //     .......... TWO REAL ROOTS. 
+         //                ZERO BOTH A(EN,NA) AND B(EN,NA) .......... 
         d__1 = sqrt(d__);
         e += c__ + d_sign(d__1, c__);
         a11 -= e*b11;
@@ -2838,7 +2838,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     L432:
         a1 = a22;
         a2 = a21;
-    /*     .......... CHOOSE AND APPLY REAL Z .......... */
+     //     .......... CHOOSE AND APPLY REAL Z .......... 
     L435:
         s = fabs(a1) + fabs(a2);
         u1 = a1 / s;
@@ -2857,7 +2857,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
             t = b[i__ + en*b_dim1] + u2*b[i__ + na*b_dim1];
             b[i__ + en*b_dim1] += t*v1;
             b[i__ + na*b_dim1] += t*v2;
-            /* L440: */
+             // L440: 
         }
 
         if (!(matz)) {
@@ -2869,7 +2869,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
             t = z__[i__ + en*z_dim1] + u2*z__[i__ + na*z_dim1];
             z__[i__ + en*z_dim1] += t*v1;
             z__[i__ + na*z_dim1] += t*v2;
-            /* L445: */
+             // L445: 
         }
 
     L450:
@@ -2885,7 +2885,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     L455:
         a1 = a[na + na*a_dim1];
         a2 = a[en + na*a_dim1];
-    /*     .......... CHOOSE AND APPLY REAL Q .......... */
+     //     .......... CHOOSE AND APPLY REAL Q .......... 
     L460:
         s = fabs(a1) + fabs(a2);
         if (s == 0.) {
@@ -2907,7 +2907,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
             t = b[na + j*b_dim1] + u2*b[en + j*b_dim1];
             b[na + j*b_dim1] += t*v1;
             b[en + j*b_dim1] += t*v2;
-            /* L470: */
+             // L470: 
         }
 
     L475:
@@ -2928,7 +2928,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         alfi[en] = 0.;
         alfi[na] = 0.;
         goto L505;
-    /*     .......... TWO COMPLEX ROOTS .......... */
+     //     .......... TWO COMPLEX ROOTS .......... 
     L480:
         e += c__;
         ei = sqrt(-d__);
@@ -2952,7 +2952,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         a1i = a22i;
         a2 = -a21;
         a2i = 0.;
-    /*     .......... CHOOSE COMPLEX Z .......... */
+     //     .......... CHOOSE COMPLEX Z .......... 
     L485:
         cz = sqrt(a1*a1 + a1i*a1i);
         if (cz == 0.) {
@@ -2982,7 +2982,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         a1i = szi*a12;
         a2 = cz*a21 + szr*a22;
         a2i = szi*a22;
-    /*     .......... CHOOSE COMPLEX Q .......... */
+     //     .......... CHOOSE COMPLEX Q .......... 
     L495:
         cq = sqrt(a1*a1 + a1i*a1i);
         if (cq == 0.) {
@@ -2998,8 +2998,8 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     L497:
         sqr = 1.;
         sqi = 0.;
-    /*     .......... COMPUTE DIAGONAL ELEMENTS THAT WOULD RESULT */
-    /*                IF TRANSFORMATIONS WERE APPLIED .......... */
+     //     .......... COMPUTE DIAGONAL ELEMENTS THAT WOULD RESULT 
+     //                IF TRANSFORMATIONS WERE APPLIED .......... 
     L500:
         ssr = sqr*szr + sqi*szi;
         ssi = sqr*szi - sqi*szr;
@@ -3044,28 +3044,28 @@ epslon(double x) {
 
     static double a, b, c__, eps;
 
-    /*     ESTIMATE UNIT ROUNDOFF IN QUANTITIES OF SIZE X. */
+     //     ESTIMATE UNIT ROUNDOFF IN QUANTITIES OF SIZE X. 
 
-    /*     THIS PROGRAM SHOULD FUNCTION PROPERLY ON ALL SYSTEMS */
-    /*     SATISFYING THE FOLLOWING TWO ASSUMPTIONS, */
-    /*        1.  THE BASE USED IN REPRESENTING FLOATING POINT */
-    /*            NUMBERS IS NOT A POWER OF THREE. */
-    /*        2.  THE QUANTITY  A  IN STATEMENT 10 IS REPRESENTED TO */
-    /*            THE ACCURACY USED IN FLOATING POINT VARIABLES */
-    /*            THAT ARE STORED IN MEMORY. */
-    /*     THE STATEMENT NUMBER 10 AND THE GO TO 10 ARE INTENDED TO */
-    /*     FORCE OPTIMIZING COMPILERS TO GENERATE CODE SATISFYING */
-    /*     ASSUMPTION 2. */
-    /*     UNDER THESE ASSUMPTIONS, IT SHOULD BE true THAT, */
-    /*            A  IS NOT EXACTLY EQUAL TO FOUR-THIRDS, */
-    /*            B  HAS A ZERO FOR ITS LAST BIT OR DIGIT, */
-    /*            C  IS NOT EXACTLY EQUAL TO ONE, */
-    /*            EPS  MEASURES THE SEPARATION OF 1.0 FROM */
-    /*                 THE NEXT LARGER FLOATING POINT NUMBER. */
-    /*     THE DEVELOPERS OF EISPACK WOULD APPRECIATE BEING INFORMED */
-    /*     ABOUT ANY SYSTEMS WHERE THESE ASSUMPTIONS DO NOT HOLD. */
+     //     THIS PROGRAM SHOULD FUNCTION PROPERLY ON ALL SYSTEMS 
+     //     SATISFYING THE FOLLOWING TWO ASSUMPTIONS, 
+     //        1.  THE BASE USED IN REPRESENTING FLOATING POINT 
+     //            NUMBERS IS NOT A POWER OF THREE. 
+     //        2.  THE QUANTITY  A  IN STATEMENT 10 IS REPRESENTED TO 
+     //            THE ACCURACY USED IN FLOATING POINT VARIABLES 
+     //            THAT ARE STORED IN MEMORY. 
+     //     THE STATEMENT NUMBER 10 AND THE GO TO 10 ARE INTENDED TO 
+     //     FORCE OPTIMIZING COMPILERS TO GENERATE CODE SATISFYING 
+     //     ASSUMPTION 2. 
+     //     UNDER THESE ASSUMPTIONS, IT SHOULD BE true THAT, 
+     //            A  IS NOT EXACTLY EQUAL TO FOUR-THIRDS, 
+     //            B  HAS A ZERO FOR ITS LAST BIT OR DIGIT, 
+     //            C  IS NOT EXACTLY EQUAL TO ONE, 
+     //            EPS  MEASURES THE SEPARATION OF 1.0 FROM 
+     //                 THE NEXT LARGER FLOATING POINT NUMBER. 
+     //     THE DEVELOPERS OF EISPACK WOULD APPRECIATE BEING INFORMED 
+     //     ABOUT ANY SYSTEMS WHERE THESE ASSUMPTIONS DO NOT HOLD. 
 
-    /*     THIS VERSION DATED 4/6/83. */
+     //     THIS VERSION DATED 4/6/83. 
 
     a = 1.3333333333333333;
 L10:
@@ -3085,14 +3085,14 @@ L10:
 /* ----------------------------------------------------------------------- */
 double
 dnrm2(int64 *n, double *dx, int64 *incx) {
-    /* Initialized data */
+     // Initialized data 
 
     static double zero = 0.;
     static double one = 1.;
     static double cutlo = 8.232e-11;
     static double cuthi = 1.304e19;
 
-    /* Format strings */
+     // Format strings 
 
     int64 i__1;
     int64 i__2;
@@ -3103,48 +3103,48 @@ dnrm2(int64 *n, double *dx, int64 *incx) {
     static int64 next, i__, j, nn;
     static double hitest, sum;
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --dx;
 
-    /* Function Body */
+     // Function Body 
 
-    /*     EUCLIDEAN NORM OF THE N-VECTOR STORED IN DX() WITH STORAGE */
-    /*     INCREMENT INCX . */
-    /*     IF    N .LE. 0 RETURN WITH RESULT = 0. */
-    /*     IF N .GE. 1 THEN INCX MUST BE .GE. 1 */
+     //     EUCLIDEAN NORM OF THE N-VECTOR STORED IN DX() WITH STORAGE 
+     //     INCREMENT INCX . 
+     //     IF    N .LE. 0 RETURN WITH RESULT = 0. 
+     //     IF N .GE. 1 THEN INCX MUST BE .GE. 1 
 
-    /*           C.L.LAWSON, 1978 JAN 08 */
+     //           C.L.LAWSON, 1978 JAN 08 
 
-    /*     FOUR PHASE METHOD     USING TWO BUILT-IN CONSTANTS THAT ARE */
-    /*     HOPEFULLY APPLICABLE TO ALL MACHINES. */
-    /*         CUTLO = MAXIMUM OF  DSQRT(U/EPS)  OVER ALL KNOWN MACHINES. */
-    /*         CUTHI = MINIMUM OF  DSQRT(V)      OVER ALL KNOWN MACHINES. */
-    /*     WHERE */
-    /*         EPS = SMALLEST NO. SUCH THAT EPS + 1. .GT. 1. */
-    /*         U   = SMALLEST POSITIVE NO.   (UNDERFLOW LIMIT) */
-    /*         V   = LARGEST  NO.            (OVERFLOW  LIMIT) */
+     //     FOUR PHASE METHOD     USING TWO BUILT-IN CONSTANTS THAT ARE 
+     //     HOPEFULLY APPLICABLE TO ALL MACHINES. 
+     //         CUTLO = MAXIMUM OF  DSQRT(U/EPS)  OVER ALL KNOWN MACHINES. 
+     //         CUTHI = MINIMUM OF  DSQRT(V)      OVER ALL KNOWN MACHINES. 
+     //     WHERE 
+     //         EPS = SMALLEST NO. SUCH THAT EPS + 1. .GT. 1. 
+     //         U   = SMALLEST POSITIVE NO.   (UNDERFLOW LIMIT) 
+     //         V   = LARGEST  NO.            (OVERFLOW  LIMIT) 
 
-    /*     BRIEF OUTLINE OF ALGORITHM.. */
+     //     BRIEF OUTLINE OF ALGORITHM.. 
 
-    /*     PHASE 1    SCANS ZERO COMPONENTS. */
-    /*     MOVE TO PHASE 2 WHEN A COMPONENT IS NONZERO AND .LE. CUTLO */
-    /*     MOVE TO PHASE 3 WHEN A COMPONENT IS .GT. CUTLO */
-    /*     MOVE TO PHASE 4 WHEN A COMPONENT IS .GE. CUTHI/M */
-    /*     WHERE M = N FOR X() REAL AND M = 2*N FOR COMPLEX. */
+     //     PHASE 1    SCANS ZERO COMPONENTS. 
+     //     MOVE TO PHASE 2 WHEN A COMPONENT IS NONZERO AND .LE. CUTLO 
+     //     MOVE TO PHASE 3 WHEN A COMPONENT IS .GT. CUTLO 
+     //     MOVE TO PHASE 4 WHEN A COMPONENT IS .GE. CUTHI/M 
+     //     WHERE M = N FOR X() REAL AND M = 2*N FOR COMPLEX. 
 
-    /*     VALUES FOR CUTLO AND CUTHI.. */
-    /*     DOCUMENT THE LIMITING VALUES ARE AS FOLLOWS.. */
+     //     VALUES FOR CUTLO AND CUTHI.. 
+     //     DOCUMENT THE LIMITING VALUES ARE AS FOLLOWS.. 
     /*     CUTLO, S.P.   U/EPS = 2**(-102) FOR  HONEYWELL.  CLOSE SECONDS ARE
      */
-    /*                   UNIVAC AND DEC AT 2**(-103) */
-    /*                   THUS CUTLO = 2**(-51) = 4.44089E-16 */
-    /*     CUTHI, S.P.   V = 2**127 FOR UNIVAC, HONEYWELL, AND DEC. */
-    /*                   THUS CUTHI = 2**(63.5) = 1.30438E19 */
-    /*     CUTLO, D.P.   U/EPS = 2**(-67) FOR HONEYWELL AND DEC. */
-    /*                   THUS CUTLO = 2**(-33.5) = 8.23181D-11 */
-    /*     CUTHI, D.P.   SAME AS S.P.  CUTHI = 1.30438D19 */
-    /*     DATA CUTLO, CUTHI / 8.232D-11,  1.304D19 / */
-    /*     DATA CUTLO, CUTHI / 4.441E-16,  1.304E19 / */
+     //                   UNIVAC AND DEC AT 2**(-103) 
+     //                   THUS CUTLO = 2**(-51) = 4.44089E-16 
+     //     CUTHI, S.P.   V = 2**127 FOR UNIVAC, HONEYWELL, AND DEC. 
+     //                   THUS CUTHI = 2**(63.5) = 1.30438E19 
+     //     CUTLO, D.P.   U/EPS = 2**(-67) FOR HONEYWELL AND DEC. 
+     //                   THUS CUTLO = 2**(-33.5) = 8.23181D-11 
+     //     CUTHI, D.P.   SAME AS S.P.  CUTHI = 1.30438D19 
+     //     DATA CUTLO, CUTHI / 8.232D-11,  1.304D19 / 
+     //     DATA CUTLO, CUTHI / 4.441E-16,  1.304E19 / 
 
     if (*n > 0) {
         goto L10;
@@ -3156,7 +3156,7 @@ L10:
     next = 0;
     sum = zero;
     nn = *n**incx;
-    /*                                                 BEGIN MAIN LOOP */
+     //                                                 BEGIN MAIN LOOP 
     i__ = 1;
 L20:
     switch ((int32)next) {
@@ -3180,7 +3180,7 @@ L30:
     next = 1;
     xmax = zero;
 
-    /*                        PHASE 1.  SUM IS ZERO */
+     //                        PHASE 1.  SUM IS ZERO 
 
 L50:
     if (dx[i__] == zero) {
@@ -3191,11 +3191,11 @@ L50:
         goto L85;
     }
 
-    /*                                PREPARE FOR PHASE 2. */
+     //                                PREPARE FOR PHASE 2. 
     next = 2;
     goto L105;
 
-    /*                                PREPARE FOR PHASE 4. */
+     //                                PREPARE FOR PHASE 4. 
 
 L100:
     i__ = j;
@@ -3206,8 +3206,8 @@ L105:
     xmax = (fabs(d__1));
     goto L115;
 
-    /*                   PHASE 2.  SUM IS SMALL. */
-    /*                             SCALE TO AVOID DESTRUCTIVE UNDERFLOW. */
+     //                   PHASE 2.  SUM IS SMALL. 
+     //                             SCALE TO AVOID DESTRUCTIVE UNDERFLOW. 
 
 L70:
     d__1 = dx[i__];
@@ -3215,7 +3215,7 @@ L70:
         goto L75;
     }
 
-    /*                     COMMON CODE FOR PHASES 2 AND 4. */
+     //                     COMMON CODE FOR PHASES 2 AND 4. 
     /*                     IN PHASE 4 SUM IS LARGE.  SCALE TO AVOID OVERFLOW.
      */
 
@@ -3224,7 +3224,7 @@ L110:
     if ((fabs(d__1)) <= xmax) {
         goto L115;
     }
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__1 = xmax / dx[i__];
     sum = one + sum*(d__1*d__1);
     d__1 = dx[i__];
@@ -3232,23 +3232,23 @@ L110:
     goto L200;
 
 L115:
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__1 = dx[i__] / xmax;
     sum += d__1*d__1;
     goto L200;
 
-    /*                  PREPARE FOR PHASE 3. */
+     //                  PREPARE FOR PHASE 3. 
 
 L75:
     sum = sum*xmax*xmax;
 
-    /*     FOR REAL OR D.P. SET HITEST = CUTHI/N */
-    /*     FOR COMPLEX      SET HITEST = CUTHI/(2*N) */
+     //     FOR REAL OR D.P. SET HITEST = CUTHI/N 
+     //     FOR COMPLEX      SET HITEST = CUTHI/(2*N) 
 
 L85:
     hitest = cuthi / (double)(*n);
 
-    /*                   PHASE 3.  SUM IS MID-RANGE.  NO SCALING. */
+     //                   PHASE 3.  SUM IS MID-RANGE.  NO SCALING. 
 
     i__1 = nn;
     i__2 = *incx;
@@ -3257,8 +3257,8 @@ L85:
         if ((fabs(d__1)) >= hitest) {
             goto L100;
         }
-        /* L95: */
-        /* Computing 2nd power */
+         // L95: 
+         // Computing 2nd power 
         d__1 = dx[j];
         sum += d__1*d__1;
     }
@@ -3271,9 +3271,9 @@ L200:
         goto L20;
     }
 
-    /*              END OF MAIN LOOP. */
+     //              END OF MAIN LOOP. 
 
-    /*              COMPUTE SQUARE ROOT AND ADJUST FOR SCALING. */
+     //              COMPUTE SQUARE ROOT AND ADJUST FOR SCALING. 
 
     ret_val = xmax*sqrt(sum);
 L300:
@@ -3289,15 +3289,15 @@ ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     static double dtemp;
     static int64 ix, iy, mp1;
 
-    /*     FORMS THE DOT PRODUCT OF TWO VECTORS. */
-    /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL TO ONE. */
-    /*     JACK DONGARRA, LINPACK, 3/11/78. */
+     //     FORMS THE DOT PRODUCT OF TWO VECTORS. 
+     //     USES UNROLLED LOOPS FOR INCREMENTS EQUAL TO ONE. 
+     //     JACK DONGARRA, LINPACK, 3/11/78. 
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --dy;
     --dx;
 
-    /* Function Body */
+     // Function Body 
     ret_val = 0.;
     dtemp = 0.;
     if (*n <= 0) {
@@ -3307,8 +3307,8 @@ ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
         goto L20;
     }
 
-    /*        CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS */
-    /*          NOT EQUAL TO 1 */
+     //        CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS 
+     //          NOT EQUAL TO 1 
 
     ix = 1;
     iy = 1;
@@ -3323,14 +3323,14 @@ ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
         dtemp += dx[ix]*dy[iy];
         ix += *incx;
         iy += *incy;
-        /* L10: */
+         // L10: 
     }
     ret_val = dtemp;
     return ret_val;
 
-    /*        CODE FOR BOTH INCREMENTS EQUAL TO 1 */
+     //        CODE FOR BOTH INCREMENTS EQUAL TO 1 
 
-    /*        CLEAN-UP LOOP */
+     //        CLEAN-UP LOOP 
 
 L20:
     m = *n % 5;
@@ -3340,7 +3340,7 @@ L20:
     i__1 = m;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dtemp += dx[i__]*dy[i__];
-        /* L30: */
+         // L30: 
     }
     if (*n < 5) {
         goto L60;
@@ -3352,7 +3352,7 @@ L40:
         dtemp = dtemp + dx[i__]*dy[i__] + dx[i__ + 1]*dy[i__ + 1] +
                 dx[i__ + 2]*dy[i__ + 2] + dx[i__ + 3]*dy[i__ + 3] +
                 dx[i__ + 4]*dy[i__ + 4];
-        /* L50: */
+         // L50: 
     }
 L60:
     ret_val = dtemp;
@@ -3366,14 +3366,14 @@ dscal(int64 *n, double *da, double *dx, int64 *incx) {
 
     static int64 i__, m, nincx, mp1;
 
-    /*     SCALES A VECTOR BY A CONSTANT. */
-    /*     USES UNROLLED LOOPS FOR INCREMENT EQUAL TO ONE. */
-    /*     JACK DONGARRA, LINPACK, 3/11/78. */
+     //     SCALES A VECTOR BY A CONSTANT. 
+     //     USES UNROLLED LOOPS FOR INCREMENT EQUAL TO ONE. 
+     //     JACK DONGARRA, LINPACK, 3/11/78. 
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --dx;
 
-    /* Function Body */
+     // Function Body 
     if (*n <= 0) {
         return 0;
     }
@@ -3381,20 +3381,20 @@ dscal(int64 *n, double *da, double *dx, int64 *incx) {
         goto L20;
     }
 
-    /*        CODE FOR INCREMENT NOT EQUAL TO 1 */
+     //        CODE FOR INCREMENT NOT EQUAL TO 1 
 
     nincx = *n**incx;
     i__1 = nincx;
     i__2 = *incx;
     for (i__ = 1; i__2 < 0 ? i__ >= i__1 : i__ <= i__1; i__ += i__2) {
         dx[i__] = *da*dx[i__];
-        /* L10: */
+         // L10: 
     }
     return 0;
 
-    /*        CODE FOR INCREMENT EQUAL TO 1 */
+     //        CODE FOR INCREMENT EQUAL TO 1 
 
-    /*        CLEAN-UP LOOP */
+     //        CLEAN-UP LOOP 
 
 L20:
     m = *n % 5;
@@ -3404,7 +3404,7 @@ L20:
     i__2 = m;
     for (i__ = 1; i__ <= i__2; ++i__) {
         dx[i__] = *da*dx[i__];
-        /* L30: */
+         // L30: 
     }
     if (*n < 5) {
         return 0;
@@ -3418,7 +3418,7 @@ L40:
         dx[i__ + 2] = *da*dx[i__ + 2];
         dx[i__ + 3] = *da*dx[i__ + 3];
         dx[i__ + 4] = *da*dx[i__ + 4];
-        /* L50: */
+         // L50: 
     }
     return 0;
 }
@@ -3432,13 +3432,13 @@ idamax(int64 *n, double *dx, int64 *incx) {
     static double dmax__;
     static int64 i__, ix;
 
-    /*     FINDS THE INDEX OF ELEMENT HAVING MAX. ABSOLUTE VALUE. */
-    /*     JACK DONGARRA, LINPACK, 3/11/78. */
+     //     FINDS THE INDEX OF ELEMENT HAVING MAX. ABSOLUTE VALUE. 
+     //     JACK DONGARRA, LINPACK, 3/11/78. 
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --dx;
 
-    /* Function Body */
+     // Function Body 
     ret_val = 0;
     if (*n < 1) {
         return ret_val;
@@ -3451,7 +3451,7 @@ idamax(int64 *n, double *dx, int64 *incx) {
         goto L20;
     }
 
-    /*        CODE FOR INCREMENT NOT EQUAL TO 1 */
+     //        CODE FOR INCREMENT NOT EQUAL TO 1 
 
     ix = 1;
     dmax__ = fabs(dx[1]);
@@ -3467,11 +3467,11 @@ idamax(int64 *n, double *dx, int64 *incx) {
         dmax__ = (fabs(d__1));
     L5:
         ix += *incx;
-        /* L10: */
+         // L10: 
     }
     return ret_val;
 
-    /*        CODE FOR INCREMENT EQUAL TO 1 */
+     //        CODE FOR INCREMENT EQUAL TO 1 
 
 L20:
     dmax__ = fabs(dx[1]);
@@ -3495,15 +3495,15 @@ daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
 
     static int64 i__, m, ix, iy, mp1;
 
-    /*     CONSTANT TIMES A VECTOR PLUS A VECTOR. */
-    /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL TO ONE. */
-    /*     JACK DONGARRA, LINPACK, 3/11/78. */
+     //     CONSTANT TIMES A VECTOR PLUS A VECTOR. 
+     //     USES UNROLLED LOOPS FOR INCREMENTS EQUAL TO ONE. 
+     //     JACK DONGARRA, LINPACK, 3/11/78. 
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --dy;
     --dx;
 
-    /* Function Body */
+     // Function Body 
     if (*n <= 0) {
         return 0;
     }
@@ -3514,8 +3514,8 @@ daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
         goto L20;
     }
 
-    /*        CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS */
-    /*          NOT EQUAL TO 1 */
+     //        CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS 
+     //          NOT EQUAL TO 1 
 
     ix = 1;
     iy = 1;
@@ -3530,13 +3530,13 @@ daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
         dy[iy] += *da*dx[ix];
         ix += *incx;
         iy += *incy;
-        /* L10: */
+         // L10: 
     }
     return 0;
 
-    /*        CODE FOR BOTH INCREMENTS EQUAL TO 1 */
+     //        CODE FOR BOTH INCREMENTS EQUAL TO 1 
 
-    /*        CLEAN-UP LOOP */
+     //        CLEAN-UP LOOP 
 
 L20:
     m = *n % 4;
@@ -3546,7 +3546,7 @@ L20:
     i__1 = m;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dy[i__] += *da*dx[i__];
-        /* L30: */
+         // L30: 
     }
     if (*n < 4) {
         return 0;
@@ -3559,7 +3559,7 @@ L40:
         dy[i__ + 1] += *da*dx[i__ + 1];
         dy[i__ + 2] += *da*dx[i__ + 2];
         dy[i__ + 3] += *da*dx[i__ + 3];
-        /* L50: */
+         // L50: 
     }
     return 0;
 }
@@ -3573,14 +3573,14 @@ drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
     static double dtemp;
     static int64 ix, iy;
 
-    /*     APPLIES A PLANE ROTATION. */
-    /*     JACK DONGARRA, LINPACK, 3/11/78. */
+     //     APPLIES A PLANE ROTATION. 
+     //     JACK DONGARRA, LINPACK, 3/11/78. 
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --dy;
     --dx;
 
-    /* Function Body */
+     // Function Body 
     if (*n <= 0) {
         return 0;
     }
@@ -3588,8 +3588,8 @@ drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
         goto L20;
     }
 
-    /*       CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS NOT EQUAL */
-    /*         TO 1 */
+     //       CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS NOT EQUAL 
+     //         TO 1 
 
     ix = 1;
     iy = 1;
@@ -3606,11 +3606,11 @@ drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
         dx[ix] = dtemp;
         ix += *incx;
         iy += *incy;
-        /* L10: */
+         // L10: 
     }
     return 0;
 
-    /*       CODE FOR BOTH INCREMENTS EQUAL TO 1 */
+     //       CODE FOR BOTH INCREMENTS EQUAL TO 1 
 
 L20:
     i__1 = *n;
@@ -3618,7 +3618,7 @@ L20:
         dtemp = *c__*dx[i__] + *s*dy[i__];
         dy[i__] = *c__*dy[i__] - *s*dx[i__];
         dx[i__] = dtemp;
-        /* L30: */
+         // L30: 
     }
     return 0;
 }
@@ -3631,15 +3631,15 @@ dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     static double dtemp;
     static int64 ix, iy, mp1;
 
-    /*     INTERCHANGES TWO VECTORS. */
-    /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL ONE. */
-    /*     JACK DONGARRA, LINPACK, 3/11/78. */
+     //     INTERCHANGES TWO VECTORS. 
+     //     USES UNROLLED LOOPS FOR INCREMENTS EQUAL ONE. 
+     //     JACK DONGARRA, LINPACK, 3/11/78. 
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     --dy;
     --dx;
 
-    /* Function Body */
+     // Function Body 
     if (*n <= 0) {
         return 0;
     }
@@ -3647,8 +3647,8 @@ dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
         goto L20;
     }
 
-    /*       CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS NOT EQUAL */
-    /*         TO 1 */
+     //       CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS NOT EQUAL 
+     //         TO 1 
 
     ix = 1;
     iy = 1;
@@ -3665,13 +3665,13 @@ dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
         dy[iy] = dtemp;
         ix += *incx;
         iy += *incy;
-        /* L10: */
+         // L10: 
     }
     return 0;
 
-    /*       CODE FOR BOTH INCREMENTS EQUAL TO 1 */
+     //       CODE FOR BOTH INCREMENTS EQUAL TO 1 
 
-    /*       CLEAN-UP LOOP */
+     //       CLEAN-UP LOOP 
 
 L20:
     m = *n % 3;
@@ -3683,7 +3683,7 @@ L20:
         dtemp = dx[i__];
         dx[i__] = dy[i__];
         dy[i__] = dtemp;
-        /* L30: */
+         // L30: 
     }
     if (*n < 3) {
         return 0;
@@ -3701,7 +3701,7 @@ L40:
         dtemp = dx[i__ + 2];
         dx[i__ + 2] = dy[i__ + 2];
         dy[i__ + 2] = dtemp;
-        /* L50: */
+         // L50: 
     }
     return 0;
 }
@@ -3718,11 +3718,11 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
 
     static int64 i__, j, mm, mmp1;
 
-    /*  This subroutine copies a double precision real */
-    /*  M by N matrix stored in A to double precision real B. */
-    /*  If TRANS is true, B is assigned A transpose. */
+     //  This subroutine copies a double precision real 
+     //  M by N matrix stored in A to double precision real B. 
+     //  If TRANS is true, B is assigned A transpose. 
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     a_dim1 = *lda;
     a_offset = a_dim1 + 1;
     a -= a_offset;
@@ -3730,12 +3730,12 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
     b_offset = b_dim1 + 1;
     b -= b_offset;
 
-    /* Function Body */
+     // Function Body 
     if (*trans) {
         i__1 = *n;
         for (j = 1; j <= i__1; ++j) {
-            /*         USES UNROLLED LOOPS */
-            /*         from JACK DONGARRA, LINPACK, 3/11/78. */
+             //         USES UNROLLED LOOPS 
+             //         from JACK DONGARRA, LINPACK, 3/11/78. 
 
             mm = *m % 7;
             if (mm == 0) {
@@ -3744,7 +3744,7 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
             i__2 = mm;
             for (i__ = 1; i__ <= i__2; ++i__) {
                 b[j + i__*b_dim1] = a[i__ + j*a_dim1];
-                /* L70: */
+                 // L70: 
             }
             if (*m < 7) {
                 goto L99;
@@ -3760,17 +3760,17 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
                 b[j + (i__ + 4)*b_dim1] = a[i__ + 4 + j*a_dim1];
                 b[j + (i__ + 5)*b_dim1] = a[i__ + 5 + j*a_dim1];
                 b[j + (i__ + 6)*b_dim1] = a[i__ + 6 + j*a_dim1];
-                /* L90: */
+                 // L90: 
             }
         L99:
-            /* L100: */
+             // L100: 
             ;
         }
     } else {
         i__1 = *n;
         for (j = 1; j <= i__1; ++j) {
-            /*         USES UNROLLED LOOPS */
-            /*         from JACK DONGARRA, LINPACK, 3/11/78. */
+             //         USES UNROLLED LOOPS 
+             //         from JACK DONGARRA, LINPACK, 3/11/78. 
 
             mm = *m % 7;
             if (mm == 0) {
@@ -3779,7 +3779,7 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
             i__2 = mm;
             for (i__ = 1; i__ <= i__2; ++i__) {
                 b[i__ + j*b_dim1] = a[i__ + j*a_dim1];
-                /* L170: */
+                 // L170: 
             }
             if (*m < 7) {
                 goto L199;
@@ -3795,10 +3795,10 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
                 b[i__ + 4 + j*b_dim1] = a[i__ + 4 + j*a_dim1];
                 b[i__ + 5 + j*b_dim1] = a[i__ + 5 + j*a_dim1];
                 b[i__ + 6 + j*b_dim1] = a[i__ + 6 + j*a_dim1];
-                /* L190: */
+                 // L190: 
             }
         L199:
-            /* L200: */
+             // L200: 
             ;
         }
     }
@@ -3811,42 +3811,42 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
 int32
 xerbla(char *srname, int64 *info, int64 srname_len) {
     (void)srname_len;
-    /* Format strings */
+     // Format strings 
 
-    /* Builtin functions */
+     // Builtin functions 
 
-    /* Fortran I/O blocks */
+     // Fortran I/O blocks 
 
-    /*     ..    Scalar Arguments .. */
-    /*     .. */
+     //     ..    Scalar Arguments .. 
+     //     .. 
 
-    /*  Purpose */
-    /*  ======= */
+     //  Purpose 
+     //  ======= 
 
-    /*  XERBLA  is an error handler for the Level 2 BLAS routines. */
+     //  XERBLA  is an error handler for the Level 2 BLAS routines. 
 
-    /*  It is called by the Level 2 BLAS routines if an input parameter is */
-    /*  invalid. */
+     //  It is called by the Level 2 BLAS routines if an input parameter is 
+     //  invalid. 
 
-    /*  Installers should consider modifying the STOP statement in order to */
-    /*  call system-specific exception-handling facilities. */
+     //  Installers should consider modifying the STOP statement in order to 
+     //  call system-specific exception-handling facilities. 
 
-    /*  Parameters */
-    /*  ========== */
+     //  Parameters 
+     //  ========== 
 
-    /*  SRNAME - CHARACTER*6. */
-    /*           On entry, SRNAME specifies the name of the routine which */
-    /*           called XERBLA. */
+     //  SRNAME - CHARACTER*6. 
+     //           On entry, SRNAME specifies the name of the routine which 
+     //           called XERBLA. 
 
-    /*  INFO   - int64. */
-    /*           On entry, INFO specifies the position of the invalid */
-    /*           parameter in the parameter-list of the calling routine. */
+     //  INFO   - int64. 
+     //           On entry, INFO specifies the position of the invalid 
+     //           parameter in the parameter-list of the calling routine. 
 
-    /*  Auxiliary routine for Level 2 Blas. */
+     //  Auxiliary routine for Level 2 Blas. 
 
-    /*  Written on 20-July-1986. */
+     //  Written on 20-July-1986. 
 
-    /*     .. Executable Statements .. */
+     //     .. Executable Statements .. 
 
     printf(
         "On entry to %c%c%c%c%c%c parameter number %ld had an illegal value\n",
@@ -3861,46 +3861,46 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
     (void)cb_len;
     (void)ca_len;
 
-    /*     .. Scalar Arguments .. */
-    /*     .. */
+     //     .. Scalar Arguments .. 
+     //     .. 
 
-    /*  Purpose */
-    /*  ======= */
+     //  Purpose 
+     //  ======= 
 
-    /*  LSAME  tests if CA is the same letter as CB regardless of case. */
-    /*  CB is assumed to be an upper case letter. LSAME returns .true. if */
-    /*  CA is either the same as CB or the equivalent lower case letter. */
+     //  LSAME  tests if CA is the same letter as CB regardless of case. 
+     //  CB is assumed to be an upper case letter. LSAME returns .true. if 
+     //  CA is either the same as CB or the equivalent lower case letter. 
 
-    /*  N.B. This version of the routine is only correct for ASCII code. */
-    /*       Installers must modify the routine for other character-codes. */
+     //  N.B. This version of the routine is only correct for ASCII code. 
+     //       Installers must modify the routine for other character-codes. 
 
-    /*       For EBCDIC systems the constant IOFF must be changed to -64. */
-    /*       For CDC systems using 6-12 bit representations, the system- */
-    /*       specific code in comments must be activated. */
+     //       For EBCDIC systems the constant IOFF must be changed to -64. 
+     //       For CDC systems using 6-12 bit representations, the system- 
+     //       specific code in comments must be activated. 
 
-    /*  Parameters */
-    /*  ========== */
+     //  Parameters 
+     //  ========== 
 
-    /*  CA     - CHARACTER*1 */
-    /*  CB     - CHARACTER*1 */
-    /*           On entry, CA and CB specify characters to be compared. */
-    /*           Unchanged on exit. */
+     //  CA     - CHARACTER*1 
+     //  CB     - CHARACTER*1 
+     //           On entry, CA and CB specify characters to be compared. 
+     //           Unchanged on exit. 
 
-    /*  Auxiliary routine for Level 2 Blas. */
+     //  Auxiliary routine for Level 2 Blas. 
 
-    /*  -- Written on 20-July-1986 */
-    /*     Richard Hanson, Sandia National Labs. */
-    /*     Jeremy Du Croz, Nag Central Office. */
+     //  -- Written on 20-July-1986 
+     //     Richard Hanson, Sandia National Labs. 
+     //     Jeremy Du Croz, Nag Central Office. 
 
-    /*     .. Parameters .. */
-    /*     .. Intrinsic Functions .. */
-    /*     .. Executable Statements .. */
+     //     .. Parameters .. 
+     //     .. Intrinsic Functions .. 
+     //     .. Executable Statements .. 
 
-    /*     Test if the characters are equal */
+     //     Test if the characters are equal 
 
     ret_val = *(uchar *)ca == *(uchar *)cb;
 
-    /*     Now test for equivalence */
+     //     Now test for equivalence 
 
     if (!ret_val) {
         ret_val = *(uchar *)ca - 32 == *(uchar *)cb;
@@ -3908,40 +3908,40 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 
     return ret_val;
 
-    /*  The following comments contain code for CDC systems using 6-12 bit */
-    /*  representations. */
+     //  The following comments contain code for CDC systems using 6-12 bit 
+     //  representations. 
 
-    /*     .. Parameters .. */
-    /*     int64                ICIRFX */
-    /*     .. Scalar Arguments .. */
-    /*     CHARACTER*1            CB */
-    /*     .. Array Arguments .. */
-    /*     CHARACTER*1            CA(*) */
-    /*     .. Local Scalars .. */
-    /*     int64                IVAL */
-    /*     .. Intrinsic Functions .. */
-    /*     INTRINSIC              ICHAR, CHAR */
-    /*     .. Executable Statements .. */
+     //     .. Parameters .. 
+     //     int64                ICIRFX 
+     //     .. Scalar Arguments .. 
+     //     CHARACTER*1            CB 
+     //     .. Array Arguments .. 
+     //     CHARACTER*1            CA(*) 
+     //     .. Local Scalars .. 
+     //     int64                IVAL 
+     //     .. Intrinsic Functions .. 
+     //     INTRINSIC              ICHAR, CHAR 
+     //     .. Executable Statements .. 
 
-    /*     See if the first character in string CA equals string CB. */
+     //     See if the first character in string CA equals string CB. 
 
-    /*     LSAME = CA(1) .EQ. CB .AND. CA(1) .NE. CHAR(ICIRFX) */
+     //     LSAME = CA(1) .EQ. CB .AND. CA(1) .NE. CHAR(ICIRFX) 
 
-    /*     IF (LSAME) RETURN */
+     //     IF (LSAME) RETURN 
 
     /*     The characters are not identical. Now check them for equivalence.
      */
-    /*     Look for the 'escape' character, circumflex, followed by the */
-    /*     letter. */
+     //     Look for the 'escape' character, circumflex, followed by the 
+     //     letter. 
 
-    /*     IVAL = ICHAR(CA(2)) */
-    /*     IF (IVAL.GE.ICHAR('A') .AND. IVAL.LE.ICHAR('Z')) THEN */
-    /*        LSAME = CA(1) .EQ. CHAR(ICIRFX) .AND. CA(2) .EQ. CB */
-    /*     END IF */
+     //     IVAL = ICHAR(CA(2)) 
+     //     IF (IVAL.GE.ICHAR('A') .AND. IVAL.LE.ICHAR('Z')) THEN 
+     //        LSAME = CA(1) .EQ. CHAR(ICIRFX) .AND. CA(2) .EQ. CB 
+     //     END IF 
 
-    /*     RETURN */
+     //     RETURN 
 
-    /*     End of LSAME. */
+     //     End of LSAME. 
 }
 
 /* ----------------------------------------------------------------------- */
@@ -3970,165 +3970,165 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     (void)transb_len;
     (void)transa_len;
 
-    /*     .. Scalar Arguments .. */
-    /*     .. Array Arguments .. */
-    /*     .. */
+     //     .. Scalar Arguments .. 
+     //     .. Array Arguments .. 
+     //     .. 
 
-    /*  Purpose */
-    /*  ======= */
+     //  Purpose 
+     //  ======= 
 
-    /*  DGEMM  performs one of the matrix-matrix operations */
+     //  DGEMM  performs one of the matrix-matrix operations 
 
-    /*     C := alpha*op( A )*op( B ) + beta*C, */
+     //     C := alpha*op( A )*op( B ) + beta*C, 
 
-    /*  where  op( X ) is one of */
+     //  where  op( X ) is one of 
 
-    /*     op( X ) = X   or   op( X ) = X', */
+     //     op( X ) = X   or   op( X ) = X', 
 
     /*  alpha and beta are scalars, and A, B and C are matrices, with op( A )
      */
     /*  an m by k matrix,  op( B )  a  k by n matrix and  C an m by n matrix.
      */
 
-    /*  Parameters */
-    /*  ========== */
+     //  Parameters 
+     //  ========== 
 
-    /*  TRANSA - CHARACTER*1. */
+     //  TRANSA - CHARACTER*1. 
     /*           On entry, TRANSA specifies the form of op( A ) to be used in
      */
-    /*           the matrix multiplication as follows: */
+     //           the matrix multiplication as follows: 
 
-    /*              TRANSA = 'N' or 'n',  op( A ) = A. */
+     //              TRANSA = 'N' or 'n',  op( A ) = A. 
 
-    /*              TRANSA = 'T' or 't',  op( A ) = A'. */
+     //              TRANSA = 'T' or 't',  op( A ) = A'. 
 
-    /*              TRANSA = 'C' or 'c',  op( A ) = A'. */
+     //              TRANSA = 'C' or 'c',  op( A ) = A'. 
 
-    /*           Unchanged on exit. */
+     //           Unchanged on exit. 
 
-    /*  TRANSB - CHARACTER*1. */
+     //  TRANSB - CHARACTER*1. 
     /*           On entry, TRANSB specifies the form of op( B ) to be used in
      */
-    /*           the matrix multiplication as follows: */
+     //           the matrix multiplication as follows: 
 
-    /*              TRANSB = 'N' or 'n',  op( B ) = B. */
+     //              TRANSB = 'N' or 'n',  op( B ) = B. 
 
-    /*              TRANSB = 'T' or 't',  op( B ) = B'. */
+     //              TRANSB = 'T' or 't',  op( B ) = B'. 
 
-    /*              TRANSB = 'C' or 'c',  op( B ) = B'. */
+     //              TRANSB = 'C' or 'c',  op( B ) = B'. 
 
-    /*           Unchanged on exit. */
+     //           Unchanged on exit. 
 
-    /*  M      - int64. */
+     //  M      - int64. 
     /*           On entry,  M  specifies  the number  of rows  of the  matrix
      */
     /*           op( A )  and of the  matrix  C.  M  must  be at least  zero.
      */
-    /*           Unchanged on exit. */
+     //           Unchanged on exit. 
 
-    /*  N      - int64. */
+     //  N      - int64. 
     /*           On entry,  N  specifies the number  of columns of the matrix
      */
     /*           op( B ) and the number of columns of the matrix C. N must be
      */
-    /*           at least zero. */
-    /*           Unchanged on exit. */
+     //           at least zero. 
+     //           Unchanged on exit. 
 
-    /*  K      - int64. */
+     //  K      - int64. 
     /*           On entry,  K  specifies  the number of columns of the matrix
      */
     /*           op( A ) and the number of rows of the matrix op( B ). K must
      */
-    /*           be at least  zero. */
-    /*           Unchanged on exit. */
+     //           be at least  zero. 
+     //           Unchanged on exit. 
 
-    /*  ALPHA  - DOUBLE PRECISION. */
-    /*           On entry, ALPHA specifies the scalar alpha. */
-    /*           Unchanged on exit. */
+     //  ALPHA  - DOUBLE PRECISION. 
+     //           On entry, ALPHA specifies the scalar alpha. 
+     //           Unchanged on exit. 
 
     /*  A      - DOUBLE PRECISION array of DIMENSION ( LDA, ka ), where ka is
      */
-    /*           k  when  TRANSA = 'N' or 'n',  and is  m  otherwise. */
+     //           k  when  TRANSA = 'N' or 'n',  and is  m  otherwise. 
     /*           Before entry with  TRANSA = 'N' or 'n',  the leading  m by k
      */
     /*           part of the array  A  must contain the matrix  A,  otherwise
      */
     /*           the leading  k by m  part of the array  A  must contain  the
      */
-    /*           matrix A. */
-    /*           Unchanged on exit. */
+     //           matrix A. 
+     //           Unchanged on exit. 
 
-    /*  LDA    - int64. */
+     //  LDA    - int64. 
     /*           On entry, LDA specifies the first dimension of A as declared
      */
     /*           in the calling (sub) program. When  TRANSA = 'N' or 'n' then
      */
     /*           LDA must be at least  max( 1, m ), otherwise  LDA must be at
      */
-    /*           least  max( 1, k ). */
-    /*           Unchanged on exit. */
+     //           least  max( 1, k ). 
+     //           Unchanged on exit. 
 
     /*  B      - DOUBLE PRECISION array of DIMENSION ( LDB, kb ), where kb is
      */
-    /*           n  when  TRANSB = 'N' or 'n',  and is  k  otherwise. */
+     //           n  when  TRANSB = 'N' or 'n',  and is  k  otherwise. 
     /*           Before entry with  TRANSB = 'N' or 'n',  the leading  k by n
      */
     /*           part of the array  B  must contain the matrix  B,  otherwise
      */
     /*           the leading  n by k  part of the array  B  must contain  the
      */
-    /*           matrix B. */
-    /*           Unchanged on exit. */
+     //           matrix B. 
+     //           Unchanged on exit. 
 
-    /*  LDB    - int64. */
+     //  LDB    - int64. 
     /*           On entry, LDB specifies the first dimension of B as declared
      */
     /*           in the calling (sub) program. When  TRANSB = 'N' or 'n' then
      */
     /*           LDB must be at least  max( 1, k ), otherwise  LDB must be at
      */
-    /*           least  max( 1, n ). */
-    /*           Unchanged on exit. */
+     //           least  max( 1, n ). 
+     //           Unchanged on exit. 
 
-    /*  BETA   - DOUBLE PRECISION. */
+     //  BETA   - DOUBLE PRECISION. 
     /*           On entry,  BETA  specifies the scalar  beta.  When  BETA  is
      */
-    /*           supplied as zero then C need not be set on input. */
-    /*           Unchanged on exit. */
+     //           supplied as zero then C need not be set on input. 
+     //           Unchanged on exit. 
 
-    /*  C      - DOUBLE PRECISION array of DIMENSION ( LDC, n ). */
+     //  C      - DOUBLE PRECISION array of DIMENSION ( LDC, n ). 
     /*           Before entry, the leading  m by n  part of the array  C must
      */
     /*           contain the matrix  C,  except when  beta  is zero, in which
      */
-    /*           case C need not be set on entry. */
+     //           case C need not be set on entry. 
     /*           On exit, the array  C  is overwritten by the  m by n  matrix
      */
-    /*           ( alpha*op( A )*op( B ) + beta*C ). */
+     //           ( alpha*op( A )*op( B ) + beta*C ). 
 
-    /*  LDC    - int64. */
+     //  LDC    - int64. 
     /*           On entry, LDC specifies the first dimension of C as declared
      */
     /*           in  the  calling  (sub)  program.   LDC  must  be  at  least
      */
-    /*           max( 1, m ). */
-    /*           Unchanged on exit. */
+     //           max( 1, m ). 
+     //           Unchanged on exit. 
 
-    /*  Level 3 Blas routine. */
+     //  Level 3 Blas routine. 
 
-    /*  -- Written on 8-February-1989. */
-    /*     Jack Dongarra, Argonne National Laboratory. */
-    /*     Iain Duff, AERE Harwell. */
-    /*     Jeremy Du Croz, Numerical Algorithms Group Ltd. */
-    /*     Sven Hammarling, Numerical Algorithms Group Ltd. */
+     //  -- Written on 8-February-1989. 
+     //     Jack Dongarra, Argonne National Laboratory. 
+     //     Iain Duff, AERE Harwell. 
+     //     Jeremy Du Croz, Numerical Algorithms Group Ltd. 
+     //     Sven Hammarling, Numerical Algorithms Group Ltd. 
 
-    /*     .. External Functions .. */
-    /*     .. External Subroutines .. */
-    /*     .. Intrinsic Functions .. */
-    /*     .. Local Scalars .. */
-    /*     .. Parameters .. */
-    /*     .. */
-    /*     .. Executable Statements .. */
+     //     .. External Functions .. 
+     //     .. External Subroutines .. 
+     //     .. Intrinsic Functions .. 
+     //     .. Local Scalars .. 
+     //     .. Parameters .. 
+     //     .. 
+     //     .. Executable Statements .. 
 
     /*     Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
      */
@@ -4137,7 +4137,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     /*     and  columns of  A  and the  number of  rows  of  B  respectively.
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     a_dim1 = *lda;
     a_offset = a_dim1 + 1;
     a -= a_offset;
@@ -4148,7 +4148,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     c_offset = c_dim1 + 1;
     c__ -= c_offset;
 
-    /* Function Body */
+     // Function Body 
     nota = lsame(transa, "N", 1L, 1L);
     notb = lsame(transb, "N", 1L, 1L);
     if (nota) {
@@ -4162,7 +4162,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
         nrowb = *n;
     }
 
-    /*     Test the input parameters. */
+     //     Test the input parameters. 
 
     info = 0;
     if (!nota && !lsame(transa, "C", 1L, 1L) && !lsame(transa, "T", 1L, 1L)) {
@@ -4188,13 +4188,13 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
         return 0;
     }
 
-    /*     Quick return if possible. */
+     //     Quick return if possible. 
 
     if (*m == 0 || *n == 0 || ((*alpha == 0. || *k == 0) && *beta == 1.)) {
         return 0;
     }
 
-    /*     And if  alpha.eq.zero. */
+     //     And if  alpha.eq.zero. 
 
     if (*alpha == 0.) {
         if (*beta == 0.) {
@@ -4203,9 +4203,9 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                 i__2 = *m;
                 for (i__ = 1; i__ <= i__2; ++i__) {
                     c__[i__ + j*c_dim1] = 0.;
-                    /* L10: */
+                     // L10: 
                 }
-                /* L20: */
+                 // L20: 
             }
         } else {
             i__1 = *n;
@@ -4213,19 +4213,19 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                 i__2 = *m;
                 for (i__ = 1; i__ <= i__2; ++i__) {
                     c__[i__ + j*c_dim1] = *beta*c__[i__ + j*c_dim1];
-                    /* L30: */
+                     // L30: 
                 }
-                /* L40: */
+                 // L40: 
             }
         }
         return 0;
     }
 
-    /*     Start the operations. */
+     //     Start the operations. 
 
     if (notb) {
         if (nota) {
-            /*           Form  C := alpha*A*B + beta*C. */
+             //           Form  C := alpha*A*B + beta*C. 
 
             i__1 = *n;
             for (j = 1; j <= i__1; ++j) {
@@ -4233,13 +4233,13 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                     i__2 = *m;
                     for (i__ = 1; i__ <= i__2; ++i__) {
                         c__[i__ + j*c_dim1] = 0.;
-                        /* L50: */
+                         // L50: 
                     }
                 } else if (*beta != 1.) {
                     i__2 = *m;
                     for (i__ = 1; i__ <= i__2; ++i__) {
                         c__[i__ + j*c_dim1] = *beta*c__[i__ + j*c_dim1];
-                        /* L60: */
+                         // L60: 
                     }
                 }
                 i__2 = *k;
@@ -4249,15 +4249,15 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                         i__3 = *m;
                         for (i__ = 1; i__ <= i__3; ++i__) {
                             c__[i__ + j*c_dim1] += temp*a[i__ + l*a_dim1];
-                            /* L70: */
+                             // L70: 
                         }
                     }
-                    /* L80: */
+                     // L80: 
                 }
-                /* L90: */
+                 // L90: 
             }
         } else {
-            /*           Form  C := alpha*A'*B + beta*C */
+             //           Form  C := alpha*A'*B + beta*C 
 
             i__1 = *n;
             for (j = 1; j <= i__1; ++j) {
@@ -4267,7 +4267,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                     i__3 = *k;
                     for (l = 1; l <= i__3; ++l) {
                         temp += a[l + i__*a_dim1]*b[l + j*b_dim1];
-                        /* L100: */
+                         // L100: 
                     }
                     if (*beta == 0.) {
                         c__[i__ + j*c_dim1] = *alpha*temp;
@@ -4275,14 +4275,14 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                         c__[i__ + j*c_dim1] =
                             *alpha*temp + *beta*c__[i__ + j*c_dim1];
                     }
-                    /* L110: */
+                     // L110: 
                 }
-                /* L120: */
+                 // L120: 
             }
         }
     } else {
         if (nota) {
-            /*           Form  C := alpha*A*B' + beta*C */
+             //           Form  C := alpha*A*B' + beta*C 
 
             i__1 = *n;
             for (j = 1; j <= i__1; ++j) {
@@ -4290,13 +4290,13 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                     i__2 = *m;
                     for (i__ = 1; i__ <= i__2; ++i__) {
                         c__[i__ + j*c_dim1] = 0.;
-                        /* L130: */
+                         // L130: 
                     }
                 } else if (*beta != 1.) {
                     i__2 = *m;
                     for (i__ = 1; i__ <= i__2; ++i__) {
                         c__[i__ + j*c_dim1] = *beta*c__[i__ + j*c_dim1];
-                        /* L140: */
+                         // L140: 
                     }
                 }
                 i__2 = *k;
@@ -4306,16 +4306,16 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                         i__3 = *m;
                         for (i__ = 1; i__ <= i__3; ++i__) {
                             c__[i__ + j*c_dim1] += temp*a[i__ + l*a_dim1];
-                            /* L150: */
+                             // L150: 
                         }
                     }
-                    /* L160: */
+                     // L160: 
                 }
-                /* L170: */
+                 // L170: 
             }
         } else {
 
-            /*           Form  C := alpha*A'*B' + beta*C */
+             //           Form  C := alpha*A'*B' + beta*C 
 
             i__1 = *n;
             for (j = 1; j <= i__1; ++j) {
@@ -4325,7 +4325,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                     i__3 = *k;
                     for (l = 1; l <= i__3; ++l) {
                         temp += a[l + i__*a_dim1]*b[j + l*b_dim1];
-                        /* L180: */
+                         // L180: 
                     }
                     if (*beta == 0.) {
                         c__[i__ + j*c_dim1] = *alpha*temp;
@@ -4333,16 +4333,16 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                         c__[i__ + j*c_dim1] =
                             *alpha*temp + *beta*c__[i__ + j*c_dim1];
                     }
-                    /* L190: */
+                     // L190: 
                 }
-                /* L200: */
+                 // L200: 
             }
         }
     }
 
     return 0;
 
-    /*     End of DGEMM . */
+     //     End of DGEMM . 
 }
 
 /* ----------------------------------------------------------------------- */
@@ -4365,37 +4365,37 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     static double maxsin;
     static int64 maxitr;
 
-    /*     new svd by J. Demmel, W. Kahan */
+     //     new svd by J. Demmel, W. Kahan 
     /*     finds singular values of bidiagonal matrices with guaranteed high
      */
-    /*     relative precision */
+     //     relative precision 
 
-    /*     easy to use version of ndsvd ("hard to use" version, below) */
-    /*     with defaults for some ndsvd parameters */
+     //     easy to use version of ndsvd ("hard to use" version, below) 
+     //     with defaults for some ndsvd parameters 
 
-    /*     all parameters same as linpack dsvdc except for tol: */
+     //     all parameters same as linpack dsvdc except for tol: 
 
     /*     tol  = if positive, desired relative precision in singular values
      */
     /*            if negative, desired absolute precision in singular values
      */
-    /*               (expressed as ABS(tol)*sigma-max) */
-    /*            (in both cases, ABS(tol) should be less than 1 and */
-    /*             greater than macheps) */
+     //               (expressed as ABS(tol)*sigma-max) 
+     //            (in both cases, ABS(tol) should be less than 1 and 
+     //             greater than macheps) 
 
-    /*        I have tested this software on a SUN 3 in double precision */
-    /*        IEEE arithmetic with macheps about 2.2e-16 and tol=1e-14; */
-    /*        In general I recommend tol 10-100 times larger than macheps. */
+     //        I have tested this software on a SUN 3 in double precision 
+     //        IEEE arithmetic with macheps about 2.2e-16 and tol=1e-14; 
+     //        In general I recommend tol 10-100 times larger than macheps. 
 
-    /*        On the average it appears to be as fast or faster than dsvdc. */
-    /*        I have seen it go 3.5 times faster and 2 times slower at the */
-    /*        extremes. */
+     //        On the average it appears to be as fast or faster than dsvdc. 
+     //        I have seen it go 3.5 times faster and 2 times slower at the 
+     //        extremes. 
 
-    /*     defaults for ndsvd parameters (see ndsvd for more description of */
-    /*     these parameters) are: */
+     //     defaults for ndsvd parameters (see ndsvd for more description of 
+     //     these parameters) are: 
 
-    /*     set to no debug output */
-    /* Parameter adjustments */
+     //     set to no debug output 
+     // Parameter adjustments 
     x_dim1 = *ldx;
     x_offset = x_dim1 + 1;
     x -= x_offset;
@@ -4409,15 +4409,15 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     v -= v_offset;
     --work;
 
-    /* Function Body */
+     // Function Body 
     idbg = 0;
-    /*     use zero-shift normally */
+     //     use zero-shift normally 
     ifull = 0;
-    /*     use normal bidiagonalization code */
+     //     use normal bidiagonalization code 
     skip = 0;
-    /*     choose chase direction normally */
+     //     choose chase direction normally 
     iidir = 0;
-    /*     maximum 30 QR sweeps per singular value */
+     //     maximum 30 QR sweeps per singular value 
     maxitr = 30;
 
     ndsvd(&x[x_offset], ldx, n, p, &s[1], &e[1], &u[u_offset], ldu,
@@ -4430,29 +4430,29 @@ int32
 ndrotg(double *f, double *g, double *cs, double *sn) {
     static double t, tt;
 
-    /*     faster version of drotg, except g unchanged on return */
-    /*     cs, sn returned so that -sn*f+cs*g = 0 */
-    /*     and returned f = cs*f + sn*g */
+     //     faster version of drotg, except g unchanged on return 
+     //     cs, sn returned so that -sn*f+cs*g = 0 
+     //     and returned f = cs*f + sn*g 
 
-    /*     if g=0, then cs=1 and sn=0 (in case svd adds extra zero row */
-    /*         to bidiagonal, this makes sure last row rotation is trivial) */
+     //     if g=0, then cs=1 and sn=0 (in case svd adds extra zero row 
+     //         to bidiagonal, this makes sure last row rotation is trivial) 
 
     /*     if f=0 and g.ne.0, then cs=0 and sn=1 without floating point work
      */
-    /*         (in case s(i)=0 in svd so that bidiagonal deflates, this */
-    /*          computes rotation without any floating point operations) */
+     //         (in case s(i)=0 in svd so that bidiagonal deflates, this 
+     //          computes rotation without any floating point operations) 
 
     if (*f == 0.) {
         if (*g == 0.) {
             /*         this case needed in case extra zero row added in svd, s
             o */
-            /*         bottom rotation always trivial */
+             //         bottom rotation always trivial 
             *cs = 1.;
             *sn = 0.;
         } else {
             /*         this case needed for s(i)=0 in svd to compute rotation
              */
-            /*         cheaply */
+             //         cheaply 
             *cs = 0.;
             *sn = 1.;
             *f = *g;
@@ -4528,127 +4528,127 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     static int64 nrt;
     static double emm1, smm1;
 
-    /* Fortran I/O blocks */
+     // Fortran I/O blocks 
 
-    /*     LINPACK SVD modified by: */
-    /*     James Demmel                      W. Kahan */
-    /*     Courant Institute                 Computer Science Dept. */
-    /*     demmel@acf8.nyu.edu               U.C. Berkeley */
+     //     LINPACK SVD modified by: 
+     //     James Demmel                      W. Kahan 
+     //     Courant Institute                 Computer Science Dept. 
+     //     demmel@acf8.nyu.edu               U.C. Berkeley 
 
-    /*     modified version designed to guarantee relative accuracy of */
-    /*     all singular values of intermediate bidiagonal form */
+     //     modified version designed to guarantee relative accuracy of 
+     //     all singular values of intermediate bidiagonal form 
 
     /*    extra input/output parameters in addition to those from LINPACK SVD:
      */
 
-    /*     extra input paramters: */
+     //     extra input paramters: 
 
     /*     tol  = if positive, desired relative precision in singular values
      */
     /*            if negative, desired absolute precision in singular values
      */
-    /*               (expressed as ABS(tol)*sigma-max) */
-    /*            (ABS(tol) should be less than 1 and greater than macheps) */
+     //               (expressed as ABS(tol)*sigma-max) 
+     //            (ABS(tol) should be less than 1 and greater than macheps) 
 
-    /*     idbg = 0 for no debug output (normal setting) */
+     //     idbg = 0 for no debug output (normal setting) 
     /*          = 1 convergence, shift decisions (written to standard output)
      */
-    /*          = 2 for above plus before, after qr */
+     //          = 2 for above plus before, after qr 
 
     /*    ifull= 0 if decision to use zero-shift set normally (normal setting)
      */
-    /*          = 1 if always set to nonzero-shift */
-    /*          = 2 if always set to zero-shift */
+     //          = 1 if always set to nonzero-shift 
+     //          = 2 if always set to zero-shift 
 
     /*     skip =-1 means standard code but do all work of bidiagonalization
      */
-    /*              (even if input bidiagonal) */
-    /*            0 means standard code (normal setting) */
+     //              (even if input bidiagonal) 
+     //            0 means standard code (normal setting) 
     /*            1 means assume x is bidiagonal, and skip bidiagonalization
      */
-    /*              entirely */
-    /*          (skip used for timing tests) */
+     //              entirely 
+     //          (skip used for timing tests) 
 
-    /*     iidir = 0 if idir (chase direction) chosen normally */
-    /*             1 if idir=1 (chase top to bottom) always */
-    /*             2 if idir=2 (chase bottom to top) always */
+     //     iidir = 0 if idir (chase direction) chosen normally 
+     //             1 if idir=1 (chase top to bottom) always 
+     //             2 if idir=2 (chase bottom to top) always 
 
-    /*     extra output parameters: */
+     //     extra output parameters: 
 
-    /*     kount =number of qr sweeps taken */
+     //     kount =number of qr sweeps taken 
 
-    /*     kount1=number of passes through inner loop of full qr */
+     //     kount1=number of passes through inner loop of full qr 
 
-    /*     kount2=number of passes through inner loop of zero-shift qr */
+     //     kount2=number of passes through inner loop of zero-shift qr 
 
     /*     limshf = number of times the shift was greater than its threshold
      */
-    /*              (nct*smin) and had to be decreased */
+     //              (nct*smin) and had to be decreased 
 
-    /*     maxsin = maximum sin in inner loop of zero-shift */
+     //     maxsin = maximum sin in inner loop of zero-shift 
 
-    /*     new version designed to be robust with respect to over/underflow */
-    /*     have fast inner loop when shift is zero, */
-    /*     guarantee relative accuracy of all singular values */
+     //     new version designed to be robust with respect to over/underflow 
+     //     have fast inner loop when shift is zero, 
+     //     guarantee relative accuracy of all singular values 
 
-    /*     dsvdc is a subroutine to reduce a double precision nxp matrix x */
-    /*     by orthogonal transformations u and v to diagonal form.  the */
-    /*     diagonal elements s(i) are the singular values of x.  the */
-    /*     columns of u are the corresponding left singular vectors, */
-    /*     and the columns of v the right singular vectors. */
+     //     dsvdc is a subroutine to reduce a double precision nxp matrix x 
+     //     by orthogonal transformations u and v to diagonal form.  the 
+     //     diagonal elements s(i) are the singular values of x.  the 
+     //     columns of u are the corresponding left singular vectors, 
+     //     and the columns of v the right singular vectors. 
 
-    /*     on entry */
+     //     on entry 
 
-    /*         x         double precision(ldx,p), where ldx.ge.n. */
-    /*                   x contains the matrix whose singular value */
-    /*                   decomposition is to be computed.  x is */
-    /*                   destroyed by dsvdc. */
+     //         x         double precision(ldx,p), where ldx.ge.n. 
+     //                   x contains the matrix whose singular value 
+     //                   decomposition is to be computed.  x is 
+     //                   destroyed by dsvdc. 
 
-    /*         ldx       int64. */
-    /*                   ldx is the leading dimension of the array x. */
+     //         ldx       int64. 
+     //                   ldx is the leading dimension of the array x. 
 
-    /*         n         int64. */
-    /*                   n is the number of rows of the matrix x. */
+     //         n         int64. 
+     //                   n is the number of rows of the matrix x. 
 
-    /*         p         int64. */
-    /*                   p is the number of columns of the matrix x. */
+     //         p         int64. 
+     //                   p is the number of columns of the matrix x. 
 
-    /*         ldu       int64. */
-    /*                   ldu is the leading dimension of the array u. */
-    /*                   (see below). */
+     //         ldu       int64. 
+     //                   ldu is the leading dimension of the array u. 
+     //                   (see below). 
 
-    /*         ldv       int64. */
-    /*                   ldv is the leading dimension of the array v. */
-    /*                   (see below). */
+     //         ldv       int64. 
+     //                   ldv is the leading dimension of the array v. 
+     //                   (see below). 
 
-    /*         work      double precision(n). */
-    /*                   work is a scratch array. */
+     //         work      double precision(n). 
+     //                   work is a scratch array. 
 
-    /*         job       int64. */
-    /*                   job controls the computation of the singular */
-    /*                   vectors.  it has the decimal expansion ab */
-    /*                   with the following meaning */
+     //         job       int64. 
+     //                   job controls the computation of the singular 
+     //                   vectors.  it has the decimal expansion ab 
+     //                   with the following meaning 
 
-    /*                        a.eq.0    do not compute the left singular */
-    /*                                  vectors. */
-    /*                        a.eq.1    return the n left singular vectors */
-    /*                                  in u. */
-    /*                        a.ge.2    return the first min(n,p) singular */
-    /*                                  vectors in u. */
+     //                        a.eq.0    do not compute the left singular 
+     //                                  vectors. 
+     //                        a.eq.1    return the n left singular vectors 
+     //                                  in u. 
+     //                        a.ge.2    return the first min(n,p) singular 
+     //                                  vectors in u. 
 
-    /*     blas daxpy,ddot,dscal,dswap,dnrm2,drotg */
-    /*     fortran dabs,dmax1,max0,min0,mod,dsqrt,dsign */
-    /*     prse,ndrotg,sig22,sndrtg,sigmin */
+     //     blas daxpy,ddot,dscal,dswap,dnrm2,drotg 
+     //     fortran dabs,dmax1,max0,min0,mod,dsqrt,dsign 
+     //     prse,ndrotg,sig22,sndrtg,sigmin 
 
-    /*     internal variables */
+     //     internal variables 
 
-    /*     new variables */
-    /*     double precision sg1,sg2 */
+     //     new variables 
+     //     double precision sg1,sg2 
 
-    /*     set the maximum number of iterations. */
+     //     set the maximum number of iterations. 
 
-    /*     maxit = 30 */
-    /* Parameter adjustments */
+     //     maxit = 30 
+     // Parameter adjustments 
     x_dim1 = *ldx;
     x_offset = x_dim1 + 1;
     x -= x_offset;
@@ -4662,14 +4662,14 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     v -= v_offset;
     --work;
 
-    /* Function Body */
+     // Function Body 
     *kount = 0;
     *kount1 = 0;
     *kount2 = 0;
     *limshf = 0;
     *maxsin = (double)0.;
 
-    /*     determine what is to be computed. */
+     //     determine what is to be computed. 
 
     wantu = false;
     wantv = false;
@@ -4685,15 +4685,15 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
         wantv = true;
     }
 
-    /*     reduce x to bidiagonal form, storing the diagonal elements */
-    /*     in s and the super-diagonal elements in e. */
+     //     reduce x to bidiagonal form, storing the diagonal elements 
+     //     in s and the super-diagonal elements in e. 
 
     *info = 0;
-    /* Computing MIN */
+     // Computing MIN 
     i__1 = *n - 1;
     nct = min(i__1, *p);
-    /* Computing MAX */
-    /* Computing MIN */
+     // Computing MAX 
+     // Computing MIN 
     i__3 = *p - 2;
     i__1 = 0;
     i__2 = min(i__3, *n);
@@ -4710,8 +4710,8 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                 goto L20;
             }
 
-            /*           compute the transformation for the l-th column and */
-            /*           place the l-th diagonal in s(l). */
+             //           compute the transformation for the l-th column and 
+             //           place the l-th diagonal in s(l). 
 
             i__2 = *n - l + 1;
             s[l] = dnrm2(&i__2, &x[l + l*x_dim1], &c__1);
@@ -4740,7 +4740,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                     goto L30;
                 }
 
-                /*              apply the transformation. */
+                 //              apply the transformation. 
 
                 i__3 = *n - l + 1;
                 t = -ddot(&i__3, &x[l + l*x_dim1], &c__1, &x[l + j*x_dim1],
@@ -4751,33 +4751,33 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                       &c__1);
             L30:
 
-                /*           place the l-th row of x into  e for the */
+                 //           place the l-th row of x into  e for the 
                 /*           subsequent calculation of the row transformation.
                  */
 
                 e[j] = x[l + j*x_dim1];
-                /* L40: */
+                 // L40: 
             }
         L50:
             if (!wantu || l > nct) {
                 goto L70;
             }
 
-            /*           place the transformation in u for subsequent back */
-            /*           multiplication. */
+             //           place the transformation in u for subsequent back 
+             //           multiplication. 
 
             i__2 = *n;
             for (i__ = l; i__ <= i__2; ++i__) {
                 u[i__ + l*u_dim1] = x[i__ + l*x_dim1];
-                /* L60: */
+                 // L60: 
             }
         L70:
             if (l > nrt) {
                 goto L150;
             }
 
-            /*           compute the l-th row transformation and place the */
-            /*           l-th super-diagonal in e(l). */
+             //           compute the l-th row transformation and place the 
+             //           l-th super-diagonal in e(l). 
 
             i__2 = *p - l;
             e[l] = dnrm2(&i__2, &e[lp1], &c__1);
@@ -4797,19 +4797,19 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                 goto L120;
             }
 
-            /*              apply the transformation. */
+             //              apply the transformation. 
 
             i__2 = *n;
             for (i__ = lp1; i__ <= i__2; ++i__) {
                 work[i__] = 0.;
-                /* L90: */
+                 // L90: 
             }
             i__2 = *p;
             for (j = lp1; j <= i__2; ++j) {
                 i__3 = *n - l;
                 daxpy(&i__3, &e[j], &x[lp1 + j*x_dim1], &c__1, &work[lp1],
                       &c__1);
-                /* L100: */
+                 // L100: 
             }
             i__2 = *p;
             for (j = lp1; j <= i__2; ++j) {
@@ -4817,32 +4817,32 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                 d__1 = -e[j] / e[lp1];
                 daxpy(&i__3, &d__1, &work[lp1], &c__1, &x[lp1 + j*x_dim1],
                       &c__1);
-                /* L110: */
+                 // L110: 
             }
         L120:
             if (!wantv) {
                 goto L140;
             }
 
-            /*              place the transformation in v for subsequent */
-            /*              back multiplication. */
+             //              place the transformation in v for subsequent 
+             //              back multiplication. 
 
             i__2 = *p;
             for (i__ = lp1; i__ <= i__2; ++i__) {
                 v[i__ + l*v_dim1] = e[i__];
-                /* L130: */
+                 // L130: 
             }
         L140:
         L150:
-            /* L160: */
+             // L160: 
             ;
         }
     L170:;
     }
 
-    /*     set up the final bidiagonal matrix or order m. */
+     //     set up the final bidiagonal matrix or order m. 
 
-    /* Computing MIN */
+     // Computing MIN 
     i__1 = *p;
     i__2 = *n + 1;
     m = min(i__1, i__2);
@@ -4860,7 +4860,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
         }
         e[m] = 0.;
 
-        /*     if required, generate u. */
+         //     if required, generate u. 
 
         if (!wantu) {
             goto L300;
@@ -4873,10 +4873,10 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             i__2 = *n;
             for (i__ = 1; i__ <= i__2; ++i__) {
                 u[i__ + j*u_dim1] = 0.;
-                /* L180: */
+                 // L180: 
             }
             u[j + j*u_dim1] = 1.;
-            /* L190: */
+             // L190: 
         }
     L200:
         if (nct < 1) {
@@ -4901,7 +4901,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                 i__3 = *n - l + 1;
                 daxpy(&i__3, &t, &u[l + l*u_dim1], &c__1, &u[l + j*u_dim1],
                       &c__1);
-                /* L210: */
+                 // L210: 
             }
         L220:
             i__2 = *n - l + 1;
@@ -4914,7 +4914,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             i__2 = lm1;
             for (i__ = 1; i__ <= i__2; ++i__) {
                 u[i__ + l*u_dim1] = 0.;
-                /* L230: */
+                 // L230: 
             }
         L240:
             goto L270;
@@ -4922,17 +4922,17 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             i__2 = *n;
             for (i__ = 1; i__ <= i__2; ++i__) {
                 u[i__ + l*u_dim1] = 0.;
-                /* L260: */
+                 // L260: 
             }
             u[l + l*u_dim1] = 1.;
         L270:
-            /* L280: */
+             // L280: 
             ;
         }
     L290:
     L300:
 
-        /*     if it is required, generate v. */
+         //     if it is required, generate v. 
 
         if (!wantv) {
             goto L350;
@@ -4956,22 +4956,22 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                 i__3 = *p - l;
                 daxpy(&i__3, &t, &v[lp1 + l*v_dim1], &c__1,
                       &v[lp1 + j*v_dim1], &c__1);
-                /* L310: */
+                 // L310: 
             }
         L320:
             i__2 = *p;
             for (i__ = 1; i__ <= i__2; ++i__) {
                 v[i__ + l*v_dim1] = 0.;
-                /* L330: */
+                 // L330: 
             }
             v[l + l*v_dim1] = 1.;
-            /* L340: */
+             // L340: 
         }
     L350:;
     }
 
     if (*skip == 1) {
-        /*       set up s,e,u,v assuming x bidiagonal on input */
+         //       set up s,e,u,v assuming x bidiagonal on input 
         minnp = min(*n, *p);
         i__1 = minnp;
         for (i__ = 1; i__ <= i__1; ++i__) {
@@ -4979,7 +4979,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             if (i__ < *p) {
                 e[i__] = x[i__ + (i__ + 1)*x_dim1];
             }
-            /* L351: */
+             // L351: 
         }
         if (*n < *p) {
             s[*n + 1] = (double)0.;
@@ -4991,10 +4991,10 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                 i__2 = *n;
                 for (i__ = 1; i__ <= i__2; ++i__) {
                     u[i__ + j*u_dim1] = (double)0.;
-                    /* L353: */
+                     // L353: 
                 }
                 u[j + j*u_dim1] = 1.;
-                /* L352: */
+                 // L352: 
             }
         }
         if (wantv) {
@@ -5003,33 +5003,33 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                 i__2 = *p;
                 for (i__ = 1; i__ <= i__2; ++i__) {
                     v[i__ + j*v_dim1] = (double)0.;
-                    /* L355: */
+                     // L355: 
                 }
                 v[j + j*v_dim1] = 1.;
-                /* L354: */
+                 // L354: 
             }
         }
     }
 
-    /*     main iteration loop for the singular values. */
+     //     main iteration loop for the singular values. 
 
-    /*     convert maxit to bound on total number of passes through */
-    /*     inner loops of qr iteration (half number of rotations) */
+     //     convert maxit to bound on total number of passes through 
+     //     inner loops of qr iteration (half number of rotations) 
     maxit = *maxitr*m*m / 2;
     iter = 0;
     oldll = -1;
     oldm = -1;
     oldacc = -1;
     if (*tol > (double)0.) {
-        /*       relative accuracy desired */
+         //       relative accuracy desired 
         thresh = 0.;
     } else {
-        /*       absolute accuracy desired */
+         //       absolute accuracy desired 
         d__1 = s[m];
         smax = (fabs(d__1));
         i__1 = m - 1;
         for (i__ = 1; i__ <= i__1; ++i__) {
-            /* Computing MAX */
+             // Computing MAX 
             d__3 = smax;
             d__1 = s[i__];
             d__4 = (fabs(d__1));
@@ -5037,7 +5037,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             d__2 = e[i__];
             d__4 = (fabs(d__2));
             smax = max(d__3, d__4);
-            /* L1111: */
+             // L1111: 
         }
         thresh = fabs(*tol)*smax;
     }
@@ -5054,17 +5054,17 @@ L999:
         prse(&c__1, &mm, n, p, &s[1], &e[1]);
     }
 
-    /*     check for being done */
+     //     check for being done 
     if (m == 1) {
         goto L998;
     }
 
-    /*     check number of iterations */
+     //     check number of iterations 
     if (iter >= maxit) {
         goto L997;
     }
 
-    /*     compute minimum s(i) and max of all s(i),e(i) */
+     //     compute minimum s(i) and max of all s(i),e(i) 
     d__1 = s[m];
     if (*tol <= (double)0. && (fabs(d__1)) <= thresh) {
         s[m] = (double)0.;
@@ -5073,7 +5073,7 @@ L999:
     smax = (fabs(d__1));
     smin = smax;
 
-    /*     reset convergence threshold if starting new part of matrix */
+     //     reset convergence threshold if starting new part of matrix 
     if (m <= oldll && *tol > (double)0.) {
         thresh = 0.;
     }
@@ -5099,17 +5099,17 @@ L999:
         d__1 = e[ll];
         abse = (fabs(d__1));
         smin = min(smin, abss);
-        /* Computing MAX */
+         // Computing MAX 
         d__1 = max(smax, abss);
         smax = max(d__1, abse);
-        /* L1001: */
+         // L1001: 
     }
 L1002:
     e[ll] = 0.;
 
-    /*     matrix splits since e(ll)=0 */
+     //     matrix splits since e(ll)=0 
     if (ll == m - 1) {
-        /*       convergence of bottom singular values */
+         //       convergence of bottom singular values 
         --m;
         if (*idbg > 0) {
             printf("convergence\n");
@@ -5118,7 +5118,7 @@ L1002:
     }
 L1003:
     ++ll;
-    /*     e(ll) ... e(m-1) are nonzero */
+     //     e(ll) ... e(m-1) are nonzero 
     if (*idbg > 0) {
         printf("work on block ll,m=%ld,%ld\n", ll, m);
         printf("smin=%f\n", smin);
@@ -5126,41 +5126,41 @@ L1003:
         printf("smax=%f\n", smax);
     }
 
-    /*     2 by 2 block - handle specially to guarantee convergence */
+     //     2 by 2 block - handle specially to guarantee convergence 
     if (ll == m - 1) {
-        /*       after one step */
+         //       after one step 
         ++(*kount1);
-        /*       shift = sigmin(s(m-1),e(m-1),s(m)) */
-        /*       rotate, setting e(m-1)=0 and s(m)=+-shift */
-        /*       if (s(ll).eq.0.0d0) then */
-        /*         f = 0.0d0 */
-        /*       else */
+         //       shift = sigmin(s(m-1),e(m-1),s(m)) 
+         //       rotate, setting e(m-1)=0 and s(m)=+-shift 
+         //       if (s(ll).eq.0.0d0) then 
+         //         f = 0.0d0 
+         //       else 
         /*         f = (ABS(s(ll)) - shift)*(dsign(1.0d0,s(ll))+shift/s(ll))
          */
-        /*       endif */
-        /*       g=e(ll) */
-        /*       call ndrotg(f,g,cs,sn) */
-        /*       sg1=dsign(1.0d0,s(m)) */
-        /*       sg2=dsign(1.0d0,cs) */
-        /*       f = cs*s(ll) + sn*e(ll) */
-        /*       g = sn*s(m) */
-        /*       if (idbg.gt.0) then */
-        /*         abss = cs*s(m) */
-        /*         abse = -sn*s(ll) + cs*e(ll) */
-        /*       endif */
-        /*       if (wantv) call drot(p,v(1,ll),1,v(1,m),1,cs,sn) */
-        /*       call ndrotg(f,g,cs,sn) */
-        /*       s(ll)=f */
+         //       endif 
+         //       g=e(ll) 
+         //       call ndrotg(f,g,cs,sn) 
+         //       sg1=dsign(1.0d0,s(m)) 
+         //       sg2=dsign(1.0d0,cs) 
+         //       f = cs*s(ll) + sn*e(ll) 
+         //       g = sn*s(m) 
+         //       if (idbg.gt.0) then 
+         //         abss = cs*s(m) 
+         //         abse = -sn*s(ll) + cs*e(ll) 
+         //       endif 
+         //       if (wantv) call drot(p,v(1,ll),1,v(1,m),1,cs,sn) 
+         //       call ndrotg(f,g,cs,sn) 
+         //       s(ll)=f 
         /*       if (wantu.and.ll.lt.n) call drot(n,u(1,ll),1,u(1,m),1,cs,sn)
          */
-        /*       e(ll) = 0.0d0 */
-        /*       s(m) = shift*dsign(1.0d0,cs)*sg1*sg2 */
-        /*       if (idbg.gt.0) then */
-        /*         print *,'2 by 2 block' */
-        /*         print *,'shift=',shift */
-        /*         print *,'check shift=',-sn*abse+cs*abss */
-        /*         print *,'check zero=',cs*abse+sn*abss */
-        /*       endif */
+         //       e(ll) = 0.0d0 
+         //       s(m) = shift*dsign(1.0d0,cs)*sg1*sg2 
+         //       if (idbg.gt.0) then 
+         //         print *,'2 by 2 block' 
+         //         print *,'shift=',shift 
+         //         print *,'check shift=',-sn*abse+cs*abss 
+         //         print *,'check zero=',cs*abse+sn*abss 
+         //       endif 
         sig22(&s[m - 1], &e[m - 1], &s[m], &sigmn, &sigmx, &sinr, &cosr, &sinl,
               &cosl);
         s[m - 1] = sigmx;
@@ -5170,7 +5170,7 @@ L1003:
             drot(p, &v[ll*v_dim1 + 1], &c__1, &v[m*v_dim1 + 1], &c__1,
                  &cosr, &sinr);
         }
-        /*       if wantu and ll.eq.n, then rotation trivial */
+         //       if wantu and ll.eq.n, then rotation trivial 
         if (wantu && ll < *n) {
             drot(n, &u[ll*u_dim1 + 1], &c__1, &u[m*u_dim1 + 1], &c__1,
                  &cosl, &sinl);
@@ -5178,18 +5178,18 @@ L1003:
         goto L999;
     }
 
-    /*     choose shift direction if new submatrix */
-    /*     if (ll.ne.oldll .or. m.ne.oldm) then */
-    /*     choose shift direction if working on entirely new submatrix */
+     //     choose shift direction if new submatrix 
+     //     if (ll.ne.oldll .or. m.ne.oldm) then 
+     //     choose shift direction if working on entirely new submatrix 
     if (ll > oldm || m < oldll) {
         d__1 = s[ll];
         d__2 = s[m];
         if (((fabs(d__1)) >= (fabs(d__2)) && *iidir == 0) || *iidir == 1) {
-            /*         chase bulge from top (big end) to bottom (small end) */
-            /*         if m=n+1, chase from top to bottom even if s(ll)=0 */
+             //         chase bulge from top (big end) to bottom (small end) 
+             //         if m=n+1, chase from top to bottom even if s(ll)=0 
             idir = 1;
         } else {
-            /*         chase bulge from bottom (big end) to top (small end) */
+             //         chase bulge from bottom (big end) to top (small end) 
             idir = 2;
         }
     }
@@ -5197,73 +5197,73 @@ L1003:
         printf("idir=%ld\n", idir);
     }
 
-    /*     compute lower bound on smallest singular value */
-    /*     if old lower bound still good, do not recompute it */
-    /*     if (ll.ne.oldll .or. m.ne.oldm .or. oldacc.ne.1) then */
-    /*       compute lower bound */
-    /*       sminl = smin */
-    /*       oldacc = 1 */
-    /*       if (sminl.gt.0.0d0) then */
-    /*         if (idir.eq.1) then */
-    /*           do 1004 lll=ll,m-1 */
-    /*             abse = ABS(e(lll)) */
-    /*             abss = ABS(s(lll)) */
-    /*             if (abss.lt.abse) then */
-    /*               sminl = sminl*(abss/abse) */
-    /*               oldacc = -1 */
-    /*             endif */
-    /* L1004: */
-    /*         else */
-    /*           do 1005 lll=ll,m-1 */
-    /*             abse = ABS(e(lll)) */
-    /*             abss = ABS(s(lll+1)) */
-    /*             if (abss.lt.abse) then */
-    /*               sminl = sminl*(abss/abse) */
-    /*               oldacc = -1 */
-    /*             endif */
-    /* L1005: */
-    /*         endif */
-    /*       endif */
-    /*       oldll = ll */
-    /*       oldm = m */
-    /*       sminl is lower bound on smallest singular value */
-    /*       within a factor of sqrt(m*(m+1)/2) */
-    /*       if oldacc = 1 as well, sminl is also upper bound */
-    /*       note that smin is always an upper bound */
+     //     compute lower bound on smallest singular value 
+     //     if old lower bound still good, do not recompute it 
+     //     if (ll.ne.oldll .or. m.ne.oldm .or. oldacc.ne.1) then 
+     //       compute lower bound 
+     //       sminl = smin 
+     //       oldacc = 1 
+     //       if (sminl.gt.0.0d0) then 
+     //         if (idir.eq.1) then 
+     //           do 1004 lll=ll,m-1 
+     //             abse = ABS(e(lll)) 
+     //             abss = ABS(s(lll)) 
+     //             if (abss.lt.abse) then 
+     //               sminl = sminl*(abss/abse) 
+     //               oldacc = -1 
+     //             endif 
+     // L1004: 
+     //         else 
+     //           do 1005 lll=ll,m-1 
+     //             abse = ABS(e(lll)) 
+     //             abss = ABS(s(lll+1)) 
+     //             if (abss.lt.abse) then 
+     //               sminl = sminl*(abss/abse) 
+     //               oldacc = -1 
+     //             endif 
+     // L1005: 
+     //         endif 
+     //       endif 
+     //       oldll = ll 
+     //       oldm = m 
+     //       sminl is lower bound on smallest singular value 
+     //       within a factor of sqrt(m*(m+1)/2) 
+     //       if oldacc = 1 as well, sminl is also upper bound 
+     //       note that smin is always an upper bound 
 
-    /*       compute convergence threshold */
-    /*       thresh = tol*sminl */
-    /*     endif */
-    /*     if (idbg.gt.0) then */
-    /*       print *,'oldll,oldm,oldacc=',oldll,oldm,oldacc */
-    /*       print *,'sminl=',sminl */
-    /*       print *,'thresh=',thresh */
-    /*     endif */
+     //       compute convergence threshold 
+     //       thresh = tol*sminl 
+     //     endif 
+     //     if (idbg.gt.0) then 
+     //       print *,'oldll,oldm,oldacc=',oldll,oldm,oldacc 
+     //       print *,'sminl=',sminl 
+     //       print *,'thresh=',thresh 
+     //     endif 
 
-    /*     test again for convergence using new thresh */
-    /*     iconv = 0 */
-    /*     do 1014 lll=ll,m-1 */
-    /*       if (dabs(e(lll)).le.thresh) then */
-    /*         e(lll) = 0.0d0 */
-    /*         iconv = 1 */
-    /*       endif */
-    /* L1014: */
-    /*     if (iconv.eq.1) goto 999 */
+     //     test again for convergence using new thresh 
+     //     iconv = 0 
+     //     do 1014 lll=ll,m-1 
+     //       if (dabs(e(lll)).le.thresh) then 
+     //         e(lll) = 0.0d0 
+     //         iconv = 1 
+     //       endif 
+     // L1014: 
+     //     if (iconv.eq.1) goto 999 
 
-    /*     Kahan's convergence test */
+     //     Kahan's convergence test 
     sminl = (double)0.;
     if (*tol > (double)0.) {
         if (idir == 1) {
-            /*         forward direction */
-            /*         apply test on bottom 2 by 2 only */
+             //         forward direction 
+             //         apply test on bottom 2 by 2 only 
             d__1 = e[m - 1];
             d__2 = s[m];
             if ((fabs(d__1)) <= *tol*(fabs(d__2))) {
-                /*           convergence of bottom element */
+                 //           convergence of bottom element 
                 e[m - 1] = 0.;
                 goto L999;
             }
-            /*         apply test in forward direction */
+             //         apply test in forward direction 
             d__1 = s[ll];
             mu = (fabs(d__1));
             sminl = mu;
@@ -5271,7 +5271,7 @@ L1003:
             for (lll = ll; lll <= i__1; ++lll) {
                 d__1 = e[lll];
                 if ((fabs(d__1)) <= *tol*mu) {
-                    /*             test for negligibility satisfied */
+                     //             test for negligibility satisfied 
                     if (*idbg >= 1) {
                         printf("knew: e(lll),mu=%f,%f\n", e[lll], mu);
                     }
@@ -5283,19 +5283,19 @@ L1003:
                     mu = (fabs(d__1))*(mu / (mu + (fabs(d__2))));
                 }
                 sminl = min(sminl, mu);
-                /* L3330: */
+                 // L3330: 
             }
         } else {
-            /*         idir=2,  backwards direction */
-            /*         apply test on top 2 by 2 only */
+             //         idir=2,  backwards direction 
+             //         apply test on top 2 by 2 only 
             d__1 = e[ll];
             d__2 = s[ll];
             if ((fabs(d__1)) <= *tol*(fabs(d__2))) {
-                /*           convergence of top element */
+                 //           convergence of top element 
                 e[ll] = 0.;
                 goto L999;
             }
-            /*         apply test in backward direction */
+             //         apply test in backward direction 
             d__1 = s[m];
             lambda = (fabs(d__1));
             sminl = lambda;
@@ -5303,7 +5303,7 @@ L1003:
             for (lll = m - 1; lll >= i__1; --lll) {
                 d__1 = e[lll];
                 if ((fabs(d__1)) <= *tol*lambda) {
-                    /*             test for negligibility satisfied */
+                     //             test for negligibility satisfied 
                     if (*idbg >= 1) {
                         printf("knew: e(lll),lambda=%f,%f\n", e[lll], lambda);
                     }
@@ -5315,27 +5315,27 @@ L1003:
                     lambda = (fabs(d__1))*(lambda / (lambda + (fabs(d__2))));
                 }
                 sminl = min(sminl, lambda);
-                /* L3331: */
+                 // L3331: 
             }
         }
         thresh = *tol*sminl;
-        /*       thresh = 0 */
+         //       thresh = 0 
     }
     oldll = ll;
     oldm = m;
 
-    /*     test for zero shift */
+     //     test for zero shift 
     test = (double)nct*(*tol)*(sminl / smax) + 1.;
     if ((test == 1. && *ifull != 1 && *tol > (double)0.) || *ifull == 2) {
-        /*       do a zero shift so that roundoff does not contaminate */
-        /*       smallest singular value */
+         //       do a zero shift so that roundoff does not contaminate 
+         //       smallest singular value 
         shift = 0.;
         if (*idbg > 0) {
             printf("sminl test for shift is zero\n");
         }
     } else {
 
-        /*       compute shift from 2 by 2 block at end of matrix */
+         //       compute shift from 2 by 2 block at end of matrix 
         if (idir == 1) {
             smm1 = s[m - 1];
             emm1 = e[m - 1];
@@ -5369,10 +5369,10 @@ L1003:
             if (*idbg > 0) {
                 printf("temp=%f\n", temp);
             }
-            /* Computing 2nd power */
+             // Computing 2nd power 
             d__1 = temp;
             test = 1. - d__1*d__1;
-            /*         test to see if shift negligible */
+             //         test to see if shift negligible 
             if (*ifull != 1 && test == 1.) {
                 shift = 0.;
             }
@@ -5404,7 +5404,7 @@ L1003:
         }
     }
 
-    /*     increment iteration counter */
+     //     increment iteration counter 
     iter = iter + m - ll;
     ++(*kount);
     if (*idbg > 1) {
@@ -5412,11 +5412,11 @@ L1003:
         prse(&ll, &m, n, p, &s[1], &e[1]);
     }
 
-    /*     if shift = 0, do simplified qr iteration */
+     //     if shift = 0, do simplified qr iteration 
     if (shift == 0.) {
         *kount2 = *kount2 + m - ll;
 
-        /*       if idir=1, chase bulge from top to bottom */
+         //       if idir=1, chase bulge from top to bottom 
         if (idir == 1) {
             if (*idbg > 2) {
                 printf("qr with zero shift, top to bottom\n");
@@ -5426,14 +5426,14 @@ L1003:
             g = e[ll];
             i__1 = m - 1;
             for (k = ll; k <= i__1; ++k) {
-                /*           if (idbg.gt.2) print *,'qr inner loop, k=',k */
-                /*           if (idbg.gt.3) print *,'f,g=',f,g */
+                 //           if (idbg.gt.2) print *,'qr inner loop, k=',k 
+                 //           if (idbg.gt.3) print *,'f,g=',f,g 
                 ndrotg(&f, &g, &cs, &sn);
-                /* Computing MAX */
+                 // Computing MAX 
                 d__1 = *maxsin;
                 d__2 = fabs(sn);
                 *maxsin = max(d__1, d__2);
-                /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
+                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn 
                 if (wantv) {
                     drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1)*v_dim1 + 1],
                          &c__1, &cs, &sn);
@@ -5444,19 +5444,19 @@ L1003:
                 /*           if (k.ne.ll .and. idbg.gt.3) print *,'e(k-1)=',e(
                 k-1) */
                 f = oldcs*f;
-                /*           if (idbg.gt.3) print *,'f=',f */
+                 //           if (idbg.gt.3) print *,'f=',f 
                 temp = s[k + 1];
-                /*           if (idbg.gt.3) print *,'temp=',temp */
+                 //           if (idbg.gt.3) print *,'temp=',temp 
                 g = temp*sn;
-                /*           if (idbg.gt.3) print *,'g=',g */
+                 //           if (idbg.gt.3) print *,'g=',g 
                 gg = temp*cs;
-                /*           if (idbg.gt.3) print *,'gg=',gg */
+                 //           if (idbg.gt.3) print *,'gg=',gg 
                 ndrotg(&f, &g, &cs, &sn);
-                /* Computing MAX */
+                 // Computing MAX 
                 d__1 = *maxsin;
                 d__2 = fabs(sn);
                 *maxsin = max(d__1, d__2);
-                /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
+                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn 
                 /*           if wantu and k.eq.n, then s(k+1)=0 so g=0 so cs=1
                  and sn=0 */
                 if (wantu && k < *n) {
@@ -5464,24 +5464,24 @@ L1003:
                          &c__1, &cs, &sn);
                 }
                 s[k] = f;
-                /*           if (idbg.gt.3) print *,'s(k)=',s(k) */
+                 //           if (idbg.gt.3) print *,'s(k)=',s(k) 
                 f = gg;
-                /*           if (idbg.gt.3) print *,'f=',f */
+                 //           if (idbg.gt.3) print *,'f=',f 
                 g = e[k + 1];
-                /*           if (idbg.gt.3) print *,'g=',g */
+                 //           if (idbg.gt.3) print *,'g=',g 
                 oldcs = cs;
-                /*           if (idbg.gt.3) print *,'oldcs=',oldcs */
+                 //           if (idbg.gt.3) print *,'oldcs=',oldcs 
                 oldsn = sn;
-                /*           if (idbg.gt.3) print *,'oldsn=',oldsn */
-                /*           if (idbg.gt.2) call prse(ll,m,n,p,s,e) */
-                /* L1006: */
+                 //           if (idbg.gt.3) print *,'oldsn=',oldsn 
+                 //           if (idbg.gt.2) call prse(ll,m,n,p,s,e) 
+                 // L1006: 
             }
             e[m - 1] = gg*sn;
-            /*         if (idbg.gt.3) print *,'e(m-1)=',e(m-1) */
+             //         if (idbg.gt.3) print *,'e(m-1)=',e(m-1) 
             s[m] = gg*cs;
-            /*         if (idbg.gt.3) print *,'s(m)=',s(m) */
+             //         if (idbg.gt.3) print *,'s(m)=',s(m) 
 
-            /*         test convergence */
+             //         test convergence 
             if (*idbg > 0) {
                 printf("convergence decision for zero shift top to bottom\n");
                 printf("e(m-1), threshold=%f,%f\n", e[m - 1], thresh);
@@ -5495,7 +5495,7 @@ L1003:
                 e[m - 1] = 0.;
             }
         } else {
-            /*       (idir=2, so chase bulge from bottom to top) */
+             //       (idir=2, so chase bulge from bottom to top) 
             if (*idbg > 2) {
                 printf("qr with zero shift, bottom to top\n");
             }
@@ -5504,17 +5504,17 @@ L1003:
             g = e[m - 1];
             i__1 = ll + 1;
             for (k = m; k >= i__1; --k) {
-                /*           if (idbg.gt.2) print *,'qr inner loop, k=',k */
-                /*           if (idbg.gt.3) print *,'f,g=',f,g */
+                 //           if (idbg.gt.2) print *,'qr inner loop, k=',k 
+                 //           if (idbg.gt.3) print *,'f,g=',f,g 
                 ndrotg(&f, &g, &cs, &sn);
-                /* Computing MAX */
+                 // Computing MAX 
                 d__1 = *maxsin;
                 d__2 = fabs(sn);
                 *maxsin = max(d__1, d__2);
-                /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
+                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn 
                 /*           if m=n+1, always chase from top to bottom so no t
                 est for */
-                /*           k.lt.n necessary */
+                 //           k.lt.n necessary 
                 if (wantu) {
                     d__1 = -sn;
                     drot(n, &u[(k - 1)*u_dim1 + 1], &c__1, &u[k*u_dim1 + 1],
@@ -5526,45 +5526,45 @@ L1003:
                 /*           if (k.ne.m .and. idbg.gt.3) print *,'e(k)=',e(k)
                  */
                 f = oldcs*f;
-                /*           if (idbg.gt.3) print *,'f=',f */
+                 //           if (idbg.gt.3) print *,'f=',f 
                 temp = s[k - 1];
-                /*           if (idbg.gt.3) print *,'temp=',temp */
+                 //           if (idbg.gt.3) print *,'temp=',temp 
                 g = sn*temp;
-                /*           if (idbg.gt.3) print *,'g=',g */
+                 //           if (idbg.gt.3) print *,'g=',g 
                 gg = cs*temp;
-                /*           if (idbg.gt.3) print *,'gg=',gg */
+                 //           if (idbg.gt.3) print *,'gg=',gg 
                 ndrotg(&f, &g, &cs, &sn);
-                /* Computing MAX */
+                 // Computing MAX 
                 d__1 = *maxsin;
                 d__2 = fabs(sn);
                 *maxsin = max(d__1, d__2);
-                /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
+                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn 
                 if (wantv) {
                     d__1 = -sn;
                     drot(p, &v[(k - 1)*v_dim1 + 1], &c__1, &v[k*v_dim1 + 1],
                          &c__1, &cs, &d__1);
                 }
                 s[k] = f;
-                /*           if (idbg.gt.3) print *,'s(k)=',s(k) */
+                 //           if (idbg.gt.3) print *,'s(k)=',s(k) 
                 f = gg;
-                /*           if (idbg.gt.3) print *,'f=',f */
+                 //           if (idbg.gt.3) print *,'f=',f 
                 if (k != ll + 1) {
                     g = e[k - 2];
                 }
-                /*           if (k.ne.ll+1 .and. idbg.gt.3) print *,'g=',g */
+                 //           if (k.ne.ll+1 .and. idbg.gt.3) print *,'g=',g 
                 oldcs = cs;
-                /*           if (idbg.gt.3) print *,'oldcs=',oldcs */
+                 //           if (idbg.gt.3) print *,'oldcs=',oldcs 
                 oldsn = sn;
-                /*           if (idbg.gt.3) print *,'oldsn=',oldsn */
-                /*           if (idbg.gt.2) call prse(ll,m,n,p,s,e) */
-                /* L1007: */
+                 //           if (idbg.gt.3) print *,'oldsn=',oldsn 
+                 //           if (idbg.gt.2) call prse(ll,m,n,p,s,e) 
+                 // L1007: 
             }
             e[ll] = gg*sn;
-            /*         if (idbg.gt.3) print *,'e(ll)=',e(ll) */
+             //         if (idbg.gt.3) print *,'e(ll)=',e(ll) 
             s[ll] = gg*cs;
-            /*         if (idbg.gt.3) print *,'s(ll)=',s(ll) */
+             //         if (idbg.gt.3) print *,'s(ll)=',s(ll) 
 
-            /*         test convergence */
+             //         test convergence 
             if (*idbg > 0) {
                 printf("convergence decision for zero shift bottom to top\n");
                 printf("e(ll), threshold=%f,%f\n", e[ll], thresh);
@@ -5580,10 +5580,10 @@ L1003:
             }
         }
     } else {
-        /*     (shift.ne.0, so do standard qr iteration) */
+         //     (shift.ne.0, so do standard qr iteration) 
         *kount1 = *kount1 + m - ll;
 
-        /*       if idir=1, chase bulge from top to bottom */
+         //       if idir=1, chase bulge from top to bottom 
         if (idir == 1) {
             if (*idbg > 2) {
                 printf("qr with nonzero shift, top to bottom\n");
@@ -5594,53 +5594,53 @@ L1003:
             g = e[ll];
             i__1 = m - 1;
             for (k = ll; k <= i__1; ++k) {
-                /*           if (idbg.gt.2) print *,'qr inner loop, k=',k */
-                /*           if (idbg.gt.3) print *,'f,g=',f,g */
+                 //           if (idbg.gt.2) print *,'qr inner loop, k=',k 
+                 //           if (idbg.gt.3) print *,'f,g=',f,g 
                 ndrotg(&f, &g, &cs, &sn);
-                /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
+                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn 
                 if (k != ll) {
                     e[k - 1] = f;
                 }
                 /*           if (k.ne.ll .and. idbg.gt.3) print *,'e(k-1)=',e(
                 k-1) */
                 f = cs*s[k] + sn*e[k];
-                /*           if (idbg.gt.3) print *,'f=',f */
+                 //           if (idbg.gt.3) print *,'f=',f 
                 e[k] = cs*e[k] - sn*s[k];
-                /*           if (idbg.gt.3) print *,'e(k)=',e(k) */
+                 //           if (idbg.gt.3) print *,'e(k)=',e(k) 
                 g = sn*s[k + 1];
-                /*           if (idbg.gt.3) print *,'g=',g */
+                 //           if (idbg.gt.3) print *,'g=',g 
                 s[k + 1] = cs*s[k + 1];
-                /*           if (idbg.gt.3) print *,'s(k+1)=',s(k+1) */
+                 //           if (idbg.gt.3) print *,'s(k+1)=',s(k+1) 
                 if (wantv) {
                     drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1)*v_dim1 + 1],
                          &c__1, &cs, &sn);
                 }
                 ndrotg(&f, &g, &cs, &sn);
-                /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
+                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn 
                 s[k] = f;
-                /*           if (idbg.gt.3) print *,'s(k)=',s(k) */
+                 //           if (idbg.gt.3) print *,'s(k)=',s(k) 
                 f = cs*e[k] + sn*s[k + 1];
-                /*           if (idbg.gt.3) print *,'f=',f */
+                 //           if (idbg.gt.3) print *,'f=',f 
                 s[k + 1] = -sn*e[k] + cs*s[k + 1];
-                /*           if (idbg.gt.3) print *,'s(k+1)=',s(k+1) */
+                 //           if (idbg.gt.3) print *,'s(k+1)=',s(k+1) 
                 g = sn*e[k + 1];
-                /*           if (idbg.gt.3) print *,'g=',g */
+                 //           if (idbg.gt.3) print *,'g=',g 
                 e[k + 1] = cs*e[k + 1];
-                /*           if (idbg.gt.3) print *,'e(k+1)=',e(k+1) */
+                 //           if (idbg.gt.3) print *,'e(k+1)=',e(k+1) 
                 /*           test for k.lt.n seems unnecessary since k=n cause
                 s zero */
-                /*           shift, so test removed from original code */
+                 //           shift, so test removed from original code 
                 if (wantu) {
                     drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1)*u_dim1 + 1],
                          &c__1, &cs, &sn);
                 }
-                /*           if (idbg.gt.2) call prse(ll,m,n,p,s,e) */
-                /* L1008: */
+                 //           if (idbg.gt.2) call prse(ll,m,n,p,s,e) 
+                 // L1008: 
             }
             e[m - 1] = f;
-            /*         if (idbg.gt.3) print *,'e(m-1)=',e(m-1) */
+             //         if (idbg.gt.3) print *,'e(m-1)=',e(m-1) 
 
-            /*         check convergence */
+             //         check convergence 
             if (*idbg > 0) {
                 printf("convergence decision for shift top to bottom\n");
                 printf("e(m-1), threshold=%f,%f\n", e[m - 1], thresh);
@@ -5654,7 +5654,7 @@ L1003:
                 e[m - 1] = 0.;
             }
         } else {
-            /*       (idir=2, so chase bulge from bottom to top) */
+             //       (idir=2, so chase bulge from bottom to top) 
             if (*idbg > 2) {
                 printf("qr with nonzero shift, bottom to top\n");
             }
@@ -5663,54 +5663,54 @@ L1003:
             g = e[m - 1];
             i__1 = ll + 1;
             for (k = m; k >= i__1; --k) {
-                /*           if (idbg.gt.2) print *,'qr inner loop, k=',k */
-                /*           if (idbg.gt.3) print *,'f,g=',f,g */
+                 //           if (idbg.gt.2) print *,'qr inner loop, k=',k 
+                 //           if (idbg.gt.3) print *,'f,g=',f,g 
                 ndrotg(&f, &g, &cs, &sn);
-                /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
+                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn 
                 if (k != m) {
                     e[k] = f;
                 }
                 /*           if (k.ne.m .and. idbg.gt.3) print *,'e(k)=',e(k)
                  */
                 f = cs*s[k] + sn*e[k - 1];
-                /*           if (idbg.gt.3) print *,'f=',f */
+                 //           if (idbg.gt.3) print *,'f=',f 
                 e[k - 1] = -sn*s[k] + cs*e[k - 1];
-                /*           if (idbg.gt.3) print *,'e(k-1)=',e(k-1) */
+                 //           if (idbg.gt.3) print *,'e(k-1)=',e(k-1) 
                 g = sn*s[k - 1];
-                /*           if (idbg.gt.3) print *,'g=',g */
+                 //           if (idbg.gt.3) print *,'g=',g 
                 s[k - 1] = cs*s[k - 1];
-                /*           if (idbg.gt.3) print *,'s(k-1)=',s(k-1) */
+                 //           if (idbg.gt.3) print *,'s(k-1)=',s(k-1) 
                 if (wantu && k <= *n) {
                     d__1 = -sn;
                     drot(n, &u[(k - 1)*u_dim1 + 1], &c__1, &u[k*u_dim1 + 1],
                          &c__1, &cs, &d__1);
                 }
                 ndrotg(&f, &g, &cs, &sn);
-                /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
+                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn 
                 if (wantv) {
                     d__1 = -sn;
                     drot(p, &v[(k - 1)*v_dim1 + 1], &c__1, &v[k*v_dim1 + 1],
                          &c__1, &cs, &d__1);
                 }
                 s[k] = f;
-                /*           if (idbg.gt.3) print *,'s(k)=',s(k) */
+                 //           if (idbg.gt.3) print *,'s(k)=',s(k) 
                 f = sn*s[k - 1] + cs*e[k - 1];
-                /*           if (idbg.gt.3) print *,'f=',f */
+                 //           if (idbg.gt.3) print *,'f=',f 
                 s[k - 1] = cs*s[k - 1] - sn*e[k - 1];
-                /*           if (idbg.gt.3) print *,'s(k-1)=',s(k-1) */
+                 //           if (idbg.gt.3) print *,'s(k-1)=',s(k-1) 
                 if (k != ll + 1) {
                     g = sn*e[k - 2];
-                    /*             if (idbg.gt.3) print *,'g=',g */
+                     //             if (idbg.gt.3) print *,'g=',g 
                     e[k - 2] = cs*e[k - 2];
-                    /*             if (idbg.gt.3) print *,'e(k-2)=',e(k-2) */
+                     //             if (idbg.gt.3) print *,'e(k-2)=',e(k-2) 
                 }
-                /*           if (idbg.gt.2) call prse(ll,m,n,p,s,e) */
-                /* L1009: */
+                 //           if (idbg.gt.2) call prse(ll,m,n,p,s,e) 
+                 // L1009: 
             }
             e[ll] = f;
-            /*         if (idbg.gt.3) print *,'e(ll)=',e(ll) */
+             //         if (idbg.gt.3) print *,'e(ll)=',e(ll) 
 
-            /*         test convergence */
+             //         test convergence 
             if (*idbg > 0) {
                 printf("convergence decision for shift bottom to top\n");
                 printf("e(ll), threshold=%f,%f\n", e[ll], thresh);
@@ -5732,12 +5732,12 @@ L1003:
         prse(&ll, &m, n, p, &s[1], &e[1]);
     }
 
-    /*     qr iteration finished, go back to check convergence */
+     //     qr iteration finished, go back to check convergence 
     goto L999;
 
 L998:
 
-    /*     make singular values positive */
+     //     make singular values positive 
     m = min(*n, *p);
     i__1 = m;
     for (i__ = 1; i__ <= i__1; ++i__) {
@@ -5747,14 +5747,14 @@ L998:
                 dscal(p, &c_b367, &v[i__*v_dim1 + 1], &c__1);
             }
         }
-        /* L1010: */
+         // L1010: 
     }
 
-    /*     sort singular values from largest at top to smallest */
-    /*     at bottom (use insertion sort) */
+     //     sort singular values from largest at top to smallest 
+     //     at bottom (use insertion sort) 
     i__1 = m - 1;
     for (i__ = 1; i__ <= i__1; ++i__) {
-        /*       scan for smallest s(j) */
+         //       scan for smallest s(j) 
         iisub = 1;
         smin = s[1];
         i__2 = m + 1 - i__;
@@ -5763,10 +5763,10 @@ L998:
                 iisub = j;
                 smin = s[j];
             }
-            /* L1012: */
+             // L1012: 
         }
         if (iisub != m + 1 - i__) {
-            /*         swap singular values, vectors */
+             //         swap singular values, vectors 
             temp = s[m + 1 - i__];
             s[m + 1 - i__] = s[iisub];
             s[iisub] = temp;
@@ -5779,20 +5779,20 @@ L998:
                       &u[iisub*u_dim1 + 1], &c__1);
             }
         }
-        /* L1011: */
+         // L1011: 
     }
 
-    /*     finished, return */
+     //     finished, return 
     return 0;
 
 L997:
-    /*     maximum number of iterations exceeded */
+     //     maximum number of iterations exceeded 
     for (i__ = m - 1; i__ >= 1; --i__) {
         *info = i__ + 1;
         if (e[i__] != 0.) {
             goto L996;
         }
-        /* L1013: */
+         // L1013: 
     }
 L996:
     return 0;
@@ -5800,24 +5800,24 @@ L996:
 
 int32
 prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
-    /* Format strings */
+     // Format strings 
 
     int64 i__1;
 
-    /* Builtin functions */
+     // Builtin functions 
 
     static int64 i__;
 
     (void)nrow;
 
-    /* Fortran I/O blocks */
+     // Fortran I/O blocks 
 
-    /*     debug routine to print s,e */
-    /* Parameter adjustments */
+     //     debug routine to print s,e 
+     // Parameter adjustments 
     --e;
     --s;
 
-    /* Function Body */
+     // Function Body 
     printf("                      s(.)                       e(.) for "
            "ll,m=%ld,%ld\n",
            (*ll), (*m));
@@ -5825,7 +5825,7 @@ prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
     for (i__ = *ll; i__ <= i__1; ++i__) {
         printf("%26.17f %26.17f\n", s[i__], e[i__]);
 
-        /* L1: */
+         // L1: 
     }
     if (*m >= *ncol) {
         printf("%26.17f\n", s[*m]);
@@ -5851,40 +5851,40 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
 
     static double bac;
 
-    /*     compute the singular value decomposition of the 2 by 2 */
-    /*     upper triangular matrix [[a,b];[0,c]] */
-    /*     inputs - */
-    /*       a,b,c - real*8 - matrix entries */
-    /*     outputs - */
-    /*       sigmin - real*8 - +-smaller singular value */
-    /*       sigmax - real*8 - +-larger singular value */
-    /*       snr, csr - real*8 - sin and cos of right rotation (see below) */
-    /*       snl, csl - real*8 - sin and cos of left rotation (see below) */
+     //     compute the singular value decomposition of the 2 by 2 
+     //     upper triangular matrix [[a,b];[0,c]] 
+     //     inputs - 
+     //       a,b,c - real*8 - matrix entries 
+     //     outputs - 
+     //       sigmin - real*8 - +-smaller singular value 
+     //       sigmax - real*8 - +-larger singular value 
+     //       snr, csr - real*8 - sin and cos of right rotation (see below) 
+     //       snl, csl - real*8 - sin and cos of left rotation (see below) 
 
-    /*       [  csl  snl ]  * [ a b ]*[ csr  -snr ] = [ sigmax    0   ] */
-    /*       [ -snl  csl ]    [ 0 c ]   [ snr   csr ]   [    0   sigmin ] */
+     //       [  csl  snl ]  * [ a b ]*[ csr  -snr ] = [ sigmax    0   ] 
+     //       [ -snl  csl ]    [ 0 c ]   [ snr   csr ]   [    0   sigmin ] 
 
-    /*     barring over/underflow all output quantities are correct to */
-    /*     within a few units in their last places */
+     //     barring over/underflow all output quantities are correct to 
+     //     within a few units in their last places 
 
-    /*     let UF denote the underflow and OF the overflow threshold */
-    /*     let eps denote the machine precision */
+     //     let UF denote the underflow and OF the overflow threshold 
+     //     let eps denote the machine precision 
 
-    /*     overflow is impossible unless the true value of sigmax exceeds */
-    /*     OF (or does so within a few units in its last place) */
+     //     overflow is impossible unless the true value of sigmax exceeds 
+     //     OF (or does so within a few units in its last place) 
 
-    /*     underflow cannot adversely effect sigmin,sigmax unless they are */
-    /*     less than UF/eps for conventional underflow */
-    /*     underflow cannot adversely effect sigmin,sigmax if underflow is */
-    /*     gradual and results normalized */
+     //     underflow cannot adversely effect sigmin,sigmax unless they are 
+     //     less than UF/eps for conventional underflow 
+     //     underflow cannot adversely effect sigmin,sigmax if underflow is 
+     //     gradual and results normalized 
 
-    /*     overflow is impossible in computing sinr, cosr, sinl, cosl */
-    /*     underflow can adversely effect results only if sigmax<UF/eps */
-    /*     or true angle of rotation < UF/eps */
+     //     overflow is impossible in computing sinr, cosr, sinl, cosl 
+     //     underflow can adversely effect results only if sigmax<UF/eps 
+     //     or true angle of rotation < UF/eps 
 
-    /*     note: if c=0, then csl=1. and snl=0. (needed in general svd) */
+     //     note: if c=0, then csl=1. and snl=0. (needed in general svd) 
 
-    /*     local variables: */
+     //     local variables: 
 
     absa = fabs(*a);
     absb = fabs(*b);
@@ -5894,50 +5894,50 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
     sgnc = d_sign(c_b170, *c__);
     acmn = min(absa, absc);
     acmx = max(absa, absc);
-    /*     bad underflow possible if acmx<UF/eps and standard underflow */
-    /*     underflow impossible if underflow gradual */
-    /*     either at=0 or eps/2 <= at <= 1 */
-    /*     if no or gradual underflow, at nearly correctly rounded */
+     //     bad underflow possible if acmx<UF/eps and standard underflow 
+     //     underflow impossible if underflow gradual 
+     //     either at=0 or eps/2 <= at <= 1 
+     //     if no or gradual underflow, at nearly correctly rounded 
     at = acmx - acmn;
     if (at != (double)0.) {
         at /= acmx;
     }
 
-    /*     compute sigmin, sigmax */
+     //     compute sigmin, sigmax 
 
     if (absb < acmx) {
-        /*         fabs(bac) <= 1, underflow possible */
+         //         fabs(bac) <= 1, underflow possible 
         if (absa < absc) {
             bac = *b / *c__;
         } else {
             bac = *b / *a;
         }
-        /*         1 <= as <= 2, underflow and roundoff harmless */
+         //         1 <= as <= 2, underflow and roundoff harmless 
         as = acmn / acmx + 1.;
-        /*         0 <= au <= 1, underflow possible */
+         //         0 <= au <= 1, underflow possible 
         au = bac*bac;
-        /*         1 <= temp1 <= sqrt(5), underflow, roundoff harmless */
+         //         1 <= temp1 <= sqrt(5), underflow, roundoff harmless 
         temp1 = sqrt(as*as + au);
-        /*         0 <= temp2 <= 1, possible harmful underflow from at */
+         //         0 <= temp2 <= 1, possible harmful underflow from at 
         temp2 = sqrt(at*at + au);
-        /*         1 <= temp <= sqrt(5) + sqrt(2) */
+         //         1 <= temp <= sqrt(5) + sqrt(2) 
         temp = temp1 + temp2;
         *sigmin = acmn / temp;
         *sigmin += *sigmin;
         *sigmax = acmx*(temp / (double)2.);
     } else {
         if (absb == (double)0.) {
-            /*             matrix identically zero */
+             //             matrix identically zero 
             *sigmin = (double)0.;
             *sigmax = (double)0.;
         } else {
-            /*             0 <= au <= 1, underflow possible */
+             //             0 <= au <= 1, underflow possible 
             au = acmx / absb;
             if (au == 0.) {
-                /*                 either au=0 exactly or underflows */
+                 //                 either au=0 exactly or underflows 
                 /*                 sigmin only underflows if true value should
                  */
-                /*                 overflow on product acmn*acmx impossible */
+                 //                 overflow on product acmn*acmx impossible 
                 *sigmin = acmx*acmn / absb;
                 *sigmax = absb;
             } else {
@@ -5946,13 +5946,13 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 as = acmn / acmx + 1.;
                 /*                 2 <= temp <= sqrt(5)+sqrt(2), possible harm
                 ful */
-                /*                 underflow from at */
-                /* Computing 2nd power */
+                 //                 underflow from at 
+                 // Computing 2nd power 
                 d__1 = as*au;
-                /* Computing 2nd power */
+                 // Computing 2nd power 
                 d__2 = at*au;
                 temp = sqrt(d__1*d__1 + 1.) + sqrt(d__2*d__2 + 1.);
-                /*                 0 < sigmin <= 2 */
+                 //                 0 < sigmin <= 2 
                 *sigmin = au + au;
                 /*                 bad underflow possible only if true sigmin
                 near UF */
@@ -5962,23 +5962,23 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
         }
     }
 
-    /*     compute rotations */
+     //     compute rotations 
 
     if (absb <= acmx) {
         if (at == 0.) {
             /*             assume as = 2, since otherwise underflow will have
              */
-            /*             contaminated at so much that we get a bad answer */
-            /*             anyway; this can only happen if sigmax < UF/eps */
-            /*             with conventional underflow; this cannot happen */
-            /*             with gradual underflow */
+             //             contaminated at so much that we get a bad answer 
+             //             anyway; this can only happen if sigmax < UF/eps 
+             //             with conventional underflow; this cannot happen 
+             //             with gradual underflow 
             if (absb > 0.) {
-                /*                 0 <= absbac <= 1 */
+                 //                 0 <= absbac <= 1 
                 absbac = absb / acmx;
                 /*                 1 <= temp3 <= 1+sqrt(5), underflow harmless
                  */
                 temp3 = absbac + sqrt(au + 4.);
-                /*                 1/3 <= temp3 <= (1+sqrt(10))/2 */
+                 //                 1/3 <= temp3 <= (1+sqrt(10))/2 
                 temp3 /= absbac*temp3 + 2.;
                 sinr = d_sign(c_b170, *b);
                 cosr = d_sign(temp3, *a);
@@ -5987,7 +5987,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 sgnmn = sgna*sgnb*sgnc;
                 sgnmx = sgnb;
             } else {
-                /*                 matrix diagonal */
+                 //                 matrix diagonal 
                 sinr = 0.;
                 cosr = 1.;
                 sinl = 0.;
@@ -5996,21 +5996,21 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 sgnmx = sgna;
             }
         } else {
-            /*             at .ne. 0, so eps/2 <= at <= 1 */
-            /*             eps/2 <= temp3 <= 1 + sqrt(10) */
+             //             at .ne. 0, so eps/2 <= at <= 1 
+             //             eps/2 <= temp3 <= 1 + sqrt(10) 
             temp3 = au + temp1*temp2;
             if (absa < absc) {
-                /*                 fabs(ac) <= 1 */
+                 //                 fabs(ac) <= 1 
                 ac = *a / *c__;
-                /*                 eps <= sinr <= sqrt(13)+3 */
-                /* Computing 2nd power */
+                 //                 eps <= sinr <= sqrt(13)+3 
+                 // Computing 2nd power 
                 d__1 = as*at + au;
                 sinr = sqrt(d__1*d__1 + ac*4.*ac*au) + as*at + au;
                 /*                 fabs(cosr) <= 2; if underflow, true cosr<UF/
                 eps */
                 cosr = ac*bac;
                 cosr += cosr;
-                /*                 eps/(3+sqrt(10)) <= sinl <= 1 */
+                 //                 eps/(3+sqrt(10)) <= sinl <= 1 
                 sinl = (as*at + temp3) / (ac*ac + 1. + temp3);
                 /*                 bad underflow possible only if sigmax < UF/
                 eps */
@@ -6019,7 +6019,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 sgnmn = sgna*sgnc;
                 sgnmx = (double)1.;
             } else {
-                /*                 fabs(ca) <= 1 */
+                 //                 fabs(ca) <= 1 
                 ca = *c__ / *a;
                 sinr = *b;
                 cosr = (as*at + temp3) / (ca*ca + 1. + temp3);
@@ -6028,8 +6028,8 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 eps */
                 sinl = ca*bac;
                 sinl += sinl;
-                /*                 eps <= cosl <= sqrt(13)+3 */
-                /* Computing 2nd power */
+                 //                 eps <= cosl <= sqrt(13)+3 
+                 // Computing 2nd power 
                 d__1 = as*at + au;
                 cosl = sqrt(d__1*d__1 + ca*4.*ca*au) + as*at + au;
                 sgnmn = sgna*sgnc;
@@ -6047,7 +6047,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
              */
             /*             absa-sigmin; overflow extremely unlikely, and in an
             y */
-            /*             event only if sigmax overflows as well */
+             //             event only if sigmax overflows as well 
             cosr = (absa - *sigmin)*(d_sign(c_b170, *a) + *sigmin / *a);
             ia = 1;
         }
@@ -6061,7 +6061,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
              */
             /*             absc-sigmin; overflow extremely unlikely, and in an
             y */
-            /*             event only if sigmax overflows as well */
+             //             event only if sigmax overflows as well 
             sinl = (absc - *sigmin)*(d_sign(c_b170, *c__) + *sigmin / *c__);
             ib = 1;
         }
@@ -6094,10 +6094,10 @@ sigmin(double *a, double *b, double *c__) {
 
     static double acmn, acmx, aa, ab, ac, as, at, au;
 
-    /*     compute smallest singular value of 2 by 2 matrix ((a,b);(0,c)) */
-    /*     answer is accurate to a few ulps if final answer */
-    /*     exceeds (underflow_threshold/macheps) */
-    /*     overflow is impossible */
+     //     compute smallest singular value of 2 by 2 matrix ((a,b);(0,c)) 
+     //     answer is accurate to a few ulps if final answer 
+     //     exceeds (underflow_threshold/macheps) 
+     //     overflow is impossible 
     aa = fabs(*a);
     ab = fabs(*b);
     ac = fabs(*c__);
@@ -6110,7 +6110,7 @@ sigmin(double *a, double *b, double *c__) {
         if (ab < acmx) {
             as = acmn / acmx + 1.;
             at = (acmx - acmn) / acmx;
-            /* Computing 2nd power */
+             // Computing 2nd power 
             d__1 = ab / acmx;
             au = d__1*d__1;
             ret_val = acmn / (sqrt(as*as + au) + sqrt(at*at + au));
@@ -6118,17 +6118,17 @@ sigmin(double *a, double *b, double *c__) {
         } else {
             au = acmx / ab;
             if (au == 0.) {
-                /*           possible harmful underflow */
+                 //           possible harmful underflow 
                 /*           if exponent range asymmetric, true sigmin may not
                  */
-                /*           underflow */
+                 //           underflow 
                 ret_val = acmn*acmx / ab;
             } else {
                 as = acmn / acmx + 1.;
                 at = (acmx - acmn) / acmx;
-                /* Computing 2nd power */
+                 // Computing 2nd power 
                 d__1 = as*au;
-                /* Computing 2nd power */
+                 // Computing 2nd power 
                 d__2 = at*au;
                 ret_val =
                     acmn / (sqrt(d__1*d__1 + 1.) + sqrt(d__2*d__2 + 1.));
@@ -6148,8 +6148,8 @@ sndrtg(double *f, double *g, double *cs, double *sn) {
 
     /*     version of ndrotg, in which
      * gear_sign(f)=gear_sign(cs),gear_sign(g)=gear_sign(sn) */
-    /*     cs, sn returned so that -sn*f+cs*g = 0 */
-    /*     and cs*f + sn*g = sqrt(f**2+g**2) */
+     //     cs, sn returned so that -sn*f+cs*g = 0 
+     //     and cs*f + sn*g = sqrt(f**2+g**2) 
     if (*f == 0. && *g == 0.) {
         *cs = 1.;
         *sn = 0.;
@@ -6197,61 +6197,61 @@ hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
     static double p, q, r__, s, t, w, x, y, z__, e1, e2;
 
     static int64 nl, it, mu, nu;
-    /* HQR3 REDUCES THE UPPER HESSENBERG MATRIX A TO QUASI- */
-    /* TRIANGULAR FORM BY UNITARY SIMILARITY TRANSFORMATIONS. */
-    /* THE EIGENVALUES OF A, WHICH ARE CONTAINED IN THE 1X1 */
-    /* AND 2X2 DIAGONAL BLOCKS OF THE REDUCED MATRIX, ARE */
-    /* ORDERED IN assending or DESCENDING ORDER OF ALONG THE */
-    /* DIAGONAL.  THE TRANSFORMATIONS ARE ACCUMULATED IN THE */
-    /* ARRAY V.  HQR3 REQUIRES THE SUBROUTINES EXCHNG, */
-    /* SUBROUTINE) */
-    /*    *A       AN ARRAY THAT INITIALLY CONTAINS THE N X N */
-    /*             UPPER HESSENBERG MATRIX TO BE REDUCED.  ON */
-    /*             RETURN A CONTAINS THE REDUCED, QUASI- */
-    /*             TRIANGULAR MATRIX. */
-    /*    *V       AN ARRAY THAT CONTAINS A MATRIX INTO WHICH */
-    /*             THE REDUCING TRANSFORMATIONS ARE TO BE */
-    /*             MULTIPLIED. */
-    /*     N       THE ORDER OF THE MATRICES A AND V. */
-    /*     NLOW    A(NLOW,NLOW-1) AND A(NUP,+1,NUP) ARE */
-    /*     NUP     ASSUMED TO BE ZERO, AND ONLY ROWS NLOW */
-    /*             THROUGH NUP AND COLUMNS NLOW THROUGH */
-    /*             NUP ARE TRANSFORMED, RESULTING IN THE */
-    /*             CALCULATION OF EIGENVALUES NLOW */
-    /*             THROUGH NUP. */
-    /*     EPS     A CONVERGENCE CRITERION. */
-    /*    *ER      AN ARRAY THAT ON RETURN CONTAINS THE REAL */
-    /*             PARTS OF THE EIGENVALUES. */
-    /*    *EI      AN ARRAY THAT ON RETURN CONTAINS THE */
-    /*             IMAGINARY PARTS OF THE EIGENVALUES. */
-    /*    *TYPE    AN int64 ARRAY WHOSE I-TH ENTRY IS */
-    /*               0   IF THE I-TH EIGENVALUE IS REAL, */
-    /*               1   IF THE I-TH EIGENVALUE IS COMPLEX */
-    /*                   WITH POSITIVE IMAGINARY PART. */
-    /*               2   IF THE I-TH EIGENVALUE IS COMPLEX */
-    /*                   WITH NEGATIVE IMAGINARY PART, */
-    /*              -1   IF THE I-TH EIGENVALUE WAS NOT */
-    /*                   CALCULATED SUCCESSFULLY. */
-    /*     NA      THE FIRST DIMENSION OF THE ARRAY A. */
-    /*     NV      THE FIRST DIMENSION OF THE ARRAY V. */
+     // HQR3 REDUCES THE UPPER HESSENBERG MATRIX A TO QUASI- 
+     // TRIANGULAR FORM BY UNITARY SIMILARITY TRANSFORMATIONS. 
+     // THE EIGENVALUES OF A, WHICH ARE CONTAINED IN THE 1X1 
+     // AND 2X2 DIAGONAL BLOCKS OF THE REDUCED MATRIX, ARE 
+     // ORDERED IN assending or DESCENDING ORDER OF ALONG THE 
+     // DIAGONAL.  THE TRANSFORMATIONS ARE ACCUMULATED IN THE 
+     // ARRAY V.  HQR3 REQUIRES THE SUBROUTINES EXCHNG, 
+     // SUBROUTINE) 
+     //    *A       AN ARRAY THAT INITIALLY CONTAINS THE N X N 
+     //             UPPER HESSENBERG MATRIX TO BE REDUCED.  ON 
+     //             RETURN A CONTAINS THE REDUCED, QUASI- 
+     //             TRIANGULAR MATRIX. 
+     //    *V       AN ARRAY THAT CONTAINS A MATRIX INTO WHICH 
+     //             THE REDUCING TRANSFORMATIONS ARE TO BE 
+     //             MULTIPLIED. 
+     //     N       THE ORDER OF THE MATRICES A AND V. 
+     //     NLOW    A(NLOW,NLOW-1) AND A(NUP,+1,NUP) ARE 
+     //     NUP     ASSUMED TO BE ZERO, AND ONLY ROWS NLOW 
+     //             THROUGH NUP AND COLUMNS NLOW THROUGH 
+     //             NUP ARE TRANSFORMED, RESULTING IN THE 
+     //             CALCULATION OF EIGENVALUES NLOW 
+     //             THROUGH NUP. 
+     //     EPS     A CONVERGENCE CRITERION. 
+     //    *ER      AN ARRAY THAT ON RETURN CONTAINS THE REAL 
+     //             PARTS OF THE EIGENVALUES. 
+     //    *EI      AN ARRAY THAT ON RETURN CONTAINS THE 
+     //             IMAGINARY PARTS OF THE EIGENVALUES. 
+     //    *TYPE    AN int64 ARRAY WHOSE I-TH ENTRY IS 
+     //               0   IF THE I-TH EIGENVALUE IS REAL, 
+     //               1   IF THE I-TH EIGENVALUE IS COMPLEX 
+     //                   WITH POSITIVE IMAGINARY PART. 
+     //               2   IF THE I-TH EIGENVALUE IS COMPLEX 
+     //                   WITH NEGATIVE IMAGINARY PART, 
+     //              -1   IF THE I-TH EIGENVALUE WAS NOT 
+     //                   CALCULATED SUCCESSFULLY. 
+     //     NA      THE FIRST DIMENSION OF THE ARRAY A. 
+     //     NV      THE FIRST DIMENSION OF THE ARRAY V. 
 
     /*     imfd    ascending or descending order of real part of eigenvalues
      */
-    /*              -1  ascending (i.e. negative eigenvalues first) */
-    /*              +1  descending (positive eigenvalues) */
+     //              -1  ascending (i.e. negative eigenvalues first) 
+     //              +1  descending (positive eigenvalues) 
 
-    /* THE CONVERGENCE CRITERION EPS IS USED TO DETERMINE */
-    /* WHEN A SUBDIAGONAL ELEMENT OF A IS NEGLIGIBLE. */
-    /* SPECIFICALLY A(I+1,I) IS REGARDED AS NEGLIGIBLE */
-    /* IF */
-    /*        FABS(A(I+1),I)) .LE. EPS*(FABS(A(I,I))+FABS(A(I+1,I+1))). */
-    /* THIS MEANS THAT THE FINAL MATRIX RETURNED BY THE */
-    /* PROGRAM WILL BE EXACTLY SIMILAR TO A + E WHERE E IS */
-    /* OF ORDER EPS*NORM(A), FOR ANY REASONABLY BALANCED NORM */
-    /* SUCH AS THE ROW-SUM NORM. */
-    /* INTERNAL VARIABLES */
-    /* INITIALIZE. */
-    /* Parameter adjustments */
+     // THE CONVERGENCE CRITERION EPS IS USED TO DETERMINE 
+     // WHEN A SUBDIAGONAL ELEMENT OF A IS NEGLIGIBLE. 
+     // SPECIFICALLY A(I+1,I) IS REGARDED AS NEGLIGIBLE 
+     // IF 
+     //        FABS(A(I+1),I)) .LE. EPS*(FABS(A(I,I))+FABS(A(I+1,I+1))). 
+     // THIS MEANS THAT THE FINAL MATRIX RETURNED BY THE 
+     // PROGRAM WILL BE EXACTLY SIMILAR TO A + E WHERE E IS 
+     // OF ORDER EPS*NORM(A), FOR ANY REASONABLY BALANCED NORM 
+     // SUCH AS THE ROW-SUM NORM. 
+     // INTERNAL VARIABLES 
+     // INITIALIZE. 
+     // Parameter adjustments 
     --type__;
     --ei;
     --er;
@@ -6262,14 +6262,14 @@ hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
     v_offset = v_dim1 + 1;
     v -= v_offset;
 
-    /* Function Body */
+     // Function Body 
     i__1 = *nup;
     for (i__ = *nlow; i__ <= i__1; ++i__) {
         type__[i__] = -1;
-        /* L10: */
+         // L10: 
     }
     t = 0.;
-    /* MAIN LOOP. FIND AND ORDER EIGENVALUES. */
+     // MAIN LOOP. FIND AND ORDER EIGENVALUES. 
     nu = *nup;
 L20:
     if (nu < *nlow) {
@@ -6279,7 +6279,7 @@ L20:
 /* QR LOOP.  FIND NEGLIGIBLE ELEMENTS AND PERFORM */
 /* QR STEPS. */
 L30:
-    /* SEARCH BACK FOR NEGLIGIBLE ELEMENTS. */
+     // SEARCH BACK FOR NEGLIGIBLE ELEMENTS. 
     l = nu;
 L40:
     if (l == *nlow) {
@@ -6294,8 +6294,8 @@ L40:
     --l;
     goto L40;
 L50:
-    /* TEST TO SEE IF AN EIGENVALUE OR A 2X2 BLOCK */
-    /* HAS BEEN FOUND. */
+     // TEST TO SEE IF AN EIGENVALUE OR A 2X2 BLOCK 
+     // HAS BEEN FOUND. 
     x = a[nu + nu*a_dim1];
     if (l == nu) {
         goto L160;
@@ -6305,33 +6305,33 @@ L50:
     if (l == nu - 1) {
         goto L100;
     }
-    /* TEST ITERATION COUNT. IF IT IS 30 QUIT.  IF */
-    /* IT IS 10 OR 20 SET UP AN AD-HOC SHIFT. */
+     // TEST ITERATION COUNT. IF IT IS 30 QUIT.  IF 
+     // IT IS 10 OR 20 SET UP AN AD-HOC SHIFT. 
     if (it == 30) {
         goto L240;
     }
     if (it != 10 && it != 20) {
         goto L70;
     }
-    /* AD-HOC SHIFT. */
+     // AD-HOC SHIFT. 
     t += x;
     i__1 = nu;
     for (i__ = *nlow; i__ <= i__1; ++i__) {
         a[i__ + i__*a_dim1] -= x;
-        /* L60: */
+         // L60: 
     }
     d__1 = a[nu + (nu - 1)*a_dim1];
     d__2 = a[nu - 1 + (nu - 2)*a_dim1];
     s = (fabs(d__1)) + (fabs(d__2));
     x = s*.75;
     y = x;
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__1 = s;
     w = d__1*d__1*-.4375;
 L70:
     ++it;
-    /* LOOK FOR TWO CONSECUTIVE SMALL SUB-DIAGONAL */
-    /* ELEMENTS. */
+     // LOOK FOR TWO CONSECUTIVE SMALL SUB-DIAGONAL 
+     // ELEMENTS. 
     nl = nu - 2;
 L80:
     z__ = a[nl + nl*a_dim1];
@@ -6357,7 +6357,7 @@ L80:
     --nl;
     goto L80;
 L90:
-    /* PERFORM A QR STEP BETWEEN NL AND NU. */
+     // PERFORM A QR STEP BETWEEN NL AND NU. 
     qrstep(&a[a_offset], &v[v_offset], &p, &q, &r__, &nl, &nu, n, na, nv);
     goto L30;
 /* 2X2 BLOCK FOUND. */
@@ -6373,16 +6373,16 @@ L100:
 /* LOOP TO POSITION  2X2 BLOCK. */
 L110:
     nl = mu - 1;
-    /* ATTEMPT  TO SPLIT THE BLOCK INTO TWO REAL */
-    /* EIGENVALUES. */
+     // ATTEMPT  TO SPLIT THE BLOCK INTO TWO REAL 
+     // EIGENVALUES. 
     split(&a[a_offset], &v[v_offset], n, &nl, &e1, &e2, na, nv);
-    /* IF THE SPLIT WAS SUCCESSFUL, GO AND ORDER THE */
-    /* REAL EIGENVALUES. */
+     // IF THE SPLIT WAS SUCCESSFUL, GO AND ORDER THE 
+     // REAL EIGENVALUES. 
     if (a[mu + (mu - 1)*a_dim1] == 0.) {
         goto L170;
     }
-    /* TEST TO SEE IF THE BLOCK IS PROPERLY POSITIONED, */
-    /* AND IF NOT EXCHANGE IT */
+     // TEST TO SEE IF THE BLOCK IS PROPERLY POSITIONED, 
+     // AND IF NOT EXCHANGE IT 
     if (mu == *nup) {
         goto L230;
     }
@@ -6392,9 +6392,9 @@ L110:
     if (a[mu + 2 + (mu + 1)*a_dim1] == 0.) {
         goto L130;
     }
-    /* THE NEXT BLOCK IS 2X2. */
-    /*     IF (A(MU-1,MU-1)*A(MU,MU)-A(MU-1,MU)*A(MU,MU-1).GE.A(MU+1, */
-    /*    * MU+1)*A(MU+2,MU+2)-A(MU+1,MU+2)*A(MU+2,MU+1)) GO TO 230 */
+     // THE NEXT BLOCK IS 2X2. 
+     //     IF (A(MU-1,MU-1)*A(MU,MU)-A(MU-1,MU)*A(MU,MU-1).GE.A(MU+1, 
+     //    * MU+1)*A(MU+2,MU+2)-A(MU+1,MU+2)*A(MU+2,MU+1)) GO TO 230 
 
     if (*imfd == 1) {
         if (a[mu - 1 + (mu - 1)*a_dim1] + a[mu + mu*a_dim1] >=
@@ -6422,9 +6422,9 @@ L120:
     mu += 2;
     goto L150;
 L130:
-    /* THE NEXT BLOCK IS 1X1. */
-    /*     IF (A(MU-1,MU-1)*A(MU,MU)-A(MU-1,MU)*A(MU,MU-1).GE.A(MU+1, */
-    /*    * MU+1)**2) GO TO 230 */
+     // THE NEXT BLOCK IS 1X1. 
+     //     IF (A(MU-1,MU-1)*A(MU,MU)-A(MU-1,MU)*A(MU,MU-1).GE.A(MU+1, 
+     //    * MU+1)**2) GO TO 230 
 
     if (*imfd == 1) {
         if (a[mu - 1 + (mu - 1)*a_dim1] + a[mu + mu*a_dim1] >=
@@ -6473,9 +6473,9 @@ L180:
     if (a[mu + 2 + (mu + 1)*a_dim1] == 0.) {
         goto L200;
     }
-    /* THE NEXT BLOCK IS 2X2. */
-    /*      IF (A(MU,MU)**2.GE.A(MU+1,MU+1)*A(MU+2,MU+2)-A(MU+1,MU+2)* */
-    /*    * A(MU+2,MU+1)) GO TO 220 */
+     // THE NEXT BLOCK IS 2X2. 
+     //      IF (A(MU,MU)**2.GE.A(MU+1,MU+1)*A(MU+2,MU+2)-A(MU+1,MU+2)* 
+     //    * A(MU+2,MU+1)) GO TO 220 
 
     if (*imfd == 1) {
         if (a[mu + mu*a_dim1]*2. >=
@@ -6502,8 +6502,8 @@ L190:
     mu += 2;
     goto L210;
 L200:
-    /* THE NEXT BLOCK IS 1X1. */
-    /*      IF (FABS(A(MU,MU)).GE.FABS(A(MU+1,MU+1))) GO TO 220 */
+     // THE NEXT BLOCK IS 1X1. 
+     //      IF (FABS(A(MU,MU)).GE.FABS(A(MU+1,MU+1))) GO TO 220 
 
     if (*imfd == 1) {
         if (a[mu + mu*a_dim1] >= a[mu + 1 + (mu + 1)*a_dim1]) {
@@ -6539,7 +6539,7 @@ L240:
     i__1 = nu;
     for (i__ = *nlow; i__ <= i__1; ++i__) {
         a[i__ + i__*a_dim1] += t;
-        /* L250: */
+         // L250: 
     }
 L260:
     nu = *nup;
@@ -6556,7 +6556,7 @@ L280:
     if (a[nu + (nu - 1)*a_dim1] == 0.) {
         goto L290;
     }
-    /* 2X2 BLOCK. */
+     // 2X2 BLOCK. 
     i__1 = nu - 1;
     split(&a[a_offset], &v[v_offset], n, &i__1, &e1, &e2, na, nv);
     if (a[nu + (nu - 1)*a_dim1] == 0.) {
@@ -6571,7 +6571,7 @@ L280:
     nu += -2;
     goto L300;
 L290:
-    /* SINGLE ROOT. */
+     // SINGLE ROOT. 
     er[nu] = a[nu + nu*a_dim1];
     ei[nu] = 0.;
     --nu;
@@ -6598,30 +6598,30 @@ split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
     static double p, q, r__, t, u, w, x, y, z__;
     static int64 l1;
 
-    /* GIVEN THE UPPER HESSENBERG MATRIX A WITH A 2X2 BLOCK */
-    /* STARTING AT A(L,L), SPLIT DETERMINES IF THE */
-    /* CORRESPONDING EIGENVALUES ARE REAL OR COMPLEX. IF THEY */
-    /* ARE REAL, A ROTATION IS DETERMINED THAT REDUCES THE */
-    /* BLOCK TO UPPER TRIANGULAR FORM WITH THE EIGENVALUE */
-    /* OF LARGEST ABSOLUTE VALUE APPEARING FIRST.  THE */
-    /* ROTATION IS ACCUMULATED IN V.  THE EIGENVALUES (REAL */
-    /* ALTERED BY THE SUBROUTINE) */
-    /*    *A       THE UPPER HESSENVERG MATRIX WHOSE 2X2 */
-    /*             BLOCK IS TO BE SPLIT. */
-    /*    *V       THE ARRAY IN WHICH THE SPLITTING TRANS- */
-    /*             FORMATION IS TO BE ACCUMULATED. */
-    /*     N       THE ORDER OF THE MATRIX A. */
-    /*     L       THE POSITION OF THE 2X2 BLOCK. */
-    /*    *E1      ON RETURN IF THE EIGENVALUES ARE COMPLEX */
-    /*    *E2      E1 CONTAINS THEIR COMMON REAL PART AND */
-    /*             E2 CONTAINS THE POSITIVE IMAGINARY PART. */
-    /*             IF THE EIGENVALUES ARE REAL, E1 CONTAINS */
-    /*             THE ONE LARGEST IN ABSOLUTE VALUE AND E2 */
-    /*             CONTAINS THE OTHER ONE. */
-    /*     NA      THE FIRST DIMENSION OF THE ARRAY A. */
-    /*     NV      THE FIRST DIMENSION OF THE ARRAY V. */
-    /* INTERNAL VARIABLES */
-    /* Parameter adjustments */
+     // GIVEN THE UPPER HESSENBERG MATRIX A WITH A 2X2 BLOCK 
+     // STARTING AT A(L,L), SPLIT DETERMINES IF THE 
+     // CORRESPONDING EIGENVALUES ARE REAL OR COMPLEX. IF THEY 
+     // ARE REAL, A ROTATION IS DETERMINED THAT REDUCES THE 
+     // BLOCK TO UPPER TRIANGULAR FORM WITH THE EIGENVALUE 
+     // OF LARGEST ABSOLUTE VALUE APPEARING FIRST.  THE 
+     // ROTATION IS ACCUMULATED IN V.  THE EIGENVALUES (REAL 
+     // ALTERED BY THE SUBROUTINE) 
+     //    *A       THE UPPER HESSENVERG MATRIX WHOSE 2X2 
+     //             BLOCK IS TO BE SPLIT. 
+     //    *V       THE ARRAY IN WHICH THE SPLITTING TRANS- 
+     //             FORMATION IS TO BE ACCUMULATED. 
+     //     N       THE ORDER OF THE MATRIX A. 
+     //     L       THE POSITION OF THE 2X2 BLOCK. 
+     //    *E1      ON RETURN IF THE EIGENVALUES ARE COMPLEX 
+     //    *E2      E1 CONTAINS THEIR COMMON REAL PART AND 
+     //             E2 CONTAINS THE POSITIVE IMAGINARY PART. 
+     //             IF THE EIGENVALUES ARE REAL, E1 CONTAINS 
+     //             THE ONE LARGEST IN ABSOLUTE VALUE AND E2 
+     //             CONTAINS THE OTHER ONE. 
+     //     NA      THE FIRST DIMENSION OF THE ARRAY A. 
+     //     NV      THE FIRST DIMENSION OF THE ARRAY V. 
+     // INTERNAL VARIABLES 
+     // Parameter adjustments 
     a_dim1 = *na;
     a_offset = a_dim1 + 1;
     a -= a_offset;
@@ -6629,23 +6629,23 @@ split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
     v_offset = v_dim1 + 1;
     v -= v_offset;
 
-    /* Function Body */
+     // Function Body 
     x = a[*l + 1 + (*l + 1)*a_dim1];
     y = a[*l + *l*a_dim1];
     w = a[*l + (*l + 1)*a_dim1]*a[*l + 1 + *l*a_dim1];
     p = (y - x) / 2.;
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__1 = p;
     q = d__1*d__1 + w;
     if (q >= 0.) {
         goto L10;
     }
-    /* COMPLEX EIGENVALUE. */
+     // COMPLEX EIGENVALUE. 
     *e1 = p + x;
     *e2 = sqrt(-q);
     return 0;
 L10:
-    /* TWO REAL EIGENVALUES.  SET UP TRANSFORMATION. */
+     // TWO REAL EIGENVALUES.  SET UP TRANSFORMATION. 
     z__ = sqrt(q);
     if (p < 0.) {
         goto L20;
@@ -6682,9 +6682,9 @@ L60:
     q = x;
     p = t;
 L70:
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__1 = p;
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__2 = q;
     r__ = sqrt(d__1*d__1 + d__2*d__2);
     if (r__ > 0.) {
@@ -6697,30 +6697,30 @@ L70:
 L80:
     p /= r__;
     q /= r__;
-    /* PREMULTIPLY. */
+     // PREMULTIPLY. 
     i__1 = *n;
     for (j = *l; j <= i__1; ++j) {
         z__ = a[*l + j*a_dim1];
         a[*l + j*a_dim1] = p*z__ + q*a[*l + 1 + j*a_dim1];
         a[*l + 1 + j*a_dim1] = p*a[*l + 1 + j*a_dim1] - q*z__;
-        /* L90: */
+         // L90: 
     }
-    /* POSTMULTIPLY. */
+     // POSTMULTIPLY. 
     l1 = *l + 1;
     i__1 = l1;
     for (i__ = 1; i__ <= i__1; ++i__) {
         z__ = a[i__ + *l*a_dim1];
         a[i__ + *l*a_dim1] = p*z__ + q*a[i__ + (*l + 1)*a_dim1];
         a[i__ + (*l + 1)*a_dim1] = p*a[i__ + (*l + 1)*a_dim1] - q*z__;
-        /* L100: */
+         // L100: 
     }
-    /* ACCUMULATE THE TRANSFORMATION IN V. */
+     // ACCUMULATE THE TRANSFORMATION IN V. 
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         z__ = v[i__ + *l*v_dim1];
         v[i__ + *l*v_dim1] = p*z__ + q*v[i__ + (*l + 1)*v_dim1];
         v[i__ + (*l + 1)*v_dim1] = p*v[i__ + (*l + 1)*v_dim1] - q*z__;
-        /* L110: */
+         // L110: 
     }
     a[*l + 1 + *l*a_dim1] = 0.;
     *e1 = a[*l + *l*a_dim1];
@@ -6744,32 +6744,32 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     static double p, q, r__, s, w, x, y, z__;
     static int64 l1, it;
 
-    /* GIVEN THE UPPER HESSENBERG MATRIX A WITH CONSECUTIVE */
-    /* B1XB1 AND B2XB2 DIAGONAL BLOCKS (B1,B2 .LE. 2) */
-    /* STARTING AT A(L,L), EXCHNG PRODUCES A UNITARY */
-    /* SIMILARITY TRANSFORMATION THAT EXCHANGES THE BLOCKS */
-    /* ALONG WITH THEIR EIGENVALUES.  THE TRANSFORMATION */
-    /* IS ACCUMULATED IN V.  EXCHNG REQUIRES THE SUBROUTINE */
-    /*    *A       THE MATRIX WHOSE BLOCKS ARE TO BE */
-    /*             INTERCHANGED. */
-    /*    *V       THE ARRAY INTO WHICH THE TRANSFORMATIONS */
-    /*             ARE TO BE ACCUMULATED. */
-    /*     N       THE ORDER OF THE MATRIX A. */
-    /*     L       THE POSITION OF THE BLOCKS. */
-    /*     B1      AN int64 CONTAINING THE SIZE OF THE */
-    /*             FIRST BLOCK. */
-    /*     B2      AN int64 CONTAINING THE SIZE OF THE */
-    /*             SECOND BLOCK. */
-    /*     EPS     A CONVERGENCE CRITERION (CF. HQR3). */
-    /*    *FAIL    A LOGICAL VARIABLE WHICH IS false ON A */
-    /*             NORMAL RETURN.  IF THIRTY ITERATIONS WERE */
-    /*             PERFORMED WITHOUT CONVERGENCE, FAIL IS SET */
-    /*             TO true AND THE ELEMENT */
-    /*             A(L+B2,L+B2-1) CANNOT BE ASSUMED ZERO. */
-    /*     NA      THE FIRST DIMENSION OF THE ARRAY A. */
-    /*     NV      THE FIRST DIMENSION OF THE ARRAY V. */
-    /* INTERNAL VARIABLES. */
-    /* Parameter adjustments */
+     // GIVEN THE UPPER HESSENBERG MATRIX A WITH CONSECUTIVE 
+     // B1XB1 AND B2XB2 DIAGONAL BLOCKS (B1,B2 .LE. 2) 
+     // STARTING AT A(L,L), EXCHNG PRODUCES A UNITARY 
+     // SIMILARITY TRANSFORMATION THAT EXCHANGES THE BLOCKS 
+     // ALONG WITH THEIR EIGENVALUES.  THE TRANSFORMATION 
+     // IS ACCUMULATED IN V.  EXCHNG REQUIRES THE SUBROUTINE 
+     //    *A       THE MATRIX WHOSE BLOCKS ARE TO BE 
+     //             INTERCHANGED. 
+     //    *V       THE ARRAY INTO WHICH THE TRANSFORMATIONS 
+     //             ARE TO BE ACCUMULATED. 
+     //     N       THE ORDER OF THE MATRIX A. 
+     //     L       THE POSITION OF THE BLOCKS. 
+     //     B1      AN int64 CONTAINING THE SIZE OF THE 
+     //             FIRST BLOCK. 
+     //     B2      AN int64 CONTAINING THE SIZE OF THE 
+     //             SECOND BLOCK. 
+     //     EPS     A CONVERGENCE CRITERION (CF. HQR3). 
+     //    *FAIL    A LOGICAL VARIABLE WHICH IS false ON A 
+     //             NORMAL RETURN.  IF THIRTY ITERATIONS WERE 
+     //             PERFORMED WITHOUT CONVERGENCE, FAIL IS SET 
+     //             TO true AND THE ELEMENT 
+     //             A(L+B2,L+B2-1) CANNOT BE ASSUMED ZERO. 
+     //     NA      THE FIRST DIMENSION OF THE ARRAY A. 
+     //     NV      THE FIRST DIMENSION OF THE ARRAY V. 
+     // INTERNAL VARIABLES. 
+     // Parameter adjustments 
     a_dim1 = *na;
     a_offset = a_dim1 + 1;
     a -= a_offset;
@@ -6777,7 +6777,7 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     v_offset = v_dim1 + 1;
     v -= v_offset;
 
-    /* Function Body */
+     // Function Body 
     *fail = false;
     if (*b1 == 2) {
         goto L70;
@@ -6785,11 +6785,11 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     if (*b2 == 2) {
         goto L40;
     }
-    /* INTERCHANGE 1X1 AND 1X1 BLOCKS. */
+     // INTERCHANGE 1X1 AND 1X1 BLOCKS. 
     l1 = *l + 1;
     q = a[*l + 1 + (*l + 1)*a_dim1] - a[*l + *l*a_dim1];
     p = a[*l + (*l + 1)*a_dim1];
-    /* Computing MAX */
+     // Computing MAX 
     d__1 = fabs(p);
     d__2 = fabs(q);
     r__ = max(d__1, d__2);
@@ -6798,9 +6798,9 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     }
     p /= r__;
     q /= r__;
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__1 = p;
-    /* Computing 2nd power */
+     // Computing 2nd power 
     d__2 = q;
     r__ = sqrt(d__1*d__1 + d__2*d__2);
     p /= r__;
@@ -6811,7 +6811,7 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
         a[*l + 1 + j*a_dim1] =
             p*a[*l + 1 + j*a_dim1] - q*a[*l + j*a_dim1];
         a[*l + j*a_dim1] = s;
-        /* L10: */
+         // L10: 
     }
     i__1 = l1;
     for (i__ = 1; i__ <= i__1; ++i__) {
@@ -6819,7 +6819,7 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
         a[i__ + (*l + 1)*a_dim1] =
             p*a[i__ + (*l + 1)*a_dim1] - q*a[i__ + *l*a_dim1];
         a[i__ + *l*a_dim1] = s;
-        /* L20: */
+         // L20: 
     }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
@@ -6827,12 +6827,12 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
         v[i__ + (*l + 1)*v_dim1] =
             p*v[i__ + (*l + 1)*v_dim1] - q*v[i__ + *l*v_dim1];
         v[i__ + *l*v_dim1] = s;
-        /* L30: */
+         // L30: 
     }
     a[*l + 1 + *l*a_dim1] = 0.;
     return 0;
 L40:
-    /* INTERCHANGE 1X1 AND 2X2 BLOCKS. */
+     // INTERCHANGE 1X1 AND 2X2 BLOCKS. 
     x = a[*l + *l*a_dim1];
     p = 1.;
     q = 1.;
@@ -6862,7 +6862,7 @@ L60:
     a[*l + 2 + (*l + 1)*a_dim1] = 0.;
     return 0;
 L70:
-    /* INTERCHANGE 2X2 AND B2XB2 BLOCKS. */
+     // INTERCHANGE 2X2 AND B2XB2 BLOCKS. 
     m = *l + 2;
     if (*b2 == 2) {
         ++m;
@@ -6922,25 +6922,25 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
     static double s, x, y, z__;
     static int64 nl2, nl3, num1;
 
-    /* QRSTEP PERFORMS ONE IMPLICIT QR STEP ON THE */
-    /* UPPER HESSENBERG MATRIX A.  THE SHIFT IS DETERMINED */
-    /* BY THE NUMBERS P,Q, AND R, AND THE STEP IS APPLIED TO */
-    /* ROWS AND COLUMNS NL THROUGH NU.  THE TRANSFORMATIONS */
-    /* SEQUENCE ARE (STARRED APRAMETERS ARE ALTERED BY THE */
-    /* SUBROUTINE) */
-    /*    *A       THE UPPER HESSENBERG MATRIX ON WHICH THE */
-    /*             QR STEP IS TO BE PERFORMED. */
-    /*    *V       THE ARRAY IN WHICH THE TRANSFORMATIONS */
-    /*             ARE TO BE ACCUMULATED */
-    /*    *Q */
-    /*    *R */
-    /*     NL      THE LOWER LIMIT OF THE STEP. */
-    /*     NU      THE UPPER LIMIT OF THE STEP. */
-    /*     N       THE ORDER OF THE MATRIX A. */
-    /*     NA      THE FIRST DIMENSION OF THE ARRAY A. */
-    /*     NV      THE FIRST DIMENSION OF THE ARRAY V. */
-    /* INTERNAL VARIABLES. */
-    /* Parameter adjustments */
+     // QRSTEP PERFORMS ONE IMPLICIT QR STEP ON THE 
+     // UPPER HESSENBERG MATRIX A.  THE SHIFT IS DETERMINED 
+     // BY THE NUMBERS P,Q, AND R, AND THE STEP IS APPLIED TO 
+     // ROWS AND COLUMNS NL THROUGH NU.  THE TRANSFORMATIONS 
+     // SEQUENCE ARE (STARRED APRAMETERS ARE ALTERED BY THE 
+     // SUBROUTINE) 
+     //    *A       THE UPPER HESSENBERG MATRIX ON WHICH THE 
+     //             QR STEP IS TO BE PERFORMED. 
+     //    *V       THE ARRAY IN WHICH THE TRANSFORMATIONS 
+     //             ARE TO BE ACCUMULATED 
+     //    *Q 
+     //    *R 
+     //     NL      THE LOWER LIMIT OF THE STEP. 
+     //     NU      THE UPPER LIMIT OF THE STEP. 
+     //     N       THE ORDER OF THE MATRIX A. 
+     //     NA      THE FIRST DIMENSION OF THE ARRAY A. 
+     //     NV      THE FIRST DIMENSION OF THE ARRAY V. 
+     // INTERNAL VARIABLES. 
+     // Parameter adjustments 
     a_dim1 = *na;
     a_offset = a_dim1 + 1;
     a -= a_offset;
@@ -6948,12 +6948,12 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
     v_offset = v_dim1 + 1;
     v -= v_offset;
 
-    /* Function Body */
+     // Function Body 
     nl2 = *nl + 2;
     i__1 = *nu;
     for (i__ = nl2; i__ <= i__1; ++i__) {
         a[i__ + (i__ - 2)*a_dim1] = 0.;
-        /* L10: */
+         // L10: 
     }
     if (nl2 == *nu) {
         goto L30;
@@ -6962,13 +6962,13 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
     i__1 = *nu;
     for (i__ = nl3; i__ <= i__1; ++i__) {
         a[i__ + (i__ - 3)*a_dim1] = 0.;
-        /* L20: */
+         // L20: 
     }
 L30:
     num1 = *nu - 1;
     i__1 = num1;
     for (k = *nl; k <= i__1; ++k) {
-        /* DETERMINE THE TRANSFORMATION. */
+         // DETERMINE THE TRANSFORMATION. 
         last = k == num1;
         if (k == *nl) {
             goto L40;
@@ -6987,11 +6987,11 @@ L30:
         *q /= x;
         *r__ /= x;
     L40:
-        /* Computing 2nd power */
+         // Computing 2nd power 
         d__1 = *p;
-        /* Computing 2nd power */
+         // Computing 2nd power 
         d__2 = *q;
-        /* Computing 2nd power */
+         // Computing 2nd power 
         d__3 = *r__;
         s = sqrt(d__1*d__1 + d__2*d__2 + d__3*d__3);
         if (*p < 0.) {
@@ -7013,7 +7013,7 @@ L30:
         z__ = *r__ / s;
         *q /= *p;
         *r__ /= *p;
-        /* PREMULTIPLY. */
+         // PREMULTIPLY. 
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             *p = a[k + j*a_dim1] + *q*a[k + 1 + j*a_dim1];
@@ -7025,10 +7025,10 @@ L30:
         L70:
             a[k + 1 + j*a_dim1] -= *p*y;
             a[k + j*a_dim1] -= *p*x;
-            /* L80: */
+             // L80: 
         }
-        /* POSTMULTIPLY. */
-        /* Computing MIN */
+         // POSTMULTIPLY. 
+         // Computing MIN 
         i__2 = k + 3;
         j = min(i__2, *nu);
         i__2 = j;
@@ -7042,9 +7042,9 @@ L30:
         L90:
             a[i__ + (k + 1)*a_dim1] -= *p**q;
             a[i__ + k*a_dim1] -= *p;
-            /* L100: */
+             // L100: 
         }
-        /* ACCUMULATE THE TRANSFORMATION IN V. */
+         // ACCUMULATE THE TRANSFORMATION IN V. 
         i__2 = *n;
         for (i__ = 1; i__ <= i__2; ++i__) {
             *p = x*v[i__ + k*v_dim1] + y*v[i__ + (k + 1)*v_dim1];
@@ -7056,7 +7056,7 @@ L30:
         L110:
             v[i__ + (k + 1)*v_dim1] -= *p**q;
             v[i__ + k*v_dim1] -= *p;
-            /* L120: */
+             // L120: 
         }
     L130:;
     }
@@ -7077,55 +7077,55 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
     static double scale;
     static int64 la, ii, jj, mp, kp1;
 
-    /*     this subroutine is a translation of the algol procedure orthes, */
-    /*     num. math. 12, 349-368(1968) by martin and wilkinson. */
-    /*     handbook for auto. comp., vol.ii-linear algebra, 339-358(1971). */
+     //     this subroutine is a translation of the algol procedure orthes, 
+     //     num. math. 12, 349-368(1968) by martin and wilkinson. 
+     //     handbook for auto. comp., vol.ii-linear algebra, 339-358(1971). 
 
-    /*     given a real general matrix, this subroutine */
-    /*     reduces a submatrix situated in rows and columns */
-    /*     low through igh to upper hessenberg form by */
-    /*     orthogonal similarity transformations. */
+     //     given a real general matrix, this subroutine 
+     //     reduces a submatrix situated in rows and columns 
+     //     low through igh to upper hessenberg form by 
+     //     orthogonal similarity transformations. 
 
-    /*     on input */
+     //     on input 
 
-    /*        nm must be set to the row dimension of two-dimensional */
-    /*          array parameters as declared in the calling program */
-    /*          dimension statement. */
+     //        nm must be set to the row dimension of two-dimensional 
+     //          array parameters as declared in the calling program 
+     //          dimension statement. 
 
-    /*        n is the order of the matrix. */
+     //        n is the order of the matrix. 
 
-    /*        low and igh are integers determined by the balancing */
-    /*          subroutine  balanc.  if  balanc  has not been used, */
-    /*          set low=1, igh=n. */
+     //        low and igh are integers determined by the balancing 
+     //          subroutine  balanc.  if  balanc  has not been used, 
+     //          set low=1, igh=n. 
 
-    /*        a contains the input matrix. */
+     //        a contains the input matrix. 
 
-    /*     on output */
+     //     on output 
 
-    /*        a contains the hessenberg matrix.  information about */
-    /*          the orthogonal transformations used in the reduction */
-    /*          is stored in the remaining triangle under the */
-    /*          hessenberg matrix. */
+     //        a contains the hessenberg matrix.  information about 
+     //          the orthogonal transformations used in the reduction 
+     //          is stored in the remaining triangle under the 
+     //          hessenberg matrix. 
 
-    /*        ort contains further information about the transformations. */
-    /*          only elements low through igh are used. */
+     //        ort contains further information about the transformations. 
+     //          only elements low through igh are used. 
 
-    /*     questions and comments should be directed to burton s. garbow, */
+     //     questions and comments should be directed to burton s. garbow, 
     /*     mathematics and computer science div, argonne national laboratory
      */
 
-    /*     this version dated august 1983. */
+     //     this version dated august 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /* Parameter adjustments */
+     // Parameter adjustments 
     a_dim1 = *nm;
     a_offset = a_dim1 + 1;
     a -= a_offset;
     --ort;
 
-    /* Function Body */
+     // Function Body 
     la = *igh - 1;
     kp1 = *low + 1;
     if (la < kp1) {
@@ -7141,7 +7141,7 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
          */
         i__2 = *igh;
         for (i__ = m; i__ <= i__2; ++i__) {
-            /* L90: */
+             // L90: 
             d__1 = a[i__ + (m - 1)*a_dim1];
             scale += (fabs(d__1));
         }
@@ -7150,62 +7150,62 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
             goto L180;
         }
         mp = m + *igh;
-        /*     .......... for i=igh step -1 until m do -- .......... */
+         //     .......... for i=igh step -1 until m do -- .......... 
         i__2 = *igh;
         for (ii = m; ii <= i__2; ++ii) {
             i__ = mp - ii;
             ort[i__] = a[i__ + (m - 1)*a_dim1] / scale;
             h__ += ort[i__]*ort[i__];
-            /* L100: */
+             // L100: 
         }
 
         d__1 = sqrt(h__);
         g = -d_sign(d__1, ort[m]);
         h__ -= ort[m]*g;
         ort[m] -= g;
-        /*     .......... form (i-(u*ut)/h)*a .......... */
+         //     .......... form (i-(u*ut)/h)*a .......... 
         i__2 = *n;
         for (j = m; j <= i__2; ++j) {
             f = 0.;
-            /*     .......... for i=igh step -1 until m do -- .......... */
+             //     .......... for i=igh step -1 until m do -- .......... 
             i__3 = *igh;
             for (ii = m; ii <= i__3; ++ii) {
                 i__ = mp - ii;
                 f += ort[i__]*a[i__ + j*a_dim1];
-                /* L110: */
+                 // L110: 
             }
 
             f /= h__;
 
             i__3 = *igh;
             for (i__ = m; i__ <= i__3; ++i__) {
-                /* L120: */
+                 // L120: 
                 a[i__ + j*a_dim1] -= f*ort[i__];
             }
 
-            /* L130: */
+             // L130: 
         }
-        /*     .......... form (i-(u*ut)/h)*a*(i-(u*ut)/h) .......... */
+         //     .......... form (i-(u*ut)/h)*a*(i-(u*ut)/h) .......... 
         i__2 = *igh;
         for (i__ = 1; i__ <= i__2; ++i__) {
             f = 0.;
-            /*     .......... for j=igh step -1 until m do -- .......... */
+             //     .......... for j=igh step -1 until m do -- .......... 
             i__3 = *igh;
             for (jj = m; jj <= i__3; ++jj) {
                 j = mp - jj;
                 f += ort[j]*a[i__ + j*a_dim1];
-                /* L140: */
+                 // L140: 
             }
 
             f /= h__;
 
             i__3 = *igh;
             for (j = m; j <= i__3; ++j) {
-                /* L150: */
+                 // L150: 
                 a[i__ + j*a_dim1] -= f*ort[j];
             }
 
-            /* L160: */
+             // L160: 
         }
 
         ort[m] = scale*ort[m];
@@ -7231,52 +7231,52 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
     static double g;
     static int64 i__, j, kl, mm, mp, mp1;
 
-    /*     this subroutine is a translation of the algol procedure ortrans, */
-    /*     num. math. 16, 181-204(1970) by peters and wilkinson. */
-    /*     handbook for auto. comp., vol.ii-linear algebra, 372-395(1971). */
+     //     this subroutine is a translation of the algol procedure ortrans, 
+     //     num. math. 16, 181-204(1970) by peters and wilkinson. 
+     //     handbook for auto. comp., vol.ii-linear algebra, 372-395(1971). 
 
-    /*     this subroutine accumulates the orthogonal similarity */
-    /*     transformations used in the reduction of a real general */
-    /*     matrix to upper hessenberg form by  orthes. */
+     //     this subroutine accumulates the orthogonal similarity 
+     //     transformations used in the reduction of a real general 
+     //     matrix to upper hessenberg form by  orthes. 
 
-    /*     on input */
+     //     on input 
 
-    /*        nm must be set to the row dimension of two-dimensional */
-    /*          array parameters as declared in the calling program */
-    /*          dimension statement. */
+     //        nm must be set to the row dimension of two-dimensional 
+     //          array parameters as declared in the calling program 
+     //          dimension statement. 
 
-    /*        n is the order of the matrix. */
+     //        n is the order of the matrix. 
 
-    /*        low and igh are integers determined by the balancing */
-    /*          subroutine  balanc.  if  balanc  has not been used, */
-    /*          set low=1, igh=n. */
+     //        low and igh are integers determined by the balancing 
+     //          subroutine  balanc.  if  balanc  has not been used, 
+     //          set low=1, igh=n. 
 
-    /*        a contains information about the orthogonal trans- */
-    /*          formations used in the reduction by  orthes */
-    /*          in its strict lower triangle. */
+     //        a contains information about the orthogonal trans- 
+     //          formations used in the reduction by  orthes 
+     //          in its strict lower triangle. 
 
-    /*        ort contains further information about the trans- */
-    /*          formations used in the reduction by  orthes. */
-    /*          only elements low through igh are used. */
+     //        ort contains further information about the trans- 
+     //          formations used in the reduction by  orthes. 
+     //          only elements low through igh are used. 
 
-    /*     on output */
+     //     on output 
 
-    /*        z contains the transformation matrix produced in the */
-    /*          reduction by  orthes. */
+     //        z contains the transformation matrix produced in the 
+     //          reduction by  orthes. 
 
-    /*        ort has been altered. */
+     //        ort has been altered. 
 
-    /*     questions and comments should be directed to burton s. garbow, */
+     //     questions and comments should be directed to burton s. garbow, 
     /*     mathematics and computer science div, argonne national laboratory
      */
 
-    /*     this version dated august 1983. */
+     //     this version dated august 1983. 
 
     /*     ------------------------------------------------------------------
      */
 
-    /*     .......... initialize z to identity matrix .......... */
-    /* Parameter adjustments */
+     //     .......... initialize z to identity matrix .......... 
+     // Parameter adjustments 
     z_dim1 = *nm;
     z_offset = z_dim1 + 1;
     z__ -= z_offset;
@@ -7285,24 +7285,24 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
     a_offset = a_dim1 + 1;
     a -= a_offset;
 
-    /* Function Body */
+     // Function Body 
     i__1 = *n;
     for (j = 1; j <= i__1; ++j) {
         i__2 = *n;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            /* L60: */
+             // L60: 
             z__[i__ + j*z_dim1] = 0.;
         }
 
         z__[j + j*z_dim1] = 1.;
-        /* L80: */
+         // L80: 
     }
 
     kl = *igh - *low - 1;
     if (kl < 1) {
         goto L200;
     }
-    /*     .......... for mp=igh-1 step -1 until low+1 do -- .......... */
+     //     .......... for mp=igh-1 step -1 until low+1 do -- .......... 
     i__1 = kl;
     for (mm = 1; mm <= i__1; ++mm) {
         mp = *igh - mm;
@@ -7313,7 +7313,7 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
 
         i__2 = *igh;
         for (i__ = mp1; i__ <= i__2; ++i__) {
-            /* L100: */
+             // L100: 
             ort[i__] = a[i__ + (mp - 1)*a_dim1];
         }
 
@@ -7323,7 +7323,7 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
 
             i__3 = *igh;
             for (i__ = mp; i__ <= i__3; ++i__) {
-                /* L110: */
+                 // L110: 
                 g += ort[i__]*z__[i__ + j*z_dim1];
             }
             /*     .......... divisor below is negative of h formed in orthes.
@@ -7334,11 +7334,11 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
 
             i__3 = *igh;
             for (i__ = mp; i__ <= i__3; ++i__) {
-                /* L120: */
+                 // L120: 
                 z__[i__ + j*z_dim1] += g*ort[i__];
             }
 
-            /* L130: */
+             // L130: 
         }
 
     L140:;

@@ -148,7 +148,7 @@ calc_q_calc(void) {
         }
     }
 
-    /* quit calc */
+     // quit calc 
     my_calc.use = 0;
     XSelectInput(display, my_calc.quit, SIMPMASK);
     browse_wait_a_sec(ClickTime);
@@ -170,14 +170,14 @@ calc_do_calc(char *temp, double *z) {
         return 1;
     }
     if (calc_has_eq(temp, val, &i)) {
-        newz = calc(&temp[i], &ok); /*  calculate quantity  */
+        newz = calc(&temp[i], &ok);  //  calculate quantity  
 
         if (ok == 0) {
             return -1;
         }
         i = init_conds_find_user_name(Param, val);
         if (i > -1) {
-            set_val(val, newz); /* a parameter set to value  */
+            set_val(val, newz);  // a parameter set to value  
             *z = newz;
             init_conds_redraw_params();
         } else {

@@ -69,7 +69,7 @@ conpar2_process(void *arg) {
     loop_start = ((conpar_parallel_arglist *)arg)->loop_start;
     loop_end = ((conpar_parallel_arglist *)arg)->loop_end;
 
-    /* In the default case we don't need to do anything special */
+     // In the default case we don't need to do anything special 
     if (global_conpar_type == CONPAR_DEFAULT)
         ;
     /* In the message passing case we set d to be
@@ -88,10 +88,10 @@ conpar2_process(void *arg) {
     else if (global_conpar_type == CONPAR_PTHREADS) {
     }
 
-    /* Note that the summation of the adjacent overlapped part of C */
+     // Note that the summation of the adjacent overlapped part of C 
     /* is delayed until REDUCE, in order to merge it with other
      * communications.*/
-    /* NA is the local NTST. */
+     // NA is the local NTST. 
 
     irf_dim1 = *nra;
     icf_dim1 = *nca;
@@ -104,7 +104,7 @@ conpar2_process(void *arg) {
     c_dim1 = *nca;
     c_dim2 = *nrc;
 
-    /* Condensation of parameters (Elimination of local variables). */
+     // Condensation of parameters (Elimination of local variables). 
     m1 = *nov + 1;
     m2 = *nca - *nov;
 
@@ -113,7 +113,7 @@ conpar2_process(void *arg) {
             ir1 = ic - *nov + 1;
             irp = ir1 - 1;
             icp1 = ic + 1;
-            /*	     **Search for pivot (Complete pivoting) */
+             //	     **Search for pivot (Complete pivoting) 
             piv = 0.0;
             ipiv = irp;
             jpiv = ic;
@@ -133,7 +133,7 @@ conpar2_process(void *arg) {
                     }
                 }
             }
-            /*	     **Move indices */
+             //	     **Move indices 
             itmp = icf[-1 + ic + i*icf_dim1];
             icf[-1 + ic + i*icf_dim1] = icf[-1 + jpiv + i*icf_dim1];
             icf[-1 + jpiv + i*icf_dim1] = itmp;
@@ -147,7 +147,7 @@ conpar2_process(void *arg) {
                     (int32)(a_dim1*(-1 + irf_irp_i + a_dim2*i));
                 int32 b_offset2 =
                     (int32)(b_dim1*(-1 + irf_irp_i + b_dim2*i));
-                /*	     **End of pivoting; elimination starts here */
+                 //	     **End of pivoting; elimination starts here 
                 for (ir = ir1; ir <= *nra; ++ir) {
                     int32 irf_ir_i = (int32)irf[-1 + ir + i*irf_dim1];
                     int32 a_offset1 =
@@ -203,7 +203,7 @@ conpar2_process(void *arg) {
                                a final summation back into global memory when
                                the main loop is done.
                             */
-                            /* Nothing special for the default case */
+                             // Nothing special for the default case 
                             if (global_conpar_type == CONPAR_DEFAULT) {
                                 d[l + d_offset1] -= rm*b[l + b_offset2];
                             }
@@ -256,7 +256,7 @@ int32
 conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
        double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
        int64 *icf) {
-    /* Aliases for the dimensions of the arrays */
+     // Aliases for the dimensions of the arrays 
     int64 icf_dim1;
     int64 irf_dim1;
 
@@ -270,7 +270,7 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
         return 0;
     }
 
-    /*     Initialization */
+     //     Initialization 
     for (int32 i = 0; i < *na; ++i) {
         for (int32 j = 0; j < *nra; ++j) {
             irf[j + i*irf_dim1] = j + 1;

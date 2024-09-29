@@ -53,14 +53,14 @@ int32 TypeOfCalc = 0;
 #define DI1 11
 #define HO2 12
 
-#define HI_P 0 /* uhi vs par */
-#define NR_P 1 /* norm vs par */
-#define HL_P 2 /* Hi and Lo vs par  periodic only */
-#define PE_P 3 /* period vs par   */
-#define P_P 4  /* param vs param  */
+#define HI_P 0  // uhi vs par 
+#define NR_P 1  // norm vs par 
+#define HL_P 2  // Hi and Lo vs par  periodic only 
+#define PE_P 3  // period vs par   
+#define P_P 4   // param vs param  
 
-#define FR_P 10 /* freq vs par   */
-#define AV_P 11 /* ubar vs par */
+#define FR_P 10  // freq vs par   
+#define AV_P 11  // ubar vs par 
 #define SPER 3
 #define UPER 4
 #define CSEQ 1
@@ -429,9 +429,9 @@ auto_nox_deletef(char *old) {
 
 void
 auto_nox_close(int32 flg) {
-    /* labels compatible with A2K  */
+     // labels compatible with A2K  
     char string[1000];
-    if (flg == 0) { /*Overwrite*/
+    if (flg == 0) {  //Overwrite
         sprintf(string, "%s.b", this_auto_file);
         auto_nox_renamef(fort7, string);
         sprintf(string, "%s.d", this_auto_file);
@@ -439,7 +439,7 @@ auto_nox_close(int32 flg) {
 
         sprintf(string, "%s.s", this_auto_file);
         auto_nox_renamef(fort8, string);
-    } else { /*APPEND*/
+    } else {  //APPEND
         sprintf(string, "%s.b", this_auto_file);
         auto_nox_appendf(fort7, string);
         sprintf(string, "%s.d", this_auto_file);
@@ -459,7 +459,7 @@ auto_nox_close(int32 flg) {
 
 void
 auto_nox_open(int32 flg) {
-    /* compatible with new auto */
+     // compatible with new auto 
     char *basec, *bname, *dirc, *dname;
     char *HOME;
 
@@ -494,12 +494,12 @@ void
 auto_nox_do(int32 iold, int32 isave) {
     auto_x11_redraw_menus();
 
-    /* auto_nox_set_auto */
+     // auto_nox_set_auto 
     /* this sets up all the continuation initialization
      * it is equivalent to reading in auto parameters
      * and running init in auto */
 
-    /* Caution - need to include NICP here */
+     // Caution - need to include NICP here 
     NAutoUzr = Auto.nper;
     autevd_init_auto(NODE, Auto.nfpar, Auto.ips, Auto.irs, Auto.ilp, Auto.ntst,
                      Auto.isp, Auto.isw, Auto.nmx, Auto.npr, Auto.ds,
@@ -507,11 +507,11 @@ auto_nox_do(int32 iold, int32 isave) {
                      Auto.a1, Auto.icp1, Auto.icp2, Auto.icp3, Auto.icp4,
                      Auto.icp5, Auto.epsl, Auto.epsu, Auto.epss, Auto.ncol);
 
-    auto_nox_open(iold); /* this copies the relevant files .s  to fort.3 */
+    auto_nox_open(iold);  // this copies the relevant files .s  to fort.3 
     go_go_auto();        /* this complets the initialization and calls the
                              main routines
                          */
-    /*     run_aut(Auto.nfpar,itp); THIS WILL CHANGE TO gogoauto stuff */
+     //     run_aut(Auto.nfpar,itp); THIS WILL CHANGE TO gogoauto stuff 
     auto_nox_close(isave); /* this copies fort.8 to the .s file and other
                           irrelevant stuff
                        */
@@ -763,7 +763,7 @@ auto_nox_plot_par(void) {
     }
 
     if (ch == key[9]) {
-        /* auto fit */
+         // auto fit 
         double xlo = Auto.xmin;
         double xhi = Auto.xmax;
         double ylo = Auto.ymin;
@@ -778,7 +778,7 @@ auto_nox_plot_par(void) {
         return;
     }
     if (ch == key[12]) {
-        /* auto default */
+         // auto default 
         Auto.xmin = auto_xmin;
         Auto.xmax = auto_xmax;
         Auto.ymin = auto_ymin;
@@ -790,7 +790,7 @@ auto_nox_plot_par(void) {
     if (ch == key[13]) {
         auto_x11_scroll();
         diagram_redraw();
-        /* printf("I am done scrolling!!"); */
+         // printf("I am done scrolling!!"); 
         return;
     }
     graf_par_ind_to_sym(i1, n1);
@@ -803,12 +803,12 @@ auto_nox_plot_par(void) {
     sprintf(values[6], "%g", Auto.ymax);
     status = pop_list_do_string_box(7, 7, 1, "AutoPlot", n, values, 31);
     if (status != 0) {
-        /*  get variable names  */
+         //  get variable names  
         browse_find_variable(values[0], &i);
         if (i > 0) {
             Auto.var = i - 1;
         }
-        /*  Now check the parameters  */
+         //  Now check the parameters  
         i1 = init_conds_find_user_name(PARAM_BOX, values[1]);
         if (i1 >= 0) {
             for (i = 0; i < NAutoPar; i++) {
@@ -878,7 +878,7 @@ auto_nox_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
         }
         dx = dx / 2;
         dy = dy / 2;
-        /*Shrink by thirds and center (track) about the point clicked*/
+         //Shrink by thirds and center (track) about the point clicked
         Auto.xmin = x1 - dx / 2;
         Auto.xmax = x1 + dx / 2;
         Auto.ymin = y1 - dy / 2;
@@ -930,7 +930,7 @@ auto_nox_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
         }
         dx = dx*2;
         dy = dy*2;
-        /*Shrink by thirds and center (track) about the point clicked*/
+         //Shrink by thirds and center (track) about the point clicked
         Auto.xmin = x1 - dx / 2;
         Auto.xmax = x1 + dx / 2;
         Auto.ymin = y1 - dy / 2;
@@ -1205,7 +1205,7 @@ auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
         par2 = par[icp2];
     }
     auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar,
-                     a); /* figure out who sits on axes */
+                     a);  // figure out who sits on axes 
     if (flg == 0) {
         Auto.lastx = x;
         Auto.lasty = y1;
@@ -1481,7 +1481,7 @@ auto_nox_win(void) {
 
 void
 auto_nox_load_last_plot(int32 flg) {
-    if (flg == 1) { /* one parameter */
+    if (flg == 1) {  // one parameter 
         Auto.xmin = Old1p.xmin;
         Auto.xmax = Old1p.xmax;
         Auto.ymin = Old1p.ymin;
@@ -1491,7 +1491,7 @@ auto_nox_load_last_plot(int32 flg) {
         Auto.plot = Old1p.plot;
         Auto.var = Old1p.var;
     }
-    if (flg == 2) { /* two parameter */
+    if (flg == 2) {  // two parameter 
         Auto.xmin = Old2p.xmin;
         Auto.xmax = Old2p.xmax;
         Auto.ymin = Old2p.ymin;
@@ -1506,7 +1506,7 @@ auto_nox_load_last_plot(int32 flg) {
 
 void
 auto_nox_keep_last_plot(int32 flg) {
-    if (flg == 1) { /* one parameter */
+    if (flg == 1) {  // one parameter 
         Old1p.xmin = Auto.xmin;
         Old1p.xmax = Auto.xmax;
         Old1p.ymin = Auto.ymin;
@@ -1553,7 +1553,7 @@ auto_nox_init_win(void) {
         Auto_index_to_array[i] = get_param_index(upar_names[AutoPar[i]]);
     }
     Auto.nper = 0;
-    grabpt.flag = 0; /*  no point in buffer  */
+    grabpt.flag = 0;  //  no point in buffer  
     Auto.exist = 0;
     blrtn.irot = 0;
     for (i = 0; i < NODE; i++) {
@@ -1562,7 +1562,7 @@ auto_nox_init_win(void) {
     blrtn.torper = TOR_PERIOD;
 
     {
-        /* auto nox create file name */
+         // auto nox create file name 
         char *basec, *bname, *dirc, *dname;
         char *HOME;
 
@@ -1579,7 +1579,7 @@ auto_nox_init_win(void) {
         sprintf(this_auto_file, "%s/%s", HOME, bname);
     }
 
-    /*  Control -- done automatically   */
+     //  Control -- done automatically   
     Auto.irs = 0;
     Auto.ips = 1;
     Auto.isp = 1;
@@ -1591,7 +1591,7 @@ auto_nox_init_win(void) {
     Auto.nbc = NODE;
     Auto.nfpar = 1;
     HomoFlag = 0;
-    /*  User controls this      */
+     //  User controls this      
     Auto.ncol = auto_ncol;
     Auto.ntst = auto_ntst;
     Auto.nmx = auto_nmx;
@@ -1608,7 +1608,7 @@ auto_nox_init_win(void) {
     Auto.epsu = auto_epsu;
     Auto.epss = auto_epss;
 
-    /* The diagram plotting stuff    */
+     // The diagram plotting stuff    
 
     Auto.xmax = auto_xmax;
     Auto.xmin = auto_xmin;
@@ -1617,7 +1617,7 @@ auto_nox_init_win(void) {
     Auto.plot = HL_P;
     Auto.var = auto_var;
 
-    /* xpp parameters    */
+     // xpp parameters    
 
     Auto.icp1 = 0;
     Auto.icp2 = 1;
@@ -1810,15 +1810,15 @@ auto_nox_run(void) {
     int32 itp;
     int32 ips;
     char ch;
-    if (grabpt.flag == 0) { /* the first call to AUTO   */
-        /* auto start choice */
+    if (grabpt.flag == 0) {  // the first call to AUTO   
+         // auto start choice 
         static char *m[] = {"Steady state", "Periodic", "Bdry Value",
                             "Homoclinic", "hEteroclinic"};
         static char key[] = "spbhe";
         char ch2;
         HomoFlag = 0;
         if (METHOD == DISCRETE) {
-            /* auto new discrete */
+             // auto new discrete 
             int32 opn = NO_OPEN_3, cls = OVERWRITE;
             NewPeriodFlag = 0;
 
@@ -1848,7 +1848,7 @@ auto_nox_run(void) {
             return;
         }
         if (ch2 == 'p') {
-            /* auto start at per */
+             // auto start at per 
             int32 opn = NO_OPEN_3, cls = OVERWRITE;
 
             TypeOfCalc = PE1;
@@ -1872,7 +1872,7 @@ auto_nox_run(void) {
             int32 opn, cls;
             Auto.nbc = NODE;
 
-            /* auto start at bvp */
+             // auto start at bvp 
             opn = NO_OPEN_3;
             cls = OVERWRITE;
             pp_shoot_compile_bvp();
@@ -1917,7 +1917,7 @@ auto_nox_run(void) {
         ch = (char)menudrive_two_choice("YES", "NO",
                                         "Not Labeled Pt: New Start?", "y");
         if (ch == 'y') {
-            /* auto start diff ss */
+             // auto start diff ss 
             TypeOfCalc = EQ1;
             Auto.ips = 1;
             if (METHOD == DISCRETE) {
@@ -1944,10 +1944,10 @@ auto_nox_run(void) {
     itp1 = itp % 10;
     itp2 = itp / 10;
     ips = Auto.ips;
-    /*  printf(" ips=%d itp=%d itp1= %d itp2=%d\n",ips,itp,itp1,itp2); */
+     //  printf(" ips=%d itp=%d itp1= %d itp2=%d\n",ips,itp,itp1,itp2); 
     if (itp1 == 3 || itp2 == 3) {
-        /* its a HOPF Point  */
-        /* auto nox hopf choice */
+         // its a HOPF Point  
+         // auto nox hopf choice 
         static char *m[] = {"Periodic", "Extend", "New Point", "Two Param"};
         static char key[] = "pent";
         char ch2;
@@ -1980,20 +1980,20 @@ auto_nox_run(void) {
         return;
     }
     if (itp1 == 7 || itp2 == 7) {
-        /* period doubling */
+         // period doubling 
 
-        /* auto nox per doub choice */
+         // auto nox per doub choice 
         static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
         static char key[] = "dtfe";
         char ch2;
         ch2 = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10,
                                          no_hint, Auto.hinttxt);
         if (ch2 == 'd') {
-            /* auto period double */
+             // auto period double 
             blrtn.torper = grabpt.torper;
             Auto.ntst = 2*Auto.ntst;
             Auto.irs = grabpt.lab;
-            Auto.nfpar = 1; /* grabpt.nfpar; */
+            Auto.nfpar = 1;  // grabpt.nfpar; 
 
             Auto.itp = grabpt.itp;
             Auto.ilp = 1;
@@ -2017,7 +2017,7 @@ auto_nox_run(void) {
             return;
         }
         if (ch2 == 't') {
-            /* auto twopar double */
+             // auto twopar double 
             blrtn.torper = grabpt.torper;
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
@@ -2041,13 +2041,13 @@ auto_nox_run(void) {
         ggets_ping();
         return;
     }
-    if (itp1 == 2 || itp2 == 2) { /* limit point */
+    if (itp1 == 2 || itp2 == 2) {  // limit point 
         Auto.ips = 1;
         auto_nox_2p_limit(Auto.ips);
         ggets_ping();
         return;
     }
-    if (itp1 == 5 || itp2 == 5) { /* limit pt of periodic or BVP */
+    if (itp1 == 5 || itp2 == 5) {  // limit pt of periodic or BVP 
         if (Auto.ips != 4) {
             Auto.ips = 2; /* this is a bit dangerous - the idea is that
                              if you are doing BVPs, then that is all you are
@@ -2058,16 +2058,16 @@ auto_nox_run(void) {
         ggets_ping();
         return;
     }
-    if (itp1 == 6 || itp2 == 6 || itp1 == 1 || itp2 == 1) { /* branch point  */
+    if (itp1 == 6 || itp2 == 6 || itp1 == 1 || itp2 == 1) {  // branch point  
 
         auto_nox_branch_choice(grabpt.ibr, ips);
         ggets_ping();
         return;
     }
-    if (itp1 == 8 || itp2 == 8) { /* Torus 2 parameter */
-        /* auto_nox_torus_choice */
+    if (itp1 == 8 || itp2 == 8) {  // Torus 2 parameter 
+         // auto_nox_torus_choice 
         static char *m[] = {"Two Param", "Fixed period", "Extend"};
-        /*static char *m[]={"Fixed period","Extend"}; */
+         //static char *m[]={"Fixed period","Extend"}; 
         static char key[] = "tfe";
         char ch2;
         ch2 = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10,
@@ -2081,7 +2081,7 @@ auto_nox_run(void) {
             return;
         }
         if (ch2 == 't') {
-            /* auto torus */
+             // auto torus 
             blrtn.torper = grabpt.torper;
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
@@ -2101,8 +2101,8 @@ auto_nox_run(void) {
         return;
     }
     if (grabpt.ibr < 0) {
-        /* its a periodic -- just extend it  */
-        /* auto_nox_periodic_choice */
+         // its a periodic -- just extend it  
+         // auto_nox_periodic_choice 
         static char *m[] = {"Extend", "Fixed Period"};
         static char key[] = "ef";
         char ch2;
@@ -2122,13 +2122,13 @@ auto_nox_run(void) {
         ggets_ping();
         return;
     }
-    if (grabpt.ibr > 0 && ips != 4) { /*  old steady state -- just extend it  */
+    if (grabpt.ibr > 0 && ips != 4) {  //  old steady state -- just extend it  
         auto_nox_extend_ss();
         ggets_ping();
         return;
     }
     if (grabpt.ibr > 0 && ips == 4) {
-        /* auto extend bvp */
+         // auto extend bvp 
         TypeOfCalc = BV1;
         Auto.irs = grabpt.lab;
         Auto.itp = grabpt.itp;
@@ -2151,7 +2151,7 @@ auto_nox_run(void) {
 void
 auto_nox_homo_choice(int32 itp) {
     if (itp != 5) {
-        /* auto extend homoclinic */
+         // auto extend homoclinic 
         Auto.irs = grabpt.lab;
         Auto.itp = grabpt.itp;
 
@@ -2189,7 +2189,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
 
     if (ch == 's') {
         if (ibr < 0 && ips == 2) {
-            /* auto switch per */
+             // auto switch per 
             TypeOfCalc = PE1;
             blrtn.torper = grabpt.torper;
             Auto.irs = grabpt.lab;
@@ -2205,7 +2205,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             AutoTwoParam = 0;
             auto_nox_do(OPEN_3, APPEND);
         } else if (ips == 4) {
-            /* auto switch bvp */
+             // auto switch bvp 
             TypeOfCalc = BV1;
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
@@ -2220,7 +2220,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             AutoTwoParam = 0;
             auto_nox_do(OPEN_3, APPEND);
         } else {
-            /* auto switch ss */
+             // auto switch ss 
             TypeOfCalc = EQ1;
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
@@ -2257,7 +2257,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             ipsuse = 2;
         }
         auto_nox_2p_branch(ipsuse);
-        /* auto_nox_2p_limit(ips); */
+         // auto_nox_2p_limit(ips); 
         return;
     }
     auto_x11_redraw_menus();
@@ -2440,7 +2440,7 @@ auto_nox_start_at_homoclinic(void) {
 
 void
 auto_nox_new_per(void) {
-    /* same for extending periodic  */
+     // same for extending periodic  
     blrtn.torper = grabpt.torper;
 
     /*Prevent crash on hopf of infinite period. here
@@ -2461,10 +2461,10 @@ auto_nox_new_per(void) {
     TypeOfCalc = PE1;
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
-    /* Auto.nfpar=grabpt.nfpar; */
+     // Auto.nfpar=grabpt.nfpar; 
     Auto.nfpar = 1;
     Auto.ilp = 1;
-    Auto.isw = 1; /* -1 */
+    Auto.isw = 1;  // -1 
     Auto.isp = 2;
     if (SuppressBP == 1) {
         Auto.isp = 0;
@@ -2486,10 +2486,10 @@ auto_nox_2p_limit(int32 ips) {
     itp2 = ABS(grabpt.itp) / 10;
     Auto.itp = grabpt.itp;
     Auto.nfpar = 2;
-    Auto.ilp = 0; /* was 1 */
+    Auto.ilp = 0;  // was 1 
     Auto.isw = 2;
-    Auto.isp = 0; /* was 2 */
-    /* fix ips now */
+    Auto.isp = 0;  // was 2 
+     // fix ips now 
     if (ips == 4) {
         ipsuse = 4;
     } else {
@@ -2507,7 +2507,7 @@ auto_nox_2p_limit(int32 ips) {
         TypeOfCalc = LPP2;
         AutoTwoParam = LPP2;
     }
-    /* printf("ips=%d  itp=%d \n",Auto.ips,Auto.itp); */
+     // printf("ips=%d  itp=%d \n",Auto.ips,Auto.itp); 
     auto_nox_do(OPEN_3, APPEND);
     return;
 }
@@ -2523,9 +2523,9 @@ auto_nox_2p_branch(int32 ips) {
     itp2 = ABS(grabpt.itp) / 10;
     Auto.itp = grabpt.itp;
     Auto.nfpar = 2;
-    Auto.ilp = 0; /* was 1 */
+    Auto.ilp = 0;  // was 1 
     Auto.isw = 2;
-    Auto.isp = 0; /* was 2 */
+    Auto.isp = 0;  // was 2 
     if (ips == 4) {
         ipsuse = 4;
     } else {
@@ -2549,7 +2549,7 @@ auto_nox_2p_fixper(void) {
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
     Auto.nfpar = 2;
-    Auto.ilp = 1; /* was1 */
+    Auto.ilp = 1;  // was1 
     Auto.isw = 1;
     Auto.isp = 0;
     Auto.ips = 2;
@@ -2580,7 +2580,7 @@ auto_nox_2p_hopf(void) {
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
     Auto.nfpar = 2;
-    Auto.ilp = 0; /* was 1 */
+    Auto.ilp = 0;  // was 1 
     Auto.isw = 2;
     Auto.isp = 0;
     Auto.ips = 1;
@@ -2665,7 +2665,7 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     }
     storind = nrow;
     refresh_browser(nrow);
-    /* insert auxiliary stuff here */
+     // insert auxiliary stuff here 
     if (load_all_labeled_orbits == 2) {
         menudrive_clr_all_scrns();
     }
@@ -2680,7 +2680,7 @@ auto_nox_save(void) {
     FILE *fp;
     char filename[XPP_MAX_NAME];
     int32 status;
-    /* XGetInputFocus(display,&w,&rev); */
+     // XGetInputFocus(display,&w,&rev); 
 
     sprintf(filename, "%s.auto", basename(this_auto_file));
     /* status=dialog_box_get("Save Auto","Filename",filename,"Ok","Cancel",60);
@@ -2779,7 +2779,7 @@ auto_nox_save_q_file(/* I am keeping the name q_file even though they are
     while (!feof(fq)) {
         fgets(string, 500, fq);
         fputs(string, fp);
-        /* break; */
+         // break; 
     }
     fclose(fq);
     return;
@@ -2809,7 +2809,7 @@ auto_nox_make_q_file(FILE *fp) {
 
 int32
 auto_nox_no_info_noinfo(char *s) {
-    /* get rid of any blank lines */
+     // get rid of any blank lines 
     int32 n = (int32)strlen(s);
     int32 i;
     if (n == 0) {
@@ -2978,7 +2978,7 @@ auto_nox_file(void) {
             return;
         }
         if (FromAutoFlag) {
-            /* auto nox set point */
+             // auto nox set point 
             FromAutoFlag = 0;
             set_val(upar_names[AutoPar[Auto.icp1]], XfromAuto);
             set_val(upar_names[AutoPar[Auto.icp2]], YfromAuto);

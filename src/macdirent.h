@@ -68,36 +68,36 @@
 typedef void *DIR;
 #else
 
-#define d_ino d_fileno /* backward compatibility */
+#define d_ino d_fileno  // backward compatibility 
 
 /* definitions for library routines operating on directories. */
 #define DIRBLKSIZ 1024
 
 /* structure describing an open directory. */
 typedef struct _dirdesc {
-    int32 dd_fd;    /* file descriptor associated with directory */
-    long dd_loc;    /* offset in current buffer */
-    long dd_size;   /* amount of data returned by getdirentries */
-    char *dd_buf;   /* data buffer */
-    int32 dd_len;   /* size of data buffer */
-    long dd_seek;   /* magic cookie returned by getdirentries */
-    long dd_rewind; /* magic cookie for rewinding */
-    int32 dd_flags; /* flags for readdir */
+    int32 dd_fd;     // file descriptor associated with directory 
+    long dd_loc;     // offset in current buffer 
+    long dd_size;    // amount of data returned by getdirentries 
+    char *dd_buf;    // data buffer 
+    int32 dd_len;    // size of data buffer 
+    long dd_seek;    // magic cookie returned by getdirentries 
+    long dd_rewind;  // magic cookie for rewinding 
+    int32 dd_flags;  // flags for readdir 
 } DIR;
 
 #define dirfd(dirp) ((dirp)->dd_fd)
 
 /* flags for opendir2 */
-#define DTF_HIDEW 0x0001     /* hide whiteout entries */
-#define DTF_NODUP 0x0002     /* don't return duplicate names */
-#define DTF_REWIND 0x0004    /* rewind after reading union stack */
-#define __DTF_READALL 0x0008 /* everything has been read */
+#define DTF_HIDEW 0x0001      // hide whiteout entries 
+#define DTF_NODUP 0x0002      // don't return duplicate names 
+#define DTF_REWIND 0x0004     // rewind after reading union stack 
+#define __DTF_READALL 0x0008  // everything has been read 
 
 #ifndef NULL
 #define NULL 0
 #endif
 
-#endif /* _POSIX_SOURCE */
+#endif  // _POSIX_SOURCE 
 
 #ifndef KERNEL
 
@@ -116,9 +116,9 @@ int32 scandir __P((char *, struct dirent ***, int32 (*)(struct dirent *),
                    int32 (*)(void *, void *)));
 int32 alphasort __P((void *, void *));
 int32 getdirentries __P((int32, char *, int32, long *));
-#endif /* not POSIX */
+#endif  // not POSIX 
 __END_DECLS
 
-#endif /* !KERNEL */
+#endif  // !KERNEL 
 
-#endif /* !_DIRENT_H_ */
+#endif  // !_DIRENT_H_ 

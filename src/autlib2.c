@@ -84,13 +84,13 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     int64 kwt;
 
-    /*     N AX is the local N TSTX, which is smaller than the global N TSTX. */
-    /*     NODES is the total number of nodes. */
+     //     N AX is the local N TSTX, which is smaller than the global N TSTX. 
+     //     NODES is the total number of nodes. 
 
     /* Sets up and solves the linear equations for one Newton/Chord iteration
      */
 
-    /* Most of the required memory is allocated below */
+     // Most of the required memory is allocated below 
     /* This is an interesting section of code.  The main point
        is that setubv and conpar only get called when ifst
        is 1.  This is a optimization since you can solve
@@ -139,7 +139,7 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
            N ROWX =	(iap->ndim*iap->ncol )
         */
 
-        /* Free floating point arrays */
+         // Free floating point arrays 
         free(mas.a);
         free(mas.b);
         free(mas.c);
@@ -153,7 +153,7 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(mas.faa);
         free(mas.ca1);
 
-        /* Free int64 arrays */
+         // Free int64 arrays 
         free(mas.icf);
         free(mas.irf);
         free(mas.ipr);
@@ -206,8 +206,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         partition(&ntst, &kwt, mas.np);
     }
 
-    /*     NTST0 is the global one, NTST is the local one. */
-    /*     The value of NTST may be different in different nodes. */
+     //     NTST0 is the global one, NTST is the local one. 
+     //     The value of NTST may be different in different nodes. 
     ntst0 = ntst;
     ntst = mas.np[iam];
 
@@ -267,7 +267,7 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
       3;
     */
     if (ipar) {
-        /*        Global concatenation of the solution from each node. */
+         //        Global concatenation of the solution from each node. 
         int64 tmp;
         gcol();
         tmp = iap->ntst + 1;
@@ -333,7 +333,7 @@ partition(int64 *n, int64 *kwt, int64 *m) {
     int64 s;
     int64 t;
 
-    /*     Linear distribution of NTST over all nodes */
+     //     Linear distribution of NTST over all nodes 
 
     t = *n / *kwt;
     s = *n % *kwt;
@@ -355,7 +355,7 @@ mypart(int64 *iam, int64 *np) {
 
     int64 k;
 
-    /*     Partition the mesh */
+     //     Partition the mesh 
 
     k = 0;
     for (int64 i = 0; i < *iam; ++i) {
@@ -458,20 +458,20 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
 
     wint(*ncol + 1, wi);
     genwts(*ncol, iap->ncol + 1, wt, wp);
-    /* Initialize to zero. */
+     // Initialize to zero. 
     for (int64 i = 0; i < *nrc; ++i) {
         fc[i] = 0.;
     }
 
-    /* Set constants. */
+     // Set constants. 
     ncp1 = *ncol + 1;
     for (int64 i = 0; i < *ncb; ++i) {
         par[icp[i]] = rlcur[i];
     }
 
-    /* Generate FA : */
+     // Generate FA : 
 
-    /*      Partition the mesh intervals. */
+     //      Partition the mesh intervals. 
     mpart = mypart(iam, np);
 
     for (jj = 0; jj < *na; ++jj) {
@@ -494,7 +494,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
                     uold[k] += ARRAY2D(wt, l, ic)*ARRAY2D(uoldps, j, l1);
                 }
             }
-            /*     ** Time evolution computations (parabolic systems) */
+             //     ** Time evolution computations (parabolic systems) 
             if (*ips == 14 || *ips == 16) {
                 rap->tivp = rlold[0];
             }
@@ -512,14 +512,14 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
                         ARRAY2D(wploc, k, ic)*ARRAY2D(ups, j, k1);
                 }
             }
-            /* L1: */
+             // L1: 
         }
-        /* L2: */
+         // L2: 
     }
 
-    /*     Generate FC : */
+     //     Generate FC : 
 
-    /*     Boundary conditions : */
+     //     Boundary conditions : 
 
     if (*nbc > 0) {
         for (int64 i = 0; i < *ndim; ++i) {
@@ -530,7 +530,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
         for (int64 i = 0; i < *nbc; ++i) {
             fc[i] = -fbc[i];
         }
-        /*       Save difference : */
+         //       Save difference : 
         for (j = 0; j < *ntst + 1; ++j) {
             for (int64 i = 0; i < *nra; ++i) {
                 ARRAY2D(dups, j, i) =
@@ -539,7 +539,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
         }
     }
 
-    /*     Integral constraints : */
+     //     Integral constraints : 
     if (*nint > 0) {
         for (jj = 0; jj < *na; ++jj) {
             j = jj + mpart;
@@ -568,7 +568,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
         }
     }
 
-    /*     Pseudo-arclength equation : */
+     //     Pseudo-arclength equation : 
     rlsum = 0.;
     for (int64 i = 0; i < *ncb; ++i) {
         rlsum += thl[icp[i]]*(rlcur[i] - rlold[i])*rldot[i];
@@ -621,7 +621,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     sol2 = xmalloc(sizeof(*sol2)*(usize)((*nov)*(*na + 1)));
     sol3 = xmalloc(sizeof(*sol3)*(usize)((*nov)*(*na + 1)));
 
-    /* Local */
+     // Local 
 
     if (*idb > 4 && *iam == 0) {
 #ifndef ACCES_TEST
@@ -740,7 +740,7 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
         return 0;
     }
 
-    /* Condensation of right hand side. */
+     // Condensation of right hand side. 
 
     nbcp1 = *nbc + 1;
     m1 = *nov + 1;
@@ -788,9 +788,9 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
     (void)iam;
     (void)kwt;
 
-    /* Local */
+     // Local 
 
-    /* Copies the condensed sytem generated by CONPAR into workspace. */
+     // Copies the condensed sytem generated by CONPAR into workspace. 
 
     a2_dim1 = *nov;
     a2_dim2 = *nov;
@@ -962,18 +962,18 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     }
     notsend = true;
 
-    /*     FOR EACH REURSIVE LEVEL, CALCULATE THE MASTER(HOLDING THE */
-    /*     PIVOT ROW AFTER ROW SWAPPING) NODE WHICH WILL SEND THE */
-    /*     PIVOT ROW TO THE CORRESPONDING WORKER NODE WHICH IS DISTANCED */
-    /*     2**(K-1) FROM THE MASTER WHERE K IS THE RECURSIVE LEVEL NUMBER. */
-    /*     THE CORRESPONDING MESSAGE TYPE IN EACH RECURSIVE LEVEL IS */
-    /*     ALSO CALCULATED HERE. */
+     //     FOR EACH REURSIVE LEVEL, CALCULATE THE MASTER(HOLDING THE 
+     //     PIVOT ROW AFTER ROW SWAPPING) NODE WHICH WILL SEND THE 
+     //     PIVOT ROW TO THE CORRESPONDING WORKER NODE WHICH IS DISTANCED 
+     //     2**(K-1) FROM THE MASTER WHERE K IS THE RECURSIVE LEVEL NUMBER. 
+     //     THE CORRESPONDING MESSAGE TYPE IN EACH RECURSIVE LEVEL IS 
+     //     ALSO CALCULATED HERE. 
 
-    /* For each level in the recursion, determine the master node */
-    /* (holding the pivot row after row swapping), which will send the */
-    /* pivot row to the corresponding worker node at distance 2**(K-1) */
-    /* from the master. Here K is the level in the recursion. */
-    /* The message type at each level in the recursion is also determined. */
+     // For each level in the recursion, determine the master node 
+     // (holding the pivot row after row swapping), which will send the 
+     // pivot row to the corresponding worker node at distance 2**(K-1) 
+     // from the master. Here K is the level in the recursion. 
+     // The message type at each level in the recursion is also determined. 
 
     if (*par) {
         for (int64 i = 0; i < nlev; ++i) {
@@ -1017,11 +1017,11 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 irmc[i] = (i + 1) + *iam + *kwt + (k1 - 1);
             }
 
-            /* L1: */
+             // L1: 
         }
     }
 
-    /* Initialization */
+     // Initialization 
 
     for (int64 i = 0; i < *na; ++i) {
         for (k1 = 0; k1 < *nov; ++k1) {
@@ -1041,7 +1041,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
         }
     }
 
-    /* The reduction process is done concurrently */
+     // The reduction process is done concurrently 
     for (i1 = 0; i1 < nam1; ++i1) {
         i2 = i1 + 1;
         i3 = i2 + 1;
@@ -1093,7 +1093,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 itmp = ARRAY2D(icf1, ic, i2);
                 ARRAY2D(icf1, ic, i2) = ARRAY2D(icf1, (jpiv1 - 1), i2);
                 ARRAY2D(icf1, (jpiv1 - 1), i2) = itmp;
-                /* Swapping */
+                 // Swapping 
                 for (l = 0; l < *nov; ++l) {
                     tmp = ARRAY3D(s1, ic, l, i1);
                     ARRAY3D(s1, ic, l, i1) = ARRAY3D(s1, (ipiv1 - 1), l, i1);
@@ -1123,7 +1123,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 itmp = ARRAY2D(icf1, ic, i2);
                 ARRAY2D(icf1, ic, i2) = ARRAY2D(icf1, (jpiv2 - 1), i2);
                 ARRAY2D(icf1, (jpiv2 - 1), i2) = itmp;
-                /* Swapping */
+                 // Swapping 
                 for (l = 0; l < *nov; ++l) {
                     if (l >= ic) {
                         tmp = ARRAY3D(a2, ic, ARRAY2D(icf2, l, i1) - 1, i1);
@@ -1146,7 +1146,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 }
             }
 
-            /* End of pivoting; Elimination starts here */
+             // End of pivoting; Elimination starts here 
 
             for (ir = icp1; ir < *nov; ++ir) {
                 rm = ARRAY3D(a2, ir, ARRAY2D(icf2, ic, i1) - 1, i1) /
@@ -1210,24 +1210,24 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 }
             }
 
-            /* L2: */
+             // L2: 
         }
-        /* L3: */
+         // L3: 
     }
 
-    /* Initialization */
+     // Initialization 
     for (int64 i = 0; i < *nov; ++i) {
         ARRAY2D(icf2, i, (*na - 1)) = i + 1;
     }
 
-    /*     INTER NODES REDUCE IS DONE VIA COMMUNICATION */
-    /*     BETWEEN MASTER NODES AND WORKER NODES. */
-    /*     THE SUMMATION OF THE OVERLAPED PART C IN THE */
-    /*     NEIGHBOR NODES IN THE CONDENSATION OF PARAMETE */
-    /*     ROUTINE IS DELAYED TO HERE TO SUM. */
+     //     INTER NODES REDUCE IS DONE VIA COMMUNICATION 
+     //     BETWEEN MASTER NODES AND WORKER NODES. 
+     //     THE SUMMATION OF THE OVERLAPED PART C IN THE 
+     //     NEIGHBOR NODES IN THE CONDENSATION OF PARAMETE 
+     //     ROUTINE IS DELAYED TO HERE TO SUM. 
 
-    /* Inter node reduction is done via communication between master node */
-    /* and worker nodes. The summation over the overlapped part C of */
+     // Inter node reduction is done via communication between master node 
+     // and worker nodes. The summation over the overlapped part C of 
     /*neighboring nodes in the condensation of parameters is delayed until her
     e.*/
     if (*par) {
@@ -1277,7 +1277,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 ibuf1 = (ib2 + *nrc - *nbc)*8;
 
                 if (master[i]) {
-                    /* PIVOTING (COMPLETE PIVOTING) */
+                     // PIVOTING (COMPLETE PIVOTING) 
 
                     piv1 = zero;
                     ipiv1 = ic + 1;
@@ -1314,7 +1314,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                             ARRAY2D(icf2, (jpiv1 - 1), (*na - 1));
                         ARRAY2D(icf2, (jpiv1 - 1), (*na - 1)) = itmp;
 
-                        /* Send pivot row to worker */
+                         // Send pivot row to worker 
                         for (l = 0; l < *nov; ++l) {
                             if (l >= ic) {
                                 l1 = l - ic + 2;
@@ -1349,7 +1349,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                         buf[l1 + 1] = 0.;
                         csend();
 
-                        /* Row swapping */
+                         // Row swapping 
                         for (l = 0; l < *nov; ++l) {
                             tmp = ARRAY3D(s1, ic, l, (*na - 1));
                             ARRAY3D(s1, ic, l, (*na - 1)) =
@@ -1422,9 +1422,9 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 
                         csend();
                     }
-                    /* End pivoting in master */
+                     // End pivoting in master 
 
-                    /* Send data to worker nodes */
+                     // Send data to worker nodes 
                     for (l = 0; l < *nov; ++l) {
                         buf[l + 1] = ARRAY3D(s1, ic, l, (*na - 1));
                     }
@@ -1442,7 +1442,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 
                     csend();
 
-                    /* Elimination */
+                     // Elimination 
                     for (ir = icp1; ir < *nov; ++ir) {
                         l2 = ARRAY2D(icf2, ic, (*na - 1)) - 1;
                         rm = ARRAY3D(a2, ir, l2, (*na - 1)) /
@@ -1487,7 +1487,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 }
 
                 if (worker[i]) {
-                    /* Pivoting */
+                     // Pivoting 
                     piv2 = zero;
                     ipiv2 = 1;
                     jpiv2 = ic + 1;
@@ -1538,7 +1538,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                     info = i_dnnt(&buf[l1 + 1]);
 
                     if (info == 1) {
-                        /* Send pivot row to master */
+                         // Send pivot row to master 
                         for (l = 0; l < *nov; ++l) {
                             if (l >= ic) {
                                 l1 = l - ic + 2;
@@ -1577,7 +1577,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                         ARRAY2D(icf11, (jpiv2 - 1), i) = itmp;
                     }
 
-                    /* Elimination */
+                     // Elimination 
                     for (ir = 1; ir <= *nov; ++ir) {
                         l2 = ARRAY2D(icf11, ic, i) - 1;
                         rm = ARRAY3D(ca1, ir, l2, i) / buf[1];
@@ -1635,10 +1635,10 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 }
             }
 
-            /* L4: */
+             // L4: 
         }
 
-        /* Global sum for D by recursive doubling */
+         // Global sum for D by recursive doubling 
         {
             int64 tmp2 = (*nrc - *nbc)**ncb;
             rd0(iam, kwt, &ARRAY2D(dd, 0, (nbcp1 - 1)), &tmp2);
@@ -1709,10 +1709,10 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     }
     notsend = true;
 
-    /* At each recursive level determine the master node (holding the pivot */
+     // At each recursive level determine the master node (holding the pivot 
     /* row after swapping), which will send the pivot row to the worker node
      */
-    /* at distance 2**(K-1) from the master. Here K is the recursion level. */
+     // at distance 2**(K-1) from the master. Here K is the recursion level. 
 
     if (*par) {
         for (int64 i = 0; i < nlev; ++i) {
@@ -1737,7 +1737,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
         }
     }
 
-    /* Reduce concurrently in each node */
+     // Reduce concurrently in each node 
     for (i1 = 0; i1 < nam1; ++i1) {
         i2 = i1 + 1;
         for (ic = 0; ic < *nov; ++ic) {
@@ -1771,7 +1771,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
         }
     }
 
-    /* Inter-node reduction needs communication between nodes */
+     // Inter-node reduction needs communication between nodes 
     if (*par) {
         for (int64 i = 0; i < nlev; ++i) {
             for (ic = 0; ic < *nov; ++ic) {
@@ -1879,11 +1879,11 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
     nap1 = *na + 1;
     msglen1 = (*nrc*8)**nov;
-    /* Computing 2nd power */
+     // Computing 2nd power 
     msglen2 = (*nov + *nrc + ((*nov**nov)*2) + 1)*8;
     ncrloc = *nrc + *nov;
 
-    /* Send CC(1:NOV,1:NRC,1) in node 0 to node KWT-1 */
+     // Send CC(1:NOV,1:NRC,1) in node 0 to node KWT-1 
 
     if (*par) {
         if (*iam == 0) {
@@ -1894,7 +1894,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
         }
     }
 
-    /* Copy */
+     // Copy 
     if (*iam == *kwt - 1) {
         for (int64 i = 0; i < *nov; ++i) {
             for (int64 j = 0; j < *nov; ++j) {
@@ -1961,7 +1961,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
             }
         }
 
-        /* Solve for FCC */
+         // Solve for FCC 
         if (*nllv == 0) {
             ge(ncrloc, ncrloc, e, 1, ncrloc, fcc, ncrloc, xe, det);
         } else if (*nllv > 0) {
@@ -1986,7 +1986,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
         }
 
         k1 = ncrloc;
-        /* Computing 2nd power */
+         // Computing 2nd power 
         k2 = k1 + (*nov)*(*nov);
         for (kr = 0; kr < *nov; ++kr) {
             for (kc = 0; kc < *nov; ++kc) {
@@ -1995,12 +1995,12 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
                 fcc[k2 + k] = ARRAY2D(p1, kr, kc);
             }
         }
-        /* Computing 2nd power */
+         // Computing 2nd power 
         fcc[ncrloc + ((*nov)*(*nov)*2)] = *det;
     }
 
-    /* Broadcast FCC from node KWT-1. The matrices P0 and P1 are */
-    /* buffered in the tail of FCC so all nodes receive them. */
+     // Broadcast FCC from node KWT-1. The matrices P0 and P1 are 
+     // buffered in the tail of FCC so all nodes receive them. 
     if (*par) {
         if (*iam == *kwt - 1) {
             csend();
@@ -2015,7 +2015,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
     if (*iam < *kwt - 1) {
         k1 = ncrloc;
-        /* Computing 2nd power */
+         // Computing 2nd power 
         k2 = k1 + (*nov)*(*nov);
         for (kr = 1; kr <= *nov; ++kr) {
             for (kc = 1; kc <= *nov; ++kc) {
@@ -2024,10 +2024,10 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
                 ARRAY2D(p1, kr, kc) = fcc[k2 + k];
             }
         }
-        /* Computing 2nd power */
+         // Computing 2nd power 
         *det = fcc[ncrloc + ((*nov)*(*nov)*2)];
     }
-    /* free the memory*/
+     // free the memory
     /* Not the we have modified these parameter before, so
        we undo the modifications here and then free them. */
     free(xe);
@@ -2098,7 +2098,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     nov3 = *nov*3;
     ibuf = (nov3 + 1)*8;
 
-    /* The backsubstitution in the reduction process is recursive. */
+     // The backsubstitution in the reduction process is recursive. 
     notsend = true;
 
     /*At each recursion level determine the sender nodes (called MASTER here).
@@ -2131,10 +2131,10 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
                 ism = i + nlev + (*kwt*4);
                 irm = ism + 1;
                 k = pow_ii(2, i - 1);
-                /*              **Compute the ID of the receiving node */
+                 //              **Compute the ID of the receiving node 
                 nlist[0] = *iam - k;
                 nlist[1] = *iam + k;
-                /*              **Receive solutions from previous level */
+                 //              **Receive solutions from previous level 
                 if ((i + 1) < nlev) {
                     crecv();
                     niam = i_dnnt(&buf[nov3 + 1]);
@@ -2150,7 +2150,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
                         }
                     }
                 }
-                /*              **Backsubstitute */
+                 //              **Backsubstitute 
                 for (k = *nov - 1; k >= 0; --k) {
                     kp1 = k + 1;
                     sm = 0.;
@@ -2173,7 +2173,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
                         (ARRAY2D(faa, k, (*na - 1)) - sm) /
                         ARRAY3D(a2, k, l2, (*na - 1));
                 }
-                /*              **Send solutions to the next level */
+                 //              **Send solutions to the next level 
                 if (i + 1 > 1) {
                     for (l = 0; l < *nov; ++l) {
                         buf[l + 1] = ARRAY2D(sol1, l, (*na - 1));
@@ -2184,42 +2184,42 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
                     gsendx();
                 }
             }
-            /*           **Synchronization at each recursion level */
+             //           **Synchronization at each recursion level 
         }
 
-        /* Define odd and even nodes */
+         // Define odd and even nodes 
         if (*iam % 2 == 0) {
             even = true;
         } else {
             odd = true;
         }
 
-        /* Determine whether I have a right neighbor */
+         // Determine whether I have a right neighbor 
         if (*iam == *kwt - 1) {
             hasright = false;
         } else {
             hasright = true;
         }
 
-        /* Determine whether I have a left neighbor */
+         // Determine whether I have a left neighbor 
         if (*iam == 0) {
             hasleft = false;
         } else {
             hasleft = true;
         }
 
-        /* Define send message type */
+         // Define send message type 
         smsgtype = *iam + 1000;
 
-        /* Define receive message type */
+         // Define receive message type 
         rmsgtype = smsgtype - 1;
 
-        /* Define my right neighbor */
+         // Define my right neighbor 
         myleft = *iam - 1;
         myright = *iam + 1;
         msglen = *nov << 3;
 
-        /* May only need odd sends to even */
+         // May only need odd sends to even 
         itest = 0;
         if (itest == 1) {
             if (odd && hasright) {
@@ -2230,7 +2230,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
             }
         }
 
-        /* Even nodes send and odd nodes receive */
+         // Even nodes send and odd nodes receive 
         if (even && hasright) {
             csend();
         }
@@ -2259,7 +2259,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
         }
     }
 
-    /* Backsubstitution process; concurrently in each node. */
+     // Backsubstitution process; concurrently in each node. 
     nam1 = *na - 1;
     for (int64 i = nam1 - 1; i >= 0; --i) {
         for (k = *nov - 1; k >= 0; --k) {
@@ -2316,7 +2316,7 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
 
     x = xmalloc(sizeof(*x)*(usize)(*nra));
 
-    /* Determine the local varables by backsubstitition. */
+     // Determine the local varables by backsubstitition. 
 
     sol2_dim1 = *nov;
     sol1_dim1 = *nov;
@@ -2356,7 +2356,7 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
             x[icfnovpir] =
                 (ARRAY2D(fa, irfir, i) - sm) / ARRAY3D(a, icfnovpir, irfir, i);
         }
-        /*        **Copy SOL1 and X into FA */
+         //        **Copy SOL1 and X into FA 
         for (int64 j = 0; j < *nov; ++j) {
             ARRAY2D(fa, j, i) = ARRAY2D(sol1, j, i);
         }
@@ -2389,21 +2389,21 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
 
     buf = xmalloc(sizeof(*buf)*(usize)(*nrc));
 
-    /*     RECURSIVE DOUBLING PROCEDURE TO GET */
-    /*     THE GLOBAL SUM OF VECTORS FROM */
-    /*     EACH NODE. THE GLOBAL SUM IS ONLY AVAILABLE */
-    /*     IN THE LAST NODE */
+     //     RECURSIVE DOUBLING PROCEDURE TO GET 
+     //     THE GLOBAL SUM OF VECTORS FROM 
+     //     EACH NODE. THE GLOBAL SUM IS ONLY AVAILABLE 
+     //     IN THE LAST NODE 
 
-    /* Copying */
+     // Copying 
     xkwt = (double)(*kwt);
 
-    /* Determine the recursion level */
+     // Determine the recursion level 
     {
         double tmp = log(xkwt) / log((double)2.);
         nredo = i_dnnt(&tmp);
     }
 
-    /* At each recursion level determine the odd and even nodes */
+     // At each recursion level determine the odd and even nodes 
     notsend = true;
     for (n = 0; n < nredo; ++n) {
         smtype[n] = n + 1000 + *iam + 1;
@@ -2470,7 +2470,7 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
     c_dim2 = *nrc;
 
     fprintf(fp9, "AA , BB , FA (Full dimension) :\n");
-    /* should be 10.3f*/
+     // should be 10.3f
     for (int64 i = 0; i < *na; ++i) {
         fprintf(fp9, "I=%3ld\n", i + 1);
         for (ir = 0; ir < *nra; ++ir) {

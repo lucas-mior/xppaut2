@@ -500,7 +500,7 @@ load_eqn_set_all_vals(void) {
         }
         notAlreadySet.NPLOT = 0;
     }
-    /* internal options go here  */
+     // internal options go here  
     load_eqn_set_internopts(NULL);
 
     if ((fp = fopen(options, "r")) != NULL) {
@@ -515,7 +515,7 @@ load_eqn_set_all_vals(void) {
 
     numerics_chk_volterra();
 
-    /*                           */
+     //                           
 
     if (IZPLT > NEQ) {
         IZPLT = NEQ;
@@ -558,12 +558,12 @@ load_eqn_set_all_vals(void) {
     if (AXES >= 5) {
         PLOT_3D = 1;
     }
-    numerics_chk_delay(); /* check for delay allocation */
+    numerics_chk_delay();  // check for delay allocation 
     adjoints_alloc_h_stuff();
 
-    volterra_alloc_memory(); /* allocate stuff for volterra equations */
+    volterra_alloc_memory();  // allocate stuff for volterra equations 
     storage_alloc_meth();
-    integrate_arr_ic_start(); /* take care of all predefined array ics */
+    integrate_arr_ic_start();  // take care of all predefined array ics 
     return;
 }
 
@@ -756,7 +756,7 @@ load_eqn_extract_action(char *ptr) {
     strcpy(tmp, ptr);
     junk = form_ode_get_first(tmp, " ");
     if (junk == NULL) {
-        /*No more tokens--should this throw an error?*/
+         //No more tokens--should this throw an error?
     }
 
     while ((mystring = form_ode_do_fit_get_next(" ,;\n")) != NULL) {
@@ -816,12 +816,12 @@ load_eqn_set_internopts(OptionsSet *mask) {
     if (Nopts == 0) {
         return;
     }
-    /*  parsem here   */
+     //  parsem here   
     for (int32 i = 0; i < Nopts; i++) {
         ptr = interopt[i];
         junk = form_ode_get_first(ptr, " ,");
         if (junk == NULL) {
-            /*No more tokens.  Should this throw an error?*/
+             //No more tokens.  Should this throw an error?
         }
         while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
             load_eqn_split_apart(mystring, name, value);
@@ -899,8 +899,8 @@ void
 load_eqn_set_internopts_xpprc_and_comline(void) {
     char *ptr, name[20], value[80], *junk, *mystring;
     OptionsSet *tempNAS;
-    /*  parsem here   */
-    /*Check for QUIET and LOGFILE options first...*/
+     //  parsem here   
+     //Check for QUIET and LOGFILE options first...
     char intrnoptcpy[255]; /*Must use copy to avoid side effects of strtok used
                               in get_first below*/
     if (Nopts == 0) {
@@ -911,7 +911,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
         ptr = intrnoptcpy;
         junk = form_ode_get_first(ptr, " ,");
         if (junk == NULL) {
-            /*No more tokens.  Should this throw an error?*/
+             //No more tokens.  Should this throw an error?
         }
         while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
             load_eqn_split_apart(mystring, name, value);
@@ -932,7 +932,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
         }
     }
 
-    /*We make a BOOLEAN MASK using the current OptionsSet*/
+     //We make a BOOLEAN MASK using the current OptionsSet
     /*This allows options to be overwritten multiple times within .xpprc
     but prevents overwriting across comline, .xpprc etc.
     */
@@ -1037,7 +1037,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             exit(-1);
         }
         if (OVERRIDE_QUIET ==
-            0) /*Will be 1 if -quiet was specified on the command line.*/
+            0)  //Will be 1 if -quiet was specified on the command line.
         {
             XPPVERBOSE = (atoi(s2) == 0);
         }
@@ -1045,7 +1045,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
     if (load_eqn_msc("LOGFILE", s1)) {
         if (OVERRIDE_LOGFILE ==
-            0) /*Will be 1 if -logfile was specified on the command line.*/
+            0)  //Will be 1 if -logfile was specified on the command line.
         {
             if (logfile != NULL) {
                 fclose(logfile);
@@ -1276,7 +1276,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         }
         return;
     }
-    /* can now initialize several plots */
+     // can now initialize several plots 
     if (load_eqn_msc("SIMPLOT", s1)) {
         SimulPlotFlag = 1;
         return;
@@ -2042,7 +2042,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
 
-    /* postscript options */
+     // postscript options 
 
     if (load_eqn_msc("PS_FONT", s1)) {
         if ((notAlreadySet.PS_FONT || force) ||
@@ -2329,7 +2329,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
 
-    /* colorize customizing !! */
+     // colorize customizing !! 
     if (load_eqn_msc("COLORVIA", s1)) {
         if ((notAlreadySet.COLORVIA || force) ||
             ((mask != NULL) && (mask->COLORVIA == 1))) {

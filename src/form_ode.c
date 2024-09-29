@@ -304,7 +304,7 @@ form_ode_get_eqn(FILE *fptr) {
 
     strncpy(save_eqn[NLINES++], bob, (usize)nn);
     i = atoi(bob);
-    if (i <= 0) { /* New parser ---   */
+    if (i <= 0) {  // New parser ---   
 
         OldStyle = 0;
         ConvertStyle = 0;
@@ -390,7 +390,7 @@ form_ode_get_eqn(FILE *fptr) {
         strupr(ode_names[i]);
         ani_de_space(ode_names[i]);
     }
-    /* add primed variables */
+     // add primed variables 
     PrimeStart = NVAR;
     if (NVAR < MAX_PRIME_VAR) {
         parserslow_add_var("t'", 0.0);
@@ -413,7 +413,7 @@ form_ode_get_eqn(FILE *fptr) {
         exit(0);
     }
     flags_show();
-    /* add auxiliary variables */
+     // add auxiliary variables 
     for (i = NODE + NMarkov; i < NEQ; i++) {
         parserslow_add_var(uvar_names[i], 0.0);
     }
@@ -464,7 +464,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         done = 0;
         break;
     case 's':
-        /* form ode show syms */
+         // form ode show syms 
         ggets_plintf("(    ,    )    +    -      *    ^    **    / \n");
         ggets_plintf("sin  cos  tan  atan  atan2 acos asin\n");
         ggets_plintf("exp  ln   log  log10 tanh  cosh sinh \n");
@@ -472,7 +472,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         ggets_plintf("t    pi   ran  \n");
         break;
     case 'h':
-        /* form ode welcome */
+         // form ode welcome 
         ggets_plintf("\n The commands are: \n");
         ggets_plintf(" P(arameter) -- declare parameters "
                      "<name1>=<value1>,<name2>=<value2>,...\n");
@@ -504,7 +504,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         strcpy(formula, my_string);
         load_eqn_add_intern_set(condition, formula);
         break;
-    case 'w': /*  Make a Wiener (heh heh) constants  */
+    case 'w':  //  Make a Wiener (heh heh) constants  
         ggets_plintf("Wiener constants\n");
         if (ConvertStyle) {
             fprintf(convertf, "wiener ");
@@ -553,7 +553,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         }
         ggets_plintf("\n");
         break;
-    case 'g': /* global */
+    case 'g':  // global 
         my_string = form_ode_do_fit_get_next("{ ");
         sign = atoi(my_string);
         ggets_plintf(" GLOBAL: sign =%d \n", sign);
@@ -610,7 +610,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         iflg = 0;
         ggets_plintf("\nFixed variables:\n");
         goto vrs;
-    case 'm': /* Markov variable  */
+    case 'm':  // Markov variable  
         my_string = form_ode_do_fit_get_next(" ");
         strcpy(name, my_string);
         my_string = form_ode_do_fit_get_next(" ");
@@ -630,7 +630,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             fprintf(convertf, "%s(0)=%g\n", name, value);
         }
         break;
-    case 'r': /* state table for Markov variables  */
+    case 'r':  // state table for Markov variables  
         my_string = form_ode_do_fit_get_next("\n");
         strcpy(name, my_string);
         nlin = NLINES;
@@ -866,7 +866,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         NODE++;
         break;
 
-    case 'a': /* name auxiliary variables */
+    case 'a':  // name auxiliary variables 
         ggets_plintf("Auxiliary variables:\n");
         while ((my_string = form_ode_do_fit_get_next(" ,\n")) != NULL) {
             strcpy(aux_names[Naux], my_string);
@@ -926,7 +926,7 @@ form_ode_do_fit_get_next(char *src) {
 
 void
 form_ode_find_ker(char *string, int32 *alt) {
-    /* this extracts the integral operators from the string */
+     // this extracts the integral operators from the string 
     char new[MAXEXPLEN];
     char form[MAXEXPLEN];
     char num[MAXEXPLEN];
@@ -1153,7 +1153,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
         } else {
             if (loadincludefile) {
-                loadincludefile = 0; /*Only do this once*/
+                loadincludefile = 0;  //Only do this once
                 for (int32 j = 0; j < NincludedFiles; j++) {
                     printf("Trying to open %d %s\n", NincludedFiles,
                            includefilename[j]);
@@ -1170,7 +1170,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 }
             }
 
-            strcpy(old, first); /* pass the first line ....  */
+            strcpy(old, first);  // pass the first line ....  
             start = 1;
         }
         if (IN_INCLUDED_FILE > 0) {
@@ -1208,13 +1208,13 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         }
 
         switch (is_array) {
-        case 0: /*  not a for loop so */
+        case 0:  //  not a for loop so 
         case 1:
             nstrings = 1;
             strings[0] = xmalloc(strlen(new) + 10);
             strcpy(strings[0], new);
             break;
-        case 2: /*  a for loop, so we will ignore the first line */
+        case 2:  //  a for loop, so we will ignore the first line 
             while (true) {
                 form_ode_read_a_line(fp, old);
                 if (old[0] == '%') {
@@ -1272,7 +1272,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
                         v.type = GROUP;
                     }
-                    /* check for Markov to get rid of extra lines */
+                     // check for Markov to get rid of extra lines 
 
                     if (v.type == COMMAND && v.lhs[0] == 'M' &&
                         v.lhs[1] == 'A') {
@@ -1293,7 +1293,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         }
                         markov_add(nstates, name);
                         if (jj ==
-                            jj1) { /* test to see if this is the first one */
+                            jj1) {  // test to see if this is the first one 
                             markovarrays =
                                 xmalloc((usize)nstates*sizeof(char *));
                             markovarrays2 =
@@ -1314,7 +1314,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                             }
                         }
 
-                        /*  now we clean up these arrays */
+                         //  now we clean up these arrays 
                         for (istates = 0; istates < nstates; istates++) {
                             form_ode_subsk(markovarrays[istates],
                                            markovarrays2[istates], jj,
@@ -1327,7 +1327,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         strcpy(v.rhs, "...many states..");
                     }
 
-                    /* take care of special form for SOLVE-VARIABLE */
+                     // take care of special form for SOLVE-VARIABLE 
                     if (v.type == COMMAND && v.lhs[0] == 'S' &&
                         v.lhs[1] == 'O') {
                         if (form_ode_find_char(v.rhs, "=", 0, &i1) < 0) {
@@ -1342,7 +1342,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         v.type = SOL_VAR;
                     }
 
-                    /* take care of special form for auxiliary */
+                     // take care of special form for auxiliary 
                     if (v.type == COMMAND && v.lhs[0] == 'A' &&
                         v.lhs[1] == 'U') {
                         form_ode_find_char(v.rhs, "=", 0, &i1);
@@ -1353,7 +1353,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         v.type = AUX_VAR;
                     }
 
-                    /* take care of special form for vector */
+                     // take care of special form for vector 
                     if (v.type == COMMAND && v.lhs[0] == 'V' &&
                         v.lhs[1] == 'E' && v.lhs[5] == 'R') {
                         form_ode_find_char(v.rhs, "=", 0, &i1);
@@ -1363,7 +1363,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                                           (int32)strlen(big));
                         v.type = VECTOR;
                     }
-                    /* take care of special form for special */
+                     // take care of special form for special 
                     if (v.type == COMMAND && v.lhs[0] == 'S' &&
                         v.lhs[1] == 'P' && v.lhs[5] == 'A') {
                         form_ode_find_char(v.rhs, "=", 0, &i1);
@@ -1374,7 +1374,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         v.type = SPEC_FUN;
                     }
 
-                    /*   import-export to external C program   */
+                     //   import-export to external C program   
                     if (v.type == COMMAND && v.lhs[0] == 'E' &&
                         v.lhs[1] == 'X') {
                         v.type = EXPORT;
@@ -1385,7 +1385,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                                           (int32)strlen(big));
                     }
 
-                    /*  ONLY save options  */
+                     //  ONLY save options  
 
                     if (v.type == COMMAND && v.lhs[0] == 'O' &&
                         v.lhs[1] == 'N') {
@@ -1393,7 +1393,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         v.type = ONLY;
                     }
 
-                    /*  forced integral equation form */
+                     //  forced integral equation form 
                     if (v.type == COMMAND && v.lhs[0] == 'V') {
                         form_ode_find_char(v.rhs, "=", 0, &i1);
                         form_ode_strpiece(v.lhs, v.rhs, 0, i1 - 1);
@@ -1402,7 +1402,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                                           (int32)strlen(big));
                         v.type = VEQ;
                     }
-                    /* take care of tables   */
+                     // take care of tables   
 
                     if (v.type == COMMAND && v.lhs[0] == 'T' &&
                         v.lhs[1] == 'A') {
@@ -1444,7 +1444,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         break;
                     }
                 }
-            } /* end loop for the strings */
+            }  // end loop for the strings 
             /*     if(nstrings>0){
               for(i=0;i<nstrings;i++)
                  free(strings[i]);
@@ -1484,7 +1484,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         free(strings[ns]);
     }
     {
-        /* form ode compile em */
+         // form ode compile em 
         /* Now we try to keep track of markov, fixed, etc as well as their names
          */
         VarInfo *v2;
@@ -1660,7 +1660,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         NTable = ntab;
         NFUN = nufun;
 
-        /* Reset all this stuff so we align the indices correctly */
+         // Reset all this stuff so we align the indices correctly 
 
         nvar = 0;
         naux = 0;
@@ -1676,7 +1676,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 ptr = big2;
                 junk = form_ode_get_first(ptr, " ,");
                 if (junk == NULL) {
-                    /*No more tokens.  Should this throw an error?*/
+                     //No more tokens.  Should this throw an error?
                 }
                 form_ode_advance_past_first_word(&ptr);
                 while ((my_string = form_ode_get_next2(&ptr)) != NULL) {
@@ -1703,8 +1703,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                             exit(0);
                         }
                     }
-                } /* end take apart */
-            } /* end  init  command    */
+                }  // end take apart 
+            }  // end  init  command    
             if (v2->type == IC) {
                 convert(v2->lhs, tmp);
                 fon = form_ode_formula_or_number(v2->rhs, &z);
@@ -1721,7 +1721,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                     last_ic[in] = z;
                     default_ic[in] = z;
                     set_val(tmp, z);
-                    /* if(fon==1) */
+                     // if(fon==1) 
                     strcpy(delay_string[in], v2->rhs);
 
                     ggets_plintf(" Initial %s(0)=%s\n", tmp, v2->rhs);
@@ -1739,9 +1739,9 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         exit(0);
                     }
                 }
-            } /* end IC stuff  */
+            }  // end IC stuff  
 
-            /*   all that is left is the right-hand sides !!   */
+             //   all that is left is the right-hand sides !!   
             iflag = 0;
             switch (v2->type) {
             case VEQ:
@@ -1922,7 +1922,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
     }
 
     {
-        /* form ode free varinfo */
+         // form ode free varinfo 
         VarInfo *v3;
         VarInfo *vnew;
         v3 = my_varinfo;
@@ -2020,7 +2020,7 @@ form_ode_formula_or_number(char *expr, double *z) {
     int32 i = 0;
     int32 olderr = ERROUT;
     ERROUT = 0;
-    *z = 0.0; /* initial it to 0 */
+    *z = 0.0;  // initial it to 0 
     convert(expr, form);
     flag = do_num(form, num, z, &i);
     if (i < (int32)strlen(form)) {
@@ -2028,9 +2028,9 @@ form_ode_formula_or_number(char *expr, double *z) {
     }
     ERROUT = olderr;
     if (flag == 0) {
-        return 0; /* 0 is a number */
+        return 0;  // 0 is a number 
     }
-    return 1; /* 1 is a formula */
+    return 1;  // 1 is a formula 
 }
 
 void
@@ -2070,7 +2070,7 @@ form_ode_parse_a_string(char *s1, VarInfo *v) {
     if (strlen(s1) < 1) {
         return 0;
     }
-    if (s1[0] == '0' && s1[1] == '=') { /* ||(s1[1]==' '&&s1[2]=='='))) */
+    if (s1[0] == '0' && s1[1] == '=') {  // ||(s1[1]==' '&&s1[2]=='='))) 
         type2 = DAE;
         snprintf(lhs, sizeof(lhs), "0=");
         form_ode_strpiece(rhs, s1, 2, n1);
@@ -2240,7 +2240,7 @@ form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
 }
 
 int32
-form_ode_extract(/* name is char 1-i1  ie is start of rhs */
+form_ode_extract( // name is char 1-i1  ie is start of rhs 
                  char *s1, int32 *ie, int32 i1) {
     int32 i = 0;
     int32 n = (int32)strlen(s1);
@@ -2281,14 +2281,14 @@ form_ode_strparse(char *s1, char *s2, int32 i0, int32 *i1) {
                 start = 0;
                 j = 0;
             }
-        } else /* just starting */
+        } else  // just starting 
         {
 
             if (ch == s2[0]) {
                 j++;
                 i++;
                 start = 1;
-                if (j == m) { /* only one char */
+                if (j == m) {  // only one char 
                     *i1 = i;
                     return 1;
                 }
@@ -2467,7 +2467,7 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
     *flag = 0;
     strcpy(num1, "0");
     strcpy(num2, "0");
-    if (old[0] == '#' || old[1] == '#') { /* check for comments */
+    if (old[0] == '#' || old[1] == '#') {  // check for comments 
 
         strcpy(new, old);
 
@@ -2485,7 +2485,7 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
             j = 0;
             *flag = 1;
             if (old[0] == '%') {
-                *flag = 2; /*   FOR LOOP CONSTRUCTION  */
+                *flag = 2;  //   FOR LOOP CONSTRUCTION  
             }
             while (true) {
                 ch = old[i + j];
@@ -2506,7 +2506,7 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                     strcpy(new, old);
                     ggets_plintf(
                         " Possible error in array %s -- ignoring it \n", old);
-                    return 0; /* error in array  */
+                    return 0;  // error in array  
                 }
             }
             j = 2;
@@ -2529,14 +2529,14 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                     strcpy(new, old);
                     ggets_plintf(
                         " Possible error in array  %s -- ignoring it \n", old);
-                    return 0; /* error again   */
+                    return 0;  // error again   
                 }
             }
         }
     }
     *i1 = atoi(num1);
     *i2 = atoi(num2);
-    /* now we have the numbers and will get rid of the junk inbetween */
+     // now we have the numbers and will get rid of the junk inbetween 
     l = 0;
     for (int32 i = 0; i <= ileft; i++) {
         new[l] = old[i];
@@ -2577,7 +2577,7 @@ form_ode_check_if_ic(char *big) {
 }
 
 int32
-form_ode_not_ker(/* returns 1 if string is not 'int32[' */
+form_ode_not_ker( // returns 1 if string is not 'int32[' 
                  char *s, int32 i) {
     if (i < 3) {
         return 1;
@@ -2619,7 +2619,7 @@ form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
     char num[20];
     inew = 0;
     i = 0;
-    /*  if(big[0]=='#'){   */
+     //  if(big[0]=='#'){   
     if (form_ode_is_comment(big)) {
         strcpy(new, big);
         return;
@@ -2820,10 +2820,10 @@ char *
 form_ode_get_next2(char **tokens_ptr) {
     /* grabs (a copy of) the next block of the form var = val, ending with a \n,
      * space, or comma */
-    /* importantly, this supports white space around the equal sign */
-    /* returns NULL if no more text */
-    /* advances tokens_ptr */
-    /* modified 2012-10-12 to also work if no = */
+     // importantly, this supports white space around the equal sign 
+     // returns NULL if no more text 
+     // advances tokens_ptr 
+     // modified 2012-10-12 to also work if no = 
     int32 success = 0;
     int32 i = 0;
     char *tokens = *tokens_ptr;
@@ -2838,7 +2838,7 @@ form_ode_get_next2(char **tokens_ptr) {
         return NULL;
     }
     len = (int32)strlen(tokens);
-    /* advance past space/the equal sign/comma */
+     // advance past space/the equal sign/comma 
     success = 0;
     for (i = 1; i < len; i++) {
         if (tokens[i] == '=' || isspace(tokens[i]) || tokens[i] == ',') {
@@ -2848,12 +2848,12 @@ form_ode_get_next2(char **tokens_ptr) {
     }
 
     if (!success) {
-        /* this is either a variable alone or a syntax error */
+         // this is either a variable alone or a syntax error 
         *tokens_ptr = &tokens[len];
         return form_ode_new_string2(tokens, len);
     }
 
-    /* advance past any spaces */
+     // advance past any spaces 
     success = 0;
     for (; i < len; i++) {
         if (!isspace(tokens[i])) {
@@ -2863,7 +2863,7 @@ form_ode_get_next2(char **tokens_ptr) {
     }
 
     if (!success) {
-        /* this is either a variable alone or a syntax error */
+         // this is either a variable alone or a syntax error 
         *tokens_ptr = &tokens[len];
         return form_ode_new_string2(tokens, len);
     }
@@ -2877,7 +2877,7 @@ form_ode_get_next2(char **tokens_ptr) {
         return form_ode_new_string2(tokens, i);
     }
 
-    /* advance until the first non-space */
+     // advance until the first non-space 
     success = 0;
     for (i = i + 1; i < len; i++) {
         if (!isspace(tokens[i])) {
@@ -2886,26 +2886,26 @@ form_ode_get_next2(char **tokens_ptr) {
         }
     }
     if (!success) {
-        /* also a syntax error */
+         // also a syntax error 
         *tokens_ptr = &tokens[len];
         return form_ode_new_string2(tokens, len);
     }
 
-    /* advance past the nonspaces and non-commas */
+     // advance past the nonspaces and non-commas 
     for (; i < len; i++) {
         if (isspace(tokens[i]) || tokens[i] == ',') {
             break;
         }
     }
 
-    /* advance past any spaces */
+     // advance past any spaces 
     for (; i < len; i++) {
         if (!isspace(tokens[i])) {
             break;
         }
     }
 
-    /* advance past a comma, if any */
+     // advance past a comma, if any 
     if (i < len) {
         if (tokens[i] == ',') {
             i++;
@@ -2920,7 +2920,7 @@ form_ode_get_next2(char **tokens_ptr) {
 
 void
 form_ode_strcpy_trim(char *dest, char *source) {
-    /* like strcpy, except removes leading and trailing whitespace */
+     // like strcpy, except removes leading and trailing whitespace 
     int32 len;
     int32 i;
     while (*source && isspace(*source)) {

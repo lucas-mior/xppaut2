@@ -112,7 +112,7 @@ kill_diagrams(void) {
     Diagram *d;
     Diagram *dnew;
     d = bifd;
-    while (d->next != NULL) { /*  Move to the end of the tree  */
+    while (d->next != NULL) {  //  Move to the end of the tree  
         d = d->next;
     }
     while (d->prev != NULL) {
@@ -253,7 +253,7 @@ diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     first = ABS(pts);
     last = ABS(pte);
     if (last <
-        first) { /* reorder the points so that we will store in right range*/
+        first) {  // reorder the points so that we will store in right range
         i = first;
         first = last;
         last = i;

@@ -5,7 +5,7 @@
 #include "integers.h"
 #include "functions.h"
 
-#define NCMD 45 /* add new commands as needed  */
+#define NCMD 45  // add new commands as needed  
 
 #define MAKEC 0
 #define XORFX 1
@@ -296,17 +296,17 @@ comline_do(int32 argc, char **argv) {
             load_eqn_set_option("NCDRAW", argv[i + 1], 1, NULL);
             i++;
         }
-        if (k == 28) { /* -readset */
+        if (k == 28) {  // -readset 
             strcpy(readsetfile, argv[i + 1]);
             i++;
             externaloptionsflag = 1;
         }
-        if (k == 29) { /* -with */
+        if (k == 29) {  // -with 
             strcpy(externaloptionsstring, argv[i + 1]);
             i++;
             externaloptionsflag = 2;
         }
-        if (k == 30) { /* -equil */
+        if (k == 30) {  // -equil 
             batch_equil = atoi(argv[i + 1]);
             i++;
             printf(" Batch equilibria %d \n", batch_equil);

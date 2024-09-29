@@ -432,7 +432,7 @@ array_plot_button(Window window) {
         array_plot_edit2(&array_plot);
     }
     if (window == array_plot.wfit) {
-        /* array plot fit */
+         // array plot fit 
         double zmax;
         double zmin;
         array_plot_scale(&array_plot, &zmax, &zmin);
@@ -441,7 +441,7 @@ array_plot_button(Window window) {
         array_plot_redraw(array_plot);
     }
     if (window == array_plot.wrange) {
-        /* array plot set up range */
+         // array plot set up range 
         static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
@@ -469,7 +469,7 @@ array_plot_button(Window window) {
         array_plot_print(&array_plot);
     }
     if (window == array_plot.wclose) {
-        /* array plot destroy */
+         // array plot destroy 
         array_plot.alive = 0;
         browse_wait_a_sec(ClickTime);
         XDestroySubwindows(display, array_plot.base);

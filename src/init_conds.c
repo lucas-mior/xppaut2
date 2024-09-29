@@ -207,7 +207,7 @@ init_conds_clone_ode(void) {
         fprintf(fp, "%s\n", s);
     }
     fprintf(fp, "# Cloned parameters etc here\n");
-    /* now we do parameters boundary conds and ICs */
+     // now we do parameters boundary conds and ICs 
     j = 0;
     fprintf(fp, "init ");
     for (int32 i = 0; i < (NODE + NMarkov); i++) {
@@ -221,7 +221,7 @@ init_conds_clone_ode(void) {
     }
     fprintf(fp, "\n");
 
-    /* BDRY conds */
+     // BDRY conds 
     if (my_bc[0].string[0] != '0') {
         for (int32 i = 0; i < NODE; i++) {
             fprintf(fp, "bdry %s\n", my_bc[i].string);
@@ -327,7 +327,7 @@ init_conds_do_slide_button(Window window, struct ParSlider *p) {
     if (status == 0) {
         return;
     }
-    if (strlen(values[0]) == 0) { /* empty string cancels */
+    if (strlen(values[0]) == 0) {  // empty string cancels 
         p->use = 0;
         return;
     }
@@ -553,8 +553,8 @@ init_conds_button_selector(Window window) {
 
         read_dir_get_directory(cur_dir);
         init_conds_redraw_directory();
-        read_dir_free_finfo(&my_ff); /* delete the old file info */
-        filesel.n0 = 0;              /* back to the top of the list */
+        read_dir_free_finfo(&my_ff);  // delete the old file info 
+        filesel.n0 = 0;               // back to the top of the list 
         read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
         filesel.n = my_ff.ndirs + my_ff.nfiles;
 
@@ -584,8 +584,8 @@ init_conds_button_selector(Window window) {
 
         read_dir_get_directory(cur_dir);
         init_conds_redraw_directory();
-        read_dir_free_finfo(&my_ff); /* delete the old file info */
-        filesel.n0 = 0;              /* back to the top of the list */
+        read_dir_free_finfo(&my_ff);  // delete the old file info 
+        filesel.n0 = 0;               // back to the top of the list 
         read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
         filesel.n = my_ff.ndirs + my_ff.nfiles;
 
@@ -602,7 +602,7 @@ init_conds_button_selector(Window window) {
 
         return 0;
     }
-    if (window == filesel.file) { /* selected the file text */
+    if (window == filesel.file) {  // selected the file text 
         if (filesel.hot != HOTFILE) {
             filesel.pos = (int32)strlen(filesel.filetxt);
         }
@@ -610,7 +610,7 @@ init_conds_button_selector(Window window) {
         filesel.hot = HOTFILE;
         init_conds_redraw_fs_text(filesel.filetxt, filesel.file, 1);
         init_conds_redraw_fs_text(filesel.wildtxt, filesel.wild, 0);
-        /* set up text stuff */
+         // set up text stuff 
         return 0;
     }
     if (window == filesel.wild) {
@@ -628,15 +628,15 @@ init_conds_button_selector(Window window) {
             i0 = i;
         }
     }
-    if (i0 > -1) { /* clicked on a file or directory */
+    if (i0 > -1) {  // clicked on a file or directory 
         k = i0 + filesel.n0;
-        if (k < my_ff.ndirs) { /* it is a directory so we should reset */
+        if (k < my_ff.ndirs) {  // it is a directory so we should reset 
             int32 m;
             read_dir_change_dir(my_ff.dirnames[k]);
             read_dir_get_directory(cur_dir);
             init_conds_redraw_directory();
-            read_dir_free_finfo(&my_ff); /* delete the old file info */
-            filesel.n0 = 0;              /* back to the top of the list */
+            read_dir_free_finfo(&my_ff);  // delete the old file info 
+            filesel.n0 = 0;               // back to the top of the list 
             read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
             filesel.n = my_ff.ndirs + my_ff.nfiles;
 
@@ -656,7 +656,7 @@ init_conds_button_selector(Window window) {
         if (k < n) {
             k = k - my_ff.ndirs;
             strcpy(filesel.filetxt, my_ff.filenames[k]);
-            return 1; /* got a file */
+            return 1;  // got a file 
         }
     }
     return 0;
@@ -860,7 +860,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
         return 0;
     case KEY_PGDN:
         init_conds_fs_scroll(-filesel.nwin);
-        return 0; /* junk key  */
+        return 0;  // junk key  
     case KEY_ESC:
         return EDIT_ESC;
     case KEY_FINE:
@@ -892,7 +892,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
             ggets_ping();
         }
         break;
-    case KEY_TAB: /*KEY_TAB completion of file names */
+    case KEY_TAB:  //KEY_TAB completion of file names 
     {
         struct dirent *dp;
 
@@ -900,15 +900,15 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
         char ftpath[XPP_MAX_NAME];
         int32 m;
 
-        /*User may have typed ahead (maybe they remember the path they want)"*/
-        /*Try to change to that new directory if it is one.*/
+         //User may have typed ahead (maybe they remember the path they want)"
+         //Try to change to that new directory if it is one.
         if ((dp = (struct dirent *)opendir(filesel.filetxt)) != NULL) {
             if (strcmp(cur_dir, filesel.filetxt) != 0) {
                 read_dir_change_dir(filesel.filetxt);
                 read_dir_get_directory(cur_dir);
                 init_conds_redraw_directory();
-                read_dir_free_finfo(&my_ff); /* delete the old file info */
-                filesel.n0 = 0;              /* back to the top of the list */
+                read_dir_free_finfo(&my_ff);  // delete the old file info 
+                filesel.n0 = 0;               // back to the top of the list 
                 read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
                 filesel.n = my_ff.ndirs + my_ff.nfiles;
                 strcpy(filesel.filetxt, cur_dir);
@@ -920,7 +920,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
                 init_conds_redraw_file_list();
                 XFlush(display);
             }
-            return EDIT_WAIT; /*Wait for further instruction...*/
+            return EDIT_WAIT;  //Wait for further instruction...
         }
 
         m = (int32)strlen(filesel.filetxt) + 1;
@@ -929,7 +929,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
         if (m > 1) {
             strcpy(ft, filesel.filetxt);
         } else {
-            /* We are already at the root level of file system! */
+             // We are already at the root level of file system! 
             strcpy(filesel.filetxt, "/");
             strcpy(ft, filesel.filetxt);
         }
@@ -971,14 +971,14 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
         read_dir_get_fileinfo_tab(ft, ftpath, &my_ff, filesel.wildtxt);
         filesel.n = my_ff.ndirs + my_ff.nfiles;
         if ((my_ff.ndirs + my_ff.nfiles) == 1) {
-            if (my_ff.ndirs == 1) /*Only possible directory -- take it.*/
+            if (my_ff.ndirs == 1)  //Only possible directory -- take it.
             {
                 int32 m2;
                 read_dir_change_dir(my_ff.dirnames[0]);
                 read_dir_get_directory(cur_dir);
                 init_conds_redraw_directory();
-                read_dir_free_finfo(&my_ff); /* delete the old file info */
-                filesel.n0 = 0;              /* back to the top of the list */
+                read_dir_free_finfo(&my_ff);  // delete the old file info 
+                filesel.n0 = 0;               // back to the top of the list 
                 read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
                 filesel.n = my_ff.ndirs + my_ff.nfiles;
                 strcpy(filesel.filetxt, cur_dir);
@@ -1017,7 +1017,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
                         U, my_ff.filenames[j - my_ff.ndirs]);
                 }
 
-                if (strlen(U) == 0) /*No common substring*/
+                if (strlen(U) == 0)  //No common substring
                 {
                     break;
                 }
@@ -1054,7 +1054,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
         }
         break;
     }
-    /* all done lets save everything */
+     // all done lets save everything 
     off = pos - wpos;
     *off1 = off;
     *pos1 = pos;
@@ -1086,9 +1086,9 @@ init_conds_selector_key(XEvent event) {
         flag = init_conds_fit_em(ch, filesel.wildtxt, filesel.wild,
                                  &(filesel.off), &(filesel.pos), 29);
         if (flag == EDIT_DONE) {
-            /* new wild */
-            read_dir_free_finfo(&my_ff); /* delete the old file info */
-            filesel.n0 = 0;              /* back to the top of the list */
+             // new wild 
+            read_dir_free_finfo(&my_ff);  // delete the old file info 
+            filesel.n0 = 0;               // back to the top of the list 
             read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
             filesel.n = my_ff.ndirs + my_ff.nfiles;
             init_conds_redraw_file_list();
@@ -1118,7 +1118,7 @@ init_conds_file_selector(char *title, char *file, char *wild) {
 
     init_conds_create_file_selector(title, file, wild);
 
-    /* do file select events */
+     // do file select events 
     while (true) {
         XEvent event;
         XNextEvent(display, &event);
@@ -1134,11 +1134,11 @@ init_conds_file_selector(char *title, char *file, char *wild) {
         case ButtonPress:
             done = init_conds_button_selector(event.xbutton.window);
             if (done == 1) {
-                selected = 1; /* OK made a selection */
+                selected = 1;  // OK made a selection 
                 goto end;
             }
             if (done == 2) {
-                selected = 0; /* canceled the whole thing */
+                selected = 0;  // canceled the whole thing 
                 goto end;
             }
             break;
@@ -1165,19 +1165,19 @@ init_conds_file_selector(char *title, char *file, char *wild) {
     }
 end:
 
-    /* destroy selector */
+     // destroy selector 
     filesel.here = 0;
     browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, filesel.base);
     XDestroyWindow(display, filesel.base);
     read_dir_free_finfo(&my_ff);
 
-    XFlush(display); /*Need to do this otherwise the file dialog hangs around*/
+    XFlush(display);  //Need to do this otherwise the file dialog hangs around
     if (selected == 0) {
         return 0;
     }
     strcpy(file, filesel.filetxt);
-    return 1; /* got a file name */
+    return 1;  // got a file name 
 }
 
 void
@@ -1525,7 +1525,7 @@ init_conds_initialize_box(void) {
     }
     init_conds_make_box_list(&BCBox, "Boundary Conds", "BCs", NODE, BCBOX, 1);
 
-    /*  Iconify them !!   */
+     //  Iconify them !!   
     /*  if(noicon==0){
     if(ICBox.xuse)XIconifyWindow(display,ICBox.base,screen);
     if(DelayBox.xuse) XIconifyWindow(display,DelayBox.base,screen);
@@ -1641,7 +1641,7 @@ init_conds_destroy_box(BoxList *b) {
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);
 
-    /* now free up stuff */
+     // now free up stuff 
     free(b->w);
     free(b->we);
     if (b->type == ICBOX) {
@@ -1870,7 +1870,7 @@ init_conds_draw_one_box(BoxList b, int32 index) {
         return;
     }
     if (index < n0 || index > n1) {
-        return; /* don't draw the ones out of range*/
+        return;  // don't draw the ones out of range
     }
     i = index - n0;
     window = b.w[i];
@@ -2122,7 +2122,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
     }
     if (window == b->def && b->type == ICBOX) {
 
-        /* set default ics */
+         // set default ics 
         for (int32 i2 = 0; i2 < NODE + NMarkov; i2++) {
             last_ic[i2] = default_ic[i2];
         }
@@ -2149,7 +2149,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
         if (window == b->we[i]) {
             XSetInputFocus(display, window, RevertToParent, CurrentTime);
             do {
-                /* check box cursor */
+                 // check box cursor 
                 int32 n0;
                 if (HotBoxItem < 0 || HotBox->xuse == 0) {
                     break;
@@ -2182,7 +2182,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
             }
         }
         if (window == b->xvt) {
-            /* set up xvt */
+             // set up xvt 
             int32 plot_list[10];
             int32 n2 = 0;
             for (int32 i = 0; i < ICBox.n; i++) {
@@ -2202,7 +2202,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
             }
         }
         if (window == b->pp) {
-            /* set up pp */
+             // set up pp 
             int32 plot_list[3], n2 = 0;
 
             for (int32 i = 0; i < ICBox.n; i++) {
@@ -2223,7 +2223,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
         }
 
         if (window == b->arr) {
-            /* set up arry */
+             // set up arry 
             int32 plot_list[2], n2 = 0;
 
             for (int32 i = 0; i < ICBox.n; i++) {
@@ -2254,7 +2254,7 @@ init_conds_box_list_scroll(BoxList *b, int32 i) {
     int32 n = b->n;
     int32 nend;
     if (n <= nw) {
-        return; /* do nothing - there is nothing to do */
+        return;  // do nothing - there is nothing to do 
     }
     new = n0 - i;
     nend = new + nw;
@@ -2502,8 +2502,8 @@ init_conds_set_default_params(void) {
 void
 init_conds_draw_editable(Window window, char *string, int32 off, int32 cursor,
                          int32 mc) {
-    /* cursor position in letters to the left */
-    /* first character of string is off */
+     // cursor position in letters to the left 
+     // first character of string is off 
     int32 l = (int32)strlen(string) - off, rev, cp;
     Window focus;
     if (l > mc) {
@@ -2513,7 +2513,7 @@ init_conds_draw_editable(Window window, char *string, int32 off, int32 cursor,
     XDrawString(display, window, small_gc, 0, CURY_OFF, string + off, l);
     XGetInputFocus(display, &focus, &rev);
     if (focus == window) {
-        cp = DCURXs*(cursor - off); /* must be fixed */
+        cp = DCURXs*(cursor - off);  // must be fixed 
         init_conds_put_edit_cursor(window, cp);
     }
     return;
@@ -2591,7 +2591,7 @@ init_conds_edit_bit_em(BoxList *b, int32 i, int32 ch) {
         return 0;
     case KEY_PGDN:
         init_conds_box_list_scroll(b, -b->nwin);
-        return 0; /* junk key  */
+        return 0;  // junk key  
     case KEY_ESC:
         return EDIT_ESC;
     case KEY_FINE:
@@ -2646,7 +2646,7 @@ init_conds_edit_bit_em(BoxList *b, int32 i, int32 ch) {
         }
         break;
     }
-    /* all done lets save everything */
+     // all done lets save everything 
     off = pos - wpos;
 
     b->off[i0] = off;

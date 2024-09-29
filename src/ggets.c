@@ -132,7 +132,7 @@ ggets_plintf(char *fmt, ...) {
     va_list arglist;
 
     if (!XPPVERBOSE) {
-        return nchar; /*Don't print at all!*/
+        return nchar;  //Don't print at all!
     }
 
     if (logfile == NULL) {
@@ -229,7 +229,7 @@ ggets_cput_text(void) {
     if (string[0] == '%') {
         graphics_fillin_text(&string[1], new);
         strcpy(string, new);
-    } /* this makes it permanent */
+    }  // this makes it permanent 
 
     ggets_new_int("Size 0-4 :", &size);
     if (size > 4) {
@@ -452,9 +452,9 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
     case KEY_UP:
     case KEY_PGUP:
     case KEY_PGDN:
-        return; /* junk key  */
+        return;  // junk key  
     case KEY_ESC:
-        *done2 = -1; /* quit without saving */
+        *done2 = -1;  // quit without saving 
         return;
     case KEY_FINE:
         if (MSStyle == 0) {
@@ -462,7 +462,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
         } else {
             *done2 = 2;
         }
-        return; /* save this guy */
+        return;  // save this guy 
     case KEY_BKSP:
         /*
         *pos=0;
@@ -496,8 +496,8 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
             *col += DCURX;
         }
         break;
-    } /* end key cases */
-    /* Now redraw everything !!  */
+    }  // end key cases 
+     // Now redraw everything !!  
     ggets_clr_line_at(window, col0, 0, (int32)strlen(value));
     ggets_put_string_at(window, col0, value, 0);
     ggets_put_cursor_at(window, col0, *pos);

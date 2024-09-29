@@ -240,8 +240,8 @@ auto_x11_find_point(int32 ibr, int32 pt) {
         if (d->ibr == ibr &&
             ((d->ntot == pt) ||
              (d->ntot ==
-              (-pt)))) { /* need to look at both signs to ignore stability */
-            /* now we use this info to set parameters and init data */
+              (-pt)))) {  // need to look at both signs to ignore stability 
+             // now we use this info to set parameters and init data 
             for (int32 i = 0; i < NODE; i++) {
                 set_ivar(i + 1, d->u0[i]);
             }
@@ -332,7 +332,7 @@ auto_x11_traverse_diagram(void) {
                     d = dnew;
                     auto_nox_traverse_out(
                         d, &ix, &iy,
-                        0); /*Need this each time to update the distance calc*/
+                        0);  //Need this each time to update the distance calc
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
@@ -464,7 +464,7 @@ auto_x11_traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
-            case 's': /* mark the start of a branch */
+            case 's':  // mark the start of a branch 
                 if (mark_flag == 0) {
                     auto_x11_mark(ix, iy);
                     mark_ibrs = d->ibr;
@@ -474,7 +474,7 @@ auto_x11_traverse_diagram(void) {
                     mark_iys = iy;
                 }
                 break;
-            case 'e': /* mark end of branch */
+            case 'e':  // mark end of branch 
                 if (mark_flag == 1) {
                     auto_x11_mark(ix, iy);
                     mark_ibre = d->ibr;
@@ -484,7 +484,7 @@ auto_x11_traverse_diagram(void) {
                     mark_iye = iy;
                 }
                 break;
-            case KEY_END: /*All the way to end*/
+            case KEY_END:  //All the way to end
                 auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->next;
@@ -498,7 +498,7 @@ auto_x11_traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
-            case KEY_HOME: /*All the way to beginning*/
+            case KEY_HOME:  //All the way to beginning
                 auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->prev;
@@ -512,7 +512,7 @@ auto_x11_traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
-            case KEY_PGUP: /*Same as KEY_TAB except we don't wrap*/
+            case KEY_PGUP:  //Same as KEY_TAB except we don't wrap
                 auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->next;
@@ -529,7 +529,7 @@ auto_x11_traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
-            case KEY_PGDN: /*REVERSE KEY_TAB*/
+            case KEY_PGDN:  //REVERSE KEY_TAB
                 auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->prev;
@@ -550,7 +550,7 @@ auto_x11_traverse_diagram(void) {
             case KEY_FINE:
                 done = 1;
                 auto_x11_xor_cross(ix, iy);
-                /*Cross should be erased now that we have made our selection.*/
+                 //Cross should be erased now that we have made our selection.
                 /*Seems XORing it with new draw can tend to bring it back
                 randomly depending on the order of window expose events.  Best
                 not to do the XORCross function at all.*/
@@ -570,7 +570,7 @@ auto_x11_traverse_diagram(void) {
             }
         }
     }
-    /* check mark_flag branch similarity */
+     // check mark_flag branch similarity 
     if (mark_flag == 2) {
         if (mark_ibrs != mark_ibre) {
             mark_flag = 0;
@@ -1203,7 +1203,7 @@ auto_x11_button(XEvent event) {
     }
     if (window == auto_win.kill) {
         SBW;
-        /* auto x11 kill */
+         // auto x11 kill 
         Auto.exist = 0;
         browse_wait_a_sec(ClickTime);
         XDestroySubwindows(display, auto_win.base);

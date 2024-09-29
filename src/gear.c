@@ -97,7 +97,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     for (int32 i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
     }
-    /* Transpose for Eigen        */
+     // Transpose for Eigen        
     for (int32 i = 0; i < n; i++) {
         for (int32 j = i + 1; j < n; j++) {
             temp = work[i + j*n];
@@ -111,7 +111,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
         free(work);
         return;
     }
-    /* succesfully computed evals now lets work with them */
+     // succesfully computed evals now lets work with them 
     ch = 'n';
     if (!PAR_FOL) {
         ch =
@@ -170,7 +170,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
         if ((real == 0.0) && (imag != 0.0)) {
             im++;
         }
-    } /* eigenvalue count */
+    }  // eigenvalue count 
     if (((rp + cp) != 0) && ((rn + cn) != 0)) {
         graphics_eq_symb(x, 1);
     } else {
@@ -183,7 +183,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
 
     *stabinfo = (double)(cp + rp) + (double)(cn + rn) / 1000.0;
 
-    /* Lets change Work back to transposed oldwork */
+     // Lets change Work back to transposed oldwork 
     for (int32 i = 0; i < n; i++) {
         for (int32 j = i + 1; j < n; j++) {
             temp = oldwork[i + j*n];
@@ -234,11 +234,11 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
             }
             DELTA_T = oldt;
         }
-    } /* end of normal shooting stuff */
+    }  // end of normal shooting stuff 
 
     /* strong (un) stable manifold calculation
        only one-d manifolds calculated */
-    /* lets check to see if it is relevant */
+     // lets check to see if it is relevant 
     if (((rn > 1) && (bneg >= 0)) || ((rp > 1) && (bpos >= 0))) {
         ch = 'n';
         if (!PAR_FOL) {
@@ -249,7 +249,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
         if ((ch == 'y') || (PAR_FOL && SHOOT)) {
             oldt = DELTA_T;
 
-            if ((rp > 1) && (bpos >= 0)) /* then there is a strong unstable */
+            if ((rp > 1) && (bpos >= 0))  // then there is a strong unstable 
             {
                 ggets_plintf("strong unstable %g \n", bigpos);
                 gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
@@ -268,7 +268,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                 }
             }
 
-            if ((rn > 1) && (bneg >= 0)) /* then there is a strong stable */
+            if ((rn > 1) && (bneg >= 0))  // then there is a strong stable 
             {
                 ggets_plintf("strong stable %g \n", bigneg);
                 gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
@@ -336,7 +336,7 @@ gear_save_batch_shoot(void) {
 
 void
 gear_shoot_this_now(void) {
-    /* this uses the current labeled saddle point stuff to integrate */
+     // this uses the current labeled saddle point stuff to integrate 
     int32 k;
     int32 type;
     int32 oldcol;
@@ -421,7 +421,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     for (int32 i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
     }
-    /* Transpose for Eigen        */
+     // Transpose for Eigen        
     for (int32 i = 0; i < n; i++) {
         for (int32 j = i + 1; j < n; j++) {
             temp = work[i + j*n];
@@ -434,7 +434,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
         free(work);
         return;
     }
-    /* succesfully computed evals now lets work with them */
+     // succesfully computed evals now lets work with them 
 
     for (int32 i = 0; i < n; i++) {
         real = eval[2*i];
@@ -476,7 +476,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                 }
             }
         }
-    } /* eigenvalue count */
+    }  // eigenvalue count 
     if (((rp + cp) != 0) && ((rn + cn) != 0)) {
         graphics_eq_symb(x, 1);
     } else {
@@ -487,7 +487,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
         }
     }
 
-    /* Lets change Work back to transposed oldwork */
+     // Lets change Work back to transposed oldwork 
     for (int32 i = 0; i < n; i++) {
         for (int32 j = i + 1; j < n; j++) {
             temp = oldwork[i + j*n];
@@ -758,7 +758,7 @@ l70:
     y = x;
     w = -0.4375*s*s;
 l130:
-    its++; /*its = its++; This may be undefined. Use its++ instead.*/
+    its++;  //its = its++; This may be undefined. Use its++ instead.
     for (mm = l; mm <= enm2; mm++) {
         m = enm2 + l - mm;
         zz = h[m - 1 + (m - 1)*n];
@@ -789,7 +789,7 @@ l130:
         h[i - 1 + (i - 4)*n] = 0.0;
     }
     for (k = m; k <= na; k++) {
-        /* 260 */
+         // 260 
         notlas = 0;
         if (k != na) {
             notlas = 1;
@@ -899,7 +899,7 @@ gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
     if (la < kp1) {
         return;
     }
-    for (m = kp1; m <= la; m++) /*180*/
+    for (m = kp1; m <= la; m++)  //180
     {
         h = 0.0;
         ort[m - 1] = 0.0;
@@ -911,7 +911,7 @@ gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
             continue;
         }
         mp = m + igh;
-        for (ii = m; ii <= igh; ii++) /*100*/
+        for (ii = m; ii <= igh; ii++)  //100
         {
             i = mp - ii;
             ort[i - 1] = a[i - 1 + (m - 2)*n] / scale;
@@ -920,7 +920,7 @@ gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
         g = -gear_sign(sqrt(h), ort[m - 1]);
         h = h - ort[m - 1]*g;
         ort[m - 1] = ort[m - 1] - g;
-        for (j = m; j <= n; j++) /*130 */
+        for (j = m; j <= n; j++)  //130 
         {
             f = 0.0;
             for (ii = m; ii <= igh; ii++) {
@@ -933,10 +933,10 @@ gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
                     a[i - 1 + (j - 1)*n] - f*ort[i - 1];
             }
         }
-        for (i = 1; i <= igh; i++) /*160*/
+        for (i = 1; i <= igh; i++)  //160
         {
             f = 0.0;
-            for (jj = m; jj <= igh; jj++) /*140 */
+            for (jj = m; jj <= igh; jj++)  //140 
             {
                 j = mp - jj;
                 f = f + ort[j - 1]*a[i - 1 + (j - 1)*n];
@@ -1091,7 +1091,7 @@ gear_rooter(double *x, double err, double eps, double big, double *work,
                     dermat[i*(n + 1)] += 1.0;
                 }
             }
-            return; /* success !! */
+            return;  // success !! 
         }
         if ((r / (double)n) > big) {
             *ierr = 1;
@@ -1313,7 +1313,7 @@ L150:
         break;
     }
 
-    /*L310:*/
+     //L310:
 
     k = nq + 1;
     idoub = k;
@@ -1330,7 +1330,7 @@ L150:
     }
     bnd = eps*enq3 / (double)n;
 
-    /*L320:*/
+     //L320:
 
     iweval = 2;
     if (iret == 2) {
@@ -1356,7 +1356,7 @@ L330:
         if (iweval < 1) {
             goto L460;
         }
-        /*       JACOBIAN COMPUTED   */
+         //       JACOBIAN COMPUTED   
         for (int32 i = 0; i < n; i++) {
             save9[i] = ytable[0][i];
         }
@@ -1410,7 +1410,7 @@ L330:
 
 L520:
 
-    /*        UH Oh */
+     //        UH Oh 
     *t = told;
     if ((h <= (hmin*1.000001)) && ((iweval - mtyp) < -1)) {
         goto L530;

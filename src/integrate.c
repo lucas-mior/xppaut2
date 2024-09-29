@@ -229,7 +229,7 @@ integrate_init_range(void) {
     sprintf(range.item2, "%s", uvar_names[0]);
     pp_shoot_init_shoot_range(upar_names[0]);
 
-    /* integrate init monte carlo */
+     // integrate init monte carlo 
     fixptguess.tol = .001;
     fixptguess.n = 100;
     for (int32 i2 = 0; i2 < NODE; i2++) {
@@ -262,7 +262,7 @@ integrate_cont_integ(void) {
         return;
     }
     dif = tetemp - fabs(MyTime);
-    MyStart = 1; /*  I know it is wasteful to restart, but lets be safe.... */
+    MyStart = 1;  //  I know it is wasteful to restart, but lets be safe.... 
     integrate(&MyTime, x, dif, DELTA_T, 1, NJMP, &MyStart);
     ggets_ping();
     refresh_browser(storind);
@@ -424,7 +424,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                           &ierr);
         if (ierr == 0) {
             m = fixptlist.n;
-            if (m == 0) { /* first fixed point found */
+            if (m == 0) {  // first fixed point found 
                 fixptlist.n = 1;
                 ggets_plintf("Found: %d\n", m);
                 for (int32 j = 0; j < NODE; j++) {
@@ -437,7 +437,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                     ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j],
                                  er[j], em[j]);
                 }
-            } else { /* there are others  better compare them */
+            } else {  // there are others  better compare them 
                 new = 1;
                 for (int32 k = 0; k < m; k++) {
                     sum = 0.0;
@@ -498,7 +498,7 @@ integrate_eq_range(double *x) {
     char bob[256];
     double stabinfo = 0.0;
 
-    /* integrate set up eq range */
+     // integrate set up eq range 
     static char *n[] = {
         "*2Range over", "Steps",         "Start",       "End",
         "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
@@ -658,7 +658,7 @@ integrate_do_auto_range_go(void) {
 
 int32
 integrate_do_range(double *x, int32 flag) {
-    /* flag: 0 for 1-param 1 for 2 parameter 2 for Auto range */
+     // flag: 0 for 1-param 1 for 2 parameter 2 for Auto range 
     char parn[256];
     char bob[sizeof(parn) + 30];
     int32 ivar = 0;
@@ -680,7 +680,7 @@ integrate_do_range(double *x, int32 flag) {
         }
     }
     if (flag == 1) {
-        /* integrate set up range2 */
+         // integrate set up range2 
         static char *n[] = {"*3Vary1",
                             "Start1",
                             "End1",
@@ -736,7 +736,7 @@ integrate_do_range(double *x, int32 flag) {
         strcpy(range.item2, values[3]);
 
         {
-            /* integrate range item2 */
+             // integrate range item2 
             int32 i2;
             char bob2[256];
             i2 = init_conds_find_user_name(Param, range.item2);
@@ -816,7 +816,7 @@ integrate_do_range(double *x, int32 flag) {
     if (range.type == Param) {
         get_val(range.item, &temp);
     }
-    adjoints_alloc_liap(nit); /* make space */
+    adjoints_alloc_liap(nit);  // make space 
     if (range.rtype > 0) {
         itype2 = range.type2;
         ivar2 = range.index2;
@@ -868,7 +868,7 @@ integrate_do_range(double *x, int32 flag) {
                     integrate_get_ic(1, x);
 
                     if (DelayFlag) {
-                        /* restart initial data */
+                         // restart initial data 
                         if (delay_handle_do_init_delay(DELAY) == 0) {
                             break;
                         }
@@ -900,8 +900,8 @@ integrate_do_range(double *x, int32 flag) {
                     }
                     ggets_bottom_msg(bob);
                 }
-            } /* normal range stuff   */
-            else { /* auto range stuff */
+            }  // normal range stuff   
+            else {  // auto range stuff 
                 auto_x11_set_mark(i);
                 integrate_get_ic(2, x);
                 get_val(parn, &temp);
@@ -944,7 +944,7 @@ integrate_do_range(double *x, int32 flag) {
                                             last_ic, bob);
             }
 
-            adjoints_do_this_liaprun(i, p); /* sends parameter and index back */
+            adjoints_do_this_liaprun(i, p);  // sends parameter and index back 
             if (storind > 2) {
                 graf_par_auto_freeze_it();
             }
@@ -1049,7 +1049,7 @@ integrate_find_equilib_com(int32 com) {
 
         return;
     case 1:
-        /*  Get mouse values  */
+         //  Get mouse values  
         iv = MyGraph->xv[0] - 1;
         jv = MyGraph->yv[0] - 1;
         if (iv < 0 || iv >= NODE || jv < 0 || jv >= NODE ||
@@ -1058,7 +1058,7 @@ integrate_find_equilib_com(int32 com) {
             return;
         }
 
-        /* get mouse click x,y  */
+         // get mouse click x,y  
         integrate_get_ic(1, x);
         menudrive_message_box("Click on guess");
         if (menudrive_get_mouse_xy(&im, &jm)) {
@@ -1101,12 +1101,12 @@ integrate_batch(void) {
 
     for (int32 i = 0; i < Nintern_set; i++) {
         sprintf(this_internset, "_%s", intern_set[i].name);
-        if (strlen(user_out_file) == 0) /*Use the set name for outfile name*/
+        if (strlen(user_out_file) == 0)  //Use the set name for outfile name
         {
             sprintf(batch_out, "%s.dat", intern_set[i].name);
-        } else /*Use the command line supplied outfile name*/
+        } else  //Use the command line supplied outfile name
         {
-            /*Will get over-written each internal set*/
+             //Will get over-written each internal set
             sprintf(batch_out, "%s", user_out_file);
         }
         ggets_plintf("out=%s\n", batch_out);
@@ -1191,7 +1191,7 @@ batch_integrate_once(void) {
     } else {
         integrate_get_ic(2, x);
         if (DelayFlag) {
-            /* restart initial data */
+             // restart initial data 
             if (delay_handle_do_init_delay(DELAY) == 0) {
                 return;
             }
@@ -1288,7 +1288,7 @@ integrate_do_init_data(int32 com) {
         return;
     }
 
-    if (com == M_ID) { /* dont want to wipe out everything! */
+    if (com == M_ID) {  // dont want to wipe out everything! 
         dae_fun_get_new_guesses();
         return;
     }
@@ -1303,7 +1303,7 @@ integrate_do_init_data(int32 com) {
     reset_browser();
 
     switch (com) {
-    case M_IR: /* do range   */
+    case M_IR:  // do range   
 
         integrate_do_range(x, 0);
         return;
@@ -1333,7 +1333,7 @@ integrate_do_init_data(int32 com) {
     case M_IO:
         integrate_get_ic(1, x);
         if (DelayFlag) {
-            /* restart initial data */
+             // restart initial data 
             if (delay_handle_do_init_delay(DELAY) == 0) {
                 return;
             }
@@ -1350,7 +1350,7 @@ integrate_do_init_data(int32 com) {
             return;
         }
 
-        /*  Get mouse values  */
+         //  Get mouse values  
         if (com == M_IM) {
             integrate_get_ic(1, x);
             menudrive_message_box("Click on initial data");
@@ -1365,7 +1365,7 @@ integrate_do_init_data(int32 com) {
                 menudrive_message_box_kill();
 
                 if (DelayFlag) {
-                    /* restart initial data */
+                     // restart initial data 
                     if (delay_handle_do_init_delay(DELAY) == 0) {
                         return;
                     }
@@ -1392,7 +1392,7 @@ integrate_do_init_data(int32 com) {
                 last_ic[im] = x[im];
                 last_ic[jm] = x[jm];
                 if (DelayFlag) {
-                    /* restart initial data */
+                     // restart initial data 
                     if (delay_handle_do_init_delay(DELAY) == 0) {
                         break;
                     }
@@ -1456,7 +1456,7 @@ integrate_do_init_data(int32 com) {
         integrate_get_ic(2, x);
         dae_fun_set_init_guess();
         if (DelayFlag) {
-            /* restart initial data */
+             // restart initial data 
             if (delay_handle_do_init_delay(DELAY) == 0) {
                 return;
             }
@@ -1470,7 +1470,7 @@ integrate_do_init_data(int32 com) {
         integrate_get_ic(2, x);
 
         if (DelayFlag) {
-            /* restart initial data */
+             // restart initial data 
             if (delay_handle_do_init_delay(DELAY) == 0) {
                 return;
             }
@@ -1558,14 +1558,14 @@ integrate_new_array_ic(char *new, int32 j1, int32 j2) {
         } else {
             ihot = ifree;
         }
-        /* copy relevant stuff */
+         // copy relevant stuff 
         strcpy(ar_ic[ihot].var, new);
         ar_ic[ihot].type = 2;
         ar_ic[ihot].j1 = j1;
         ar_ic[ihot].j2 = j2;
     }
     ggets_new_string("Formula:", ar_ic[ihot].formula);
-    /* now we have everything we need */
+     // now we have everything we need 
     integrate_evaluate_ar_ic(ar_ic[ihot].var, ar_ic[ihot].formula,
                              ar_ic[ihot].j1, ar_ic[ihot].j2);
     return;
@@ -1593,7 +1593,7 @@ integrate_store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
         } else {
             ihot = ifree;
         }
-        /* copy relevant stuff */
+         // copy relevant stuff 
         strcpy(ar_ic[ihot].var, new);
         ar_ic[ihot].type = 2;
         ar_ic[ihot].j1 = j1;
@@ -1656,14 +1656,14 @@ integrate_extract_ic_data(char *big) {
     }
     front[i] = 0;
 
-    /* lets find the back part */
+     // lets find the back part 
     i = i + 4;
     for (j = i; j < n; j++) {
         back[j - i] = big[j];
     }
     back[j - i] = 0;
 
-    /* now fix it up */
+     // now fix it up 
     big[0] = '#';
     big[1] = ' ';
     form_ode_search_array(front, new, &j1, &j2, &flag2);
@@ -1739,7 +1739,7 @@ integrate_set_array_ic(void) {
             myar = 0;
         }
 
-        /* Now we have an element in the array index */
+         // Now we have an element in the array index 
         ar_ic[myar].index0 = index0;
         ar_ic[myar].type = 0;
         ggets_new_int("Number elements:", &ar_ic[myar].n);
@@ -1747,7 +1747,7 @@ integrate_set_array_ic(void) {
         i1 = index0 - 1;
         in = i1 + ar_ic[myar].n;
         if (i1 > NODE || in > NODE) {
-            return 0; /* out of bounds */
+            return 0;  // out of bounds 
         }
         for (i = i1; i < in; i++) {
             set_val("t", (double)(i - i1));
@@ -1991,9 +1991,9 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     int32 icount = 0;
     int32 nit;
     int32 cwidth = 0;
-    /* new poincare map stuff */
+     // new poincare map stuff 
 
-    int32 i_nan = 0; /* NaN */
+    int32 i_nan = 0;  // NaN 
     MSWTCH(xpv.x, x);
 
     if (Xup) {
@@ -2020,7 +2020,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     MSWTCH(x, xpv.x);
     main_rhs_extra(
         x, *t, NODE,
-        NEQ); /* Note this takes care of initializing Markov variables */
+        NEQ);  // Note this takes care of initializing Markov variables 
     MSWTCH(xpv.x, x);
     xv[0] = (double)*t;
     for (ieqn = 1; ieqn <= NEQ; ieqn++) {
@@ -2264,7 +2264,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
         }
         }
-        /*   START POST INTEGRATE STUFF */
+         //   START POST INTEGRATE STUFF 
 
         main_rhs_extra(x, *t, NODE, NEQ);
 
@@ -2312,7 +2312,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 rval = 1;
                 break;
             }
-            /* end of NaN */
+             // end of NaN 
             if (fabs(x[ieqn - 1]) > BOUND) {
                 if (RANGE_FLAG || SuppressBounds) {
                     break;
@@ -2338,7 +2338,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
         }
 
-        /*   This is where the progresser goes   */
+         //   This is where the progresser goes   
         if (Xup) {
             main_plot_command(nit, icount, cwidth);
             esc = (char)main_my_abort();
@@ -2382,7 +2382,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if ((!(oldx[POIVAR - 1] < x[POIVAR - 1]) && (POIEXT > 0)) ||
                 (!(oldx[POIVAR - 1] > x[POIVAR - 1]) && (POIEXT < 0))) {
                 if (POISGN*POIEXT >= 0) {
-                    /*  We will interpolate to get a good local extremum   */
+                     //  We will interpolate to get a good local extremum   
 
                     rhs_function(*t, x, xprime, NEQ);
                     rhs_function(oldt, oldx, oldxprime, NEQ);
@@ -2480,10 +2480,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
         }
 
-        /*	   Plotting and storing data      */
+         //	   Plotting and storing data      
         if (POIMAP == 3 && pflag == 1) {
             if (oldperiod == 0.0) {
-                pflag = 0; /* this is the first hit !! */
+                pflag = 0;  // this is the first hit !! 
                 oldperiod = *t;
                 goto out;
             }
@@ -2520,7 +2520,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             break;
         }
 
-        /* END POST INTEGRATE ANALYSIS  */
+         // END POST INTEGRATE ANALYSIS  
     }
 
     LastTime = *t;
@@ -2635,7 +2635,7 @@ integrate_export_data(FILE *fp) {
         }
         return;
     }
-    /* 2D graph so we will save y from each curve  */
+     // 2D graph so we will save y from each curve  
     for (int32 j = i1; j < strind; j++) {
         fprintf(fp, "%g ", data[iiXPLT][kxoff]);
         for (ip = 0; ip < np; ip++) {
@@ -2785,7 +2785,7 @@ integrate_restore(int32 i1, int32 i2) {
 
                 integrate_comp_color(v1, v2, NODE,
                                      (double)fabs(data[0][i] - data[0][i + 1]));
-            } /* ignored by postscript */
+            }  // ignored by postscript 
             /* if(MyGraph->line[ip]<0)
                goto noplot; */
             if (MyGraph->line[ip] <= 0) {
@@ -2802,7 +2802,7 @@ integrate_restore(int32 i1, int32 i2) {
                     graphics_line_3d(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
                 }
             }
-            /*noplot:*/
+             //noplot:
             oldxpl = xpl;
             oldypl = ypl;
             oldzpl = zpl;
@@ -2879,7 +2879,7 @@ integrate_shoot(double *x, double *xg, double *evec, int32 sgn) {
 
 void
 integrate_stop_integration(void) {
-    /*  set some global error here... */
+     //  set some global error here... 
     if (DelayErr == 0) {
         ggets_err_msg("Delay too large or negative");
     }

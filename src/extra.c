@@ -161,7 +161,7 @@ extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
             return 0;
         }
         dlf.loaded = 1;
-    } /* Ok we have a nice function */
+    }  // Ok we have a nice function 
     ((Function2)function)(in, out, nin, nout, v, c);
     return 1;
 }
@@ -279,13 +279,13 @@ extra_parse_inout(char *l, int32 flag) {
             i++;
             new[j] = 0;
             index = get_param_index(new);
-            if (index < 0) /* not a parameter */
+            if (index < 0)  // not a parameter 
             {
                 index = get_var_index(new);
                 if (index < 0) {
                     printf("Cant export %s - non existent!\n", new);
                     exit(0);
-                } else /* it is a variable */
+                } else  // it is a variable 
                 {
                     if (flag == 0) {
                         in_out.in[k] = index;
@@ -296,7 +296,7 @@ extra_parse_inout(char *l, int32 flag) {
                     }
                     k++;
                 }
-            } /* it is a parameter */
+            }  // it is a parameter 
             else {
                 if (flag == 0) {
                     in_out.in[k] = index;

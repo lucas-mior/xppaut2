@@ -93,7 +93,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
     double dp;
     double par;
     *flag = 0;
-    /* set up all initial data and parameter guesses  */
+     // set up all initial data and parameter guesses  
     for (l = 0; l < npars; l++) {
         ip = ipar[l];
         if (ip < 0) {
@@ -106,13 +106,13 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         yold[i] = y[i];
     }
     if (DelayFlag) {
-        /* restart initial data */
+         // restart initial data 
         if (delay_handle_do_init_delay(DELAY) == 0) {
             return;
         }
     }
     derived_evaluate();
-    /*   This gets the values at the desired points  */
+     //   This gets the values at the desired points  
     for (int32 i = 0; i < nvars; i++) {
         iv = ivar[i];
         yfit[i] = y[iv];
@@ -138,12 +138,12 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         cv_end();
     }
 #endif
-    /*  Now we take the derivatives !!   */
+     //  Now we take the derivatives !!   
     for (l = 0; l < npars; l++) {
         istart = 1;
-        /* set up all the initial conditions   */
+         // set up all the initial conditions   
         for (int32 j = 0; j < nvars; j++) {
-            yderv[l][j] = 0.0; /* no dependence on initial data ... */
+            yderv[l][j] = 0.0;  // no dependence on initial data ... 
         }
         for (int32 i = 0; i < NODE; i++) {
             y[i] = yold[i];
@@ -160,18 +160,18 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
             for (int32 j = 0; j < nvars; j++) {
                 if (ip == ivar[j]) {
                     yderv[l][j] =
-                        1.0; /* ... except for those ICs that can vary */
+                        1.0;  // ... except for those ICs that can vary 
                 }
             }
         }
         if (DelayFlag) {
-            /* restart initial data */
+             // restart initial data 
             if (delay_handle_do_init_delay(DELAY) == 0) {
                 return;
             }
         }
         derived_evaluate();
-        /* now loop through all the points */
+         // now loop through all the points 
         for (int32 k = 1; k < npts; k++) {
             k0 = k*nvars;
             ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
@@ -187,7 +187,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
                 yderv[l][i + k0] = (y[iv] - yfit[i + k0]) / dp;
             }
         }
-        /* Now return the parameter to its old value */
+         // Now return the parameter to its old value 
         if (ip < 0) {
             constants[-ip] = par;
         }
@@ -366,7 +366,7 @@ do_fit_test(void) {
     fit_info.nvars = 0;
     fit_info.npars = 0;
 
-    /* do fit get params */
+     // do fit get params 
     snprintf(values[0], sizeof(values[0]), "%s", fit_info.file);
     snprintf(values[1], sizeof(values[1]), "%s", fit_info.varlist);
     snprintf(values[2], sizeof(values[2]), "%s", fit_info.parlist1);
@@ -453,7 +453,7 @@ do_fit_test(void) {
         }
     }
 
-    /* do fit print info */
+     // do fit print info 
     ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n",
                  fit_info.dim, fit_info.maxiter, fit_info.npts, fit_info.file,
                  fit_info.tol, fit_info.eps);
@@ -477,7 +477,7 @@ do_fit_test(void) {
         return;
     }
 
-    /* get the latest par values ...  */
+     // get the latest par values ...  
 
     for (int32 i = 0; i < npars; i++) {
         if (fit_info.ipar[i] < 0) {
@@ -501,7 +501,7 @@ do_fit_test(void) {
 
 */
 int32
-do_fit_run(/* double arrays */
+do_fit_run( // double arrays 
            char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter,
            int32 ndim, double eps, double tol, int32 *ipar, int32 *ivar,
            int32 *icols, double *y0, double *a, double *yfit) {
@@ -526,7 +526,7 @@ do_fit_run(/* double arrays */
     }
     t0 = xmalloc((usize)(npts + 1)*sizeof(*(t0)));
     y = xmalloc((usize)((npts + 1)*nvars)*sizeof(*y));
-    /* load up the data to fit   */
+     // load up the data to fit   
 
     for (int32 i = 0; i < npts; i++) {
         fscanf(fp, "%lg ", &t);
@@ -556,7 +556,7 @@ do_fit_run(/* double arrays */
     covar = xmalloc((usize)(npars*npars)*sizeof(*covar));
     alpha = xmalloc((usize)(npars*npars)*sizeof(*alpha));
 
-    while (good_flag < 3) { /* take 3 good steps after convergence  */
+    while (good_flag < 3) {  // take 3 good steps after convergence  
 
         ok = do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar,
                                 ipar, covar, alpha, &chisq, &alambda, work,
@@ -576,7 +576,7 @@ do_fit_run(/* double arrays */
             if (((ochisq - chisq) < tol10) ||
                 (((ochisq - chisq) / MAX(1.0, chisq)) < tol)) {
                 good_flag++;
-                niter--; /* compensate for good stuff ... */
+                niter--;  // compensate for good stuff ... 
             }
             ochisq = chisq;
         } else {
@@ -621,7 +621,7 @@ do_fit_run(/* double arrays */
                        alpha, &chisq, &alambda, work, yderv, yfit, &ochisq,
                        ictrl, eps);
     ggets_err_msg(" Success! ");
-    /* have the covariance matrix -- so what?   */
+     // have the covariance matrix -- so what?   
     ggets_plintf(" covariance: \n");
     for (int32 i = 0; i < npars; i++) {
         for (int32 j = 0; j < npars; j++) {
@@ -710,7 +710,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
     for (int32 j = 0; j < npars; j++) {
         da[j] = oneda[j];
     }
-    if (ictrl == 2) { /* all done invert alpha to get the covariance */
+    if (ictrl == 2) {  // all done invert alpha to get the covariance 
         for (int32 j = 0; j < (npars*npars); j++) {
             alpha[j] = covar[j];
         }
@@ -735,7 +735,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
     }
 
     if (*chisq < *ochisq) {
-        /* *ochisq=*chisq; */
+         // *ochisq=*chisq; 
         *alambda *= 0.1;
         for (int32 j = 0; j < npars; j++) {
             for (int32 k = 0; k < npars; k++) {
@@ -746,7 +746,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
         }
     } else {
         *alambda *= 10.0;
-        /* *chisq=*ochisq; */
+         // *chisq=*ochisq; 
     }
     return 1;
 }

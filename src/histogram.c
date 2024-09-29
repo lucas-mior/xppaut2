@@ -139,7 +139,7 @@ histogram_new_four(int32 nmodes, int32 col) {
     bob = browse_get_data_col(col);
     histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
     if (FOUR_HERE) {
-        /* histogram four back */
+         // histogram four back 
         set_browser_data(my_four, 1);
         refresh_browser(four_len);
     }
@@ -158,7 +158,7 @@ histogram_post_process_stuff(void) {
     N_plist = 2;
     plotlist[0] = 0;
     plotlist[1] = 1;
-    if (post_process == 7) { /* two-d histogram stuff */
+    if (post_process == 7) {  // two-d histogram stuff 
         histogram_two_d2();
         return;
     }
@@ -176,7 +176,7 @@ histogram_post_process_stuff(void) {
         return;
     }
     if (post_process > 3 && post_process < 7) {
-        /* histogram just sd */
+         // histogram just sd 
         int32 flag = post_process - 4;
         int32 length;
         double total = storage[0][storind - 1] - storage[0][0];
@@ -502,7 +502,7 @@ histogram_compute_power(void) {
 int32
 histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
                    double *pow) {
-    /* assumes 50% overlap */
+     // assumes 50% overlap 
     int32 shift = win / 2;
     int32 kwin = (nr - win + 1) / shift;
     int32 kk;
@@ -793,7 +793,7 @@ histogram_compute_correl(void) {
     hist_inf.nbins = 2*(hist_inf.nbins / 2) + 1;
     lag = hist_inf.nbins / 2;
 
-    /* lets try to get the lags correct for plotting */
+     // lets try to get the lags correct for plotting 
     hist_inf.xlo = -lag*dta;
     hist_inf.xhi = lag*dta;
 
@@ -951,7 +951,7 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
     for (int32 i = 0; i < nlag; i++) {
         sum += fabs(im1[i]);
         cr[nlag + i] =
-            (double)re1[i]*length; /* positive part of the correlation */
+            (double)re1[i]*length;  // positive part of the correlation 
     }
     for (int32 i = 0; i < nlag; i++) {
         sum += fabs(im1[length - nlag + i]);

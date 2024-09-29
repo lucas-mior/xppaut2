@@ -157,9 +157,9 @@ typedef struct Network {
     int32 root2;
     int32 f[20];
     int32 iwgt;
-    int32 *gcom; /* for group commands */
+    int32 *gcom;  // for group commands 
 
-    double *values, *weight, *index, *taud; /* for delays  */
+    double *values, *weight, *index, *taud;  // for delays  
     double *fftr, *ffti, *dr, *di;
     double *wgtlist[MAXW];
 } Network;
@@ -178,10 +178,10 @@ typedef struct Network {
 #define FMMULT 7
 #define GILLTYPE 25
 #define INTERP 30
-#define FINDEXT 35  /* find extrema in list of variables */
-#define DEL_MUL 40  /* for delayed coupled networks  - global coupling */
-#define DEL_SPAR 41 /* sparse with unequal in degree and delays  */
-#define IMPORT 50   /* not really a network type   */
+#define FINDEXT 35   // find extrema in list of variables 
+#define DEL_MUL 40   // for delayed coupled networks  - global coupling 
+#define DEL_SPAR 41  // sparse with unequal in degree and delays  
+#define IMPORT 50    // not really a network type   
 
 static int32 simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1,
                                   int32 *i2);
@@ -208,7 +208,7 @@ simplenet_interp(double x, int32 i) {
     double dx = x - (double)jlo;
     y = &variables[my_net[i].root];
     if (jlo < 0 || jlo > (n - 1)) {
-        return 0.0; /* out of range */
+        return 0.0;  // out of range 
     }
     return (1 - dx)*y[jlo] + dx*y[jlo + 1];
 }
@@ -349,7 +349,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         return 0;
     }
     switch (type) {
-    case 1: /* convolution */
+    case 1:  // convolution 
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = -1;
@@ -404,7 +404,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
                      name, ntype, ntot, ncon, wgtname, ivar);
 
         return 1;
-    case 2: /* sparse */
+    case 2:  // sparse 
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = SPARSE;
@@ -460,7 +460,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         ggets_plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s\n",
                      name, ntot, ncon, wgtname, ivar, indname);
         return 1;
-    case 3: /* convolution */
+    case 3:  // convolution 
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = -1;
@@ -527,7 +527,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].type = ntype;
         my_net[ind].root =
             my_net[ind]
-                .f[0]; /* this is strange - I am adding the compiled names */
+                .f[0];  // this is strange - I am adding the compiled names 
         my_net[ind].root2 = my_net[ind].f[1];
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
@@ -535,7 +535,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
             " Added net %s type %d len=%d x %d using %s %s(var[%d],var[%d]) \n",
             name, ntype, ntot, ncon, wgtname, fname, ivar, ivar2);
         return 1;
-    case 4: /* sparse */
+    case 4:  // sparse 
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = FSPARSE;
@@ -604,7 +604,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].type = ntype;
         my_net[ind].root =
             my_net[ind]
-                .f[0]; /* this is strange - I am adding the compiled names */
+                .f[0];  // this is strange - I am adding the compiled names 
         my_net[ind].root2 = my_net[ind].f[1];
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
@@ -612,7 +612,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
             " Sparse %s len=%d x %d using %s %s(var[%d],var[%d]) and %s\n",
             name, ntot, ncon, wgtname, fname, ivar, ivar2, indname);
         return 1;
-    case 5: /* fft convolution */
+    case 5:  // fft convolution 
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = -1;
@@ -683,7 +683,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         ggets_plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n",
                      name, ntype, ntot, ncon, wgtname, ivar);
         return 1;
-    case 6: /* MMULT    ntot=n,ncon=m  */
+    case 6:  // MMULT    ntot=n,ncon=m  
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = MMULT;
@@ -730,7 +730,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         ggets_plintf(" Added mmult %s len=%d x %d using %s var[%d]\n", name,
                      ntot, ncon, wgtname, ivar, indname);
         return 1;
-    case 7: /* FMMULT */
+    case 7:  // FMMULT 
         form_ode_get_first(rhs, "(");
         str = form_ode_do_fit_get_next(",");
         ntype = FMMULT;
@@ -787,7 +787,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].type = ntype;
         my_net[ind].root =
             my_net[ind]
-                .f[0]; /* this is strange - I am adding the compiled names */
+                .f[0];  // this is strange - I am adding the compiled names 
         my_net[ind].root2 = my_net[ind].f[1];
         my_net[ind].n = ncon;
         my_net[ind].ncon = ntot;
@@ -850,7 +850,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
             ggets_plintf("Need more than 1 entry for interpolate\n");
             return 0;
         }
-        my_net[ind].n = ivar; /* # entries in array */
+        my_net[ind].n = ivar;  // # entries in array 
         str = form_ode_do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
@@ -1165,7 +1165,7 @@ simplenet_is_network(char *s) {
 void
 simplenet_eval_all_nets(void) {
     for (int32 ind = 0; ind < n_network; ind++) {
-        /* evaluate network */
+         // evaluate network 
         int32 i, k, ij;
         int32 imin;
         int32 imax;
@@ -1193,7 +1193,7 @@ simplenet_eval_all_nets(void) {
             ymin = y[0];
             i = 0;
 
-            if (mmt == 1 || mmt == 0) { /* get max  */
+            if (mmt == 1 || mmt == 0) {  // get max  
                 while (i < n) {
                     if (y[i] > ymax) {
                         imax = i;
@@ -1202,7 +1202,7 @@ simplenet_eval_all_nets(void) {
                     i += skip;
                 }
             }
-            if (mmt == (-1) || mmt == 0) { /* get min */
+            if (mmt == (-1) || mmt == 0) {  // get min 
                 i = 0;
                 while (i < n) {
                     if (y[i] < ymin) {
@@ -1217,7 +1217,7 @@ simplenet_eval_all_nets(void) {
             values[3] = (double)imin;
             values[2] = ymin;
             break;
-        case INTERP: /* do nothing! */
+        case INTERP:  // do nothing! 
             break;
         case GILLTYPE:
             if (my_net[ind].ncon == -1 && my_net[ind].iwgt > 0) {
@@ -1344,7 +1344,7 @@ simplenet_eval_all_nets(void) {
             }
             break;
 
-            /*     f stuff  */
+             //     f stuff  
         case FCONVE:
             f = my_net[ind].f;
 
