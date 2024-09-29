@@ -454,7 +454,7 @@ spgmr_free(SpgmrMem mem) {
     return;
 }
 
-static void
+void
 spgmr_free_vector_array(Vector *A, int32 indMax) {
     for (int32 j = 0; j <= indMax; j++) {
         vector_free(A[j]);
