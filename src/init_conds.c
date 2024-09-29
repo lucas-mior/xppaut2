@@ -398,7 +398,7 @@ init_conds_redraw_fs_text(char *string, Window window, int32 flag) {
     if (flag) {
         filesel.pos = (int32)strlen(string);
     }
-    XDrawString(display, window, small_gc, 0, CURY_OFF, string,
+    XDrawString(display, window, small_gc, 0, cury_off, string,
                 (int)strlen(string));
     if (flag) {
         init_conds_put_edit_cursor(window, DCURXs*(int32)strlen(string));
@@ -438,10 +438,10 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
         return;
     }
     if (f.ok == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Ok", 2);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Ok", 2);
     }
     if (f.cancel == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Cancel", 6);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Cancel", 6);
     }
     if (f.up == window) {
     }
@@ -453,24 +453,24 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
     }
     if (f.file == window) {
         XClearWindow(display, window);
-        XDrawString(display, window, small_gc, 2, CURY_OFFs, f.filetxt,
+        XDrawString(display, window, small_gc, 2, cury_offs, f.filetxt,
                     (int)strlen(f.filetxt));
     }
     if (f.wild == window) {
         XClearWindow(display, window);
-        XDrawString(display, window, small_gc, 2, CURY_OFFs, f.wildtxt,
+        XDrawString(display, window, small_gc, 2, cury_offs, f.wildtxt,
                     (int)strlen(f.wildtxt));
     }
     if (f.fw == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "File: ", 6);
+        XDrawString(display, window, small_gc, 5, cury_offs, "File: ", 6);
     }
     if (f.ww == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Wild: ", 6);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Wild: ", 6);
     }
     if (f.dir == window) {
         XTextProperty windowName;
         snprintf(t, sizeof(t), " %s", f.title);
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, t, (int)strlen(t));
+        XDrawString(display, window, small_gc, 0, cury_offs, t, (int)strlen(t));
         snprintf(t, sizeof(t), "%s - %s", f.wildtxt, cur_dir);
         {
             char *nameit[] = {t};
@@ -482,14 +482,14 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
         if (window == f.window[i]) {
             i0 = i + f.n0;
             if (i0 >= f.n) {
-                XDrawString(display, window, small_gc, 5, CURY_OFFs, " ", 1);
+                XDrawString(display, window, small_gc, 5, cury_offs, " ", 1);
             } else {
                 if (i0 < my_ff.ndirs) {
                     sprintf(t, "<>%s", my_ff.dirnames[i0]);
                 } else {
                     sprintf(t, "%s", my_ff.filenames[i0 - my_ff.ndirs]);
                 }
-                XDrawString(display, window, small_gc, 5, CURY_OFFs, t,
+                XDrawString(display, window, small_gc, 5, cury_offs, t,
                             (int)strlen(t));
             }
         }
@@ -1059,7 +1059,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
     *off1 = off;
     *pos1 = pos;
     XClearWindow(display, window);
-    XDrawString(display, window, small_gc, 0, CURY_OFF, string + off,
+    XDrawString(display, window, small_gc, 0, cury_off, string + off,
                 (int32)strlen(string) - off);
     cp = DCURXs*(pos - off);
     init_conds_put_edit_cursor(window, cp);
@@ -1333,7 +1333,7 @@ init_conds_expose_slider(Window window, struct ParSlider *p) {
     }
     if (window == p->go) {
         XDrawString(display, window, small_gc, 2,
-                    (int32)(0.75*(double)CURY_OFFs), "go", 2);
+                    (int32)(0.75*(double)cury_offs), "go", 2);
         return;
     }
     if (p->use) {
@@ -1341,7 +1341,7 @@ init_conds_expose_slider(Window window, struct ParSlider *p) {
             sprintf(top, "%.16g", p->lo);
             x = 1;
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, x, CURY_OFFs, top,
+            XDrawString(display, window, small_gc, x, cury_offs, top,
                         (int)strlen(top));
             return;
         }
@@ -1352,14 +1352,14 @@ init_conds_expose_slider(Window window, struct ParSlider *p) {
                 x = len - DCURXs*(int32)strlen(top) - 1;
             }
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, x, CURY_OFFs, top,
+            XDrawString(display, window, small_gc, x, cury_offs, top,
                         (int)strlen(top));
             return;
         }
         if (window == p->top) {
             sprintf(top, "%s=%.16g", p->parname, p->val);
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, 2, CURY_OFFs, top,
+            XDrawString(display, window, small_gc, 2, cury_offs, top,
                         (int)strlen(top));
         }
     } else {
@@ -1367,7 +1367,7 @@ init_conds_expose_slider(Window window, struct ParSlider *p) {
             sprintf(top, "Par/Var?");
             x = 1;
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, x, CURY_OFFs, top,
+            XDrawString(display, window, small_gc, x, cury_offs, top,
                         (int)strlen(top));
         }
     }
@@ -1847,7 +1847,7 @@ init_conds_justify_string(Window w1, char *s1) {
         i = nt - n1;
     }
     XClearWindow(display, w1);
-    XDrawString(display, w1, small_gc, i, CURY_OFFs, s1, (int)strlen(s1));
+    XDrawString(display, w1, small_gc, i, cury_offs, s1, (int)strlen(s1));
     return;
 }
 
@@ -1941,7 +1941,7 @@ init_conds_redraw_ics(void) {
     for (int32 i = 0; i < ICBox.nwin; i++) {
         in = i + ICBox.n0;
         if (ICBox.isck[in]) {
-            XDrawString(display, ICBox.ck[i], small_gc, 0, CURY_OFFs, "*", 1);
+            XDrawString(display, ICBox.ck[i], small_gc, 0, cury_offs, "*", 1);
         } else {
             XClearWindow(display, ICBox.ck[i]);
         }
@@ -1966,46 +1966,46 @@ init_conds_display_box(BoxList b, Window window) {
         return;
     }
     if (b.close == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Close", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Close", 5);
     }
     if (b.go == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Go", 2);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Go", 2);
     }
     if (b.ok == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Ok", 2);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Ok", 2);
     }
     if (b.cancel == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Cancel", 6);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Cancel", 6);
     }
     if (b.def == window) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Default", 7);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Default", 7);
     }
     if (b.up == window) {
-        /*XDrawString(display,w,small_gc,5+DCURX,CURY_OFFs,
+        /*XDrawString(display,w,small_gc,5+DCURX,cury_offs,
         "^",1);
         */
     }
     if (b.dn == window) {
-        /*XDrawString(display,w,small_gc,5+DCURX,CURY_OFFs,
+        /*XDrawString(display,w,small_gc,5+DCURX,cury_offs,
         "v",1);*/
     }
     if (b.pgup == window) {
-        /*XDrawString(display,w,small_gc,5,CURY_OFFs,
+        /*XDrawString(display,w,small_gc,5,cury_offs,
         "^^",2);*/
     }
     if (b.pgdn == window) {
-        /*XDrawString(display,w,small_gc,5,CURY_OFFs,
+        /*XDrawString(display,w,small_gc,5,cury_offs,
         "vv",2);*/
     }
     if (b.type == ICBOX) {
         if (b.xvt == window) {
-            XDrawString(display, window, small_gc, 3, CURY_OFFs, "xvst", 4);
+            XDrawString(display, window, small_gc, 3, cury_offs, "xvst", 4);
         }
         if (b.pp == window) {
-            XDrawString(display, window, small_gc, 3, CURY_OFFs, "xvsy", 4);
+            XDrawString(display, window, small_gc, 3, cury_offs, "xvsy", 4);
         }
         if (b.arr == window) {
-            XDrawString(display, window, small_gc, 3, CURY_OFFs, "arry", 4);
+            XDrawString(display, window, small_gc, 3, cury_offs, "arry", 4);
         }
     }
 
@@ -2020,7 +2020,7 @@ init_conds_display_box(BoxList b, Window window) {
             index = i + b.n0;
             if (index >= n0 && index < n1) {
                 if (b.ck[i] == window && b.isck[index] == 1) {
-                    XDrawString(display, window, small_gc, 5, CURY_OFFs, "*",
+                    XDrawString(display, window, small_gc, 5, cury_offs, "*",
                                 1);
                 }
             }
@@ -2174,7 +2174,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
             if (window == b->ck[i]) {
                 b->isck[i + b->n0] = 1 - b->isck[i + b->n0];
                 if (b->isck[i + b->n0]) {
-                    XDrawString(display, window, small_gc, 0, CURY_OFFs, "*",
+                    XDrawString(display, window, small_gc, 0, cury_offs, "*",
                                 1);
                 } else {
                     XClearWindow(display, window);
@@ -2510,7 +2510,7 @@ init_conds_draw_editable(Window window, char *string, int32 off, int32 cursor,
         l = mc;
     }
     XClearWindow(display, window);
-    XDrawString(display, window, small_gc, 0, CURY_OFF, string + off, l);
+    XDrawString(display, window, small_gc, 0, cury_off, string + off, l);
     XGetInputFocus(display, &focus, &rev);
     if (focus == window) {
         cp = DCURXs*(cursor - off);  // must be fixed

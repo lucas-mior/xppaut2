@@ -78,7 +78,7 @@ ggets_show_char(int32 ch, int32 col, int32 row, Window or) {
     char bob[2];
     bob[0] = (char)ch;
     ggets_chk_xor();
-    XDrawString(display, or, gc, col, row + CURY_OFF, bob, 1);
+    XDrawString(display, or, gc, col, row + cury_off, bob, 1);
     return;
 }
 
@@ -103,7 +103,7 @@ ggets_draw_info_pop(Window window) {
     if (window == info_pop) {
         XClearWindow(display, info_pop);
         many_pops_base_col();
-        XDrawString(display, info_pop, gc, 5, CURY_OFF, info_message,
+        XDrawString(display, info_pop, gc, 5, cury_off, info_message,
                     (int)strlen(info_message));
     }
     return;
@@ -114,7 +114,7 @@ ggets_bottom_msg(char *msg) {
     XClearWindow(display, info_pop);
     many_pops_base_col();
     strcpy(info_message, msg);
-    XDrawString(display, info_pop, gc, 5, CURY_OFF, msg, (int)strlen(msg));
+    XDrawString(display, info_pop, gc, 5, cury_off, msg, (int)strlen(msg));
 }
 
 void
@@ -295,7 +295,7 @@ ggets_mouse_xy(int32 *x, int32 *y, Window window) {
 void
 ggets_f_text(int32 x, int32 y, char *string, Window o) {
     ggets_chk_xor();
-    XDrawString(display, o, gc, x, y + CURY_OFF, string, (int)strlen(string));
+    XDrawString(display, o, gc, x, y + cury_off, string, (int)strlen(string));
     return;
 }
 
@@ -367,10 +367,10 @@ ggets_display_command(char *name, char *value, int32 pos) {
     ggets_set_fore();
     ggets_bar(0, 0, l*DCURX, DCURY + 4, command_pop);
     ggets_set_back();
-    XDrawString(display, command_pop, gc, 0, CURY_OFF, name, l);
+    XDrawString(display, command_pop, gc, 0, cury_off, name, l);
     ggets_set_fore();
     if (m > 0) {
-        XDrawString(display, command_pop, gc, l*DCURX, CURY_OFF, value, m);
+        XDrawString(display, command_pop, gc, l*DCURX, cury_off, value, m);
         ggets_put_cursor_at(command_pop, DCURX*l, pos);
     }
     return;
@@ -397,7 +397,7 @@ void
 ggets_put_string_at(Window window, int32 col, char *s, int32 off) {
     int32 l = (int32)strlen(s) - off;
 
-    XDrawString(display, window, gc, col, CURY_OFF, s + off, l);
+    XDrawString(display, window, gc, col, cury_off, s + off, l);
     return;
 }
 

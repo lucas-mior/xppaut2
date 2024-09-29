@@ -93,13 +93,13 @@ Display *display;
 int32 screen;
 int32 periodic = 0;
 int32 DCURYb;
-int32 CURY_OFFb;
+int32 cury_offb;
 int32 DCURYs;
 int32 DCURXs;
-int32 CURY_OFFs;
+int32 cury_offs;
 int32 DCURY;
 int32 DCURX;
-int32 CURY_OFF;
+int32 cury_off;
 FILE *logfile;
 int32 XPPVERBOSE = 1;
 int32 OVERRIDE_QUIET = 0;
@@ -787,13 +787,13 @@ main_init_x(void) {
              (int)(strlen(teststr) - 2);
 
     DCURYb = font_big->ascent + font_big->descent;
-    CURY_OFFb = font_big->ascent - 1;
+    cury_offb = font_big->ascent - 1;
 
     DCURXs = XTextWidth(font_small, teststr, (int)strlen(teststr)) /
              (int)(strlen(teststr) - 2);
 
     DCURYs = font_small->ascent + font_small->descent;
-    CURY_OFFs = font_small->ascent - 1;
+    cury_offs = font_small->ascent - 1;
 
     main_get_gc(&gc);
     main_get_gc(&gc_graph);
@@ -841,7 +841,7 @@ main_init_x(void) {
     // main set big font
     DCURX = DCURXb;
     DCURY = DCURYb;
-    CURY_OFF = CURY_OFFb;
+    cury_off = cury_offb;
     XSetFont(display, gc, font_big->fid);
 
     XSetFont(display, small_gc, font_small->fid);
@@ -1284,22 +1284,22 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
 void
 main_top_button_draw(Window window) {
     if (window == TopButton[0]) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "ICs  ", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "ICs  ", 5);
     }
     if (window == TopButton[1]) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "BCs  ", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "BCs  ", 5);
     }
     if (window == TopButton[2]) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Delay", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Delay", 5);
     }
     if (window == TopButton[3]) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Param", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Param", 5);
     }
     if (window == TopButton[4]) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Eqns ", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Eqns ", 5);
     }
     if (window == TopButton[5]) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Data ", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Data ", 5);
     }
     return;
 }

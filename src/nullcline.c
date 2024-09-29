@@ -51,8 +51,8 @@ static int32 DFIELD_TYPE = 0;
 int32 DOING_DFIELD = 0;
 
 char ColorVia[15] = "speed";
-double ColorViaLo = 0;
-double ColorViaHi = 1;
+double color_via_lo = 0;
+double color_via_hi = 1;
 int32 ColorizeFlag = 0;
 
 static RangeInfo ncrange;
@@ -456,7 +456,7 @@ nullcline_do_batch_nclines(void) {
 
 void
 nullcline_set_colorization_stuff(void) {
-    numerics_user_set_color_par(ColorizeFlag, ColorVia, ColorViaLo, ColorViaHi);
+    numerics_user_set_color_par(ColorizeFlag, ColorVia, color_via_lo, color_via_hi);
     return;
 }
 

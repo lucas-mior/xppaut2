@@ -16,7 +16,7 @@
 #include "mykeydef.h"
 #define XDS(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
+        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));    \
         return;                                                                \
     } while (0)
 
@@ -94,7 +94,7 @@ eig_list_draw_eq_list(Window window) {
 
             bob[299] = 0;
             XDrawString(display, window, small_gc, 0,
-                        CURY_OFFs + (i - eq_list.istart)*(DCURYs + 2), bob,
+                        cury_offs + (i - eq_list.istart)*(DCURYs + 2), bob,
                         (int32)strlen(bob));
         }
     }
@@ -320,7 +320,7 @@ eig_list_resize_eq_list(Window win) {
         return;
     }
     eig_list_get_new_size(win, &w, &h);
-    nlines = ((int32)h - CURY_OFFs - 2*DCURYs) / (DCURYs + 2);
+    nlines = ((int32)h - cury_offs - 2*DCURYs) / (DCURYs + 2);
     eq_list.nlines = nlines;
     XResizeWindow(display, eq_list.base, w, h);
     XResizeWindow(display, eq_list.list, w, h - (uint)(2*DCURYs));
@@ -433,7 +433,7 @@ eig_list_draw_eq_box(Window window) {
         XDS("Import");
     }
     if (window == eq_box.top) {
-        XDrawString(display, eq_box.top, gc, 5, CURY_OFF, eq_box.type,
+        XDrawString(display, eq_box.top, gc, 5, cury_off, eq_box.type,
                     (int)strlen(eq_box.type));
         return;
     }

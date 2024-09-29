@@ -55,8 +55,8 @@ edit_rhs_reset_box(EditBox *sb, int32 *pos, int32 *col) {
         window = sb->win[i];
         l = (int32)strlen(sb->name[i]);
         XClearWindow(display, window);
-        XDrawString(display, window, gc, 0, CURY_OFF, sb->name[i], l);
-        XDrawString(display, window, gc, l*DCURX, CURY_OFF, sb->value[i],
+        XDrawString(display, window, gc, 0, cury_off, sb->name[i], l);
+        XDrawString(display, window, gc, l*DCURX, cury_off, sb->value[i],
                     (int32)strlen(sb->value[i]));
     }
     XFlush(display);
@@ -116,15 +116,15 @@ edit_rhs_expose_box(EditBox *sb, Window window, int32 pos) {
     int32 flag;
 
     if (window == sb->ok) {
-        XDrawString(display, window, gc, 0, CURY_OFF, "Ok", 2);
+        XDrawString(display, window, gc, 0, cury_off, "Ok", 2);
         return;
     }
     if (window == sb->cancel) {
-        XDrawString(display, window, gc, 0, CURY_OFF, "Cancel", 6);
+        XDrawString(display, window, gc, 0, cury_off, "Cancel", 6);
         return;
     }
     if (window == sb->reset) {
-        XDrawString(display, window, gc, 0, CURY_OFF, "Reset", 5);
+        XDrawString(display, window, gc, 0, cury_off, "Reset", 5);
         return;
     }
     for (int32 i = 0; i < sb->n; i++) {

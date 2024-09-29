@@ -810,48 +810,48 @@ ani_expose(Window window) {
         return;
     }
     if (window == vcr.wgrab) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Grab", 4);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Grab", 4);
     }
     if (window == vcr.view) {
         XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
                   (uint)vcr.hgt, 0, 0);
     }
     if (window == vcr.wgo) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Go  ", 4);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Go  ", 4);
     }
     if (window == vcr.wup) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, " >>>>", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, " >>>>", 5);
     }
     if (window == vcr.wskip) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Skip", 4);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Skip", 4);
     }
     if (window == vcr.wdn) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, " <<<<", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, " <<<<", 5);
     }
     if (window == vcr.wfast) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Fast", 4);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Fast", 4);
     }
     if (window == vcr.wslow) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Slow", 4);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Slow", 4);
     }
 
     if (window == vcr.slider) {
         draw_ani_slider(window, vcr.slipos);
     }
     if (window == vcr.wpause) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Pause", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Pause", 5);
     }
     if (window == vcr.wreset) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Reset", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Reset", 5);
     }
     if (window == vcr.kill) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Close", 5);
+        XDrawString(display, window, small_gc, 5, cury_offs, "Close", 5);
     }
     if (window == vcr.wfile) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "File", 4);
+        XDrawString(display, window, small_gc, 5, cury_offs, "File", 4);
     }
     if (window == vcr.wmpeg) {
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, "MPEG", 4);
+        XDrawString(display, window, small_gc, 5, cury_offs, "MPEG", 4);
     }
     if (window == vcr.wfly) {
         ani_check_on_the_fly();
@@ -908,7 +908,7 @@ void
 ani_check_on_the_fly(void) {
     XClearWindow(display, vcr.wfly);
     if (animation_on_the_fly) {
-        XDrawString(display, vcr.wfly, small_gc, 5, (int32)1.5*CURY_OFFs, "*",
+        XDrawString(display, vcr.wfly, small_gc, 5, (int32)1.5*cury_offs, "*",
                     1);
     }
     return;

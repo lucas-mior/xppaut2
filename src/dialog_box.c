@@ -159,19 +159,19 @@ dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
 void
 dialog_box_display(Window window, Dialog d, int32 col) {
     if (window == d.ok) {
-        XDrawString(display, window, gc, 0, CURY_OFF + 1, d.ok_s,
+        XDrawString(display, window, gc, 0, cury_off + 1, d.ok_s,
                     (int32)strlen(d.ok_s));
     }
     if (window == d.cancel) {
-        XDrawString(display, window, gc, 0, CURY_OFF + 1, d.cancel_s,
+        XDrawString(display, window, gc, 0, cury_off + 1, d.cancel_s,
                     (int32)strlen(d.cancel_s));
     }
     if (window == d.mes) {
-        XDrawString(display, window, gc, 0, CURY_OFF + 1, d.mes_s,
+        XDrawString(display, window, gc, 0, cury_off + 1, d.mes_s,
                     (int32)strlen(d.mes_s));
     }
     if (window == d.input) {
-        XDrawString(display, window, gc, 0, CURY_OFF, d.input_s,
+        XDrawString(display, window, gc, 0, cury_off, d.input_s,
                     (int32)strlen(d.input_s));
         ggets_put_cursor_at(window, col, 0);
     }

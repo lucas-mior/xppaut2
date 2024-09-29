@@ -40,12 +40,12 @@ draw_calc(Window window) {
     if (window == my_calc.answer) {
         XClearWindow(display, window);
         sprintf(bob, "%.16g", my_calc.last_val);
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, bob,
+        XDrawString(display, window, small_gc, 0, cury_offs, bob,
                     (int)strlen(bob));
         return;
     }
     if (window == my_calc.quit) {
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Quit", 4);
+        XDrawString(display, window, small_gc, 0, cury_offs, "Quit", 4);
         return;
     }
     return;

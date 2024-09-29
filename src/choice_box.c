@@ -27,23 +27,23 @@ choice_box_display(Window window, ChoiceBox p) {
     XSetForeground(display, gc, MyForeColor);
 
     if (window == p.ok) {
-        XDrawString(display, window, gc, 0, CURY_OFF, "Ok", 2);
+        XDrawString(display, window, gc, 0, cury_off, "Ok", 2);
     }
     if (window == p.cancel) {
-        XDrawString(display, window, gc, 0, CURY_OFF, "Cancel", 6);
+        XDrawString(display, window, gc, 0, cury_off, "Cancel", 6);
     }
     for (int32 i = 0; i < n; i++) {
         if (window != p.cw[i]) {
             continue;
         }
-        XDrawString(display, window, gc, 0, CURY_OFF, p.name[i],
+        XDrawString(display, window, gc, 0, cury_off, p.name[i],
                     (int)strlen(p.name[i]));
         if (p.flag[i] == 1) {
             ggets_set_fore();
         } else {
             ggets_set_back();
         }
-        XDrawString(display, window, gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
+        XDrawString(display, window, gc, (p.mc + 1)*DCURX, cury_off, "X", 1);
     }
     ggets_set_fore();
     return;
@@ -57,7 +57,7 @@ choice_box_do_checks(ChoiceBox p) {
         } else {
             ggets_set_back();
         }
-        XDrawString(display, p.cw[i], gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
+        XDrawString(display, p.cw[i], gc, (p.mc + 1)*DCURX, cury_off, "X", 1);
     }
     ggets_set_fore();
     return;

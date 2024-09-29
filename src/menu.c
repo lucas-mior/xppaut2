@@ -493,7 +493,7 @@ menu_expose(Window win) {
         ggets_set_fore();
         ggets_bar(0, 0, 16*DCURX, DCURY, win);
         ggets_set_back();
-        XDrawString(display, win, gc, DCURX / 2 + 5, CURY_OFF, z[0],
+        XDrawString(display, win, gc, DCURX / 2 + 5, cury_off, z[0],
                     (int)strlen(z[0]));
         ggets_set_fore();
         return;
@@ -501,7 +501,7 @@ menu_expose(Window win) {
     for (int32 i = 0; i < n; i++) {
         if (win == my_menus[j].window[i]) {
             many_pops_base_col();
-            XDrawString(display, win, gc, 5, CURY_OFF, z[i + 1],
+            XDrawString(display, win, gc, 5, cury_off, z[i + 1],
                         (int)strlen(z[i + 1]));
             return;
         }

@@ -2712,8 +2712,8 @@ extern int32 DF_FLAG;
 extern int32 DOING_DFIELD;
 
 extern char ColorVia[15];
-extern double ColorViaLo;
-extern double ColorViaHi;
+extern double color_via_lo;
+extern double color_via_hi;
 extern int32 ColorizeFlag;
 
 typedef struct NullClines {
@@ -2868,10 +2868,10 @@ extern Window info_pop;
 extern Window draw_win;
 extern int32 DCURY;
 extern int32 DCURX;
-extern int32 CURY_OFF;
+extern int32 cury_off;
 extern int32 DCURXs;
 extern int32 DCURYs;
-extern int32 CURY_OFFs;
+extern int32 cury_offs;
 extern int32 xor_flag;
 extern GC gc;
 extern GC small_gc;
@@ -2892,7 +2892,7 @@ extern uint32 GrBack;
 
 extern int32 SCALEY;
 extern int32 DCURYb;
-extern int32 CURY_OFFb;
+extern int32 cury_offb;
 extern int32 DCURYs;
 extern int32 DCURXs;
 extern FILE *logfile;

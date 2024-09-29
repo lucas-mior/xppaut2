@@ -18,7 +18,7 @@
 
 #define XDS(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, window, gc, 5, CURY_OFFb, a, strlen(a));          \
+        XDrawString(display, window, gc, 5, cury_offb, a, strlen(a));          \
         return;                                                                \
     } while (0)
 
@@ -911,7 +911,7 @@ auto_x11_display(Window window) {
     }
     if (window == auto_win.hint) {
         XClearWindow(display, window);
-        XDrawString(display, window, gc, 8, CURY_OFF, Auto.hinttxt,
+        XDrawString(display, window, gc, 8, cury_off, Auto.hinttxt,
                     (int)strlen(Auto.hinttxt));
         return;
     }

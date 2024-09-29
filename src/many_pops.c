@@ -1236,13 +1236,13 @@ many_pops_do_expose(XEvent event) {
                 XClearWindow(display, graph[i].w_info);
                 if (i == 0) {
                     many_pops_base_col();
-                    XDrawString(display, graph[i].w_info, gc, 5, CURY_OFF,
+                    XDrawString(display, graph[i].w_info, gc, 5, cury_off,
                                 graph[i].gr_info,
                                 (int)strlen(graph[i].gr_info));
                 } else {
                     many_pops_small_base();
                     XDrawString(display, graph[i].w_info, small_gc, 0,
-                                CURY_OFFs, graph[i].gr_info,
+                                cury_offs, graph[i].gr_info,
                                 (int)strlen(graph[i].gr_info));
                     many_pops_small_gr();
                 }
@@ -1457,11 +1457,11 @@ many_pops_canvas_xy(char *buf) {
     strcpy(MyGraph->gr_info, buf);
     if (MyGraph->w_info == info_pop) {
         many_pops_base_col();
-        XDrawString(display, MyGraph->w_info, gc, 5, CURY_OFF, buf,
+        XDrawString(display, MyGraph->w_info, gc, 5, cury_off, buf,
                     (int)strlen(buf));
     } else {
         many_pops_small_base();
-        XDrawString(display, MyGraph->w_info, small_gc, 0, CURY_OFFs, buf,
+        XDrawString(display, MyGraph->w_info, small_gc, 0, cury_offs, buf,
                     (int)strlen(buf));
     }
     return;

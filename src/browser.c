@@ -26,7 +26,7 @@
 
 #define XDS(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
+        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));    \
         return;                                                                \
     } while (0)
 
@@ -580,7 +580,7 @@ display_browser(Window window, Browser b) {
     int32 i0;
     if (window == b.hint) {
         XClearWindow(display, b.hint);
-        XDrawString(display, window, small_gc, 8, CURY_OFFs, b.hinttxt,
+        XDrawString(display, window, small_gc, 8, cury_offs, b.hinttxt,
                     (int)strlen(b.hinttxt));
         return;
     }
@@ -656,7 +656,7 @@ display_browser(Window window, Browser b) {
         if (window == b.label[i]) {
             i0 = i + b.col0 - 1;
             if (i0 < b.maxcol - 1) {
-                XDrawString(display, window, small_gc, 5, CURY_OFFs,
+                XDrawString(display, window, small_gc, 5, cury_offs,
                             uvar_names[i0], (int)strlen(uvar_names[i0]));
             }
         }
@@ -677,7 +677,7 @@ redraw_browser(Browser b) {
         i0 = i + b.col0 - 1;
         if (i0 < (b.maxcol - 1)) {
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, 5, CURY_OFFs, uvar_names[i0],
+            XDrawString(display, window, small_gc, 5, cury_offs, uvar_names[i0],
                         (int)strlen(uvar_names[i0]));
         }
     }

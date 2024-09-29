@@ -734,7 +734,7 @@ array_plot_redraw(struct ArrayPlot ap) {
         thi = browser_my.data[0][jb];
     }
     snprintf(bob, sizeof(bob), " %g < t < %g ", tlo, thi);
-    XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob,
+    XDrawString(display, ap.wtime, small_gc, 0, cury_offs, bob,
                 (int32)strlen(bob));
     dx = (double)ap.plotw / (double)(ap.nacross / ap.ncskip);
     dy = (double)ap.ploth / (double)ap.ndown;
@@ -790,7 +790,7 @@ array_plot_redraw(struct ArrayPlot ap) {
 void
 array_plot_tag2(char *bob) {
     color_set(0);
-    XDrawString(display, array_plot.wplot, small_gc, 0, CURY_OFFs, bob,
+    XDrawString(display, array_plot.wplot, small_gc, 0, cury_offs, bob,
                 (int32)strlen(bob));
     return;
 }
@@ -809,49 +809,49 @@ array_plot_display(Window window, struct ArrayPlot ap) {
     }
     if (window == ap.wmin) {
         snprintf(bob, sizeof(bob), "%g", ap.zmin);
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, bob,
+        XDrawString(display, window, small_gc, 0, cury_offs, bob,
                     (int32)strlen(bob));
         return;
     }
     if (window == ap.wmax) {
         snprintf(bob, sizeof(bob), "%g", ap.zmax);
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, bob,
+        XDrawString(display, window, small_gc, 0, cury_offs, bob,
                     (int32)strlen(bob));
         return;
     }
     if (window == ap.wedit) {
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Edit", 4);
+        XDrawString(display, window, small_gc, 0, cury_offs, "Edit", 4);
         return;
     }
     if (window == ap.wgif) {
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, "GIF", 3);
+        XDrawString(display, window, small_gc, 0, cury_offs, "GIF", 3);
         return;
     }
     if (window == ap.wredraw) {
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Redraw", 6);
+        XDrawString(display, window, small_gc, 0, cury_offs, "Redraw", 6);
         return;
     }
     if (window == ap.wfit) {
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Fit", 3);
+        XDrawString(display, window, small_gc, 0, cury_offs, "Fit", 3);
         return;
     }
     if (window == ap.wrange) {
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Range", 5);
+        XDrawString(display, window, small_gc, 0, cury_offs, "Range", 5);
         return;
     }
     if (window == ap.wprint) {
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Print", 5);
+        XDrawString(display, window, small_gc, 0, cury_offs, "Print", 5);
         return;
     }
 
     /*if(w==ap.wkill){
-     XDrawString(display,w,small_gc,0,CURY_OFFs,"Kill",4);
+     XDrawString(display,w,small_gc,0,cury_offs,"Kill",4);
      return;
    }
     */
 
     if (window == ap.wclose) {
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Close", 5);
+        XDrawString(display, window, small_gc, 0, cury_offs, "Close", 5);
         return;
     }
 }

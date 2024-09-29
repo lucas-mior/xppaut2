@@ -65,12 +65,12 @@ do_torus_com(int32 c) {
                     // draw torus box
                     Window win = event.xany.window;
                     if (win == torbox.cancel) {
-                        XDrawString(display, win, small_gc, 5, CURY_OFFs,
+                        XDrawString(display, win, small_gc, 5, cury_offs,
                                     "Cancel", 6);
                         return;
                     }
                     if (win == torbox.done) {
-                        XDrawString(display, win, small_gc, 5, CURY_OFFs,
+                        XDrawString(display, win, small_gc, 5, cury_offs,
                                     "Done", 4);
                         return;
                     }
@@ -153,7 +153,7 @@ torus_draw_var(int32 i) {
     } else {
         snprintf(strng, sizeof(strng), "   %s", uvar_names[i]);
     }
-    XDrawString(display, torbox.window[i], small_gc, 0, CURY_OFFs, strng,
+    XDrawString(display, torbox.window[i], small_gc, 0, cury_offs, strng,
                 (int)strlen(strng));
     return;
 }

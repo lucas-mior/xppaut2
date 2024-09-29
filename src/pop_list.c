@@ -223,7 +223,7 @@ pop_list_redraw_scroll_box(ScrollBox sb) {
     int32 i0 = sb.i0;
     for (int32 i = 0; i < sb.nw; i++) {
         XClearWindow(display, sb.w[i]);
-        XDrawString(display, sb.w[i], small_gc, 0, CURY_OFFs, sb.list[i + i0],
+        XDrawString(display, sb.w[i], small_gc, 0, cury_offs, sb.list[i + i0],
                     (int)strlen(sb.list[i + i0]));
     }
     if (sb.nw < sb.nent) {
@@ -377,11 +377,11 @@ pop_list_expose_sbox(StringBox sb, Window window, int32 pos) {
     int32 flag;
 
     if (window == sb.ok) {
-        XDrawString(display, window, gc, 5, CURY_OFF, "Ok", 2);
+        XDrawString(display, window, gc, 5, cury_off, "Ok", 2);
         return;
     }
     if (window == sb.cancel) {
-        XDrawString(display, window, gc, 5, CURY_OFF, "Cancel", 6);
+        XDrawString(display, window, gc, 5, cury_off, "Cancel", 6);
         return;
     }
     for (int32 i = 0; i < sb.n; i++) {
@@ -407,10 +407,10 @@ pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window,
         ggets_bar(0, 0, l*DCURX, DCURY + 4, window);
         ggets_set_back();
     }
-    XDrawString(display, window, gc, 0, CURY_OFF, name, l);
+    XDrawString(display, window, gc, 0, cury_off, name, l);
     ggets_set_fore();
     if (m > 0) {
-        XDrawString(display, window, gc, l*DCURX, CURY_OFF, value, m);
+        XDrawString(display, window, gc, l*DCURX, cury_off, value, m);
     }
     if (flag) {
         ggets_put_cursor_at(window, DCURX*l, pos);
@@ -1257,7 +1257,7 @@ pop_list_popup_list_new(Window *root, char *title, char **list, char *key,
                     if (flag_tips) {
                         strcpy(httxt, hints[i]);
                         XClearWindow(display, hwin);
-                        XDrawString(display, hwin, gc, 5, CURY_OFF, hints[i],
+                        XDrawString(display, hwin, gc, 5, cury_off, hints[i],
                                     (int)strlen(hints[i]));
                     }
                 }

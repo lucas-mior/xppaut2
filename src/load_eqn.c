@@ -2349,7 +2349,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("COLORLO", s1)) {
         if ((notAlreadySet.COLORLO || force) ||
             ((mask != NULL) && (mask->COLORLO == 1))) {
-            ColorViaLo = atof(s2);
+            color_via_lo = atof(s2);
         }
         notAlreadySet.COLORLO = 0;
         return;
@@ -2357,7 +2357,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("COLORHI", s1)) {
         if ((notAlreadySet.COLORHI || force) ||
             ((mask != NULL) && (mask->COLORHI == 1))) {
-            ColorViaHi = atof(s2);
+            color_via_hi = atof(s2);
         }
         notAlreadySet.COLORHI = 0;
         return;

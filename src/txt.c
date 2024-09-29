@@ -20,7 +20,7 @@
 
 #define XDS(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
+        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));    \
         return;                                                                \
     } while (0)
 
@@ -297,14 +297,14 @@ redraw_txtview_text(void) {
         case 0:
             if (j < NLINES) {
                 XDrawString(display, txtview.text, gc, txtview.dw,
-                            i*txtview.dh + CURY_OFFs, save_eqn[j],
+                            i*txtview.dh + cury_offs, save_eqn[j],
                             (int)strlen(save_eqn[j]));
             }
             break;
         case 1:
             if (j < n_comments) {
                 XDrawString(display, txtview.text, gc, txtview.dw,
-                            i*DCURY + CURY_OFFs, comments[j].text,
+                            i*DCURY + cury_offs, comments[j].text,
                             (int)strlen(comments[j].text));
             }
             break;
