@@ -1575,7 +1575,9 @@ typedef struct BoxListold {
     Window *w;
     Window *we;
     char **value;
-    int32 mc, *off, *pos;
+    int32 mc,
+    int32 *off;
+    int32 *pos;
 } BoxListold;
 
 void init_conds_clone_ode(void);
@@ -2725,7 +2727,8 @@ typedef struct NullClines {
     int32 nmy;
     int32 n_ix;
     int32 n_iy;
-    struct NullClines *n, *p;
+    struct NullClines *n;
+    struct NullClines *p;
 } NullClines;
 
 void nullcline_create_new_cline(void);
@@ -3004,7 +3007,9 @@ typedef struct GifTree {
     char typ;    // terminating, lookup, or search
     int32 code;  // the code to be output
     uchar ix;    // the color map index
-    struct GifTree **node, *nxt, *alt;
+    struct GifTree **node;
+    struct GifTree *nxt;
+    struct GifTree *alt;
 } GifTree;
 
 void scrngif_set_global_map(int32 flag);
