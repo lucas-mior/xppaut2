@@ -2965,7 +2965,7 @@ void pop_list_expose_choice(char *choice1, char *choice2, char *msg, Window c1,
 int32 pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
                           int32 x, int32 y, Window window, char *title);
 int32 pop_list_yes_no_box(void);
-int32 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
+int32 pop_list_popup_list_new(Window *root, char *title, char **list, char *key, int32 n,
                   int32 max, int32 def, int32 x, int32 y, char **hints,
                   Window hwin, char *httxt);
 Window pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y,

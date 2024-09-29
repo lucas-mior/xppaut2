@@ -1439,7 +1439,7 @@ graf_par_get_frz_index(Window window) {
         return -1;
     }
     key[count] = 0;
-    ch = (char)pop_up_list(&temp, "Curves", n, key, count, 12, 0, 10,
+    ch = (char)pop_list_popup_list_new(&temp, "Curves", n, key, count, 12, 0, 10,
                            8*DCURY + 8, no_hint, info_pop, info_message);
     for (int32 i = 0; i < count; i++) {
         free(n[i]);

@@ -302,7 +302,7 @@ edit_rhs_menu(void) {
     static char key[] = "rfsl";
     char ch;
     int32 edtype = 0;
-    ch = (char)pop_up_list(&temp, "Edit Stuff", n, key, 4, 11, edtype, 10,
+    ch = (char)pop_list_popup_list_new(&temp, "Edit Stuff", n, key, 4, 11, edtype, 10,
                            13*DCURY + 8, edrh_hint, info_pop, info_message);
     edtype = -1;
     for (int32 i = 0; i < 4; i++) {
