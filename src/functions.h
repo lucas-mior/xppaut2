@@ -3664,12 +3664,10 @@ int32 spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 #define SPGMR_QRSOL_FAIL -5  // QRsol found singular R
 
 /******************************************************************
- *                                                                *
  * Function : SpgmrFree                                           *
- *----------------------------------------------------------------*
+ * -------------------------------------------------------------- *
  * SpgmrMalloc frees the memory allocated by SpgmrMalloc. It is   *
  * illegal to use the pointer mem after a call to SpgmrFree.      *
- *                                                                *
  ******************************************************************/
 void spgmr_free(SpgmrMem mem);
 
