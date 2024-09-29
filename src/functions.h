@@ -2667,8 +2667,8 @@ void ps_text(int32 x, int32 y, char *str);
 
 #endif
 
-#ifndef MY_RHS_H
-#define MY_RHS_H
+#ifndef MAIN_RHS_H
+#define MAIN_RHS_H
 
 int32 main(int32 argc, char **argv);
 void main_rhs_extra(double *y__y, double t, int32 nod, int32 neq);
