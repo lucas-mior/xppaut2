@@ -1115,7 +1115,7 @@ many_pops_ps_restore(void) {
     }
     ps_last_pt_off();
 
-    integrate_restore(0, my_browser.maxrow);
+    integrate_restore(0, browser_my.maxrow);
 
     nullcline_do_batch_nclines();
     nullcline_do_batch_dfield();
@@ -1137,7 +1137,7 @@ many_pops_svg_restore(void) {
         restore_nullclines();
     }
     svg_last_pt_off();
-    integrate_restore(0, my_browser.maxrow);
+    integrate_restore(0, browser_my.maxrow);
     axes_do();
     if (Xup) {
         many_pops_draw_label(draw_win);
@@ -1256,7 +1256,7 @@ many_pops_do_expose(XEvent event) {
                 graphics_get_draw_area();
                 axes_do();
                 if (graph[i].Restore) {
-                    integrate_restore(0, my_browser.maxrow);
+                    integrate_restore(0, browser_my.maxrow);
                 }
                 many_pops_draw_label(graph[i].window);
                 graf_par_draw_freeze(graph[i].window);

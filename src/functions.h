@@ -253,7 +253,7 @@ typedef struct Browser {
     int32 iend;
 } Browser;
 
-extern Browser my_browser;
+extern Browser browser_my;
 
 double **browser_get_data(void);
 void browser_set_data(double **data, int32 col0);

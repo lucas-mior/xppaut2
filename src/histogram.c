@@ -100,8 +100,8 @@ histogram_back(void) {
     if (HIST_HERE) {
         browser_set_data(my_hist, 1);
         /*
-        my_browser.data=my_hist;
-        my_browser.col0=1; */
+        browser_my.data=my_hist;
+        browser_my.col0=1; */
         browser_refresh(hist_len);
     }
     return;

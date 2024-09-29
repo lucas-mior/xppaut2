@@ -142,7 +142,7 @@ array_plot_optimize(int32 *plist) {
     int32 ns;
     double zmax;
     double zmin;
-    int32 nrows = my_browser.maxrow;
+    int32 nrows = browser_my.maxrow;
     int32 ncol = i1 + 1 - i0;
 
     if (ncol < 2 || nrows < 2) {
@@ -185,19 +185,19 @@ array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin) {
     int32 jb;
     int32 row0 = ap->nstart;
     int32 col0 = ap->index0;
-    int32 nrows = my_browser.maxrow;
+    int32 nrows = browser_my.maxrow;
     double z;
     ib = col0;
     jb = row0;
-    *zmax = my_browser.data[ib][jb];
+    *zmax = browser_my.data[ib][jb];
     *zmin = *zmax;
     for (int32 i = 0; i < ap->nacross / ap->ncskip; i++) {
         ib = col0 + i*ap->ncskip;
-        if (ib <= my_browser.maxcol) {
+        if (ib <= browser_my.maxcol) {
             for (int32 j = 0; j < ap->ndown; j++) {
                 jb = row0 + ap->nskip*j;
                 if (jb < nrows && jb >= 0) {
-                    z = my_browser.data[ib][jb];
+                    z = browser_my.data[ib][jb];
                     if (z < *zmin) {
                         *zmin = z;
                     }
@@ -376,7 +376,7 @@ array_plot_print(struct ArrayPlot *ap) {
     static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
                         "Render(-1,0,1,2)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 nrows = my_browser.maxrow;
+    int32 nrows = browser_my.maxrow;
     int32 row0 = ap->nstart;
     int32 col0 = ap->index0;
     int32 jb;
@@ -390,14 +390,14 @@ array_plot_print(struct ArrayPlot *ap) {
     tlo = 0.0;
     thi = 20.0;
     if (jb > 0 && jb < nrows) {
-        tlo = my_browser.data[0][jb];
+        tlo = browser_my.data[0][jb];
     }
     jb = row0 + ap->nskip*(ap->ndown - 1);
     if (jb >= nrows) {
         jb = nrows - 1;
     }
     if (jb >= 0) {
-        thi = my_browser.data[0][jb];
+        thi = browser_my.data[0][jb];
     }
     strncpy(values[0], ap->filename, sizeof(values[0]));
     strncpy(values[1], ap->xtitle, sizeof(values[1]));
@@ -417,7 +417,7 @@ array_plot_print(struct ArrayPlot *ap) {
         errflag =
             array_print(ap->filename, ap->xtitle, ap->ytitle, ap->bottom,
                         ap->nacross, ap->ndown, col0, row0, ap->nskip,
-                        ap->ncskip, nrows, my_browser.maxcol, my_browser.data,
+                        ap->ncskip, nrows, browser_my.maxcol, browser_my.data,
                         ap->zmin, ap->zmax, tlo, thi, ap->type);
         if (errflag == -1) {
             ggets_err_msg("Couldn't open file");
@@ -703,7 +703,7 @@ array_plot_redraw(struct ArrayPlot ap) {
     double tlo;
     double thi;
     char bob[100];
-    int32 nrows = my_browser.maxrow, colr, cmax = FIRSTCOLOR + color_total;
+    int32 nrows = browser_my.maxrow, colr, cmax = FIRSTCOLOR + color_total;
     int32 row0 = ap.nstart;
     int32 col0 = ap.index0;
     int32 delx;
@@ -724,14 +724,14 @@ array_plot_redraw(struct ArrayPlot ap) {
     tlo = 0.0;
     thi = 20.0;
     if (jb > 0 && jb < nrows) {
-        tlo = my_browser.data[0][jb];
+        tlo = browser_my.data[0][jb];
     }
     jb = row0 + ap.nskip*(ap.ndown - 1);
     if (jb >= nrows) {
         jb = nrows - 1;
     }
     if (jb >= 0) {
-        thi = my_browser.data[0][jb];
+        thi = browser_my.data[0][jb];
     }
     snprintf(bob, sizeof(bob), " %g < t < %g ", tlo, thi);
     XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob,
@@ -745,7 +745,7 @@ array_plot_redraw(struct ArrayPlot ap) {
         x = dx*i;
         ix = (int32)x;
 
-        if (ib >= my_browser.maxcol) {
+        if (ib >= browser_my.maxcol) {
             return;
         }
         for (int32 j = 0; j < ap.ndown; j++) {
@@ -756,7 +756,7 @@ array_plot_redraw(struct ArrayPlot ap) {
                 iy = (int32)y;
                 /*	  if(j==0)
                           ggets_plintf(" ib=%d ix=%d iy=%d \n",ib,ix,iy); */
-                z = (double)color_total*(my_browser.data[ib][jb] - ap.zmin) /
+                z = (double)color_total*(browser_my.data[ib][jb] - ap.zmin) /
                     (ap.zmax - ap.zmin);
                 colr = (int32)z + FIRSTCOLOR;
                 if (colr < FIRSTCOLOR) {

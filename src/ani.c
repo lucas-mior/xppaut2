@@ -686,7 +686,7 @@ ani_button(Window window) {
             char junk[256];
             char ans;
             int32 total;
-            total = (my_browser.maxrow*vcr.wid*vcr.hgt*3) /
+            total = (browser_my.maxrow*vcr.wid*vcr.hgt*3) /
                     (mpeg.skip*vcr.inc);
             total = total / (1024*1024);
             if (total > 10) {
@@ -753,7 +753,7 @@ void
 do_ani_slider_motion(Window window, int32 x) {
     int32 l = 48*DCURXs;
     int32 x0 = x;
-    int32 mr = my_browser.maxrow;
+    int32 mr = browser_my.maxrow;
     int32 k;
     if (window != vcr.slider) {
         return;
@@ -778,7 +778,7 @@ redraw_ani_slider(void) {
     int32 k = vcr.pos;
     int32 l = 48*DCURXs;
     int32 xx;
-    int32 mr = my_browser.maxrow;
+    int32 mr = browser_my.maxrow;
     if (mr < 2) {
         return;
     }
@@ -958,10 +958,10 @@ ani_flip1(int32 n) {
     if (n_anicom == 0) {
         return;
     }
-    if (my_browser.maxrow < 2) {
+    if (browser_my.maxrow < 2) {
         return;
     }
-    ss = my_browser.data;
+    ss = browser_my.data;
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
     XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
                    (uint)vcr.hgt);
@@ -971,8 +971,8 @@ ani_flip1(int32 n) {
     }
 
     vcr.pos = vcr.pos + n;
-    if (vcr.pos >= my_browser.maxrow) {
-        vcr.pos = my_browser.maxrow - 1;
+    if (vcr.pos >= browser_my.maxrow) {
+        vcr.pos = browser_my.maxrow - 1;
     }
     if (vcr.pos < 0) {
         vcr.pos = 0;
@@ -1016,10 +1016,10 @@ ani_flip(void) {
     if (n_anicom == 0) {
         return;
     }
-    if (my_browser.maxrow < 2) {
+    if (browser_my.maxrow < 2) {
         return;
     }
-    ss = my_browser.data;
+    ss = browser_my.data;
     set_ani_perm();  // evaluate all permanent structures
                      // check avi_flags for initialization
     if (mpeg.aviflag == 1) {
@@ -1086,7 +1086,7 @@ ani_flip(void) {
             browser_wait_a_sec(5*ani_speed);
         }
         vcr.pos = vcr.pos + vcr.inc;
-        if (vcr.pos >= my_browser.maxrow) {
+        if (vcr.pos >= browser_my.maxrow) {
             done = 1;
             vcr.pos = 0;
             ani_reset_comets();

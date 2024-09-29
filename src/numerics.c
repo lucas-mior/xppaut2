@@ -507,11 +507,11 @@ numerics_set_col_par_com(int32 i) {
         }
         maxder = 0.0;
         minder = 1.e20;
-        for (i = 1; i < my_browser.maxrow; i++) {
+        for (i = 1; i < browser_my.maxrow; i++) {
             sum = 0.0;
             for (int32 j = 0; j < NODE; j++) {
-                sum += (double)fabs((double)(my_browser.data[1 + j][i] -
-                                             my_browser.data[1 + j][i - 1]));
+                sum += (double)fabs((double)(browser_my.data[1 + j][i] -
+                                             browser_my.data[1 + j][i - 1]));
             }
             if (sum < minder) {
                 minder = sum;

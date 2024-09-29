@@ -256,10 +256,10 @@ graf_par_get_max(int32 index, double *vmin, double *vmax) {
     double x1;
     double z;
     double temp;
-    x0 = my_browser.data[index][0];
+    x0 = browser_my.data[index][0];
     x1 = x0;
-    for (int32 i = 0; i < my_browser.maxrow; i++) {
-        z = my_browser.data[index][i];
+    for (int32 i = 0; i < browser_my.maxrow; i++) {
+        z = browser_my.data[index][i];
         if (z < x0) {
             x0 = z;
         }
@@ -544,7 +544,7 @@ graf_par_redraw_the_graph(void) {
     graphics_set_normal_scale();
     axes_do();
     many_pops_hi_lite(draw_win);
-    integrate_restore(0, my_browser.maxrow);
+    integrate_restore(0, browser_my.maxrow);
     many_pops_draw_label(draw_win);
     graf_par_draw_freeze(draw_win);
     nullcline_redraw_dfield();
@@ -1181,17 +1181,17 @@ graf_par_create_crv(int32 ind) {
             ix = MyGraph->xv[ind];
             iy = MyGraph->yv[ind];
             iz = MyGraph->zv[ind];
-            if (my_browser.maxrow <= 2) {
+            if (browser_my.maxrow <= 2) {
                 ggets_err_msg("No Curve to freeze");
                 return -1;
             }
             frz[i].xv =
-                xmalloc(sizeof(*(frz[i].xv))*(usize)my_browser.maxrow);
+                xmalloc(sizeof(*(frz[i].xv))*(usize)browser_my.maxrow);
             frz[i].yv =
-                xmalloc(sizeof(*(frz[i].yv))*(usize)my_browser.maxrow);
+                xmalloc(sizeof(*(frz[i].yv))*(usize)browser_my.maxrow);
             if ((type = MyGraph->grtype) > 0) {
                 frz[i].zv =
-                    xmalloc(sizeof(*(frz[i].zv))*(usize)my_browser.maxrow);
+                    xmalloc(sizeof(*(frz[i].zv))*(usize)browser_my.maxrow);
             }
             if ((type > 0 && frz[i].zv == NULL) ||
                 (type == 0 && frz[i].yv == NULL)) {
@@ -1199,12 +1199,12 @@ graf_par_create_crv(int32 ind) {
                 return -1;
             }
             frz[i].use = 1;
-            frz[i].len = my_browser.maxrow;
-            for (int32 j = 0; j < my_browser.maxrow; j++) {
-                frz[i].xv[j] = my_browser.data[ix][j];
-                frz[i].yv[j] = my_browser.data[iy][j];
+            frz[i].len = browser_my.maxrow;
+            for (int32 j = 0; j < browser_my.maxrow; j++) {
+                frz[i].xv[j] = browser_my.data[ix][j];
+                frz[i].yv[j] = browser_my.data[iy][j];
                 if (type > 0) {
-                    frz[i].zv[j] = my_browser.data[iz][j];
+                    frz[i].zv[j] = browser_my.data[iz][j];
                 }
             }
             frz[i].type = (int16)type;

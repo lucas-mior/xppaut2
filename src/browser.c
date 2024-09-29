@@ -42,7 +42,7 @@
 
 /*  The one and only primitive data browser   */
 
-Browser my_browser;
+Browser browser_my;
 
 static double *old_rep;
 static int32 REPLACE = 0;
@@ -92,19 +92,19 @@ static void browser_data_restore(Browser *b);
 
 double **
 browser_get_data(void) {
-    return my_browser.data;
+    return browser_my.data;
 }
 
 void
 browser_set_data(double **data, int32 col0) {
-    my_browser.data = data;
-    my_browser.col0 = col0;
+    browser_my.data = data;
+    browser_my.col0 = col0;
     return;
 }
 
 double *
 browser_get_data_col(int32 c) {
-    return my_browser.data[c];
+    return browser_my.data[c];
 }
 
 int32
@@ -137,12 +137,12 @@ browser_wait_a_sec(int32 msec) {
 
 int32
 browser_get_max_row(void) {
-    return my_browser.maxrow;
+    return browser_my.maxrow;
 }
 
 void
 browser_my_write_data(FILE *fp) {
-    write_browser_data(fp, &my_browser);
+    write_browser_data(fp, &browser_my);
     return;
 }
 
@@ -686,19 +686,19 @@ redraw_browser(Browser b) {
 
 void
 browser_refresh(int32 length) {
-    my_browser.dataflag = 1;
-    my_browser.maxrow = length;
-    my_browser.iend = length;
-    if (Xup && my_browser.xflag == 1) {
-        browser_draw_data(my_browser);
+    browser_my.dataflag = 1;
+    browser_my.maxrow = length;
+    browser_my.iend = length;
+    if (Xup && browser_my.xflag == 1) {
+        browser_draw_data(browser_my);
     }
     return;
 }
 
 void
 browser_reset(void) {
-    my_browser.maxrow = 0;
-    my_browser.dataflag = 0;
+    browser_my.maxrow = 0;
+    browser_my.dataflag = 0;
     return;
 }
 
@@ -747,15 +747,15 @@ browser_draw_data(Browser b) {
 
 void
 browser_init(void) {
-    my_browser.dataflag = 0;
-    my_browser.data = storage;
-    my_browser.maxcol = NEQ + 1;
-    my_browser.maxrow = 0;
-    my_browser.col0 = 1;
-    my_browser.row0 = 0;
-    my_browser.istart = 0;
-    my_browser.iend = 0;
-    strcpy(my_browser.hinttxt, "hint");
+    browser_my.dataflag = 0;
+    browser_my.data = storage;
+    browser_my.maxcol = NEQ + 1;
+    browser_my.maxrow = 0;
+    browser_my.col0 = 1;
+    browser_my.row0 = 0;
+    browser_my.istart = 0;
+    browser_my.iend = 0;
+    strcpy(browser_my.hinttxt, "hint");
     return;
 }
 
@@ -770,12 +770,12 @@ kill_browser(Browser *b) {
 
 void
 browser_make_new(void) {
-    if (my_browser.xflag == 1) {
-        XRaiseWindow(display, my_browser.base);
+    if (browser_my.xflag == 1) {
+        XRaiseWindow(display, browser_my.base);
         return;
     }
-    make_browser(&my_browser, "Data Viewer", "Data", 20, 5);
-    my_browser.xflag = 1;
+    make_browser(&browser_my, "Data Viewer", "Data", 20, 5);
+    browser_my.xflag = 1;
 }
 
 Window
@@ -904,51 +904,51 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
 
 void
 browser_my_expose(XEvent event) {
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
-    expose_browser(event, my_browser);
+    expose_browser(event, browser_my);
     return;
 }
 
 void
 browser_my_enter(XEvent event, int32 yn) {
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
-    enter_browser(event, &my_browser, yn);
+    enter_browser(event, &browser_my, yn);
     return;
 }
 
 void
 browser_my_button(XEvent event) {
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
-    browser_button(event, &my_browser);
+    browser_button(event, &browser_my);
     return;
 }
 
 void
 browser_my_keypress(XEvent event, int32 *used) {
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
-    browser_keypress(event, used, &my_browser);
+    browser_keypress(event, used, &browser_my);
     return;
 }
 
 void
 browser_my_resize(Window window) {
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
-    resize_browser(window, &my_browser);
+    resize_browser(window, &browser_my);
 }
 
 void
 expose_browser(XEvent event, Browser b) {
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
     if (event.type != Expose) {
@@ -967,7 +967,7 @@ resize_browser(Window window, Browser *b) {
     int32 i0;
     int32 newrow;
     int32 newcol;
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
     if (window != b->base) {
@@ -1025,7 +1025,7 @@ browser_button(XEvent event, Browser *b) {
     XEvent zz;
     int32 done = 1;
     Window w = event.xbutton.window;
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
     if (w == b->up || w == b->down || w == b->pgup || w == b->pgdn ||
@@ -1151,7 +1151,7 @@ browser_keypress(XEvent event, int32 *used, Browser *b) {
     int32 rev;
 
     *used = 0;
-    if (my_browser.xflag == 0) {
+    if (browser_my.xflag == 0) {
         return;
     }
     XGetInputFocus(display, &w2, &rev);
@@ -1336,17 +1336,17 @@ browser_data_end(Browser *b) {
 void
 browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
                      int32 i3, int32 off) {
-    int32 in = my_browser.row0 + off;
-    *x = my_browser.data[i1][in];
-    *y = my_browser.data[i2][in];
-    *z = my_browser.data[i3][in];
+    int32 in = browser_my.row0 + off;
+    *x = browser_my.data[i1][in];
+    *y = browser_my.data[i2][in];
+    *z = browser_my.data[i3][in];
     return;
 }
 
 void
 browser_my_get_data(int32 row) {
-    my_browser.row0 = row;
-    browser_data_get(&my_browser);
+    browser_my.row0 = row;
+    browser_data_get(&browser_my);
     return;
 }
 
@@ -1396,12 +1396,12 @@ browser_data_replace(Browser *b) {
 void
 browser_data_unreplace(Browser *b) {
     // browse unreplace column
-    int32 n = my_browser.maxrow;
+    int32 n = browser_my.maxrow;
     if (!REPLACE) {
         return;
     }
     for (int32 i = 0; i < n; i++) {
-        my_browser.data[R_COL][i] = old_rep[i];
+        browser_my.data[R_COL][i] = old_rep[i];
     }
     browser_wipe_rep();
 

@@ -1044,7 +1044,7 @@ void
 main_redraw_all(void) {
     if (manual_expose == 0) {
         nullcline_redraw_dfield();
-        integrate_restore(0, my_browser.maxrow);
+        integrate_restore(0, browser_my.maxrow);
         many_pops_draw_label(draw_win);
         graf_par_draw_freeze(draw_win);
         many_pops_restore_on();
