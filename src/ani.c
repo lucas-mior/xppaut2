@@ -372,7 +372,7 @@ ani_new_vcr(void) {
     if (vcr.iexist == 1) {
         return;
     }
-    tt = browse_get_time_now();
+    tt = browser_get_time_now();
     i = (10 + (tt % 10)) % 10;
     if (i >= 0 && i < 10) {
         ani_create_vcr(toons[i]);
@@ -407,22 +407,22 @@ ani_create_vcr(char *name) {
     XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
                      NULL, NULL);
     many_pops_make_icon((char *)aniwin_bits, aniwin_width, aniwin_height, base);
-    vcr.wfile = browse_button2(base, 0, 0, 0);
-    vcr.wgo = browse_button2(base, 0, 1, 0);
-    vcr.wreset = browse_button2(base, 0, 2, 0);
-    vcr.wskip = browse_button2(base, 0, 3, 0);
-    vcr.wfast = browse_button2(base, 1, 0, 0);
-    vcr.wslow = browse_button2(base, 1, 1, 0);
-    vcr.wup = browse_button2(base, 1, 2, 0);
-    vcr.wdn = browse_button2(base, 1, 3, 0);
-    vcr.wgrab = browse_button2(base, 2, 3, 0);
+    vcr.wfile = browser_button2(base, 0, 0, 0);
+    vcr.wgo = browser_button2(base, 0, 1, 0);
+    vcr.wreset = browser_button2(base, 0, 2, 0);
+    vcr.wskip = browser_button2(base, 0, 3, 0);
+    vcr.wfast = browser_button2(base, 1, 0, 0);
+    vcr.wslow = browser_button2(base, 1, 1, 0);
+    vcr.wup = browser_button2(base, 1, 2, 0);
+    vcr.wdn = browser_button2(base, 1, 3, 0);
+    vcr.wgrab = browser_button2(base, 2, 3, 0);
     vcr.slider = pop_list_make_window(base, DCURXs, 7 + 4*DCURYs, 48*DCURXs,
                                       DCURYs + 4, 1);
     vcr.slipos = 0;
     vcr.sliwid = 48*DCURXs;
-    vcr.wpause = browse_button2(base, 2, 0, 0);
-    vcr.wmpeg = browse_button2(base, 2, 1, 0);
-    vcr.kill = browse_button2(base, 2, 2, 0);
+    vcr.wpause = browser_button2(base, 2, 0, 0);
+    vcr.wmpeg = browser_button2(base, 2, 1, 0);
+    vcr.kill = browser_button2(base, 2, 2, 0);
 
     vcr.wfly = pop_list_make_window(base, 4*12*DCURXs, 4, 5 + DCURXs + 5,
                                     (DCURYs + 6) - 4, 1);
@@ -436,7 +436,7 @@ ani_create_vcr(char *name) {
     if (ani_pixmap == 0) {
         ggets_err_msg("Failed to get the required pixmap");
         XFlush(display);
-        browse_wait_a_sec(ClickTime);
+        browser_wait_a_sec(ClickTime);
         XDestroySubwindows(display, base);
         XDestroyWindow(display, base);
         vcr.iexist = 0;
@@ -920,7 +920,7 @@ ani_on_the_fly(int32 task) {
         return;
     }
     ani_frame(task);
-    browse_wait_a_sec(on_the_fly_speed);
+    browser_wait_a_sec(on_the_fly_speed);
     return;
 }
 
@@ -1081,9 +1081,9 @@ ani_flip(void) {
 
         XFlush(display);
 
-        browse_wait_a_sec(ani_speed);
+        browser_wait_a_sec(ani_speed);
         if (mpeg.aviflag == 1 || mpeg.flag > 0) {
-            browse_wait_a_sec(5*ani_speed);
+            browser_wait_a_sec(5*ani_speed);
         }
         vcr.pos = vcr.pos + vcr.inc;
         if (vcr.pos >= my_browser.maxrow) {

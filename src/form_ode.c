@@ -1950,7 +1950,7 @@ form_ode_create_plot_list(void) {
     }
     plotlist = xmalloc(sizeof(*plotlist)*(usize)(N_only + 1));
     for (int32 i = 0; i < N_only; i++) {
-        browse_find_variable(onlylist[i], &k);
+        browser_find_variable(onlylist[i], &k);
         if (k >= 0) {
             plotlist[j] = k;
             j++;

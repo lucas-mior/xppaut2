@@ -33,7 +33,7 @@ lunch_file_inf(void) {
     if (!init_conds_file_selector("Save info", filename, "*.pars*")) {
         return;
     }
-    browse_open_write_file(&fp, filename, &ok);
+    browser_open_write_file(&fp, filename, &ok);
     if (!ok) {
         return;
     }
@@ -257,7 +257,7 @@ do_lunch(int32 f) {
     if (!init_conds_file_selector("Save SET File", filename, "*.set")) {
         return;
     }
-    browse_open_write_file(&fp, filename, &ok);
+    browser_open_write_file(&fp, filename, &ok);
     if (!ok) {
         return;
     }

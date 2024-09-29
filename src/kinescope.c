@@ -367,7 +367,7 @@ kinescope_auto_play(void) {
             }
         }  // done checking  now increment pix
 
-        browse_wait_a_sec(ks_speed);
+        browser_wait_a_sec(ks_speed);
         i++;
         if (i >= mov_ind) {
             cycle++;

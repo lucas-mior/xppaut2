@@ -114,7 +114,7 @@ tabular_new_lookup_com(int32 i) {
             storage[0][i2] = xlo + i2*dx;
             storage[1][i2] = y[i2];
         }
-        refresh_browser(len);
+        browser_refresh(len);
         return;
     }
     if (my_table[index].flag == 1) {

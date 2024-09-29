@@ -834,14 +834,14 @@ do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n) {
     if (item[0] == 0) {
         return;
     }
-    browse_find_variable(item, &v);
+    browser_find_variable(item, &v);
     if (v <= 0) {
         return;
     }
     ivars[i] = v - 1;
     i++;
     while ((item = form_ode_do_fit_get_next(" ,")) != NULL) {
-        browse_find_variable(item, &v);
+        browser_find_variable(item, &v);
         if (v <= 0) {
             return;
         }
@@ -874,7 +874,7 @@ do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n) {
         return;
     }
 
-    browse_find_variable(item, &v);
+    browser_find_variable(item, &v);
     if (v > 0) {
         ipars[i + *n] = v - 1;
         i++;
@@ -887,7 +887,7 @@ do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n) {
         i++;
     }
     while ((item = form_ode_do_fit_get_next(" ,")) != NULL) {
-        browse_find_variable(item, &v);
+        browser_find_variable(item, &v);
         if (v > 0) {
             ipars[i + *n] = v - 1;
             i++;

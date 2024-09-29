@@ -284,7 +284,7 @@ diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
         }
     }
     storind = nrows;
-    refresh_browser(nrows);
+    browser_refresh(nrows);
 }
 
 void

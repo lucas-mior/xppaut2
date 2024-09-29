@@ -344,13 +344,13 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     main_fix_window_size(base, width, height, FIX_MIN_SIZE);
     many_pops_make_icon((char *)array_bits, array_width, array_height, base);
 
-    ap->wredraw = browse_button2(base, 0, 0, 0);
-    ap->wedit = browse_button2(base, 0, 1, 0);
-    ap->wprint = browse_button2(base, 0, 2, 0);
-    ap->wclose = browse_button2(base, 0, 3, 0);
-    ap->wfit = browse_button2(base, 0, 4, 0);
-    ap->wrange = browse_button2(base, 0, 5, 0);
-    ap->wgif = browse_button2(base, 1, 0, 0);
+    ap->wredraw = browser_button2(base, 0, 0, 0);
+    ap->wedit = browser_button2(base, 0, 1, 0);
+    ap->wprint = browser_button2(base, 0, 2, 0);
+    ap->wclose = browser_button2(base, 0, 3, 0);
+    ap->wfit = browser_button2(base, 0, 4, 0);
+    ap->wrange = browser_button2(base, 0, 5, 0);
+    ap->wgif = browser_button2(base, 1, 0, 0);
     ap->wmax = pop_list_make_window(base, 10, 45, 10*DCURXs, DCURYs, 1);
     ap->wmin = pop_list_make_window(base, 10, 51 + DCURYs + color_total,
                                     10*DCURXs, DCURYs, 1);
@@ -471,7 +471,7 @@ array_plot_button(Window window) {
     if (window == array_plot.wclose) {
         // array plot destroy
         array_plot.alive = 0;
-        browse_wait_a_sec(ClickTime);
+        browser_wait_a_sec(ClickTime);
         XDestroySubwindows(display, array_plot.base);
         XDestroyWindow(display, array_plot.base);
     }
@@ -597,7 +597,7 @@ array_plot_edit2(struct ArrayPlot *ap) {
     snprintf(values[8], sizeof(values[8]), "%d", ap->ncskip);
     status = pop_list_do_string_box(9, 9, 1, "Edit array_plot", n, values, 40);
     if (status != 0) {
-        browse_find_variable(values[0], &i);
+        browser_find_variable(values[0], &i);
         if (i > -1) {
             ap->index0 = i;
             strcpy(ap->name, values[0]);

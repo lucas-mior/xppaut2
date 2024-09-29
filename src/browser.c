@@ -90,31 +90,31 @@ static void browse_data_last(Browser *b);
 static void browse_data_restore(Browser *b);
 
 double **
-get_browser_data(void) {
+browser_get_data(void) {
     return my_browser.data;
 }
 
 void
-set_browser_data(double **data, int32 col0) {
+browser_set_data(double **data, int32 col0) {
     my_browser.data = data;
     my_browser.col0 = col0;
     return;
 }
 
 double *
-browse_get_data_col(int32 c) {
+browser_get_data_col(int32 c) {
     return my_browser.data[c];
 }
 
 int32
-browse_get_time_now(void) {
+browser_get_time_now(void) {
     struct timeval now;
     gettimeofday(&now, NULL);
     return (int32)now.tv_usec;
 }
 
 void
-browse_wait_a_sec(int32 msec) {
+browser_wait_a_sec(int32 msec) {
     struct timeval tim;
 
     double sec = (double)msec / 1000;
@@ -135,12 +135,12 @@ browse_wait_a_sec(int32 msec) {
 }
 
 int32
-get_max_row_browser(void) {
+browser_get_max_row(void) {
     return my_browser.maxrow;
 }
 
 void
-write_my_browser_data(FILE *fp) {
+browser_my_write_data(FILE *fp) {
     write_browser_data(fp, &my_browser);
     return;
 }
@@ -334,7 +334,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
     }
     if (form[i] == '@') {
         form[i] = ' ';
-        browse_find_variable(form, &dif_var);
+        browser_find_variable(form, &dif_var);
         if (dif_var < 0) {
             ggets_err_msg("No such variable");
             return;
@@ -371,7 +371,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
     }
     // next check to see if column is known ...
 
-    browse_find_variable(var, &i);
+    browser_find_variable(var, &i);
     if (i < 0) {
         ggets_err_msg("No such column...");
         NCON = NCON_START;
@@ -382,7 +382,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
 
     // Okay the formula is cool so lets allocate and replace
 
-    browse_wipe_rep();
+    browser_wipe_rep();
     old_rep = xmalloc(sizeof(*old_rep)*(usize)n);
     REPLACE = 1;
     for (i = 0; i < n; i++) {
@@ -424,7 +424,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
 }
 
 void
-browse_wipe_rep(void) {
+browser_wipe_rep(void) {
     if (!REPLACE) {
         return;
     }
@@ -439,7 +439,7 @@ browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
     int32 npts;
     int32 ok;
     FILE *fp;
-    browse_open_write_file(&fp, filename, &ok);
+    browser_open_write_file(&fp, filename, &ok);
     if (!ok) {
         return;
     }
@@ -475,7 +475,7 @@ browse_find_value(int32 col, double val, int32 *row, Browser b) {
 }
 
 void
-browse_find_variable(char *s, int32 *col) {
+browser_find_variable(char *s, int32 *col) {
     *col = -1;
     if (strcasecmp("T", s) == 0) {
         *col = 0;
@@ -684,7 +684,7 @@ redraw_browser(Browser b) {
 }
 
 void
-refresh_browser(int32 length) {
+browser_refresh(int32 length) {
     my_browser.dataflag = 1;
     my_browser.maxrow = length;
     my_browser.iend = length;
@@ -695,7 +695,7 @@ refresh_browser(int32 length) {
 }
 
 void
-reset_browser(void) {
+browser_reset(void) {
     my_browser.maxrow = 0;
     my_browser.dataflag = 0;
     return;
@@ -745,7 +745,7 @@ browse_draw_data(Browser b) {
 }
 
 void
-init_browser(void) {
+browser_init(void) {
     my_browser.dataflag = 0;
     my_browser.data = storage;
     my_browser.maxcol = NEQ + 1;
@@ -761,14 +761,14 @@ init_browser(void) {
 void
 kill_browser(Browser *b) {
     b->xflag = 0;
-    browse_wait_a_sec(ClickTime);
+    browser_wait_a_sec(ClickTime);
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);
     return;
 }
 
 void
-make_new_browser(void) {
+browser_make_new(void) {
     if (my_browser.xflag == 1) {
         XRaiseWindow(display, my_browser.base);
         return;
@@ -778,7 +778,7 @@ make_new_browser(void) {
 }
 
 Window
-browse_button2(Window root, int32 row, int32 col, int32 iflag) {
+browser_button2(Window root, int32 row, int32 col, int32 iflag) {
     Window window;
     int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
@@ -796,7 +796,7 @@ browse_button2(Window root, int32 row, int32 col, int32 iflag) {
 }
 
 Window
-browse_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
+browser_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window window;
     int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
@@ -863,33 +863,33 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     b->main = pop_list_make_plain_window(base, 0, ystart + drow*6, width,
                                          row*drow, 1);
     XSetWindowBackground(display, b->main, MyDrawWinColor);
-    b->find = browse_button2(base, 0, 0, 0);
-    b->get = browse_button2(base, 1, 0, 0);
-    b->repl = browse_button2(base, 2, 0, 0);
-    b->restore = browse_button2(base, 0, 1, 0);
-    b->write = browse_button2(base, 1, 1, 0);
-    b->load = browse_button2(base, 2, 1, 0);
-    b->first = browse_button2(base, 0, 2, 0);
-    b->last = browse_button2(base, 1, 2, 0);
-    b->unrepl = browse_button2(base, 2, 2, 0);
-    b->table = browse_button2(base, 2, 3, 0);
-    b->up = browse_button2(base, 0, 3, 0);
-    b->down = browse_button2(base, 1, 3, 0);
-    b->pgup = browse_button2(base, 0, 4, 0);
-    b->pgdn = browse_button2(base, 1, 4, 0);
-    b->left = browse_button2(base, 0, 5, 0);
-    b->right = browse_button2(base, 1, 5, 0);
-    b->home = browse_button2(base, 0, 6, 0);
-    b->end = browse_button2(base, 1, 6, 0);
-    b->addcol = browse_button2(base, 2, 4, 0);
-    b->delcol = browse_button2(base, 2, 5, 0);
-    b->close = browse_button2(base, 2, 6, 0);
-    b->time = browse_button2(base, 5, 0, 1);
+    b->find = browser_button2(base, 0, 0, 0);
+    b->get = browser_button2(base, 1, 0, 0);
+    b->repl = browser_button2(base, 2, 0, 0);
+    b->restore = browser_button2(base, 0, 1, 0);
+    b->write = browser_button2(base, 1, 1, 0);
+    b->load = browser_button2(base, 2, 1, 0);
+    b->first = browser_button2(base, 0, 2, 0);
+    b->last = browser_button2(base, 1, 2, 0);
+    b->unrepl = browser_button2(base, 2, 2, 0);
+    b->table = browser_button2(base, 2, 3, 0);
+    b->up = browser_button2(base, 0, 3, 0);
+    b->down = browser_button2(base, 1, 3, 0);
+    b->pgup = browser_button2(base, 0, 4, 0);
+    b->pgdn = browser_button2(base, 1, 4, 0);
+    b->left = browser_button2(base, 0, 5, 0);
+    b->right = browser_button2(base, 1, 5, 0);
+    b->home = browser_button2(base, 0, 6, 0);
+    b->end = browser_button2(base, 1, 6, 0);
+    b->addcol = browser_button2(base, 2, 4, 0);
+    b->delcol = browser_button2(base, 2, 5, 0);
+    b->close = browser_button2(base, 2, 6, 0);
+    b->time = browser_button2(base, 5, 0, 1);
     b->hint = pop_list_make_window(base, 0, 4*drow, width - 17, drow - 3, 1);
     XSelectInput(display, b->time, SIMPMASK);
 
     for (int32 i = 0; i < BMAXCOL; i++) {
-        b->label[i] = browse_button_data(base, 5, i + 1, "1234567890", 1);
+        b->label[i] = browser_button_data(base, 5, i + 1, "1234567890", 1);
         XSelectInput(display, b->label[i], SIMPMASK);
     }
     if (noicon == 0) {
@@ -901,7 +901,7 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
 /*   These are the global exporters ...   */
 
 void
-expose_my_browser(XEvent event) {
+browser_my_expose(XEvent event) {
     if (my_browser.xflag == 0) {
         return;
     }
@@ -910,7 +910,7 @@ expose_my_browser(XEvent event) {
 }
 
 void
-enter_my_browser(XEvent event, int32 yn) {
+browser_my_enter(XEvent event, int32 yn) {
     if (my_browser.xflag == 0) {
         return;
     }
@@ -919,7 +919,7 @@ enter_my_browser(XEvent event, int32 yn) {
 }
 
 void
-my_browse_button(XEvent event) {
+browser_my_button(XEvent event) {
     if (my_browser.xflag == 0) {
         return;
     }
@@ -928,7 +928,7 @@ my_browse_button(XEvent event) {
 }
 
 void
-my_browse_keypress(XEvent event, int32 *used) {
+browser_my_keypress(XEvent event, int32 *used) {
     if (my_browser.xflag == 0) {
         return;
     }
@@ -937,7 +937,7 @@ my_browse_keypress(XEvent event, int32 *used) {
 }
 
 void
-resize_my_browser(Window window) {
+browser_my_resize(Window window) {
     if (my_browser.xflag == 0) {
         return;
     }
@@ -1048,7 +1048,7 @@ browse_button(XEvent event, Browser *b) {
             if (w == b->right) {
                 browse_data_right(b);
             }
-            browse_wait_a_sec(100);
+            browser_wait_a_sec(100);
             if (XPending(display) > 0) {
                 XNextEvent(display, &zz);
                 switch (zz.type) {
@@ -1332,7 +1332,7 @@ browse_data_end(Browser *b) {
 }
 
 void
-browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
+browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
                     int32 i3, int32 off) {
     int32 in = my_browser.row0 + off;
     *x = my_browser.data[i1][in];
@@ -1342,7 +1342,7 @@ browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
 }
 
 void
-data_get_my_browser(int32 row) {
+browser_my_get_data(int32 row) {
     my_browser.row0 = row;
     browse_data_get(&my_browser);
     return;
@@ -1401,7 +1401,7 @@ browse_data_unreplace(Browser *b) {
     for (int32 i = 0; i < n; i++) {
         my_browser.data[R_COL][i] = old_rep[i];
     }
-    browse_wipe_rep();
+    browser_wipe_rep();
 
     browse_draw_data(*b);
     return;
@@ -1434,7 +1434,7 @@ browse_data_table(Browser *b) {
     }
     xlo = atof(value[1]);
     xhi = atof(value[2]);
-    browse_find_variable(value[0], &col);
+    browser_find_variable(value[0], &col);
     if (col >= 0) {
         browse_make_d_table(xlo, xhi, col, value[3], *b);
     }
@@ -1465,7 +1465,7 @@ browse_data_find(Browser *b) {
         return;
     }
     val = (double)atof(value[1]);
-    browse_find_variable(value[0], &col);
+    browser_find_variable(value[0], &col);
     if (col >= 0) {
         browse_find_value(col, val, &row, *b);
     }
@@ -1477,7 +1477,7 @@ browse_data_find(Browser *b) {
 }
 
 void
-browse_open_write_file(FILE **fp, char *fil, int32 *ok) {
+browser_open_write_file(FILE **fp, char *fil, int32 *ok) {
     char ans;
     *ok = 0;
     *fp = fopen(fil, "r");
@@ -1556,7 +1556,7 @@ browse_data_read(Browser *b) {
         }
     }
     fclose(fp);
-    refresh_browser(len);
+    browser_refresh(len);
     storind = len;
     return;
 }
@@ -1575,7 +1575,7 @@ browse_data_write(Browser *b) {
     if (status == 0) {
         return;
     }
-    browse_open_write_file(&fp, fil, &ok);
+    browser_open_write_file(&fp, fil, &ok);
     if (!ok) {
         return;
     }

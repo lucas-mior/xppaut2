@@ -113,11 +113,11 @@ graf_par_change_view_com(int32 com) {
         status = pop_list_do_string_box(8, 4, 2, "2D View", n, values, 31);
         if (status != 0) {
             //  get variable names
-            browse_find_variable(values[0], &i);
+            browser_find_variable(values[0], &i);
             if (i > -1) {
                 MyGraph->xv[ind] = i;
             }
-            browse_find_variable(values[1], &i);
+            browser_find_variable(values[1], &i);
             if (i > -1) {
                 MyGraph->yv[ind] = i;
             }
@@ -167,15 +167,15 @@ graf_par_change_view_com(int32 com) {
         status = pop_list_do_string_box(16, 6, 3, "3D View", n, values, 31);
         if (status != 0) {
             //  get variable names
-            browse_find_variable(values[0], &i);
+            browser_find_variable(values[0], &i);
             if (i > -1) {
                 MyGraph->xv[ind] = i;
             }
-            browse_find_variable(values[1], &i);
+            browser_find_variable(values[1], &i);
             if (i > -1) {
                 MyGraph->yv[ind] = i;
             }
-            browse_find_variable(values[2], &i);
+            browser_find_variable(values[2], &i);
             if (i > -1) {
                 MyGraph->zv[ind] = i;
             }
@@ -510,7 +510,7 @@ graf_par_xi_vs_t(void) {
     graf_par_ind_to_sym(i, value);
     snprintf(name, sizeof(name), "Plot vs t: ");
     ggets_new_string(name, value);
-    browse_find_variable(value, &i);
+    browser_find_variable(value, &i);
 
     if (i > -1) {
         MyGraph->yv[0] = i;
@@ -941,15 +941,15 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
     snprintf(values[4], sizeof(values[4]), "%d", MyGraph->line[in_it]);
     status = pop_list_do_string_box(5, 5, 1, title, nn, values, 25);
     if (status != 0) {
-        browse_find_variable(values[0], &i);
+        browser_find_variable(values[0], &i);
         if (i > -1) {
             MyGraph->xv[n] = i;
         }
-        browse_find_variable(values[1], &i);
+        browser_find_variable(values[1], &i);
         if (i > -1) {
             MyGraph->yv[n] = i;
         }
-        browse_find_variable(values[2], &i);
+        browser_find_variable(values[2], &i);
         if (i > -1) {
             MyGraph->zv[n] = i;
         }

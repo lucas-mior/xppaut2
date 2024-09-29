@@ -533,7 +533,7 @@ int32
 auto_nox_name_to_index(char *s) {
     int32 i;
     int32 in;
-    browse_find_variable(s, &in);
+    browser_find_variable(s, &in);
     if (in == 0) {
         return 10;
     }
@@ -804,7 +804,7 @@ auto_nox_plot_par(void) {
     status = pop_list_do_string_box(7, 7, 1, "AutoPlot", n, values, 31);
     if (status != 0) {
         //  get variable names
-        browse_find_variable(values[0], &i);
+        browser_find_variable(values[0], &i);
         if (i > 0) {
             Auto.var = i - 1;
         }
@@ -2664,7 +2664,7 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
         }
     }
     storind = nrow;
-    refresh_browser(nrow);
+    browser_refresh(nrow);
     // insert auxiliary stuff here
     if (load_all_labeled_orbits == 2) {
         menudrive_clr_all_scrns();
@@ -2690,7 +2690,7 @@ auto_nox_save(void) {
     if (status == 0) {
         return;
     }
-    browse_open_write_file(&fp, filename, &ok);
+    browser_open_write_file(&fp, filename, &ok);
     if (!ok) {
         return;
     }

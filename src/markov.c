@@ -525,8 +525,8 @@ markov_do_stochast_com(int32 i) {
 void
 markov_mean_back(void) {
     if (STOCH_HERE) {
-        set_browser_data(my_mean, 1);
-        refresh_browser(stoch_len);
+        browser_set_data(my_mean, 1);
+        browser_refresh(stoch_len);
         storind = stoch_len;
     }
     return;
@@ -535,8 +535,8 @@ markov_mean_back(void) {
 void
 markov_variance_back(void) {
     if (STOCH_HERE) {
-        set_browser_data(my_variance, 1);
-        refresh_browser(stoch_len);
+        browser_set_data(my_variance, 1);
+        browser_refresh(stoch_len);
         storind = stoch_len;
     }
     return;

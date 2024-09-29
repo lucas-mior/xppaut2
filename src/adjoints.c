@@ -124,7 +124,7 @@ adjoints_do_transpose(void) {
         return 0;
     }
 
-    browse_find_variable(values[0], &ii);
+    browser_find_variable(values[0], &ii);
     if (ii > -1) {
         my_trans.col0 = ii + 1;
     } else {
@@ -168,8 +168,8 @@ adjoints_do_transpose(void) {
         }
     }
 
-    set_browser_data(my_trans.data, 1);
-    refresh_browser(my_trans.ncol);
+    browser_set_data(my_trans.data, 1);
+    browser_refresh(my_trans.ncol);
     my_trans.here = 1;
     return 1;
 }
@@ -187,16 +187,16 @@ adjoints_alloc_h_stuff(void) {
 void
 adjoints_data_back(void) {
     FOUR_HERE = 0;
-    set_browser_data(storage, 1);
-    refresh_browser(storind);
+    browser_set_data(storage, 1);
+    browser_refresh(storind);
     return;
 }
 
 void
 adjoints_back(void) {
     if (ADJ_HERE) {
-        set_browser_data(my_adj, 1);
-        refresh_browser(adj_len);
+        browser_set_data(my_adj, 1);
+        browser_refresh(adj_len);
     }
     return;
 }
@@ -204,8 +204,8 @@ adjoints_back(void) {
 void
 adjoints_h_back(void) {
     if (H_HERE) {
-        set_browser_data(my_h, 1);
-        refresh_browser(h_len);
+        browser_set_data(my_h, 1);
+        browser_refresh(h_len);
     }
     return;
 }
@@ -631,7 +631,7 @@ adjoints_do_liapunov(void) {
         storage[1][i] = my_liap[1][i];
     }
     storind = LIAP_I;
-    refresh_browser(storind);
+    browser_refresh(storind);
     LIAP_FLAG = 0;
     free(my_liap[0]);
     free(my_liap[1]);

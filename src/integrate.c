@@ -251,7 +251,7 @@ integrate_cont_integ(void) {
         return;
     }
     tetemp = TEND;
-    browse_wipe_rep();
+    browser_wipe_rep();
     adjoints_data_back();
     if (ggets_new_float("Continue until:", &tetemp) == -1) {
         return;
@@ -265,7 +265,7 @@ integrate_cont_integ(void) {
     MyStart = 1;  //  I know it is wasteful to restart, but lets be safe....
     integrate(&MyTime, x, dif, DELTA_T, 1, NJMP, &MyStart);
     ggets_ping();
-    refresh_browser(storind);
+    browser_refresh(storind);
 }
 
 int32
@@ -469,7 +469,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         }
     }
     if (stuffbrowse) {
-        reset_browser();
+        browser_reset();
         storind = 0;
         m = fixptlist.n;
         for (int32 i = 0; i < m; i++) {
@@ -479,7 +479,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
             }
             storind++;
         }
-        refresh_browser(storind);
+        browser_refresh(storind);
     }
     return;
 }
@@ -552,7 +552,7 @@ integrate_eq_range(double *x) {
         eq_range.col = -1;
     }
 
-    browse_wipe_rep();
+    browser_wipe_rep();
     adjoints_data_back();
     parlo = eq_range.plow;
     parhi = eq_range.phigh;
@@ -566,7 +566,7 @@ integrate_eq_range(double *x) {
     ENDSING = 0;
     PAR_FOL = 1;
     SHOOT = eq_range.shoot;
-    reset_browser();
+    browser_reset();
     if (mc == 1) {
         eq_range.movie = 1;
         SHOOT = 0;
@@ -621,7 +621,7 @@ integrate_eq_range(double *x) {
             break;
         }
     }
-    refresh_browser(storind);
+    browser_refresh(storind);
     PAR_FOL = 0;
     return;
 }
@@ -936,10 +936,10 @@ integrate_do_range(double *x, int32 flag) {
                     break;
                 }
             }
-            refresh_browser(storind);
+            browser_refresh(storind);
             if (adj_range) {
                 sprintf(bob, "%s_%g", range.item, p);
-                data_get_my_browser(storind - 1);
+                browser_my_get_data(storind - 1);
                 numerics_compute_one_period((double)storage[0][storind - 1],
                                             last_ic, bob);
             }
@@ -1180,7 +1180,7 @@ batch_integrate_once(void) {
     STORFLAG = 1;
     POIEXT = 0;
     storind = 0;
-    reset_browser();
+    browser_reset();
     if (batch_range == 1 || STOCH_FLAG > 0) {
         dae_fun_reset_dae();
         RANGE_FLAG = 1;
@@ -1212,7 +1212,7 @@ batch_integrate_once(void) {
         }
 
         INFLAG = 1;
-        refresh_browser(storind);
+        browser_refresh(storind);
     }
     histogram_post_process_stuff();
     if (!batch_range || range.reset == 0) {
@@ -1228,7 +1228,7 @@ batch_integrate_once(void) {
                 ggets_plintf(" Unable to open %s to write \n", batch_out);
                 return;
             }
-            write_my_browser_data(fp);
+            browser_my_write_data(fp);
 
             fclose(fp);
         }
@@ -1251,7 +1251,7 @@ integrate_write_this_run(char *file, int32 i) {
             ggets_plintf("Couldnt open %s\n", outfile);
             return -1;
         }
-        write_my_browser_data(fp);
+        browser_my_write_data(fp);
         fclose(fp);
     }
     if (MakePlotFlag) {
@@ -1294,13 +1294,13 @@ integrate_do_init_data(int32 com) {
     }
 
     adjoints_data_back();
-    browse_wipe_rep();
+    browser_wipe_rep();
     MyTime = T0;
 
     STORFLAG = 1;
     POIEXT = 0;
     storind = 0;
-    reset_browser();
+    browser_reset();
 
     switch (com) {
     case M_IR:  // do range
@@ -1495,7 +1495,7 @@ integrate_run_now(void) {
     STORFLAG = 1;
     POIEXT = 0;
     storind = 0;
-    reset_browser();
+    browser_reset();
     usual_integrate_stuff(x);
     return;
 }
@@ -1525,7 +1525,7 @@ usual_integrate_stuff(double *x) {
 
     ggets_ping();
     INFLAG = 1;
-    refresh_browser(storind);
+    browser_refresh(storind);
     if (Xup) {
         graf_par_auto_freeze_it();
         init_conds_redraw_ics();
@@ -1613,7 +1613,7 @@ integrate_evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
     for (int32 j = j1; j <= j2; j++) {
         i = -1;
         form_ode_subsk(v, vp, j, 1);
-        browse_find_variable(vp, &i);
+        browser_find_variable(vp, &i);
         if (i > 0) {
             form_ode_subsk(f, fp, j, 1);
             flag = calc_do_calc(fp, &z);
@@ -1710,7 +1710,7 @@ integrate_set_array_ic(void) {
     if (flag2 == 1) {
         integrate_new_array_ic(new, j1, j2);
     } else {
-        browse_find_variable(junk, &i);
+        browser_find_variable(junk, &i);
         if (i <= -1) {
             return 0;
         }
@@ -2599,10 +2599,10 @@ integrate_export_data(FILE *fp) {
     int32 iiXPLT;
     int32 iiYPLT;
     int32 iiZPLT;
-    int32 strind = get_max_row_browser();
+    int32 strind = browser_get_max_row();
     int32 i1 = 0;
     double **data;
-    data = get_browser_data();
+    data = browser_get_data();
     XSHFT = MyGraph->xshft;
     YSHFT = MyGraph->yshft;
     ZSHFT = MyGraph->zshft;
@@ -2727,7 +2727,7 @@ integrate_restore(int32 i1, int32 i2) {
     double v2[MAX_ODE + 1];
     double **data;
 
-    data = get_browser_data();
+    data = browser_get_data();
     XSHFT = MyGraph->xshft;
     YSHFT = MyGraph->yshft;
     ZSHFT = MyGraph->zshft;

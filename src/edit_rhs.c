@@ -98,7 +98,7 @@ edit_rhs_box(int32 n, char *title, char **names, char **values) {
     XSelectInput(display, sb.ok, EV_MASK);
     XSelectInput(display, sb.reset, EV_MASK);
 
-    browse_wait_a_sec(ClickTime);
+    browser_wait_a_sec(ClickTime);
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 
@@ -494,7 +494,7 @@ edit_rhs_save_as(void) {
     if (!init_conds_file_selector("Save As", filename, "*.ode")) {
         return -1;
     }
-    browse_open_write_file(&fp, filename, &ok);
+    browser_open_write_file(&fp, filename, &ok);
     if (!ok) {
         return -1;
     }

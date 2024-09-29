@@ -98,11 +98,11 @@ histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
 void
 histogram_back(void) {
     if (HIST_HERE) {
-        set_browser_data(my_hist, 1);
+        browser_set_data(my_hist, 1);
         /*
         my_browser.data=my_hist;
         my_browser.col0=1; */
-        refresh_browser(hist_len);
+        browser_refresh(hist_len);
     }
     return;
 }
@@ -136,12 +136,12 @@ histogram_new_four(int32 nmodes, int32 col) {
     for (int32 i = 0; i < length; i++) {
         my_four[0][i] = (double)i / total;
     }
-    bob = browse_get_data_col(col);
+    bob = browser_get_data_col(col);
     histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
     if (FOUR_HERE) {
         // histogram four back
-        set_browser_data(my_four, 1);
-        refresh_browser(four_len);
+        browser_set_data(my_four, 1);
+        browser_refresh(four_len);
     }
     ggets_ping();
     return;
@@ -457,7 +457,7 @@ histogram_get_col_info(int32 *col, char *prompt) {
         strcpy(variable, uvar_names[*col - 1]);
     }
     ggets_new_string(prompt, variable);
-    browse_find_variable(variable, col);
+    browser_find_variable(variable, col);
     if (*col < 0) {
         ggets_err_msg("No such variable...");
         return 0;
@@ -474,8 +474,8 @@ histogram_compute_power(void) {
     if ((NEQ < 2) || (storind <= 1)) {
         return;
     }
-    datx = browse_get_data_col(1);
-    daty = browse_get_data_col(2);
+    datx = browser_get_data_col(1);
+    daty = browser_get_data_col(2);
 
     for (int32 i = 0; i < four_len; i++) {
         c = datx[i];
@@ -747,8 +747,8 @@ histogram_just_fourier(int32 flag) {
     }
     histogram_new_four(nmodes, spec_col);
     if (flag) {
-        datx = browse_get_data_col(1);
-        daty = browse_get_data_col(2);
+        datx = browser_get_data_col(1);
+        daty = browser_get_data_col(2);
 
         for (int32 i = 0; i < four_len; i++) {
             c = datx[i];

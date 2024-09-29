@@ -1205,7 +1205,7 @@ auto_x11_button(XEvent event) {
         SBW;
         // auto x11 kill
         Auto.exist = 0;
-        browse_wait_a_sec(ClickTime);
+        browser_wait_a_sec(ClickTime);
         XDestroySubwindows(display, auto_win.base);
         XDestroyWindow(display, auto_win.base);
         return;

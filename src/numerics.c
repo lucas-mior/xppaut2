@@ -332,13 +332,13 @@ numerics_compute_one_period(double period, double *x, char *name) {
     MyTime = 0;
     TEND = period;
     POIMAP = 0;  // turn off poincare map
-    reset_browser();
+    browser_reset();
 
     usual_integrate_stuff(x);
     snprintf(filename, sizeof(filename), "orbit.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
-        write_my_browser_data(fp);
+        browser_my_write_data(fp);
         fclose(fp);
     } else {
         TRANS = ot;
@@ -351,7 +351,7 @@ numerics_compute_one_period(double period, double *x, char *name) {
     snprintf(filename, sizeof(filename), "adjoint.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
-        write_my_browser_data(fp);
+        browser_my_write_data(fp);
         fclose(fp);
         adjoints_data_back();
     }
@@ -359,12 +359,12 @@ numerics_compute_one_period(double period, double *x, char *name) {
     snprintf(filename, sizeof(filename), "hfun.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
-        write_my_browser_data(fp);
+        browser_my_write_data(fp);
         fclose(fp);
         adjoints_data_back();
     }
 
-    reset_browser();
+    browser_reset();
 
     TRANS = ot;
     POIMAP = opm;
@@ -408,7 +408,7 @@ numerics_get_pmap_pars_com(int32 l) {
     snprintf(values[3], sizeof(values[3]), "%s", yn[SOS]);
     status = pop_list_do_string_box(4, 4, 1, "Poincare map", n, values, 45);
     if (status != 0) {
-        browse_find_variable(values[0], &i1);
+        browser_find_variable(values[0], &i1);
         if (i1 < 0) {
             POIMAP = 0;
             ggets_err_msg("No such section");
@@ -439,7 +439,7 @@ numerics_user_set_color_par(int32 flag, char *via, double lo, double hi) {
     if (strncasecmp("speed", via, 5) == 0) {
         MyGraph->ColorFlag = 1;
     } else {
-        browse_find_variable(via, &ivar);
+        browser_find_variable(via, &ivar);
         if (ivar >= 0) {
             MyGraph->ColorValue = ivar;
             MyGraph->ColorFlag = 2;
@@ -470,7 +470,7 @@ numerics_set_col_par_com(int32 i) {
     if (MyGraph->ColorFlag == 2) {
         graf_par_ind_to_sym(MyGraph->ColorValue, name);
         ggets_new_string("Color via:", name);
-        browse_find_variable(name, &ivar);
+        browser_find_variable(name, &ivar);
 
         if (ivar >= 0) {
             MyGraph->ColorValue = ivar;

@@ -255,32 +255,32 @@ typedef struct Browser {
 
 extern Browser my_browser;
 
-double **get_browser_data(void);
-void set_browser_data(double **data, int32 col0);
-double *browse_get_data_col(int32 c);
-int32 browse_get_time_now(void);
-void browse_wait_a_sec(int32 msec);
-int32 get_max_row_browser(void);
-void write_my_browser_data(FILE *fp);
-void browse_wipe_rep(void);
-void browse_find_variable(char *s, int32 *col);
-void refresh_browser(int32 length);
-void reset_browser(void);
-void init_browser(void);
-void make_new_browser(void);
-Window browse_button2(Window root, int32 row, int32 col, int32 iflag);
-Window browse_button_data(Window root, int32 row, int32 col, char *name,
+double **browser_get_data(void);
+void browser_set_data(double **data, int32 col0);
+double *browser_get_data_col(int32 c);
+int32 browser_get_time_now(void);
+void browser_wait_a_sec(int32 msec);
+int32 browser_get_max_row(void);
+void browser_my_write_data(FILE *fp);
+void browser_wipe_rep(void);
+void browser_find_variable(char *s, int32 *col);
+void browser_refresh(int32 length);
+void browser_reset(void);
+void browser_init(void);
+void browser_make_new(void);
+Window browser_button2(Window root, int32 row, int32 col, int32 iflag);
+Window browser_button_data(Window root, int32 row, int32 col, char *name,
                           int32 iflag);
-void expose_my_browser(XEvent event);
-void enter_my_browser(XEvent event, int32 yn);
-void my_browse_button(XEvent event);
-void my_browse_keypress(XEvent event, int32 *used);
-void resize_my_browser(Window win);
-void browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
+void browser_my_expose(XEvent event);
+void browser_my_enter(XEvent event, int32 yn);
+void browser_my_button(XEvent event);
+void browser_my_keypress(XEvent event, int32 *used);
+void browser_my_resize(Window win);
+void browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
                          int32 i3, int32 off);
-void browse_open_write_file(FILE **fp, char *fil, int32 *ok);
-void write_my_browser_data(FILE *fp);
-void data_get_my_browser(int32 row);
+void browser_open_write_file(FILE **fp, char *fil, int32 *ok);
+void browser_my_write_data(FILE *fp);
+void browser_my_get_data(int32 row);
 
 #endif
 

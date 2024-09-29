@@ -1294,21 +1294,21 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         sprintf(yyh, "YHI%d", j);
         sprintf(yyl, "YLO%d", j);
         if (load_eqn_msc(xx, s1)) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > -1) {
                 IX_PLT[j] = i;
             }
             return;
         }
         if (load_eqn_msc(yy, s1)) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > -1) {
                 IY_PLT[j] = i;
             }
             return;
         }
         if (load_eqn_msc(zz, s1)) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > -1) {
                 IZ_PLT[j] = i;
             }
@@ -1334,7 +1334,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("XP", s1)) {
         if ((notAlreadySet.XP || force) ||
             ((mask != NULL) && (mask->XP == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > -1) {
                 IXPLT = i;
             }
@@ -1346,7 +1346,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("YP", s1)) {
         if ((notAlreadySet.YP || force) ||
             ((mask != NULL) && (mask->YP == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > -1) {
                 IYPLT = i;
             }
@@ -1358,7 +1358,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("ZP", s1)) {
         if ((notAlreadySet.ZP || force) ||
             ((mask != NULL) && (mask->ZP == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > -1) {
                 IZPLT = i;
             }
@@ -1471,7 +1471,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("FOLD", s1)) {
         if ((notAlreadySet.FOLD || force) ||
             ((mask != NULL) && (mask->FOLD == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > 0) {
                 itor[i - 1] = 1;
                 TORUS = 1;
@@ -1707,7 +1707,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("POIVAR", s1)) {
         if ((notAlreadySet.POIVAR || force) ||
             ((mask != NULL) && (mask->POIVAR == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > -1) {
                 POIVAR = i;
             }
@@ -2033,7 +2033,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("AUTOVAR", s1)) {
         if ((notAlreadySet.AUTOVAR || force) ||
             ((mask != NULL) && (mask->AUTOVAR == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > 0) {
                 auto_var = i - 1;
             }
@@ -2214,7 +2214,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("HISTCOL", s1)) {
         if ((notAlreadySet.HISTCOL || force) ||
             ((mask != NULL) && (mask->HISTCOL == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > (-1)) {
                 hist_inf.col = i;
             }
@@ -2253,7 +2253,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("HISTCOL2", s1)) {
         if ((notAlreadySet.HISTCOL2 || force) ||
             ((mask != NULL) && (mask->HISTCOL2 == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > (-1)) {
                 hist_inf.col2 = i;
             }
@@ -2265,7 +2265,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("SPECCOL", s1)) {
         if ((notAlreadySet.SPECCOL || force) ||
             ((mask != NULL) && (mask->SPECCOL == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > (-1)) {
                 spec_col = i;
             }
@@ -2277,7 +2277,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("SPECCOL2", s1)) {
         if ((notAlreadySet.SPECCOL2 || force) ||
             ((mask != NULL) && (mask->SPECCOL2 == 1))) {
-            browse_find_variable(s2, &i);
+            browser_find_variable(s2, &i);
             if (i > (-1)) {
                 spec_col2 = i;
             }

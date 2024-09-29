@@ -226,7 +226,7 @@ pp_shoot_do_range(double *ystart, double *yend) {
         if (ierr < 0) {
             pp_shoot_bad(ierr);
 
-            refresh_browser(storind);
+            browser_refresh(storind);
             integrate_swap_color(&color, 1);
             return;
         }
@@ -249,7 +249,7 @@ pp_shoot_do_range(double *ystart, double *yend) {
         }
         ggets_ping();
     }
-    refresh_browser(storind);
+    browser_refresh(storind);
     graf_par_auto_freeze_it();
     integrate_swap_color(&color, 1);
     return;
@@ -311,7 +311,7 @@ pp_shoot_find_bvp_com(int32 com) {
         ggets_err_msg("Can't do BVP with integral or markov eqns");
         return;
     }
-    browse_wipe_rep();
+    browser_wipe_rep();
     adjoints_data_back();
     pp_shoot_compile_bvp();
     if (FFT || HIST || DelayFlag || BVP_FLAG == 0) {
@@ -364,7 +364,7 @@ pp_shoot_find_bvp_com(int32 com) {
         }
         pp_shoot_last(1);
         INFLAG = 1;
-        refresh_browser(storind);
+        browser_refresh(storind);
         graf_par_auto_freeze_it();
         ggets_ping();
     } else if (iper) {
@@ -395,7 +395,7 @@ pp_shoot_last(int32 flag) {
     integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart);
     /* if(flag){
        INFLAG=1;
-       refresh_browser(storind);
+       browser_refresh(storind);
      }
      */
     return;

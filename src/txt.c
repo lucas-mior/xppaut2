@@ -217,7 +217,7 @@ txtview_press(Window window, int32 x, int32 y) {
     }
     if (window == txtview.kill) {
         txtview.here = 0;
-        browse_wait_a_sec(ClickTime);
+        browser_wait_a_sec(ClickTime);
         XDestroySubwindows(display, txtview.base);
         XDestroyWindow(display, txtview.base);
     }

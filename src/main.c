@@ -450,7 +450,7 @@ do_main(int32 argc, char **argv) {
 
     if (xpp_batch) {
         color_map_make();
-        init_browser();
+        browser_init();
         graphics_init_all();
         comline_if_needed_load_set();
         comline_if_needed_load_par();
@@ -532,13 +532,13 @@ do_main(int32 argc, char **argv) {
 
     init_conds_initialize_box();
 
-    init_browser();
+    browser_init();
     if (all_win_vis == 1) {
         init_conds_make_new_ic_box();
         init_conds_make_new_bc_box();
         init_conds_make_new_delay_box();
         init_conds_make_new_param_box();
-        make_new_browser();
+        browser_make_new();
         eig_list_create_eq_list();
     }
 
@@ -894,7 +894,7 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     switch (report.type) {
     case ConfigureNotify:  // this needs to be fixed!!!
         init_conds_resize_par_box(report.xany.window);
-        resize_my_browser(report.xany.window);
+        browser_my_resize(report.xany.window);
         eig_list_resize_eq_list(report.xany.window);
         auto_x11_resize_window(report);
         if (report.xconfigure.window == main_win) {
@@ -934,7 +934,7 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         if (used) {
             break;
         }
-        my_browse_keypress(report, &used);
+        browser_my_keypress(report, &used);
         if (used) {
             break;
         }
@@ -950,7 +950,7 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         break;
     case EnterNotify:
         eig_list_enter_eq_stuff(report.xcrossing.window, 2);
-        enter_my_browser(report, 1);
+        browser_my_enter(report, 1);
         init_conds_enter_slides(report.xcrossing.window, 1);
         init_conds_box_enter_events(report.xcrossing.window, 1);
         menu_crossing(report.xcrossing.window, 1);
@@ -960,7 +960,7 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         break;
     case LeaveNotify:
         eig_list_enter_eq_stuff(report.xcrossing.window, 1);
-        enter_my_browser(report, 0);
+        browser_my_enter(report, 0);
         init_conds_enter_slides(report.xcrossing.window, 0);
         init_conds_box_enter_events(report.xcrossing.window, 0);
         menu_crossing(report.xcrossing.window, 0);
@@ -982,7 +982,7 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 
             init_conds_slide_button_press(report.xbutton.window);
             eig_list_eq_list_button(report);
-            my_browse_button(report);
+            browser_my_button(report);
 #ifdef AUTO
             auto_x11_button(report);
 #endif
@@ -1347,7 +1347,7 @@ main_top_button_events(XEvent report) {
             eig_list_create_eq_list();
         }
         if (window == TopButton[5]) {
-            make_new_browser();
+            browser_make_new();
         }
         break;
     }

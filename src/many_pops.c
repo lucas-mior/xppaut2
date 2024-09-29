@@ -935,7 +935,7 @@ many_pops_do_gr_objs_com(int32 com) {
         }
 
         for (int32 i = 0; i < markinfo.number; i++) {
-            browse_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0],
+            browser_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0],
                                 MyGraph->zv[0],
                                 markinfo.start + i*markinfo.skip);
             if (MyGraph->ThreeDFlag == 0) {
@@ -1021,7 +1021,7 @@ many_pops_do_windows_com(int32 c) {
         graph[i].Use = 0;
         many_pops_destroy_label(graph[i].window);
         many_pops_destroy_grob(graph[i].window);
-        browse_wait_a_sec(ClickTime);
+        browser_wait_a_sec(ClickTime);
         XDestroySubwindows(display, graph[i].window);
         XDestroyWindow(display, graph[i].window);
         num_pops--;
@@ -1211,7 +1211,7 @@ many_pops_do_expose(XEvent event) {
     main_top_button_draw(event.xany.window);
     array_plot_expose(event.xany.window);
     ani_expose(event.xany.window);
-    expose_my_browser(event);
+    browser_my_expose(event);
     menudrive_message_box_redraw(event.xany.window);
     eig_list_draw_eq_list(event.xany.window);
     eig_list_draw_eq_box(event.xany.window);
