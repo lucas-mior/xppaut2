@@ -358,7 +358,7 @@ edit_rhs(void) {
         if (i < NODE && METHOD == 0) {
             strcpy(fstr, "%s(n+1)");
         }
-        if (i < NODE && EqType[i] == 1) {
+        if (i < NODE && eq_type[i] == 1) {
             strcpy(fstr, "%s(T)");
         }
         if (i >= NODE) {
@@ -530,7 +530,7 @@ edit_rhs_save_as(void) {
         fprintf(fp, "user %s %d %s\n", ufun_names[i], narg_fun[i], ufun_def[i]);
     }
     for (int32 i = 0; i < NODE; i++) {
-        if (EqType[i] == 1) {
+        if (eq_type[i] == 1) {
             fprintf(fp, "i ");
         } else {
             fprintf(fp, "o ");

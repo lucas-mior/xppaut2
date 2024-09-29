@@ -1063,7 +1063,7 @@ gear_rooter(double *x, double err, double eps, double big, double *work,
                 }
                 if (ch == '/') {
                     *ierr = 1;
-                    ENDSING = 1;
+                    end_sing = 1;
                     return;
                 }
             }

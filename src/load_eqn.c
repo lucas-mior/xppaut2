@@ -80,7 +80,7 @@ double TEND;
 double T0;
 double TRANS;
 double NULL_ERR;
-double EVEC_ERR;
+double evec_err;
 double NEWT_ERR;
 double bound;
 double delay;
@@ -100,7 +100,7 @@ int32 NJMP;
 int32 METHOD;
 int32 color_flag;
 int32 NC_ITER;
-int32 EVEC_ITER;
+int32 evec_iter;
 int32 bpv_maxit;
 int32 bvp_flag;
 
@@ -118,7 +118,7 @@ int32 FOREVER;
 
 /*  control of range stuff  */
 
-int32 ENDSING;
+int32 end_sing;
 int32 SHOOT;
 int32 PAR_FOL;
 
@@ -331,13 +331,13 @@ load_eqn_set_all_vals(void) {
         HMIN = 1e-12;
         notAlreadySet.DTMIN = 0;
     }
-    if (notAlreadySet.EVEC_ITER) {
-        EVEC_ITER = 100;
-        notAlreadySet.EVEC_ITER = 0;
+    if (notAlreadySet.evec_iter) {
+        evec_iter = 100;
+        notAlreadySet.evec_iter = 0;
     }
-    if (notAlreadySet.EVEC_ERR) {
-        EVEC_ERR = .001;
-        notAlreadySet.EVEC_ERR = 0;
+    if (notAlreadySet.evec_err) {
+        evec_err = .001;
+        notAlreadySet.evec_err = 0;
     }
     if (notAlreadySet.NULL_ERR) {
         NULL_ERR = .001;
@@ -1455,7 +1455,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("NEWT_TOL", s1)) {
         if ((notAlreadySet.NEWT_TOL || force) ||
             ((mask != NULL) && (mask->NEWT_TOL == 1))) {
-            EVEC_ERR = atof(s2);
+            evec_err = atof(s2);
             notAlreadySet.NEWT_TOL = 0;
         }
         return;
@@ -1463,7 +1463,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("NEWT_ITER", s1)) {
         if ((notAlreadySet.NEWT_ITER || force) ||
             ((mask != NULL) && (mask->NEWT_ITER == 1))) {
-            EVEC_ITER = atoi(s2);
+            evec_iter = atoi(s2);
             notAlreadySet.NEWT_ITER = 0;
         }
         return;

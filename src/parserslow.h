@@ -11,7 +11,7 @@ extern int32 NCON;
 extern int32 NVAR;
 extern int32 NFUN;
 extern int32 NSYM;
-extern int32 ERROUT;
+extern int32 errout;
 
 extern double constants[MAX_PAR];
 extern double variables[MAX_ODE1];

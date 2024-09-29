@@ -21,7 +21,7 @@ extern int32 STORFLAG;
 
 extern int32 FOREVER;
 
-extern int32 ENDSING;
+extern int32 end_sing;
 
 extern int32 METHOD;
 extern int32 NJMP;
@@ -32,9 +32,9 @@ extern double atoler;
 extern double bound;
 extern double delay;
 extern double NULL_ERR;
-extern double EVEC_ERR;
+extern double evec_err;
 extern double NEWT_ERR;
-extern int32 EVEC_ITER;
+extern int32 evec_iter;
 extern int32 NMESH;
 extern int32 NC_ITER;
 

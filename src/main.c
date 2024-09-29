@@ -338,8 +338,8 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.atoler = 1;
     notAlreadySet.euler_max_iter = 1;
     notAlreadySet.euler_tol = 1;
-    notAlreadySet.EVEC_ITER = 1;
-    notAlreadySet.EVEC_ERR = 1;
+    notAlreadySet.evec_iter = 1;
+    notAlreadySet.evec_err = 1;
     notAlreadySet.NULL_ERR = 1;
     notAlreadySet.NEWT_ERR = 1;
     notAlreadySet.NULL_HERE = 1;

@@ -398,7 +398,7 @@ extern int32 itor[MAX_ODE];
 extern int32 POIEXT;
 extern int32 HIST;
 
-extern int32 ENDSING;
+extern int32 end_sing;
 extern int32 SHOOT;
 extern int32 PAR_FOL;
 extern int32 xorfix;
@@ -1258,7 +1258,7 @@ extern int32 NSYM_START;
 extern int32 bvp_n;
 extern FILE *convertf;
 extern int32 FIX_VAR;
-extern int32 EqType[MAX_ODE];
+extern int32 eq_type[MAX_ODE];
 
 extern FixInfo fixinfo[MAX_ODE];
 
@@ -2153,8 +2153,8 @@ typedef struct OptionsSet {
     int32 atoler;
     int32 euler_max_iter;
     int32 euler_tol;
-    int32 EVEC_ITER;
-    int32 EVEC_ERR;
+    int32 evec_iter;
+    int32 evec_err;
     int32 NULL_ERR;
     int32 NEWT_ERR;
     int32 NULL_HERE;
@@ -2757,7 +2757,7 @@ extern double TEND;
 extern double T0;
 extern double TRANS;
 extern double NULL_ERR;
-extern double EVEC_ERR;
+extern double evec_err;
 extern double NEWT_ERR;
 extern double bound;
 extern double delay;
@@ -2777,7 +2777,7 @@ extern int32 NJMP;
 extern int32 METHOD;
 extern int32 color_flag;
 extern int32 NC_ITER;
-extern int32 EVEC_ITER;
+extern int32 evec_iter;
 extern int32 FOREVER;
 
 extern int32 POIMAP;

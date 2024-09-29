@@ -31,7 +31,7 @@ static double zippy;
     } while (0)
 
 /* #define COM(a) my_symb[toklist[(a)]].com */
-int32 ERROUT;
+int32 errout;
 int32 NDELAYS = 0;
 static double hom_bcs(int32);
 static double BoxMuller;
@@ -213,7 +213,7 @@ static void *fun2[50];
 
 void
 init_rpn(void) {
-    ERROUT = 1;
+    errout = 1;
     NCON = 0;
     NFUN = 0;
     NVAR = 0;
@@ -296,7 +296,7 @@ duplicate_name(char *junk) {
     int32 i;
     find_name(junk, &i);
     if (i >= 0) {
-        if (ERROUT) {
+        if (errout) {
             printf("%s is a duplicate name\n", junk);
         }
         return 1;
@@ -315,7 +315,7 @@ parserslow_add_constant(char *junk) {
     }
 
     if (NCON >= MAX_PAR) {
-        if (ERROUT) {
+        if (errout) {
             printf("too many constants !!\n");
         }
         return 1;
@@ -366,7 +366,7 @@ get_type(int32 index) {
 int32
 parserslow_add_con(char *name, double value) {
     if (NCON >= MAX_PAR) {
-        if (ERROUT) {
+        if (errout) {
             printf("too many constants !!\n");
         }
         return 1;
@@ -451,7 +451,7 @@ parserslow_add_var(char *junk, double value) {
         return 1;
     }
     if (NVAR >= MAX_ODE1) {
-        if (ERROUT) {
+        if (errout) {
             printf("too many variables !!\n");
         }
         return 1;
@@ -564,7 +564,7 @@ parserslow_add_file_table(int32 index, char *file) {
     }
     file2[i2] = 0;
     if (tabular_load_table(file2, index) == 0) {
-        if (ERROUT) {
+        if (errout) {
             printf("Problem with creating table !!\n");
         }
         return 1;
@@ -600,7 +600,7 @@ int32
 parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi,
                           char *formula) {
     if (tabular_create_fun(nn, xlo, xhi, formula, index) == 0) {
-        if (ERROUT) {
+        if (errout) {
             printf("Problem with creating table !!\n");
         }
         return 1;
@@ -637,7 +637,7 @@ parserslow_add_ufun_name(char *name, int32 index, int32 narg) {
         return 1;
     }
     if (index >= MAX_UFUN) {
-        if (ERROUT) {
+        if (errout) {
             printf("too many functions !!\n");
         }
         return 1;
@@ -676,13 +676,13 @@ parserslow_add_ufun_new(int32 index, int32 narg, char *rhs,
         return 1;
     }
     if ((ufun[index] = xmalloc(1024)) == NULL) {
-        if (ERROUT) {
+        if (errout) {
             printf("not enough memory!!\n");
         }
         return 1;
     }
     if ((ufun_def[index] = xmalloc(MAXEXPLEN)) == NULL) {
-        if (ERROUT) {
+        if (errout) {
             printf("not enough memory!!\n");
         }
         return 1;
@@ -705,7 +705,7 @@ parserslow_add_ufun_new(int32 index, int32 narg, char *rhs,
     }
 
     set_old_arg_names(narg);
-    if (ERROUT) {
+    if (errout) {
         printf(" ERROR IN FUNCTION DEFINITION\n");
     }
     return 1;
@@ -724,19 +724,19 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
         return 1;
     }
     if (NFUN >= MAX_UFUN) {
-        if (ERROUT) {
+        if (errout) {
             printf("too many functions !!\n");
         }
         return 1;
     }
     if ((ufun[NFUN] = xmalloc(1024)) == NULL) {
-        if (ERROUT) {
+        if (errout) {
             printf("not enough memory!!\n");
         }
         return 1;
     }
     if ((ufun_def[NFUN] = xmalloc(MAXEXPLEN)) == NULL) {
-        if (ERROUT) {
+        if (errout) {
             printf("not enough memory!!\n");
         }
         return 1;
@@ -769,7 +769,7 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
         NFUN++;
         return 0;
     }
-    if (ERROUT) {
+    if (errout) {
         printf(" ERROR IN FUNCTION DEFINITION\n");
     }
     return 1;
@@ -1465,7 +1465,7 @@ make_toks(char *dest, int32 *my_token) {
         return 1;
     }
     if (nparen != 0) {
-        if (ERROUT) {
+        if (errout) {
             printf(" parentheses don't match\n");
         }
         return 1;
@@ -1538,7 +1538,7 @@ do_num(char *source, char *num, double *value, int32 *ind) {
     num[j] = '\0';
     if (error == 0) {
         *value = atof(num);
-    } else if (ERROUT) {
+    } else if (errout) {
         printf(" illegal expression: %s\n", num);
     }
     *ind = i;

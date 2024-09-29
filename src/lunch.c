@@ -106,14 +106,14 @@ lunch_do_info(FILE *fp) {
 
     fprintf(fp, "\n\n Numerical parameters ...\n");
 
-    fprintf(fp, "NJMP=%d  NMESH=%d METHOD=%s EVEC_ITER=%d \n", NJMP, NMESH,
-            method[METHOD], EVEC_ITER);
+    fprintf(fp, "NJMP=%d  NMESH=%d METHOD=%s evec_iter=%d \n", NJMP, NMESH,
+            method[METHOD], evec_iter);
     fprintf(fp, "bvp_eps=%g,bvp_tol=%g,bpv_maxit=%d \n", bvp_eps, bvp_tol,
             bpv_maxit);
     fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g delay=%g MaxPts=%d\n",
             delta_t, T0, TRANS, TEND, bound, delay, MaxPoints);
-    fprintf(fp, "EVEC_ERR=%g, NEWT_ERR=%g HMIN=%g HMAX=%g TOLER=%g \n",
-            EVEC_ERR, NEWT_ERR, HMIN, HMAX, TOLER);
+    fprintf(fp, "evec_err=%g, NEWT_ERR=%g HMIN=%g HMAX=%g TOLER=%g \n",
+            evec_err, NEWT_ERR, HMIN, HMAX, TOLER);
     if (POIVAR == 0) {
         strcpy(bob, "T");
     } else {
@@ -354,8 +354,8 @@ lunch_io_numerics(int32 f, FILE *fp) {
     }
 
     lunch_io_double(&delay, fp, f, "Max Delay");
-    lunch_io_int(&EVEC_ITER, fp, f, "Eigenvector iterates");
-    lunch_io_double(&EVEC_ERR, fp, f, "Eigenvector tolerance");
+    lunch_io_int(&evec_iter, fp, f, "Eigenvector iterates");
+    lunch_io_double(&evec_err, fp, f, "Eigenvector tolerance");
     lunch_io_double(&NEWT_ERR, fp, f, "Newton tolerance");
     lunch_io_double(&POIPLN, fp, f, "Poincare plane");
     lunch_io_double(&bvp_tol, fp, f, "Boundary value tolerance");

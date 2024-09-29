@@ -75,7 +75,7 @@ int32 NMarkov;
 
 int32 FIX_VAR;
 
-int32 EqType[MAX_ODE];
+int32 eq_type[MAX_ODE];
 static int32 Naux = 0;
 static char aux_names[MAX_ODE][12];
 
@@ -721,7 +721,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         break;
     case 't':
         if (NTable >= MAX_TAB) {
-            if (ERROUT) {
+            if (errout) {
                 printf("too many tables !!\n");
             }
             exit(0);
@@ -832,7 +832,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             }
             form_ode_find_ker(formula, &alt);
 
-            EqType[NODE] = VFlag;
+            eq_type[NODE] = VFlag;
             VFlag = 0;
         }
         if (NODE >= IN_VARS && NODE < (IN_VARS + FIX_VAR)) {
@@ -1750,7 +1750,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             case ODE:
                 __attribute__((fallthrough));
             case MAP:
-                EqType[nvar] = iflag;
+                eq_type[nvar] = iflag;
                 nn = (int32)strlen(v2->rhs) + 1;
                 if ((ode_names[nvar] = xmalloc((usize)nn + 2)) == NULL ||
                     (my_ode[nvar] = xmalloc(MAXEXPLEN*sizeof(int32))) ==
@@ -2018,15 +2018,15 @@ form_ode_formula_or_number(char *expr, double *z) {
     char form[80];
     int32 flag;
     int32 i = 0;
-    int32 olderr = ERROUT;
-    ERROUT = 0;
+    int32 olderr = errout;
+    errout = 0;
     *z = 0.0;  // initial it to 0
     convert(expr, form);
     flag = do_num(form, num, z, &i);
     if (i < (int32)strlen(form)) {
         flag = 1;
     }
-    ERROUT = olderr;
+    errout = olderr;
     if (flag == 0) {
         return 0;  // 0 is a number
     }

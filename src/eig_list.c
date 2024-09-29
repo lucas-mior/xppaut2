@@ -84,7 +84,7 @@ eig_list_draw_eq_list(Window window) {
             if (i < NODE && METHOD == 0) {
                 strcpy(fstr, "%s(n+1)=%s");
             }
-            if (i < NODE && EqType[i] == 1) {
+            if (i < NODE && eq_type[i] == 1) {
                 strcpy(fstr, "%s(t)=%s");
             }
             if (i >= NODE) {

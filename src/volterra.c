@@ -334,7 +334,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
         SETVAR(0, *t);
         SETVAR(PrimeStart, *t);
         for (int32 i = 0; i < NODE; i++) {
-            if (!EqType[i]) {
+            if (!eq_type[i]) {
                 SETVAR(i + 1, y[i]);  // assign initial data
             }
         }
@@ -343,7 +343,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
                    evaluate(my_ode[i]));  // set fixed variables  for pass 1
         }
         for (int32 i = 0; i < NODE; i++) {
-            if (EqType[i]) {
+            if (eq_type[i]) {
                 z = evaluate(my_ode[i]);  // reset IC for integral eqns
                 SETVAR(i + 1, z);
                 y[i] = z;
@@ -408,7 +408,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
     for (int32 i = 0; i < NODE; i++) {
-        if (!EqType[i]) {
+        if (!eq_type[i]) {
             yp2[i] = y[i] + dt2*evaluate(my_ode[i]);
         } else {
             yp2[i] = 0.0;
@@ -422,7 +422,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         }
         for (int32 i = 0; i < NODE; i++) {
             yp[i] = evaluate(my_ode[i]);
-            if (EqType[i]) {
+            if (eq_type[i]) {
                 errvec[i] = -yg[i] + yp[i];
             } else {
                 errvec[i] = -yg[i] + dt2*yp[i] + yp2[i];
@@ -440,7 +440,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             }
             for (int32 j = 0; j < NODE; j++) {
                 fac = delinv;
-                if (!EqType[j]) {
+                if (!eq_type[j]) {
                     fac *= dt2;
                 }
                 jac[j*NODE + i] = (evaluate(my_ode[j]) - yp[j])*fac;
