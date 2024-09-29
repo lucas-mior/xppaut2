@@ -2093,79 +2093,79 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("S1", s1)) {
-        if ((notAlreadySet.SLIDER1 || force) ||
-            ((mask != NULL) && (mask->SLIDER1 == 1))) {
-            strncpy(SLIDER1VAR, s2, 20);
-            SLIDER1VAR[19] = '\0';
-            notAlreadySet.SLIDER1 = 0;
+        if ((notAlreadySet.slider1 || force) ||
+            ((mask != NULL) && (mask->slider1 == 1))) {
+            strncpy(slider1var, s2, 20);
+            slider1var[19] = '\0';
+            notAlreadySet.slider1 = 0;
         }
         return;
     }
 
     if (load_eqn_msc("S2", s1)) {
-        if ((notAlreadySet.SLIDER2 || force) ||
-            ((mask != NULL) && (mask->SLIDER2 == 1))) {
-            strncpy(SLIDER2VAR, s2, 20);
-            SLIDER2VAR[19] = '\0';
-            notAlreadySet.SLIDER2 = 0;
+        if ((notAlreadySet.slider2 || force) ||
+            ((mask != NULL) && (mask->slider2 == 1))) {
+            strncpy(slider2var, s2, 20);
+            slider2var[19] = '\0';
+            notAlreadySet.slider2 = 0;
         }
         return;
     }
     if (load_eqn_msc("S3", s1)) {
-        if ((notAlreadySet.SLIDER3 || force) ||
-            ((mask != NULL) && (mask->SLIDER3 == 1))) {
-            strncpy(SLIDER3VAR, s2, 20);
-            SLIDER3VAR[19] = '\0';
-            notAlreadySet.SLIDER3 = 0;
+        if ((notAlreadySet.slider3 || force) ||
+            ((mask != NULL) && (mask->slider3 == 1))) {
+            strncpy(slider3var, s2, 20);
+            slider3var[19] = '\0';
+            notAlreadySet.slider3 = 0;
         }
         return;
     }
     if (load_eqn_msc("SLO1", s1)) {
-        if ((notAlreadySet.SLIDER1LO || force) ||
-            ((mask != NULL) && (mask->SLIDER1LO == 1))) {
-            SLIDER1LO = atof(s2);
-            notAlreadySet.SLIDER1LO = 0;
+        if ((notAlreadySet.slider1lo || force) ||
+            ((mask != NULL) && (mask->slider1lo == 1))) {
+            slider1lo = atof(s2);
+            notAlreadySet.slider1lo = 0;
         }
         return;
     }
 
     if (load_eqn_msc("SLO2", s1)) {
-        if ((notAlreadySet.SLIDER2LO || force) ||
-            ((mask != NULL) && (mask->SLIDER2LO == 1))) {
-            SLIDER2LO = atof(s2);
-            notAlreadySet.SLIDER2LO = 0;
+        if ((notAlreadySet.slider2lo || force) ||
+            ((mask != NULL) && (mask->slider2lo == 1))) {
+            slider2lo = atof(s2);
+            notAlreadySet.slider2lo = 0;
         }
         return;
     }
     if (load_eqn_msc("SLO3", s1)) {
-        if ((notAlreadySet.SLIDER3LO || force) ||
-            ((mask != NULL) && (mask->SLIDER3LO == 1))) {
-            SLIDER3LO = atof(s2);
-            notAlreadySet.SLIDER3LO = 0;
+        if ((notAlreadySet.slider3lo || force) ||
+            ((mask != NULL) && (mask->slider3lo == 1))) {
+            slider3lo = atof(s2);
+            notAlreadySet.slider3lo = 0;
         }
         return;
     }
     if (load_eqn_msc("SHI1", s1)) {
-        if ((notAlreadySet.SLIDER1HI || force) ||
-            ((mask != NULL) && (mask->SLIDER1HI == 1))) {
-            SLIDER1HI = atof(s2);
-            notAlreadySet.SLIDER1HI = 0;
+        if ((notAlreadySet.slider1hi || force) ||
+            ((mask != NULL) && (mask->slider1hi == 1))) {
+            slider1hi = atof(s2);
+            notAlreadySet.slider1hi = 0;
         }
         return;
     }
     if (load_eqn_msc("SHI2", s1)) {
-        if ((notAlreadySet.SLIDER2HI || force) ||
-            ((mask != NULL) && (mask->SLIDER2HI == 1))) {
-            SLIDER2HI = atof(s2);
-            notAlreadySet.SLIDER2HI = 0;
+        if ((notAlreadySet.slider2hi || force) ||
+            ((mask != NULL) && (mask->slider2hi == 1))) {
+            slider2hi = atof(s2);
+            notAlreadySet.slider2hi = 0;
         }
         return;
     }
     if (load_eqn_msc("SHI3", s1)) {
-        if ((notAlreadySet.SLIDER3HI || force) ||
-            ((mask != NULL) && (mask->SLIDER3HI == 1))) {
-            SLIDER3HI = atof(s2);
-            notAlreadySet.SLIDER3HI = 0;
+        if ((notAlreadySet.slider3hi || force) ||
+            ((mask != NULL) && (mask->slider3hi == 1))) {
+            slider3hi = atof(s2);
+            notAlreadySet.slider3hi = 0;
         }
         return;
     }

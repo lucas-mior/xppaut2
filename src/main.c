@@ -106,18 +106,18 @@ int32 OVERRIDE_QUIET = 0;
 int32 OVERRIDE_LOGFILE = 0;
 int32 tfBell;
 
-int32 SLIDER1 = -1;
-int32 SLIDER2 = -1;
-int32 SLIDER3 = -1;
-char SLIDER1VAR[20];
-char SLIDER2VAR[20];
-char SLIDER3VAR[20];
-double SLIDER1LO = 0.0;
-double SLIDER2LO = 0.0;
-double SLIDER3LO = 0.0;
-double SLIDER1HI = 1.0;
-double SLIDER2HI = 1.0;
-double SLIDER3HI = 1.0;
+int32 slider1 = -1;
+int32 slider2 = -1;
+int32 slider3 = -1;
+char slider1var[20];
+char slider2var[20];
+char slider3var[20];
+double slider1lo = 0.0;
+double slider2lo = 0.0;
+double slider3lo = 0.0;
+double slider1hi = 1.0;
+double slider2hi = 1.0;
+double slider3hi = 1.0;
 
 /* Set this to 1 if you want the tutorial to come up at start-up
  * as default behavior */
@@ -344,15 +344,15 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.NEWT_ERR = 1;
     notAlreadySet.NULL_HERE = 1;
     notAlreadySet.TUTORIAL = 1;
-    notAlreadySet.SLIDER1 = 1;
-    notAlreadySet.SLIDER2 = 1;
-    notAlreadySet.SLIDER3 = 1;
-    notAlreadySet.SLIDER1LO = 1;
-    notAlreadySet.SLIDER2LO = 1;
-    notAlreadySet.SLIDER3LO = 1;
-    notAlreadySet.SLIDER1HI = 1;
-    notAlreadySet.SLIDER2HI = 1;
-    notAlreadySet.SLIDER3HI = 1;
+    notAlreadySet.slider1 = 1;
+    notAlreadySet.slider2 = 1;
+    notAlreadySet.slider3 = 1;
+    notAlreadySet.slider1lo = 1;
+    notAlreadySet.slider2lo = 1;
+    notAlreadySet.slider3lo = 1;
+    notAlreadySet.slider1hi = 1;
+    notAlreadySet.slider2hi = 1;
+    notAlreadySet.slider3hi = 1;
     notAlreadySet.POSTPROCESS = 1;
     notAlreadySet.HISTCOL = 1;
     notAlreadySet.HISTLO = 1;
