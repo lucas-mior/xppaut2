@@ -174,29 +174,29 @@ pop_list_create_scroll_box(Window root, int32 x0, int32 y0, int32 nent,
     int32 wid;
     int32 ww;
     int32 len;
-    int32 hw = DCURYs + 4;
+    int32 hw = dcur_ys + 4;
     for (int32 i = 0; i < nent; i++) {
         if (slen < (int32)strlen(list[i])) {
             slen = (int32)strlen(list[i]);
         }
     }
-    wid = (slen + 2)*(DCURXs);
-    ww = slen*DCURXs + DCURXs / 2;
+    wid = (slen + 2)*(dcur_xs);
+    ww = slen*dcur_xs + dcur_xs / 2;
     hgt = hw*(nw + 1);
     len = hgt - 6;
     sb->base = (Window)pop_list_make_plain_window(root, x0, y0, wid, hgt, 2);
     sb->w = xmalloc((usize)nw*sizeof(*(sb->w)));
     for (int32 i = 0; i < nw; i++) {
         sb->w[i] =
-            pop_list_make_window(sb->base, 1, hw / 2 + i*hw, ww, DCURYs, 0);
+            pop_list_make_window(sb->base, 1, hw / 2 + i*hw, ww, dcur_ys, 0);
     }
     sb->i0 = 0;
     sb->nw = nw;
     sb->nent = nent;
     sb->list = list;
     if (sb->nw < sb->nent) {
-        sb->slide = pop_list_make_window(sb->base, ww + DCURXs / 2 + 2, 2,
-                                         ww + DCURXs / 2 + 6, 2 + len, 1);
+        sb->slide = pop_list_make_window(sb->base, ww + dcur_xs / 2 + 2, 2,
+                                         ww + dcur_xs / 2 + 6, 2 + len, 1);
     }
     sb->len = len - 4;
     sb->exist = 1;
@@ -295,7 +295,7 @@ pop_list_select_scroll_item(Window window, ScrollBox sb) {
 
 void
 pop_list_scroll_popup(StringBox *sb, ScrollBox *scrb) {
-    int32 hw = DCURYs + 4;
+    int32 hw = dcur_ys + 4;
     int32 ihot = sb->hot;
     int32 id = sb->hh[ihot];
     int32 xx;
@@ -348,7 +348,7 @@ pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title,
     XSelectInput(display, sb.cancel, BUT_MASK);
     XSelectInput(display, sb.ok, BUT_MASK);
     pos = (int32)strlen(sb.value[0]);
-    colm = (pos + (int32)strlen(sb.name[0]))*DCURX;
+    colm = (pos + (int32)strlen(sb.name[0]))*dcur_x;
 
     while (true) {
         status = pop_list_s_box_event_loop(&sb, &pos, &colm, &scrb);
@@ -404,16 +404,16 @@ pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window,
     int32 m = (int32)strlen(value);
     if (flag) {
         ggets_set_fore();
-        ggets_bar(0, 0, l*DCURX, DCURY + 4, window);
+        ggets_bar(0, 0, l*dcur_x, dcur_y + 4, window);
         ggets_set_back();
     }
     XDrawString(display, window, gc, 0, cury_off, name, l);
     ggets_set_fore();
     if (m > 0) {
-        XDrawString(display, window, gc, l*DCURX, cury_off, value, m);
+        XDrawString(display, window, gc, l*dcur_x, cury_off, value, m);
     }
     if (flag) {
-        ggets_put_cursor_at(window, DCURX*l, pos);
+        ggets_put_cursor_at(window, dcur_x*l, pos);
     }
     return;
 }
@@ -436,7 +436,7 @@ pop_list_new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col,
                       int32 *done, Window *w) {
     pop_list_reset_hot(inew, sb);
     *pos = (int32)strlen(sb->value[inew]);
-    *col = (*pos + (int32)strlen(sb->name[inew]))*DCURX;
+    *col = (*pos + (int32)strlen(sb->name[inew]))*dcur_x;
     *done = 0;
     *w = sb->win[inew];
     return;
@@ -512,7 +512,7 @@ pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
                     pop_list_destroy_scroll_box(scrb);
                     pop_list_new_editable(sb, i, pos, col, &done, &window);
                 } else {  // i==sb->hot
-                    if (event.xbutton.x < DCURX) {
+                    if (event.xbutton.x < dcur_x) {
                         j = sb->hot;
                         if (sb->hh[j] >= 0) {
                             pop_list_scroll_popup(sb, scrb);
@@ -577,8 +577,8 @@ pop_list_make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
     XTextProperty winname;
     XSizeHints size_hints;
     Window base;
-    width = (maxchar + 4)*cols*DCURX;
-    height = (rows + 4)*(DCURY + 16);
+    width = (maxchar + 4)*cols*dcur_x;
+    height = (rows + 4)*(dcur_y + 16);
     base = pop_list_make_plain_window(DefaultRootWindow(display), 0, 0, width,
                                       height, 4);
     XStringListToTextProperty(&title, 1, &winname);
@@ -604,20 +604,20 @@ pop_list_make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
     sb->base = base;
     sb->hgt = height;
     sb->wid = width;
-    ystart = DCURY;
-    xstart = DCURX;
+    ystart = dcur_y;
+    xstart = dcur_x;
     for (int32 i = 0; i < n; i++) {
-        xpos = xstart + (maxchar + 4)*DCURX*(i / rows);
-        ypos = ystart + (i % rows)*(DCURY + 10);
+        xpos = xstart + (maxchar + 4)*dcur_x*(i / rows);
+        ypos = ystart + (i % rows)*(dcur_y + 10);
         sb->win[i] =
-            pop_list_make_window(base, xpos, ypos, maxchar*DCURX, DCURY, 1);
+            pop_list_make_window(base, xpos, ypos, maxchar*dcur_x, dcur_y, 1);
     }
 
-    ypos = height - 2*DCURY;
-    xpos = (width - 16*DCURX) / 2;
-    (sb->ok) = pop_list_make_window(base, xpos, ypos, 8*DCURX, DCURY, 1);
-    (sb->cancel) = pop_list_make_window(base, xpos + 8*DCURX + 4, ypos,
-                                        8*DCURX, DCURY, 1);
+    ypos = height - 2*dcur_y;
+    xpos = (width - 16*dcur_x) / 2;
+    (sb->ok) = pop_list_make_window(base, xpos, ypos, 8*dcur_x, dcur_y, 1);
+    (sb->cancel) = pop_list_make_window(base, xpos + 8*dcur_x + 4, ypos,
+                                        8*dcur_x, dcur_y, 1);
     XRaiseWindow(display, base);
     return;
 }
@@ -1011,15 +1011,15 @@ pop_list_respond_box(char *button, char *message) {
         width = l2;
     }
     width = width + 4;
-    height = 5*DCURY;
+    height = 5*dcur_y;
     wmain = pop_list_make_plain_window(RootWindow(display, screen),
                                        display_width / 2, display_height / 2,
-                                       width*DCURX, height, 4);
+                                       width*dcur_x, height, 4);
     many_pops_make_icon((char *)alert_bits, alert_width, alert_height, wmain);
-    wm = pop_list_make_plain_window(wmain, ((width - l1)*DCURX) / 2,
-                                    DCURY / 2, l1*DCURX, DCURY, 0);
-    wb = pop_list_make_window(wmain, ((width - l2)*DCURX) / 2, 2*DCURY,
-                              l2*DCURX, DCURY, 1);
+    wm = pop_list_make_plain_window(wmain, ((width - l1)*dcur_x) / 2,
+                                    dcur_y / 2, l1*dcur_x, dcur_y, 0);
+    wb = pop_list_make_window(wmain, ((width - l2)*dcur_x) / 2, 2*dcur_y,
+                              l2*dcur_x, dcur_y, 1);
 
     ggets_ping();
     pop_list_set_window_title(wmain, "!!");
@@ -1065,12 +1065,12 @@ pop_list_respond_box(char *button, char *message) {
 
 void
 pop_list_message_box(Window *w, int32 x, int32 y, char *message) {
-    int32 wid = (int32)strlen(message)*DCURX;
-    int32 hgt = 4*DCURY;
+    int32 wid = (int32)strlen(message)*dcur_x;
+    int32 hgt = 4*dcur_y;
     Window z;
     z = pop_list_make_plain_window(*w, x, y, wid + 50, hgt, 4);
     XSelectInput(display, z, 0);
-    ggets_f_text(25, 2*DCURY, message, z);
+    ggets_f_text(25, 2*dcur_y, message, z);
     ggets_ping();
     *w = z;
     return;
@@ -1101,31 +1101,31 @@ pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
     XEvent event;
     int32 not_done = 1;
     int32 value = 0;
-    int32 l1 = (int32)strlen(choice1)*DCURX;
-    int32 l2 = (int32)strlen(choice2)*DCURX;
-    int32 lm = (int32)strlen(string)*DCURX;
+    int32 l1 = (int32)strlen(choice1)*dcur_x;
+    int32 l2 = (int32)strlen(choice2)*dcur_x;
+    int32 lm = (int32)strlen(string)*dcur_x;
     int32 tot = lm;
     int32 xm;
     int32 x1;
     int32 x2;
 
-    if (lm < (l1 + l2 + 4*DCURX)) {
-        tot = (l1 + l2 + 4*DCURX);
+    if (lm < (l1 + l2 + 4*dcur_x)) {
+        tot = (l1 + l2 + 4*dcur_x);
     }
-    tot = tot + 6*DCURX;
+    tot = tot + 6*dcur_x;
     xm = (tot - lm) / 2;
-    x1 = (tot - l1 - l2 - 4*DCURX) / 2;
-    x2 = x1 + l1 + 4*DCURX;
-    base = pop_list_make_plain_window(window, x, y, tot, 5*DCURY, 4);
+    x1 = (tot - l1 - l2 - 4*dcur_x) / 2;
+    x2 = x1 + l1 + 4*dcur_x;
+    base = pop_list_make_plain_window(window, x, y, tot, 5*dcur_y, 4);
 
     many_pops_make_icon((char *)alert_bits, alert_width, alert_height, base);
 
-    c1 = pop_list_make_window(base, x1, 3*DCURY, l1 + DCURX, DCURY + 4, 1);
-    c2 = pop_list_make_window(base, x2, 3*DCURY, l2 + DCURX, DCURY + 4, 1);
+    c1 = pop_list_make_window(base, x1, 3*dcur_y, l1 + dcur_x, dcur_y + 4, 1);
+    c2 = pop_list_make_window(base, x2, 3*dcur_y, l2 + dcur_x, dcur_y + 4, 1);
     XSelectInput(display, c1, BUT_MASK);
     XSelectInput(display, c2, BUT_MASK);
 
-    wm = pop_list_make_window(base, xm, DCURY / 2, lm + 2, DCURY, 0);
+    wm = pop_list_make_window(base, xm, dcur_y / 2, lm + 2, dcur_y, 0);
 
     ggets_ping();
     if (window == RootWindow(display, screen)) {
@@ -1206,8 +1206,8 @@ pop_list_popup_list_new(Window *root, char *title, char **list, char *key,
     Cursor txt;
     int32 done = 0;
     int32 value;
-    int32 width = DCURX*(max + 5);
-    int32 length = (DCURY + 6)*(n + 2);
+    int32 width = dcur_x*(max + 5);
+    int32 length = (dcur_y + 6)*(n + 2);
     window = pop_list_make_plain_window(*root, x, y, width, length, 2);
     txt = XCreateFontCursor(display, XC_hand2);
     XDefineCursor(display, window, txt);
@@ -1221,11 +1221,11 @@ pop_list_popup_list_new(Window *root, char *title, char **list, char *key,
     p.hot = def;
     value = (int32)key[def];
     p.w = xmalloc((usize)n*sizeof(*(p.w)));
-    p.tit = pop_list_make_window(window, 0, 0, width, DCURY + 7, 0);
+    p.tit = pop_list_make_window(window, 0, 0, width, dcur_y + 7, 0);
     for (int32 i = 0; i < n; i++) {
         p.w[i] =
-            pop_list_make_window(window, DCURX, DCURY + 10 + i*(DCURY + 6),
-                                 DCURX*(max + 3), DCURY + 3, 0);
+            pop_list_make_window(window, dcur_x, dcur_y + 10 + i*(dcur_y + 6),
+                                 dcur_x*(max + 3), dcur_y + 3, 0);
         XSelectInput(display, p.w[i], BUT_MASK);
     }
 
@@ -1293,17 +1293,17 @@ void
 pop_list_draw_pop_up(PopUp p, Window window) {
     if (window == p.tit) {
         ggets_set_fore();
-        ggets_bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);
+        ggets_bar(0, 0, dcur_x*(p.max + 5), (dcur_y + 7), window);
         ggets_set_back();
-        ggets_f_text(DCURX*2, 4, p.title, window);
+        ggets_f_text(dcur_x*2, 4, p.title, window);
         ggets_set_fore();
         return;
     }
     for (int32 i = 0; i < p.n; i++) {
         if (window == p.w[i]) {
-            ggets_f_text(DCURX / 2, 3, p.entries[i], window);
+            ggets_f_text(dcur_x / 2, 3, p.entries[i], window);
             if (i == p.hot) {
-                ggets_f_text(DCURX*(p.max + 1), 4, "X", window);
+                ggets_f_text(dcur_x*(p.max + 1), 4, "X", window);
             }
             return;
         }

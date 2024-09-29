@@ -1269,7 +1269,7 @@ extern Action comments[MAXCOMMENTS];
 extern BcStruct my_bc[MAX_ODE];
 
 extern int32 n_comments;
-extern int32 ConvertStyle;
+extern int32 convert_style;
 
 extern int32 NODE;
 extern int32 NUPAR;
@@ -1403,7 +1403,7 @@ extern int32 avromfonts[5];
 extern int32 DLeft;
 extern int32 DRight;
 extern int32 DTop;
-extern int32 DBottom;
+extern int32 d_buttom;
 extern int32 VTic;
 extern int32 HTic;
 extern int32 VChar;
@@ -2711,10 +2711,10 @@ extern int32 DF_GRID;
 extern int32 DF_FLAG;
 extern int32 DOING_DFIELD;
 
-extern char ColorVia[15];
+extern char color_via[15];
 extern double color_via_lo;
 extern double color_via_hi;
-extern int32 ColorizeFlag;
+extern int32 colorize_flag;
 
 typedef struct NullClines {
     double *xn;
@@ -2866,11 +2866,11 @@ extern Atom atom_delete_window;
 extern Window main_win;
 extern Window info_pop;
 extern Window draw_win;
-extern int32 DCURY;
-extern int32 DCURX;
+extern int32 dcur_y;
+extern int32 dcur_x;
 extern int32 cury_off;
-extern int32 DCURXs;
-extern int32 DCURYs;
+extern int32 dcur_xs;
+extern int32 dcur_ys;
 extern int32 cury_offs;
 extern int32 xor_flag;
 extern GC gc;
@@ -2891,10 +2891,10 @@ extern uint32 GrFore;
 extern uint32 GrBack;
 
 extern int32 SCALEY;
-extern int32 DCURYb;
+extern int32 dcur_yb;
 extern int32 cury_offb;
-extern int32 DCURYs;
-extern int32 DCURXs;
+extern int32 dcur_ys;
+extern int32 dcur_xs;
 extern FILE *logfile;
 extern int32 tfBell;
 extern char SLIDER1VAR[20];

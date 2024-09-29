@@ -43,7 +43,7 @@ choice_box_display(Window window, ChoiceBox p) {
         } else {
             ggets_set_back();
         }
-        XDrawString(display, window, gc, (p.mc + 1)*DCURX, cury_off, "X", 1);
+        XDrawString(display, window, gc, (p.mc + 1)*dcur_x, cury_off, "X", 1);
     }
     ggets_set_fore();
     return;
@@ -57,7 +57,7 @@ choice_box_do_checks(ChoiceBox p) {
         } else {
             ggets_set_back();
         }
-        XDrawString(display, p.cw[i], gc, (p.mc + 1)*DCURX, cury_off, "X", 1);
+        XDrawString(display, p.cw[i], gc, (p.mc + 1)*dcur_x, cury_off, "X", 1);
     }
     ggets_set_fore();
     return;
@@ -92,8 +92,8 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     if (mcc < 10) {
         maxchar = 10;
     }
-    width = (maxchar + 5)*DCURX;
-    height = (n + 4)*(DCURY + 16);
+    width = (maxchar + 5)*dcur_x;
+    height = (n + 4)*(dcur_y + 16);
     base = pop_list_make_plain_window(root, 0, 0, width, height, 4);
     XStringListToTextProperty(&wname, 1, &winname);
     size_hints.flags = PPosition | PSize | PMinSize | PMaxSize;
@@ -108,24 +108,24 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
                      NULL);
 
-    ystart = DCURY;
-    xstart = DCURX;
+    ystart = dcur_y;
+    xstart = dcur_x;
 
     p.name = names;
     p.flag = check;
     for (int32 i = 0; i < n; i++) {
         oldcheck[i] = check[i];
         xpos = xstart;
-        ypos = ystart + i*(DCURY + 10);
+        ypos = ystart + i*(dcur_y + 10);
         p.cw[i] =
-            pop_list_make_window(base, xpos, ypos, (mcc + 3)*DCURX, DCURY, 1);
+            pop_list_make_window(base, xpos, ypos, (mcc + 3)*dcur_x, dcur_y, 1);
     }
 
-    ypos = height - 2*DCURY;
-    xpos = (width - 12*DCURX) / 2;
-    p.ok = pop_list_make_window(base, xpos, ypos, 2*DCURX, DCURY, 2);
+    ypos = height - 2*dcur_y;
+    xpos = (width - 12*dcur_x) / 2;
+    p.ok = pop_list_make_window(base, xpos, ypos, 2*dcur_x, dcur_y, 2);
     p.cancel =
-        pop_list_make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 2);
+        pop_list_make_window(base, xpos + 4*dcur_x, ypos, 6*dcur_x, dcur_y, 2);
     p.base = base;
 
     p.n = n;

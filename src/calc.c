@@ -62,8 +62,8 @@ make_calc(double z) {
     my_calc.last_val = z;
 
     if (my_calc.use == 0) {
-        width = 20 + 24*DCURXs;
-        height = 4*DCURYs;
+        width = 20 + 24*dcur_xs;
+        height = 4*dcur_ys;
         base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
                                           width, height, 4);
         my_calc.base = base;
@@ -81,10 +81,10 @@ make_calc(double z) {
         XSetWMProperties(display, base, &winname, &winname, NULL, 0,
                          &size_hints, NULL, NULL);
         my_calc.answer =
-            pop_list_make_window(base, 10, DCURYs / 2, 24*DCURXs, DCURYs, 0);
-        width = (width - 4*DCURXs) / 2;
-        my_calc.quit = pop_list_make_window(base, width, (int32)(2.5*DCURYs),
-                                            4*DCURXs, DCURYs, 1);
+            pop_list_make_window(base, 10, dcur_ys / 2, 24*dcur_xs, dcur_ys, 0);
+        width = (width - 4*dcur_xs) / 2;
+        my_calc.quit = pop_list_make_window(base, width, (int32)(2.5*dcur_ys),
+                                            4*dcur_xs, dcur_ys, 1);
         XSelectInput(display, my_calc.quit, MYMASK);
         my_calc.use = 1;
     }
@@ -98,7 +98,7 @@ ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
     strcpy(value, " ");
     strcpy(name, "Formula:");
     *pos = (int32)strlen(value);
-    *col = (*pos + (int32)strlen(name))*DCURX;
+    *col = (*pos + (int32)strlen(name))*dcur_x;
     ggets_clr_command();
     ggets_display_command(name, value, 2);
     return;

@@ -254,8 +254,8 @@ array_plot_do_events(XEvent event) {
         array_plot.width = x;
         array_plot.height = y;
         array_plot.ploth = y - 55;
-        array_plot.plotw = x - 30 - 10*DCURXs;
-        XMoveResizeWindow(display, array_plot.wplot, 20 + 10*DCURXs, 45,
+        array_plot.plotw = x - 30 - 10*dcur_xs;
+        XMoveResizeWindow(display, array_plot.wplot, 20 + 10*dcur_xs, 45,
                           (uint)array_plot.plotw, (uint)array_plot.ploth);
         break;
     case EnterNotify:
@@ -351,16 +351,16 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     ap->wfit = browser_button2(base, 0, 4, 0);
     ap->wrange = browser_button2(base, 0, 5, 0);
     ap->wgif = browser_button2(base, 1, 0, 0);
-    ap->wmax = pop_list_make_window(base, 10, 45, 10*DCURXs, DCURYs, 1);
-    ap->wmin = pop_list_make_window(base, 10, 51 + DCURYs + color_total,
-                                    10*DCURXs, DCURYs, 1);
-    ap->wscale = pop_list_make_window(base, 10 + 4*DCURXs, 48 + DCURYs,
-                                      2*DCURXs, color_total, 0);
-    ap->wtime = pop_list_make_window(base, 20 + 10*DCURXs, 30, 20*DCURXs,
-                                     DCURYs, 0);
+    ap->wmax = pop_list_make_window(base, 10, 45, 10*dcur_xs, dcur_ys, 1);
+    ap->wmin = pop_list_make_window(base, 10, 51 + dcur_ys + color_total,
+                                    10*dcur_xs, dcur_ys, 1);
+    ap->wscale = pop_list_make_window(base, 10 + 4*dcur_xs, 48 + dcur_ys,
+                                      2*dcur_xs, color_total, 0);
+    ap->wtime = pop_list_make_window(base, 20 + 10*dcur_xs, 30, 20*dcur_xs,
+                                     dcur_ys, 0);
     ap->wplot = pop_list_make_plain_window(
-        base, 20 + 10*DCURXs, 45, width - 30 - 10*DCURXs, height - 55, 2);
-    ap->plotw = width - 30 - 10*DCURXs;
+        base, 20 + 10*dcur_xs, 45, width - 30 - 10*dcur_xs, height - 55, 2);
+    ap->plotw = width - 30 - 10*dcur_xs;
     ap->ploth = height - 55;
     ap->alive = 1;
     array_plot_gc = XCreateGC(display, ap->wplot, valuemask, &values);
@@ -488,7 +488,7 @@ array_plot_draw_scale(struct ArrayPlot ap) {
     for (int32 i = 0; i < color_total; i++) {
         y = color_total - i - 1;
         color_set(i + FIRSTCOLOR);
-        XDrawLine(display, window, gc_graph, 0, y, 2*DCURXs, y);
+        XDrawLine(display, window, gc_graph, 0, y, 2*dcur_xs, y);
     }
     return;
 }

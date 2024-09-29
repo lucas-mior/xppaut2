@@ -373,7 +373,7 @@ menu_add(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     Cursor cursor;
     cursor = XCreateFontCursor(display, XC_hand2);
     window = pop_list_make_plain_unmapped_window(
-        base, 0, DCURYs + DCURYb + 10, 16*DCURX, 21*(DCURY + 2) - 3, 1);
+        base, 0, dcur_ys + dcur_yb + 10, 16*dcur_x, 21*(dcur_y + 2) - 3, 1);
     my_menus[j].base = window;
     XDefineCursor(display, window, cursor);
     my_menus[j].names = names;
@@ -381,10 +381,10 @@ menu_add(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     my_menus[j].hints = hint;
     strcpy(my_menus[j].key, key);
     my_menus[j].title =
-        pop_list_make_unmapped_window(window, 0, 0, 16*DCURX, DCURY, 1);
+        pop_list_make_unmapped_window(window, 0, 0, 16*dcur_x, dcur_y, 1);
     for (int32 i = 0; i < n; i++) {
         my_menus[j].window[i] = pop_list_make_unmapped_window(
-            window, 0, (i + 1)*(DCURY + 2), 16*DCURX, DCURY, 0);
+            window, 0, (i + 1)*(dcur_y + 2), 16*dcur_x, dcur_y, 0);
     }
     my_menus[j].visible = 0;
     XMapRaised(display, my_menus[j].base);
@@ -491,9 +491,9 @@ menu_expose(Window win) {
     z = my_menus[j].names;
     if (win == my_menus[j].title) {
         ggets_set_fore();
-        ggets_bar(0, 0, 16*DCURX, DCURY, win);
+        ggets_bar(0, 0, 16*dcur_x, dcur_y, win);
         ggets_set_back();
-        XDrawString(display, win, gc, DCURX / 2 + 5, cury_off, z[0],
+        XDrawString(display, win, gc, dcur_x / 2 + 5, cury_off, z[0],
                     (int)strlen(z[0]));
         ggets_set_fore();
         return;

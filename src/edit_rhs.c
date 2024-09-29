@@ -56,14 +56,14 @@ edit_rhs_reset_box(EditBox *sb, int32 *pos, int32 *col) {
         l = (int32)strlen(sb->name[i]);
         XClearWindow(display, window);
         XDrawString(display, window, gc, 0, cury_off, sb->name[i], l);
-        XDrawString(display, window, gc, l*DCURX, cury_off, sb->value[i],
+        XDrawString(display, window, gc, l*dcur_x, cury_off, sb->value[i],
                     (int32)strlen(sb->value[i]));
     }
     XFlush(display);
     sb->hot = 0;
     *pos = (int32)strlen(sb->value[0]);
-    *col = (*pos + (int32)strlen(sb->name[0]))*DCURX;
-    ggets_put_cursor_at(sb->win[0], DCURX*(int32)strlen(sb->name[0]), *pos);
+    *col = (*pos + (int32)strlen(sb->name[0]))*dcur_x;
+    ggets_put_cursor_at(sb->win[0], dcur_x*(int32)strlen(sb->name[0]), *pos);
     return;
 }
 
@@ -86,7 +86,7 @@ edit_rhs_box(int32 n, char *title, char **names, char **values) {
     XSelectInput(display, sb.ok, BUT_MASK);
     XSelectInput(display, sb.reset, BUT_MASK);
     pos = (int32)strlen(sb.value[0]);
-    colm = (pos + (int32)strlen(sb.name[0]))*DCURX;
+    colm = (pos + (int32)strlen(sb.name[0]))*dcur_x;
 
     while (true) {
         status = edit_rhs_box_event_loop(&sb, &pos, &colm);
@@ -158,7 +158,7 @@ edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
                       int32 *done, Window *w) {
     edit_rhs_reset_hot(inew, sb);
     *pos = (int32)strlen(sb->value[inew]);
-    *col = (*pos + (int32)strlen(sb->name[inew]))*DCURX;
+    *col = (*pos + (int32)strlen(sb->name[inew]))*dcur_x;
     *done = 0;
     *w = sb->win[inew];
     return;
@@ -257,8 +257,8 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     XTextProperty winname;
     XSizeHints size_hints;
     Window base;
-    width = (MAX_LEN_EBOX + 4)*DCURX;
-    height = (n + 4)*(DCURY + 16);
+    width = (MAX_LEN_EBOX + 4)*dcur_x;
+    height = (n + 4)*(dcur_y + 16);
     base = pop_list_make_plain_window(DefaultRootWindow(display), 0, 0, width,
                                       height, 4);
     XStringListToTextProperty(&title, 1, &winname);
@@ -275,22 +275,22 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
                      NULL);
     sb->base = base;
 
-    ystart = DCURY;
-    xstart = DCURX;
+    ystart = dcur_y;
+    xstart = dcur_x;
     for (int32 i = 0; i < n; i++) {
         xpos = xstart;
-        ypos = ystart + i*(DCURY + 10);
+        ypos = ystart + i*(dcur_y + 10);
         sb->win[i] = pop_list_make_window(base, xpos, ypos,
-                                          MAX_LEN_EBOX*DCURX, DCURY, 1);
+                                          MAX_LEN_EBOX*dcur_x, dcur_y, 1);
     }
 
-    ypos = height - 2*DCURY;
-    xpos = (width - 19*DCURX) / 2;
-    (sb->ok) = pop_list_make_window(base, xpos, ypos, 2*DCURX, DCURY, 1);
+    ypos = height - 2*dcur_y;
+    xpos = (width - 19*dcur_x) / 2;
+    (sb->ok) = pop_list_make_window(base, xpos, ypos, 2*dcur_x, dcur_y, 1);
     (sb->cancel) =
-        pop_list_make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 1);
-    (sb->reset) = pop_list_make_window(base, xpos + 12*DCURX, ypos, 5*DCURX,
-                                       DCURY, 1);
+        pop_list_make_window(base, xpos + 4*dcur_x, ypos, 6*dcur_x, dcur_y, 1);
+    (sb->reset) = pop_list_make_window(base, xpos + 12*dcur_x, ypos, 5*dcur_x,
+                                       dcur_y, 1);
     XRaiseWindow(display, base);
     return;
 }
@@ -303,7 +303,7 @@ edit_rhs_menu(void) {
     char ch;
     int32 edtype = 0;
     ch = (char)pop_list_popup_list_new(&temp, "Edit Stuff", n, key, 4, 11,
-                                       edtype, 10, 13*DCURY + 8, edrh_hint,
+                                       edtype, 10, 13*dcur_y + 8, edrh_hint,
                                        info_pop, info_message);
     edtype = -1;
     for (int32 i = 0; i < 4; i++) {

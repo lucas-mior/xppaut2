@@ -396,11 +396,11 @@ ani_create_vcr(char *name) {
     XTextProperty iconname;
 
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
-                                      5*12*DCURXs + 8*DCURXs + 4,
-                                      20*(DCURYs + 6), 1);
+                                      5*12*dcur_xs + 8*dcur_xs + 4,
+                                      20*(dcur_ys + 6), 1);
     vcr.base = base;
     size_hints.flags = PPosition | PSize | PMinSize;
-    size_hints.min_width = 51*DCURXs;
+    size_hints.min_width = 51*dcur_xs;
     size_hints.min_height = 300;
     XStringListToTextProperty(&name, 1, &winname);
     XStringListToTextProperty(&name, 1, &iconname);
@@ -416,16 +416,16 @@ ani_create_vcr(char *name) {
     vcr.wup = browser_button2(base, 1, 2, 0);
     vcr.wdn = browser_button2(base, 1, 3, 0);
     vcr.wgrab = browser_button2(base, 2, 3, 0);
-    vcr.slider = pop_list_make_window(base, DCURXs, 7 + 4*DCURYs, 48*DCURXs,
-                                      DCURYs + 4, 1);
+    vcr.slider = pop_list_make_window(base, dcur_xs, 7 + 4*dcur_ys, 48*dcur_xs,
+                                      dcur_ys + 4, 1);
     vcr.slipos = 0;
-    vcr.sliwid = 48*DCURXs;
+    vcr.sliwid = 48*dcur_xs;
     vcr.wpause = browser_button2(base, 2, 0, 0);
     vcr.wmpeg = browser_button2(base, 2, 1, 0);
     vcr.kill = browser_button2(base, 2, 2, 0);
 
-    vcr.wfly = pop_list_make_window(base, 4*12*DCURXs, 4, 5 + DCURXs + 5,
-                                    (DCURYs + 6) - 4, 1);
+    vcr.wfly = pop_list_make_window(base, 4*12*dcur_xs, 4, 5 + dcur_xs + 5,
+                                    (dcur_ys + 6) - 4, 1);
     vcr.view = pop_list_make_plain_window(base, 10, 100, wid, hgt, 2);
     ani_gc = XCreateGC(display, vcr.view, valuemask, &values);
     vcr.hgt = hgt;
@@ -751,7 +751,7 @@ ani_button(Window window) {
 
 void
 do_ani_slider_motion(Window window, int32 x) {
-    int32 l = 48*DCURXs;
+    int32 l = 48*dcur_xs;
     int32 x0 = x;
     int32 mr = browser_my.maxrow;
     int32 k;
@@ -776,7 +776,7 @@ do_ani_slider_motion(Window window, int32 x) {
 void
 redraw_ani_slider(void) {
     int32 k = vcr.pos;
-    int32 l = 48*DCURXs;
+    int32 l = 48*dcur_xs;
     int32 xx;
     int32 mr = browser_my.maxrow;
     if (mr < 2) {
@@ -789,7 +789,7 @@ redraw_ani_slider(void) {
 
 void
 draw_ani_slider(Window window, int32 x) {
-    int32 hgt = DCURYs + 4, l = 48*DCURXs;
+    int32 hgt = dcur_ys + 4, l = 48*dcur_xs;
     int32 x0 = x - 2;
     if (x0 < 0) {
         x0 = 0;
@@ -862,13 +862,13 @@ ani_expose(Window window) {
 void
 ani_resize(int32 x, int32 y) {
     int32 ww = x - (2*4);
-    int32 hh = y - (int32)((2.5*(DCURYs + 6)) + 5);
+    int32 hh = y - (int32)((2.5*(dcur_ys + 6)) + 5);
     if (ww == vcr.wid && hh == vcr.hgt) {
         return;
     }
     XFreePixmap(display, ani_pixmap);
 
-    vcr.hgt = 5*(int32)((y - ((4.5*(DCURYs + 6)) + 5)) / 5);
+    vcr.hgt = 5*(int32)((y - ((4.5*(dcur_ys + 6)) + 5)) / 5);
     vcr.wid = 4*(int32)((x - (2*4)) / 4);
 
     /*This little safety check prevents a <X Error of failed request:  BadValue>
@@ -882,7 +882,7 @@ ani_resize(int32 x, int32 y) {
         vcr.wid = 1;
     }
 
-    XMoveResizeWindow(display, vcr.view, 4, (int32)4.5*(DCURYs + 6),
+    XMoveResizeWindow(display, vcr.view, 4, (int32)4.5*(dcur_ys + 6),
                       (uint)vcr.wid, (uint)vcr.hgt);
     ani_pixmap =
         XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
@@ -2863,7 +2863,7 @@ ani_tst_pix_draw(void) {
         XDrawLine(display, ani_pixmap, ani_gc, 0, 14 + i, vcr.wid, 14 + i);
     }
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
-    XDrawString(display, ani_pixmap, ani_gc, 10, vcr.hgt - (DCURYs + 6),
+    XDrawString(display, ani_pixmap, ani_gc, 10, vcr.hgt - (dcur_ys + 6),
                 "THIS SPACE FOR RENT", 20);
     return;
 }

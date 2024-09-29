@@ -92,13 +92,13 @@ int32 SCALEY;
 Display *display;
 int32 screen;
 int32 periodic = 0;
-int32 DCURYb;
+int32 dcur_yb;
 int32 cury_offb;
-int32 DCURYs;
-int32 DCURXs;
+int32 dcur_ys;
+int32 dcur_xs;
 int32 cury_offs;
-int32 DCURY;
-int32 DCURX;
+int32 dcur_y;
+int32 dcur_x;
 int32 cury_off;
 FILE *logfile;
 int32 XPPVERBOSE = 1;
@@ -485,10 +485,10 @@ do_main(int32 argc, char **argv) {
         XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
         menu_create_them(main_win);
         command_pop =
-            XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
-                                (uint)DCURY + 4, 2, MyForeColor, MyBackColor);
+            XCreateSimpleWindow(display, main_win, 0, dcur_ys + 4, w - 2,
+                                (uint)dcur_y + 4, 2, MyForeColor, MyBackColor);
         info_pop = XCreateSimpleWindow(display, main_win, 0,
-                                       (int32)h - DCURY - 4, w - 2, (uint)DCURY,
+                                       (int32)h - dcur_y - 4, w - 2, (uint)dcur_y,
                                        2, MyForeColor, MyBackColor);
         XCreateFontCursor(display, XC_hand2);
         XSelectInput(display, command_pop,
@@ -496,37 +496,37 @@ do_main(int32 argc, char **argv) {
         XSelectInput(display, info_pop, ExposureMask);
         XMapWindow(display, info_pop);
         XMapWindow(display, command_pop);
-        many_pops_init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6,
-                             (int32)w - 16 - 16*DCURX,
-                             (int32)h - 6*DCURY - 16);
-        init_conds_create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
+        many_pops_init_grafs(16*dcur_x + 6, dcur_ys + dcur_yb + 6,
+                             (int32)w - 16 - 16*dcur_x,
+                             (int32)h - 6*dcur_y - 16);
+        init_conds_create_par_sliders(main_win, 0, (int32)h - 5*dcur_y + 8);
         graphics_get_draw_area();
     }
 
     {
         // main make top buttons
-        int32 x1 = 2, x2 = 6*DCURXs + 5, dx = DCURXs;
+        int32 x1 = 2, x2 = 6*dcur_xs + 5, dx = dcur_xs;
         TopButton[0] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
         TopButton[1] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
         TopButton[2] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
         TopButton[3] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
         TopButton[4] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
         TopButton[5] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
     }
 
@@ -786,13 +786,13 @@ main_init_x(void) {
     DCURXb = XTextWidth(font_big, teststr, (int)strlen(teststr)) /
              (int)(strlen(teststr) - 2);
 
-    DCURYb = font_big->ascent + font_big->descent;
+    dcur_yb = font_big->ascent + font_big->descent;
     cury_offb = font_big->ascent - 1;
 
-    DCURXs = XTextWidth(font_small, teststr, (int)strlen(teststr)) /
+    dcur_xs = XTextWidth(font_small, teststr, (int)strlen(teststr)) /
              (int)(strlen(teststr) - 2);
 
-    DCURYs = font_small->ascent + font_small->descent;
+    dcur_ys = font_small->ascent + font_small->descent;
     cury_offs = font_small->ascent - 1;
 
     main_get_gc(&gc);
@@ -839,8 +839,8 @@ main_init_x(void) {
     }
 
     // main set big font
-    DCURX = DCURXb;
-    DCURY = DCURYb;
+    dcur_x = DCURXb;
+    dcur_y = dcur_yb;
     cury_off = cury_offb;
     XSetFont(display, gc, font_big->fid);
 
@@ -850,11 +850,11 @@ main_init_x(void) {
      * we try to set the initial size to fit everything nicely especially
      * if they are using wacky fonts...  */
     if (UserMinWidth <= 0) {
-        SCALEX = 10 + 36*2*DCURXs + 32*DCURXs;
+        SCALEX = 10 + 36*2*dcur_xs + 32*dcur_xs;
     }
 
     if (UserMinHeight <= 0) {
-        SCALEY = 25*DCURYb + 7*DCURYs;
+        SCALEY = 25*dcur_yb + 7*dcur_ys;
     }
 
     XResizeWindow(display, main_win, (uint)SCALEX, (uint)SCALEY);
@@ -905,10 +905,10 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                 SCALEY = min_hgt;
             } else {
                 XResizeWindow(display, command_pop, (uint)SCALEX - 4,
-                              (uint)DCURY + 1);
-                XMoveResizeWindow(display, info_pop, 0, SCALEY - DCURY - 4,
-                                  (uint)SCALEX - 4, (uint)DCURY);
-                init_conds_resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb -
+                              (uint)dcur_y + 1);
+                XMoveResizeWindow(display, info_pop, 0, SCALEY - dcur_y - 4,
+                                  (uint)SCALEX - 4, (uint)dcur_y);
+                init_conds_resize_par_slides(SCALEY - 3*dcur_ys - 1*dcur_yb -
                                              13);
                 many_pops_resize_all(SCALEX, SCALEY);
                 main_redraw_all();

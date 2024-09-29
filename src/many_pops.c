@@ -180,7 +180,7 @@ many_pops_gtitle_text(char *string, Window win) {
         int32 xs, ys = 2;
         Window root;
         XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &de);
-        xs = ((int32)w - len*DCURX) / 2;
+        xs = ((int32)w - len*dcur_x) / 2;
         if (xs < 0) {
             xs = 0;
         }
@@ -647,7 +647,7 @@ many_pops_select_marker_type(int32 *type) {
     Window temp = main_win;
     char ch;
     ch = (char)pop_list_popup_list_new(&temp, "Markers", list, key, 6, 9, ival,
-                                       10, 4*DCURY + 8, no_hint, info_pop,
+                                       10, 4*dcur_y + 8, no_hint, info_pop,
                                        info_message);
     if (ch == PAUSE_NUMBER) {
         return 0;
@@ -1278,8 +1278,8 @@ many_pops_do_expose(XEvent event) {
 
 void
 many_pops_resize_all(int32 wid, int32 hgt) {
-    int32 nw = wid - 16 - 16*DCURX + 7,
-          nh = hgt - 3*DCURYb - 4*DCURYs - 24;
+    int32 nw = wid - 16 - 16*dcur_x + 7,
+          nh = hgt - 3*dcur_yb - 4*dcur_ys - 24;
     nw = 4*((nw / 4));
     nh = 4*((nh / 4));
     XResizeWindow(display, graph[0].window, (uint)nw, (uint)nh);
@@ -1309,7 +1309,7 @@ many_pops_create_a_pop(void) {
         XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
                             (uint)MINI_W, (uint)MINI_H, 2, GrFore, GrBack);
     graph[index].w_info = pop_list_make_window(graph[index].window, 10, 0,
-                                               40*DCURXs, DCURYs, 0);
+                                               40*dcur_xs, dcur_ys, 0);
     XSetWindowBackground(display, graph[i].window, MyDrawWinColor);
 
     graphics_copy_graph(index, current_pop);

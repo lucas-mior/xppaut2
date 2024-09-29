@@ -708,8 +708,8 @@ browser_draw_data(Browser b) {
     int32 j0;
     int32 x0;
     char string[50];
-    int32 dcol = DCURXs*14;
-    int32 drow = (DCURYs + 6);
+    int32 dcol = dcur_xs*14;
+    int32 drow = (dcur_ys + 6);
     if (b.dataflag == 0) {
         return;  //   no data
     }
@@ -721,14 +721,14 @@ browser_draw_data(Browser b) {
         i0 = i + b.row0;
         if (i0 < b.maxrow) {
             sprintf(string, "%.8g", b.data[0][i0]);
-            XDrawString(display, b.main, small_gc, DCURXs / 2 + 5,
-                        i*drow + DCURYs, string, (int)strlen(string));
+            XDrawString(display, b.main, small_gc, dcur_xs / 2 + 5,
+                        i*drow + dcur_ys, string, (int)strlen(string));
         }
     }
 
     // Do data stuff
     for (int32 j = 0; j < b.ncol; j++) {
-        x0 = (j + 1)*dcol + DCURXs / 2;
+        x0 = (j + 1)*dcol + dcur_xs / 2;
         j0 = j + b.col0;
         if (j0 >= b.maxcol) {
             return;  // if this one is too big, they all are
@@ -738,7 +738,7 @@ browser_draw_data(Browser b) {
             if (i0 < b.maxrow) {
                 sprintf(string, "%.7g", b.data[j0][i0]);
                 XDrawString(display, b.main, small_gc, x0 + 5,
-                            i*drow + DCURYs, string, (int)strlen(string));
+                            i*drow + dcur_ys, string, (int)strlen(string));
             }
         }
     }
@@ -781,17 +781,17 @@ browser_make_new(void) {
 Window
 browser_button2(Window root, int32 row, int32 col, int32 iflag) {
     Window window;
-    int32 dcol = 12*DCURXs;
-    int32 drow = (DCURYs + 6);
-    int32 width = 8*DCURXs;
+    int32 dcol = 12*dcur_xs;
+    int32 drow = (dcur_ys + 6);
+    int32 width = 8*dcur_xs;
     int32 x;
     int32 y;
     if (iflag == 1) {
-        dcol = 14*DCURXs;
+        dcol = 14*dcur_xs;
     }
     x = dcol*col + 4;
     y = drow*row + 4;
-    window = pop_list_make_window(root, x, y, width + 5, DCURYs + 1, 1);
+    window = pop_list_make_window(root, x, y, width + 5, dcur_ys + 1, 1);
     XSelectInput(display, window, MYMASK);
     return window;
 }
@@ -800,18 +800,18 @@ Window
 browser_button_data(Window root, int32 row, int32 col, char *name,
                     int32 iflag) {
     Window window;
-    int32 dcol = 12*DCURXs;
-    int32 drow = (DCURYs + 6);
-    int32 width = (int32)strlen(name)*DCURXs;
+    int32 dcol = 12*dcur_xs;
+    int32 drow = (dcur_ys + 6);
+    int32 width = (int32)strlen(name)*dcur_xs;
 
     int32 x;
     int32 y;
     if (iflag == 1) {
-        dcol = 14*DCURXs;
+        dcol = 14*dcur_xs;
     }
     x = dcol*col + 4;
     y = drow*row + 4;
-    window = pop_list_make_window(root, x, y, width + 5, DCURYs + 1, 1);
+    window = pop_list_make_window(root, x, y, width + 5, dcur_ys + 1, 1);
     XSelectInput(display, window, MYMASK);
     return window;
 }
@@ -825,8 +825,8 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     XTextProperty winname;
     XTextProperty iconname;
     XSizeHints size_hints;
-    int32 dcol = DCURXs*17;
-    int32 drow = (DCURYs + 6);
+    int32 dcol = dcur_xs*17;
+    int32 drow = (dcur_ys + 6);
     int32 ystart = 8;
 
     if (ncol < 5) {
@@ -963,7 +963,7 @@ resize_browser(Window window, Browser *b) {
     uint32 w;
     uint32 h;
     uint32 hreal;
-    int32 dcol = 17*DCURXs, drow = DCURYs + 6;
+    int32 dcol = 17*dcur_xs, drow = dcur_ys + 6;
     int32 i0;
     int32 newrow;
     int32 newcol;
@@ -1000,7 +1000,7 @@ resize_browser(Window window, Browser *b) {
     if (i0 > b->maxrow) {
         i0 = b->maxrow;
     }
-    h = (uint32)(i0*drow + DCURXs / 2);
+    h = (uint32)(i0*drow + dcur_xs / 2);
     newrow = i0;
     //  Now resize everything
     if (b->ncol == newcol && b->nrow == newrow) {

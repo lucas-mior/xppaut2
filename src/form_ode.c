@@ -67,7 +67,7 @@ int32 NCON_START;
 int32 NSYM_START;
 int32 bvp_n;
 
-int32 ConvertStyle = 0;
+int32 convert_style = 0;
 FILE *convertf;
 static int32 OldStyle = 1;
 int32 IN_VARS;
@@ -307,7 +307,7 @@ form_ode_get_eqn(FILE *fptr) {
     if (i <= 0) {  // New parser ---
 
         OldStyle = 0;
-        ConvertStyle = 0;
+        convert_style = 0;
         flag = form_ode_do_new_parser(fptr, bob, 0);
         if (flag < 0) {
             exit(0);
@@ -316,7 +316,7 @@ form_ode_get_eqn(FILE *fptr) {
         OldStyle = 1;
         NEQ = i;
         ggets_plintf("NEQ=%d\n", NEQ);
-        if (ConvertStyle) {
+        if (convert_style) {
             if (strlen(this_file) == 0) {
                 strcpy(filename, "convert.ode");
             } else {
@@ -324,7 +324,7 @@ form_ode_get_eqn(FILE *fptr) {
             }
             if ((convertf = fopen(filename, "w")) == NULL) {
                 printf(" Cannot open %s - no conversion done \n", filename);
-                ConvertStyle = 0;
+                convert_style = 0;
             }
             fprintf(convertf, "# converted %s \n", this_file);
         }
@@ -337,7 +337,7 @@ form_ode_get_eqn(FILE *fptr) {
             strncpy(save_eqn[NLINES++], bob, (usize)nn);
             done = form_ode_compiler(bob, fptr);
         }
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "done\n");
             fclose(convertf);
         }
@@ -452,7 +452,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
     done = 1;
     if (bob[0] == '@') {
         load_eqn_stor_internopts(bob);
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "%s\n", bob);
         }
         return done;
@@ -506,7 +506,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         break;
     case 'w':  //  Make a Wiener (heh heh) constants
         ggets_plintf("Wiener constants\n");
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "wiener ");
         }
         form_ode_advance_past_first_word(&ptr);
@@ -514,7 +514,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             form_ode_take_apart(my_string, &value, name);
             free(my_string);
             ggets_plintf("|%s|=%f ", name, value);
-            if (ConvertStyle) {
+            if (convert_style) {
                 fprintf(convertf, "%s  ", name);
             }
             if (parserslow_add_con(name, value)) {
@@ -523,14 +523,14 @@ form_ode_compiler(char *bob, FILE *fptr) {
             }
             markov_add_wiener(NCON - 1);
         }
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "\n");
         }
         ggets_plintf("\n");
         break;
     case 'n':
         ggets_plintf(" Hidden params:\n");
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "number ");
         }
 
@@ -538,7 +538,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         while ((my_string = form_ode_get_next2(&ptr)) != NULL) {
             form_ode_take_apart(my_string, &value, name);
             free(my_string);
-            if (ConvertStyle) {
+            if (convert_style) {
                 fprintf(convertf, "%s=%g  ", name, value);
             }
 
@@ -548,7 +548,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 exit(0);
             }
         }
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "\n");
         }
         ggets_plintf("\n");
@@ -567,13 +567,13 @@ form_ode_compiler(char *bob, FILE *fptr) {
             printf("Bad global !! \n");
             exit(0);
         }
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "global %d {%s} %s\n", sign, condition, formula);
         }
         break;
     case 'p':
         ggets_plintf("Parameters:\n");
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "par ");
         }
 
@@ -584,7 +584,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             free(my_string);
             default_val[NUPAR] = value;
             strcpy(upar_names[NUPAR++], name);
-            if (ConvertStyle) {
+            if (convert_style) {
                 fprintf(convertf, "%s=%g  ", name, value);
             }
             ggets_plintf("|%s|=%f ", name, value);
@@ -593,7 +593,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 exit(0);
             }
         }
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "\n");
         }
         ggets_plintf("\n");
@@ -602,7 +602,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         my_string = form_ode_do_fit_get_next(" \n");
         strcpy(options, my_string);
         ggets_plintf(" Loading new options file:<%s>\n", my_string);
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "option %s\n", options);
         }
         break;
@@ -626,7 +626,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         if (OldStyle) {
             markov_add(nstates, name);
         }
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "%s(0)=%g\n", name, value);
         }
         break;
@@ -645,7 +645,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
     case 'v':
         iflg = 1;
         ggets_plintf("\nVariables:\n");
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "init ");
         }
     vrs:
@@ -673,11 +673,11 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 last_ic[IN_VARS] = value;
                 default_ic[IN_VARS] = value;
                 IN_VARS++;
-                if (ConvertStyle) {
+                if (convert_style) {
                     fprintf(convertf, "%s=%g  ", name, value);
                 }
             } else {
-                if (ConvertStyle) {
+                if (convert_style) {
                     strcpy(fixname[FIX_VAR], name);
                 }
                 FIX_VAR++;
@@ -685,7 +685,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             ggets_plintf("|%s| ", name);
         }
         ggets_plintf(" \n");
-        if (iflg && ConvertStyle) {
+        if (iflg && convert_style) {
             fprintf(convertf, "\n");
         }
         break;
@@ -696,7 +696,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         my_bc[bvp_n].name = xmalloc(10);
         strcpy(my_bc[bvp_n].string, my_string);
         strcpy(my_bc[bvp_n].name, "0=");
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "bndry %s\n", my_bc[bvp_n].string);
         }
 
@@ -704,7 +704,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         bvp_n++;
         break;
     case 'k':
-        if (ConvertStyle) {
+        if (convert_style) {
             printf(" Warning  kernel declaration cannot be converted \n");
         }
         my_string = form_ode_do_fit_get_next(" ");
@@ -748,7 +748,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 exit(0);
             }
 
-            if (ConvertStyle) {
+            if (convert_style) {
                 fprintf(convertf, "table %s %% %d %g %g %s\n", name, nn, xlo,
                         xhi, formula);
             }
@@ -768,7 +768,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
-            if (ConvertStyle) {
+            if (convert_style) {
                 fprintf(convertf, "table %s %s\n", name, formula);
             }
             NTable++;
@@ -783,7 +783,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         my_string = form_ode_do_fit_get_next("$");
         strcpy(formula, my_string);
         ggets_plintf("%s %d :\n", name, narg);
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "%s(", name);
             for (i = 0; i < narg; i++) {
                 fprintf(convertf, "arg%d", i + 1);
@@ -822,7 +822,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 exit(0);
             }
             strcpy(ode_names[NODE], formula);
-            if (ConvertStyle) {
+            if (convert_style) {
                 if (VFlag) {
                     fprintf(convertf, "volt %s=%s\n", uvar_names[NODE],
                             formula);
@@ -836,7 +836,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             VFlag = 0;
         }
         if (NODE >= IN_VARS && NODE < (IN_VARS + FIX_VAR)) {
-            if (ConvertStyle) {
+            if (convert_style) {
                 fprintf(convertf, "%s=%s\n", fixname[NODE - IN_VARS], formula);
             }
             form_ode_find_ker(formula, &alt);
@@ -850,7 +850,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 exit(0);
             }
             strcpy(ode_names[NODE - FIX_VAR + NMarkov], formula);
-            if (ConvertStyle) {
+            if (convert_style) {
                 if (i < Naux) {
                     fprintf(convertf, "aux %s=%s\n", aux_names[i], formula);
                 } else {
@@ -877,7 +877,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         break;
 
     default:
-        if (ConvertStyle) {
+        if (convert_style) {
             my_string = form_ode_do_fit_get_next("\n");
             fprintf(convertf, "%s %s\n", command, my_string);
         }

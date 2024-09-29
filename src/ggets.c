@@ -239,7 +239,7 @@ ggets_cput_text(void) {
     if (size < 0) {
         size = 0;
     }
-    pop_list_message_box(&temp, 0, SCALEY - 5*DCURY, "Place text with mouse");
+    pop_list_message_box(&temp, 0, SCALEY - 5*dcur_y, "Place text with mouse");
     if (menudrive_get_mouse_xy(&x, &y)) {
         many_pops_gr_col();
         graphics_fillin_text(string, new);
@@ -365,29 +365,29 @@ ggets_display_command(char *name, char *value, int32 pos) {
     int32 m = (int32)strlen(value);
 
     ggets_set_fore();
-    ggets_bar(0, 0, l*DCURX, DCURY + 4, command_pop);
+    ggets_bar(0, 0, l*dcur_x, dcur_y + 4, command_pop);
     ggets_set_back();
     XDrawString(display, command_pop, gc, 0, cury_off, name, l);
     ggets_set_fore();
     if (m > 0) {
-        XDrawString(display, command_pop, gc, l*DCURX, cury_off, value, m);
-        ggets_put_cursor_at(command_pop, DCURX*l, pos);
+        XDrawString(display, command_pop, gc, l*dcur_x, cury_off, value, m);
+        ggets_put_cursor_at(command_pop, dcur_x*l, pos);
     }
     return;
 }
 
 void
 ggets_clr_line_at(Window window, int32 col0, int32 pos, int32 n) {
-    XClearArea(display, window, col0 + pos*DCURX, 0, (uint)((n + 2)*DCURX),
-               2*(uint)DCURY, False);
+    XClearArea(display, window, col0 + pos*dcur_x, 0, (uint)((n + 2)*dcur_x),
+               2*(uint)dcur_y, False);
     return;
 }
 
 void
 ggets_put_cursor_at(Window window, int32 col0, int32 pos) {
-    int32 x1 = col0 + pos*DCURX;
+    int32 x1 = col0 + pos*dcur_x;
     int32 x2 = x1 + 1;
-    int32 y1 = DCURY - 2, y2 = 2;
+    int32 y1 = dcur_y - 2, y2 = 2;
     XDrawLine(display, window, gc, x1, y1, x1, y2);
     XDrawLine(display, window, gc, x2, y1, x2, y2);
     return;
@@ -420,14 +420,14 @@ ggets_mem_mov(char *s1, char *s2, int32 len) {
 void
 ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
                   int32 *done2, int32 ch) {
-    int32 col0 = *col - *pos*DCURX;
+    int32 col0 = *col - *pos*dcur_x;
 
     *done2 = 0;
     switch (ch) {
     case KEY_LEFT:
         if (*pos > 0) {
             *pos = *pos - 1;
-            *col -= DCURX;
+            *col -= dcur_x;
         } else {
             ggets_ping();
         }
@@ -435,7 +435,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
     case KEY_RIGHT:
         if (*pos < (int32)strlen(value)) {
             *pos = *pos + 1;
-            *col += DCURX;
+            *col += dcur_x;
         } else {
             ggets_ping();
         }
@@ -446,7 +446,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
     } break;
     case KEY_END: {
         *pos = (int32)strlen(value);
-        *col = *pos*DCURX + col0;
+        *col = *pos*dcur_x + col0;
     } break;
     case KEY_BADKEY:
     case KEY_DOWN:
@@ -476,7 +476,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
             ggets_mem_mov(&value[*pos - 1], &value[*pos],
                           (int32)strlen(value) - *pos + 1);
             *pos = *pos - 1;
-            *col -= DCURX;
+            *col -= dcur_x;
         } else {
             ggets_ping();
         }
@@ -494,7 +494,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
                           (int32)strlen(value) - *pos + 1);
             value[*pos] = (char)ch;
             *pos = *pos + 1;
-            *col += DCURX;
+            *col += dcur_x;
         }
         break;
     }  // end key cases
@@ -540,7 +540,7 @@ ggets_new_string(char *name, char *value) {
     char old_value[80];
     int32 done2 = 0;
     int32 pos = (int32)strlen(value);
-    int32 col = (pos + (int32)strlen(name))*DCURX;
+    int32 col = (pos + (int32)strlen(name))*dcur_x;
 
     XEvent event;
     strcpy(old_value, value);

@@ -320,27 +320,27 @@ auto_nox_draw_bix_axes(void) {
     auto_x11_line(x1, y1, x0, y1);
     auto_x11_line(x0, y1, x0, y0);
     sprintf(junk, "%g", Auto.xmin);
-    auto_x11_text(x0, y1 + DCURYs + 2, junk);
+    auto_x11_text(x0, y1 + dcur_ys + 2, junk);
     sprintf(junk, "%g", Auto.xmax);
-    ii = (int32)strlen(junk)*DCURXs;
-    auto_x11_text(x1 - ii, y1 + DCURYs + 2, junk);
+    ii = (int32)strlen(junk)*dcur_xs;
+    auto_x11_text(x1 - ii, y1 + dcur_ys + 2, junk);
     sprintf(junk, "%g", Auto.ymin);
     ii = (int32)strlen(junk);
     i0 = 9 - ii;
     if (i0 < 0) {
         i0 = 0;
     }
-    auto_x11_text(i0*DCURXs, y1, junk);
+    auto_x11_text(i0*dcur_xs, y1, junk);
     sprintf(junk, "%g", Auto.ymax);
     ii = (int32)strlen(junk);
     i0 = 9 - ii;
     if (i0 < 0) {
         i0 = 0;
     }
-    auto_x11_text(i0*DCURXs, y0 + DCURYs, junk);
+    auto_x11_text(i0*dcur_xs, y0 + dcur_ys, junk);
     auto_nox_get_str(xlabel, ylabel);
-    auto_x11_text((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
-    auto_x11_text(10*DCURXs, DCURYs, ylabel);
+    auto_x11_text((x0 + x1) / 2, y1 + dcur_ys + 2, xlabel);
+    auto_x11_text(10*dcur_xs, dcur_ys, ylabel);
     auto_x11_refresh_display();
     return;
 }
@@ -1390,7 +1390,7 @@ auto_nox_info_header(int32 icp1, int32 icp2) {
     many_pops_small_base();
     sprintf(bob, "  Br  Pt Ty  Lab %10s %10s       norm %10s     period",
             p1name, p2name, uvar_names[Auto.var]);
-    auto_x11_draw_info(bob, 10, DCURYs + 1);
+    auto_x11_draw_info(bob, 10, dcur_ys + 1);
     return;
 }
 
@@ -1408,7 +1408,7 @@ auto_nox_new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
     }
     sprintf(bob, "%4d %4d %2s %4d %10.4g %10.4g %10.4g %10.4g %10.4g", ibr, pt,
             ty, lab, p1, p2, norm, u0, per);
-    auto_x11_draw_info(bob, 10, 2*DCURYs + 2);
+    auto_x11_draw_info(bob, 10, 2*dcur_ys + 2);
     auto_x11_refresh_display();
 }
 

@@ -44,7 +44,7 @@ int32 avromfonts[5];
 
     The device is assumed to go from (0,0) to (XDMax,YDMax)
 
-    DLeft,DRight,DTop,DBottom are the actual graph areas
+    DLeft,DRight,DTop,d_buttom are the actual graph areas
     VTic Htic are the actual sizes of the tics in device pixels
     VChar HChar are the height and width used for character spacing
 
@@ -56,7 +56,7 @@ int32 avromfonts[5];
 int32 DLeft;
 int32 DRight;
 int32 DTop;
-int32 DBottom;
+int32 d_buttom;
 int32 VTic;
 int32 HTic;
 int32 VChar;
@@ -133,14 +133,14 @@ graphics_get_draw_area_flag(int32 flag) {
     YDMax = (int32)h;
     VTic = MAX(h / 100, 1);
     HTic = MAX(w / 150, 1);
-    VChar = DCURYs;
-    HChar = DCURXs;
+    VChar = dcur_ys;
+    HChar = dcur_xs;
 
     DLeft = 12*HChar;
     DRight = XDMax - 3*HChar - HTic;
-    DBottom = YDMax - 1 - VChar*7 / 2;
+    d_buttom = YDMax - 1 - VChar*7 / 2;
     DTop = VChar*5 / 2 + 1;
-    h = (uint32)(DBottom - DTop);
+    h = (uint32)(d_buttom - DTop);
     w = (uint32)(DRight - DLeft);
     MyGraph->Width = (int32)w;
     MyGraph->Height = (int32)h;
@@ -244,7 +244,7 @@ graphics_init_ps(void) {
         DLeft = 12*HChar;
         DRight = XDMax - 3*HChar - HTic;
         DTop = YDMax - 1 - VChar*7 / 2;
-        DBottom = VChar*5 / 2 + 1;
+        d_buttom = VChar*5 / 2 + 1;
     } else {
         YDMax = 7200;
         XDMax = 5040;
@@ -255,7 +255,7 @@ graphics_init_ps(void) {
         DLeft = 12*HChar;
         DRight = XDMax - 3*HChar - HTic;
         DTop = YDMax - 1 - VChar*7 / 2;
-        DBottom = VChar*5 / 2 + 1;
+        d_buttom = VChar*5 / 2 + 1;
     }
     return;
 }
@@ -270,7 +270,7 @@ graphics_init_svg(void) {
     HChar = 12;
     DLeft = 12*HChar;
     DRight = XDMax - 3*HChar - HTic;
-    DBottom = YDMax - 1 - VChar*7 / 2;
+    d_buttom = YDMax - 1 - VChar*7 / 2;
     DTop = VChar*5 / 2 + 1;
     return;
 }
@@ -363,7 +363,7 @@ graphics_line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
 
 void
 graphics_put_text_x11(int32 x, int32 y, char *str) {
-    int32 sw = (int32)strlen(str)*DCURXs;
+    int32 sw = (int32)strlen(str)*dcur_xs;
     switch (TextJustify) {
     case 0:
         sw = 0;
@@ -379,7 +379,7 @@ graphics_put_text_x11(int32 x, int32 y, char *str) {
         exit(EXIT_FAILURE);
     }
     XSetForeground(display, small_gc, GrFore);
-    XDrawString(display, draw_win, small_gc, x + sw, y + DCURYs / 3, str,
+    XDrawString(display, draw_win, small_gc, x + sw, y + dcur_ys / 3, str,
                 (int32)strlen(str));
     XSetForeground(display, small_gc, GrBack);
     return;
@@ -502,7 +502,7 @@ graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
 void
 graphics_scale_dxdy(double x, double y, double *i, double *j) {
     double dx = (DRight - DLeft) / (XMax - XMin);
-    double dy = (DTop - DBottom) / (YMax - YMin);
+    double dy = (DTop - d_buttom) / (YMax - YMin);
     *i = x*dx;
     *j = y*dy;
     return;
@@ -512,9 +512,9 @@ void
 graphics_scale_to_screen(  // not really the screen!
     double x, double y, int32 *i, int32 *j) {
     double dx = (DRight - DLeft) / (XMax - XMin);
-    double dy = (DTop - DBottom) / (YMax - YMin);
+    double dy = (DTop - d_buttom) / (YMax - YMin);
     *i = (int32)((x - XMin)*dx) + DLeft;
-    *j = (int32)((y - YMin)*dy) + DBottom;
+    *j = (int32)((y - YMin)*dy) + d_buttom;
     return;
 }
 
@@ -527,12 +527,12 @@ graphics_scale_to_real(  // Not needed except for X
     double y1;
     graphics_get_draw_area();
     i1 = i - DLeft;
-    j1 = j - DBottom;
+    j1 = j - d_buttom;
     x1 = (double)i1;
     y1 = (double)j1;
     *x = (MyGraph->xhi - MyGraph->xlo)*x1 / ((double)(DRight - DLeft)) +
          MyGraph->xlo;
-    *y = (MyGraph->yhi - MyGraph->ylo)*y1 / ((double)(DTop - DBottom)) +
+    *y = (MyGraph->yhi - MyGraph->ylo)*y1 / ((double)(DTop - d_buttom)) +
          MyGraph->ylo;
     return;
 }

@@ -139,8 +139,8 @@ menudrive_xpp_hlp(void) {
 
 void
 menudrive_message_box(char *m) {
-    int32 wid = (int32)strlen(m)*DCURX + 20;
-    int32 hgt = 4*DCURY;
+    int32 wid = (int32)strlen(m)*dcur_x + 20;
+    int32 hgt = 4*dcur_y;
     MsgBox.window = pop_list_make_plain_window(RootWindow(display, screen),
                                                display_width / 2,
                                                display_height / 2, wid, hgt, 4);
@@ -157,7 +157,7 @@ menudrive_message_box(char *m) {
 void
 menudrive_message_box_redraw(Window window) {
     if (window == MsgBox.window) {
-        ggets_f_text(10, 2*DCURY, MsgBox.text, MsgBox.window);
+        ggets_f_text(10, 2*dcur_y, MsgBox.text, MsgBox.window);
     }
     return;
 }
@@ -465,7 +465,7 @@ menudrive_do_stochast(void) {
     char ch;
     int32 i;
     ch = (char)pop_list_popup_list_new(&temp, "Stochastic", n, key, 16, 10, 0,
-                                       10, 2*DCURY + 8, stoch_hint, info_pop,
+                                       10, 2*dcur_y + 8, stoch_hint, info_pop,
                                        info_message);
     for (i = 0; i < 16; i++) {
         if (ch == key[i]) {
@@ -488,7 +488,7 @@ menudrive_get_pmap_pars(void) {
     int32 i;
 
     ch = (char)pop_list_popup_list_new(&temp, "Poincare map", map, mkey, 4, 13,
-                                       POIMAP, 10, 6*DCURY + 8, map_hint,
+                                       POIMAP, 10, 6*dcur_y + 8, map_hint,
                                        info_pop, info_message);
 
     for (i = 0; i < 4; i++) {
@@ -511,7 +511,7 @@ menudrive_set_col_par(void) {
     static char key[] = "nva";
     int32 i;
     ch = (char)pop_list_popup_list_new(&tempw, "Color code", n, key, 3, 11, 0,
-                                       10, 12*DCURY + 8, color_hint, info_pop,
+                                       10, 12*dcur_y + 8, color_hint, info_pop,
                                        info_message);
     for (i = 0; i < 3; i++) {
         if (ch == key[i]) {
@@ -533,7 +533,7 @@ menudrive_make_adj(void) {
     char ch;
     int32 i;
     ch = (char)pop_list_popup_list_new(&temp, "Adjoint", n, key, 7, 10, 0, 10,
-                                       11*DCURY + 8, adj_hint, info_pop,
+                                       11*dcur_y + 8, adj_hint, info_pop,
                                        info_message);
     for (i = 0; i < 7; i++) {
         if (ch == key[i]) {
@@ -559,14 +559,14 @@ menudrive_do_gr_objs(void) {
     static char etitle[] = "Edit";
     Window temp = main_win;
     ch = (char)pop_list_popup_list_new(&temp, title, list, key, 7, 10, 0, 10,
-                                       10*DCURY + 8, text_hint, info_pop,
+                                       10*dcur_y + 8, text_hint, info_pop,
                                        info_message);
     if (ch == PAUSE_NUMBER) {
         return;
     }
     if (ch == 'e') {
         ch = (char)pop_list_popup_list_new(&temp, etitle, elist, ekey, 3, 9, 0,
-                                           10, 10*DCURY + 8,
+                                           10, 10*dcur_y + 8,
 
                                            edit_hint, info_pop, info_message);
 
@@ -604,7 +604,7 @@ menudrive_new_lookup(void) {
         return;
     }
     ch = (char)pop_list_popup_list_new(&temp, "Tables", n, key, 2, 12, 1, 10,
-                                       11*DCURY + 8, tab_hint, info_pop,
+                                       11*dcur_y + 8, tab_hint, info_pop,
                                        info_message);
     if (ch == key[0]) {
         menudrive_run_the_commands(M_UKE);
@@ -623,7 +623,7 @@ menudrive_find_bvp(void) {
     int32 i;
     Window temp = main_win;
     ch = (char)pop_list_popup_list_new(&temp, "Bndry Value Prob", n, key, 4, 16,
-                                       1, 10, 6*DCURY + 8, bvp_hint, info_pop,
+                                       1, 10, 6*dcur_y + 8, bvp_hint, info_pop,
                                        info_message);
     if (ch == PAUSE_NUMBER) {
         return;
@@ -648,7 +648,7 @@ menudrive_change_view(void) {
     int32 i;
 
     ch = (char)pop_list_popup_list_new(&temp, "Axes", n, key, 4, 5, 0, 10,
-                                       13*DCURY + 8, view_hint, info_pop,
+                                       13*dcur_y + 8, view_hint, info_pop,
                                        info_message);
     for (i = 0; i < 4; i++) {
         if (ch == key[i]) {
@@ -675,11 +675,11 @@ menudrive_do_windows(void) {
     Window temp = main_win;
     if (SimulPlotFlag == 0) {
         ch = (char)pop_list_popup_list_new(&temp, title, list, key, 7, 11, 0,
-                                           10, 14*DCURY + 8, half_hint,
+                                           10, 14*dcur_y + 8, half_hint,
                                            info_pop, info_message);
     } else {
         ch = (char)pop_list_popup_list_new(&temp, title, list2, key, 7, 11, 0,
-                                           10, 14*DCURY + 8, half_hint,
+                                           10, 14*dcur_y + 8, half_hint,
                                            info_pop, info_message);
     }
     for (i = 0; i < 7; i++) {
@@ -718,7 +718,7 @@ menudrive_add_a_curve(void) {
     int32 i;
     int32 j;
     ch = (char)pop_list_popup_list_new(&temp, "Curves", na, keya, 10, 15, 0, 10,
-                                       8*DCURY + 8, graf_hint, info_pop,
+                                       8*dcur_y + 8, graf_hint, info_pop,
                                        info_message);
     for (i = 0; i < 10; i++) {
         if (ch == keya[i]) {
@@ -728,11 +728,11 @@ menudrive_add_a_curve(void) {
     if (i == 6) {
         if (auto_freeze_flag == 0) {
             ch = (char)pop_list_popup_list_new(&temp, "Freeze", nf, keyf, 8, 15,
-                                               0, 10, 8*DCURY + 8, frz_hint,
+                                               0, 10, 8*dcur_y + 8, frz_hint,
                                                info_pop, info_message);
         } else {
             ch = (char)pop_list_popup_list_new(
-                &temp, "Freeze", nf2, keyf, 8, 15, 0, 10, 8*DCURY + 8,
+                &temp, "Freeze", nf2, keyf, 8, 15, 0, 10, 8*dcur_y + 8,
                 frz_hint, info_pop, info_message);
         }
         for (j = 0; j < 8; j++) {
@@ -742,7 +742,7 @@ menudrive_add_a_curve(void) {
         }
         if (j == 4) {
             ch = (char)pop_list_popup_list_new(&temp, "Key", nk, keyk, 2, 9, 0,
-                                               10, 8*DCURY + 8, no_hint,
+                                               10, 8*dcur_y + 8, no_hint,
                                                info_pop, info_message);
             if (ch == keyk[0]) {
                 com = M_GFKN;
@@ -758,7 +758,7 @@ menudrive_add_a_curve(void) {
     } else {
         if (i == 9) {
             ch = (char)pop_list_popup_list_new(
-                &temp, "Colormap", nc, keyc, 7, 15, 0, 10, 8*DCURY + 8,
+                &temp, "Colormap", nc, keyc, 7, 15, 0, 10, 8*dcur_y + 8,
                 cmap_hint, info_pop, info_message);
             for (j = 0; j < 7; j++) {
                 if (ch == keyc[j]) {
@@ -788,7 +788,7 @@ menudrive_do_movie(void) {
     static char key[] = "crpasmx";
     Window temp = main_win;
     ch = (char)pop_list_popup_list_new(&temp, "Kinescope", list, key, nkc, 11,
-                                       0, 10, 8*DCURY + 8, kin_hint, info_pop,
+                                       0, 10, 8*dcur_y + 8, kin_hint, info_pop,
                                        info_message);
     for (i = 0; i < nkc; i++) {
         if (ch == key[i]) {
@@ -809,7 +809,7 @@ menudrive_do_torus(void) {
     char ch;
     int32 i;
     ch = (char)pop_list_popup_list_new(&temp, "Torus", n, key, 3, 9, 1 - TORUS,
-                                       10, 4*DCURY + 8, phas_hint, info_pop,
+                                       10, 4*dcur_y + 8, phas_hint, info_pop,
                                        info_message);
     for (i = 0; i < 3; i++) {
         if (ch == key[i]) {
@@ -831,7 +831,7 @@ menudrive_window_zoom(void) {
     int32 i;
     Window temp = main_win;
     ch = (char)pop_list_popup_list_new(&temp, "Window", n, key, 6, 13, 0, 10,
-                                       13*DCURY + 8, wind_hint, info_pop,
+                                       13*dcur_y + 8, wind_hint, info_pop,
                                        info_message);
     for (i = 0; i < 6; i++) {
         if (ch == key[i]) {
@@ -853,7 +853,7 @@ menudrive_direct_field(void) {
     char ch;
     Window temp = main_win;
     ch = (char)pop_list_popup_list_new(&temp, "Two-D Fun", n, key, 5, 18, 0, 10,
-                                       6*DCURY + 8, flow_hint, info_pop,
+                                       6*dcur_y + 8, flow_hint, info_pop,
                                        info_message);
 
     for (i = 0; i < 5; i++) {
@@ -876,7 +876,7 @@ menudrive_new_clines(void) {
     static char key[] = "nramfs";
     char ch;
     ch = (char)pop_list_popup_list_new(&temp, "Nullclines", n, key, 6, 10, 0,
-                                       10, 6*DCURY + 8, null_hint, info_pop,
+                                       10, 6*dcur_y + 8, null_hint, info_pop,
                                        info_message);
     for (i = 0; i < 6; i++) {
         if (ch == key[i]) {
@@ -897,7 +897,7 @@ menudrive_froz_cline_stuff(void) {
     char ch;
     int32 i;
     ch = (char)pop_list_popup_list_new(&temp, "Freeze cline", n, key, 4, 10, 0,
-                                       10, 6*DCURY + 8, null_freeze, info_pop,
+                                       10, 6*dcur_y + 8, null_freeze, info_pop,
                                        info_message);
     for (i = 0; i < 4; i++) {
         if (ch == key[i]) {
@@ -918,7 +918,7 @@ menudrive_find_equilibrium(void) {
     char ch;
     Window temp = main_win;
     ch = (char)pop_list_popup_list_new(&temp, "Equilibria", n, key, 4, 12, 1,
-                                       10, 6*DCURY + 8, sing_hint, info_pop,
+                                       10, 6*dcur_y + 8, sing_hint, info_pop,
                                        info_message);
     if (ch == PAUSE_NUMBER) {
         return;
@@ -946,7 +946,7 @@ menudrive_ini_data_menu(void) {
     static char key[] = "r2logmsnhfuidb";
     char ch;
     ch = (char)pop_list_popup_list_new(&temp, "Integrate", n, key, 14, 13, 3,
-                                       10, 3*DCURY + 8, ic_hint, info_pop,
+                                       10, 3*dcur_y + 8, ic_hint, info_pop,
                                        info_message);
 
     if (ch == PAUSE_NUMBER) {

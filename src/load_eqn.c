@@ -2333,7 +2333,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("COLORVIA", s1)) {
         if ((notAlreadySet.COLORVIA || force) ||
             ((mask != NULL) && (mask->COLORVIA == 1))) {
-            strcpy(ColorVia, s2);
+            strcpy(color_via, s2);
         }
         notAlreadySet.COLORVIA = 0;
         return;
@@ -2341,7 +2341,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("COLORIZE", s1)) {
         if ((notAlreadySet.COLORIZE || force) ||
             ((mask != NULL) && (mask->COLORIZE == 1))) {
-            ColorizeFlag = atoi(s2);
+            colorize_flag = atoi(s2);
         }
         notAlreadySet.COLORIZE = 0;
         return;

@@ -281,7 +281,7 @@ init_conds_find_user_name(int32 type, char *oname) {
 void
 init_conds_create_par_sliders(Window base, int32 x0, int32 h0) {
     for (int32 i = 0; i < 3; i++) {
-        init_conds_make_par_slider(base, x0 + i*36*DCURXs, h0, 100, i);
+        init_conds_make_par_slider(base, x0 + i*36*dcur_xs, h0, 100, i);
     }
     return;
 }
@@ -289,8 +289,8 @@ init_conds_create_par_sliders(Window base, int32 x0, int32 h0) {
 void
 init_conds_resize_par_slides(int32 h) {
     for (int32 i = 0; i < 3; i++) {
-        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i*DCURXs,
-                          h, 32*(uint)DCURXs, 3*(uint)(DCURYs + 2));
+        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i*dcur_xs,
+                          h, 32*(uint)dcur_xs, 3*(uint)(dcur_ys + 2));
     }
     return;
 }
@@ -401,7 +401,7 @@ init_conds_redraw_fs_text(char *string, Window window, int32 flag) {
     XDrawString(display, window, small_gc, 0, cury_off, string,
                 (int)strlen(string));
     if (flag) {
-        init_conds_put_edit_cursor(window, DCURXs*(int32)strlen(string));
+        init_conds_put_edit_cursor(window, dcur_xs*(int32)strlen(string));
     }
     return;
 }
@@ -419,20 +419,20 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
     uint32 cdepth;
 
     char t[sizeof(f.title) + sizeof(cur_dir) + sizeof(f.wildtxt) + 1];
-    int32 hgt = DCURYs + 4;
+    int32 hgt = dcur_ys + 4;
 
     XGetGeometry(display, f.base, &root, &xloc, &yloc, &cwid, &chgt, &cbwid,
                  &cdepth);
-    XResizeWindow(display, f.wild, cwid - 7*(uint)DCURXs - 5, (uint)DCURYs);
-    XResizeWindow(display, f.file, cwid - 7*(uint)DCURXs - 5, (uint)DCURYs);
+    XResizeWindow(display, f.wild, cwid - 7*(uint)dcur_xs - 5, (uint)dcur_ys);
+    XResizeWindow(display, f.file, cwid - 7*(uint)dcur_xs - 5, (uint)dcur_ys);
     for (int32 i = 0; i < f.nwin; i++) {
-        XResizeWindow(display, f.window[i], cwid - 6*(uint)DCURXs - 10,
-                      (uint)DCURYs);
+        XResizeWindow(display, f.window[i], cwid - 6*(uint)dcur_xs - 10,
+                      (uint)dcur_ys);
     }
-    XMoveResizeWindow(display, f.ok, (int)cwid / 2 - 7*DCURXs - 3,
-                      (int32)chgt - hgt, 7*(uint)DCURXs, (uint)DCURYs);
+    XMoveResizeWindow(display, f.ok, (int)cwid / 2 - 7*dcur_xs - 3,
+                      (int32)chgt - hgt, 7*(uint)dcur_xs, (uint)dcur_ys);
     XMoveResizeWindow(display, f.cancel, cwid / 2 + 3, (int)chgt - hgt,
-                      7*(uint)DCURXs, (uint)DCURYs);
+                      7*(uint)dcur_xs, (uint)dcur_ys);
 
     if (f.here != 1) {
         return;
@@ -703,8 +703,8 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     strcpy(filesel.title, title);
     strcpy(filesel.wildtxt, wild);
     strcpy(filesel.filetxt, file);
-    width = 80*DCURXs;
-    hgt = DCURYs + 4;
+    width = 80*dcur_xs;
+    hgt = dcur_ys + 4;
     height = (5 + nwin)*hgt;
     filesel.minwid = width;
     filesel.minhgt = height;
@@ -735,45 +735,45 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     }
 
     /*
-    filesel.up=pop_list_make_window(base,DCURXs,2+4*hgt,3*DCURXs+5,DCURYs,1);
-    filesel.dn=pop_list_make_window(base,DCURXs,2+5*hgt,3*DCURXs+5,DCURYs,1);
-    filesel.pgup=pop_list_make_plain_window(base,DCURXs,2+7*hgt,3*DCURXs+5,DCURYs,1);
-    filesel.pgdn=pop_list_make_window(base,DCURXs,2+8*hgt,3*DCURXs+5,DCURYs,1);
+    filesel.up=pop_list_make_window(base,dcur_xs,2+4*hgt,3*dcur_xs+5,dcur_ys,1);
+    filesel.dn=pop_list_make_window(base,dcur_xs,2+5*hgt,3*dcur_xs+5,dcur_ys,1);
+    filesel.pgup=pop_list_make_plain_window(base,dcur_xs,2+7*hgt,3*dcur_xs+5,dcur_ys,1);
+    filesel.pgdn=pop_list_make_window(base,dcur_xs,2+8*hgt,3*dcur_xs+5,dcur_ys,1);
     */
 
-    filesel.up = pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt + 72 + 15,
+    filesel.up = pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 72 + 15,
                                            32, 24, 1, lineup_bits);
-    filesel.dn = pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt + 96 + 18,
+    filesel.dn = pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 96 + 18,
                                            32, 24, 1, linedn_bits);
     filesel.pgup = pop_list_make_icon_window(
-        base, DCURXs, 2 + 3*hgt + 48 + 12, 32, 24, 1, pageup_bits);
+        base, dcur_xs, 2 + 3*hgt + 48 + 12, 32, 24, 1, pageup_bits);
     filesel.pgdn = pop_list_make_icon_window(
-        base, DCURXs, 2 + 3*hgt + 120 + 21, 32, 24, 1, pagedn_bits);
-    filesel.home = pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt, 32, 24,
+        base, dcur_xs, 2 + 3*hgt + 120 + 21, 32, 24, 1, pagedn_bits);
+    filesel.home = pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt, 32, 24,
                                              1, home_bits);
     filesel.start = pop_list_make_icon_window(
-        base, DCURXs, 2 + 3*hgt + 24 + 3, 32, 24, 1, start_bits);
+        base, dcur_xs, 2 + 3*hgt + 24 + 3, 32, 24, 1, start_bits);
 
-    filesel.dir = pop_list_make_plain_window(base, 7*DCURXs, 2,
-                                             width - 7*DCURXs - 5, DCURYs, 0);
+    filesel.dir = pop_list_make_plain_window(base, 7*dcur_xs, 2,
+                                             width - 7*dcur_xs - 5, dcur_ys, 0);
     filesel.wild = pop_list_make_plain_window(
-        base, 7*DCURXs, 2 + hgt, width - 7*DCURXs - 5, DCURYs, 1);
+        base, 7*dcur_xs, 2 + hgt, width - 7*dcur_xs - 5, dcur_ys, 1);
     filesel.ww =
-        pop_list_make_window(base, 2, 2 + hgt, 6*DCURXs + 2, DCURYs, 0);
+        pop_list_make_window(base, 2, 2 + hgt, 6*dcur_xs + 2, dcur_ys, 0);
     filesel.file = pop_list_make_plain_window(
-        base, 7*DCURXs, 2 + 2*hgt, width - 7*DCURXs - 5, DCURYs, 1);
+        base, 7*dcur_xs, 2 + 2*hgt, width - 7*dcur_xs - 5, dcur_ys, 1);
     filesel.fw =
-        pop_list_make_window(base, 2, 2 + 2*hgt, 6*DCURXs + 2, DCURYs, 0);
+        pop_list_make_window(base, 2, 2 + 2*hgt, 6*dcur_xs + 2, dcur_ys, 0);
     for (int32 i = 0; i < nwin; i++) {
         filesel.window[i] =
-            pop_list_make_plain_window(base, 6*DCURXs + 5, 2 + (3 + i)*hgt,
-                                       width - 6*DCURXs - 10, DCURYs, 0);
+            pop_list_make_plain_window(base, 6*dcur_xs + 5, 2 + (3 + i)*hgt,
+                                       width - 6*dcur_xs - 10, dcur_ys, 0);
     }
 
-    filesel.ok = pop_list_make_window(base, width / 2 - 7*DCURXs - 3,
-                                      height - hgt, 7*DCURXs, DCURYs, 1);
+    filesel.ok = pop_list_make_window(base, width / 2 - 7*dcur_xs - 3,
+                                      height - hgt, 7*dcur_xs, dcur_ys, 1);
     filesel.cancel = pop_list_make_window(base, width / 2 + 3, height - hgt,
-                                          7*DCURXs, DCURYs, 1);
+                                          7*dcur_xs, dcur_ys, 1);
     filesel.here = 1;
     filesel.hot = HOTFILE;
     filesel.pos = (int32)strlen(filesel.filetxt);
@@ -1061,7 +1061,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
     XClearWindow(display, window);
     XDrawString(display, window, small_gc, 0, cury_off, string + off,
                 (int32)strlen(string) - off);
-    cp = DCURXs*(pos - off);
+    cp = dcur_xs*(pos - off);
     init_conds_put_edit_cursor(window, cp);
     return 0;
 }
@@ -1325,7 +1325,7 @@ init_conds_expose_slides(Window window) {
 void
 init_conds_expose_slider(Window window, struct ParSlider *p) {
     int32 x;
-    int32 len = 12*DCURXs;
+    int32 len = 12*dcur_xs;
     char top[256];
     if (window == p->slide) {
         init_conds_draw_slider(window, p->pos, p->hgt, p->l);
@@ -1349,7 +1349,7 @@ init_conds_expose_slider(Window window, struct ParSlider *p) {
             sprintf(top, "%.16g", p->hi);
             x = 1;
             if (strlen(top) < 12) {
-                x = len - DCURXs*(int32)strlen(top) - 1;
+                x = len - dcur_xs*(int32)strlen(top) - 1;
             }
             XClearWindow(display, window);
             XDrawString(display, window, small_gc, x, cury_offs, top,
@@ -1393,8 +1393,8 @@ init_conds_draw_slider(Window window, int32 x, int32 hgt, int32 l) {
 void
 init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width,
                            int32 index) {
-    int32 mainhgt = 3*(DCURYs + 2);
-    int32 mainwid = 32*DCURXs;
+    int32 mainhgt = 3*(dcur_ys + 2);
+    int32 mainwid = 32*dcur_xs;
     int32 xs;
     Window window;
     if (mainwid < (width + 4)) {
@@ -1405,16 +1405,16 @@ init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width,
     my_par_slide[index].main = window;
     xs = (mainwid - width - 4) / 2;
     my_par_slide[index].slide =
-        pop_list_make_window(window, xs, DCURYs + 5, width + 4, DCURYs - 4, 1);
+        pop_list_make_window(window, xs, dcur_ys + 5, width + 4, dcur_ys - 4, 1);
     my_par_slide[index].go = pop_list_make_window(
-        window, xs + width + 8, DCURYs + 5, 3*DCURXs, DCURYs - 3, 1);
+        window, xs + width + 8, dcur_ys + 5, 3*dcur_xs, dcur_ys - 3, 1);
     my_par_slide[index].top =
-        pop_list_make_window(window, 2, 2, mainwid - 6, DCURYs, 1);
+        pop_list_make_window(window, 2, 2, mainwid - 6, dcur_ys, 1);
     my_par_slide[index].left =
-        pop_list_make_window(window, 2, 2*DCURYs + 3, 12*DCURXs, DCURYs, 0);
+        pop_list_make_window(window, 2, 2*dcur_ys + 3, 12*dcur_xs, dcur_ys, 0);
     my_par_slide[index].right =
-        pop_list_make_window(window, mainwid - 12*DCURXs - 4, 2*DCURYs + 3,
-                             12*DCURXs, DCURYs, 0);
+        pop_list_make_window(window, mainwid - 12*dcur_xs - 4, 2*dcur_ys + 3,
+                             12*dcur_xs, dcur_ys, 0);
     my_par_slide[index].lo = 0.0;
     my_par_slide[index].hi = 1.0;
     my_par_slide[index].val = 0.5;
@@ -1422,7 +1422,7 @@ init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width,
     my_par_slide[index].l = width + 4;
     my_par_slide[index].pos = (width + 4) / 2;
     my_par_slide[index].parname[0] = 0;
-    my_par_slide[index].hgt = DCURYs - 4;
+    my_par_slide[index].hgt = dcur_ys - 4;
 
     if ((notAlreadySet.SLIDER1 == 0) && (index == 0)) {
         strcpy(my_par_slide[index].parname, SLIDER1VAR);
@@ -1619,8 +1619,8 @@ init_conds_resize_par_box(Window window) {
 
 void
 init_conds_get_nrow_from_hgt(int32 h, int32 *n, int32 *w) {
-    int32 hgt = DCURYs + 4;
-    *w = 28*DCURXs;
+    int32 hgt = dcur_ys + 4;
+    *w = 28*dcur_xs;
     *n = h / (hgt + 4) - 5;
     return;
 }
@@ -1677,12 +1677,12 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
     n = b->n;
     nrow = b->nwin;
 
-    wid1 = 16*DCURXs;
-    wid2 = 22*DCURXs;
-    wid = wid1 + wid2 + DCURXs;
-    hgt = DCURYs + 4;
+    wid1 = 16*dcur_xs;
+    wid2 = 22*dcur_xs;
+    wid = wid1 + wid2 + dcur_xs;
+    hgt = dcur_ys + 4;
     height = (nrow + 4)*(hgt + 4) + 2*hgt;
-    width = wid + 8*DCURXs;
+    width = wid + 8*dcur_xs;
     b->minwid = width;
     b->minhgt = height;
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
@@ -1716,48 +1716,48 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
         }
     }
 
-    xb1 = 2 + 7*DCURXs + 14;
+    xb1 = 2 + 7*dcur_xs + 14;
 
-    xb2 = xb1 + 7*DCURXs + 14;
-    xb3 = xb2 + 7*DCURXs + 14;
-    xb4 = xb3 + 7*DCURXs + 14;
+    xb2 = xb1 + 7*dcur_xs + 14;
+    xb3 = xb2 + 7*dcur_xs + 14;
+    xb4 = xb3 + 7*dcur_xs + 14;
 
-    b->close = pop_list_make_window(base, 2, 5, 7*DCURXs + 10, DCURYs, 1);
-    b->ok = pop_list_make_window(base, xb1, 5, 7*DCURXs + 10, DCURYs, 1);
-    b->def = pop_list_make_window(base, xb2, 5, 7*DCURXs + 10, DCURYs, 1);
-    b->cancel = pop_list_make_window(base, xb3, 5, 7*DCURXs + 10, DCURYs, 1);
-    b->go = pop_list_make_window(base, xb4, 5, 7*DCURXs + 10, DCURYs, 1);
-    xb1 = DCURXs + wid1 + wid2 + 12;
+    b->close = pop_list_make_window(base, 2, 5, 7*dcur_xs + 10, dcur_ys, 1);
+    b->ok = pop_list_make_window(base, xb1, 5, 7*dcur_xs + 10, dcur_ys, 1);
+    b->def = pop_list_make_window(base, xb2, 5, 7*dcur_xs + 10, dcur_ys, 1);
+    b->cancel = pop_list_make_window(base, xb3, 5, 7*dcur_xs + 10, dcur_ys, 1);
+    b->go = pop_list_make_window(base, xb4, 5, 7*dcur_xs + 10, dcur_ys, 1);
+    xb1 = dcur_xs + wid1 + wid2 + 12;
 
     b->up = pop_list_make_icon_window(
-        base, xb1, (int32)(1.75*DCURYs) + 24 + 3, 32, 24, 1, lineup_bits);
+        base, xb1, (int32)(1.75*dcur_ys) + 24 + 3, 32, 24, 1, lineup_bits);
     b->dn = pop_list_make_icon_window(
-        base, xb1, (int32)(1.75*DCURYs) + 48 + 6, 32, 24, 1, linedn_bits);
-    b->pgup = pop_list_make_icon_window(base, xb1, (int32)(1.75*DCURYs), 32,
+        base, xb1, (int32)(1.75*dcur_ys) + 48 + 6, 32, 24, 1, linedn_bits);
+    b->pgup = pop_list_make_icon_window(base, xb1, (int32)(1.75*dcur_ys), 32,
                                         24, 1, pageup_bits);
     b->pgdn = pop_list_make_icon_window(
-        base, xb1, (int32)(1.75*DCURYs) + 72 + 9, 32, 24, 1, pagedn_bits);
+        base, xb1, (int32)(1.75*dcur_ys) + 72 + 9, 32, 24, 1, pagedn_bits);
 
     for (int32 i = 0; i < nrow; i++) {
-        x = DCURXs;
-        y = DCURYs + (hgt + 4)*i + (int32)(1.5*hgt);
+        x = dcur_xs;
+        y = dcur_ys + (hgt + 4)*i + (int32)(1.5*hgt);
         b->w[i] = pop_list_make_plain_window(base, x, y, wid1, hgt, 0);
         b->we[i] =
             pop_list_make_plain_window(base, x + wid1 + 2, y, wid2, hgt, 1);
         XSelectInput(display, b->w[i], BOXEVENT);
         if (type == ICBOX) {
-            b->ck[i] = pop_list_make_plain_window(base, 1, y, 6, DCURYs, 1);
+            b->ck[i] = pop_list_make_plain_window(base, 1, y, 6, dcur_ys, 1);
         }
     }
 
-    y = DCURYs + (hgt + 4)*nrow + (int32)(1.5*hgt);
+    y = dcur_ys + (hgt + 4)*nrow + (int32)(1.5*hgt);
     x = (width - 24) / 3;
     if (type == ICBOX) {
-        b->xvt = pop_list_make_window(base, x, y, 5*DCURXs, DCURYs, 1);
-        b->pp = pop_list_make_window(base, x + 6*DCURXs, y, 5*DCURXs,
-                                     DCURYs, 1);
-        b->arr = pop_list_make_window(base, x + 12*DCURXs, y, 5*DCURXs,
-                                      DCURYs, 1);
+        b->xvt = pop_list_make_window(base, x, y, 5*dcur_xs, dcur_ys, 1);
+        b->pp = pop_list_make_window(base, x + 6*dcur_xs, y, 5*dcur_xs,
+                                     dcur_ys, 1);
+        b->arr = pop_list_make_window(base, x + 12*dcur_xs, y, 5*dcur_xs,
+                                      dcur_ys, 1);
     }
 
     b->xuse = 1;
@@ -1840,8 +1840,8 @@ init_conds_do_box_expose(Window window) {
 
 void
 init_conds_justify_string(Window w1, char *s1) {
-    int32 n1 = (int32)strlen(s1)*DCURXs;
-    int32 nt = 10*DCURXs;
+    int32 n1 = (int32)strlen(s1)*dcur_xs;
+    int32 nt = 10*dcur_xs;
     int32 i = 0;
     if (n1 < nt) {
         i = nt - n1;
@@ -1981,12 +1981,12 @@ init_conds_display_box(BoxList b, Window window) {
         XDrawString(display, window, small_gc, 5, cury_offs, "Default", 7);
     }
     if (b.up == window) {
-        /*XDrawString(display,w,small_gc,5+DCURX,cury_offs,
+        /*XDrawString(display,w,small_gc,5+dcur_x,cury_offs,
         "^",1);
         */
     }
     if (b.dn == window) {
-        /*XDrawString(display,w,small_gc,5+DCURX,cury_offs,
+        /*XDrawString(display,w,small_gc,5+dcur_x,cury_offs,
         "v",1);*/
     }
     if (b.pgup == window) {
@@ -2513,7 +2513,7 @@ init_conds_draw_editable(Window window, char *string, int32 off, int32 cursor,
     XDrawString(display, window, small_gc, 0, cury_off, string + off, l);
     XGetInputFocus(display, &focus, &rev);
     if (focus == window) {
-        cp = DCURXs*(cursor - off);  // must be fixed
+        cp = dcur_xs*(cursor - off);  // must be fixed
         init_conds_put_edit_cursor(window, cp);
     }
     return;
@@ -2523,8 +2523,8 @@ void
 init_conds_put_edit_cursor(Window window, int32 pos) {
     int32 x1 = pos;
     int32 x2 = x1 + 1;
-    XDrawLine(display, window, small_gc, x1, 1, x1, DCURYs - 1);
-    XDrawLine(display, window, small_gc, x2, 1, x2, DCURYs - 1);
+    XDrawLine(display, window, small_gc, x1, 1, x1, dcur_ys - 1);
+    XDrawLine(display, window, small_gc, x2, 1, x2, dcur_ys - 1);
     return;
 }
 

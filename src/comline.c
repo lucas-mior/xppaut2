@@ -438,7 +438,7 @@ cli_parse_it(char *com) {
             xorfix = 0;
             break;
         case CONVERT:
-            ConvertStyle = 1;
+            convert_style = 1;
             break;
         case NOICON:
             noicon = 0;

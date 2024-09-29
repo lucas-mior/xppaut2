@@ -50,10 +50,10 @@ static int32 DFIELD_TYPE = 0;
 
 int32 DOING_DFIELD = 0;
 
-char ColorVia[15] = "speed";
+char color_via[15] = "speed";
 double color_via_lo = 0;
 double color_via_hi = 1;
-int32 ColorizeFlag = 0;
+int32 colorize_flag = 0;
 
 static RangeInfo ncrange;
 
@@ -456,7 +456,7 @@ nullcline_do_batch_nclines(void) {
 
 void
 nullcline_set_colorization_stuff(void) {
-    numerics_user_set_color_par(ColorizeFlag, ColorVia, color_via_lo, color_via_hi);
+    numerics_user_set_color_par(colorize_flag, color_via, color_via_lo, color_via_hi);
     return;
 }
 
@@ -551,7 +551,7 @@ nullcline_redraw_dfield(void) {
     dv = (MyGraph->yhi - MyGraph->ylo) / (double)grid;
 
     dup = (double)(DRight - DLeft) / (double)grid;
-    dvp = (double)(DTop - DBottom) / (double)grid;
+    dvp = (double)(DTop - d_buttom) / (double)grid;
     dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
@@ -676,7 +676,7 @@ nullcline_direct_field_com(int32 c) {
     dv = (MyGraph->yhi - MyGraph->ylo) / (double)grid;
 
     dup = (double)(DRight - DLeft) / (double)grid;
-    dvp = (double)(DTop - DBottom) / (double)grid;
+    dvp = (double)(DTop - d_buttom) / (double)grid;
     dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;

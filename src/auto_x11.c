@@ -921,8 +921,8 @@ auto_x11_display(Window window) {
 Window
 auto_x11_lil_button(Window root, int32 x, int32 y) {
     Window win;
-    int32 width = 12*DCURX;
-    win = pop_list_make_window(root, x, y, width, DCURY + 1, 1);
+    int32 width = 12*dcur_x;
+    win = pop_list_make_window(root, x, y, width, dcur_y + 1, 1);
     XSelectInput(display, win, MYMASK);
     return win;
 }
@@ -933,23 +933,23 @@ auto_x11_make(char *wname, char *iname) {
     int32 y;
     int32 wid;
     int32 hgt;
-    int32 addwid = 16*DCURX, addhgt = 3*DCURY, hinthgt = DCURY + 6;
+    int32 addwid = 16*dcur_x, addhgt = 3*dcur_y, hinthgt = dcur_y + 6;
     Window base = 0;
-    int32 dely = DCURY + 5;
-    int32 ymargin = 4*DCURYs;
-    int32 xmargin = 12*DCURXs;
+    int32 dely = dcur_y + 5;
+    int32 ymargin = 4*dcur_ys;
+    int32 xmargin = 12*dcur_xs;
     XTextProperty winname;
     XTextProperty iconname;
     XSizeHints size_hints;
 
-    STD_HGT_var = 20*DCURY;
-    STD_WID_var = 67*DCURX;
+    STD_HGT_var = 20*dcur_y;
+    STD_WID_var = 67*dcur_x;
     Auto_extra_wid = 10 + addwid;
-    Auto_extra_hgt = addhgt + 2*DCURY + hinthgt;
+    Auto_extra_hgt = addhgt + 2*dcur_y + hinthgt;
     wid = 10 + addwid + STD_WID_var + xmargin;
-    hgt = addhgt + 2*DCURY + STD_HGT_var + ymargin + hinthgt;
+    hgt = addhgt + 2*dcur_y + STD_HGT_var + ymargin + hinthgt;
     x = addwid + 5;
-    y = DCURY;
+    y = dcur_y;
     Auto_x0 = x;
     Auto_y0 = y;
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, wid,
@@ -988,17 +988,17 @@ auto_x11_make(char *wname, char *iname) {
     XSetWindowBackground(display, auto_win.canvas, MyDrawWinColor);
     XSelectInput(display, auto_win.canvas, MYMASK);
 
-    x = DCURX;
-    y = DCURY + STD_HGT_var + ymargin - 8*DCURX;
+    x = dcur_x;
+    y = dcur_y + STD_HGT_var + ymargin - 8*dcur_x;
     auto_win.stab =
-        pop_list_make_plain_window(base, x, y, 12*DCURX, 12*DCURX, 2);
-    Auto.st_wid = 12*DCURX;
-    x = DCURX + 2;
-    y = 2*DCURY;
+        pop_list_make_plain_window(base, x, y, 12*dcur_x, 12*dcur_x, 2);
+    Auto.st_wid = 12*dcur_x;
+    x = dcur_x + 2;
+    y = 2*dcur_y;
     Auto.hgt = STD_HGT_var;
     Auto.wid = STD_WID_var;
-    Auto.x0 = 10*DCURXs;
-    Auto.y0 = 2*DCURYs;
+    Auto.x0 = 10*dcur_xs;
+    Auto.y0 = 2*dcur_ys;
     auto_win.kill = auto_x11_lil_button(base, 2, 2);
     auto_win.param = auto_x11_lil_button(base, x, y);
     y += dely;
@@ -1021,12 +1021,12 @@ auto_x11_make(char *wname, char *iname) {
     y += 3*dely;
     auto_win.abort = auto_x11_lil_button(base, x, y);
 
-    y = DCURY + STD_HGT_var + ymargin + 5;
+    y = dcur_y + STD_HGT_var + ymargin + 5;
     x = addwid + 5;
     auto_win.info = pop_list_make_plain_window(
         base, x, y, STD_WID_var + xmargin, addhgt, 2);
     auto_win.hint = pop_list_make_plain_window(
-        base, x, y + addhgt + 6, STD_WID_var + xmargin, DCURY + 2, 2);
+        base, x, y + addhgt + 6, STD_WID_var + xmargin, dcur_y + 2, 2);
 
     auto_nox_draw_bix_axes();
     return;
@@ -1036,11 +1036,11 @@ void
 auto_x11_resize_window(XEvent event) {
     int32 wid;
     int32 hgt;
-    int32 addhgt = (int32)(3.5*DCURY);
-    int32 ymargin = 4*DCURYs;
-    int32 xmargin = 12*DCURXs;
-    STD_HGT_var = 20*DCURY;
-    STD_WID_var = 50*DCURX;
+    int32 addhgt = (int32)(3.5*dcur_y);
+    int32 ymargin = 4*dcur_ys;
+    int32 xmargin = 12*dcur_xs;
+    STD_HGT_var = 20*dcur_y;
+    STD_WID_var = 50*dcur_x;
 
     if (event.xconfigure.window == auto_win.base) {
         Window root;
@@ -1055,7 +1055,7 @@ auto_x11_resize_window(XEvent event) {
         wid = event.xconfigure.width - Auto_extra_wid;
         hgt = event.xconfigure.height - Auto_extra_hgt;
 
-        addhgt = 3*DCURY;
+        addhgt = 3*dcur_y;
 
         XResizeWindow(display, auto_win.canvas, (uint)wid, (uint)hgt);
 
@@ -1070,7 +1070,7 @@ auto_x11_resize_window(XEvent event) {
 
             XMoveResizeWindow(display, auto_win.hint, xloc,
                               yloc + (int32)chgt + addhgt + 10, (uint)wid,
-                              (uint)DCURY + 2);
+                              (uint)dcur_y + 2);
         }
 
         if (NBifs < 2) {

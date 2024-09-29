@@ -28,12 +28,12 @@ static int32 dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col);
 int32
 dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
                int32 max) {
-    int32 lm = (int32)strlen(name)*DCURX;
-    int32 lv = max*DCURX;
+    int32 lm = (int32)strlen(name)*dcur_x;
+    int32 lv = max*dcur_x;
     int32 pos;
     int32 colm;
-    int32 lo = (int32)strlen(ok)*DCURX;
-    int32 lc = (int32)strlen(cancel)*DCURX;
+    int32 lo = (int32)strlen(ok)*dcur_x;
+    int32 lc = (int32)strlen(cancel)*dcur_x;
 
     int32 status;
     XTextProperty winname;
@@ -44,7 +44,7 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
     strcpy(d.ok_s, ok);
     strcpy(d.cancel_s, cancel);
     d.base = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
-                                 (uint)(lm + lv + 20), (uint)(30 + 2*DCURY),
+                                 (uint)(lm + lv + 20), (uint)(30 + 2*dcur_y),
                                  2, MyForeColor, MyBackColor);
     XStringListToTextProperty(&wname, 1, &winname);
 
@@ -58,13 +58,13 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
     }
 
     d.mes = XCreateSimpleWindow(display, d.base, 5, 5, (uint)lm,
-                                (uint)DCURY + 8, 1, MyBackColor, MyBackColor);
+                                (uint)dcur_y + 8, 1, MyBackColor, MyBackColor);
     d.input = XCreateSimpleWindow(display, d.base, 10 + lm, 5, (uint)lv,
-                                  (uint)DCURY + 8, 1, MyBackColor, MyBackColor);
-    d.ok = XCreateSimpleWindow(display, d.base, 5, 10 + DCURY, (uint)lo + 4,
-                               (uint)DCURY + 8, 1, MyForeColor, MyBackColor);
-    d.cancel = XCreateSimpleWindow(display, d.base, 5 + lo + 10, 10 + DCURY,
-                                   (uint)lc + 4, (uint)DCURY + 8, 1,
+                                  (uint)dcur_y + 8, 1, MyBackColor, MyBackColor);
+    d.ok = XCreateSimpleWindow(display, d.base, 5, 10 + dcur_y, (uint)lo + 4,
+                               (uint)dcur_y + 8, 1, MyForeColor, MyBackColor);
+    d.cancel = XCreateSimpleWindow(display, d.base, 5 + lo + 10, 10 + dcur_y,
+                                   (uint)lc + 4, (uint)dcur_y + 8, 1,
                                    MyForeColor, MyBackColor);
 
     XSelectInput(display, d.base, EV_MASK);
@@ -78,7 +78,7 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
     XMapWindow(display, d.ok);
     XMapWindow(display, d.cancel);
     pos = (int32)strlen(d.input_s);
-    colm = DCURX*pos;
+    colm = dcur_x*pos;
     while (true) {
         status = dialog_box_event_loop(&d, &pos, &colm);
         if (status != -1) {

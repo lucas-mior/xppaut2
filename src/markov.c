@@ -108,13 +108,13 @@ build_markov(char **ma, char *name) {
     }
     // get number of states
     nstates = markov[index].nstates;
-    if (ConvertStyle) {
+    if (convert_style) {
         fprintf(convertf, "markov %s %d\n", name, nstates);
     }
     ggets_plintf(" Building %s %d states...\n", name, nstates);
     for (int32 i = 0; i < nstates; i++) {
         snprintf(line, sizeof(line), "%s", ma[i]);
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "%s", line);
         }
         istart = 0;
@@ -155,14 +155,14 @@ markov_old_build(FILE *fptr, char *name) {
     }
     // get number of states
     nstates = markov[index].nstates;
-    if (ConvertStyle) {
+    if (convert_style) {
         fprintf(convertf, "markov %s %d\n", name, nstates);
     }
     ggets_plintf(" Building %s ...\n", name);
     for (int32 i = 0; i < nstates; i++) {
         fgets(line, 256, fptr);
 
-        if (ConvertStyle) {
+        if (convert_style) {
             fprintf(convertf, "%s", line);
         }
         istart = 0;

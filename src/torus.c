@@ -170,13 +170,13 @@ torus_make_box(char *title) {
     int32 j1;
     int32 xpos;
     int32 ypos;
-    int32 xstart = DCURXs;
-    int32 ystart = DCURYs;
+    int32 xstart = dcur_xs;
+    int32 ystart = dcur_ys;
     Window base;
     XTextProperty winname;
     XSizeHints size_hints;
 
-    nv = 4*display_height / (5*(DCURYs + 8));
+    nv = 4*display_height / (5*(dcur_ys + 8));
 
     if (NEQ < nv) {
         ndn = NEQ;
@@ -188,8 +188,8 @@ torus_make_box(char *title) {
         nac++;
     }
 
-    width = 24*DCURXs*nac + 10;
-    height = 3*DCURYs + ndn*(DCURYs + 8);
+    width = 24*dcur_xs*nac + 10;
+    height = 3*dcur_ys + ndn*(dcur_ys + 8);
 
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
                                       height, 4);
@@ -218,19 +218,19 @@ torus_make_box(char *title) {
     for (int32 i = 0; i < NEQ; i++) {
         i1 = i / nv;
         j1 = i % nv;
-        xpos = xstart + 18*DCURXs*i1;
-        ypos = ystart + j1*(DCURYs + 8);
+        xpos = xstart + 18*dcur_xs*i1;
+        ypos = ystart + j1*(dcur_ys + 8);
         torbox.window[i] =
-            pop_list_make_window(base, xpos, ypos, 15*DCURXs, DCURYs, 1);
+            pop_list_make_window(base, xpos, ypos, 15*dcur_xs, dcur_ys, 1);
     }
 
-    xpos = (width - 16*DCURXs - 10) / 2;
-    ypos = height - 3*DCURYs / 2;
+    xpos = (width - 16*dcur_xs - 10) / 2;
+    ypos = height - 3*dcur_ys / 2;
 
     torbox.cancel =
-        pop_list_make_window(base, xpos, ypos, 8*DCURXs, DCURYs, 1);
-    torbox.done = pop_list_make_window(base, xpos + 8*DCURXs + 10, ypos,
-                                       8*DCURXs, DCURYs, 1);
+        pop_list_make_window(base, xpos, ypos, 8*dcur_xs, dcur_ys, 1);
+    torbox.done = pop_list_make_window(base, xpos + 8*dcur_xs + 10, ypos,
+                                       8*dcur_xs, dcur_ys, 1);
     XSelectInput(display, torbox.cancel, BUT_MASK);
     XSelectInput(display, torbox.done, BUT_MASK);
     XRaiseWindow(display, torbox.base);

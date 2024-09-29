@@ -290,7 +290,7 @@ axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     int32 xaxis_y;
     int32 yaxis_x;
 
-    int32 ybot = DBottom;
+    int32 ybot = d_buttom;
     int32 ytop = DTop;
     int32 xleft = DLeft;
     int32 xright = DRight;
@@ -362,7 +362,7 @@ axes_draw_ytics(char *s1, double start, double incr, double end) {
         graphics_put_text(DLeft - (int32)(1.25*HChar), yt, bob);
     }
     graphics_scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
-    if (DTop < DBottom) {
+    if (DTop < d_buttom) {
         s = -1;
     }
     if (PltFmtFlag == SVGFMT) {
@@ -397,7 +397,7 @@ axes_draw_xtics(char *s2, double start, double incr, double end) {
     int32 xt;
     int32 yt = 0;
     int32 s = 1;
-    if (DTop < DBottom) {
+    if (DTop < d_buttom) {
         s = -1;
     }
     TextJustify = 1;  // Center justification
@@ -409,7 +409,7 @@ axes_draw_xtics(char *s2, double start, double incr, double end) {
         sprintf(bob, "%g", place);
         graphics_scale_to_screen((double)place, y_min, &xt, &yt);
         axes_doing_box = 0;
-        graphics_line(xt, DBottom, xt, DBottom + s*VTic);
+        graphics_line(xt, d_buttom, xt, d_buttom + s*VTic);
         axes_doing_box = 1;
         graphics_line(xt, DTop, xt, DTop - s*VTic);
         axes_doing_box = 0;
