@@ -193,8 +193,8 @@ numerics_get_num_par(int32 ch) {
         }
         if (METHOD == GEAR || METHOD == RKQS || METHOD == STIFF) {
             ggets_new_float("Tolerance :", &TOLER);
-            ggets_new_float("minimum step :", &HMIN);
-            ggets_new_float("maximum step :", &HMAX);
+            ggets_new_float("minimum step :", &h_min);
+            ggets_new_float("maximum step :", &h_max);
         }
         if (METHOD == CVODE || METHOD == DP5 || METHOD == DP83 ||
             METHOD == RB23) {

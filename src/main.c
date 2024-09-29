@@ -333,7 +333,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.bvp_flag = 1;
     notAlreadySet.SOS = 1;
     notAlreadySet.FFT = 1;
-    notAlreadySet.HIST = 1;
+    notAlreadySet.hist = 1;
     notAlreadySet.PltFmtFlag = 1;
     notAlreadySet.atoler = 1;
     notAlreadySet.euler_max_iter = 1;

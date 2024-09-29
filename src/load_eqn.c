@@ -86,8 +86,8 @@ double bound;
 double delay;
 double TOLER;
 double atoler;
-double HMIN;
-double HMAX;
+double h_min;
+double h_max;
 double bvp_eps;
 double bvp_tol;
 
@@ -111,7 +111,7 @@ int32 SOS;
 int32 FFT;
 int32 NULL_HERE;
 int32 POIEXT;
-int32 HIST;
+int32 hist;
 int32 HVAR;
 int32 hist_ind;
 int32 forever;
@@ -295,9 +295,9 @@ load_eqn_set_all_vals(void) {
         FFT = 0;
         notAlreadySet.FFT = 0;
     }
-    if (notAlreadySet.HIST) {
-        HIST = 0;
-        notAlreadySet.HIST = 0;
+    if (notAlreadySet.hist) {
+        hist = 0;
+        notAlreadySet.hist = 0;
     }
     if (notAlreadySet.PltFmtFlag) {
         PltFmtFlag = 0;
@@ -328,7 +328,7 @@ load_eqn_set_all_vals(void) {
         notAlreadySet.delay = 0;
     }
     if (notAlreadySet.DTMIN) {
-        HMIN = 1e-12;
+        h_min = 1e-12;
         notAlreadySet.DTMIN = 0;
     }
     if (notAlreadySet.evec_iter) {
@@ -353,7 +353,7 @@ load_eqn_set_all_vals(void) {
     }
     del_stab_flag = DFNORMAL;
     if (notAlreadySet.DTMAX) {
-        HMAX = 1.000;
+        h_max = 1.000;
         notAlreadySet.DTMAX = 0;
     }
     if (notAlreadySet.POIMAP) {
@@ -647,11 +647,11 @@ load_eqn_read_defaults(FILE *fp) {
         notAlreadySet.bound = 0;
     }
     if (notAlreadySet.DTMIN) {
-        load_eqn_fil_flt(fp, &HMIN);
+        load_eqn_fil_flt(fp, &h_min);
         notAlreadySet.DTMIN = 0;
     }
     if (notAlreadySet.DTMAX) {
-        load_eqn_fil_flt(fp, &HMAX);
+        load_eqn_fil_flt(fp, &h_max);
         notAlreadySet.DTMIN = 0;
     }
     if (notAlreadySet.TOLER) {
@@ -1490,7 +1490,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("DTMIN", s1)) {
         if ((notAlreadySet.DTMIN || force) ||
             ((mask != NULL) && (mask->DTMIN == 1))) {
-            HMIN = atof(s2);
+            h_min = atof(s2);
             notAlreadySet.DTMIN = 0;
         }
         return;
@@ -1498,7 +1498,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("DTMAX", s1)) {
         if ((notAlreadySet.DTMAX || force) ||
             ((mask != NULL) && (mask->DTMAX == 1))) {
-            HMAX = atof(s2);
+            h_max = atof(s2);
             notAlreadySet.DTMAX = 0;
         }
         return;

@@ -355,11 +355,11 @@ axes_draw_ytics(char *s1, double start, double incr, double end) {
         sprintf(bob, "%g", place);
         graphics_scale_to_screen((double)x_min, (double)place, &xt, &yt);
         axes_doing_box = 0;
-        graphics_line(d_left, yt, d_left + HTic, yt);
+        graphics_line(d_left, yt, d_left + h_tic, yt);
         axes_doing_box = 1;
-        graphics_line(d_right, yt, d_right - HTic, yt);
+        graphics_line(d_right, yt, d_right - h_tic, yt);
         axes_doing_box = 0;
-        graphics_put_text(d_left - (int32)(1.25*HChar), yt, bob);
+        graphics_put_text(d_left - (int32)(1.25*h_char), yt, bob);
     }
     graphics_scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
     if (d_top < d_buttom) {
@@ -377,10 +377,10 @@ axes_draw_ytics(char *s1, double start, double incr, double end) {
         fprintf(svgfile,
                 "\n      <text class=\"xppyaxislabelh\" text-anchor=\"end\" "
                 "x=\"%d\"  y=\"%d\"\n",
-                d_left - HChar, yt + 2*s*VChar);
+                d_left - h_char, yt + 2*s*VChar);
         fprintf(svgfile, "      >%s</text>\n", s1);
     } else {
-        graphics_put_text(d_left - HChar, yt + 2*s*VChar, s1);
+        graphics_put_text(d_left - h_char, yt + 2*s*VChar, s1);
     }
     return;
 }

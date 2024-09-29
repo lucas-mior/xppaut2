@@ -314,7 +314,7 @@ pp_shoot_find_bvp_com(int32 com) {
     browser_wipe_rep();
     adjoints_data_back();
     pp_shoot_compile_bvp();
-    if (FFT || HIST || delay_flag || bvp_flag == 0) {
+    if (FFT || hist || delay_flag || bvp_flag == 0) {
         return;
     }
     STORFLAG = 0;

@@ -1077,7 +1077,7 @@ graf_par_draw_freeze_key(void) {
     int32 iy;
     int32 y0;
     int32 ix2;
-    int32 dy = 2*HChar;
+    int32 dy = 2*h_char;
     if (FreezeKeyFlag == SCRNFMT) {
         return;
     }
@@ -1085,7 +1085,7 @@ graf_par_draw_freeze_key(void) {
         dy = -dy;
     }
     graphics_scale_to_screen((double)FreezeKeyX, (double)FreezeKeyY, &ix, &iy);
-    ix2 = ix + 4*HChar;
+    ix2 = ix + 4*h_char;
     y0 = iy;
     for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].window == draw_win &&
@@ -1093,7 +1093,7 @@ graf_par_draw_freeze_key(void) {
             graphics_set_linestyle(ABS(frz[i].color));
             graphics_line(ix, y0, ix2, y0);
             graphics_set_linestyle(0);
-            graphics_put_text(ix2 + HChar, y0, frz[i].key);
+            graphics_put_text(ix2 + h_char, y0, frz[i].key);
             y0 += dy;
         }
     }

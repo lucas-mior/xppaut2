@@ -46,7 +46,7 @@ int32 avromfonts[5];
 
     d_left,d_right,d_top,d_buttom are the actual graph areas
     VTic Htic are the actual sizes of the tics in device pixels
-    VChar HChar are the height and width used for character spacing
+    VChar h_char are the height and width used for character spacing
 
     linetypes   -2  thick plain lines
                 -1  thin plain lines
@@ -58,9 +58,9 @@ int32 d_right;
 int32 d_top;
 int32 d_buttom;
 int32 VTic;
-int32 HTic;
+int32 h_tic;
 int32 VChar;
-int32 HChar;
+int32 h_char;
 int32 XDMax;
 int32 YDMax;
 double XMin;
@@ -132,12 +132,12 @@ graphics_get_draw_area_flag(int32 flag) {
     XDMax = (int32)w;
     YDMax = (int32)h;
     VTic = MAX(h / 100, 1);
-    HTic = MAX(w / 150, 1);
+    h_tic = MAX(w / 150, 1);
     VChar = dcur_ys;
-    HChar = dcur_xs;
+    h_char = dcur_xs;
 
-    d_left = 12*HChar;
-    d_right = XDMax - 3*HChar - HTic;
+    d_left = 12*h_char;
+    d_right = XDMax - 3*h_char - h_tic;
     d_buttom = YDMax - 1 - VChar*7 / 2;
     d_top = VChar*5 / 2 + 1;
     h = (uint32)(d_buttom - d_top);
@@ -238,22 +238,22 @@ graphics_init_ps(void) {
         XDMax = 7200;
         YDMax = 5040;
         VTic = 63;
-        HTic = 63;
+        h_tic = 63;
         VChar = 140;
-        HChar = 84;
-        d_left = 12*HChar;
-        d_right = XDMax - 3*HChar - HTic;
+        h_char = 84;
+        d_left = 12*h_char;
+        d_right = XDMax - 3*h_char - h_tic;
         d_top = YDMax - 1 - VChar*7 / 2;
         d_buttom = VChar*5 / 2 + 1;
     } else {
         YDMax = 7200;
         XDMax = 5040;
         VTic = 63;
-        HTic = 63;
+        h_tic = 63;
         VChar = 140;
-        HChar = 84;
-        d_left = 12*HChar;
-        d_right = XDMax - 3*HChar - HTic;
+        h_char = 84;
+        d_left = 12*h_char;
+        d_right = XDMax - 3*h_char - h_tic;
         d_top = YDMax - 1 - VChar*7 / 2;
         d_buttom = VChar*5 / 2 + 1;
     }
@@ -265,11 +265,11 @@ graphics_init_svg(void) {
     XDMax = 640;
     YDMax = 400;
     VTic = 9;
-    HTic = 9;
+    h_tic = 9;
     VChar = 20;
-    HChar = 12;
-    d_left = 12*HChar;
-    d_right = XDMax - 3*HChar - HTic;
+    h_char = 12;
+    d_left = 12*h_char;
+    d_right = XDMax - 3*h_char - h_tic;
     d_buttom = YDMax - 1 - VChar*7 / 2;
     d_top = VChar*5 / 2 + 1;
     return;

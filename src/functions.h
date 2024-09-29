@@ -396,7 +396,7 @@ extern char delay_string[MAX_ODE][80];
 extern int32 itor[MAX_ODE];
 
 extern int32 POIEXT;
-extern int32 HIST;
+extern int32 hist;
 
 extern int32 end_sing;
 extern int32 SHOOT;
@@ -442,8 +442,8 @@ extern double MY_YHI;
 
 extern char options[100];
 extern double atoler;
-extern double HMIN;
-extern double HMAX;
+extern double h_min;
+extern double h_max;
 extern double bvp_eps;
 extern double bvp_tol;
 extern int32 euler_max_iter;
@@ -1405,9 +1405,9 @@ extern int32 d_right;
 extern int32 d_top;
 extern int32 d_buttom;
 extern int32 VTic;
-extern int32 HTic;
+extern int32 h_tic;
 extern int32 VChar;
-extern int32 HChar;
+extern int32 h_char;
 extern int32 XDMax;
 extern int32 YDMax;
 extern double XMin;
@@ -2148,7 +2148,7 @@ typedef struct OptionsSet {
     int32 bvp_flag;
     int32 SOS;
     int32 FFT;
-    int32 HIST;
+    int32 hist;
     int32 PltFmtFlag;
     int32 atoler;
     int32 euler_max_iter;
@@ -2762,8 +2762,8 @@ extern double NEWT_ERR;
 extern double bound;
 extern double delay;
 extern double TOLER;
-extern double HMIN;
-extern double HMAX;
+extern double h_min;
+extern double h_max;
 extern double *fft_data;
 extern double *hist_data;
 extern double POIPLN;
@@ -2785,7 +2785,7 @@ extern int32 POIVAR;
 extern int32 POISGN;
 extern int32 SOS;
 
-extern int32 HIST;
+extern int32 hist;
 extern int32 HVAR;
 extern int32 hist_ind;
 

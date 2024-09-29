@@ -247,7 +247,7 @@ integrate_cont_integ(void) {
     double *x;
     double dif;
 
-    if (INFLAG == 0 || FFT != 0 || HIST != 0) {
+    if (INFLAG == 0 || FFT != 0 || hist != 0) {
         return;
     }
     tetemp = TEND;
@@ -1034,7 +1034,7 @@ integrate_find_equilib_com(int32 com) {
     double oldtrans;
 
     x = &MyData[0];
-    if (FFT || HIST || NKernel > 0) {
+    if (FFT || hist || NKernel > 0) {
         return;
     }
 
@@ -1284,7 +1284,7 @@ integrate_do_init_data(int32 com) {
     RANGE_FLAG = 0;
     delay_err = 0;
     dae_fun_reset_dae();
-    if (FFT || HIST) {
+    if (FFT || hist) {
         return;
     }
 
@@ -1848,7 +1848,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             if (*istart == 1) {
                 *istart = 0;
             }
-            gear(nodes, t, tout, xpv.x, HMIN, HMAX, TOLER, 2, error, &kflag,
+            gear(nodes, t, tout, xpv.x, h_min, h_max, TOLER, 2, error, &kflag,
                  istart, WORK, IWORK);
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
@@ -1915,7 +1915,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             break;
         case RKQS:
         case STIFF:
-            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &dt, HMIN, WORK,
+            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &dt, h_min, WORK,
                            &kflag, NEWT_ERR, METHOD, istart);
             MSWTCH(y, xpv.x);
             if (kflag) {
@@ -2050,14 +2050,14 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         switch (METHOD) {
         case GEAR: {
             tout = tzero + dt*(icount + 1);
-            if (fabs(dt) < fabs(HMIN)) {
+            if (fabs(dt) < fabs(h_min)) {
                 LastTime = *t;
                 return 1;
             }
 
             MSWTCH(xpv.x, x);
 
-            gear(nodes, t, tout, xpv.x, HMIN, HMAX, TOLER, 2, error, &kflag,
+            gear(nodes, t, tout, xpv.x, h_min, h_max, TOLER, 2, error, &kflag,
                  start, WORK, IWORK);
 
             MSWTCH(x, xpv.x);
@@ -2099,7 +2099,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         case CVODE:
 
             tout = tzero + dt*(icount + 1);
-            if (fabs(dt) < fabs(HMIN)) {
+            if (fabs(dt) < fabs(h_min)) {
                 LastTime = *t;
                 cv_end();
                 return 1;
@@ -2131,7 +2131,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         case DP5:
         case DP83:
             tout = tzero + dt*(icount + 1);
-            if (fabs(dt) < fabs(HMIN)) {
+            if (fabs(dt) < fabs(h_min)) {
                 LastTime = *t;
 
                 return 1;
@@ -2160,7 +2160,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             break;
         case RB23:
             tout = tzero + dt*(icount + 1);
-            if (fabs(dt) < fabs(HMIN)) {
+            if (fabs(dt) < fabs(h_min)) {
                 LastTime = *t;
 
                 return 1;
@@ -2190,12 +2190,12 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         case RKQS:
         case STIFF:
             tout = tzero + dt*(icount + 1);
-            if (fabs(dt) < fabs(HMIN)) {
+            if (fabs(dt) < fabs(h_min)) {
                 LastTime = *t;
                 return 1;
             }
             MSWTCH(xpv.x, x);
-            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, HMIN, WORK,
+            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, h_min, WORK,
                            &kflag, NEWT_ERR, METHOD, start);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);

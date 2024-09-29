@@ -112,8 +112,8 @@ lunch_do_info(FILE *fp) {
             bpv_maxit);
     fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g delay=%g MaxPts=%d\n",
             delta_t, T0, TRANS, TEND, bound, delay, MaxPoints);
-    fprintf(fp, "evec_err=%g, NEWT_ERR=%g HMIN=%g HMAX=%g TOLER=%g \n",
-            evec_err, NEWT_ERR, HMIN, HMAX, TOLER);
+    fprintf(fp, "evec_err=%g, NEWT_ERR=%g h_min=%g h_max=%g TOLER=%g \n",
+            evec_err, NEWT_ERR, h_min, h_max, TOLER);
     if (POIVAR == 0) {
         strcpy(bob, "T");
     } else {
@@ -339,8 +339,8 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_double(&T0, fp, f, "T0");
     lunch_io_double(&TRANS, fp, f, "Transient");
     lunch_io_double(&bound, fp, f, "Bound");
-    lunch_io_double(&HMIN, fp, f, "DtMin");
-    lunch_io_double(&HMAX, fp, f, "DtMax");
+    lunch_io_double(&h_min, fp, f, "DtMin");
+    lunch_io_double(&h_max, fp, f, "DtMax");
     lunch_io_double(&TOLER, fp, f, "Tolerance");
     // fix stuff concerning the tolerance
     if (f == READEM) {

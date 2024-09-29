@@ -25,8 +25,8 @@ extern int32 end_sing;
 
 extern int32 METHOD;
 extern int32 NJMP;
-extern double HMIN;
-extern double HMAX;
+extern double h_min;
+extern double h_max;
 extern double TOLER;
 extern double atoler;
 extern double bound;
@@ -42,7 +42,7 @@ extern double *fft_data;
 extern int32 FFT;
 
 extern double *hist_data;
-extern int32 HIST;
+extern int32 hist;
 extern int32 HVAR;
 extern int32 hist_ind;
 
