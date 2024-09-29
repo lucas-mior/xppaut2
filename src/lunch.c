@@ -110,8 +110,8 @@ lunch_do_info(FILE *fp) {
             method[METHOD], EVEC_ITER);
     fprintf(fp, "BVP_EPS=%g,BVP_TOL=%g,BVP_MAXIT=%d \n", BVP_EPS, BVP_TOL,
             BVP_MAXIT);
-    fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g BOUND=%g DELAY=%g MaxPts=%d\n",
-            DELTA_T, T0, TRANS, TEND, BOUND, DELAY, MaxPoints);
+    fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g DELAY=%g MaxPts=%d\n",
+            DELTA_T, T0, TRANS, TEND, bound, DELAY, MaxPoints);
     fprintf(fp, "EVEC_ERR=%g, NEWT_ERR=%g HMIN=%g HMAX=%g TOLER=%g \n",
             EVEC_ERR, NEWT_ERR, HMIN, HMAX, TOLER);
     if (POIVAR == 0) {
@@ -338,7 +338,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_double(&DELTA_T, fp, f, "DeltaT");
     lunch_io_double(&T0, fp, f, "T0");
     lunch_io_double(&TRANS, fp, f, "Transient");
-    lunch_io_double(&BOUND, fp, f, "Bound");
+    lunch_io_double(&bound, fp, f, "Bound");
     lunch_io_double(&HMIN, fp, f, "DtMin");
     lunch_io_double(&HMAX, fp, f, "DtMax");
     lunch_io_double(&TOLER, fp, f, "Tolerance");

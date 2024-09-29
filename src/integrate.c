@@ -420,7 +420,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
             x[j] = markov_ndrand48()*(fixptguess.xhi[j] - fixptguess.xlo[j]) +
                    fixptguess.xlo[j];
         }
-        gear_do_sing_info(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, er, em,
+        gear_do_sing_info(x, NEWT_ERR, EVEC_ERR, bound, EVEC_ITER, NODE, er, em,
                           &ierr);
         if (ierr == 0) {
             m = fixptlist.n;
@@ -589,10 +589,10 @@ integrate_eq_range(double *x) {
             integrate_monte_carlo_search(0, 0, 1);
         } else {
             if (DelayFlag) {
-                del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER,
+                del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, bound, EVEC_ITER,
                                        NODE, &ierr, &stabinfo);
             } else {
-                gear_do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE,
+                gear_do_sing(x, NEWT_ERR, EVEC_ERR, bound, EVEC_ITER, NODE,
                              &ierr, &stabinfo);
             }
         }
@@ -1005,7 +1005,7 @@ integrate_silent_equilibria(void) {
         x[i] = last_ic[i];
     }
 
-    gear_do_sing_info(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, er, em,
+    gear_do_sing_info(x, NEWT_ERR, EVEC_ERR, bound, EVEC_ITER, NODE, er, em,
                       &ierr);
     if (ierr == 0) {
         fp = fopen("equil.dat", "w");
@@ -1079,11 +1079,11 @@ integrate_find_equilib_com(int32 com) {
     }
 
     if (DelayFlag) {
-        del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE,
+        del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, bound, EVEC_ITER, NODE,
                                &ierr, &stabinfo);
         ggets_ping();
     } else {
-        gear_do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
+        gear_do_sing(x, NEWT_ERR, EVEC_ERR, bound, EVEC_ITER, NODE, &ierr,
                      &stabinfo);
     }
     TRANS = oldtrans;
@@ -2313,7 +2313,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 break;
             }
             // end of NaN
-            if (fabs(x[ieqn - 1]) > BOUND) {
+            if (fabs(x[ieqn - 1]) > bound) {
                 if (RANGE_FLAG || SuppressBounds) {
                     break;
                 }

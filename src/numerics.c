@@ -149,8 +149,8 @@ numerics_get_num_par(int32 ch) {
         break;
     case 'b':
         // bounds
-        ggets_new_float("Bounds :", &BOUND);
-        BOUND = fabs(BOUND);
+        ggets_new_float("Bounds :", &bound);
+        bound = fabs(bound);
         break;
     case 'm': {
         // method

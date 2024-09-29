@@ -82,7 +82,7 @@ double TRANS;
 double NULL_ERR;
 double EVEC_ERR;
 double NEWT_ERR;
-double BOUND;
+double bound;
 double DELAY;
 double TOLER;
 double atoler;
@@ -414,9 +414,9 @@ load_eqn_set_all_vals(void) {
         notAlreadySet.YMAX = 0;
     }
 
-    if (notAlreadySet.BOUND) {
-        BOUND = 100;
-        notAlreadySet.BOUND = 0;
+    if (notAlreadySet.bound) {
+        bound = 100;
+        notAlreadySet.bound = 0;
     }
     if (notAlreadySet.MAXSTOR) {
         MAXSTOR = 5000;
@@ -642,9 +642,9 @@ load_eqn_read_defaults(FILE *fp) {
         load_eqn_fil_flt(fp, &TRANS);
         notAlreadySet.TRANS = 0;
     }
-    if (notAlreadySet.BOUND) {
-        load_eqn_fil_flt(fp, &BOUND);
-        notAlreadySet.BOUND = 0;
+    if (notAlreadySet.bound) {
+        load_eqn_fil_flt(fp, &bound);
+        notAlreadySet.bound = 0;
     }
     if (notAlreadySet.DTMIN) {
         load_eqn_fil_flt(fp, &HMIN);
@@ -1527,11 +1527,11 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         }
         return;
     }
-    if (load_eqn_msc("BOUND", s1)) {
-        if ((notAlreadySet.BOUND || force) ||
-            ((mask != NULL) && (mask->BOUND == 1))) {
-            BOUND = atof(s2);
-            notAlreadySet.BOUND = 0;
+    if (load_eqn_msc("bound", s1)) {
+        if ((notAlreadySet.bound || force) ||
+            ((mask != NULL) && (mask->bound == 1))) {
+            bound = atof(s2);
+            notAlreadySet.bound = 0;
         }
         return;
     }

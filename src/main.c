@@ -234,7 +234,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.DT = 1;
     notAlreadySet.T0 = 1;
     notAlreadySet.TRANS = 1;
-    notAlreadySet.BOUND = 1;
+    notAlreadySet.bound = 1;
     notAlreadySet.TOLER = 1;
     notAlreadySet.DELAY = 1;
     notAlreadySet.XLO = 1;

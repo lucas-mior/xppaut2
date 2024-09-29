@@ -1908,7 +1908,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         return 0;
     }
 
-    // Calculate the (transpose of the) BEYN matrix D and hence BOUND
+    // Calculate the (transpose of the) BEYN matrix D and hence bound
     for (int64 i = 0; i < mcond; ++i) {
         for (int32 j = 0; j < mcond; ++j) {
             dum1[i + j*(*ndm)] = 0.;

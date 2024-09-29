@@ -29,7 +29,7 @@ extern double HMIN;
 extern double HMAX;
 extern double TOLER;
 extern double atoler;
-extern double BOUND;
+extern double bound;
 extern double DELAY;
 extern double NULL_ERR;
 extern double EVEC_ERR;

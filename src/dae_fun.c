@@ -263,7 +263,7 @@ dae_fun_do_daes(void) {
             y[i] -= errvec[i];
             err += fabs(errvec[i]);
         }
-        if (err > (n*BOUND)) {
+        if (err > (n*bound)) {
             for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, svar[i].last);
             }

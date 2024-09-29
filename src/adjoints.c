@@ -504,7 +504,7 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
         error = 0.0;
 
         for (int32 i = 0; i < node; i++) {
-            if (fabs(yold[i]) > BOUND) {
+            if (fabs(yold[i]) > bound) {
                 rval = 0;
                 ggets_err_msg("Out of bounds");
                 goto bye;

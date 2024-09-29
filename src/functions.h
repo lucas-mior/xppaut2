@@ -2048,7 +2048,7 @@ typedef struct OptionsSet {
     int32 DT;
     int32 T0;
     int32 TRANS;
-    int32 BOUND;
+    int32 bound;
     int32 TOLER;
     int32 DELAY;
     int32 XLO;
@@ -2759,7 +2759,7 @@ extern double TRANS;
 extern double NULL_ERR;
 extern double EVEC_ERR;
 extern double NEWT_ERR;
-extern double BOUND;
+extern double bound;
 extern double DELAY;
 extern double TOLER;
 extern double HMIN;
