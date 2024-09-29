@@ -1666,7 +1666,7 @@ extern double MyData[MAX_ODE];
 extern double MyTime;
 extern int32 MyStart;
 extern int32 RANGE_FLAG;
-extern double LastTime;
+extern double last_time;
 
 void integrate_init_ar_ic(void);
 void integrate_dump_range(FILE *fp, int32 f);
@@ -2647,9 +2647,9 @@ extern FILE *psfile;
 extern int32 PltFmtFlag;
 extern int32 PSColorFlag;
 extern int32 PSLines;
-extern int32 LastPSX;
-extern int32 LastPSY;
-extern int32 LastPtLine;
+extern int32 last_psx;
+extern int32 last_psy;
+extern int32 last_pt_line;
 
 int32 ps_init(char *filename, int32 color);
 void ps_stroke(void);

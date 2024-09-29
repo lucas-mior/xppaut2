@@ -27,8 +27,8 @@ svg_init(char *filename) {
 
     graphics_init_svg();
 
-    LastPSX = -10000;
-    LastPSY = -10000;
+    last_psx = -10000;
+    last_psy = -10000;
 
     if ((svgfile = fopen(filename, "w")) == NULL) {
         ggets_err_msg("Cannot open file ");
@@ -454,7 +454,7 @@ svg_frect(int32 x, int32 y, int32 w, int32 h) {
 
 void
 svg_last_pt_off(void) {
-    LastPtLine = 0;
+    last_pt_line = 0;
     return;
 }
 
@@ -548,8 +548,8 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
         }
     }
 
-    LastPSX = xp2;
-    LastPSY = yp2;
+    last_psx = xp2;
+    last_psy = yp2;
 
     DOING_SVG_COLOR = 0;
     DO_MARKER = 0;
@@ -608,7 +608,7 @@ svg_point(int32 x, int32 y) {
     }
 
     PSLines = 0;
-    LastPtLine = 0;
+    last_pt_line = 0;
     DOING_SVG_COLOR = 0;
     return;
 }

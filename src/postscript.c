@@ -22,7 +22,7 @@
 #define RIGHT 2
 #define CENTER 1
 #define POINT_TYPES 8
-int32 LastPtLine;
+int32 last_pt_line;
 int32 NoBreakLine = 0;
 int32 PS_FONTSIZE = 14;
 double PS_LW = 5;
@@ -32,8 +32,8 @@ FILE *psfile;
 int32 PltFmtFlag;
 int32 PSColorFlag = 1;
 int32 PSLines;
-int32 LastPSX;
-int32 LastPSY;
+int32 last_psx;
+int32 last_psy;
 
 /* this header stuff was stolen from GNUPLOT I have added  filled circles
  * and open circles for bifurcation diagrams I also use Times Roman
@@ -121,8 +121,8 @@ ps_init(char *filename, int32 color) {
     graphics_init_ps();
     PltFmtFlag = 1;
     PSLines = 0;
-    LastPSX = -10000;
-    LastPSY = -10000;
+    last_psx = -10000;
+    last_psy = -10000;
     fprintf(psfile, "%%!PS-Adobe-2.0\n");
     fprintf(psfile, "%%Creator: xppaut\n");
     fprintf(psfile, "%%%%BoundingBox: %d %d %d %d\n", PS_XOFF, PS_YOFF,
@@ -208,37 +208,37 @@ ps_frect(int32 x, int32 y, int32 w, int32 h) {
 
 void
 ps_last_pt_off(void) {
-    LastPtLine = 0;
+    last_pt_line = 0;
     return;
 }
 
 void
 ps_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
-    LastPtLine = 1;
+    last_pt_line = 1;
     if (NoBreakLine == 1) {
         fprintf(psfile, "%d %d M\n%d %d L\n", xp1, yp1, xp2, yp2);
-        LastPSX = xp2;
-        LastPSY = yp2;
+        last_psx = xp2;
+        last_psy = yp2;
         ps_check_lines();
         return;
     }
-    if (xp1 == LastPSX && yp1 == LastPSY) {
-        LastPSX = xp2;
-        LastPSY = yp2;
+    if (xp1 == last_psx && yp1 == last_psy) {
+        last_psx = xp2;
+        last_psy = yp2;
         fprintf(psfile, "%d %d L\n", xp2, yp2);
         ps_check_lines();
         return;
     }
-    if (xp2 == LastPSX && yp2 == LastPSY) {
-        LastPSX = xp1;
-        LastPSY = yp1;
+    if (xp2 == last_psx && yp2 == last_psy) {
+        last_psx = xp1;
+        last_psy = yp1;
         fprintf(psfile, "%d %d L\n", xp1, yp1);
         ps_check_lines();
         return;
     }
     fprintf(psfile, "%d %d M\n%d %d L\n", xp1, yp1, xp2, yp2);
-    LastPSX = xp2;
-    LastPSY = yp2;
+    last_psx = xp2;
+    last_psy = yp2;
     ps_check_lines();
     return;
 }
@@ -259,8 +259,8 @@ ps_linetype(int32 linetype) {
 
     fprintf(psfile, "LT%c\n", line[(linetype % 11) + 2]);
     PSLines = 0;
-    LastPSX = -100000000;
-    LastPSY = -100000000;
+    last_psx = -100000000;
+    last_psy = -100000000;
     return;
 }
 
@@ -277,7 +277,7 @@ ps_point(int32 x, int32 y) {
     }
     fprintf(psfile, "%d %d %c\n", x, y, point[number + 1]);
     PSLines = 0;
-    LastPtLine = 0;
+    last_pt_line = 0;
     return;
 }
 

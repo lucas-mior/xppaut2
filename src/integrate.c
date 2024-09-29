@@ -108,7 +108,7 @@ double MyData[MAX_ODE];
 double MyTime;
 int32 MyStart;
 int32 RANGE_FLAG;
-double LastTime;
+double last_time;
 
 static int32 STOP_FLAG = 0;
 
@@ -1319,7 +1319,7 @@ integrate_do_init_data(int32 com) {
         }
         integrate_get_ic(0, x);
         if (com == M_IS) {
-            T0 = LastTime;
+            T0 = last_time;
             MyTime = T0;
         }
         if (METHOD == VOLTERRA && oldstart == 0) {
@@ -2000,7 +2000,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         cwidth = main_get_command_width();
     }
 
-    LastTime = *t;
+    last_time = *t;
     derived_evaluate();
 
     if ((METHOD == GEAR) && (*start == 1)) {
@@ -2051,7 +2051,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         case GEAR: {
             tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(h_min)) {
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
 
@@ -2064,14 +2064,14 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             delay_handle_stor_delay(x);
             if (delay_err) {
                 delay_err = 0;
-                LastTime = *t;
+                last_time = *t;
                 dae_fun_err_dae();
                 return 1;
             }
             if (kflag < 0) {
                 ggets_ping();
                 if (RANGE_FLAG || SuppressBounds) {
-                    LastTime = *t;
+                    last_time = *t;
                     return 1;
                 }
                 switch (kflag) {
@@ -2091,7 +2091,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     break;
                 }
 
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
         } break;
@@ -2100,7 +2100,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
             tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(h_min)) {
-                LastTime = *t;
+                last_time = *t;
                 cv_end();
                 return 1;
             }
@@ -2111,17 +2111,17 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (delay_err) {
                 delay_err = 0;
                 dae_fun_err_dae();
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
             if (kflag < 0) {
                 ggets_ping();
                 if (RANGE_FLAG || SuppressBounds) {
-                    LastTime = *t;
+                    last_time = *t;
                     return 1;
                 }
                 cvode_err_msg(kflag);
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
 
@@ -2132,7 +2132,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         case DP83:
             tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(h_min)) {
-                LastTime = *t;
+                last_time = *t;
 
                 return 1;
             }
@@ -2144,16 +2144,16 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (delay_err) {
                 delay_err = 0;
                 dae_fun_err_dae();
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
             if (kflag < 0) {
                 if (RANGE_FLAG || SuppressBounds) {
-                    LastTime = *t;
+                    last_time = *t;
                     return 1;
                 }
                 dormpri_dp_err(kflag);
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
 
@@ -2161,7 +2161,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         case RB23:
             tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(h_min)) {
-                LastTime = *t;
+                last_time = *t;
 
                 return 1;
             }
@@ -2172,16 +2172,16 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (delay_err) {
                 delay_err = 0;
                 dae_fun_err_dae();
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
             if (kflag < 0) {
                 if (RANGE_FLAG || SuppressBounds) {
-                    LastTime = *t;
+                    last_time = *t;
                     return 1;
                 }
                 ggets_err_msg("Step size too small");
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
 
@@ -2191,7 +2191,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         case STIFF:
             tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(h_min)) {
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
             MSWTCH(xpv.x, x);
@@ -2202,13 +2202,13 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (delay_err) {
                 delay_err = 0;
                 dae_fun_err_dae();
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
             if (kflag) {
                 ggets_ping();
                 if (RANGE_FLAG || SuppressBounds) {
-                    LastTime = *t;
+                    last_time = *t;
                     return 1;
                 }
                 switch (kflag) {
@@ -2230,7 +2230,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 default:
                     break;
                 }
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
 
@@ -2259,7 +2259,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     break;
                 }
 
-                LastTime = *t;
+                last_time = *t;
                 return 1;
             }
         }
@@ -2523,7 +2523,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         // END POST INTEGRATE ANALYSIS
     }
 
-    LastTime = *t;
+    last_time = *t;
 #ifdef CVODE_YES
     if (METHOD == CVODE) {
         cv_end();

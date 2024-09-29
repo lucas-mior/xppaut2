@@ -368,7 +368,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_int(&SOS, fp, f, "Stop on Section");
     lunch_io_int(&delay_flag, fp, f, "Delay flag");
     lunch_io_double(&MyTime, fp, f, "Current time");
-    lunch_io_double(&LastTime, fp, f, "Last Time");
+    lunch_io_double(&last_time, fp, f, "Last Time");
     lunch_io_int(&MyStart, fp, f, "MyStart");
     lunch_io_int(&in_flag, fp, f, "in_flag");
     return;
