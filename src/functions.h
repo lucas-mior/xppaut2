@@ -996,16 +996,17 @@ dopri5(uint32 n,        // dimension of the system <= UINT_MAX-1
        double uround,   // rounding unit
        double safe,     // safety factor
        double fac1,     // parameters for step size selection
-       double fac2, double beta,  // for stabilized step size control
-       double hmax,               // maximal step size
-       double h,                  // initial step size
-       long nmax,                 // maximal number of allowed steps
-       int32 meth,                // switch for the choice of the coefficients
-       long nstiff,               // test for stiffness
+       double fac2,
+       double beta,     // for stabilized step size control
+       double hmax,     // maximal step size
+       double h,        // initial step size
+       long nmax,       // maximal number of allowed steps
+       int32 meth,      // switch for the choice of the coefficients
+       long nstiff,     // test for stiffness
        uint32 nrdens,  /* number of components for which dense outpout is
-                            required */
+                          required */
        uint32 *icont,  /* indexes of components for which dense output is
-                            required, >= nrdens */
+                          required, >= nrdens */
        uint32 licont,  // declared length of icon
        double *work);
 
