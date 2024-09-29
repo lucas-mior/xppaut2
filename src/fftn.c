@@ -54,7 +54,7 @@
  *	fftradix / fftradixf
  *
  * ----------------------------------------------------------------------*
- * int32 fftradix (REAL Re[], REAL Im[], usize nTotal, usize nPass,
+ * int32 fftradix (REAL Re[], REAL im[], usize nTotal, usize nPass,
  *		 usize nSpan, int32 iSign, usize maxFactors,
  *		 usize maxPerm);
  *
@@ -75,16 +75,16 @@
  * ISIGN - see above documentation
  *
  * example:
- * tri-variate transform with Re[n1][n2][n3], Im[n1][n2][n3]
+ * tri-variate transform with Re[n1][n2][n3], im[n1][n2][n3]
  *
- *	fftradix (Re, Im, n1*n2*n3, n1,       n1, 1, maxf, maxp);
- *	fftradix (Re, Im, n1*n2*n3, n2,    n1*n2, 1, maxf, maxp);
- *	fftradix (Re, Im, n1*n2*n3, n3, n1*n2*n3, 1, maxf, maxp);
+ *	fftradix (Re, im, n1*n2*n3, n1,       n1, 1, maxf, maxp);
+ *	fftradix (Re, im, n1*n2*n3, n2,    n1*n2, 1, maxf, maxp);
+ *	fftradix (Re, im, n1*n2*n3, n3, n1*n2*n3, 1, maxf, maxp);
  *
  * single-variate transform,
  *    NTOTAL = N = NSPAN = (number of floatcomplex data values),
  *
- *	fftradix (Re, Im, n, n, n, 1, maxf, maxp);
+ *	fftradix (Re, im, n, n, n, 1, maxf, maxp);
  *
  * The data can also be stored in a single array with alternating
  * real and imaginary parts, the magnitude of ISIGN is changed to 2
@@ -305,7 +305,7 @@ fftn_factorize(int32 nPass, int32 *kt) {
 #define FFTRADIX fftradix
 #define FFTRADIXS "fftradix"
 /* double precision routine */
-static int32 fftradix(double Re[], double Im[], usize nTotal, usize nPass,
+static int32 fftradix(double Re[], double im[], usize nTotal, usize nPass,
                       usize nSpan, int32 isign, int32 maxFactors,
                       int32 maxPerm);
 #include __FILE__  // include this file again
@@ -326,7 +326,7 @@ static int32 fftradix(double Re[], double Im[], usize nTotal, usize nPass,
 #define FFTRADIX fftradixf     // trailing 'f' for double
 #define FFTRADIXS "fftradixf"  // name for error message
 /* double precision routine */
-static int32 fftradixf(double Re[], double Im[], usize nTotal, usize nPass,
+static int32 fftradixf(double Re[], double im[], usize nTotal, usize nPass,
                        usize nSpan, int32 isign, int32 maxFactors,
                        int32 maxPerm);
 #include __FILE__  // include this file again
@@ -341,10 +341,10 @@ static int32 fftradixf(double Re[], double Im[], usize nTotal, usize nPass,
 
 #ifndef Re_Data
 #define Re_Data(i) Re[i]
-#define Im_Data(i) Im[i]
+#define Im_Data(i) im[i]
 #endif
 
-static int32 FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass,
+static int32 FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass,
                       usize nSpan, int32 iSign, int32 maxFactors,
                       int32 maxPerm);
 
@@ -352,7 +352,7 @@ static int32 FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass,
  *
  */
 int32
-FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
+FFTN(int32 ndim, int32 dims[], REAL Re[], REAL im[], int32 iSign,
      double scaling) {
     usize nTotal;
     int32 maxFactors;
@@ -421,7 +421,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         for (int32 i = 0; i < ndim; i++) {
             int32 ret;
             nSpan *= (usize)dims[i];
-            ret = FFTRADIX(Re, Im, nTotal, (usize)dims[i], nSpan, iSign,
+            ret = FFTRADIX(Re, im, nTotal, (usize)dims[i], nSpan, iSign,
                            maxFactors, maxPerm);
             // exit, clean-up already done
             if (ret) {
@@ -430,7 +430,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         }
     } else {
         int32 ret;
-        ret = FFTRADIX(Re, Im, nTotal, nTotal, nTotal, iSign, maxFactors,
+        ret = FFTRADIX(Re, im, nTotal, nTotal, nTotal, iSign, maxFactors,
                        maxPerm);
         // exit, clean-up already done
         if (ret) {
@@ -468,7 +468,7 @@ Dimension_Error:
  * possible to make this a standalone function
  */
 int32
-FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
+FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan,
          int32 iSign, int32 maxFactors, int32 maxPerm) {
     int32 ii;
     int32 nFactor;
@@ -527,7 +527,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
 
     // Parameter adjustments, was fortran so fix zero-offset
     Re--;
-    Im--;
+    im--;
 
     if (nPass < 2) {
         return 0;

@@ -1115,11 +1115,11 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
  * Brief overview of parameters:
  * ---------------------------------------------------------------------*
  * Re[]:	real value array
- * Im[]:	imaginary value array
+ * im[]:	imaginary value array
  * nTotal:	total number of floatcomplex values
  * nPass:	number of elements involved in this pass of transform
  * nSpan:	nspan/nPass = number of bytes to increment pointer
- *		in Re[] and Im[]
+ *		in Re[] and im[]
  * isign:	exponent: +1 = forward  -1 = reverse
  * scaling:	normalizing constant by which the final result is DIVIDED
  *	scaling == -1, normalize by total dimension of the transform
@@ -1135,7 +1135,7 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
  *
  * ----------------------------------------------------------------------*
  *
- * int32 fftn (int32 ndim,  int32 dims[], REAL Re[], REAL Im[],
+ * int32 fftn (int32 ndim,  int32 dims[], REAL Re[], REAL im[],
  *	    int32 iSign, double scaling);
  *
  * NDIM = the total number dimensions
@@ -1157,14 +1157,14 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
  *	if SCALING <  -1, normalize by the square-root of the total dimension
  *
  * example:
- * tri-variate transform with Re[n3][n2][n1], Im[n3][n2][n1]
+ * tri-variate transform with Re[n3][n2][n1], im[n3][n2][n1]
  *
  *	int32 dims[3] = {n1,n2,n3}
- *	fftn (3, dims, Re, Im, 1, scaling);
+ *	fftn (3, dims, Re, im, 1, scaling);
  *
  * or, using a null terminated dimension list
  *	int32 dims[4] = {n1,n2,n3,0}
- *	fftn (0, dims, Re, Im, 1, scaling);
+ *	fftn (0, dims, Re, im, 1, scaling);
  * ----------------------------------------------------------------------*/
 #ifndef FFTN_H
 #define FFTN_H
@@ -1172,11 +1172,11 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
 extern void fft_free(void);
 
 /* double precision routine */
-extern int32 fftn(int32 ndim, int32 dims[], double Re[], double Im[], int32,
+extern int32 fftn(int32 ndim, int32 dims[], double Re[], double im[], int32,
                   double scaling);
 
 /* double precision routine */
-extern int32 fftnf(int32 ndim, int32 dims[], double Re[], double Im[],
+extern int32 fftnf(int32 ndim, int32 dims[], double Re[], double im[],
                    int32 isign, double scaling);
 
 #endif
