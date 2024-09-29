@@ -163,7 +163,7 @@ static void init_conds_expose_selector(Window window);
 static BoxList *HotBox;
 static int32 HotBoxItem = -1;
 static BoxList ICBox;
-BoxList ParamBox;
+BoxList param_box;
 static BoxList DelayBox;
 static BoxList BCBox;
 
@@ -1494,16 +1494,16 @@ init_conds_make_new_delay_box(void) {
 
 void
 init_conds_make_new_param_box(void) {
-    if (ParamBox.use == 0) {
+    if (param_box.use == 0) {
         return;
     }
-    if (ParamBox.xuse == 1) {
-        XRaiseWindow(display, ParamBox.base);
+    if (param_box.xuse == 1) {
+        XRaiseWindow(display, param_box.base);
         return;
     }
-    init_conds_make_box_list_window(&ParamBox, PARAMBOX);
+    init_conds_make_box_list_window(&param_box, PARAMBOX);
     many_pops_make_icon((char *)param_bits, param_width, param_height,
-                        ParamBox.base);
+                        param_box.base);
     return;
 }
 
@@ -1512,10 +1512,10 @@ init_conds_initialize_box(void) {
     init_conds_make_box_list(&ICBox, "Initial Data", "ICs", NODE + NMarkov,
                              ICBOX, 1);
     if (NUPAR > 0) {
-        init_conds_make_box_list(&ParamBox, "Parameters", "Par", NUPAR,
+        init_conds_make_box_list(&param_box, "Parameters", "Par", NUPAR,
                                  PARAMBOX, 1);
     } else {
-        ParamBox.use = 0;
+        param_box.use = 0;
     }
     if (NDELAYS > 0) {
         init_conds_make_box_list(&DelayBox, "Delay ICs", "Delay", NODE,
@@ -1529,7 +1529,7 @@ init_conds_initialize_box(void) {
     /*  if(noicon==0){
     if(ICBox.xuse)XIconifyWindow(display,ICBox.base,screen);
     if(DelayBox.xuse) XIconifyWindow(display,DelayBox.base,screen);
-    if(ParamBox.xuse) XIconifyWindow(display,ParamBox.base,screen);
+    if(param_box.xuse) XIconifyWindow(display,param_box.base,screen);
      if(BCBox.xuse)XIconifyWindow(display,BCBox.base,screen);
      } */
     return;
@@ -1550,9 +1550,9 @@ init_conds_resize_par_box(Window window) {
         init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
 
-    if (ParamBox.xuse == 1 && window == ParamBox.base) {
+    if (param_box.xuse == 1 && window == param_box.base) {
         ok = 2;
-        b = &ParamBox;
+        b = &param_box;
         browser_wait_a_sec(ClickTime);
 
         eig_list_get_new_size(window, &w, &h);
@@ -1596,7 +1596,7 @@ init_conds_resize_par_box(Window window) {
         init_conds_make_new_ic_box();
         break;
     case 2:
-        init_conds_destroy_box(&ParamBox);
+        init_conds_destroy_box(&param_box);
         init_conds_make_new_param_box();
         break;
     case 3:
@@ -1829,8 +1829,8 @@ init_conds_do_box_expose(Window window) {
     if (BCBox.xuse) {
         init_conds_display_box(BCBox, window);
     }
-    if (ParamBox.xuse) {
-        init_conds_display_box(ParamBox, window);
+    if (param_box.xuse) {
+        init_conds_display_box(param_box, window);
     }
     if (DelayBox.xuse) {
         init_conds_display_box(DelayBox, window);
@@ -1907,11 +1907,11 @@ void
 init_conds_redraw_params(void) {
     double z;
     derived_evaluate();
-    if (ParamBox.use) {
+    if (param_box.use) {
         for (int32 i = 0; i < NUPAR; i++) {
             get_val(upar_names[i], &z);
-            init_conds_add_edit_float(&ParamBox, i, z);
-            init_conds_draw_one_box(ParamBox, i);
+            init_conds_add_edit_float(&param_box, i, z);
+            init_conds_draw_one_box(param_box, i);
         }
     }
     init_conds_reset_sliders();
@@ -2043,8 +2043,8 @@ init_conds_box_enter_events(Window window, int32 yn) {
     if (BCBox.xuse) {
         init_conds_box_enter(BCBox, window, val);
     }
-    if (ParamBox.xuse) {
-        init_conds_box_enter(ParamBox, window, val);
+    if (param_box.xuse) {
+        init_conds_box_enter(param_box, window, val);
     }
     if (DelayBox.xuse) {
         init_conds_box_enter(DelayBox, window, val);
@@ -2303,8 +2303,8 @@ init_conds_box_buttons(Window window) {
     if (DelayBox.xuse) {
         init_conds_do_box_button(&DelayBox, window);
     }
-    if (ParamBox.xuse) {
-        init_conds_do_box_button(&ParamBox, window);
+    if (param_box.xuse) {
+        init_conds_do_box_button(&param_box, window);
     }
     return;
 }
@@ -2329,8 +2329,8 @@ init_conds_box_keypress(XEvent event, int32 *used) {
             return;
         }
     }
-    if (ParamBox.xuse) {
-        init_conds_do_box_key(&ParamBox, event, used);
+    if (param_box.xuse) {
+        init_conds_do_box_key(&param_box, event, used);
         if (*used) {
             return;
         }
@@ -2462,8 +2462,8 @@ init_conds_new_parameter(void) {
                 if (done == 0) {
                     set_val(upar_names[index], z);
                     sprintf(junk, "%.16g", z);
-                    init_conds_set_edit_params(&ParamBox, index, junk);
-                    init_conds_draw_one_box(ParamBox, index);
+                    init_conds_set_edit_params(&param_box, index, junk);
+                    init_conds_draw_one_box(param_box, index);
                     init_conds_reset_sliders();
                 }
                 if (done == -1) {
@@ -2491,7 +2491,7 @@ init_conds_set_default_params(void) {
     for (int32 i = 0; i < NUPAR; i++) {
         set_val(upar_names[i], default_val[i]);
         sprintf(junk, "%.16g", default_val[i]);
-        init_conds_set_edit_params(&ParamBox, i, junk);
+        init_conds_set_edit_params(&param_box, i, junk);
     }
 
     init_conds_redraw_params();

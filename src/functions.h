@@ -1391,7 +1391,7 @@ void graf_par_dump_ps(int32 i);
 
 extern double THETA0;
 extern double PHI0;
-extern int32 PS_Port;
+extern int32 ps_port;
 extern int32 PointRadius;
 extern int32 PointType;
 
@@ -1536,7 +1536,7 @@ extern int32 post_process;
 
 extern int32 four_here;
 
-extern BoxList ParamBox;
+extern BoxList param_box;
 
 int32 histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
                       double xlo, double xhi, double ylo, double yhi);
@@ -2137,8 +2137,8 @@ typedef struct OptionsSet {
     int32 AUTOXMIN;
     int32 AUTOYMIN;
     int32 AUTOVAR;
-    int32 PS_FONT;
-    int32 PS_LW;
+    int32 ps_font;
+    int32 ps_lw;
     int32 PS_FSIZE;
     int32 PS_COLOR;
     int32 forever;
@@ -2639,10 +2639,10 @@ void menu_draw_help(void);
 #define POSTSCRIPT_H
 
 extern int32 NoBreakLine;
-extern int32 PS_FONTSIZE;
+extern int32 ps_fontsize;
 
-extern double PS_LW;
-extern char PS_FONT[200];
+extern double ps_lw;
+extern char ps_font[200];
 extern FILE *psfile;
 extern int32 PltFmtFlag;
 extern int32 PSColorFlag;

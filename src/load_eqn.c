@@ -2044,20 +2044,20 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
 
     // postscript options
 
-    if (load_eqn_msc("PS_FONT", s1)) {
-        if ((notAlreadySet.PS_FONT || force) ||
-            ((mask != NULL) && (mask->PS_FONT == 1))) {
-            strcpy(PS_FONT, s2);
-            notAlreadySet.PS_FONT = 0;
+    if (load_eqn_msc("ps_font", s1)) {
+        if ((notAlreadySet.ps_font || force) ||
+            ((mask != NULL) && (mask->ps_font == 1))) {
+            strcpy(ps_font, s2);
+            notAlreadySet.ps_font = 0;
         }
         return;
     }
 
-    if (load_eqn_msc("PS_LW", s1)) {
-        if ((notAlreadySet.PS_LW || force) ||
-            ((mask != NULL) && (mask->PS_LW == 1))) {
-            PS_LW = atof(s2);
-            notAlreadySet.PS_LW = 0;
+    if (load_eqn_msc("ps_lw", s1)) {
+        if ((notAlreadySet.ps_lw || force) ||
+            ((mask != NULL) && (mask->ps_lw == 1))) {
+            ps_lw = atof(s2);
+            notAlreadySet.ps_lw = 0;
         }
         return;
     }
@@ -2065,7 +2065,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("PS_FSIZE", s1)) {
         if ((notAlreadySet.PS_FSIZE || force) ||
             ((mask != NULL) && (mask->PS_FSIZE == 1))) {
-            PS_FONTSIZE = atoi(s2);
+            ps_fontsize = atoi(s2);
             notAlreadySet.PS_FSIZE = 0;
         }
         return;

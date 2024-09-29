@@ -16,7 +16,7 @@
 #define PS_HTIC (PS_YMAX / 80)
 
 #define PS_SC (10)  // scale is 1pt = 10 units
-#define PS_VCHAR (PS_FONTSIZE*PS_SC)
+#define PS_VCHAR (ps_fontsize*PS_SC)
 
 #define LEFT 0
 #define RIGHT 2
@@ -24,9 +24,9 @@
 #define POINT_TYPES 8
 int32 last_pt_line;
 int32 NoBreakLine = 0;
-int32 PS_FONTSIZE = 14;
-double PS_LW = 5;
-char PS_FONT[200] = "Times-Roman";
+int32 ps_fontsize = 14;
+double ps_lw = 5;
+char ps_font[200] = "Times-Roman";
 FILE *psfile;
 /*Default is now with color*/
 int32 PltFmtFlag;
@@ -138,7 +138,7 @@ ps_init(char *filename, int32 color) {
         fprintf(psfile, "/RGb {setrgbcolor } def\n");
         PSColorFlag = 1;
     }
-    fprintf(psfile, "/xpplinewidth %.3f def\n", PS_LW);
+    fprintf(psfile, "/xpplinewidth %.3f def\n", ps_lw);
     fprintf(psfile, "/vshift %d def\n", (int32)(PS_VCHAR) / (-3));
     fprintf(psfile, "/dl {%d mul} def\n", PS_SC);  // dash length
     fprintf(psfile, "/hpt %.1f def\n", PS_HTIC / 2.0);
@@ -152,10 +152,10 @@ ps_init(char *filename, int32 color) {
     fprintf(psfile, "gsave\n");
     fprintf(psfile, "%d %d translate\n", PS_XOFF, PS_YOFF);
     fprintf(psfile, "%.3f %.3f scale\n", 1. / PS_SC, 1. / PS_SC);
-    if (!PS_Port) {
+    if (!ps_port) {
         fprintf(psfile, "90 rotate\n0 %d translate\n", -PS_YMAX);
     }
-    fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE*PS_SC);
+    fprintf(psfile, "/%s findfont %d ", ps_font, ps_fontsize*PS_SC);
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "newpath\n");
     return 1;
@@ -290,7 +290,7 @@ ps_write(char *str) {
 void
 ps_fnt(int32 cf, int32 scale) {
     if (cf == 0) {
-        fprintf(psfile, "/%s findfont %d scalefont setfont \n", PS_FONT, scale);
+        fprintf(psfile, "/%s findfont %d scalefont setfont \n", ps_font, scale);
     } else {
         fprintf(psfile, "%d Symfnt\n", scale);
     }
@@ -408,7 +408,7 @@ void
 ps_text(int32 x, int32 y, char *str) {
     char ch;
     fprintf(psfile, "0 0 0 setrgbcolor \n");
-    fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE*PS_SC);
+    fprintf(psfile, "/%s findfont %d ", ps_font, ps_fontsize*PS_SC);
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "%d %d moveto\n", x, y);
     if (TextAngle != 0) {

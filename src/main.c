@@ -322,8 +322,8 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.AUTOXMIN = 1;
     notAlreadySet.AUTOYMIN = 1;
     notAlreadySet.AUTOVAR = 1;
-    notAlreadySet.PS_FONT = 1;
-    notAlreadySet.PS_LW = 1;
+    notAlreadySet.ps_font = 1;
+    notAlreadySet.ps_lw = 1;
     notAlreadySet.PS_FSIZE = 1;
     notAlreadySet.PS_COLOR = 1;
     notAlreadySet.forever = 1;

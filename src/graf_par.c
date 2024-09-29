@@ -1490,18 +1490,18 @@ graf_par_add_a_curve_com(int32 c) {
         int32 status;
         char values[LENGTH(nn)][MAX_LEN_SBOX];
         snprintf(values[0], sizeof(values[0]), "%d", ps_color);
-        snprintf(values[1], sizeof(values[1]), "%d", PS_Port);
-        snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
-        strncpy(values[3], PS_FONT, sizeof(values[3]));
-        snprintf(values[4], sizeof(values[4]), "%g", PS_LW);
+        snprintf(values[1], sizeof(values[1]), "%d", ps_port);
+        snprintf(values[2], sizeof(values[2]), "%d", ps_fontsize);
+        strncpy(values[3], ps_font, sizeof(values[3]));
+        snprintf(values[4], sizeof(values[4]), "%g", ps_lw);
         status = pop_list_do_string_box(5, 5, 1, "Postscript parameters", nn,
                                         values, 25);
         if (status != 0) {
             ps_color = atoi(values[0]);
-            PS_Port = atoi(values[1]);
-            PS_FONTSIZE = atoi(values[2]);
-            PS_LW = atof(values[4]);
-            snprintf(PS_FONT, sizeof(PS_FONT), "%s", values[3]);
+            ps_port = atoi(values[1]);
+            ps_fontsize = atoi(values[2]);
+            ps_lw = atof(values[4]);
+            snprintf(ps_font, sizeof(ps_font), "%s", values[3]);
             snprintf(filename, sizeof(filename), "%s.ps", this_file);
             ggets_ping();
 
@@ -1546,7 +1546,7 @@ graf_par_add_a_curve_com(int32 c) {
         snprintf(values[3], sizeof(values[3]), "%d", MyGraph->xorgflag);
         snprintf(values[4], sizeof(values[4]), "%d", MyGraph->yorgflag);
         snprintf(values[5], sizeof(values[5]), "%d", MyGraph->zorgflag);
-        snprintf(values[6], sizeof(values[6]), "%d", PS_FONTSIZE);
+        snprintf(values[6], sizeof(values[6]), "%d", ps_fontsize);
         status = pop_list_do_string_box(7, 7, 1, "Axes options", n, values, 25);
         if (status != 0) {
             MyGraph->xorg = atof(values[0]);
@@ -1555,7 +1555,7 @@ graf_par_add_a_curve_com(int32 c) {
             MyGraph->xorgflag = atoi(values[3]);
             MyGraph->yorgflag = atoi(values[4]);
             MyGraph->zorgflag = atoi(values[5]);
-            PS_FONTSIZE = atoi(values[6]);
+            ps_fontsize = atoi(values[6]);
             graf_par_redraw_the_graph();
         }
         break;

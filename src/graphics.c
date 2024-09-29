@@ -18,7 +18,7 @@
 double THETA0 = 45;
 double PHI0 = 45;
 
-int32 PS_Port = 0;
+int32 ps_port = 0;
 int32 PointRadius = 0;
 
 static char dashes[10][5] = {{0},       {1, 6, 0}, {0},       {4, 2, 0},
@@ -234,7 +234,7 @@ graphics_init_x11(void) {
 
 void
 graphics_init_ps(void) {
-    if (!PS_Port) {
+    if (!ps_port) {
         XDMax = 7200;
         YDMax = 5040;
         VTic = 63;

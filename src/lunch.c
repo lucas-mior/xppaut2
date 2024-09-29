@@ -488,8 +488,8 @@ lunch_io_parameters(int32 f, FILE *fp) {
                 index = init_conds_find_user_name(PARAMBOX, upar_names[i]);
                 if (index >= 0) {
                     sprintf(junk, "%.16g", z);
-                    init_conds_set_edit_params(&ParamBox, index, junk);
-                    init_conds_draw_one_box(ParamBox, index);
+                    init_conds_set_edit_params(&param_box, index, junk);
+                    init_conds_draw_one_box(param_box, index);
                 }
             }
         }
