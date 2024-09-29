@@ -1171,16 +1171,17 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
 extern void fft_free(void);
 
 /* double precision routine */
-extern int32 fftn(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
-                  double /* Im */[], int32 /* isign */, double /* scaling */);
+extern int32 fftn(int32 ndim, int32 dims[], double Re[],
+                  double Im[], int32, double scaling);
 
 /* double precision routine */
-extern int32 fftnf(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
-                   double /* Im */[], int32 /* isign */, double /* scaling */);
+extern int32 fftnf(int32 ndim, int32 dims[], double Re[],
+                   double Im[], int32 isign, double scaling);
 
-#endif  // _FFTN_H
+#endif
 
 /*----------------------- end-of-file (C header) -----------------------*/
+
 #ifndef FLAGS_H
 #define FLAGS_H
 
@@ -1576,7 +1577,7 @@ typedef struct BoxListold {
     Window *w;
     Window *we;
     char **value;
-    int32 mc,
+    int32 mc;
     int32 *off;
     int32 *pos;
 } BoxListold;
