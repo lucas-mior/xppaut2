@@ -247,7 +247,7 @@ adjoints_make_adj_com(int32 com) {
         adjoints_h_back();
         break;
     case 'p':
-         // adj2 adjoint parameters 
+        // adj2 adjoint parameters
         ggets_new_int("Maximum iterates :", &ADJ_MAXIT);
         ggets_new_float("Adjoint error tolerance :", &ADJ_ERR);
         break;
@@ -336,9 +336,9 @@ adjoints_make_h(double **orb, double **adj, int32 nt, int32 node,
             }
         }
     }
-     // formulae are fine .. lets do it ... 
+    // formulae are fine .. lets do it ...
     for (int32 j = 0; j < nt; j++) {
-         // j is phi variable 
+        // j is phi variable
         sum = 0.0;
 
         for (int32 k = 0; k < nt; k++) {
@@ -454,7 +454,7 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
     /* Now we compute the
      * transpose time reversed jacobian -- this is floatcomplex !! */
     for (int32 k = 0; k < nt; k++) {
-        l = nt - 1 - k;  // reverse the limit cycle 
+        l = nt - 1 - k;  // reverse the limit cycle
         for (int32 i = 0; i < node; i++) {
             yold[i] = (double)orbit[i + 1][l];
         }
@@ -475,10 +475,10 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
         }
     }
 
-     // now we iterate to get a good adjoint using implicit Euler's method 
+    // now we iterate to get a good adjoint using implicit Euler's method
     ytemp = 0.0;
     for (int32 i = 0; i < node; i++) {
-        yold[i] = 1. + .01*(markov_ndrand48() - .5);  // random initial data 
+        yold[i] = 1. + .01*(markov_ndrand48() - .5);  // random initial data
 
         ytemp += fabs(yold[i]);
     }
@@ -523,8 +523,8 @@ adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
             break;
         }
     }
-     // onelast time to compute the adjoint 
-    prod = 0.0;  // for normalization   
+    // onelast time to compute the adjoint
+    prod = 0.0;  // for normalization
     t = 0.0;
     for (int32 k = 0; k < nt; k++) {
         l = nt - k - 1;
@@ -625,7 +625,7 @@ adjoints_do_liapunov(void) {
     }
     x = &MyData[0];
     integrate_do_range(x, 0);
-     // done the range 
+    // done the range
     for (int32 i = 0; i < LIAP_I; i++) {
         storage[0][i] = my_liap[0][i];
         storage[1][i] = my_liap[1][i];
@@ -683,7 +683,7 @@ adjoints_hrw_liapunov(double *liap, int32 batch, double eps) {
         return 0;
     }
 
-     // lets make an initial random perturbation 
+    // lets make an initial random perturbation
     for (int32 i = 0; i < NODE; i++) {
         dy[i] = 0;
     }
@@ -702,7 +702,7 @@ adjoints_hrw_liapunov(double *liap, int32 batch, double eps) {
         }
 
         {
-             // adj2 norm vec 
+            // adj2 norm vec
             double *v = yp;
             double *mu = &nrm;
             int32 n = NODE;

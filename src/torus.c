@@ -48,11 +48,11 @@ do_torus_com(int32 c) {
             TORUS = 1;
             return;
         }
-         // Choose them   
-         // choose_torus 
+        // Choose them
+        // choose_torus
         torus_make_box("Fold which");
 
-         // do torus events 
+        // do torus events
         for (int32 i = 0; i < NEQ; i++) {
             oldit[i] = itor[i];
         }
@@ -60,9 +60,9 @@ do_torus_com(int32 c) {
             XNextEvent(display, &event);
             switch (event.type) {
             case Expose:
-                many_pops_do_expose(event);  //  menus and graphs etc  
+                many_pops_do_expose(event);  //  menus and graphs etc
                 {
-                     // draw torus box 
+                    // draw torus box
                     Window win = event.xany.window;
                     if (win == torbox.cancel) {
                         XDrawString(display, win, small_gc, 5, CURY_OFFs,
@@ -165,7 +165,7 @@ torus_make_box(char *title) {
     int32 width;
     int32 height;
     int32 nv;
-     //int32 nh; Not used anywhere
+    // int32 nh; Not used anywhere
     int32 i1;
     int32 j1;
     int32 xpos;

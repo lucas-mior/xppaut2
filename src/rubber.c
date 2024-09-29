@@ -46,7 +46,7 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
 
         case KeyPress:
             if (state > 0) {
-                break;  // too late Bozo   
+                break;  // too late Bozo
             }
             there = 1;
             error = 1;

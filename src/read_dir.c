@@ -244,7 +244,7 @@ read_dir_change_dir(char *path) {
         ggets_plintf("Can't go to directory %s\n", path);
         return 1;
     }
-    if (read_dir_get_directory(cur_dir) != 0) {  // get cwd 
+    if (read_dir_get_directory(cur_dir) != 0) {  // get cwd
         return 0;
     } else {
         return 1;
@@ -253,7 +253,7 @@ read_dir_change_dir(char *path) {
 
 int32
 read_dir_get_directory(char *direct) {
-    if (getcwd(direct, 1024) == NULL) {  // get current working dir 
+    if (getcwd(direct, 1024) == NULL) {  // get current working dir
         ggets_plintf("%s\n", "Can't get current directory");
         *direct = '\0';
         return 0;
@@ -342,14 +342,14 @@ read_dir_make_full_path(char *root, char *filename, char *pathname) {
 
 int32
 read_dir_wild_match(char *string, char *pattern) {
-    int32 prev;     // Previous character in character class. 
-    int32 matched;  // If 1, character class has been matched. 
-    int32 reverse;  // If 1, character class is inverted. 
+    int32 prev;     // Previous character in character class.
+    int32 matched;  // If 1, character class has been matched.
+    int32 reverse;  // If 1, character class is inverted.
 
     for (; *pattern; string++, pattern++) {
         switch (*pattern) {
         case '\\':
-             // Literal match with following character; fall through. 
+            // Literal match with following character; fall through.
             pattern++;
             __attribute__((fallthrough));
         default:
@@ -358,16 +358,16 @@ read_dir_wild_match(char *string, char *pattern) {
             }
             continue;
         case '?':
-             // Match anything. 
+            // Match anything.
             if (*string == '\0') {
                 return 0;
             }
             continue;
         case '*':
-             // Trailing star matches everything. 
+            // Trailing star matches everything.
             return *++pattern ? read_dir_star(string, pattern) : 1;
         case '[':
-             // Check for inverse character class. 
+            // Check for inverse character class.
             reverse = pattern[1] == INVERT;
             if (reverse) {
                 pattern++;

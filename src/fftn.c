@@ -183,9 +183,9 @@ eg, something like -D__FILE__=\"fftn.c\"
 #endif
 
 #ifndef SIN60
-#define SIN60 0.86602540378443865  // sin(60 deg) 
-#define COS72 0.30901699437494742  // cos(72 deg) 
-#define SIN72 0.95105651629515357  // sin(72 deg) 
+#define SIN60 0.86602540378443865  // sin(60 deg)
+#define COS72 0.30901699437494742  // cos(72 deg)
+#define SIN72 0.95105651629515357  // sin(72 deg)
 #endif
 /*}}}*/
 
@@ -194,11 +194,11 @@ static usize SpaceAlloced = 0;
 static long MaxPermAlloced = 0;
 
 /* temp space, (void *) since both double and double routines use it */
-static void *Tmp0 = NULL;   // temp space for real part 
-static void *Tmp1 = NULL;   // temp space for imaginary part 
-static void *Tmp2 = NULL;   // temp space for Cosine values 
-static void *Tmp3 = NULL;   // temp space for Sine values 
-static int32 *Perm = NULL;  // Permutation vector 
+static void *Tmp0 = NULL;   // temp space for real part
+static void *Tmp1 = NULL;   // temp space for imaginary part
+static void *Tmp2 = NULL;   // temp space for Cosine values
+static void *Tmp3 = NULL;   // temp space for Sine values
+static int32 *Perm = NULL;  // Permutation vector
 
 #define NFACTOR 11
 static int32 factor[NFACTOR];
@@ -239,14 +239,14 @@ fftn_factorize(int32 nPass, int32 *kt) {
     int32 jj;
 
     *kt = 0;
-     // determine the factors of n 
-    while ((nPass % 16) == 0)  // factors of 4 
+    // determine the factors of n
+    while ((nPass % 16) == 0)  // factors of 4
     {
         factor[nFactor++] = 4;
         nPass /= 16;
     }
     j = 3;
-    jj = 9;  // factors of 3, 5, 7, ... 
+    jj = 9;  // factors of 3, 5, 7, ...
     do {
         while ((nPass % jj) == 0) {
             factor[nFactor++] = j;
@@ -308,7 +308,7 @@ fftn_factorize(int32 nPass, int32 *kt) {
 static int32 fftradix(double Re[], double Im[], usize nTotal, usize nPass,
                       usize nSpan, int32 isign, int32 maxFactors,
                       int32 maxPerm);
-#include __FILE__  // include this file again 
+#include __FILE__  // include this file again
 #endif
 /*}}}*/
 
@@ -321,18 +321,18 @@ static int32 fftradix(double Re[], double Im[], usize nTotal, usize nPass,
 #undef FFTRADIXS
 /* defines for double */
 #define REAL double
-#define FFTN fftnf             // trailing 'f' for double 
-#define FFTNS "fftnf"          // name for error message 
-#define FFTRADIX fftradixf     // trailing 'f' for double 
-#define FFTRADIXS "fftradixf"  // name for error message 
+#define FFTN fftnf             // trailing 'f' for double
+#define FFTNS "fftnf"          // name for error message
+#define FFTRADIX fftradixf     // trailing 'f' for double
+#define FFTRADIXS "fftradixf"  // name for error message
 /* double precision routine */
 static int32 fftradixf(double Re[], double Im[], usize nTotal, usize nPass,
                        usize nSpan, int32 isign, int32 maxFactors,
                        int32 maxPerm);
-#include __FILE__  // include this file again 
+#include __FILE__  // include this file again
 #endif
 /*}}}*/
-#else  // _FFTN_C 
+#else  // _FFTN_C
 
 /*
  * use macros to access the Real/Imaginary parts so that it's possible
@@ -365,7 +365,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
     nTotal = 1;
     if (ndim) {
         if (dims != NULL) {
-             // number of dimensions was specified 
+            // number of dimensions was specified
             for (int32 i = 0; i < ndim; i++) {
                 if (dims[i] <= 0) {
                     goto Dimension_Error;
@@ -377,7 +377,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         }
     } else {
         int32 i;
-         // determine # of dimensions from zero-terminated list 
+        // determine # of dimensions from zero-terminated list
         if (dims == NULL) {
             goto Dimension_Error;
         }
@@ -390,7 +390,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         }
     }
 
-     // determine maximum number of factors and permuations 
+    // determine maximum number of factors and permuations
 #if 1
     /*
      * follow John Beale's example, just use the largest dimension and don't
@@ -410,11 +410,11 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         maxFactors = maxPerm = (int32)nTotal;
     }
 #else
-     // use the constants used in the original Fortran code 
+    // use the constants used in the original Fortran code
     maxFactors = 23;
     maxPerm = 209;
 #endif
-     // loop over the dimensions: 
+    // loop over the dimensions:
     if (dims != NULL) {
         usize nSpan = 1;
 
@@ -423,7 +423,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
             nSpan *= (usize)dims[i];
             ret = FFTRADIX(Re, Im, nTotal, (usize)dims[i], nSpan, iSign,
                            maxFactors, maxPerm);
-             // exit, clean-up already done 
+            // exit, clean-up already done
             if (ret) {
                 return ret;
             }
@@ -432,13 +432,13 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         int32 ret;
         ret = FFTRADIX(Re, Im, nTotal, nTotal, nTotal, iSign, maxFactors,
                        maxPerm);
-         // exit, clean-up already done 
+        // exit, clean-up already done
         if (ret) {
             return ret;
         }
     }
 
-     // Divide through by the normalizing constant: 
+    // Divide through by the normalizing constant:
     if (scaling != 0.0 && scaling != 1.0) {
         if (iSign < 0) {
             iSign = -iSign;
@@ -446,7 +446,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         if (scaling < 0.0) {
             scaling = (scaling < -1.0) ? sqrt((double)nTotal) : (double)nTotal;
         }
-        scaling = 1.0 / scaling;  // multiply is often faster 
+        scaling = 1.0 / scaling;  // multiply is often faster
         for (usize i = 0; i < nTotal; i += (usize)iSign) {
             Re_Data(i) *= scaling;
             Im_Data(i) *= scaling;
@@ -456,7 +456,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
 
 Dimension_Error:
     fprintf(stderr, "Error: " FFTNS "() - dimension error\n");
-    fft_free();  // free-up memory 
+    fft_free();  // free-up memory
     return -1;
 }
 
@@ -499,16 +499,16 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
     REAL sd;
 
     REAL *Rtmp = NULL;  // temp space for real part
-    REAL *Itmp = NULL;  // temp space for imaginary part 
-    REAL *Cos = NULL;   // Cosine values 
-    REAL *Sin = NULL;   // Sine values 
+    REAL *Itmp = NULL;  // temp space for imaginary part
+    REAL *Cos = NULL;   // Cosine values
+    REAL *Sin = NULL;   // Sine values
 
 #ifndef FFT_RADIX4
-    REAL s60 = SIN60;  // sin(60 deg) 
-    REAL s72 = SIN72;  // sin(72 deg) 
-    REAL c72 = COS72;  // cos(72 deg) 
+    REAL s60 = SIN60;  // sin(60 deg)
+    REAL s72 = SIN72;  // sin(72 deg)
+    REAL c72 = COS72;  // cos(72 deg)
 #endif
-    REAL pi2 = M_PI;  // use PI first, 2 PI later 
+    REAL pi2 = M_PI;  // use PI first, 2 PI later
 
     /* gcc complains about k3 being uninitialized, but I can't find out where
      * or why ... it looks okay to me.
@@ -525,7 +525,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
      */
     c2 = c3 = s2 = s3 = 0.0;
 
-     // Parameter adjustments, was fortran so fix zero-offset 
+    // Parameter adjustments, was fortran so fix zero-offset
     Re--;
     Im--;
 
@@ -533,7 +533,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
         return 0;
     }
 
-     // allocate storage 
+    // allocate storage
     if (SpaceAlloced < (usize)maxFactors*sizeof(REAL)) {
         SpaceAlloced = (usize)maxFactors*sizeof(REAL);
         Tmp0 = realloc(Tmp0, SpaceAlloced);
@@ -541,21 +541,21 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
         Tmp2 = realloc(Tmp2, SpaceAlloced);
         Tmp3 = realloc(Tmp3, SpaceAlloced);
     } else {
-         // allow full use of alloc'd space 
+        // allow full use of alloc'd space
         maxFactors = (int32)(SpaceAlloced / sizeof(REAL));
     }
     if (MaxPermAlloced < maxPerm) {
         Perm = realloc(Perm, (usize)maxPerm*sizeof(int32));
         MaxPermAlloced = maxPerm;
     } else {
-         // allow full use of alloc'd space 
+        // allow full use of alloc'd space
         maxPerm = (int32)MaxPermAlloced;
     }
     if (!Tmp0 || !Tmp1 || !Tmp2 || !Tmp3 || !Perm) {
         goto Memory_Error;
     }
 
-     // assign pointers 
+    // assign pointers
     Rtmp = (REAL *)Tmp0;
     Itmp = (REAL *)Tmp1;
     Cos = (REAL *)Tmp2;
@@ -571,10 +571,10 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
         s72 = -s72;
 #endif
         pi2 = -pi2;
-        inc = -inc;  // absolute value 
+        inc = -inc;  // absolute value
     }
 
-     // adjust for strange increments 
+    // adjust for strange increments
     nt = inc*(int32)nTotal;
     ns = inc*(int32)nSpan;
     kspan = ns;
@@ -582,21 +582,21 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
     nn = nt - inc;
     jc = ns / (int32)nPass;
     radf = pi2*(double)jc;
-    pi2 *= 2.0;  // use 2 PI from here on 
+    pi2 *= 2.0;  // use 2 PI from here on
 
     ii = 0;
     jf = 0;
-     // determine the factors of n 
+    // determine the factors of n
 
     nFactor = fftn_factorize((int32)nPass, &kt);
-     // test that nFactors is in range 
+    // test that nFactors is in range
     if (nFactor > NFACTOR) {
         fprintf(stderr,
                 "Error: " FFTRADIXS "() - exceeded number of factors\n");
         goto Memory_Error;
     }
 
-     // compute fourier transform 
+    // compute fourier transform
     for (;;) {
         sd = radf / (double)kspan;
         cd = sin(sd);
@@ -607,7 +607,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
 
         switch (factor[ii - 1]) {
         case 2:
-             // transform for factor of 2 (including rotation factor) 
+            // transform for factor of 2 (including rotation factor)
             kspan /= 2;
             k1 = kspan + 2;
             do {
@@ -628,7 +628,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                 kk -= nn;
             } while (kk <= jc);
             if (kk > kspan) {
-                goto Permute_Results;  // exit infinite loop 
+                goto Permute_Results;  // exit infinite loop
             }
             do {
                 int32 k2;
@@ -667,7 +667,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
             } while (kk <= jc + jc);
             break;
 
-        case 4:  // transform for factor of 4 
+        case 4:  // transform for factor of 4
             ispan = kspan;
             kspan /= 4;
 
@@ -710,7 +710,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                             akm += bjm;
                             bkm -= ajm;
                         }
-                         // avoid useless multiplies 
+                        // avoid useless multiplies
                         if (s1 == 0.0) {
                             Re_Data(k1) = akp;
                             Re_Data(k2) = ajp;
@@ -734,7 +734,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                     c1 = 2.0 - (c2*c2 + s1*s1);
                     s1 *= c1;
                     c1 *= c2;
-                     // values of c2, c3, s2, s3 that will get used next time 
+                    // values of c2, c3, s2, s3 that will get used next time
                     c2 = c1*c1 - s1*s1;
                     s2 = 2.0*c1*s1;
                     c3 = c2*c1 - s2*s1;
@@ -744,25 +744,25 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                 kk = kk - kspan + inc;
             } while (kk <= jc);
             if (kspan == jc) {
-                goto Permute_Results;  // exit infinite loop 
+                goto Permute_Results;  // exit infinite loop
             }
             break;
 
         default:
-             // transform for odd factors 
+            // transform for odd factors
 #ifdef FFT_RADIX4
             fprintf(stderr,
                     "Error: " FFTRADIXS "(): compiled for radix 2/4 only\n");
-            fft_free();  // free-up memory 
+            fft_free();  // free-up memory
             return -1;
             break;
-#else   // FFT_RADIX4 
+#else   // FFT_RADIX4
             ispan = kspan;
             k = factor[ii - 1];
             kspan /= factor[ii - 1];
 
             switch (factor[ii - 1]) {
-            case 3:  // transform for factor of 3 (optional code) 
+            case 3:  // transform for factor of 3 (optional code)
                 do {
                     do {
                         REAL aj, tmpr;
@@ -791,7 +791,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                 } while (kk <= kspan);
                 break;
 
-            case 5:  // transform for factor of 5 (optional code) 
+            case 5:  // transform for factor of 5 (optional code)
                 c2 = c72*c72 - s72*s72;
                 s2 = 2.0*c72*s72;
                 do {
@@ -926,9 +926,9 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                 } while (kk <= kspan);
                 break;
             }
-             // multiply by rotation factor (except for factors of 2 and 4) 
+            // multiply by rotation factor (except for factors of 2 and 4)
             if (ii == nFactor) {
-                goto Permute_Results;  // exit infinite loop 
+                goto Permute_Results;  // exit infinite loop
             }
             kk = jc + 1;
             do {
@@ -962,7 +962,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
                 kk = kk - kspan + jc + inc;
             } while (kk <= jc + jc);
             break;
-#endif  // FFT_RADIX4 
+#endif  // FFT_RADIX4
         }
     }
 
@@ -991,7 +991,7 @@ Permute_Results:
         k2 = kspan + 1;
         j = 1;
         if (nPass != nTotal) {
-         // permutation for multivariate transform 
+            // permutation for multivariate transform
         Permute_Multi:
             do {
                 do {
@@ -1033,7 +1033,7 @@ Permute_Results:
                 } while (k2 < ns);
             } while (kk < ns);
         } else {
-             // permutation for single-variate transform (optional code) 
+            // permutation for single-variate transform (optional code)
         Permute_Single:
             do {
                 /* swap
@@ -1074,7 +1074,7 @@ Permute_Results:
     }
     ispan = Perm[kt];
 
-     // permutation for square-free factors of n 
+    // permutation for square-free factors of n
     j = nFactor - kt;
     factor[j] = 1;
     do {
@@ -1096,7 +1096,7 @@ Permute_Results:
         kk = factor[k - 1];
         j++;
         if (j > nn) {
-            break;  // exit infinite loop 
+            break;  // exit infinite loop
         }
         jj += kk;
         while (jj >= k2) {
@@ -1107,7 +1107,7 @@ Permute_Results:
         }
         Perm[j - 1] = jj;
     }
-     // determine the permutation cycles of length greater than 1 
+    // determine the permutation cycles of length greater than 1
     j = 0;
     for (;;) {
         do {
@@ -1123,20 +1123,20 @@ Permute_Results:
         } else {
             Perm[j - 1] = -j;
             if (j == nn) {
-                break;  // exit infinite loop 
+                break;  // exit infinite loop
             }
         }
     }
 
     maxFactors *= inc;
 
-     // reorder a and b, following the permutation cycles 
+    // reorder a and b, following the permutation cycles
     for (;;) {
         j = k3 + 1;
         nt -= ispan;
         ii = nt - inc + 1;
         if (nt < 0) {
-            break;  // exit infinite loop 
+            break;  // exit infinite loop
         }
         do {
             do {
@@ -1189,13 +1189,13 @@ Permute_Results:
             } while (jj);
         } while (j != 1);
     }
-    return 0;  // exit point here 
+    return 0;  // exit point here
 
-     // alloc or other problem, do some clean-up 
+    // alloc or other problem, do some clean-up
 Memory_Error:
     fprintf(stderr, "Error: " FFTRADIXS "() - insufficient memory.\n");
-    fft_free();  // free-up memory 
+    fft_free();  // free-up memory
     return -1;
 }
-#endif  // _FFTN_C 
+#endif  // _FFTN_C
 /*----------------------- end-of-file (C source) -----------------------*/

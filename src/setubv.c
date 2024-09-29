@@ -95,10 +95,10 @@ setubv_make_aa_bb_cc(void *arg) {
     wp_dim1 = larg->ncol + 1;
     wt_dim1 = larg->ncol + 1;
 
-     // Generate AA and BB: 
+    // Generate AA and BB:
 
-     //      Partition the mesh intervals 
-     //jj will be replaced with loop_start and loop_end
+    //      Partition the mesh intervals
+    // jj will be replaced with loop_start and loop_end
     for (jj = larg->loop_start; jj < larg->loop_end; ++jj) {
         j = jj;
         jp1 = j + 1;
@@ -168,9 +168,9 @@ setubv_make_aa_bb_cc(void *arg) {
         }
     }
 
-     //     Generate CC : 
+    //     Generate CC :
 
-     //     Boundary conditions : 
+    //     Boundary conditions :
     if (larg->nbc > 0) {
         for (int32 i = 0; i < larg->ndim; ++i) {
             ubc0[i] = ARRAY2D(ups, 0, i);
@@ -196,7 +196,7 @@ setubv_make_aa_bb_cc(void *arg) {
         }
     }
 
-     //     Integral constraints : 
+    //     Integral constraints :
     if (larg->nint > 0) {
         for (jj = larg->loop_start; jj < larg->loop_end; ++jj) {
             j = jj;
@@ -231,7 +231,7 @@ setubv_make_aa_bb_cc(void *arg) {
             }
         }
     }
-     //     Pseudo-arclength equation : 
+    //     Pseudo-arclength equation :
     for (jj = larg->loop_start; jj < larg->loop_end; ++jj) {
         for (int32 i = 0; i < larg->ndim; ++i) {
             for (int32 k = 0; k < larg->ncol; ++k) {
@@ -313,7 +313,7 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     wint(ncol + 1, wi);
     genwts(ncol, ncol + 1, wt, wp);
 
-     // Initialize to zero. 
+    // Initialize to zero.
     for (int32 i = 0; i < nrc; ++i) {
         fc[i] = 0.;
         for (int32 k = 0; k < ncb; ++k) {
@@ -321,12 +321,12 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
         }
     }
 
-     // Set constants. 
+    // Set constants.
     for (int32 i = 0; i < ncb; ++i) {
         par[icp[i]] = rlcur[i];
     }
 
-     //  NA is the local node's mesh interval number. 
+    //  NA is the local node's mesh interval number.
 
     for (int32 i = 0; i < na; ++i) {
         for (int32 j = 0; j < nra; ++j) {
@@ -346,7 +346,7 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
         }
     }
 
-     //     ** Time evolution computations (parabolic systems) 
+    //     ** Time evolution computations (parabolic systems)
     if (ips == 14 || ips == 16) {
         rap->tivp = rlold[0];
     }
@@ -509,7 +509,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
     double *uid = xmalloc(sizeof(*uid)*(usize)(larg.ndim));
     double *uip = xmalloc(sizeof(*uip)*(usize)(larg.ndim));
 
-     // Boundary condition part of FC 
+    // Boundary condition part of FC
     if (larg.nbc > 0) {
         for (int32 i = 0; i < larg.ndim; ++i) {
             ubc0[i] = ARRAY2D(ups, 0, i);
@@ -525,7 +525,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
                     ARRAY2D(dbc, i, (larg.ndim*2) + larg.icp[k]);
             }
         }
-         //       Save difference : 
+        //       Save difference :
         for (j = 0; j < larg.na + 1; ++j) {
             for (int32 i = 0; i < larg.nra; ++i) {
                 ARRAY2D(dups, j, i) =
@@ -534,7 +534,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
         }
     }
 
-     // Integral constraint part of FC 
+    // Integral constraint part of FC
     if (larg.nint > 0) {
         for (jj = larg.loop_start; jj < larg.loop_end; ++jj) {
             j = jj;

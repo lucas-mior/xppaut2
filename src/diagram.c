@@ -112,7 +112,7 @@ kill_diagrams(void) {
     Diagram *d;
     Diagram *dnew;
     d = bifd;
-    while (d->next != NULL) {  //  Move to the end of the tree  
+    while (d->next != NULL) {  //  Move to the end of the tree
         d = d->next;
     }
     while (d->prev != NULL) {

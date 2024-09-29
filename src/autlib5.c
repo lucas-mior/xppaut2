@@ -75,9 +75,9 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Generates the equations for homoclinic bifurcation analysis 
+    // Generates the equations for homoclinic bifurcation analysis
 
-     // Local 
+    // Local
 
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
@@ -85,7 +85,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ndm = iap->ndm;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     ffho(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -94,7 +94,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -151,12 +151,12 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ndm = iap->ndm;
 
     if (blhom_1.itwist == 0) {
-         //        *Evaluate the R.-H. sides 
+        //        *Evaluate the R.-H. sides
         funi(iap, rap, ndm, u, uold, icp, par, 0, f, dfdu, dfdp);
     } else {
-         //        *Adjoint variational equations for normal vector 
+        //        *Adjoint variational equations for normal vector
         funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
-         //        *Set F = - (Df)^T u 
+        //        *Set F = - (Df)^T u
         for (int32 j = 0; j < ndm; ++j) {
             dum1 = 0.;
             for (int64 i = 0; i < ndm; ++i) {
@@ -164,13 +164,13 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             }
             f[ndm + j] = -dum1;
         }
-         //        *Set F =  F + PAR(10)*f 
+        //        *Set F =  F + PAR(10)*f
         for (int32 j = 0; j < ndm; ++j) {
             f[ndm + j] += par[9]*f[j];
         }
     }
 
-     // Scale by truncation interval T=PAR(11) 
+    // Scale by truncation interval T=PAR(11)
 
     for (int64 i = 0; i < ndim; ++i) {
         f[i] = par[10]*f[i];
@@ -198,14 +198,14 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Generates the boundary conditions for homoclinic bifurcation analysis
      */
 
-     // Local 
+    // Local
 
     dbc_dim1 = nbc;
 
     nbc0 = iap->nbc0;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     fbho(iap, rap, ndim, par, icp, nbc, nbc0, &u0[0], &u1[0], &f[0], dfu);
 
@@ -218,7 +218,7 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-     // Derivatives with respect to U0. 
+    // Derivatives with respect to U0.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -242,7 +242,7 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-     // Derivatives with respect to U1. 
+    // Derivatives with respect to U1.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -334,21 +334,21 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     xequib1 = xmalloc(sizeof(*(xequib1))*(usize)(iap->ndm));
     xequib2 = xmalloc(sizeof(*(xequib2))*(usize)(iap->ndm));
 
-     // Generates the boundary conditions for homoclinic orbits. 
+    // Generates the boundary conditions for homoclinic orbits.
 
-     // Local 
+    // Local
 
     dbc_dim1 = nbc;
 
     ndm = iap->ndm;
 
-     //     *Initialization 
+    //     *Initialization
     for (int64 i = 1; i <= nbc; ++i) {
         fb[-1 + i] = 0.;
     }
     jb = 1;
 
-     //     *Update pu0,pu1 
+    //     *Update pu0,pu1
     for (int64 i = 0; i < ndim; ++i) {
         blhmu_1.pu0[i] = u0[i];
         blhmu_1.pu1[i] = u1[i];
@@ -357,10 +357,10 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     if (blhom_1.iequib == 0 || blhom_1.iequib == -1) {
         pvls(ndm, u0, par);
     }
-     //              write(9,*) 'Xequib:' 
+    //              write(9,*) 'Xequib:'
     for (int64 i = 0; i < ndm; ++i) {
         xequib1[i] = par[i + 11];
-         //              write(9,*) I,XEQUIB1(I) 
+        //              write(9,*) I,XEQUIB1(I)
     }
     if (blhom_1.iequib >= 0) {
         for (int64 i = 0; i < ndm; ++i) {
@@ -372,19 +372,19 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-     //     **Regular Continuation** 
+    //     **Regular Continuation**
     if (blhom_1.istart != 3) {
-         //        *Projection boundary conditions for the homoclinic orbit 
-         //        *NSTAB boundary conditions at t=0 
+        //        *Projection boundary conditions for the homoclinic orbit
+        //        *NSTAB boundary conditions at t=0
         prjcti(bound, xequib1, icp, par, -1, 1, 1, &ndm);
         for (int64 i = 0; i < blhom_1.nstab; ++i) {
             for (k = 0; k < ndm; ++k) {
                 fb[-1 + jb] += (u0[k] - xequib1[k])*bound[i + k*(iap->ndm)];
             }
-             //         write(9,*) 'fb',jb,fb(jb) 
+            //         write(9,*) 'fb',jb,fb(jb)
             ++jb;
         }
-         //        *NUNSTAB boundary conditions at t=1 
+        //        *NUNSTAB boundary conditions at t=1
         if (blhom_1.nrev == 0) {
             prjcti(bound, xequib2, icp, par, 1, 2, 1, &ndm);
             for (int64 i = ndm - blhom_1.nunstab; i < ndm; ++i) {
@@ -401,9 +401,9 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             for (int64 i = 0; i < ndim; ++i) {
                 if (blhmp_1.irev[i] > 0) {
                     if (blhmp_1.irev[i] == 1) {
-                         // *****NOTE MODIFICATION FROM GENERAL CASE 
+                        // *****NOTE MODIFICATION FROM GENERAL CASE
                         fb[-1 + jb] = sin(u1[i]);
-                         //                        FB(JB)=U1(I) 
+                        //                        FB(JB)=U1(I)
                     } else {
                         fb[-1 + jb] = u1[i];
                     }
@@ -458,7 +458,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             fb[-1 + jb] = rr[blhom_1.nstab];
             ++jb;
         }
-         //        *boundary conditions for normal vector 
+        //        *boundary conditions for normal vector
         if (blhom_1.itwist == 1) {
             /*           *-orthogonal to the unstable directions of A  at t=0
              */
@@ -471,7 +471,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
                 fb[-1 + jb] = dum;
                 ++jb;
             }
-             //           *-orthogonal to the stable directions of A  at t=1 
+            //           *-orthogonal to the stable directions of A  at t=1
             prjcti(bound, xequib2, icp, par, -1, 2, 2, &ndm);
             for (int64 i = 0; i < blhom_1.nstab; ++i) {
                 dum = 0.;
@@ -493,7 +493,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             return 0;
         }
     } else {
-         //     **Starting Solutions using Homotopy** 
+        //     **Starting Solutions using Homotopy**
         jb = 0;
         for (int64 i = 1; i <= nbc; ++i) {
             fb[-1 + i] = 0.;
@@ -506,7 +506,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             ip += ndm << 1;
         }
         kp = ip;
-         //        *Explicit boundary conditions for homoclinic orbit at t=0 
+        //        *Explicit boundary conditions for homoclinic orbit at t=0
         eighi(1, 2, rr, ri, vr, xequib1, icp, par, &ndm);
         ieig = 1;
         if (blhom_1.nunstab > 1) {
@@ -519,7 +519,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
                         u0[i] - xequib1[i] -
                         par[ip + j]*vr[blhom_1.nstab + j + i*(iap->ndm)];
                 }
-                 // Computing 2nd power 
+                // Computing 2nd power
                 dum += par[ip + j]*par[ip + j];
             }
             jb = ndm + 1;
@@ -571,13 +571,13 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-     //      write(9,*) NBCN,NBC 
-     // *user defined extra boundary conditions 
+    //      write(9,*) NBCN,NBC
+    // *user defined extra boundary conditions
     if (bcnn_1.nbcn > 0) {
         bcnd(ndim, par, icp, bcnn_1.nbcn, u0, u1, ijc, fj, dbc);
         for (k = 0; k < bcnn_1.nbcn; ++k) {
             fb[-1 + jb] = fj[k];
-             //            write(9,*),fb(jb),par(30) 
+            //            write(9,*),fb(jb),par(30)
             ++jb;
         }
     }
@@ -612,16 +612,16 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     uu2 = xmalloc(sizeof(*(uu2))*(usize)(iap->ndim));
     dfu = xmalloc(sizeof(*dfu)*(usize)((iap->ndim)*(iap->ndim + NPARX)));
 
-     // Generates integral conditions for homoclinic bifurcation analysis 
+    // Generates integral conditions for homoclinic bifurcation analysis
 
-     // Local 
+    // Local
 
     dint_dim1 = nint;
 
     nnt0 = iap->nnt0;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     fiho(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f, dfu);
 
@@ -634,7 +634,7 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -698,14 +698,14 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)rap;
 
     fj = xmalloc(sizeof(*fj)*(usize)(iap->ndim));
-     // Generates the integral conditions for homoclinic orbits. 
+    // Generates the integral conditions for homoclinic orbits.
 
     dint_dim1 = nint;
 
     ndm = iap->ndm;
     jb = 0;
 
-     // Integral phase condition for homoclinic orbit 
+    // Integral phase condition for homoclinic orbit
 
     if (blhom_1.nrev == 0) {
         dum = 0.;
@@ -716,7 +716,7 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         fi[-1 + jb] = dum;
     }
 
-     // Integral phase condition for adjoint equation 
+    // Integral phase condition for adjoint equation
 
     if (blhom_1.itwist == 1) {
         dum = 0.;
@@ -727,7 +727,7 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         fi[1] = dum;
     }
 
-     // User-defined integral constraints 
+    // User-defined integral constraints
 
     if (jb < nint) {
         icnd(ndm, par, icp, nint, u, uold, udot, upold, ijac, fj, dint);
@@ -751,7 +751,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
     int64 irs;
     int64 isw;
 
-     // Allocate memory for global structures. 
+    // Allocate memory for global structures.
     free(blhmp_1.ipsi);
     free(blhmp_1.ifixed);
     free(blhmp_1.irev);
@@ -787,11 +787,11 @@ inho(iap_type *iap, int64 *icp, double *par) {
         beyn_1.iflag[i] = 0;
     }
 
-     // Reads from fort.11 specific constants for homoclinic continuation. 
-     // Sets up re-defined constants in IAP. 
-     // Sets other constants in the following common blocks. 
+    // Reads from fort.11 specific constants for homoclinic continuation.
+    // Sets up re-defined constants in IAP.
+    // Sets other constants in the following common blocks.
 
-     // set various constants 
+    // set various constants
 
     ndim = iap->ndim;
     irs = iap->irs;
@@ -812,8 +812,8 @@ inho(iap_type *iap, int64 *icp, double *par) {
     /* printf("%d %d %d %d
      * %d\n",blhom_1.nunstab,blhom_1.nstab,blhom_1.iequib,blhom_1.itwist,blhom_1.istart);
      */
-     // updated reading in of constants for reversible equations 
-     // replaces location in datafile of compzero 
+    // updated reading in of constants for reversible equations
+    // replaces location in datafile of compzero
 
     ndim = ndm*(blhom_1.itwist + 1);
     /* Allocate memory for global structures.  We didn't know the
@@ -836,8 +836,8 @@ inho(iap_type *iap, int64 *icp, double *par) {
     nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
     bcnn_1.nbcn = nbc;
 
-     // Free parameter (artificial parameter for psi) 
-     // nondegeneracy parameter of the adjoint 
+    // Free parameter (artificial parameter for psi)
+    // nondegeneracy parameter of the adjoint
 
     if (blhom_1.itwist == 1) {
         ++nfree;
@@ -845,7 +845,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
         par[9] = 0.;
     }
 
-     // Extra free parameters for equilibrium if iequib=1,2,-2 
+    // Extra free parameters for equilibrium if iequib=1,2,-2
 
     if (blhom_1.iequib != 0 && blhom_1.iequib != -1) {
         for (int64 i = 0; i < ndm; ++i) {
@@ -860,7 +860,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
     }
 
     if (blhom_1.istart != 3) {
-         //     *regular continuation 
+        //     *regular continuation
 
         nint = nint + blhom_1.itwist + 1 - blhom_1.nrev;
 
@@ -878,7 +878,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
             nbc -= (blhom_1.iequib*3 + 2)*ndm;
         }
     } else {
-         //     *starting solutions using homotopy 
+        //     *starting solutions using homotopy
         if (blhom_1.nunstab == 1) {
             nbc = ndm*(blhom_1.iequib + 1) + 1;
         } else {
@@ -893,7 +893,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
         nint = 0;
     }
 
-     // write new constants into IAP 
+    // write new constants into IAP
 
     iap->ndim = ndim;
     iap->nbc = nbc;
@@ -921,8 +921,8 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
     double upsmin;
     int64 ist;
 
-     // Preprocesses (perturbs) restart data to enable 
-     // initial computation of the adjoint variable 
+    // Preprocesses (perturbs) restart data to enable
+    // initial computation of the adjoint variable
 
     udotps_dim1 = *ndx;
     ups_dim1 = *ndx;
@@ -942,11 +942,11 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
         }
     }
 
-     // Shift phase if necessary if continu(e)ing from 
-     // a periodic orbit into a homoclinic one 
+    // Shift phase if necessary if continu(e)ing from
+    // a periodic orbit into a homoclinic one
 
     if (blhom_1.istart == 1) {
-         // First find smallest value in norm 
+        // First find smallest value in norm
 
         upsmin = 1e20;
         jmin = 1;
@@ -963,7 +963,7 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
         }
         tmmin = tm[-1 + jmin];
 
-         // And then do the actual shift 
+        // And then do the actual shift
 
         if (jmin != 1) {
             ist = 0;
@@ -997,7 +997,7 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
                 }
             }
 
-             // Last equal to first 
+            // Last equal to first
 
             tm[*ntsr] = 1.;
             for (int64 k = 0; k < *ncolrs**ndim; ++k) {
@@ -1041,11 +1041,11 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     (void)rap;
 
     u = xmalloc(sizeof(*u)*(usize)(iap->ndim));
-     // Generates a starting point for the continuation of a branch of 
-     // of solutions to general boundary value problems by calling the user 
-     // supplied subroutine STPNT where an analytical solution is given. 
+    // Generates a starting point for the continuation of a branch of
+    // of solutions to general boundary value problems by calling the user
+    // supplied subroutine STPNT where an analytical solution is given.
 
-     // Local 
+    // Local
 
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -1055,7 +1055,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     ncol = iap->ncol;
     nfpr = iap->nfpr;
 
-     // Generate the (initially uniform) mesh. 
+    // Generate the (initially uniform) mesh.
 
     msh(iap, tm);
     dt = 1. / (double)(ntst*ncol);
@@ -1108,19 +1108,19 @@ stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
     vt = xmalloc(sizeof(*vt)*(usize)((iap->ndm)*(iap->ndm)));
     xequib = xmalloc(sizeof(*xequib)*(usize)(iap->ndm));
 
-     // Generates a starting point for homoclinic continuation 
-     // If ISTART=2 it calls STPNHO. 
-     // If ISTART=3 it sets up the homotopy method. 
+    // Generates a starting point for homoclinic continuation
+    // If ISTART=2 it calls STPNHO.
+    // If ISTART=3 it sets up the homotopy method.
 
-     // Local 
+    // Local
 
     ndm = iap->ndm;
 
-     // Initialize parameters 
+    // Initialize parameters
 
     stpnt(ndm, *t, u, par);
 
-     // Initialize solution and additional parameters 
+    // Initialize solution and additional parameters
 
     switch ((int32)blhom_1.istart) {
     case 1:
@@ -1135,7 +1135,7 @@ stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
     }
 
 L1:
-     // Obsolete option 
+    // Obsolete option
 
     free(ri);
     free(rr);
@@ -1145,7 +1145,7 @@ L1:
     return 0;
 
 L2:
-     //     *Regular continuation (explicit solution in STHO) 
+    //     *Regular continuation (explicit solution in STHO)
 
     free(ri);
     free(rr);
@@ -1155,7 +1155,7 @@ L2:
     return 0;
 
 L3:
-     //     *Starting solutions using homotopy 
+    //     *Starting solutions using homotopy
 
     pvls(ndm, u, par);
     for (int64 i = 0; i < ndm; ++i) {
@@ -1164,7 +1164,7 @@ L3:
     eighi(1, 1, rr, ri, vt, xequib, icp, par, &ndm);
     eighi(1, 2, rr, ri, vr, xequib, icp, par, &ndm);
 
-     // Set up artificial parameters at the left-hand end point of orbit 
+    // Set up artificial parameters at the left-hand end point of orbit
 
     ip = 12;
     if (blhom_1.iequib >= 0) {
@@ -1174,7 +1174,7 @@ L3:
     }
     kp = ip;
 
-     // Parameters xi 1=1, xi i=0, i=2,NSTAB 
+    // Parameters xi 1=1, xi i=0, i=2,NSTAB
 
     par[ip] = 1.;
     if (blhom_1.nunstab > 1) {
@@ -1196,8 +1196,8 @@ L3:
     }
     fprintf(fp9, "\n");
 
-     // Artificial parameters at the right-hand end point of the orbit 
-     // omega_i=<x(1)-x_o,w_i^*> 
+    // Artificial parameters at the right-hand end point of the orbit
+    // omega_i=<x(1)-x_o,w_i^*>
 
     for (int64 i = 0; i < blhom_1.nunstab; ++i) {
         par[ip + i] = 0.;
@@ -1237,7 +1237,7 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
 
     pvlsbv(iap, rap, icp, dtm, ndxloc, ups, ndim, p0, p1, par);
 
-     //      *Compute eigenvalues 
+    //      *Compute eigenvalues
     bleig_1.ineig = 0;
     for (int64 i = 0; i < ndm; ++i) {
         bleig_1.xequib[i] = par[i + 11];
@@ -1301,14 +1301,14 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
 
     /* RR and RI contain the real and imaginary parts of eigenvalues which are
      */
-     // ordered with respect to their real parts (smallest first). 
-     // The (generalised) real eigenvectors are stored as the ROWS of V. 
-     // The (generalised) real left eigenvectors are in the ROWS of VT. 
-     // In the block ENDPTS are stored the co-ordinates of the left (PU0) 
+    // ordered with respect to their real parts (smallest first).
+    // The (generalised) real eigenvectors are stored as the ROWS of V.
+    // The (generalised) real left eigenvectors are in the ROWS of VT.
+    // In the block ENDPTS are stored the co-ordinates of the left (PU0)
     /*and right (PU1) endpoints of the solution (+  vector if that is computed
     )*/
 
-     // Local 
+    // Local
 
     vt -= ((iap->ndm) + 1);
     v -= ((iap->ndm) + 1);
@@ -1320,7 +1320,7 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
 
     ret_val = 0.;
 
-     //  Compute orientation 
+    //  Compute orientation
 
     if (is == 0) {
         s1 = 0.;
@@ -1332,13 +1332,13 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
         for (int32 j = 0; j < ndm; ++j) {
             s1 += f1[j]*blhmu_1.pu0[ndm + j];
             s2 += f0[j]*blhmu_1.pu1[ndm + j];
-             // Computing 2nd power 
+            // Computing 2nd power
             f0norm += f0[j]*f0[j];
-             // Computing 2nd power 
+            // Computing 2nd power
             f1norm += f1[j]*f1[j];
-             // Computing 2nd power 
+            // Computing 2nd power
             u0norm += blhmu_1.pu0[j + ndm]*blhmu_1.pu0[j + ndm];
-             // Computing 2nd power 
+            // Computing 2nd power
             u1norm += blhmu_1.pu1[j + ndm]*blhmu_1.pu1[j + ndm];
         }
         droot = sqrt(f0norm*f1norm*u0norm*u1norm);
@@ -1390,90 +1390,90 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
         exit(EXIT_FAILURE);
     }
 
-     // Resonant eigenvalues (neutral saddle) 
+    // Resonant eigenvalues (neutral saddle)
 
 L1:
     ret_val = rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] +
               ri[-1 + blhom_1.nstab] + ri[blhom_1.nstab];
     goto free_f0f1;
 
-     // Double real leading eigenvalues (stable) 
-     //   (saddle, saddle-focus transition) 
+    // Double real leading eigenvalues (stable)
+    //   (saddle, saddle-focus transition)
 
 L2:
     if (fabs(ri[-1 + blhom_1.nstab]) > blhma_1.compzero) {
-         // Computing 2nd power 
+        // Computing 2nd power
         double tmp = ri[-1 + blhom_1.nstab] - ri[-1 + blhom_1.nstab - 1];
         ret_val = -(tmp*tmp);
     } else {
-         // Computing 2nd power 
+        // Computing 2nd power
         double tmp = rr[-1 + blhom_1.nstab] - rr[-1 + blhom_1.nstab - 1];
         ret_val = tmp*tmp;
     }
     goto free_f0f1;
 
-     // Double real positive eigenvalues (unstable) 
-     //   (saddle, saddle-focus transition) 
+    // Double real positive eigenvalues (unstable)
+    //   (saddle, saddle-focus transition)
 
 L3:
     if (fabs(ri[blhom_1.nstab]) > blhma_1.compzero) {
-         // Computing 2nd power 
+        // Computing 2nd power
         double tmp = ri[blhom_1.nstab] - ri[blhom_1.nstab + 1];
         ret_val = -(tmp*tmp);
     } else {
-         // Computing 2nd power 
+        // Computing 2nd power
         double tmp = rr[blhom_1.nstab] - rr[blhom_1.nstab + 1];
         ret_val = tmp*tmp;
     }
     goto free_f0f1;
 
-     // Neutral saddle, saddle-focus or bi-focus (includes 1, above, also) 
+    // Neutral saddle, saddle-focus or bi-focus (includes 1, above, also)
 
 L4:
     ret_val = rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab];
     goto free_f0f1;
 
-     // Neutrally-divergent saddle-focus (stable eigenvalues floatcomplex) 
+    // Neutrally-divergent saddle-focus (stable eigenvalues floatcomplex)
 
 L5:
     ret_val =
         rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] + rr[blhom_1.nstab - 2];
     goto free_f0f1;
 
-     // Neutrally-divergent saddle-focus (unstable eigenvalues floatcomplex) 
+    // Neutrally-divergent saddle-focus (unstable eigenvalues floatcomplex)
 
 L6:
     ret_val =
         rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] + rr[blhom_1.nstab + 1];
     goto free_f0f1;
 
-     // Three leading eigenvalues (stable) 
+    // Three leading eigenvalues (stable)
 
 L7:
     ret_val = rr[-1 + blhom_1.nstab] - rr[blhom_1.nstab - 3];
     goto free_f0f1;
 
-     // Three leading eigenvalues (ustable) 
+    // Three leading eigenvalues (ustable)
 
 L8:
     ret_val = rr[blhom_1.nstab] - rr[blhom_1.nunstab + 2];
     goto free_f0f1;
 
-     // Local bifurcation (zero eigenvalue or Hopf): NSTAB decreases 
-     //  (nb. the problem becomes ill-posed after a zero of 9 or 10) 
+    // Local bifurcation (zero eigenvalue or Hopf): NSTAB decreases
+    //  (nb. the problem becomes ill-posed after a zero of 9 or 10)
 
 L9:
     ret_val = rr[-1 + blhom_1.nstab];
     goto free_f0f1;
 
-     // Local bifurcation (zero eigenvalue or Hopf): NSTAB increases 
+    // Local bifurcation (zero eigenvalue or Hopf): NSTAB increases
 
 L10:
     ret_val = rr[blhom_1.nstab];
     goto free_f0f1;
 
-     // Orbit flip (with respect to leading stable direction) 
-     //     e.g. 1D unstable manifold 
+    // Orbit flip (with respect to leading stable direction)
+    //     e.g. 1D unstable manifold
 
 L11:
     for (int32 j = 0; j < ndm; ++j) {
@@ -1482,8 +1482,8 @@ L11:
     ret_val *= exp(-par[10]*rr[-1 + blhom_1.nstab] / 2.);
     goto free_f0f1;
 
-     // Orbit flip (with respect to leading unstable direction) 
-     //     e.g. 1D stable manifold 
+    // Orbit flip (with respect to leading unstable direction)
+    //     e.g. 1D stable manifold
 
 L12:
     for (int32 j = 0; j < ndm; ++j) {
@@ -1494,7 +1494,7 @@ L12:
 
     /* Inclination flip (critically twisted) with respect to stable manifold
      */
-     //   e.g. 1D unstable manifold 
+    //   e.g. 1D unstable manifold
 
 L13:
     for (int64 i = 0; i < ndm; ++i) {
@@ -1506,7 +1506,7 @@ L13:
 
     /* Inclination flip (critically twisted) with respect to unstable manifold
      */
-     //   e.g. 1D stable manifold 
+    //   e.g. 1D stable manifold
 
 L14:
     for (int64 i = 0; i < ndm; ++i) {
@@ -1516,7 +1516,7 @@ L14:
     ret_val *= exp(par[10]*rr[blhom_1.nstab] / 2.);
     goto free_f0f1;
 
-     // Non-central homoclinic to saddle-node (in stable manifold) 
+    // Non-central homoclinic to saddle-node (in stable manifold)
 
 L15:
     for (int64 i = 0; i < ndm; ++i) {
@@ -1525,7 +1525,7 @@ L15:
     }
     goto free_f0f1;
 
-     // Non-central homoclinic to saddle-node (in unstable manifold) 
+    // Non-central homoclinic to saddle-node (in unstable manifold)
 
 L16:
     for (int64 i = 0; i < ndm; ++i) {
@@ -1589,24 +1589,24 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     fv1 = xmalloc(sizeof(*(fv1))*(usize)(*ndm));
     iv1 = xmalloc(sizeof(*(iv1))*(usize)(*ndm));
 
-     // Uses EISPACK routine RG to calculate the eigenvalues/eigenvectors 
-     // of the linearization matrix a (obtained from DFHO) and orders them 
-     // according to their real parts. Simple continuity with respect 
-     // previous call with same value of ITRANS. 
+    // Uses EISPACK routine RG to calculate the eigenvalues/eigenvectors
+    // of the linearization matrix a (obtained from DFHO) and orders them
+    // according to their real parts. Simple continuity with respect
+    // previous call with same value of ITRANS.
 
-     // 	input variables 
-     // 		ISIGN  = 1 => left-hand endpoint 
-     //       	       = 2 => right-hand endpoint 
-     //               ITRANS = 1 use transpose of A 
-     //                      = 2 otherwise 
+    // 	input variables
+    // 		ISIGN  = 1 => left-hand endpoint
+    //       	       = 2 => right-hand endpoint
+    //               ITRANS = 1 use transpose of A
+    //                      = 2 otherwise
 
-     //       output variables 
-     // 		RR,RI real and imaginary parts of eigenvalues, ordered w.r.t 
-     // 	           real parts (largest first) 
-     // 	        VRET the rows of which are real parts of corresponding 
-     //                  eigenvectors 
+    //       output variables
+    // 		RR,RI real and imaginary parts of eigenvalues, ordered w.r.t
+    // 	           real parts (largest first)
+    // 	        VRET the rows of which are real parts of corresponding
+    //                  eigenvectors
 
-     // Local 
+    // Local
 
     vret -= ((*ndm) + 1);
     zz_dim1 = *ndm;
@@ -1630,7 +1630,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
         }
     }
 
-     // EISPACK call for eigenvalues and eigenvectors 
+    // EISPACK call for eigenvalues and eigenvectors
     rg(*ndm, *ndm, dfdu, rr, ri, 1, zz, iv1, fv1, &ifail);
 
     if (ifail != 0) {
@@ -1657,7 +1657,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     }
     /*Order the eigenvectors/values according size of real part of eigenvalue.
      */
-     //     (smallest first) 
+    //     (smallest first)
 
     for (int64 i = 0; i < *ndm - 1; ++i) {
         for (int64 j = i + 1; j < *ndm; ++j) {
@@ -1680,9 +1680,9 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
         }
     }
 
-     // Choose sign of real part of eigenvectors to be 
-     // commensurate with that of the corresponding eigenvector 
-     // from the previous call with the same value of ISIGN 
+    // Choose sign of real part of eigenvectors to be
+    // commensurate with that of the corresponding eigenvector
+    // from the previous call with the same value of ISIGN
 
     if (blhme_1.ieigc[*itrans - 1] == 0) {
         for (int32 j = 0; j < *ndm; ++j) {
@@ -1714,7 +1714,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
         if (vdot < 0.) {
             for (int32 j = 0; j < *ndm; ++j) {
                 vr[j + i*(*ndm)] = -vr[j + i*(*ndm)];
-                 //               VI(J,I)=-VI(J,I) 
+                //               VI(J,I)=-VI(J,I)
             }
         }
         for (int32 j = 0; j < *ndm; ++j) {
@@ -1723,7 +1723,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
         }
     }
 
-     // Send back the transpose of the matrix of real parts of eigenvectors 
+    // Send back the transpose of the matrix of real parts of eigenvectors
     for (int64 i = 0; i < *ndm; ++i) {
         for (int32 j = 0; j < *ndm; ++j) {
             vret[(i + 1) + (j + 1)*(*ndm)] = vr[j + i*(*ndm)];
@@ -1794,23 +1794,23 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     dum1 = xmalloc(sizeof(*(dum1))*(usize)((*ndm)*(*ndm)));
     dum2 = xmalloc(sizeof(*(dum2))*(usize)((*ndm)*(*ndm)));
 
-     // Compute NUNSTAB (or NSTAB) projection boundary condition functions 
+    // Compute NUNSTAB (or NSTAB) projection boundary condition functions
     /*onto to the UNSTABLE (or STABLE) manifold of the appropriate equilibrium
      */
 
-     //    IMFD   = -1 stable eigenspace 
-     //           =  1 unstable eigenspace 
-     //    ITRANS =  1 use transpose of A 
-     //           =  2 otherwise 
-     //    IS     =  I (1 or 2) implies use the ith equilibrium in XEQUIB 
+    //    IMFD   = -1 stable eigenspace
+    //           =  1 unstable eigenspace
+    //    ITRANS =  1 use transpose of A
+    //           =  2 otherwise
+    //    IS     =  I (1 or 2) implies use the ith equilibrium in XEQUIB
 
-     // Use the normalization in Beyn 1990 (4.4) to ensure continuity 
-     // w.r.t parameters. 
-     // For the purposes of this routine the "previous point on the 
-     // branch" is at the values of PAR at which the routine was last 
-     // called with the same values of IS and ITRANS. 
+    // Use the normalization in Beyn 1990 (4.4) to ensure continuity
+    // w.r.t parameters.
+    // For the purposes of this routine the "previous point on the
+    // branch" is at the values of PAR at which the routine was last
+    // called with the same values of IS and ITRANS.
 
-     // Local 
+    // Local
 
     bound -= ((*ndm) + 1);
     dfdp_dim1 = *ndm;
@@ -1818,7 +1818,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
 
     func(*ndm, xequib, icp, par, 1, fdum, dfdu, dfdp);
 
-     // Compute transpose of A if ITRANS=1 
+    // Compute transpose of A if ITRANS=1
     if (*itrans == 1) {
         for (int64 i = 0; i < *ndm; ++i) {
             for (int32 j = 0; j < *ndm; ++j) {
@@ -1833,7 +1833,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         }
     }
 
-     // Compute basis V to put A in upper Hessenberg form 
+    // Compute basis V to put A in upper Hessenberg form
     {
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
@@ -1842,7 +1842,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         ortran((ndm), ndm, &tmp, ndm, a, ort, v);
     }
 
-     // Force A to be upper Hessenberg 
+    // Force A to be upper Hessenberg
     if (*ndm > 2) {
         for (int64 i = 2; i < *ndm; ++i) {
             for (int32 j = 0; j < i - 1; ++j) {
@@ -1851,8 +1851,8 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         }
     }
 
-     // Computes basis to put A in "Quasi Upper-Triangular form" 
-     // with the positive (negative) eigenvalues first if IMFD =-1 (=1) 
+    // Computes basis to put A in "Quasi Upper-Triangular form"
+    // with the positive (negative) eigenvalues first if IMFD =-1 (=1)
     eps = blhma_1.compzero;
     {
         /* This is here since I don't want to change the calling sequence of the
@@ -1860,7 +1860,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         int64 tmp = 1;
         hqr3lc(a, v, ndm, &tmp, ndm, &eps, er, ei, type__, (ndm), (ndm), imfd);
     }
-     // Put the basis in the appropriate part of the matrix CNOW 
+    // Put the basis in the appropriate part of the matrix CNOW
     if (*imfd == 1) {
         k1 = *ndm - blhom_1.nunstab + 1;
         k2 = *ndm;
@@ -1877,7 +1877,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         }
     }
 
-     // Set previous matrix to be the present one if this is the first call 
+    // Set previous matrix to be the present one if this is the first call
 
     /* Note by Randy Paffenroth:  There is a slight problem here
        in that this array is used before it is assigned to,
@@ -1908,7 +1908,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         return 0;
     }
 
-     // Calculate the (transpose of the) BEYN matrix D and hence BOUND 
+    // Calculate the (transpose of the) BEYN matrix D and hence BOUND
     for (int64 i = 0; i < mcond; ++i) {
         for (int32 j = 0; j < mcond; ++j) {
             dum1[i + j*(*ndm)] = 0.;

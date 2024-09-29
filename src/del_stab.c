@@ -55,7 +55,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     for (i = 0; i < (2*n); i++) {
         ev[i] = 0.0;
     }
-     // first we establish how many delays there are 
+    // first we establish how many delays there are
     del_stab_flag = 0;
     for (i = 0; i < n; i++) {
         old_x[i] = x[i];
@@ -71,18 +71,18 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
         }
         return;
     }
-     // OKAY -- we have the root 
+    // OKAY -- we have the root
     NDelay = 0;
-    rhs_function(0.0, x, y, n);  // one more evaluation to get delays 
+    rhs_function(0.0, x, y, n);  // one more evaluation to get delays
     for (i = 0; i < n; i++) {
-        variable_shift[0][i] = x[i];  // unshifted  
+        variable_shift[0][i] = x[i];  // unshifted
         variable_shift[1][i] = x[i];
     }
     free(work);
     coef = xmalloc((usize)(n*n*(NDelay + 1))*sizeof(*coef));
 
-     // now we must compute a bunch of jacobians  
-     // first the normal one   
+    // now we must compute a bunch of jacobians
+    // first the normal one
     del_stab_flag = -1;
     WhichDelay = -1;
     colmax = 0.0;
@@ -107,7 +107,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     for (int32 j = 0; j < n; j++) {
         xp[j] = x[j];
     }
-     // now the jacobians for the delays 
+    // now the jacobians for the delays
     for (int32 k = 0; k < NDelay; k++) {
         WhichDelay = k;
         colmax = 0.0;
@@ -141,7 +141,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     }
     free(coef);
     *stabinfo = (double)fabs(sign);
-     // if(*stabinfo>0) 
+    // if(*stabinfo>0)
     i = (int32)sign;
     if (i == 0 && okroot == 1 && AlphaMax > 0) {
         i = 2;
@@ -268,15 +268,15 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
             }
             z[i + j*n] = del_stab_z_dif(
                 temp,
-                del_stab_rtoc(coef[i + j*n], 0.0));  // initialize the array 
+                del_stab_rtoc(coef[i + j*n], 0.0));  // initialize the array
         }
     }
     for (int32 k = 0; k < m; k++) {
         km = (k + 1)*n*n;
         temp = del_stab_rtoc(-delay[k],
-                             0.0);  // convert delay to floatcomplex number 
+                             0.0);  // convert delay to floatcomplex number
         eld = del_stab_c_exp2(
-            del_stab_z_mult(temp, lambda));  // compute exp(-lambda*tau) 
+            del_stab_z_mult(temp, lambda));  // compute exp(-lambda*tau)
         for (int32 j = 0; j < n; j++) {
             for (int32 i = 0; i < n; i++) {
                 z[i + j*n] = del_stab_z_dif(
@@ -308,13 +308,13 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
 
     z = xmalloc(sizeof(*z)*(usize)(n*n));
 
-     // now Newtons Method for maxit times 
+    // now Newtons Method for maxit times
     for (int32 k = 0; k < maxit; k++) {
         del_stab_z_make(z, delay, n, m, coef, lambda);
         det = del_stab_z_determ(z, n);
 
         r = del_stab_z_abs(det);
-        if (r < err) {  // within the tolerance 
+        if (r < err) {  // within the tolerance
             del_stab_process_root(lambda.r, lambda.i);
             AlphaMax = lambda.r;
             OmegaMax = lambda.i;
@@ -323,7 +323,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         xl = lambda.r;
         yl = lambda.i;
 
-         // compute the Jacobian 
+        // compute the Jacobian
         if (fabs(xl) > eps) {
             r = eps*fabs(xl);
         } else {
@@ -358,7 +358,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         r = fabs(xlp) + fabs(ylp);
         lambda.r = xl;
         lambda.i = yl;
-        if (r < err) {  // within the tolerance 
+        if (r < err) {  // within the tolerance
             del_stab_process_root(lambda.r, lambda.i);
             AlphaMax = lambda.r;
             OmegaMax = lambda.i;
@@ -392,7 +392,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
     double arg;
 
     if (m == 0) {
-        return 0;  // no delays so don't use this! 
+        return 0;  // no delays so don't use this!
     }
     z = xmalloc(sizeof(*z)*(usize)(n*n));
     for (int32 j = 0; j < n; j++) {
@@ -404,15 +404,15 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
             }
             z[i + j*n] = del_stab_z_dif(
                 temp,
-                del_stab_rtoc(coef[i + j*n], 0.0));  // initialize the array 
+                del_stab_rtoc(coef[i + j*n], 0.0));  // initialize the array
         }
     }
     for (int32 k = 0; k < m; k++) {
         km = (k + 1)*n*n;
         temp = del_stab_rtoc(-delay[k],
-                             0.0);  // convert delay to floatcomplex number 
+                             0.0);  // convert delay to floatcomplex number
         eld = del_stab_c_exp2(
-            del_stab_z_mult(temp, lambda));  // compute exp(-lambda*tau) 
+            del_stab_z_mult(temp, lambda));  // compute exp(-lambda*tau)
         for (int32 j = 0; j < n; j++) {
             for (int32 i = 0; i < n; i++) {
                 z[i + j*n] = del_stab_z_dif(
@@ -422,7 +422,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
             }
         }
     }
-     //  the array is done  
+    //  the array is done
     temp = del_stab_z_determ(z, n);
     free(z);
     arg = atan2(temp.i, temp.r);
@@ -435,7 +435,7 @@ del_stab_test_sign(double old, double new) {
         if (old > 2.9 && new < -2.9) {
             return 1;
         }
-        return 0;  // doesnt pass threshold 
+        return 0;  // doesnt pass threshold
     }
     if (old < 0.0 && new > 0.0) {
         if (old < -2.9 && new > 2.9) {
@@ -473,8 +473,8 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     double y;
     double arg;
     double oldarg = 0.0;
-    double ds;  // steplength 
-     // first the contour from i wmax -- -i wmax 
+    double ds;  // steplength
+                // first the contour from i wmax -- -i wmax
     ds = 2*wmax / npts;
     x = 0.0;
     for (int32 i = 0; i < npts; i++) {
@@ -484,7 +484,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
         sign = sign + del_stab_test_sign(oldarg, arg);
         oldarg = arg;
     }
-     // lower contour   
+    // lower contour
     y = -wmax;
     ds = almax / npts;
     for (int32 i = 0; i < npts; i++) {
@@ -494,7 +494,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
         sign = sign + del_stab_test_sign(oldarg, arg);
         oldarg = arg;
     }
-     // right contour 
+    // right contour
     x = almax;
     ds = 2*wmax / npts;
     for (int32 i = 0; i < npts; i++) {
@@ -505,7 +505,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
         oldarg = arg;
     }
 
-     // top contour 
+    // top contour
     y = wmax;
     ds = almax / npts;
     for (int32 i = 0; i < npts; i++) {

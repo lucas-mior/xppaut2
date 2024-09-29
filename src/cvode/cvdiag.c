@@ -39,14 +39,14 @@
  ******************************************************************/
 
 typedef struct {
-    double di_gammasv;  // gammasv = gamma at the last call to setup 
-                        // or solve                                  
+    double di_gammasv;  // gammasv = gamma at the last call to setup
+                        // or solve
 
-    Vector di_M;  // M = (I - gamma J)^{-1} , gamma = h / l1   
+    Vector di_M;  // M = (I - gamma J)^{-1} , gamma = h / l1
 
-    Vector di_bit;  // temporary storage vector                  
+    Vector di_bit;  // temporary storage vector
 
-    Vector di_bitcomp;  // temporary storage vector                  
+    Vector di_bitcomp;  // temporary storage vector
 
 } CVDiagMemRec, *CVDiagMem;
 
@@ -105,22 +105,22 @@ cv_diag(void *cvode_mem) {
     CVodeMem cv_mem;
     CVDiagMem cvdiag_mem;
 
-     // Return immediately if cvode_mem is NULL 
+    // Return immediately if cvode_mem is NULL
     cv_mem = (CVodeMem)cvode_mem;
     if (cv_mem == NULL) {
-        return;  // CVode reports this error 
+        return;  // CVode reports this error
     }
 
-     // Set four main function fields in cv_mem 
+    // Set four main function fields in cv_mem
     linit = cv_diag_init;
     lsetup = cv_diag_setup;
     lsolve = cv_diag_solve;
     lfree = cv_diag_free;
 
-     // Get memory for CVDiagMemRec 
+    // Get memory for CVDiagMemRec
     lmem = cvdiag_mem = xmalloc(sizeof(CVDiagMemRec));
     if (cvdiag_mem == NULL) {
-        return;  // cv_diag_init reports this error 
+        return;  // cv_diag_init reports this error
     }
     return;
 }
@@ -139,16 +139,16 @@ cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
 
     cvdiag_mem = (CVDiagMem)lmem;
 
-     // Print error message and return if cvdiag_mem is NULL 
+    // Print error message and return if cvdiag_mem is NULL
     if (cvdiag_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         return LINIT_ERR;
     }
 
-     // Set flag setupNonNull = true 
+    // Set flag setupNonNull = true
     *setupNonNull = true;
 
-     // Allocate memory for M, bit, and bitcomp 
+    // Allocate memory for M, bit, and bitcomp
 
     M = vector_new(N);
     if (M == NULL) {
@@ -169,7 +169,7 @@ cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
         return LINIT_ERR;
     }
 
-     // Set workspace lengths 
+    // Set workspace lengths
     if (iopt != NULL) {
         iopt[DIAG_LRW] = (int32)N*3;
         iopt[DIAG_LIW] = 0;
@@ -199,7 +199,7 @@ cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 
     cvdiag_mem = (CVDiagMem)lmem;
 
-     // Rename work vectors for use as temporary values of y and f 
+    // Rename work vectors for use as temporary values of y and f
     ftemp = vtemp1;
     y = vtemp2;
 
@@ -207,15 +207,15 @@ cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     vector_linear_sum(h, fpred, -ONE, zn[1], ftemp);
     vector_linear_sum(r, ftemp, ONE, ypred, y);
 
-     // Evaluate f at perturbed y 
+    // Evaluate f at perturbed y
     f(N, tn, y, M, f_data);
     nfe++;
 
-     // Construct M = I - gamma*J with J = diag(deltaf_i/deltay_i) 
+    // Construct M = I - gamma*J with J = diag(deltaf_i/deltay_i)
     vector_linear_sum(ONE, M, -ONE, fpred, M);
     vector_linear_sum(FRACT, ftemp, -h, M, M);
     vector_prod(ftemp, ewt, y);
-     // Protect against deltay_i being at roundoff level 
+    // Protect against deltay_i being at roundoff level
     vector_compare(uround, y, bit);
     vector_add_const(bit, -ONE, bitcomp);
     vector_prod(ftemp, bit, y);
@@ -224,13 +224,13 @@ cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     vector_prod(M, bit, M);
     vector_linear_sum(ONE, M, -ONE, bitcomp, M);
 
-     // Invert M with test for zero components 
+    // Invert M with test for zero components
     invOK = vector_inv_test(M, M);
     if (!invOK) {
         return 1;
     }
 
-     // Set jcur = true, save gamma in gammasv, and return 
+    // Set jcur = true, save gamma in gammasv, and return
     *jcurPtr = true;
     gammasv = gamma;
     return 0;
@@ -253,7 +253,7 @@ cv_diag_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
 
     cvdiag_mem = (CVDiagMem)lmem;
 
-     // If gamma has changed, update factor in M, and save gamma value 
+    // If gamma has changed, update factor in M, and save gamma value
 
     if (gammasv != gamma) {
         r = gamma / gammasv;
@@ -269,7 +269,7 @@ cv_diag_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
         gammasv = gamma;
     }
 
-     // Apply M-inverse to b 
+    // Apply M-inverse to b
     vector_prod(b, M, b);
     return 0;
 }

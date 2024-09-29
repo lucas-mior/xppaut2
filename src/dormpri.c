@@ -200,13 +200,13 @@ hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
     h = min_d(h, hmax);
     h = dormpri_sign(h, posneg);
 
-     // perform an explicit Euler step 
+    // perform an explicit Euler step
     for (i = 0; i < n; i++) {
         yyy1[i] = y[i] + h*f0[i];
     }
     fcn(n, x + h, yyy1, f1);
 
-     // estimate the second derivative of the solution 
+    // estimate the second derivative of the solution
     der2 = 0.0;
     if (!itoler) {
         for (i = 0; i < n; i++) {
@@ -450,7 +450,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     d71 = d76 = d77 = d78 = d79 = d710 = d711 = d712 = d713 = d714 = d715 =
         d716 = 0;
 
-     // initialisations 
+    // initialisations
     switch (meth) {
     case 1:
 
@@ -632,7 +632,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     facc2 = 1.0 / fac2;
     posneg = dormpri_sign(1.0, xend - x);
 
-     // initial preparations 
+    // initial preparations
     atoli = atoler[0];
     rtoli = rtoler[0];
     last = 0;
@@ -662,7 +662,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         }
     }
 
-     // basic integration step 
+    // basic integration step
     while (true) {
         if (nstep > nmax) {
             if (fileout) {
@@ -695,7 +695,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
         nstep++;
 
-         // the twelve stages 
+        // the twelve stages
         for (i = 0; i < n; i++) {
             yy1[i] = y[i] + h*a21*k1[i];
         }
@@ -757,7 +757,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
             k5[i] = y[i] + h*k4[i];
         }
 
-         // error estimation 
+        // error estimation
         err = 0.0;
         err2 = 0.0;
         if (!itoler) {
@@ -791,23 +791,23 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         }
         err = fabs(h)*err*sqrt(1.0 / (deno*(double)n));
 
-         // computation of hnew 
+        // computation of hnew
         fac11 = pow(err, expo1);
-         // Lund-stabilization 
+        // Lund-stabilization
         fac = fac11 / pow(facold, beta);
-         // we require fac1 <= hnew/h <= fac2 
+        // we require fac1 <= hnew/h <= fac2
         fac = max_d(facc2, min_d(facc1, fac / safe));
         hnew = h / fac;
 
         if (err <= 1.0) {
-             // step accepted 
+            // step accepted
 
             facold = max_d(err, 1.0E-4);
             naccpt++;
             fcn(n, xph, k5, k4);
             nfcn++;
 
-             // stiffness detection 
+            // stiffness detection
             if (!(naccpt % nstiff) || (iasti > 0)) {
                 stnum = 0.0;
                 stden = 0.0;
@@ -843,9 +843,9 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                 }
             }
 
-             // final preparation for dense output 
+            // final preparation for dense output
             if (iout == 2) {
-                 // save the first function evaluations 
+                // save the first function evaluations
                 if (nrds == n) {
                     for (i = 0; i < n; i++) {
                         rcont1[i] = y[i];
@@ -891,7 +891,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                     }
                 }
 
-                 // the next three function evaluations 
+                // the next three function evaluations
                 for (i = 0; i < n; i++) {
                     yy1[i] = y[i] + h*(a141*k1[i] + a147*k7[i] +
                                          a148*k8[i] + a149*k9[i] +
@@ -915,7 +915,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                 fcn(n, x + c16*h, yy1, k3);
                 nfcn += 3;
 
-                 // final preparation 
+                // final preparation
                 if (nrds == n) {
                     for (i = 0; i < n; i++) {
                         rcont5[i] =
@@ -967,7 +967,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                 }
             }
 
-             // normal exit 
+            // normal exit
             if (last) {
                 hout = hnew;
                 xout = x;
@@ -983,7 +983,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
             reject = 0;
         } else {
-             // step rejected 
+            // step rejected
             hnew = h / min_d(facc1, fac11 / safe);
             reject = 1;
             if (naccpt >= 1) {
@@ -1007,13 +1007,13 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     int32 idid;
     uint32 i;
 
-     // initialisations 
+    // initialisations
     nfcn = nstep = naccpt = nrejct = arret = 0;
     rcont1 = rcont2 = rcont3 = rcont4 = rcont5 = rcont6 = rcont7 = rcont8 =
         NULL;
     indir = NULL;
 
-     // n, the dimension of the system 
+    // n, the dimension of the system
     if (n == UINT_MAX) {
         if (fileout) {
             fprintf(fileout, "System too big, max. n = %u\r\n", UINT_MAX - 1);
@@ -1021,7 +1021,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // nmax, the maximal number of steps 
+    // nmax, the maximal number of steps
     if (!nmax) {
         nmax = 100000;
     } else if (nmax <= 0) {
@@ -1031,7 +1031,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // meth, coefficients of the method 
+    // meth, coefficients of the method
     if (!meth) {
         meth = 1;
     } else if ((meth <= 0) || (meth >= 2)) {
@@ -1041,14 +1041,14 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // nstiff, parameter for stiffness detection 
+    // nstiff, parameter for stiffness detection
     if (!nstiff) {
         nstiff = 1000;
     } else if (nstiff < 0) {
         nstiff = nmax + 10;
     }
 
-     // iout, switch for calling solout 
+    // iout, switch for calling solout
     if ((iout < 0) || (iout > 2)) {
         if (fileout) {
             fprintf(fileout, "Wrong input, iout = %i\r\n", iout);
@@ -1056,14 +1056,14 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // nrdens, number of dense output components 
+    // nrdens, number of dense output components
     if (nrdens > n) {
         if (fileout) {
             fprintf(fileout, "Curious input, nrdens = %u\r\n", nrdens);
         }
         arret = 1;
     } else if (nrdens) {
-         // is there enough memory to allocate rcont12345678&indir ? 
+        // is there enough memory to allocate rcont12345678&indir ?
         rcont1 = work;
         rcont2 = rcont1 + nrdens;
         rcont3 = rcont2 + nrdens;
@@ -1076,7 +1076,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
             indir = xmalloc(n*sizeof(*indir));
         }
 
-         // control of length of icont 
+        // control of length of icont
         if (nrdens == n) {
             if (icont && fileout) {
                 fprintf(fileout, "Warning : when nrdens = n there is no need "
@@ -1104,7 +1104,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         }
     }
 
-     // uround, smallest number satisfying 1.0+uround > 1.0 
+    // uround, smallest number satisfying 1.0+uround > 1.0
     if (uround == 0.0) {
         uround = 2.3E-16;
     } else if ((uround <= 1.0E-35) || (uround >= 1.0)) {
@@ -1116,7 +1116,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // safety factor 
+    // safety factor
     if (safe == 0.0) {
         safe = 0.9;
     } else if ((safe >= 1.0) || (safe <= 1.0E-4)) {
@@ -1127,7 +1127,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // fac1, fac2, parameters for step size selection 
+    // fac1, fac2, parameters for step size selection
     if (fac1 == 0.0) {
         fac1 = 0.333;
     }
@@ -1135,7 +1135,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         fac2 = 6.0;
     }
 
-     // beta for step control stabilization 
+    // beta for step control stabilization
     if (beta == 0.0) {
         beta = 0.0;
     } else if (beta < 0.0) {
@@ -1147,12 +1147,12 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // maximal step size 
+    // maximal step size
     if (hmax == 0.0) {
         hmax = xend - x;
     }
 
-     // is there enough free memory for the method ? 
+    // is there enough free memory for the method ?
     yy1 = work + 8*nrdens;
     k1 = yy1 + n;
     k2 = k1 + n;
@@ -1223,13 +1223,13 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
     h = min_d(h, hmax);
     h = dormpri_sign(h, posneg);
 
-     // perform an explicit Euler step 
+    // perform an explicit Euler step
     for (i = 0; i < n; i++) {
         yyy1[i] = y[i] + h*f0[i];
     }
     fcn(n, x + h, yyy1, f1);
 
-     // estimate the second derivative of the solution 
+    // estimate the second derivative of the solution
     der2 = 0.0;
     if (!itoler) {
         for (i = 0; i < n; i++) {
@@ -1337,7 +1337,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     a21 = a31 = a32 = a41 = a42 = a43 = a51 = a52 = a53 = a54 = 0;
     a61 = a62 = a63 = a64 = a65 = a71 = a73 = a74 = a75 = a76 = 0;
 
-     // initialisations 
+    // initialisations
     switch (meth) {
     case 1:
         c2 = 0.2;
@@ -1387,7 +1387,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     facc2 = 1.0 / fac2;
     posneg = dormpri_sign(1.0, xend - x);
 
-     // initial preparations 
+    // initial preparations
     atoli = atoler[0];
     rtoli = rtoler[0];
     last = 0;
@@ -1416,7 +1416,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         }
     }
 
-     // basic integration step 
+    // basic integration step
     while (true) {
         if (nstep > nmax) {
             if (fileout) {
@@ -1449,7 +1449,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
         nstep++;
 
-         // the first 6 stages 
+        // the first 6 stages
         for (i = 0; i < n; i++) {
             yy1[i] = y[i] + h*a21*k1[i];
         }
@@ -1498,7 +1498,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         }
         nfcn += 6;
 
-         // error estimation 
+        // error estimation
         err = 0.0;
         if (!itoler) {
             for (i = 0; i < n; i++) {
@@ -1515,21 +1515,21 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         }
         err = sqrt(err / (double)n);
 
-         // computation of hnew 
+        // computation of hnew
         fac11 = pow(err, expo1);
-         // Lund-stabilization 
+        // Lund-stabilization
         fac = fac11 / pow(facold, beta);
-         // we require fac1 <= hnew/h <= fac2 
+        // we require fac1 <= hnew/h <= fac2
         fac = max_d(facc2, min_d(facc1, fac / safe));
         hnew = h / fac;
 
         if (err <= 1.0) {
-             // step accepted 
+            // step accepted
 
             facold = max_d(err, 1.0E-4);
             naccpt++;
 
-             // stiffness detection 
+            // stiffness detection
             if (!(naccpt % nstiff) || (iasti > 0)) {
                 stnum = 0.0;
                 stden = 0.0;
@@ -1606,7 +1606,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                 }
             }
 
-             // normal exit 
+            // normal exit
             if (last) {
                 hout = hnew;
                 xout = x;
@@ -1622,7 +1622,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
             reject = 0;
         } else {
-             // step rejected 
+            // step rejected
             hnew = h / min_d(facc1, fac11 / safe);
             reject = 1;
             if (naccpt >= 1) {
@@ -1646,12 +1646,12 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     int32 idid;
     uint32 i;
 
-     // initialisations 
+    // initialisations
     nfcn = nstep = naccpt = nrejct = arret = 0;
     rcont1 = rcont2 = rcont3 = rcont4 = rcont5 = NULL;
     indir = NULL;
 
-     // n, the dimension of the system 
+    // n, the dimension of the system
     if (n == UINT_MAX) {
         if (fileout) {
             fprintf(fileout, "System too big, max. n = %u\r\n", UINT_MAX - 1);
@@ -1659,7 +1659,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // nmax, the maximal number of steps 
+    // nmax, the maximal number of steps
     if (!nmax) {
         nmax = 100000;
     } else if (nmax <= 0) {
@@ -1669,7 +1669,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // meth, coefficients of the method 
+    // meth, coefficients of the method
     if (!meth) {
         meth = 1;
     } else if ((meth <= 0) || (meth >= 2)) {
@@ -1679,14 +1679,14 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // nstiff, parameter for stiffness detection 
+    // nstiff, parameter for stiffness detection
     if (!nstiff) {
         nstiff = 1000;
     } else if (nstiff < 0) {
         nstiff = nmax + 10;
     }
 
-     // iout, switch for calling solout 
+    // iout, switch for calling solout
     if ((iout < 0) || (iout > 2)) {
         if (fileout) {
             fprintf(fileout, "Wrong input, iout = %i\r\n", iout);
@@ -1694,14 +1694,14 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // nrdens, number of dense output components 
+    // nrdens, number of dense output components
     if (nrdens > n) {
         if (fileout) {
             fprintf(fileout, "Curious input, nrdens = %u\r\n", nrdens);
         }
         arret = 1;
     } else if (nrdens) {
-         // is there enough memory to allocate rcont12345&indir ? 
+        // is there enough memory to allocate rcont12345&indir ?
         rcont1 = work;
         rcont2 = rcont1 + nrdens;
         rcont3 = rcont2 + nrdens;
@@ -1711,7 +1711,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
             indir = xmalloc(n*sizeof(*indir));
         }
 
-         // control of length of icont 
+        // control of length of icont
         if (nrdens == n) {
             if (icont && fileout) {
                 fprintf(fileout, "Warning : when nrdens = n there is no need "
@@ -1739,7 +1739,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         }
     }
 
-     // uround, smallest number satisfying 1.0+uround > 1.0 
+    // uround, smallest number satisfying 1.0+uround > 1.0
     if (uround == 0.0) {
         uround = 2.3E-16;
     } else if ((uround <= 1.0E-35) || (uround >= 1.0)) {
@@ -1751,7 +1751,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // safety factor 
+    // safety factor
     if (safe == 0.0) {
         safe = 0.9;
     } else if ((safe >= 1.0) || (safe <= 1.0E-4)) {
@@ -1762,7 +1762,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // fac1, fac2, parameters for step size selection 
+    // fac1, fac2, parameters for step size selection
     if (fac1 == 0.0) {
         fac1 = 0.2;
     }
@@ -1770,7 +1770,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         fac2 = 10.0;
     }
 
-     // beta for step control stabilization 
+    // beta for step control stabilization
     if (beta == 0.0) {
         beta = 0.04;
     } else if (beta < 0.0) {
@@ -1782,12 +1782,12 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         arret = 1;
     }
 
-     // maximal step size 
+    // maximal step size
     if (hmax == 0.0) {
         hmax = xend - x;
     }
 
-     // is there enough free memory for the method ? 
+    // is there enough free memory for the method ?
     yy1 = work + 5*nrdens;
     k1 = yy1 + n;
     k2 = k1 + n;

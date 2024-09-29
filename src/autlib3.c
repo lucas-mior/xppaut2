@@ -25,17 +25,17 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Generates the equations for the 2-par continuation of folds. 
+    // Generates the equations for the 2-par continuation of folds.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
 
-     // Generate the function. 
+    // Generate the function.
 
     fflp(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -44,7 +44,7 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -96,7 +96,7 @@ fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 ips;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -141,11 +141,11 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     v = xmalloc(sizeof(*v)*(usize)(iap->ndim));
-     // Generates starting data for the continuation of folds. 
+    // Generates starting data for the continuation of folds.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     ndim = iap->ndim;
     ips = iap->ips;
@@ -189,12 +189,12 @@ fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
 
     ddu = xmalloc(sizeof(*ddu)*(usize)(iap->ndim));
-     // Generate the equations for the continuation scheme used for 
-     // the optimization of algebraic systems (one parameter). 
+    // Generate the equations for the continuation scheme used for
+    // the optimization of algebraic systems (one parameter).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
@@ -203,7 +203,7 @@ fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     par[icp[1]] = u[-1 + ndim];
     funi(iap, rap, ndm, u, uold, icp, par, ijac, f, dfdu, dfdp);
 
-     // Rearrange (Since dimensions in FNC1 and FUNI differ). 
+    // Rearrange (Since dimensions in FNC1 and FUNI differ).
 
     if (ijac != 0) {
         for (int64 j = ndm - 1; j >= 0; --j) {
@@ -245,9 +245,9 @@ stpnc1(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     double fop;
     double dum;
 
-     // Generate starting data for optimization problems (one parameter). 
+    // Generate starting data for optimization problems (one parameter).
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     ndim = iap->ndim;
     ndm = iap->ndm;
@@ -274,18 +274,18 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Generate the equations for the continuation scheme used for the 
-     // optimization of algebraic systems (more than one parameter). 
+    // Generate the equations for the continuation scheme used for the
+    // optimization of algebraic systems (more than one parameter).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
 
-     // Generate the function. 
+    // Generate the function.
 
     ffc2(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -294,7 +294,7 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -345,9 +345,9 @@ ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm2;
 
     ddu = xmalloc(sizeof(*ddu)*(usize)(iap->ndim));
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -409,12 +409,12 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     v = xmalloc(sizeof(*v)*(usize)(iap->ndim));
     dd = xmalloc(sizeof(*dd)*(usize)((iap->ndim)*(iap->ndim)));
     du = xmalloc(sizeof(*du)*(usize)(iap->ndim));
-     // Generates starting data for the continuation equations for 
-     // optimization of algebraic systems (More than one parameter). 
+    // Generates starting data for the continuation equations for
+    // optimization of algebraic systems (More than one parameter).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     ndim = iap->ndim;
     irs = iap->irs;
     ndm = iap->ndm;
@@ -428,7 +428,7 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
         funi(iap, rap, ndm, u, &uold, icp, par, 2, f, global_scratch.dfu,
              global_scratch.dfp);
         fopi(iap, rap, ndm, u, icp, par, 2, &fop, du, dp);
-         //       TRANSPOSE 
+        //       TRANSPOSE
         for (int64 i = 0; i < ndm; ++i) {
             for (int64 j = 0; j < ndm; ++j) {
                 dd[i + j*ndim] = global_scratch.dfu[i*ndm + j];
@@ -472,9 +472,9 @@ fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-     // Generate the equations for continuing fixed points. 
+    // Generate the equations for continuing fixed points.
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
@@ -509,9 +509,9 @@ fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     double told;
     double dt;
 
-     // Generate the equations for continuing fixed points. 
+    // Generate the equations for continuing fixed points.
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
@@ -555,18 +555,18 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Generates the equations for the 2-parameter continuation of Hopf 
-     // bifurcation points for maps. 
+    // Generates the equations for the 2-parameter continuation of Hopf
+    // bifurcation points for maps.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
 
-     // Generate the function. 
+    // Generate the function.
 
     ffhd(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -575,7 +575,7 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -631,7 +631,7 @@ ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     double s1;
     int64 ndm2;
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
@@ -697,12 +697,12 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     v = xmalloc(sizeof(*v)*(usize)(iap->ndim));
     smat = xmalloc(sizeof(*smat)*(usize)((iap->ndim*2)*(iap->ndim*2)));
-     // Generates starting data for the continuation of Hopf bifurcation 
-     // points for maps. 
+    // Generates starting data for the continuation of Hopf bifurcation
+    // points for maps.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     ndim = iap->ndim;
     irs = iap->irs;
@@ -776,19 +776,19 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Generates the equations for the 2-parameter continuation of Hopf 
-     // bifurcation points in ODE. 
+    // Generates the equations for the 2-parameter continuation of Hopf
+    // bifurcation points in ODE.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
 
-     // Generate the function. 
+    // Generate the function.
 
     ffhb(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -797,7 +797,7 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -849,7 +849,7 @@ ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     double rom;
     int64 ndm2;
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
@@ -907,12 +907,12 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     smat = xmalloc(sizeof(*smat)*(usize)((iap->ndim*2)*(iap->ndim*2)));
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     v = xmalloc(sizeof(*v)*(usize)(iap->ndim));
-     // Generates starting data for the 2-parameter continuation of 
-     // Hopf bifurcation point (ODE). 
+    // Generates starting data for the 2-parameter continuation of
+    // Hopf bifurcation point (ODE).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     ndim = iap->ndim;
     irs = iap->irs;
@@ -982,19 +982,19 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Generates the equations for the 2-parameter continuation of a 
-     // bifurcation to a traveling wave. 
+    // Generates the equations for the 2-parameter continuation of a
+    // bifurcation to a traveling wave.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
 
-     // Generate the function. 
+    // Generate the function.
 
     ffhw(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -1003,7 +1003,7 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -1058,7 +1058,7 @@ ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     double rom;
     int64 ndm2;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -1121,12 +1121,12 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     dfp = xmalloc(sizeof(*dfp)*(usize)((iap->ndim)*NPARX));
     dfu = xmalloc(sizeof(*dfu)*(usize)((iap->ndim)*(iap->ndim)));
 
-     // Generates starting data for the continuation of a bifurcation to a 
-     // traveling wave. 
+    // Generates starting data for the continuation of a bifurcation to a
+    // traveling wave.
 
-     // Local (Can't use BLLOC here.) 
+    // Local (Can't use BLLOC here.)
 
-     // Parameter adjustments 
+    // Parameter adjustments
     ndim = iap->ndim;
     irs = iap->irs;
     ndm = iap->ndm;
@@ -1196,16 +1196,16 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     double period;
 
-     // Generates the equations for the continuation of periodic orbits. 
+    // Generates the equations for the continuation of periodic orbits.
 
-     // Generate the function. 
+    // Generate the function.
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     if (icp[1] == 10) {
-         //          **Variable period continuation 
+        //          **Variable period continuation
         funi(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
         period = par[10];
         for (int64 i = 0; i < ndim; ++i) {
@@ -1215,7 +1215,7 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         if (ijac == 0) {
             return 0;
         }
-         //          **Generate the Jacobian. 
+        //          **Generate the Jacobian.
         for (int64 i = 0; i < ndim; ++i) {
             for (int64 j = 0; j < ndim; ++j) {
                 ARRAY2D(dfdu, i, j) = period*ARRAY2D(dfdu, i, j);
@@ -1223,7 +1223,7 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             ARRAY2D(dfdp, i, (icp[0])) = period*ARRAY2D(dfdp, i, (icp[0]));
         }
     } else {
-         //          **Fixed period continuation 
+        //          **Fixed period continuation
         period = par[10];
         funi(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
         for (int64 i = 0; i < ndim; ++i) {
@@ -1232,7 +1232,7 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         if (ijac == 0) {
             return 0;
         }
-         //          **Generate the Jacobian. 
+        //          **Generate the Jacobian.
         for (int64 i = 0; i < ndim; ++i) {
             for (int64 j = 0; j < ndim; ++j) {
                 ARRAY2D(dfdu, i, j) = period*ARRAY2D(dfdu, i, j);
@@ -1258,7 +1258,7 @@ bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)rap;
     (void)icp;
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dbc_dim1 = nbc;
 
@@ -1266,7 +1266,7 @@ bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         f[i] = u0[i] - u1[i];
     }
 
-     // Rotations 
+    // Rotations
     if (global_rotations.irtn != 0) {
         for (int64 i = 0; i < ndim; ++i) {
             if (global_rotations.nrtn[i] != 0) {
@@ -1311,7 +1311,7 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)uold;
     (void)udot;
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dint_dim1 = nint;
 
@@ -1356,9 +1356,9 @@ pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
     (void)iap;
     (void)rap;
 
-     // Preprocesses restart data for switching branches at a period doubling 
+    // Preprocesses restart data for switching branches at a period doubling
 
-     // Parameter adjustments 
+    // Parameter adjustments
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -1430,12 +1430,12 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         xmalloc(sizeof(*rnllv)*(usize)((iap->ndim*2)*(iap->ndim*2)));
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     u = xmalloc(sizeof(*u)*(usize)(iap->ndim));
-     // Generates starting data for the continuation of a branch of periodic 
-     // solutions from a Hopf bifurcation point. 
+    // Generates starting data for the continuation of a branch of periodic
+    // solutions from a Hopf bifurcation point.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     upoldp_dim1 = *ndxloc;
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -1488,7 +1488,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     }
     nrmlz(&ndim2, rnllv);
 
-     // Generate the (initially uniform) mesh. 
+    // Generate the (initially uniform) mesh.
 
     msh(iap, tm);
     dt = 1. / (double)ntst;
@@ -1550,19 +1550,19 @@ fnws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     int64 ndm2;
 
-     // Sets up equations for the continuation of spatially homogeneous 
-     // solutions to parabolic systems, for the purpose of finding 
-     // bifurcations to travelling wave solutions. 
+    // Sets up equations for the continuation of spatially homogeneous
+    // solutions to parabolic systems, for the purpose of finding
+    // bifurcations to travelling wave solutions.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
 
-     // Generate the function. 
+    // Generate the function.
 
     ndm2 = ndm / 2;
     ffws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm2,
@@ -1583,7 +1583,7 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 nfpr;
     double c;
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
@@ -1625,14 +1625,14 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-     // Derivative with respect to the wave speed. 
+    // Derivative with respect to the wave speed.
 
     for (int64 i = 0; i < ndm; ++i) {
         ARRAY2D(dfdp, i, 9) = 0.;
         ARRAY2D(dfdp, i + ndm, 9) = -u[ndm + i] / par[i + 14];
     }
 
-     // Derivatives with respect to the diffusion coefficients. 
+    // Derivatives with respect to the diffusion coefficients.
 
     for (int64 j = 0; j < ndm; ++j) {
         for (int64 i = 0; i < ndm; ++i) {
@@ -1654,16 +1654,16 @@ fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     double period;
 
-     // Equations for the continuation of traveling waves. 
+    // Equations for the continuation of traveling waves.
 
-     // Generate the function and Jacobian. 
+    // Generate the function and Jacobian.
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     if (icp[1] == 10) {
-         //          **Variable wave length 
+        //          **Variable wave length
         fnws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
         period = par[10];
         for (int64 i = 0; i < ndim; ++i) {
@@ -1682,7 +1682,7 @@ fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             ARRAY2D(dfdp, i, (icp[0])) = period*ARRAY2D(dfdp, i, (icp[0]));
         }
     } else {
-         //          **Fixed wave length 
+        //          **Fixed wave length
         fnws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
         period = par[10];
         for (int64 i = 0; i < ndim; ++i) {
@@ -1746,12 +1746,12 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     dfp = xmalloc(sizeof(*dfp)*(usize)((iap->ndim)*NPARX));
     dfu = xmalloc(sizeof(*dfu)*(usize)((iap->ndim)*(iap->ndim)));
 
-     // Generates starting data for the continuation of a branch of periodic 
-     // solutions starting from a Hopf bifurcation point (Waves). 
+    // Generates starting data for the continuation of a branch of periodic
+    // solutions starting from a Hopf bifurcation point (Waves).
 
-     // Local (Can't use BLLOC here.) 
+    // Local (Can't use BLLOC here.)
 
-     // Parameter adjustments 
+    // Parameter adjustments
     upoldp_dim1 = *ndxloc;
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -1799,7 +1799,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     nlvc(ndim2, ndim*2, 2, smat, rnllv);
     nrmlz(&ndim2, rnllv);
 
-     // Generate the (initially uniform) mesh. 
+    // Generate the (initially uniform) mesh.
 
     msh(iap, tm);
     dt = 1. / (double)ntst;
@@ -1863,17 +1863,17 @@ fnsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 ndm;
 
-     // Generates the equations for taking one time step (Implicit Euler). 
+    // Generates the equations for taking one time step (Implicit Euler).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
 
-     // Generate the function and Jacobian. 
+    // Generate the function and Jacobian.
 
     ffsp(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm,
          global_scratch.dfu, global_scratch.dfp);
@@ -1892,7 +1892,7 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     double period;
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
@@ -1949,17 +1949,17 @@ fnpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 ndm;
 
-     // Generates the equations for taking one time step (Implicit Euler). 
+    // Generates the equations for taking one time step (Implicit Euler).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
 
-     // Generate the function and Jacobian. 
+    // Generate the function and Jacobian.
     ffpe(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm,
          global_scratch.dfu, global_scratch.dfp);
 
@@ -1982,7 +1982,7 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     double dt;
     double period;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
     dfp_dim1 = ndm;
@@ -2022,7 +2022,7 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         ARRAY2D(dfdu, i, (i + ndm)) = period;
         ARRAY2D(dfdu, i + ndm, i) += period / (dt*par[i + 14]);
         ARRAY2D(dfdp, i, (icp[0])) = 0.;
-         // Computing 2nd power 
+        // Computing 2nd power
         ARRAY2D(dfdp, i + ndm, icp[0]) =
             -period*(u[i] - uold[i]) / (dt*dt*par[i + 14]);
     }
@@ -2048,7 +2048,7 @@ icpe(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)ijac;
     (void)dint;
 
-     // Dummy integral condition subroutine for parabolic systems. 
+    // Dummy integral condition subroutine for parabolic systems.
 
     return 0;
 }
@@ -2070,16 +2070,16 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     ffpl(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -2088,7 +2088,7 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -2144,7 +2144,7 @@ ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     (void)ndim;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -2159,10 +2159,10 @@ ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             f[ndm + i] += ARRAY2D(dfdu, i, j)*u[ndm + j];
         }
         if (icp[2] == 10) {
-             //            ** Variable period 
+            //            ** Variable period
             f[ndm + i] = period*f[ndm + i] + beta*f[i];
         } else {
-             //            ** Fixed period 
+            //            ** Fixed period
             f[ndm + i] =
                 period*f[ndm + i] + beta*ARRAY2D(dfdp, i, (icp[1]));
         }
@@ -2183,16 +2183,16 @@ bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)rap;
     (void)icp;
 
-     // Boundary conditions for continuing folds (Periodic solutions) 
+    // Boundary conditions for continuing folds (Periodic solutions)
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dbc_dim1 = nbc;
 
     for (int64 i = 0; i < ndim; ++i) {
         f[i] = u0[i] - u1[i];
     }
 
-     // Rotations 
+    // Rotations
     if (global_rotations.irtn != 0) {
         ndm = iap->ndm;
         for (int64 i = 0; i < ndm; ++i) {
@@ -2237,16 +2237,16 @@ icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)icp;
     (void)uold;
 
-     // Integral conditions for continuing folds (Periodic solutions) 
+    // Integral conditions for continuing folds (Periodic solutions)
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dint_dim1 = nint;
 
     ndm = iap->ndm;
 
     f[0] = 0.;
     f[1] = 0.;
-     // Computing 2nd power 
+    // Computing 2nd power
     f[2] = par[11]*par[11] - par[12];
 
     for (int64 i = 0; i < ndm; ++i) {
@@ -2325,12 +2325,12 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     (void)dtm;
     (void)upoldp;
 
-     // Generates starting data for the 2-parameter continuation of folds 
-     // on a branch of periodic solutions. 
+    // Generates starting data for the 2-parameter continuation of folds
+    // on a branch of periodic solutions.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     upoldp_dim1 = *ndxloc;
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -2380,7 +2380,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     fscanf(fp3, "%lf", &rd1);
     fscanf(fp3, "%lf", &rd2);
 
-     // Read U-dot (derivative with respect to arclength). 
+    // Read U-dot (derivative with respect to arclength).
 
     for (int64 j = 0; j < *ntsr; ++j) {
         for (int64 i = 0; i < *ncolrs; ++i) {
@@ -2396,7 +2396,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         fscanf(fp3, "%lf", &ARRAY2D(udotps, *ntsr, k));
     }
 
-     // Read the parameter values. 
+    // Read the parameter values.
 
     if (nparr > NPARX) {
         nparr = NPARX;
@@ -2407,18 +2407,18 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         fscanf(fp3, "%lf", &par[i]);
     }
 
-     // Complement starting data 
+    // Complement starting data
     par[11] = 0.;
     par[12] = 0.;
     if (icp[2] == 10) {
-         //          Variable period 
+        //          Variable period
         rldot[0] = rd1;
         rldot[1] = 0.;
         rldot[2] = rd2;
         rldot[3] = 0.;
-         //          Variable period 
+        //          Variable period
     } else {
-         //          Fixed period 
+        //          Fixed period
         rldot[0] = rd1;
         rldot[1] = rd2;
         rldot[2] = 0.;
@@ -2467,16 +2467,16 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     ffpd(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -2485,7 +2485,7 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -2538,7 +2538,7 @@ ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     (void)ndim;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -2569,10 +2569,10 @@ bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)icp;
     (void)rap;
 
-     // Generate boundary conditions for the 2-parameter continuation 
-     // of period doubling bifurcations. 
+    // Generate boundary conditions for the 2-parameter continuation
+    // of period doubling bifurcations.
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dbc_dim1 = nbc;
 
     ndm = iap->ndm;
@@ -2582,7 +2582,7 @@ bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         f[ndm + i] = u0[ndm + i] + u1[ndm + i];
     }
 
-     // Rotations 
+    // Rotations
     if (global_rotations.irtn != 0) {
         for (int64 i = 0; i < ndm; ++i) {
             if (global_rotations.nrtn[i] != 0) {
@@ -2630,7 +2630,7 @@ icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)icp;
     (void)rap;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dint_dim1 = nint;
 
     ndm = iap->ndm;
@@ -2707,12 +2707,12 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     (void)dtm;
     (void)upoldp;
 
-     // Generates starting data for the 2-parameter continuation of 
-     // period-doubling bifurcations on a branch of periodic solutions. 
+    // Generates starting data for the 2-parameter continuation of
+    // period-doubling bifurcations on a branch of periodic solutions.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     upoldp_dim1 = *ndxloc;
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -2760,7 +2760,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     fscanf(fp3, "%lf", rldot);
     fscanf(fp3, "%lf", &rldot[1]);
 
-     // Read U-dot (derivative with respect to arclength). 
+    // Read U-dot (derivative with respect to arclength).
 
     for (int64 j = 0; j < *ntsr; ++j) {
         for (int64 i = 0; i < *ncolrs; ++i) {
@@ -2776,7 +2776,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         fscanf(fp3, "%lf", &ARRAY2D(udotps, *ntsr, k));
     }
 
-     // Read the parameter values. 
+    // Read the parameter values.
 
     if (nparr > NPARX) {
         nparr = NPARX;
@@ -2787,7 +2787,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         fscanf(fp3, "%lf", &par[i]);
     }
 
-     // Complement starting data 
+    // Complement starting data
     par[12] = 0.;
     rldot[2] = 0.;
     for (int64 j = 0; j < *ntsr; ++j) {
@@ -2831,19 +2831,19 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Generates the equations for the 2-parameter continuation of 
-     // torus bifurcations. 
+    // Generates the equations for the 2-parameter continuation of
+    // torus bifurcations.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     fftr(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -2852,7 +2852,7 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -2906,7 +2906,7 @@ fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     (void)ndim;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -2945,7 +2945,7 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)icp;
     (void)rap;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dbc_dim1 = nbc;
 
     ndm = iap->ndm;
@@ -2962,7 +2962,7 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         f[ndm2 + i] = u1[ndm2 + i] - cs*u0[ndm2 + i] - ss*u0[ndm + i];
     }
 
-     // Rotations 
+    // Rotations
     if (global_rotations.irtn != 0) {
         for (int64 i = 0; i < ndm; ++i) {
             if (global_rotations.nrtn[i] != 0) {
@@ -3017,7 +3017,7 @@ ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)icp;
     (void)rap;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dint_dim1 = nint;
 
     ndm = iap->ndm;
@@ -3101,12 +3101,12 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     (void)dtm;
     (void)upoldp;
 
-     // Generates starting data for the 2-parameter continuation of torus 
-     // bifurcations. 
+    // Generates starting data for the 2-parameter continuation of torus
+    // bifurcations.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -3166,7 +3166,7 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     rldot[2] = 0.;
     rldot[3] = 0.;
 
-     // Read the direction vector and initialize the starting direction. 
+    // Read the direction vector and initialize the starting direction.
 
     for (int64 j = 0; j < *ntsr; ++j) {
         for (int64 i = 0; i < *ncolrs; ++i) {
@@ -3192,7 +3192,7 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         ARRAY2D(udotps, *ntsr, ((ndm*2) + i)) = 0.;
     }
 
-     // Read the parameter values. 
+    // Read the parameter values.
 
     if (nparr > NPARX) {
         nparr = NPARX;
@@ -3233,18 +3233,18 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     upold = xmalloc(sizeof(*upold)*(usize)(iap->ndim));
 
-     // Generates the equations for periodic optimization problems. 
+    // Generates the equations for periodic optimization problems.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
     nfpr = iap->nfpr;
 
-     // Generate F(UOLD) 
+    // Generate F(UOLD)
 
     funi(iap, rap, ndm, uold, uold, icp, par, 0, upold, dfdu, dfdp);
     period = par[10];
@@ -3252,7 +3252,7 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         upold[i] = period*upold[i];
     }
 
-     // Generate the function. 
+    // Generate the function.
 
     ffpo(iap, rap, ndim, u, uold, upold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -3262,7 +3262,7 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -3317,9 +3317,9 @@ ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     (void)ndim;
 
     dfu = xmalloc(sizeof(*dfu)*(usize)(iap->ndim));
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -3364,7 +3364,7 @@ bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Generates the boundary conditions for periodic optimization problems.
      */
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dbc_dim1 = nbc;
 
     nfpr = iap->nfpr;
@@ -3373,7 +3373,7 @@ bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         f[i] = u0[i] - u1[i];
     }
 
-     // Rotations 
+    // Rotations
     if (global_rotations.irtn != 0) {
         nbc0 = iap->nbc0;
         for (int64 i = 0; i < nbc0; ++i) {
@@ -3418,18 +3418,18 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     f2 = xmalloc(sizeof(*(f2))*(usize)(iap->nint));
     dnt = xmalloc(sizeof(*dnt)*(usize)((iap->nint)*(iap->ndim + NPARX)));
 
-     // Generates integral conditions for periodic optimization problems. 
+    // Generates integral conditions for periodic optimization problems.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dint_dim1 = nint;
 
     ndm = iap->ndm;
     nnt0 = iap->nnt0;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f, dnt,
          ndm, global_scratch.dfu, global_scratch.dfp);
@@ -3441,7 +3441,7 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -3508,9 +3508,9 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     dfu = xmalloc(sizeof(*dfu)*(usize)(iap->ndim));
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dint_dim1 = nnt0;
     dfdp_dim1 = ndmt;
     dfdu_dim1 = ndmt;
@@ -3531,10 +3531,10 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     fopi(iap, rap, ndm, u, icp, par, 2, &fop, dfu, dfp);
     fi[1] = par[9] - fop;
 
-     // Computing 2nd power 
+    // Computing 2nd power
     fi[2] = par[12]*par[12] + par[13]*par[13] - par[11];
     for (int64 i = 0; i < ndm; ++i) {
-         // Computing 2nd power 
+        // Computing 2nd power
         fi[2] += u[ndm + i]*u[ndm + i];
     }
 
@@ -3628,11 +3628,11 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     temporary_storage = xmalloc(size);
     u = xmalloc(sizeof(*u)*(usize)(iap->ndim));
 
-     // Generates starting data for optimization of periodic solutions. 
+    // Generates starting data for optimization of periodic solutions.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     upoldp_dim1 = *ndxloc;
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -3684,7 +3684,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     fscanf(fp3, "%lf", &rld1);
     fscanf(fp3, "%lf", &rld2);
 
-     // Read U-dot (derivative with respect to arclength). 
+    // Read U-dot (derivative with respect to arclength).
     for (int64 j = 0; j < *ntsr; ++j) {
         for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
@@ -3698,7 +3698,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         fscanf(fp3, "%lf", &ARRAY2D(udotps, *ntsr, k));
     }
 
-     // Read the parameter values. 
+    // Read the parameter values.
     if (nparr > NPARX) {
         nparr = NPARX;
         printf("Warning : NPARX too small for restart data\n");
@@ -3736,7 +3736,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     par[9] = rintg(iap, ndxloc, 1, upoldp, dtm);
 #endif
 
-     // Complement starting data 
+    // Complement starting data
 
     for (int64 i = 11; i < NPARX; ++i) {
         par[i] = 0.;
@@ -3783,19 +3783,19 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-     // Generates the equations for the 2-parameter continuation 
-     // of folds (BVP). 
+    // Generates the equations for the 2-parameter continuation
+    // of folds (BVP).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     ndm = iap->ndm;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     ffbl(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
@@ -3804,7 +3804,7 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -3858,7 +3858,7 @@ ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     (void)ndim;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndm;
     dfdu_dim1 = ndm;
 
@@ -3899,18 +3899,18 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     uu2 = xmalloc(sizeof(*(uu2))*(usize)(iap->ndim));
     dfu = xmalloc(sizeof(*dfu)*(usize)((iap->nbc)*(2*iap->ndim + NPARX)));
 
-     // Generates the boundary conditions for the 2-parameter continuation 
-     // of folds (BVP). 
+    // Generates the boundary conditions for the 2-parameter continuation
+    // of folds (BVP).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dbc_dim1 = nbc;
 
     nbc0 = iap->nbc0;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     fbbl(iap, rap, ndim, par, icp, nbc, nbc0, u0, u1, f, dfu);
 
@@ -3923,7 +3923,7 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-     // Derivatives with respect to U0. 
+    // Derivatives with respect to U0.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -3947,7 +3947,7 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-     // Derivatives with respect to U1. 
+    // Derivatives with respect to U1.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -3999,7 +3999,7 @@ fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     (void)nbc;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dbc_dim1 = nbc0;
 
     ndm = iap->ndm;
@@ -4041,18 +4041,18 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     uu2 = xmalloc(sizeof(*(uu2))*(usize)(iap->ndim));
     dfu = xmalloc(sizeof(*dfu)*(usize)((iap->ndim)*(iap->ndim + NPARX)));
 
-     // Generates integral conditions for the 2-parameter continuation of 
-     // folds (BVP). 
+    // Generates integral conditions for the 2-parameter continuation of
+    // folds (BVP).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dint_dim1 = nint;
 
     nnt0 = iap->nnt0;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     fibl(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f, dfu);
 
@@ -4065,7 +4065,7 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-     // Generate the Jacobian. 
+    // Generate the Jacobian.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -4123,7 +4123,7 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     (void)ndim;
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dint_dim1 = nnt0;
 
     ndm = iap->ndm;
@@ -4146,14 +4146,14 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-     // Note that PAR(11+NFPR/2) is used to keep the norm of the null vector 
+    // Note that PAR(11+NFPR/2) is used to keep the norm of the null vector
     f[-1 + nint] = -par[-1 + nfpr / 2 + 11];
     for (int64 i = 0; i < ndm; ++i) {
         f[-1 + nint] += u[ndm + i]*u[ndm + i];
     }
     if (nfpx != 0) {
         for (int64 i = 0; i < nfpx; ++i) {
-             // Computing 2nd power 
+            // Computing 2nd power
             f[-1 + nint] +=
                 par[icp[nfpr - nfpx + i]]*par[icp[nfpr - nfpx + i]];
         }
@@ -4200,12 +4200,12 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     (void)upoldp;
     (void)udotps;
 
-     // Generates starting data for the 2-parameter continuation of folds. 
-     // (BVP). 
+    // Generates starting data for the 2-parameter continuation of folds.
+    // (BVP).
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -4253,7 +4253,7 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         fscanf(fp3, "%lf", &rldot[i]);
     }
 
-     // Read U-dot (Derivative with respect to arclength). 
+    // Read U-dot (Derivative with respect to arclength).
 
     for (int64 j = 0; j < *ntsr; ++j) {
         for (int64 i = 0; i < *ncolrs; ++i) {
@@ -4268,7 +4268,7 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         fscanf(fp3, "%lf", &ARRAY2D(ups, *ntsr, k));
     }
 
-     // Read the parameter values. 
+    // Read the parameter values.
 
     if (nparr > NPARX) {
         nparr = NPARX;
@@ -4285,7 +4285,7 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
             par[icp[nfpr0 + 1 + i]] = rldot[i + 1];
         }
     }
-     // Initialize the norm of the null vector 
+    // Initialize the norm of the null vector
     par[-1 + nfpr / 2 + 11] = (double)0.;
 
     for (int64 i = 0; i < nfpr; ++i) {
@@ -4327,18 +4327,18 @@ funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     f1zz = xmalloc(sizeof(*(f1zz))*(usize)(iap->ndim));
     f2zz = xmalloc(sizeof(*(f2zz))*(usize)(iap->ndim));
 
-     // Interface subroutine to user supplied FUNC. 
+    // Interface subroutine to user supplied FUNC.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dfdp_dim1 = ndim;
     dfdu_dim1 = ndim;
 
     jac = iap->jac;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     if (jac == 0) {
         ijc = 0;
@@ -4355,7 +4355,7 @@ funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-     // Generate the Jacobian by differencing. 
+    // Generate the Jacobian by differencing.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -4428,17 +4428,17 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     f1zz = xmalloc(sizeof(*(f1zz))*(usize)(iap->nbc));
     f2zz = xmalloc(sizeof(*(f2zz))*(usize)(iap->nbc));
 
-     // Interface subroutine to the user supplied BCND. 
+    // Interface subroutine to the user supplied BCND.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
     dbc_dim1 = nbc;
 
     jac = iap->jac;
     nfpr = iap->nfpr;
 
-     // Generate the function. 
+    // Generate the function.
 
     if (jac == 0) {
         ijc = 0;
@@ -4451,7 +4451,7 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-     // Generate the Jacobian by differencing. 
+    // Generate the Jacobian by differencing.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -4549,18 +4549,18 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     f2zz = xmalloc(sizeof(*(f2zz))*(usize)(iap->nint));
     u1zz = xmalloc(sizeof(*(u1zz))*(usize)(iap->ndim));
     u2zz = xmalloc(sizeof(*(u2zz))*(usize)(iap->ndim));
-     // Interface subroutine to user supplied ICND. 
+    // Interface subroutine to user supplied ICND.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     dint_dim1 = nint;
 
     jac = iap->jac;
     nfpr = iap->nfpr;
 
-     // Generate the integrand. 
+    // Generate the integrand.
 
     if (jac == 0) {
         ijc = 0;
@@ -4573,7 +4573,7 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-     // Generate the Jacobian by differencing. 
+    // Generate the Jacobian by differencing.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {
@@ -4645,16 +4645,16 @@ fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
     u1zz = xmalloc(sizeof(*(u1zz))*(usize)(iap->ndim));
     u2zz = xmalloc(sizeof(*(u2zz))*(usize)(iap->ndim));
 
-     // Interface subroutine to user supplied FOPT. 
+    // Interface subroutine to user supplied FOPT.
 
-     // Local 
+    // Local
 
-     // Parameter adjustments 
+    // Parameter adjustments
 
     jac = iap->jac;
     nfpr = iap->nfpr;
 
-     // Generate the objective function. 
+    // Generate the objective function.
 
     if (jac == 0) {
         ijc = 0;
@@ -4669,7 +4669,7 @@ fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
         return 0;
     }
 
-     // Generate the Jacobian by differencing. 
+    // Generate the Jacobian by differencing.
 
     umx = 0.;
     for (int64 i = 0; i < ndim; ++i) {

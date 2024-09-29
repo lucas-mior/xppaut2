@@ -70,15 +70,15 @@
 #define SYS_DIRENT_H
 
 struct dirent {
-    ulong d_fileno;   // file number of entry 
-    uint16 d_reclen;  // length of this record 
-    uchar d_type;     // file type, see below 
-    uchar d_namlen;   // length of string in d_name 
+    ulong d_fileno;   // file number of entry
+    uint16 d_reclen;  // length of this record
+    uchar d_type;     // file type, see below
+    uchar d_namlen;   // length of string in d_name
 #ifdef _POSIX_SOURCE
-    char d_name[255 + 1];  // name must be no longer than this 
+    char d_name[255 + 1];  // name must be no longer than this
 #else
 #define MAXNAMLEN 255
-    char d_name[MAXNAMLEN + 1];  // name must be no longer than this 
+    char d_name[MAXNAMLEN + 1];  // name must be no longer than this
 #endif
 };
 
@@ -101,4 +101,4 @@ struct dirent {
 #define IFTODT(mode) (((mode) & 0170000) >> 12)
 #define DTTOIF(dirtype) ((dirtype) << 12)
 
-#endif  // _SYS_DIRENT_H  
+#endif  // _SYS_DIRENT_H

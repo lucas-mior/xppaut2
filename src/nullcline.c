@@ -27,7 +27,7 @@ static int32 DFSuppress = 0;
 int32 DFBatch = 0;
 int32 NCBatch = 0;
 
-static int32 NullStyle = 0;  // 1 is with little vertical/horizontal lines 
+static int32 NullStyle = 0;  // 1 is with little vertical/horizontal lines
 
 int32 XNullColor = 2;
 int32 YNullColor = 7;
@@ -78,7 +78,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
     int32 delay = 200;
 
     if (n_nstore == 0) {
-         // nullcline start 
+        // nullcline start
         n_nstore = 1;
         ncperm = xmalloc(sizeof(*ncperm));
         ncperm->p = NULL;
@@ -100,14 +100,14 @@ nullcline_froz_cline_stuff_com(int32 i) {
         nullcline_add_froz(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
         break;
     case 1: {
-         // nullcline_clear_froz 
+        // nullcline_clear_froz
         NullClines *z;
         NullClines *znew;
         z = ncperm;
         while (z->n != NULL) {
             z = z->n;
         }
-         //  this is the bottom but there is nothing here that has been stored 
+        //  this is the bottom but there is nothing here that has been stored
 
         znew = z->p;
         if (znew == NULL) {
@@ -115,7 +115,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
         }
         free(z);
         z = znew;
-         // now we are deleting everything 
+        // now we are deleting everything
         while (z->p != NULL) {
             znew = z->p;
             z->n = NULL;
@@ -146,7 +146,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
         nullcline_redraw_froz(delay);
         break;
     case 2: {
-         // nullcline do range 
+        // nullcline do range
         static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
@@ -266,7 +266,7 @@ silent_nullclines(void) {
 
 int32
 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
-     // type=0,1 
+    // type=0,1
     NullClines *z;
     if (who < 0) {
         if (type == 0) {
@@ -386,7 +386,7 @@ nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
     NullClines *z;
     NullClines *znew;
     z = ncperm;
-     // move to end 
+    // move to end
     while (z->n != NULL) {
         z = (z->n);
     }
@@ -809,8 +809,8 @@ restore_nullclines(void) {
 }
 
 void
-nullcline_dump( // gnuplot format 
-               FILE *fp, double *x, int32 nx, double *y, int32 ny) {
+nullcline_dump(  // gnuplot format
+    FILE *fp, double *x, int32 nx, double *y, int32 ny) {
     fprintf(fp, "# X-nullcline\n");
     for (int32 i = 0; i < nx - 1; i++) {
         fprintf(fp, "%g %g 1 \n", x[4*i], x[4*i + 1]);
@@ -827,8 +827,8 @@ nullcline_dump( // gnuplot format
 }
 
 void
-nullcline_restor( // d=1 for x and 2 for y  
-                 double *v, int32 n, int32 d) {
+nullcline_restor(  // d=1 for x and 2 for y
+    double *v, int32 n, int32 d) {
     int32 i4;
     double xm;
     double ym;
@@ -905,7 +905,7 @@ nullcline_new_clines_com(int32 c) {
         return;
     }
     if (c == 5) {
-         // save_the_nullclines 
+        // save_the_nullclines
         FILE *fp;
         char filename[256];
         if (NULL_HERE == 0) {
@@ -1106,7 +1106,7 @@ nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
                 triangle_contour(p[1],p[4],p[2]);
                 triangle_contour(p[4],p[3],p[2]);
                 triangle_contour(p[0],p[4],p[3]); */
-             //   Uncomment for quad contour     
+            //   Uncomment for quad contour
             nullcline_quad_contour(p[0], p[1], p[2], p[3]);
         }
     }

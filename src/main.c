@@ -218,7 +218,7 @@ do_main(int32 argc, char **argv) {
     uint32 min_hgt = 360;
     OptionsSet *tempNS;
 
-     // Track which options have not been set already 
+    // Track which options have not been set already
     notAlreadySet.BIG_FONT_NAME = 1;
     notAlreadySet.SMALL_FONT_NAME = 1;
     notAlreadySet.BACKGROUND = 1;
@@ -394,7 +394,7 @@ do_main(int32 argc, char **argv) {
     /* We need to init_X here if there is no file on command line
      * so that a file browser can be opened.  */
     if (!xpp_batch) {
-         // Swap out the current options for a temporary place holder 
+        // Swap out the current options for a temporary place holder
         tempNS = xmalloc(sizeof(OptionsSet));
         *tempNS = notAlreadySet;
         /* Initialize what's needed to open a browser based on
@@ -477,7 +477,7 @@ do_main(int32 argc, char **argv) {
     XMapWindow(display, main_win);
 
     {
-         // main make pops 
+        // main make pops
         int32 x;
         int32 y;
         uint32 h, w, bw, d;
@@ -504,7 +504,7 @@ do_main(int32 argc, char **argv) {
     }
 
     {
-         // main make top buttons 
+        // main make top buttons
         int32 x1 = 2, x2 = 6*DCURXs + 5, dx = DCURXs;
         TopButton[0] =
             pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
@@ -549,9 +549,9 @@ do_main(int32 argc, char **argv) {
 
     pop_list_make_scrbox_lists();
 
-     //          MAIN LOOP             
+    //          MAIN LOOP
     {
-         // main test color info 
+        // main test color info
         XColor *colors;
         XWindowAttributes xwa;
         flag_true_color = 0;
@@ -583,7 +583,7 @@ do_main(int32 argc, char **argv) {
 
 void
 main_check_for_quiet(int32 argc, char **argv) {
-     // First scan, check for any QUIET option set... 
+    // First scan, check for any QUIET option set...
     /* Allow for multiple calls to the QUIET and LOGFILE options
      * on the command line. The last setting is the one that will stick.
      * Settings of logfile and quiet in the xpprc file will be ignored
@@ -653,7 +653,7 @@ main_init_x(void) {
     main_win =
         main_init_win(4, icon_name, win_name, x, y, min_wid, min_hgt, 0, NULL);
 
-     // Set up foreground and background colors 
+    // Set up foreground and background colors
 
     Black = (uint32)BlackPixel(display, screen);
     White = (uint32)WhitePixel(display, screen);
@@ -680,12 +680,12 @@ main_init_x(void) {
         White = MyBackColor;
     }
 
-     //  Switch for reversed video  
+    //  Switch for reversed video
     MyForeColor = GrFore = Black;
     MyBackColor = GrBack = White;
 
     if (paper_white == 1) {
-         // Respect the swapping implied by the -white option. 
+        // Respect the swapping implied by the -white option.
         char swapcol[8];
         printf("Doing swap!\n");
         strcpy(swapcol, user_white);
@@ -735,7 +735,7 @@ main_init_x(void) {
                      StructureNotifyMask | ButtonReleaseMask |
                      ButtonMotionMask);
 
-     // main load fonts 
+    // main load fonts
     if ((font_big = XLoadQueryFont(display, font_name_big)) == NULL) {
         ggets_plintf("X Error: Failed to load big font: %s\n", font_name_big);
         exit(-1);
@@ -838,7 +838,7 @@ main_init_x(void) {
         color_map_make();
     }
 
-     // main set big font 
+    // main set big font
     DCURX = DCURXb;
     DCURY = DCURYb;
     CURY_OFF = CURY_OFFb;
@@ -892,7 +892,7 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     ani_do_events(report);
     main_top_button_events(report);
     switch (report.type) {
-    case ConfigureNotify:  // this needs to be fixed!!! 
+    case ConfigureNotify:  // this needs to be fixed!!!
         init_conds_resize_par_box(report.xany.window);
         resize_my_browser(report.xany.window);
         eig_list_resize_eq_list(report.xany.window);
@@ -1330,7 +1330,7 @@ main_top_button_events(XEvent report) {
         break;
     case ButtonPress: {
         Window window = report.xbutton.window;
-         // main top button press 
+        // main top button press
         if (window == TopButton[0]) {
             init_conds_make_new_ic_box();
         }

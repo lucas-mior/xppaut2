@@ -174,7 +174,7 @@ edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     char ch;
     int32 ihot = sb->hot;
     Window wt;
-    Window window = sb->win[ihot];  // active window   
+    Window window = sb->win[ihot];  // active window
     char *s;
     s = sb->value[ihot];
 
@@ -183,7 +183,7 @@ edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        many_pops_do_expose(event);  //  menus and graphs etc  
+        many_pops_do_expose(event);  //  menus and graphs etc
         edit_rhs_expose_box(sb, event.xany.window, *pos);
         break;
 

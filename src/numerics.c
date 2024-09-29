@@ -81,7 +81,7 @@ numerics_get_num_par(int32 ch) {
         menudrive_make_adj();
         break;
     case 't':
-         // total 
+        // total
         ggets_new_float("total :", &TEND);
         FOREVER = 0;
         if (TEND < 0) {
@@ -90,15 +90,15 @@ numerics_get_num_par(int32 ch) {
         }
         break;
     case 's':
-         // start 
+        // start
         ggets_new_float("start time :", &T0);
         break;
     case 'r':
-         // transient 
+        // transient
         ggets_new_float("transient :", &TRANS);
         break;
     case 'd':
-         // DT 
+        // DT
         temp = DELTA_T;
         ggets_new_float("Delta t :", &DELTA_T);
         if (DELTA_T == 0.0) {
@@ -107,7 +107,7 @@ numerics_get_num_par(int32 ch) {
         if (DELAY > 0.0) {
             delay_handle_free_delay();
             if (delay_handle_alloc_delay(DELAY)) {
-                INFLAG = 0;  //  Make sure no last ics allowed 
+                INFLAG = 0;  //  Make sure no last ics allowed
             }
         } else {
             delay_handle_free_delay();
@@ -119,7 +119,7 @@ numerics_get_num_par(int32 ch) {
         }
         break;
     case 'n':
-         // ncline 
+        // ncline
         ggets_new_int("ncline mesh :", &NMESH);
         numerics_check_pos(&NMESH);
         break;
@@ -131,7 +131,7 @@ numerics_get_num_par(int32 ch) {
         pp_shoot_reset_bvp();
         break;
     case 'i':
-         // sing pt 
+        // sing pt
         ggets_new_int("Maximum iterates :", &EVEC_ITER);
         numerics_check_pos(&EVEC_ITER);
         ggets_new_float("Newton tolerance :", &EVEC_ERR);
@@ -142,19 +142,19 @@ numerics_get_num_par(int32 ch) {
 
         break;
     case 'o':
-         // noutput 
+        // noutput
         ggets_new_int("n_out :", &NJMP);
         numerics_check_pos(&NJMP);
 
         break;
     case 'b':
-         // bounds 
+        // bounds
         ggets_new_float("Bounds :", &BOUND);
         BOUND = fabs(BOUND);
         break;
     case 'm': {
-         // method 
-         // numerics get method 
+        // method
+        // numerics get method
         char ch2;
         int32 i2;
         int32 nmeth;
@@ -226,7 +226,7 @@ numerics_get_num_par(int32 ch) {
         }
         break;
     case 'e':
-         // delay 
+        // delay
         if (NDELAYS == 0) {
             break;
         }
@@ -237,14 +237,14 @@ numerics_get_num_par(int32 ch) {
         if (DELAY > 0.0) {
             delay_handle_free_delay();
             if (delay_handle_alloc_delay(DELAY)) {
-                INFLAG = 0;  //  Make sure no last ics allowed 
+                INFLAG = 0;  //  Make sure no last ics allowed
             }
         } else {
             delay_handle_free_delay();
         }
         break;
     case 'c':
-         // color 
+        // color
         if (COLOR == 0) {
             break;
         }
@@ -254,15 +254,15 @@ numerics_get_num_par(int32 ch) {
         menudrive_do_stochast();
         break;
     case 'f':
-         // FFT 
+        // FFT
         break;
     case 'p':
-         //Poincare map 
+        // Poincare map
         menudrive_get_pmap_pars();
         break;
     case 'u': {
-         // ruelle 
-         // numerics ruelle 
+        // ruelle
+        // numerics ruelle
         ggets_new_int("x-axis shift ", &(MyGraph->xshft));
         ggets_new_int("y-axis shift ", &(MyGraph->yshft));
         ggets_new_int("z-axis shift", &(MyGraph->zshft));
@@ -278,7 +278,7 @@ numerics_get_num_par(int32 ch) {
         break;
     }
     case 'k':
-         //lookup table 
+        // lookup table
         menudrive_new_lookup();
         break;
     case 27:
@@ -298,7 +298,7 @@ numerics_chk_delay(void) {
     if (DELAY > 0.0) {
         delay_handle_free_delay();
         if (delay_handle_alloc_delay(DELAY)) {
-            INFLAG = 0;  //  Make sure no last ics allowed 
+            INFLAG = 0;  //  Make sure no last ics allowed
         }
     } else {
         delay_handle_free_delay();
@@ -331,7 +331,7 @@ numerics_compute_one_period(double period, double *x, char *name) {
     T0 = 0;
     MyTime = 0;
     TEND = period;
-    POIMAP = 0;  // turn off poincare map 
+    POIMAP = 0;  // turn off poincare map
     reset_browser();
 
     usual_integrate_stuff(x);
@@ -444,10 +444,10 @@ numerics_user_set_color_par(int32 flag, char *via, double lo, double hi) {
             MyGraph->ColorValue = ivar;
             MyGraph->ColorFlag = 2;
         } else {
-            MyGraph->ColorFlag = 0;  // no valid colorizing 
+            MyGraph->ColorFlag = 0;  // no valid colorizing
         }
     }
-    if (flag == 0) {  // force overwrite  
+    if (flag == 0) {  // force overwrite
         MyGraph->ColorFlag = 0;
     }
     return;
@@ -464,7 +464,7 @@ numerics_set_col_par_com(int32 i) {
     char name[20];
     MyGraph->ColorFlag = i;
     if (MyGraph->ColorFlag == 0) {
-         // set color to black/white 
+        // set color to black/white
         return;
     }
     if (MyGraph->ColorFlag == 2) {
@@ -482,7 +482,7 @@ numerics_set_col_par_com(int32 i) {
         }
     }
 
-     //   This will be uncommented    ..... 
+    //   This will be uncommented    .....
     ch = (char)menudrive_two_choice("(O)ptimize", "(C)hoose", "Color", "oc");
 
     if (ch == 'c') {

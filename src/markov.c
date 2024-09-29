@@ -30,7 +30,7 @@ typedef struct Markov {
     double *fixed;
     int32 nstates;
     double *states;
-    int32 type;  // 0 is default and state dependent.  1 is fixed for all time 
+    int32 type;  // 0 is default and state dependent.  1 is fixed for all time
     char name[12];
 } Markov;
 
@@ -92,7 +92,7 @@ build_markov(char **ma, char *name) {
     int32 nstates;
     int32 index;
     index = -1;
-     // find it -- if not defined, then abort  
+    // find it -- if not defined, then abort
     for (int32 i = 0; i < NMarkov; i++) {
         ll = (int32)strlen(markov[i].name);
         if (strncasecmp(name, markov[i].name, (usize)ll) == 0) {
@@ -106,7 +106,7 @@ build_markov(char **ma, char *name) {
         ggets_plintf(" Markov variable |%s| not found \n", name);
         exit(0);
     }
-     // get number of states  
+    // get number of states
     nstates = markov[index].nstates;
     if (ConvertStyle) {
         fprintf(convertf, "markov %s %d\n", name, nstates);
@@ -139,7 +139,7 @@ markov_old_build(FILE *fptr, char *name) {
     int32 nstates;
     int32 index;
     index = -1;
-     // find it -- if not defined, then abort  
+    // find it -- if not defined, then abort
     for (int32 i = 0; i < NMarkov; i++) {
         ll = (int32)strlen(markov[i].name);
         if (strncasecmp(name, markov[i].name, (usize)ll) == 0) {
@@ -153,7 +153,7 @@ markov_old_build(FILE *fptr, char *name) {
         ggets_plintf(" Markov variable |%s| not found \n", name);
         exit(0);
     }
-     // get number of states  
+    // get number of states
     nstates = markov[index].nstates;
     if (ConvertStyle) {
         fprintf(convertf, "markov %s %d\n", name, nstates);
@@ -235,7 +235,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
         markov[index].trans[l0] =
             xmalloc(sizeof(*(markov[index].trans[l0]))*(strlen(expr) + 1));
         strcpy(markov[index].trans[l0], expr);
-         //  compilation step -- can be delayed 
+        //  compilation step -- can be delayed
         /*
          if(parserslow_add_expr(expr,com,&leng)){
            ggets_plintf("Illegal expression %s\n",expr);
@@ -247,7 +247,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
 
          }
         */
-         //  end of compilation   
+        //  end of compilation
 
     } else {
         markov[index].fixed[l0] = atof(expr);
@@ -413,7 +413,7 @@ markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
     double r[1000];
 
     switch (meth) {
-    case 0:  // std gillespie method 
+    case 0:  // std gillespie method
         for (int32 i = 0; i < nrxn; i++) {
             v[i + 1] = 0.0;
             r[i] = get_ivar(rxn[i]);
@@ -422,7 +422,7 @@ markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
         if (rate <= 0.0) {
             return;
         }
-        v[0] = -log(markov_ndrand48()) / rate;  // next step 
+        v[0] = -log(markov_ndrand48()) / rate;  // next step
         test = rate*markov_ndrand48();
         rate = r[0];
         for (int32 i = 0; i < nrxn; i++) {
@@ -433,7 +433,7 @@ markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
             rate += r[i + 1];
         }
         break;
-    case 1:  // tau stepping method  
+    case 1:  // tau stepping method
         perror("Tau stepping method not implemented yet.");
         break;
     default:
@@ -465,8 +465,8 @@ markov_do_stochast_com(int32 i) {
         markov_variance_back();
         break;
     case 'c':
-         // markov compute em 
-         // markov free stoch 
+        // markov compute em
+        // markov free stoch
         if (STOCH_HERE) {
             adjoints_data_back();
             for (int32 i2 = 0; i2 < (NEQ + 1); i2++) {
@@ -546,7 +546,7 @@ void
 markov_append_stoch(int32 first, int32 length) {
     double z;
     if (first == 0) {
-         // markov init stoch 
+        // markov init stoch
         N_TRIALS = 0;
         stoch_len = length;
         for (int32 i = 0; i < (NEQ + 1); i++) {

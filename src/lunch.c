@@ -199,7 +199,7 @@ lunch_read(FILE *fp) {
 
 void
 do_lunch(int32 f) {
-     // f=1 to read and 0 to write 
+    // f=1 to read and 0 to write
     int32 ne;
     int32 np;
     int32 ok;
@@ -322,7 +322,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
                     "Period"};
     char temp[256];
     if (f == READEM && set_type == 1) {
-        fgets(temp, 255, fp);  // skip a line 
+        fgets(temp, 255, fp);  // skip a line
     }
     if (f != READEM) {
         fprintf(fp, "# Numerical stuff\n");
@@ -342,7 +342,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_double(&HMIN, fp, f, "DtMin");
     lunch_io_double(&HMAX, fp, f, "DtMax");
     lunch_io_double(&TOLER, fp, f, "Tolerance");
-     // fix stuff concerning the tolerance 
+    // fix stuff concerning the tolerance
     if (f == READEM) {
         if (set_type == 1) {
             lunch_io_double(&ATOLER, fp, f, "Abs. Tolerance");
@@ -507,7 +507,7 @@ lunch_io_exprs(int32 f, FILE *fp) {
     double z;
 
     if (f == READEM && set_type == 1) {
-        fgets(temp, 255, fp);  // skip a line 
+        fgets(temp, 255, fp);  // skip a line
     }
     if (f != READEM) {
         fprintf(fp, "# Delays\n");
@@ -516,7 +516,7 @@ lunch_io_exprs(int32 f, FILE *fp) {
         lunch_io_string(delay_string[i], 100, fp, f);
     }
     if (f == READEM && set_type == 1) {
-        fgets(temp, 255, fp);  // skip a line 
+        fgets(temp, 255, fp);  // skip a line
     }
     if (f != READEM) {
         fprintf(fp, "# Bndry conds\n");
@@ -525,7 +525,7 @@ lunch_io_exprs(int32 f, FILE *fp) {
         lunch_io_string(my_bc[i].string, 100, fp, f);
     }
     if (f == READEM && set_type == 1) {
-        fgets(temp, 255, fp);  // skip a line 
+        fgets(temp, 255, fp);  // skip a line
     }
     if (f != READEM) {
         fprintf(fp, "# Old ICs\n");
@@ -534,7 +534,7 @@ lunch_io_exprs(int32 f, FILE *fp) {
         lunch_io_double(&last_ic[i], fp, f, uvar_names[i]);
     }
     if (f == READEM && set_type == 1) {
-        fgets(temp, 255, fp);  // skip a line 
+        fgets(temp, 255, fp);  // skip a line
     }
     if (f != READEM) {
         fprintf(fp, "# Ending  ICs\n");
@@ -543,7 +543,7 @@ lunch_io_exprs(int32 f, FILE *fp) {
         lunch_io_double(&MyData[i], fp, f, uvar_names[i]);
     }
     if (f == READEM && set_type == 1) {
-        fgets(temp, 255, fp);  // skip a line 
+        fgets(temp, 255, fp);  // skip a line
     }
     if (f != READEM) {
         fprintf(fp, "# Parameters\n");
@@ -571,7 +571,7 @@ void
 lunch_io_graph(int32 f, FILE *fp) {
     char temp[256];
     if (f == READEM && set_type == 1) {
-        fgets(temp, 255, fp);  // skip a line 
+        fgets(temp, 255, fp);  // skip a line
     }
     if (f != READEM) {
         fprintf(fp, "# Graphics\n");

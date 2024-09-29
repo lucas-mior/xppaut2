@@ -87,7 +87,7 @@ pop_list_make_scrbox_lists(void) {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
         "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
         "CVode",    "DoPri5",   "DoPri8(3)",  "Rosenbrock",  "Symplectic"};
-     // plottable list 
+    // plottable list
     scrbox_list[0].n = NEQ + 1;
     scrbox_list[0].list = xmalloc((usize)(NEQ + 1)*sizeof(char *));
     scrbox_list[0].list[0] = xmalloc(5);
@@ -96,7 +96,7 @@ pop_list_make_scrbox_lists(void) {
         scrbox_list[0].list[i + 1] = xmalloc(15);
         strcpy(scrbox_list[0].list[i + 1], uvar_names[i]);
     }
-     // variable list 
+    // variable list
     scrbox_list[1].n = NODE + NMarkov;
     scrbox_list[1].list = xmalloc((usize)(NODE + NMarkov)*sizeof(char *));
     for (int32 i = 0; i < NODE + NMarkov; i++) {
@@ -104,7 +104,7 @@ pop_list_make_scrbox_lists(void) {
         strcpy(scrbox_list[1].list[i], uvar_names[i]);
     }
 
-     // parameter list 
+    // parameter list
     scrbox_list[2].n = NUPAR;
     scrbox_list[2].list = xmalloc((usize)NUPAR*sizeof(char *));
     for (int32 i = 0; i < NUPAR; i++) {
@@ -112,7 +112,7 @@ pop_list_make_scrbox_lists(void) {
         strcpy(scrbox_list[2].list[i], upar_names[i]);
     }
 
-     // parvar list 
+    // parvar list
     n = NODE + NMarkov + NUPAR;
     scrbox_list[3].n = n;
     scrbox_list[3].list = xmalloc((usize)n*sizeof(char *));
@@ -124,14 +124,14 @@ pop_list_make_scrbox_lists(void) {
         scrbox_list[3].list[i] = xmalloc(15);
         strcpy(scrbox_list[3].list[i], upar_names[i - NODE - NMarkov]);
     }
-     // color list 
+    // color list
     scrbox_list[4].n = 11;
     scrbox_list[4].list = xmalloc(11*sizeof(char *));
     for (int32 i = 0; i < 11; i++) {
         scrbox_list[4].list[i] = xmalloc(20);
         sprintf(scrbox_list[4].list[i], "%d %s", i, color_names[i]);
     }
-     // marker list 
+    // marker list
     scrbox_list[5].n = 6;
     scrbox_list[5].list = xmalloc(6*sizeof(char *));
     for (int32 i = 0; i < 6; i++) {
@@ -144,7 +144,7 @@ pop_list_make_scrbox_lists(void) {
     strcpy(scrbox_list[5].list[3], "5 Plus");
     strcpy(scrbox_list[5].list[4], "6 X");
     strcpy(scrbox_list[5].list[5], "7 circle2");
-     // method list 
+    // method list
     scrbox_list[6].list = xmalloc(15*sizeof(char *));
     scrbox_list[6].n = 15;
     for (int32 i = 0; i < 15; i++) {
@@ -228,7 +228,7 @@ pop_list_redraw_scroll_box(ScrollBox sb) {
     }
     if (sb.nw < sb.nent) {
         XClearWindow(display, sb.slide);
-         // now calculate the slide position 
+        // now calculate the slide position
         p = 2 + (sb.i0*sb.len) / (sb.nent - sb.nw);
         for (int32 i = -2; i <= 2; i++) {
             XDrawLine(display, sb.slide, small_gc, 0, p + i, 5, p + i);
@@ -302,7 +302,7 @@ pop_list_scroll_popup(StringBox *sb, ScrollBox *scrb) {
     int32 maxhgt = sb->hgt;
     int32 maxw;
     if (id < 0) {
-        return;  // shouldnt happen 
+        return;  // shouldnt happen
     }
     maxw = maxhgt / hw - 1;
     if (maxw > scrbox_list[id].n) {
@@ -310,7 +310,7 @@ pop_list_scroll_popup(StringBox *sb, ScrollBox *scrb) {
     }
 
     {
-         // get x coord win 
+        // get x coord win
         int32 y;
         uint32 h, w, bw, d;
         Window root;
@@ -466,7 +466,7 @@ pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
     char ch;
     int32 ihot = sb->hot;
     Window wt;
-    Window window = sb->win[ihot];  // active window   
+    Window window = sb->win[ihot];  // active window
     char *s;
     s = sb->value[ihot];
 
@@ -475,7 +475,7 @@ pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        many_pops_do_expose(event);  //  menus and graphs etc  
+        many_pops_do_expose(event);  //  menus and graphs etc
         pop_list_expose_sbox(*sb, event.xany.window, *pos);
         if (scrb->exist) {
             pop_list_expose_scroll_box(event.xany.window, *scrb);
@@ -511,7 +511,7 @@ pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
                 if (i != sb->hot) {
                     pop_list_destroy_scroll_box(scrb);
                     pop_list_new_editable(sb, i, pos, col, &done, &window);
-                } else {  // i==sb->hot 
+                } else {  // i==sb->hot
                     if (event.xbutton.x < DCURX) {
                         j = sb->hot;
                         if (sb->hh[j] >= 0) {
@@ -668,7 +668,7 @@ pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
                 XDrawPoint(display, pmap, gc, xx, yy);
             }
 
-             //Now do xx=0 and xx=width-1
+            // Now do xx=0 and xx=width-1
             xx = 0;
             col2.red = 65535;
             col2.green = 65355;
@@ -707,7 +707,7 @@ pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
     win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
                               (uint)bw, MyForeColor, MyBackColor);
 
-     //Gradient stuff
+    // Gradient stuff
 
     if (UserGradients == 1) {
         int32 xx, yy;
@@ -748,7 +748,7 @@ pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
                 XDrawPoint(display, pmap, gc, xx, yy);
             }
 
-             //Now do xx=0 and xx=width-1
+            // Now do xx=0 and xx=width-1
             xx = 0;
             col2.red = 65535;
             col2.green = 65355;
@@ -801,7 +801,7 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
                             (uint)bw, MyForeColor, MyBackColor);
 
-     //Gradient stuff
+    // Gradient stuff
 
     Pixmap pmap =
         XCreatePixmap(display, root, (uint)width, (uint)height,
@@ -848,7 +848,7 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                 XDrawPoint(display, pmap, gc, xx, yy);
             }
 
-             //Now do xx=0 and xx=width-1
+            // Now do xx=0 and xx=width-1
             xx = 0;
             col2.red = 65535;
             col2.green = 65355;
@@ -881,7 +881,7 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
     }
 
     if (icdata == NULL) {
-         //Don't do anything...
+        // Don't do anything...
 
     } else {
         uchar *ps = icdata;
@@ -902,7 +902,7 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                 pop_list_bin_prnt_byte(*ps, intstack);
                 ps++;
 
-                for (q = 0; q < 8; q++)  //8 bits per byte
+                for (q = 0; q < 8; q++)  // 8 bits per byte
                 {
                     if (col >= width) {
                     } else {
@@ -1281,7 +1281,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     for (int32 i = 0; i < n; i++) {
         XSelectInput(display, p.w[i], EV_MASK);
     }
-     //browse_wait_a_sec(ClickTime); Not here. Don't want to delay short cuts
+    // browse_wait_a_sec(ClickTime); Not here. Don't want to delay short cuts
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
     XFlush(display);

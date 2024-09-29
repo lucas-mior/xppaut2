@@ -9,7 +9,7 @@
 #include "integers.h"
 #include "struct.h"
 
-#define SIGNIF (0.01)  // less than one hundredth of a tic mark 
+#define SIGNIF (0.01)  // less than one hundredth of a tic mark
 #define CheckZero(x, tic) (fabs(x) < ((tic)*SIGNIF) ? 0.0 : (x))
 
 int32 axes2_doing = 0;
@@ -150,7 +150,7 @@ axes2_do(void) {
     axes2_get_title_str(s1, s2, s3);
     graphics_set_linestyle(0);
     if (Xup) {
-         // axes2 re title 
+        // axes2 re title
         char bob[40];
         axes2_make_title(bob);
         many_pops_title_text(bob);
@@ -262,7 +262,7 @@ axes2_redraw_cube(double theta, double phi) {
     graphics_make_rot(theta, phi);
     ggets_blank_screen(draw_win);
 
-     // axes2 draw unit cube 
+    // axes2 draw unit cube
     graphics_line3d(-1., -1., -1., 1., -1., -1.);
     graphics_line3d(1., -1., -1., 1., 1., -1.);
     graphics_line3d(1., 1., -1., -1., 1., -1.);
@@ -346,7 +346,7 @@ axes2_draw_ytics(char *s1, double start, double incr, double end) {
     int32 xt;
     int32 yt;
     int32 s = 1;
-    TextJustify = 2;  // Right justification  
+    TextJustify = 2;  // Right justification
     for (ticvalue = start; ticvalue <= end; ticvalue += incr) {
         place = CheckZero(ticvalue, incr);
         if (ticvalue < y_min || ticvalue > y_max) {
@@ -400,7 +400,7 @@ axes2_draw_xtics(char *s2, double start, double incr, double end) {
     if (DTop < DBottom) {
         s = -1;
     }
-    TextJustify = 1;  // Center justification  
+    TextJustify = 1;  // Center justification
     for (ticvalue = start; ticvalue <= end; ticvalue += incr) {
         place = CheckZero(ticvalue, incr);
         if (ticvalue < x_min || ticvalue > x_max) {

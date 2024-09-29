@@ -1387,62 +1387,61 @@ typedef void (*FcnEqDiff)(uint32 n, double x, double *y, double *f);
 typedef void (*SolTrait)(long nr, double xold, double x, double *y, uint32 n,
                          int32 *irtrn);
 
-int32
-dop853(uint32 n,         // dimension of the system <= UINT_MAX-1
-       FcnEqDiff fcn,    // function computing the value of f(x,y) 
-       double x,         // initial x-value 
-       double *y,        // initial values for y 
-       double xend,      // final x-value (xend-x may be positive or negative) 
-       double *rtoler,   // relative error tolerance 
-       double *atoler,   // absolute error tolerance 
-       int32 itoler,     // switch for rtoler and atoler 
-       SolTrait solout, /* function providing the numerical solution during
-                           integration */
-       int32 iout,       // switch for calling solout 
-       FILE *fileout,    // messages stream 
-       double uround,    // rounding unit 
-       double safe,      // safety factor 
-       double fac1,      // parameters for step size selection 
-       double fac2, double beta,  // for stabilized step size control 
-       double hmax,               // maximal step size 
-       double h,                  // initial step size 
-       long nmax,                 // maximal number of allowed steps 
-       int32 meth,                // switch for the choice of the coefficients 
-       long nstiff,               // test for stiffness 
-       uint32 nrdens, /* number of components for which dense outpout is
-                           required */
-       uint32 *icont, /* indexes of components for which dense output is
-                           required, >= nrdens */
-       uint32 licont,  // declared length of icon 
-       double *work);
+int32 dop853(uint32 n,       // dimension of the system <= UINT_MAX-1
+             FcnEqDiff fcn,  // function computing the value of f(x,y)
+             double x,       // initial x-value
+             double *y,      // initial values for y
+             double xend,  // final x-value (xend-x may be positive or negative)
+             double *rtoler,  // relative error tolerance
+             double *atoler,  // absolute error tolerance
+             int32 itoler,    // switch for rtoler and atoler
+             SolTrait solout, /* function providing the numerical solution
+                                 during integration */
+             int32 iout,      // switch for calling solout
+             FILE *fileout,   // messages stream
+             double uround,   // rounding unit
+             double safe,     // safety factor
+             double fac1,     // parameters for step size selection
+             double fac2, double beta,  // for stabilized step size control
+             double hmax,               // maximal step size
+             double h,                  // initial step size
+             long nmax,                 // maximal number of allowed steps
+             int32 meth,     // switch for the choice of the coefficients
+             long nstiff,    // test for stiffness
+             uint32 nrdens,  /* number of components for which dense outpout is
+                                  required */
+             uint32 *icont,  /* indexes of components for which dense output is
+                                  required, >= nrdens */
+             uint32 licont,  // declared length of icon
+             double *work);
 
 extern int32
-dopri5(uint32 n,         // dimension of the system <= UINT_MAX-1
-       FcnEqDiff fcn,    // function computing the value of f(x,y) 
-       double x,         // initial x-value 
-       double *y,        // initial values for y 
-       double xend,      // final x-value (xend-x may be positive or negative) 
-       double *rtoler,   // relative error tolerance 
-       double *atoler,   // absolute error tolerance 
-       int32 itoler,     // switch for rtoler and atoler 
+dopri5(uint32 n,        // dimension of the system <= UINT_MAX-1
+       FcnEqDiff fcn,   // function computing the value of f(x,y)
+       double x,        // initial x-value
+       double *y,       // initial values for y
+       double xend,     // final x-value (xend-x may be positive or negative)
+       double *rtoler,  // relative error tolerance
+       double *atoler,  // absolute error tolerance
+       int32 itoler,    // switch for rtoler and atoler
        SolTrait solout, /* function providing the numerical solution during
                            integration */
-       int32 iout,       // switch for calling solout 
-       FILE *fileout,    // messages stream 
-       double uround,    // rounding unit 
-       double safe,      // safety factor 
-       double fac1,      // parameters for step size selection 
-       double fac2, double beta,  // for stabilized step size control 
-       double hmax,               // maximal step size 
-       double h,                  // initial step size 
-       long nmax,                 // maximal number of allowed steps 
-       int32 meth,                // switch for the choice of the coefficients 
-       long nstiff,               // test for stiffness 
-       uint32 nrdens, /* number of components for which dense outpout is
-                           required */
-       uint32 *icont, /* indexes of components for which dense output is
-                           required, >= nrdens */
-       uint32 licont,  // declared length of icon 
+       int32 iout,      // switch for calling solout
+       FILE *fileout,   // messages stream
+       double uround,   // rounding unit
+       double safe,     // safety factor
+       double fac1,     // parameters for step size selection
+       double fac2, double beta,  // for stabilized step size control
+       double hmax,               // maximal step size
+       double h,                  // initial step size
+       long nmax,                 // maximal number of allowed steps
+       int32 meth,                // switch for the choice of the coefficients
+       long nstiff,               // test for stiffness
+       uint32 nrdens,  /* number of components for which dense outpout is
+                            required */
+       uint32 *icont,  /* indexes of components for which dense output is
+                            required, >= nrdens */
+       uint32 licont,  // declared length of icon
        double *work);
 
 void dormpri_dp_err(int32 k);
@@ -1616,7 +1615,7 @@ extern int32 fftn(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
 extern int32 fftnf(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
                    double /* Im */[], int32 /* isign */, double /* scaling */);
 
-#endif  // _FFTN_H 
+#endif  // _FFTN_H
 
 /*----------------------- end-of-file (C header) -----------------------*/
 #ifndef FLAGS_H
@@ -3436,9 +3435,9 @@ int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window,
 #define SCRNGIF_H
 
 typedef struct GifTree {
-    char typ;    // terminating, lookup, or search 
-    int32 code;  // the code to be output 
-    uchar ix;    // the color map index 
+    char typ;    // terminating, lookup, or search
+    int32 code;  // the code to be output
+    uchar ix;    // the color map index
     struct GifTree **node, *nxt, *alt;
 } GifTree;
 
@@ -3652,20 +3651,20 @@ int32 spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
 /* Return values for spgmr_solve */
 
-#define SPGMR_SUCCESS 0  // Converged                    
+#define SPGMR_SUCCESS 0  // Converged
 #define SPGMR_RES_REDUCED                                                      \
-    1                              /* Did not converge, but reduced            \
-                                      norm of residual             */
-#define SPGMR_CONV_FAIL 2           // Failed to converge           
-#define SPGMR_QRFACT_FAIL 3         // QRfact found singular matrix 
-#define SPGMR_PSOLVE_FAIL_REC 4     // psolve failed recoverably    
-#define SPGMR_MEM_NULL -1           // mem argument is NULL         
-#define SPGMR_ATIMES_FAIL -2        // atimes returned failure flag 
-#define SPGMR_PSOLVE_FAIL_UNREC -3  // psolve failed unrecoverably  
+    1                               /* Did not converge, but reduced           \
+                                       norm of residual             */
+#define SPGMR_CONV_FAIL 2           // Failed to converge
+#define SPGMR_QRFACT_FAIL 3         // QRfact found singular matrix
+#define SPGMR_PSOLVE_FAIL_REC 4     // psolve failed recoverably
+#define SPGMR_MEM_NULL -1           // mem argument is NULL
+#define SPGMR_ATIMES_FAIL -2        // atimes returned failure flag
+#define SPGMR_PSOLVE_FAIL_UNREC -3  // psolve failed unrecoverably
 #define SPGMR_GS_FAIL                                                          \
-    -4                      /* Gram-Schmidt routine                            \
-                               returned failure flag        */
-#define SPGMR_QRSOL_FAIL -5  // QRsol found singular R       
+    -4                       /* Gram-Schmidt routine                           \
+                                returned failure flag        */
+#define SPGMR_QRSOL_FAIL -5  // QRsol found singular R
 
 /******************************************************************
  *                                                                *

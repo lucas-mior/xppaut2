@@ -40,10 +40,10 @@ typedef struct {
     int32 nuzr;
     int32 iuz[20];
     double vuz[20];
-     //  these are for the homoclinic stuff 
+    //  these are for the homoclinic stuff
     int32 nunstab;
     int32 nstab;
-    int32 iequib;  // +1 homoclinic   -2 heteroclinic 
+    int32 iequib;  // +1 homoclinic   -2 heteroclinic
 
 } XAuto;
 

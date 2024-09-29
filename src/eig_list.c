@@ -119,7 +119,7 @@ eig_list_create_eq_list(void) {
         return;
     }
 
-    eq_list.flag = 0;  //  this is to tell that no eq_box is here  
+    eq_list.flag = 0;  //  this is to tell that no eq_box is here
 
     hmain = 3*DCURYs;
     hlist = NEQ*(DCURYs + 2);
@@ -218,14 +218,14 @@ eig_list_enter_eq_stuff(Window window, int32 b) {
 void
 eig_list_eq_list_button(XEvent event) {
     Window window = event.xbutton.window;
-     // pure laziness here - use this to go to eq_box 
+    // pure laziness here - use this to go to eq_box
     do {
-         // eig_list_eq_box_button 
+        // eig_list_eq_box_button
         if (eq_box.flag == 0) {
             break;
         }
         if (window == eq_box.import) {
-             // eig list eq box import 
+            // eig list eq box import
             int32 n = eq_box.n;
             for (int32 i = 0; i < n; i++) {
                 last_ic[i] = eq_box.y[i];
@@ -343,7 +343,7 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
     XTextProperty winname;
     XTextProperty iconame;
     XSizeHints size_hints;
-     //    Do this every time   
+    //    Do this every time
     init_conds_redraw_ics();
     for (int32 i = 0; i < n; i++) {
         eq_box.y[i] = y[i];
@@ -362,7 +362,7 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
         sprintf(eq_box.type, "STABLE");
     }
 
-    if (eq_box.flag == 0) {  //   the box is not made yet    
+    if (eq_box.flag == 0) {  //   the box is not made yet
         width = (30 + 30*(int32)(n / 20))*DCURXs;
         if (n >= 20) {
             hequil = 20*(DCURYs + 4);
@@ -405,7 +405,7 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
         eq_box.import = pop_list_make_window(eq_box.base, tpos2, 2, 8*DCURXs,
                                              DCURYs + 4, 1);
         eq_box.flag = 1;
-    } else {  //   Already it has been created so we are updating it 
+    } else {  //   Already it has been created so we are updating it
         XClearWindow(display, eq_box.top);
         eig_list_draw_eq_box(eq_box.top);
         XClearWindow(display, eq_box.stab);

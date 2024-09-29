@@ -62,11 +62,11 @@ derived_add(char *name, char *rhs) {
     }
     i0 = nderived;
     derived[i0].rhs = xmalloc((usize)n);
-     // save the right hand side 
+    // save the right hand side
     strcpy(derived[i0].rhs, rhs);
-     // this is the constant to which it addresses 
+    // this is the constant to which it addresses
     derived[i0].index = NCON;
-     // add the name to the recognized symbols 
+    // add the name to the recognized symbols
     ggets_plintf(" derived constant[%d] is %s = %s\n", NCON, name, rhs);
     nderived++;
     return parserslow_add_con(name, 0.0);

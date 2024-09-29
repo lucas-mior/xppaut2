@@ -337,7 +337,7 @@ kinescope_auto_play(void) {
     XFlush(display);
 
     while (true) {
-         // check for events 
+        // check for events
         if (XPending(display) > 0) {
             XNextEvent(display, &event);
             switch (event.type) {
@@ -365,7 +365,7 @@ kinescope_auto_play(void) {
             default:
                 break;
             }
-        }  // done checking  now increment pix   
+        }  // done checking  now increment pix
 
         browse_wait_a_sec(ks_speed);
         i++;

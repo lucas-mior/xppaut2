@@ -15,7 +15,7 @@ int32 global_verbose_flag = 0;
 
 int32
 go_go_auto(void) {
-     // this is the entry at this point, x_auto has been set 
+    // this is the entry at this point, x_auto has been set
     int64 icp[NPARX2];
     double par[NPARX2];
     double thl[NPARX];
@@ -36,7 +36,7 @@ go_go_auto(void) {
     fp7 = fopen(fort7, "w");
     fp9 = fopen(fort9, "w");
 
-     // Initialization : 
+    // Initialization :
 
     iap.mynode = mynode();
     iap.numnodes = numnodes();
@@ -46,11 +46,11 @@ go_go_auto(void) {
         iap.parallel_flag = 0;
     }
 
-     // here is the feeder code from x_auto structure 
+    // here is the feeder code from x_auto structure
 
     init(&iap, &rap, par, icp, thl, &thu, iuz, vuz);
 
-     // Find restart label and determine type of restart point. 
+    // Find restart label and determine type of restart point.
     if (iap.irs > 0) {
         int64 found = false;
 
@@ -59,11 +59,11 @@ go_go_auto(void) {
             if (iap.mynode == 0) {
                 fprintf(stderr, "\nRestart label %4ld not found\n", iap.irs);
             }
-            return 0;  // bad retrun 
+            return 0;  // bad retrun
         }
     }
 
-     // this is good for debugging and writes all the auto parameters 
+    // this is good for debugging and writes all the auto parameters
     gogoauto_set_function_pointers(iap, &list);
     autlib1_init(&iap, &rap, icp, par);
     autlib_check_dimensions(&iap);
@@ -75,9 +75,9 @@ go_go_auto(void) {
        wrapper functions in autlib3.c*/
     allocate_global_memory(iap);
 
-     // ---------------------------------------------------------- 
-     //  One-parameter continuations 
-     // ---------------------------------------------------------- 
+    // ----------------------------------------------------------
+    //  One-parameter continuations
+    // ----------------------------------------------------------
 
     if (list.type == AUTOAE) {
         autoae(&iap, &rap, par, icp, list.aelist.funi, list.aelist.stpnt,
@@ -99,7 +99,7 @@ go_go_auto(void) {
 int32
 gogoauto_set_function_pointers(iap_type iap, function_list *data) {
     if ((iap.ips == 0 || iap.ips == 1) && ABS(iap.isw) != 2) {
-         //	** Algebraic systems. 
+        //	** Algebraic systems.
         if (iap.irs == 0) {
             data->type = AUTOAE;
             data->aelist.funi = funi;
@@ -112,7 +112,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->aelist.pvli = pvlsae;
         }
     } else if (iap.ips == 11 && ABS(iap.isw) != 2) {
-         //	** Waves : Spatially homogeneous solutions, 
+        //	** Waves : Spatially homogeneous solutions,
         if (iap.irs == 0) {
             data->type = AUTOAE;
             data->aelist.funi = fnws;
@@ -125,7 +125,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->aelist.pvli = pvlsae;
         }
     } else if (iap.ips == -1 && ABS(iap.isw) != 2) {
-         //	** Discrete dynamical systems : fixed points. 
+        //	** Discrete dynamical systems : fixed points.
         if (iap.irs == 0) {
             data->type = AUTOAE;
             data->aelist.funi = fnds;
@@ -138,7 +138,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->aelist.pvli = pvlsae;
         }
     } else if (iap.ips == -2) {
-         //	** Time integration. 
+        //	** Time integration.
         if (iap.irs == 0) {
             data->type = AUTOAE;
             data->aelist.funi = fnti;
@@ -151,7 +151,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->aelist.pvli = pvlsae;
         }
     } else if (iap.ips == 2 && ABS(iap.isw) != 2) {
-         //	** Periodic solutions 
+        //	** Periodic solutions
         if (iap.itp != 3 && ABS(iap.itp / 10) != 3) {
             if (iap.irs > 0) {
                 data->type = AUTOBV;
@@ -177,7 +177,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsbv;
         }
     } else if (iap.ips == 12 && ABS(iap.isw) != 2) {
-         //	** Wave train solutions to parabolic systems. 
+        //	** Wave train solutions to parabolic systems.
         if (iap.itp != 3) {
             if (iap.irs > 0) {
                 data->type = AUTOBV;
@@ -203,7 +203,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsbv;
         }
     } else if (iap.ips == 4 && ABS(iap.isw) != 2) {
-         //	** Boundary value problems. 
+        //	** Boundary value problems.
         if (iap.irs > 0) {
             data->type = AUTOBV;
             data->bvlist.funi = funi;
@@ -220,7 +220,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsbv;
         }
     } else if (iap.ips == 7 && ABS(iap.isw) != 2) {
-         //	** Boundary value problems with Floquet multipliers. 
+        //	** Boundary value problems with Floquet multipliers.
         if (iap.irs > 0) {
             data->type = AUTOBV;
             data->bvlist.funi = funi;
@@ -237,7 +237,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsbv;
         }
     } else if (iap.ips == 9 && ABS(iap.isw) != 2) {
-         //	** Homoclinic bifurcation analysis. 
+        //	** Homoclinic bifurcation analysis.
         if (iap.irs > 0) {
             data->type = AUTOBV;
             data->bvlist.funi = fnho;
@@ -254,8 +254,8 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsho;
         }
     } else if (iap.ips == 14) {
-         //	** Evolution calculations for parabolic systems. 
-         //	   (Periodic boundary conditions.) 
+        //	** Evolution calculations for parabolic systems.
+        //	   (Periodic boundary conditions.)
         if (iap.irs > 0) {
             data->type = AUTOBV;
             data->bvlist.funi = fnpe;
@@ -272,7 +272,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsbv;
         }
     } else if (iap.ips == 15 && ABS(iap.isw) == 1) {
-         //	** Optimization of periodic solutions. 
+        //	** Optimization of periodic solutions.
         if (iap.nfpr < 6) {
             data->type = AUTOBV;
             data->bvlist.funi = fnpo;
@@ -289,8 +289,8 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsbv;
         }
     } else if (iap.ips == 16) {
-         //	** Evolution calculations for parabolic systems. 
-         //	   (User supplied boundary conditions.) 
+        //	** Evolution calculations for parabolic systems.
+        //	   (User supplied boundary conditions.)
         if (iap.irs > 0) {
             data->type = AUTOBV;
             data->bvlist.funi = fnpe;
@@ -307,8 +307,8 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsbv;
         }
     } else if (iap.ips == 17) {
-         //	** Continuation of stationary states of parabolic systems.
-         //	   (User supplied boundary conditions.) 
+        //	** Continuation of stationary states of parabolic systems.
+        //	   (User supplied boundary conditions.)
         if (iap.irs > 0) {
             data->type = AUTOBV;
             data->bvlist.funi = fnsp;
@@ -325,7 +325,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             data->bvlist.pvli = pvlsbv;
         }
     } else if (iap.ips == 5) {
-         //	** Algebraic optimization problems. 
+        //	** Algebraic optimization problems.
         int32 nfpr = (int32)iap.nfpr;
         if (iap.itp % 10 == 2 || iap.irs == 0) {
             nfpr++;
@@ -356,67 +356,67 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
             }
         }
     }
-     // ---------------------------------------------------
-     // ---------------------------------------------------
-     //	Two-Parameter Continuation. 
-     // ---------------------------------------------------
-     // ---------------------------------------------------
+    // ---------------------------------------------------
+    // ---------------------------------------------------
+    //	Two-Parameter Continuation.
+    // ---------------------------------------------------
+    // ---------------------------------------------------
 
     else if (iap.ips <= 1 && ABS(iap.isw) == 2 &&
              (iap.itp == 1 || iap.itp == 2)) {
-         //	** Fold continuation (algebraic problems). 
+        //	** Fold continuation (algebraic problems).
         data->type = AUTOAE;
         data->aelist.funi = fnlp;
         data->aelist.stpnt = stpnlp;
         data->aelist.pvli = pvlsae;
     } else if (iap.ips <= 1 && ABS(iap.isw) == 2 &&
                (ABS(iap.itp) / 10 == 1 || ABS(iap.itp) / 10 == 2)) {
-         //	** Fold continuation (algebraic problems, restart). 
+        //	** Fold continuation (algebraic problems, restart).
         data->type = AUTOAE;
         data->aelist.funi = fnlp;
         data->aelist.stpnt = stpnae;
         data->aelist.pvli = pvlsae;
     } else if ((iap.ips == 0 || iap.ips == 1) && ABS(iap.isw) == 2 &&
                iap.itp == 3) {
-         //	** Hopf bifurcation continuation (ODE). 
+        //	** Hopf bifurcation continuation (ODE).
         data->type = AUTOAE;
         data->aelist.funi = fnhb;
         data->aelist.stpnt = stpnhb;
         data->aelist.pvli = pvlsae;
     } else if (ABS(iap.ips) == 1 && ABS(iap.isw) == 2 &&
                ABS(iap.itp) / 10 == 3) {
-         //	** Hopf bifurcation continuation (ODE, restart). 
+        //	** Hopf bifurcation continuation (ODE, restart).
         data->type = AUTOAE;
         data->aelist.funi = fnhb;
         data->aelist.stpnt = stpnae;
         data->aelist.pvli = pvlsae;
     } else if (iap.ips == 11 && ABS(iap.isw) == 2 && iap.itp == 3) {
-         //	** Hopf bifurcation continuation (Waves). 
+        //	** Hopf bifurcation continuation (Waves).
         data->type = AUTOAE;
         data->aelist.funi = fnhw;
         data->aelist.stpnt = stpnhw;
         data->aelist.pvli = pvlsae;
     } else if (iap.ips == 11 && ABS(iap.isw) == 2 && ABS(iap.itp) / 10 == 3) {
-         //	** Hopf bifurcation continuation (Waves, restart). 
+        //	** Hopf bifurcation continuation (Waves, restart).
         data->type = AUTOAE;
         data->aelist.funi = fnhw;
         data->aelist.stpnt = stpnae;
         data->aelist.pvli = pvlsae;
     } else if (iap.ips == -1 && ABS(iap.isw) == 2 && iap.itp == 3) {
-         //	** Hopf bifurcation continuation (Maps). 
+        //	** Hopf bifurcation continuation (Maps).
         data->type = AUTOAE;
         data->aelist.funi = fnhd;
         data->aelist.stpnt = stpnhd;
         data->aelist.pvli = pvlsae;
     } else if (iap.ips == -1 && ABS(iap.isw) == 2 && ABS(iap.itp) / 10 == 3) {
-         //	** Hopf bifurcation continuation (Maps). 
+        //	** Hopf bifurcation continuation (Maps).
         data->type = AUTOAE;
         data->aelist.funi = fnhd;
         data->aelist.stpnt = stpnae;
         data->aelist.pvli = pvlsae;
     } else if (iap.ips == 2 && ABS(iap.isw) == 2 &&
                (iap.itp == 5 || iap.itp == 6)) {
-         //	** Fold continuation (Periodic solutions, start). 
+        //	** Fold continuation (Periodic solutions, start).
         data->type = AUTOBV;
         data->bvlist.funi = fnpl;
         data->bvlist.bcni = bcpl;
@@ -425,7 +425,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.pvli = pvlsbv;
     } else if (iap.ips == 2 && ABS(iap.isw) == 2 &&
                (ABS(iap.itp) / 10 == 5 || ABS(iap.itp) / 10 == 6)) {
-         //        ** Fold continuation (Periodic solutions, restart). 
+        //        ** Fold continuation (Periodic solutions, restart).
         data->type = AUTOBV;
         data->bvlist.funi = fnpl;
         data->bvlist.bcni = bcpl;
@@ -433,7 +433,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.stpnt = stpnbv;
         data->bvlist.pvli = pvlsbv;
     } else if (iap.ips == 2 && ABS(iap.isw) == 2 && iap.itp == 7) {
-         //        ** Continuation of period doubling bifurcations (start). 
+        //        ** Continuation of period doubling bifurcations (start).
         data->type = AUTOBV;
         data->bvlist.funi = fnpd;
         data->bvlist.bcni = bcpd;
@@ -441,7 +441,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.stpnt = stpnpd;
         data->bvlist.pvli = pvlsbv;
     } else if (iap.ips == 2 && ABS(iap.isw) == 2 && ABS(iap.itp) / 10 == 7) {
-         //        ** Continuation of period doubling bifurcations (restart).
+        //        ** Continuation of period doubling bifurcations (restart).
         data->type = AUTOBV;
         data->bvlist.funi = fnpd;
         data->bvlist.bcni = bcpd;
@@ -449,7 +449,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.stpnt = stpnbv;
         data->bvlist.pvli = pvlsbv;
     } else if (iap.ips == 2 && ABS(iap.isw) == 2 && iap.itp == 8) {
-         //        ** Continuation of torus bifurcations (start). 
+        //        ** Continuation of torus bifurcations (start).
         data->type = AUTOBV;
         data->bvlist.funi = fntr;
         data->bvlist.bcni = bctr;
@@ -457,7 +457,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.stpnt = stpntr;
         data->bvlist.pvli = pvlsbv;
     } else if (iap.ips == 2 && ABS(iap.isw) == 2 && ABS(iap.itp) / 10 == 8) {
-         //        ** Continuation of torus bifurcations (restart). 
+        //        ** Continuation of torus bifurcations (restart).
         data->type = AUTOBV;
         data->bvlist.funi = fntr;
         data->bvlist.bcni = bctr;
@@ -466,7 +466,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.pvli = pvlsbv;
     } else if (iap.ips == 4 && ABS(iap.isw) == 2 &&
                (iap.itp == 5 || iap.itp == 6)) {
-         //        ** Continuation of folds (BVP, start). 
+        //        ** Continuation of folds (BVP, start).
         data->type = AUTOBV;
         data->bvlist.funi = fnbl;
         data->bvlist.bcni = bcbl;
@@ -475,7 +475,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.pvli = pvlsbv;
     } else if (iap.ips == 4 && ABS(iap.isw) == 2 &&
                (ABS(iap.itp) / 10 == 5 || ABS(iap.itp) / 10 == 6)) {
-         //        ** Continuation of folds (BVP, restart). 
+        //        ** Continuation of folds (BVP, restart).
         data->type = AUTOBV;
         data->bvlist.funi = fnbl;
         data->bvlist.bcni = bcbl;
@@ -483,11 +483,11 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.stpnt = stpnbv;
         data->bvlist.pvli = pvlsbv;
     } else {
-         // Error in INIT. 
+        // Error in INIT.
         printf("\nInitialization Error CRASH!!\n");
         printf("itp=%ld ips=%ld isw=%ld\n", iap.itp, iap.ips, iap.isw);
     }
-     // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     return 0;
 }

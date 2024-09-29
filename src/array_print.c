@@ -16,7 +16,7 @@ static struct DevScale {
     double yscale;
     double xoff;
     double yoff;
-    double tx, ty, angle, slant;  // text attributes   
+    double tx, ty, angle, slant;  // text attributes
     double linecol;
     double letx;
     double lety;
@@ -66,7 +66,7 @@ array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
                           nacross, ndown, zmin, zmax, type);
     array_print_ps_boxit(tlo, thi, 0.0, yy, zmin, zmax, xtitle, ytitle, bottom,
                          type);
-     // array print ps close 
+    // array print ps close
     fprintf(my_plot_file, "showpage\n");
     fprintf(my_plot_file, "grestore\n");
     fprintf(my_plot_file, "end\n");
@@ -246,7 +246,7 @@ array_print_ps_setline(double fill, int32 thick) {
 
 void
 array_print_ps_text2(char *str, double xr, double yr,
-                     int32 icent  // ignores for now  
+                     int32 icent  // ignores for now
 ) {
     double slant = .0174532*ps_scale.slant;
     double x;
@@ -266,17 +266,17 @@ array_print_ps_text2(char *str, double xr, double yr,
     case 0:
         fprintf(my_plot_file, "( %s ) show \n grestore\n", str);
         break;
-    case 1:  // centered 
+    case 1:  // centered
         fprintf(my_plot_file,
                 "(%s) dup stringwidth pop -2 div 0 rmoveto show \n grestore\n",
                 str);
         break;
-    case 2:  // left edge 
+    case 2:  // left edge
         fprintf(my_plot_file,
                 "(%s) dup stringwidth pop neg 0 rmoveto show \n grestore\n",
                 str);
         break;
-    case 3:  // right edge 
+    case 3:  // right edge
         fprintf(my_plot_file,
                 "(%s) dup stringwidth pop  0 rmoveto show \n grestore\n", str);
         break;

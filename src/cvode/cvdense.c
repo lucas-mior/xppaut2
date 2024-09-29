@@ -41,19 +41,19 @@
  ******************************************************************/
 
 typedef struct {
-    CVDenseJacFn d_jac;  // jac = Jacobian routine to be called    
+    CVDenseJacFn d_jac;  // jac = Jacobian routine to be called
 
-    DenseMat d_M;  // M = I - gamma J, gamma = h / l1        
+    DenseMat d_M;  // M = I - gamma J, gamma = h / l1
 
-    int64 *d_pivots;  // pivots = pivot array for PM = LU       
+    int64 *d_pivots;  // pivots = pivot array for PM = LU
 
-    DenseMat d_savedJ;  // savedJ = old Jacobian                  
+    DenseMat d_savedJ;  // savedJ = old Jacobian
 
-    int32 d_nstlj;  // nstlj = nst at last Jacobian eval.     
+    int32 d_nstlj;  // nstlj = nst at last Jacobian eval.
 
-    int32 d_nje;  // nje = no. of calls to jac              
+    int32 d_nje;  // nje = no. of calls to jac
 
-    void *d_J_data;  // J_data is passed to jac                
+    void *d_J_data;  // J_data is passed to jac
 
 } CVDenseMemRec, *CVDenseMem;
 
@@ -103,13 +103,13 @@ cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
     (void)vtemp2;
     (void)vtemp3;
 
-    ftemp = vtemp1;  // Rename work vector for use as f vector value 
+    ftemp = vtemp1;  // Rename work vector for use as f vector value
 
-     // Obtain pointers to the data for ewt, y 
+    // Obtain pointers to the data for ewt, y
     ewt_data = N_VDATA(ewt);
     y_data = N_VDATA(y);
 
-     // Set minimum increment based on uround and norm of f 
+    // Set minimum increment based on uround and norm of f
     srur = llnlmath_rsqrt(uround);
     fnorm = vector_wrms_norm(fy, ewt);
     minInc = (fnorm != ZERO)
@@ -118,10 +118,10 @@ cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
 
     N_VMAKE(jthCol, NULL, N);
 
-     // this is the only for loop for 0..N-1 in CVODE 
+    // this is the only for loop for 0..N-1 in CVODE
     for (j = 0; j < N; j++) {
 
-         // Generate the jth col of J(tn,y) 
+        // Generate the jth col of J(tn,y)
 
         N_VDATA(jthCol) = DENSE_COL(J, j);
         yjsaved = y_data[j];
@@ -135,7 +135,7 @@ cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
 
     N_VDISPOSE(jthCol);
 
-     // Increment counter nfe = *nfePtr 
+    // Increment counter nfe = *nfePtr
     *nfePtr += N;
     return;
 }
@@ -194,25 +194,25 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
     CVodeMem cv_mem;
     CVDenseMem cvdense_mem;
 
-     // Return immediately if cvode_mem is NULL 
+    // Return immediately if cvode_mem is NULL
     cv_mem = (CVodeMem)cvode_mem;
     if (cv_mem == NULL) {
-        return;  // CVode reports this error 
+        return;  // CVode reports this error
     }
 
-     // Set four main function fields in cv_mem 
+    // Set four main function fields in cv_mem
     linit = cv_dense_init;
     lsetup = cv_dense_setup;
     lsolve = cv_dense_solve;
     lfree = cv_dense_free;
 
-     // Get memory for CVDenseMemRec 
+    // Get memory for CVDenseMemRec
     lmem = cvdense_mem = xmalloc(sizeof(CVDenseMemRec));
     if (cvdense_mem == NULL) {
-        return;  // cv_dense_init reports this error 
+        return;  // cv_dense_init reports this error
     }
 
-     // Set Jacobian routine field to user's djac or cv_dense_dq_jac 
+    // Set Jacobian routine field to user's djac or cv_dense_dq_jac
     if (djac == NULL) {
         jac = cv_dense_dq_jac;
     } else {
@@ -236,16 +236,16 @@ cv_dense_init(CVodeMem cv_mem, bool *setupNonNull) {
 
     cvdense_mem = (CVDenseMem)lmem;
 
-     // Print error message and return if cvdense_mem is NULL 
+    // Print error message and return if cvdense_mem is NULL
     if (cvdense_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         return LINIT_ERR;
     }
 
-     // Set flag setupNonNull = true 
+    // Set flag setupNonNull = true
     *setupNonNull = true;
 
-     // Allocate memory for M, savedJ, and pivot array 
+    // Allocate memory for M, savedJ, and pivot array
 
     M = dense_alloc_mat(N);
     if (M == NULL) {
@@ -266,7 +266,7 @@ cv_dense_init(CVodeMem cv_mem, bool *setupNonNull) {
         return LINIT_ERR;
     }
 
-     // Initialize nje and nstlj, and set workspace lengths 
+    // Initialize nje and nstlj, and set workspace lengths
 
     nje = 0;
     if (iopt != NULL) {
@@ -301,7 +301,7 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 
     cvdense_mem = (CVDenseMem)lmem;
 
-     // Use nst, gamma/gammap, and convfail to set J eval. flag jok 
+    // Use nst, gamma/gammap, and convfail to set J eval. flag jok
 
     dgamma = ABS((gamma / gammap) - ONE);
     jbad = (nst == 0) || (nst > nstlj + CVD_MSBJ) ||
@@ -310,11 +310,11 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     jok = !jbad;
 
     if (jok) {
-         // If jok = true, use saved copy of J 
+        // If jok = true, use saved copy of J
         *jcurPtr = false;
         dense_copy(savedJ, M);
     } else {
-         // If jok = false, call jac routine for new J value 
+        // If jok = false, call jac routine for new J value
         nje++;
         if (iopt != NULL) {
             iopt[DENSE_NJE] = nje;
@@ -327,14 +327,14 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
         dense_copy(M, savedJ);
     }
 
-     // Scale and add I to get M = I - gamma*J 
+    // Scale and add I to get M = I - gamma*J
     dense_scal(-gamma, M);
     dense_add_i(M);
 
-     // Do LU factorization of M 
+    // Do LU factorization of M
     ier = dense_factor(M, pivots);
 
-     // Return 0 if the LU was complete; otherwise return 1 
+    // Return 0 if the LU was complete; otherwise return 1
     if (ier > 0) {
         return 1;
     }
@@ -358,7 +358,7 @@ cv_dense_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
 
     dense_back_solve(M, pivots, b);
 
-     // If BDF, scale the correction to account for change in gamma 
+    // If BDF, scale the correction to account for change in gamma
     if ((lmm == BDF) && (gamrat != ONE)) {
         vector_scale(TWO / (ONE + gamrat), b, b);
     }

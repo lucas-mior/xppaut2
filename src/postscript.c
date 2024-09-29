@@ -15,7 +15,7 @@
 #define PS_VTIC (PS_YMAX / 80)
 #define PS_HTIC (PS_YMAX / 80)
 
-#define PS_SC (10)  // scale is 1pt = 10 units 
+#define PS_SC (10)  // scale is 1pt = 10 units
 #define PS_VCHAR (PS_FONTSIZE*PS_SC)
 
 #define LEFT 0
@@ -43,25 +43,25 @@ static char *PS_header[] = {
     "/vpt2 vpt 2 mul def\n", "/hpt2 hpt 2 mul def\n",
     "/Romfnt {/Times-Roman findfont exch scalefont setfont} def ",
     "/Symfnt {/Symbol findfont exch scalefont setfont} def ",
-     // flush left show 
+    // flush left show
     "/Lshow { currentpoint stroke moveto\n", "  0 vshift rmoveto show } def\n",
-     // flush right show 
+    // flush right show
     "/Rshow { currentpoint stroke moveto\n",
     "  dup stringwidth pop neg vshift rmoveto show } def\n",
-     // centred show 
+    // centred show
     "/Cshow { currentpoint stroke moveto\n",
     "  dup stringwidth pop -2 div vshift rmoveto show } def\n",
-     // Dash or Color Line 
+    // Dash or Color Line
     "/DL { Color {setrgbcolor [] 0 setdash pop}\n",
     " {pop pop pop 0 setdash} ifelse } def\n",
-     // Border Lines 
+    // Border Lines
     "/BL { stroke xpplinewidth 2 mul setlinewidth } def\n",
-     // Axes Lines 
+    // Axes Lines
     "/AL { stroke xpplinewidth 2 div setlinewidth } def\n",
-     // Plot Lines 
+    // Plot Lines
     "/PL { stroke xpplinewidth setlinewidth } def\n",
-     // Line Types 
-    "/LTb { BL [] 0 0 0 DL } def\n",                              // border 
+    // Line Types
+    "/LTb { BL [] 0 0 0 DL } def\n",                             // border
     "/LTa { AL [1 dl 2 dl] 0 setdash 0 0 0 setrgbcolor } def\n", /* axes
                                                                   */
     "/LT0 { PL [] 0 0 0 DL } def\n", "/LT1 { PL [4 dl 2 dl] 1 0 0 DL } def\n",
@@ -77,10 +77,10 @@ static char *PS_header[] = {
     "/LT9 { stroke 16. setlinewidth [4 dl 2 dl] 0 0 1 DL } def\n",
     "/LTc { stroke 16. setlinewidth [2 dl 3 dl] .62 .125 .93 DL } def\n",
     "/M {moveto} def\n", "/L {lineto} def\n", "/R {rlineto} def\n",
-    "/P { stroke [] 0 setdash\n",  // Point 
+    "/P { stroke [] 0 setdash\n",  // Point
     "  currentlinewidth 2 div sub moveto\n",
     "  0 currentlinewidth rlineto  stroke } def\n",
-    "/D { stroke [] 0 setdash  2 copy  vpt add moveto\n",  // Diamond 
+    "/D { stroke [] 0 setdash  2 copy  vpt add moveto\n",  // Diamond
     "  hpt neg vpt neg rlineto  hpt vpt neg rlineto\n",
     "  hpt vpt rlineto  hpt neg vpt rlineto  closepath  stroke\n",
     "  P  } def\n",
@@ -90,7 +90,7 @@ static char *PS_header[] = {
     "  currentpoint stroke moveto\n",
     "  hpt neg vpt neg rmoveto  hpt2 0 rlineto stroke\n", "  } def\n",
     "/B { stroke [] 0 setdash  2 copy  exch hpt sub exch vpt add "
-    "moveto\n",  // Box 
+    "moveto\n",  // Box
     "  0 vpt2 neg rlineto  hpt2 0 rlineto  0 vpt2 rlineto\n",
     "  hpt2 neg 0 rlineto  closepath  stroke\n", "  P  } def\n",
     "/C { stroke [] 0 setdash  exch hpt sub exch vpt add moveto\n", /* Cross
@@ -101,8 +101,8 @@ static char *PS_header[] = {
                                                                     */
     "  hpt neg vpt -1.62 mul rlineto\n", "  hpt 2 mul 0 rlineto\n",
     "  hpt neg vpt 1.62 mul rlineto  closepath  stroke\n", "  P  } def\n",
-    "/S { 2 copy A C} def\n",                                     // Star 
-    "/K { stroke [] 0 setdash vpt 0 360 arc stroke} def ",        // circle2 
+    "/S { 2 copy A C} def\n",                                    // Star
+    "/K { stroke [] 0 setdash vpt 0 360 arc stroke} def ",       // circle2
     "/F { stroke [] 0 setdash vpt 0 360 arc fill stroke } def ", /* Filled
                                                                     circle
                                                                   */
@@ -140,7 +140,7 @@ ps_init(char *filename, int32 color) {
     }
     fprintf(psfile, "/xpplinewidth %.3f def\n", PS_LW);
     fprintf(psfile, "/vshift %d def\n", (int32)(PS_VCHAR) / (-3));
-    fprintf(psfile, "/dl {%d mul} def\n", PS_SC);  // dash length 
+    fprintf(psfile, "/dl {%d mul} def\n", PS_SC);  // dash length
     fprintf(psfile, "/hpt %.1f def\n", PS_HTIC / 2.0);
     fprintf(psfile, "/vpt %.1f def\n", PS_VTIC / 2.0);
     for (int32 i = 0; PS_header[i] != NULL; i++) {
@@ -172,7 +172,7 @@ ps_do_color(int32 color) {
     double r;
     double g;
     double b;
-     // this doesn work very well 
+    // this doesn work very well
     if (PltFmtFlag == 0) {
         return;
     }
@@ -349,14 +349,14 @@ ps_special_put_text(int32 x, int32 y, char *str, int32 size) {
     pssz = sz[size]*PS_SC;
     sub = (int32)(.3*pssz);
     sup = (int32)(.6*pssz);
-     // set the size here! 
+    // set the size here!
     ps_fnt(cf, pssz);
     while (i < n) {
         c = str[i];
         if (c == '\\') {
             i++;
             c = str[i];
-            tmp[j] = 0;  // end the current buffer 
+            tmp[j] = 0;  // end the current buffer
             if (strlen(tmp) > 0) {
                 ps_show(tmp, type);
                 type = 0;

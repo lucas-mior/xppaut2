@@ -101,7 +101,7 @@ tabular_new_lookup_com(int32 i) {
         return;
     }
     if (i == 1) {
-         // tabular view 
+        // tabular view
         int32 n = my_table[index].n, len;
         double *y = my_table[index].y;
         double dx = my_table[index].dx;
@@ -213,15 +213,15 @@ tabular_lookup(double x, int32 index) {
     y = my_table[index].y;
 
     if (my_table[index].flag == 0) {
-        return 0.0;  // Not defined   
+        return 0.0;  // Not defined
     }
     if (my_table[index].xyvals == 1) {
         return tabular_lookup_xy(x, n, my_table[index].x, y);
     }
 
-    i1 = (int32)((x - xlo) / dx);  // (int32)floor(x) instead of (int32)x ??? 
+    i1 = (int32)((x - xlo) / dx);  // (int32)floor(x) instead of (int32)x ???
     if (my_table[index].interp == 2 && i1 > 0 && i1 < (n - 2)) {
-         // if it is on the edge - use linear 
+        // if it is on the edge - use linear
         return tabular_interp(xlo, dx, x, y, i1);
     }
     i2 = i1 + 1;
@@ -384,15 +384,15 @@ tabular_load_table(char *filename, int32 index) {
     }
     my_table[index].interp = 0;
     fgets(bob, 100, fp);
-    if (bob[0] == 'i')  // closest step value 
+    if (bob[0] == 'i')  // closest step value
     {
         my_table[index].interp = 1;
-        bob++;  // skip past initial "i" to length 
+        bob++;  // skip past initial "i" to length
     }
-    if (bob[0] == 's')  // cubic spline  
+    if (bob[0] == 's')  // cubic spline
     {
         my_table[index].interp = 2;
-        bob++;  // skip past initial "i" to length 
+        bob++;  // skip past initial "i" to length
     }
     length = atoi(bob);
     if (length < 2) {

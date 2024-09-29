@@ -475,7 +475,7 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
         }
         if (error < err) {
             for (int32 i = 0; i < n; i++) {
-                y[i] = y0[i];  //   Good values .... 
+                y[i] = y0[i];  //   Good values ....
             }
             if (iper) {
                 set_val(upar_names[ipar], y0[n]);
@@ -492,9 +492,9 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
         if (niter > maxit) {
             *iret = -2;
             goto bye;
-        }  // Too many iterates   
+        }  // Too many iterates
 
-         //   create the Jacobian matrix ...   
+        //   create the Jacobian matrix ...
 
         for (int32 j = 0; j < ntot; j++) {
             for (int32 i = 0; i < n; i++) {

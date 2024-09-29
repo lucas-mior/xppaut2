@@ -133,7 +133,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     p.mc = mcc;
     choice_box_do_checks(p);
     while (true) {
-         // choice_box_event_loop 
+        // choice_box_event_loop
         int32 nn = p.n;
         XEvent event;
         XNextEvent(display, &event);
@@ -182,7 +182,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
             break;
         }
     }
-     // choice box destroy 
+    // choice box destroy
     browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);

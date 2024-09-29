@@ -349,9 +349,9 @@ menudrive_run_the_commands(int32 com) {
         many_pops_do_windows_com(com - M_MC);
         return;
     }
-     // CLONE 
+    // CLONE
     if (com >= M_FP && com <= M_FL) {
-         // menudrive do file com 
+        // menudrive do file com
         switch (com) {
         case M_FT:
             adjoints_do_transpose();
@@ -386,7 +386,7 @@ menudrive_run_the_commands(int32 com) {
             tfBell = 1 - tfBell;
             break;
         case M_FH:
-             //menudrive_xpp_hlp();
+            // menudrive_xpp_hlp();
             break;
         case M_FX:
             menudrive_edit_xpprc();

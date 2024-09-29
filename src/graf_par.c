@@ -112,7 +112,7 @@ graf_par_change_view_com(int32 com) {
         MyGraph->ThreeDFlag = 0;
         status = pop_list_do_string_box(8, 4, 2, "2D View", n, values, 31);
         if (status != 0) {
-             //  get variable names  
+            //  get variable names
             browse_find_variable(values[0], &i);
             if (i > -1) {
                 MyGraph->xv[ind] = i;
@@ -166,7 +166,7 @@ graf_par_change_view_com(int32 com) {
         MyGraph->ThreeDFlag = 1;
         status = pop_list_do_string_box(16, 6, 3, "3D View", n, values, 31);
         if (status != 0) {
-             //  get variable names  
+            //  get variable names
             browse_find_variable(values[0], &i);
             if (i > -1) {
                 MyGraph->xv[ind] = i;
@@ -233,7 +233,7 @@ void
 graf_par_check_val(double *x1, double *x2, double *xb, double *xd) {
     double temp;
 
-     // see get_max for details 
+    // see get_max for details
 
     if (*x1 == *x2) {
         temp = .05*LMAX(fabs(*x1), 1.0);
@@ -502,7 +502,7 @@ graf_par_check_windows(void) {
 
 void
 graf_par_xi_vs_t(void) {
-     //  a short cut   
+    //  a short cut
     char name[20];
     char value[20];
     int32 i = MyGraph->yv[0];
@@ -631,7 +631,7 @@ graf_par_get_3d_com(void) {
         }
 
         graphics_make_rot(MyGraph->Theta, MyGraph->Phi);
-         //  Redraw the picture   
+        //  Redraw the picture
         graf_par_redraw_the_graph();
     }
     return;
@@ -662,7 +662,7 @@ graf_par_window_zoom_com(int32 c) {
     int32 j2;
     switch (c) {
     case 0: {
-         // graf par user window 
+        // graf par user window
         static char *n[] = {"X Lo", "X Hi", "Y Lo", "Y Hi"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
@@ -707,7 +707,7 @@ graf_par_window_zoom_com(int32 c) {
         graf_par_default_window();
         break;
     case 5: {
-         // graf par scroll window 
+        // graf par scroll window
         XEvent event;
         int32 i = 0, j = 0;
         int32 state = 0;
@@ -791,7 +791,7 @@ graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
         dx = dx / 2;
         dy = dy / 2;
 
-         //Shrink by thirds and center (track) about the point clicked
+        // Shrink by thirds and center (track) about the point clicked
         MyGraph->xlo = x1 - dx / 2;
         MyGraph->xhi = x1 + dx / 2;
 
@@ -845,7 +845,7 @@ graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
         if (dy < 0) {
             dy = -dy;
         }
-         //Grow by thirds and center (track) about the point clicked
+        // Grow by thirds and center (track) about the point clicked
         dx = dx*2;
         dy = dy*2;
 
@@ -1002,7 +1002,7 @@ void
 graf_par_freeze_com(int32 c) {
     switch (c) {
     case 0: {
-         // freeze crv 
+        // freeze crv
         int32 crv;
         crv = graf_par_create_crv(0);
         if (crv < 0) {
@@ -1018,7 +1018,7 @@ graf_par_freeze_com(int32 c) {
         graf_par_edit_frz();
         break;
     case 3:
-         // kill frz 
+        // kill frz
         for (int32 i = 0; i < MAXFRZ; i++) {
             if (frz[i].use == 1 && frz[i].window == draw_win) {
                 graf_par_delete_frz_crv(i);
@@ -1026,7 +1026,7 @@ graf_par_freeze_com(int32 c) {
         }
         break;
     case 5: {
-         // frz bd 
+        // frz bd
         FILE *fp;
         char filename[XPP_MAX_NAME];
         snprintf(filename, sizeof(filename), "diagram.dat");
@@ -1042,7 +1042,7 @@ graf_par_freeze_com(int32 c) {
         break;
     }
     case 6:
-         // free bd 
+        // free bd
         if (my_bd.nbifcrv > 0) {
             for (int32 i = 0; i < my_bd.nbifcrv; i++) {
                 free(my_bd.x[i]);
@@ -1302,7 +1302,7 @@ graf_par_draw_freeze(Window window) {
     }
     graf_par_draw_freeze_key();
     {
-         // draw bd 
+        // draw bd
         int32 len;
         double *x, *y;
         if (window == my_bd.window && my_bd.nbifcrv > 0) {
@@ -1383,7 +1383,7 @@ graf_par_read_bd(FILE *fp) {
         if (type == oldtype && br == oldbr) {
             len++;
         } else {
-            /* if(oldbr==br)len++; */  // extend to point of instability 
+            /* if(oldbr==br)len++; */  // extend to point of instability
             graf_par_add_bd_crv(x, ylo, len, oldtype, ncrv);
             ncrv++;
             if (oldtype == UPER || oldtype == SPER) {
@@ -1402,7 +1402,7 @@ graf_par_read_bd(FILE *fp) {
         oldbr = br;
         oldtype = type;
     }
-     //  save this last one 
+    //  save this last one
     if (len > 1) {
         graf_par_add_bd_crv(x, ylo, len, oldtype, ncrv);
         ncrv++;
@@ -1455,7 +1455,7 @@ graf_par_add_a_curve_com(int32 c) {
             ggets_err_msg("Too many plots!");
             return;
         }
-         // new curve 
+        // new curve
         if (graf_par_alter_curve("New Curve", 0, MyGraph->nvars)) {
             MyGraph->nvars = MyGraph->nvars + 1;
         }
@@ -1469,7 +1469,7 @@ graf_par_add_a_curve_com(int32 c) {
         MyGraph->nvars = 1;
         break;
     case 3: {
-         // edit curve 
+        // edit curve
         char bob[21];
         int32 crv = 0;
         snprintf(bob, sizeof(bob), "Edit 0-%d :", MyGraph->nvars - 1);
@@ -1482,7 +1482,7 @@ graf_par_add_a_curve_com(int32 c) {
         break;
     }
     case 4: {
-         // create ps 
+        // create ps
         char filename[XPP_MAX_NAME + 3];
         static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
                              "Font", "Linewidth"};
@@ -1516,7 +1516,7 @@ graf_par_add_a_curve_com(int32 c) {
         break;
     }
     case 5: {
-         // create svg 
+        // create svg
         char filename[XPP_MAX_NAME];
         strcpy(filename, this_file);
         filename[strlen(filename) - 4] = '\0';
@@ -1533,7 +1533,7 @@ graf_par_add_a_curve_com(int32 c) {
         /* case 6: freeze();
            break; */
     case 7: {
-         // graf par axes opts 
+        // graf par axes opts
         static char *n[] = {"X-origin",    "Y-origin",    "Z-origin",
                             "X-org(1=on)", "Y-org(1=on)", "Z-org(1=on",
                             "PSFontSize"};
@@ -1560,7 +1560,7 @@ graf_par_add_a_curve_com(int32 c) {
         break;
     }
     case 8: {
-         // export graf data 
+        // export graf data
         FILE *fp;
         char filename[XPP_MAX_NAME];
         snprintf(filename, sizeof(filename), "curve.dat");
@@ -1568,7 +1568,7 @@ graf_par_add_a_curve_com(int32 c) {
         if (!init_conds_file_selector("Export graph data", filename, "*.dat")) {
             return;
         }
-         // if(ggets_new_string("Data filename:",filename)==0)return; 
+        // if(ggets_new_string("Data filename:",filename)==0)return;
         if ((fp = fopen(filename, "w")) == NULL) {
             ggets_err_msg("Couldn't open file");
             return;

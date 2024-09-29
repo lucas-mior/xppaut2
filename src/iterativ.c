@@ -37,14 +37,14 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
     k_minus_1 = k - 1;
     i0 = MAX(k - p, 0);
 
-     // Perform modified Gram-Schmidt 
+    // Perform modified Gram-Schmidt
 
     for (int32 i = i0; i < k; i++) {
         h[i][k_minus_1] = vector_dot_prod(v[i], v[k]);
         vector_linear_sum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
     }
 
-     // Compute the norm of the new vector at v[k].  
+    // Compute the norm of the new vector at v[k].
 
     *new_vk_norm = llnlmath_rsqrt(vector_dot_prod(v[k], v[k]));
 
@@ -95,7 +95,7 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
 
     k_minus_1 = k - 1;
 
-     // Perform Classical Gram-Schmidt 
+    // Perform Classical Gram-Schmidt
 
     vk_norm = llnlmath_rsqrt(vector_dot_prod(v[k], v[k]));
 
@@ -108,11 +108,11 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
         vector_linear_sum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
     }
 
-     // Compute the norm of the new vector at v[k].  
+    // Compute the norm of the new vector at v[k].
 
     *new_vk_norm = llnlmath_rsqrt(vector_dot_prod(v[k], v[k]));
 
-     // Reorthogonalize if necessary 
+    // Reorthogonalize if necessary
 
     if ((FACTOR*(*new_vk_norm)) < vk_norm) {
         for (int32 i = i0; i < k; i++) {
@@ -154,10 +154,10 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
 
     switch (job) {
     case 0:
-         // Compute a new factorization of H. 
+        // Compute a new factorization of H.
         code = 0;
         for (int32 k = 0; k < n; k++) {
-             // Multiply column k by the previous k-1 Givens rotations. 
+            // Multiply column k by the previous k-1 Givens rotations.
             for (int32 j = 0; j < k - 1; j++) {
                 i = 2*j;
                 temp1 = h[j][k];
@@ -168,7 +168,7 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
                 h[j + 1][k] = s*temp1 + c*temp2;
             }
 
-             // Compute the Givens rotation components c and s 
+            // Compute the Givens rotation components c and s
             q_ptr = 2*k;
             temp1 = h[k][k];
             temp2 = h[k + 1][k];
@@ -193,11 +193,11 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
         break;
 
     default:
-         // Update the factored H to which a new column has been added. 
+        // Update the factored H to which a new column has been added.
         n_minus_1 = n - 1;
         code = 0;
 
-         // Multiply the new column by the previous n-1 Givens rotations. 
+        // Multiply the new column by the previous n-1 Givens rotations.
         for (int32 k = 0; k < n_minus_1; k++) {
             i = 2*k;
             temp1 = h[k][n_minus_1];
@@ -250,7 +250,7 @@ iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
     int32 q_ptr;
     int32 code = 0;
 
-     // Compute Q*b. 
+    // Compute Q*b.
 
     for (int32 k = 0; k < n; k++) {
         q_ptr = 2*k;
@@ -262,7 +262,7 @@ iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
         b[k + 1] = s*temp1 + c*temp2;
     }
 
-     // Solve  R*x = Q*b. 
+    // Solve  R*x = Q*b.
 
     for (int32 k = n - 1; k >= 0; k--) {
         if (h[k][k] == ZERO) {

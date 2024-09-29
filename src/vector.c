@@ -22,18 +22,18 @@
 
 /* Private Helper Prototypes */
 
-static void vector_copy(Vector x, Vector z);            // z=x 
-static void vector_sum(Vector x, Vector y, Vector z);   // z=x+y 
-static void vector_diff(Vector x, Vector y, Vector z);  // z=x-y 
-static void vector_neg(Vector x, Vector z);             // z=-x 
+static void vector_copy(Vector x, Vector z);            // z=x
+static void vector_sum(Vector x, Vector y, Vector z);   // z=x+y
+static void vector_diff(Vector x, Vector y, Vector z);  // z=x-y
+static void vector_neg(Vector x, Vector z);             // z=-x
 /* z=c(x+y) */
 static void vector_scaleSum(double c, Vector x, Vector y, Vector z);
 /* z=c(x-y) */
 static void vector_scaleDiff(double c, Vector x, Vector y, Vector z);
-static void vector_lin1(double a, Vector x, Vector y, Vector z);  // z=ax+y 
-static void vector_lin2(double a, Vector x, Vector y, Vector z);  // z=ax-y 
-static void vector_axpy(double a, Vector x, Vector y);            // y <- ax+y 
-static void vector_scaleBy(double a, Vector x);                   // x <- ax 
+static void vector_lin1(double a, Vector x, Vector y, Vector z);  // z=ax+y
+static void vector_lin2(double a, Vector x, Vector y, Vector z);  // z=ax-y
+static void vector_axpy(double a, Vector x, Vector y);            // y <- ax+y
+static void vector_scaleBy(double a, Vector x);                   // x <- ax
 
 /********************* Exported Functions ************************/
 
@@ -76,24 +76,24 @@ vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
     Vector v2;
     bool test;
 
-    if ((b == ONE) && (z == y)) {  // BLAS usage: axpy y <- ax+y 
+    if ((b == ONE) && (z == y)) {  // BLAS usage: axpy y <- ax+y
         vector_axpy(a, x, y);
         return;
     }
 
-    if ((a == ONE) && (z == x)) {  // BLAS usage: axpy x <- by+x 
+    if ((a == ONE) && (z == x)) {  // BLAS usage: axpy x <- by+x
         vector_axpy(b, y, x);
         return;
     }
 
-     // Case: a == b == 1.0 
+    // Case: a == b == 1.0
 
     if ((a == ONE) && (b == ONE)) {
         vector_sum(x, y, z);
         return;
     }
 
-     // Cases: (1) a == 1.0, b = -1.0, (2) a == -1.0, b == 1.0 
+    // Cases: (1) a == 1.0, b = -1.0, (2) a == -1.0, b == 1.0
 
     if ((test = ((a == ONE) && (b == -ONE))) || ((a == -ONE) && (b == ONE))) {
         v1 = test ? y : x;
@@ -104,7 +104,7 @@ vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
 
     /* Cases: (1) a == 1.0, b == other or 0.0, (2) a == other or 0.0, b == 1.0
      */
-     // if a or b is 0.0, then user should have called N_VScale 
+    // if a or b is 0.0, then user should have called N_VScale
 
     if ((test = (a == ONE)) || (b == ONE)) {
         c = test ? b : a;
@@ -114,7 +114,7 @@ vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
         return;
     }
 
-     // Cases: (1) a == -1.0, b != 1.0, (2) a != 1.0, b == -1.0 
+    // Cases: (1) a == -1.0, b != 1.0, (2) a != 1.0, b == -1.0
 
     if ((test = (a == -ONE)) || (b == -ONE)) {
         c = test ? b : a;
@@ -124,15 +124,15 @@ vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
         return;
     }
 
-     // Case: a == b 
-     // catches case both a and b are 0.0 - user should have called N_VConst 
+    // Case: a == b
+    // catches case both a and b are 0.0 - user should have called N_VConst
 
     if (a == b) {
         vector_scaleSum(a, x, y, z);
         return;
     }
 
-     // Case: a == -b 
+    // Case: a == -b
 
     if (a == -b) {
         vector_scaleDiff(a, x, y, z);
@@ -206,7 +206,7 @@ vector_scale(double c, Vector x, Vector z) {
     int64 N;
     double *xd, *zd;
 
-    if (z == x) {  // BLAS usage: scale x <- cx 
+    if (z == x) {  // BLAS usage: scale x <- cx
         vector_scaleBy(c, x);
         return;
     }

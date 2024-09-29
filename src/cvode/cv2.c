@@ -95,7 +95,7 @@ cvode_err_msg(int32 kflag) {
 
 int32
 cvode(
-     // command =0 continue, 1 is start 2 finish 
+    // command =0 continue, 1 is start 2 finish
     int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
     int32 err = 0;
@@ -112,7 +112,7 @@ cvode(
 /* rtol is like our TOLER and atol is something else ?? */
 int32
 ccvode(
-     // command =0 continue, 1 is start 2 finish 
+    // command =0 continue, 1 is start 2 finish
     int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
     int32 flag;

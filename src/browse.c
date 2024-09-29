@@ -179,7 +179,7 @@ browse_check_for_stor(double **data) {
 
 void
 browse_data_del_col(Browser *b) {
-     //  this only works with storage  
+    //  this only works with storage
     Window window;
     int32 rev;
 
@@ -248,7 +248,7 @@ browse_add_stor_col(char *name, char *formula, Browser *b) {
     strcpy(uvar_names[NEQ], name);
     strupr(uvar_names[NEQ]);
     for (i = 0; i < b->maxrow; i++) {
-        storage[NEQ + 1][i] = 0.0;  //  zero it all   
+        storage[NEQ + 1][i] = 0.0;  //  zero it all
     }
     for (i = 0; i < b->maxrow; i++) {
         for (int32 j = 0; j < NODE + 1; j++) {
@@ -259,7 +259,7 @@ browse_add_stor_col(char *name, char *formula, Browser *b) {
         }
         storage[NEQ + 1][i] = (double)evaluate(com);
     }
-    parserslow_add_var(uvar_names[NEQ], 0.0);  //  this could be trouble .... 
+    parserslow_add_var(uvar_names[NEQ], 0.0);  //  this could be trouble ....
     NEQ++;
     b->maxcol = NEQ + 1;
     redraw_browser(*b);
@@ -320,7 +320,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
     }
 
     dt = NJMP*DELTA_T;
-     // first check for derivative or integral symbol 
+    // first check for derivative or integral symbol
     i = 0;
     while (i < (int32)strlen(form)) {
         if (!isspace(form[i])) {
@@ -359,7 +359,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
         return;
     }
 
-     //  first compile formula ... 
+    //  first compile formula ...
 
     if (dif_var < 0 && seq == 0) {
         if (parserslow_add_expr(form, com, &i)) {
@@ -369,7 +369,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
             return;
         }
     }
-     // next check to see if column is known ... 
+    // next check to see if column is known ...
 
     browse_find_variable(var, &i);
     if (i < 0) {
@@ -380,7 +380,7 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
     }
     R_COL = i;
 
-     // Okay the formula is cool so lets allocate and replace  
+    // Okay the formula is cool so lets allocate and replace
 
     browse_wipe_rep();
     old_rep = xmalloc(sizeof(*old_rep)*(usize)n);
@@ -710,11 +710,11 @@ browse_draw_data(Browser b) {
     int32 dcol = DCURXs*14;
     int32 drow = (DCURYs + 6);
     if (b.dataflag == 0) {
-        return;  //   no data  
+        return;  //   no data
     }
     XClearWindow(display, b.main);
 
-     // Do time data first  
+    // Do time data first
 
     for (int32 i = 0; i < b.nrow; i++) {
         i0 = i + b.row0;
@@ -725,12 +725,12 @@ browse_draw_data(Browser b) {
         }
     }
 
-     // Do data stuff   
+    // Do data stuff
     for (int32 j = 0; j < b.ncol; j++) {
         x0 = (j + 1)*dcol + DCURXs / 2;
         j0 = j + b.col0;
         if (j0 >= b.maxcol) {
-            return;  // if this one is too big, they all are  
+            return;  // if this one is too big, they all are
         }
         for (int32 i = 0; i < b.nrow; i++) {
             i0 = i + b.row0;
@@ -1000,7 +1000,7 @@ resize_browser(Window window, Browser *b) {
     }
     h = (uint32)(i0*drow + DCURXs / 2);
     newrow = i0;
-     //  Now resize everything   
+    //  Now resize everything
     if (b->ncol == newcol && b->nrow == newrow) {
         return;
     }
@@ -1011,7 +1011,7 @@ resize_browser(Window window, Browser *b) {
     XResizeWindow(display, b->upper, w - 17, (uint)(8 + drow*3));
     XResizeWindow(display, b->main, w - 17, h);
 
-     // Let the browser know how many rows and columns of data  
+    // Let the browser know how many rows and columns of data
     return;
 }
 
@@ -1269,7 +1269,7 @@ browse_keypress(XEvent event, int32 *used, Browser *b) {
             return;
         }
 
-    }  // end of cases 
+    }  // end of cases
     return;
 }
 
@@ -1393,7 +1393,7 @@ browse_data_replace(Browser *b) {
 
 void
 browse_data_unreplace(Browser *b) {
-     // browse unreplace column 
+    // browse unreplace column
     int32 n = my_browser.maxrow;
     if (!REPLACE) {
         return;
