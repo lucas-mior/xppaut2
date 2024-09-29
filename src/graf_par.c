@@ -542,7 +542,7 @@ void
 graf_par_redraw_the_graph(void) {
     ggets_blank_screen(draw_win);
     graphics_set_normal_scale();
-    axes2_do();
+    axes_do();
     many_pops_hi_lite(draw_win);
     integrate_restore(0, my_browser.maxrow);
     many_pops_draw_label(draw_win);

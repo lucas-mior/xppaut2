@@ -195,13 +195,13 @@ void auto_x11_do_range(void);
 #ifndef AXES2_H
 #define AXES2_H
 
-extern int32 axes2_doing;
-extern int32 axes2_doing_box;
+extern int32 axes_doing;
+extern int32 axes_doing_box;
 
-void axes2_redraw_cube_pt(double theta, double phi);
-void axes2_do(void);
-void axes2_redraw_cube(double theta, double phi);
-void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
+void axes_redraw_cube_pt(double theta, double phi);
+void axes_do(void);
+void axes_redraw_cube(double theta, double phi);
+void axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
                char *sy, int32 flag);
 
 #endif

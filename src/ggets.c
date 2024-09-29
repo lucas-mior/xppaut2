@@ -46,7 +46,7 @@ ggets_ping(void) {
 void
 ggets_reset_graphics(void) {
     ggets_blank_screen(draw_win);
-    axes2_do();
+    axes_do();
     many_pops_hi_lite(draw_win);
     return;
 }

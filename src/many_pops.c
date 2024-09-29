@@ -1118,7 +1118,7 @@ many_pops_ps_restore(void) {
 
     nullcline_do_batch_nclines();
     nullcline_do_batch_dfield();
-    axes2_do();
+    axes_do();
 
     ps_do_color(0);
     if (Xup) {
@@ -1137,7 +1137,7 @@ many_pops_svg_restore(void) {
     }
     svg_last_pt_off();
     integrate_restore(0, my_browser.maxrow);
-    axes2_do();
+    axes_do();
     if (Xup) {
         many_pops_draw_label(draw_win);
         graf_par_draw_freeze(draw_win);
@@ -1166,7 +1166,7 @@ many_pops_rotate_3dcheck(XEvent event) {
         while (true) {
             XNextEvent(display, &z);
             if (z.type == ButtonRelease) {
-                axes2_do();
+                axes_do();
                 main_redraw_all();
                 many_pops_hi_lite(draw_win);
                 return 1;
@@ -1176,7 +1176,7 @@ many_pops_rotate_3dcheck(XEvent event) {
                 dy = z.xmotion.y - yini;
                 MyGraph->Phi = phi - (double)dy;
                 MyGraph->Theta = theta - (double)dx;
-                axes2_redraw_cube_pt(MyGraph->Theta, MyGraph->Phi);
+                axes_redraw_cube_pt(MyGraph->Theta, MyGraph->Phi);
             }
         }
     }
@@ -1253,7 +1253,7 @@ many_pops_do_expose(XEvent event) {
                 MyGraph = &graph[i];
                 draw_win = graph[i].window;
                 graphics_get_draw_area();
-                axes2_do();
+                axes_do();
                 if (graph[i].Restore) {
                     integrate_restore(0, my_browser.maxrow);
                 }

@@ -1036,7 +1036,7 @@ void
 main_clr_scrn(void) {
     ggets_blank_screen(draw_win);
     many_pops_restore_off();
-    axes2_do();
+    axes_do();
     return;
 }
 

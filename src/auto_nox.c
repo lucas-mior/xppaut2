@@ -289,7 +289,7 @@ auto_nox_draw_ps_axes(void) {
     char sy[20];
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     auto_nox_get_str(sx, sy);
-    axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
+    axes_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
     return;
 }
 
@@ -299,7 +299,7 @@ auto_nox_draw_svg_axes(void) {
     char sy[20];
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     auto_nox_get_str(sx, sy);
-    axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
+    axes_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
     return;
 }
 
