@@ -114,7 +114,7 @@ int32 POIEXT;
 int32 HIST;
 int32 HVAR;
 int32 hist_ind;
-int32 FOREVER;
+int32 forever;
 
 /*  control of range stuff  */
 
@@ -259,9 +259,9 @@ load_eqn_set_all_vals(void) {
         TIMPLOT = 1;
         notAlreadySet.TIMEPLOT = 0;
     }
-    if (notAlreadySet.FOREVER) {
-        FOREVER = 0;
-        notAlreadySet.FOREVER = 0;
+    if (notAlreadySet.forever) {
+        forever = 0;
+        notAlreadySet.forever = 0;
     }
     if (notAlreadySet.bvp_tol) {
         bvp_tol = 1.e-5;

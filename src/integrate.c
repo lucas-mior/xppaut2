@@ -2900,7 +2900,7 @@ integrate_stor_full(void) {
         ggets_plintf(" Storage full -- increase maxstor \n");
         return 0;
     }
-    if (FOREVER) {
+    if (forever) {
         goto ov;
     }
     ggets_ping();

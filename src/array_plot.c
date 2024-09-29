@@ -766,16 +766,16 @@ array_plot_redraw(struct ArrayPlot ap) {
                     colr = cmax;
                 }
                 if (colr < 0) {
-                    XSetForeground(display, array_plot_gc, GrBack);
+                    XSetForeground(display, array_plot_gc, gr_back);
                 }
                 if (colr == 0) {
-                    XSetForeground(display, array_plot_gc, GrFore);
+                    XSetForeground(display, array_plot_gc, gr_fore);
                 } else {
                     if (COLOR) {
                         XSetForeground(display, array_plot_gc,
                                        (uint)color_map(colr));
                     } else {
-                        XSetForeground(display, array_plot_gc, GrFore);
+                        XSetForeground(display, array_plot_gc, gr_fore);
                     }
                 }
                 XFillRectangle(display, window, array_plot_gc, ix, iy,

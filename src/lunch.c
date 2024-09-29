@@ -93,9 +93,9 @@ lunch_do_info(FILE *fp) {
         fprintf(fp, fstr, uvar_names[i], ode_names[i]);
     }
 
-    if (FIX_VAR > 0) {
+    if (fix_var > 0) {
         fprintf(fp, "\nwhere ...\n");
-        for (int32 i = 0; i < FIX_VAR; i++) {
+        for (int32 i = 0; i < fix_var; i++) {
             fprintf(fp, "%s = %s \n", fixinfo[i].name, fixinfo[i].value);
         }
     }
@@ -299,9 +299,9 @@ lunch_dump_eqn(FILE *fp) {
         fprintf(fp, fstr, uvar_names[i], ode_names[i]);
     }
 
-    if (FIX_VAR > 0) {
+    if (fix_var > 0) {
         fprintf(fp, "\nwhere ...\n");
-        for (int32 i = 0; i < FIX_VAR; i++) {
+        for (int32 i = 0; i < fix_var; i++) {
             fprintf(fp, "%s = %s \n", fixinfo[i].name, fixinfo[i].value);
         }
     }

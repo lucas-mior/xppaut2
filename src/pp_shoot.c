@@ -51,7 +51,7 @@ pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
         SETVAR(i + 1, y__0[i]);
         SETVAR(i + n0 + 1, y__1[i]);
     }
-    for (int32 i = n; i < n + FIX_VAR; i++) {
+    for (int32 i = n; i < n + fix_var; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
 

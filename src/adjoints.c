@@ -186,7 +186,7 @@ adjoints_alloc_h_stuff(void) {
 
 void
 adjoints_data_back(void) {
-    FOUR_HERE = 0;
+    four_here = 0;
     browser_set_data(storage, 1);
     browser_refresh(storind);
     return;
@@ -324,7 +324,7 @@ adjoints_make_h(double **orb, double **adj, int32 nt, int32 node,
     int32 n;
     int32 rval = 0;
     double sum;
-    int32 n0 = node + 1 + FIX_VAR, k2;
+    int32 n0 = node + 1 + fix_var, k2;
     if (silent2 == 0) {
         for (int32 i = 0; i < NODE; i++) {
             char name[sizeof(uvar_names[i]) + 18];

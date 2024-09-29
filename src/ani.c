@@ -611,8 +611,8 @@ ani_buttonx(XEvent event, int32 flag) {
             for (int32 i = 0; i < NODE; i++) {
                 last_ic[i] = get_ivar(i + 1);
             }
-            for (int32 i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++) {
-                last_ic[i - FIX_VAR] = get_ivar(i + 1);
+            for (int32 i = NODE + fix_var; i < NODE + fix_var + NMarkov; i++) {
+                last_ic[i - fix_var] = get_ivar(i + 1);
             }
 
             init_conds_redraw_ics();

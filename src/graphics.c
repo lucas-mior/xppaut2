@@ -378,10 +378,10 @@ graphics_put_text_x11(int32 x, int32 y, char *str) {
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
         exit(EXIT_FAILURE);
     }
-    XSetForeground(display, small_gc, GrFore);
+    XSetForeground(display, small_gc, gr_fore);
     XDrawString(display, draw_win, small_gc, x + sw, y + dcur_ys / 3, str,
                 (int32)strlen(str));
-    XSetForeground(display, small_gc, GrBack);
+    XSetForeground(display, small_gc, gr_back);
     return;
 }
 
@@ -480,9 +480,9 @@ graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
         } else {
             XSetFont(display, font_gc, font_small->fid);
         }
-        XSetForeground(display, font_gc, GrFore);
+        XSetForeground(display, font_gc, gr_fore);
         XDrawString(display, draw_win, font_gc, x, y, str, (int)strlen(str));
-        XSetForeground(display, font_gc, GrBack);
+        XSetForeground(display, font_gc, gr_back);
         break;
     default:
         if (avromfonts[size] == 1) {
@@ -491,9 +491,9 @@ graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
         } else {
             XSetFont(display, font_gc, font_small->fid);
         }
-        XSetForeground(display, font_gc, GrFore);
+        XSetForeground(display, font_gc, gr_fore);
         XDrawString(display, draw_win, font_gc, x, y, str, (int)strlen(str));
-        XSetForeground(display, font_gc, GrBack);
+        XSetForeground(display, font_gc, gr_back);
         break;
     }
     return;

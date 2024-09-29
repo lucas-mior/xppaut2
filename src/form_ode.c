@@ -73,7 +73,7 @@ static int32 OldStyle = 1;
 int32 IN_VARS;
 int32 NMarkov;
 
-int32 FIX_VAR;
+int32 fix_var;
 
 int32 eq_type[MAX_ODE];
 static int32 Naux = 0;
@@ -118,7 +118,7 @@ form_ode_make_eqn(void) {
     char string[256];
     int32 okay;
     NEQ = 2;
-    FIX_VAR = 0;
+    fix_var = 0;
     NMarkov = 0;
 
     okay = 0;
@@ -366,7 +366,7 @@ form_ode_get_eqn(FILE *fptr) {
     }
     bvp_flag = 1;
 
-    if (NODE != NEQ + FIX_VAR - NMarkov) {
+    if (NODE != NEQ + fix_var - NMarkov) {
         ggets_plintf(" Too many/few equations\n");
         exit(0);
     }
@@ -678,9 +678,9 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 }
             } else {
                 if (convert_style) {
-                    strcpy(fixname[FIX_VAR], name);
+                    strcpy(fixname[fix_var], name);
                 }
-                FIX_VAR++;
+                fix_var++;
             }
             ggets_plintf("|%s| ", name);
         }
@@ -804,7 +804,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         VFlag = 1;
         __attribute__((fallthrough));
     case 'o':
-        if (NODE >= (NEQ + FIX_VAR - NMarkov)) {
+        if (NODE >= (NEQ + fix_var - NMarkov)) {
             done = 0;
             break;
         }
@@ -835,21 +835,21 @@ form_ode_compiler(char *bob, FILE *fptr) {
             eq_type[NODE] = VFlag;
             VFlag = 0;
         }
-        if (NODE >= IN_VARS && NODE < (IN_VARS + FIX_VAR)) {
+        if (NODE >= IN_VARS && NODE < (IN_VARS + fix_var)) {
             if (convert_style) {
                 fprintf(convertf, "%s=%s\n", fixname[NODE - IN_VARS], formula);
             }
             form_ode_find_ker(formula, &alt);
         }
 
-        if (NODE >= (IN_VARS + FIX_VAR)) {
-            i = NODE - (IN_VARS + FIX_VAR);
-            if ((ode_names[NODE - FIX_VAR + NMarkov] = xmalloc((usize)nn)) ==
+        if (NODE >= (IN_VARS + fix_var)) {
+            i = NODE - (IN_VARS + fix_var);
+            if ((ode_names[NODE - fix_var + NMarkov] = xmalloc((usize)nn)) ==
                 NULL) {
                 ggets_plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
-            strcpy(ode_names[NODE - FIX_VAR + NMarkov], formula);
+            strcpy(ode_names[NODE - fix_var + NMarkov], formula);
             if (convert_style) {
                 if (i < Naux) {
                     fprintf(convertf, "aux %s=%s\n", aux_names[i], formula);
@@ -1656,7 +1656,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         IN_VARS = nvar;
         Naux = naux;
         NEQ = nvar + NMarkov + Naux;
-        FIX_VAR = nfix;
+        fix_var = nfix;
         NTable = ntab;
         NFUN = nufun;
 
@@ -1800,7 +1800,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
             case AUX_VAR:
                 in1 = IN_VARS + NMarkov + naux;
-                in2 = IN_VARS + FIX_VAR + naux;
+                in2 = IN_VARS + fix_var + naux;
                 nn = (int32)strlen(v2->rhs) + 1;
                 if ((ode_names[in1] = xmalloc((usize)nn + 2)) == NULL ||
                     (my_ode[in2] = xmalloc(MAXEXPLEN*sizeof(int32))) ==

@@ -45,15 +45,15 @@ static void color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
 void
 color_set_s(int32 col) {
     if (col < 0) {
-        XSetForeground(display, small_gc, GrBack);
+        XSetForeground(display, small_gc, gr_back);
     }
     if (col == 0) {
-        XSetForeground(display, small_gc, GrFore);
+        XSetForeground(display, small_gc, gr_fore);
     } else {
         if (COLOR) {
             XSetForeground(display, small_gc, (ulong)color_map(col));
         } else {
-            XSetForeground(display, small_gc, GrFore);
+            XSetForeground(display, small_gc, gr_fore);
         }
     }
     return;
@@ -62,16 +62,16 @@ color_set_s(int32 col) {
 void
 color_set(int32 col) {
     if (col < 0) {
-        XSetForeground(display, gc_graph, GrBack);
+        XSetForeground(display, gc_graph, gr_back);
     }
     if (col == 0) {
-        XSetForeground(display, gc_graph, GrFore);
+        XSetForeground(display, gc_graph, gr_fore);
     } else {
 
         if (COLOR) {
             XSetForeground(display, gc_graph, (ulong)color_map(col));
         } else {
-            XSetForeground(display, gc_graph, GrFore);
+            XSetForeground(display, gc_graph, gr_fore);
         }
     }
     return;
@@ -339,11 +339,11 @@ color_map_make(void) {
 uint32
 color_map(int32 i) {
     if (i == -1) {
-        return GrBack;
+        return gr_back;
     }
 
     if (i == 0) {
-        return GrFore;
+        return gr_fore;
     }
     if (color_mode) {
         if (i < 0) {

@@ -83,9 +83,9 @@ numerics_get_num_par(int32 ch) {
     case 't':
         // total
         ggets_new_float("total :", &TEND);
-        FOREVER = 0;
+        forever = 0;
         if (TEND < 0) {
-            FOREVER = 1;
+            forever = 1;
             TEND = -TEND;
         }
         break;

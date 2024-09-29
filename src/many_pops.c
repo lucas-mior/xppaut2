@@ -1079,7 +1079,7 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
     graphics_init_all();
 
     graph[0].window = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,
-                                          (uint)h, 2, GrFore, MyDrawWinColor);
+                                          (uint)h, 2, gr_fore, MyDrawWinColor);
     graph[0].w_info = info_pop;
 
     info_message = graph[0].gr_info;
@@ -1307,7 +1307,7 @@ many_pops_create_a_pop(void) {
 
     graph[index].window =
         XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
-                            (uint)MINI_W, (uint)MINI_H, 2, GrFore, GrBack);
+                            (uint)MINI_W, (uint)MINI_H, 2, gr_fore, gr_back);
     graph[index].w_info = pop_list_make_window(graph[index].window, 10, 0,
                                                40*dcur_xs, dcur_ys, 0);
     XSetWindowBackground(display, graph[i].window, MyDrawWinColor);
@@ -1333,8 +1333,8 @@ many_pops_create_a_pop(void) {
 
 void
 many_pops_gr_col(void) {
-    XSetForeground(display, gc, GrFore);
-    XSetBackground(display, gc, GrBack);
+    XSetForeground(display, gc, gr_fore);
+    XSetBackground(display, gc, gr_back);
     return;
 }
 
@@ -1347,8 +1347,8 @@ many_pops_base_col(void) {
 
 void
 many_pops_small_gr(void) {
-    XSetForeground(display, small_gc, GrFore);
-    XSetBackground(display, small_gc, GrBack);
+    XSetForeground(display, small_gc, gr_fore);
+    XSetBackground(display, small_gc, gr_back);
     return;
 }
 
@@ -1427,7 +1427,7 @@ many_pops_select_window(Window window) {
     MyGraph = &graph[current_pop];
     // many pops lo lite
     // many pops set gr back
-    XSetForeground(display, gc, GrBack);
+    XSetForeground(display, gc, gr_back);
     ggets_bar(0, 0, 5, 5, draw_win);
     draw_win = window;
     many_pops_hi_lite(window);
@@ -1440,7 +1440,7 @@ many_pops_select_window(Window window) {
 void
 many_pops_hi_lite(Window wi) {
     // many pops set gr fore
-    XSetForeground(display, gc, GrFore);
+    XSetForeground(display, gc, gr_fore);
     many_pops_select_sym(wi);
     return;
 }

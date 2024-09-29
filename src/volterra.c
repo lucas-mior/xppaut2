@@ -80,7 +80,7 @@ void
 volterra_allocate(int32 npts, int32 flag) {
     int32 i;
     int32 oldmem = MaxPoints;
-    int32 ntot = NODE + FIX_VAR + NMarkov;
+    int32 ntot = NODE + fix_var + NMarkov;
     npts = ABS(npts);
     MaxPoints = npts;
     // now allocate the memory
@@ -187,7 +187,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
     double al;
     double alpbet;
     double mu;
-    int32 nvar = FIX_VAR + NODE + NMarkov;
+    int32 nvar = fix_var + NODE + NMarkov;
     int32 l;
     int32 ioff;
     int32 ker;
@@ -285,7 +285,7 @@ volterra_get_kn(double *y, double t) {
     for (int32 i = 0; i < NODE; i++) {
         SETVAR(i + 1, y[i]);
     }
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
+    for (int32 i = NODE; i < NODE + fix_var; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
     for (int32 i = 0; i < NKernel; i++) {
@@ -338,7 +338,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
                 SETVAR(i + 1, y[i]);  // assign initial data
             }
         }
-        for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
+        for (int32 i = NODE; i < NODE + fix_var; i++) {
             SETVAR(i + 1,
                    evaluate(my_ode[i]));  // set fixed variables  for pass 1
         }
@@ -349,11 +349,11 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
                 y[i] = z;
             }
         }
-        for (int32 i = NODE; i < NODE + FIX_VAR;
+        for (int32 i = NODE; i < NODE + fix_var;
              i++) {  // pass 2 for fixed variables
             SETVAR(i + 1, evaluate(my_ode[i]));
         }
-        for (int32 i = 0; i < NODE + FIX_VAR + NMarkov; i++) {
+        for (int32 i = 0; i < NODE + fix_var + NMarkov; i++) {
             Memory[i][0] = get_ivar(i + 1);  // save everything
         }
         CurrentPoint = 1;
@@ -401,10 +401,10 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         yg[i] = y[i];
     }
     for (int32 i = NODE; i < NODE + NMarkov; i++) {
-        SETVAR(i + 1 + FIX_VAR, y[i]);
+        SETVAR(i + 1 + fix_var, y[i]);
     }
     SETVAR(0, t - dt);
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
+    for (int32 i = NODE; i < NODE + fix_var; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
     for (int32 i = 0; i < NODE; i++) {
@@ -417,7 +417,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     KnFlag = 1;
     while (true) {
         volterra_get_kn(yg, t);
-        for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
+        for (int32 i = NODE; i < NODE + fix_var; i++) {
             SETVAR(i + 1, evaluate(my_ode[i]));
         }
         for (int32 i = 0; i < NODE; i++) {
@@ -435,7 +435,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             yg[i] += del;
             delinv = 1. / del;
             volterra_get_kn(yg, t);
-            for (int32 j = NODE; j < NODE + FIX_VAR; j++) {
+            for (int32 j = NODE; j < NODE + fix_var; j++) {
                 SETVAR(j + 1, evaluate(my_ode[j]));
             }
             for (int32 j = 0; j < NODE; j++) {
@@ -475,7 +475,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         y[i] = yg[i];
     }
     ind = CurrentPoint % MaxPoints;
-    for (int32 i = 0; i < NODE + FIX_VAR + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + fix_var + NMarkov; i++) {
         Memory[i][ind] = GETVAR(i + 1);
     }
     CurrentPoint++;

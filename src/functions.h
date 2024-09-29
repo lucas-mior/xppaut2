@@ -1257,7 +1257,7 @@ extern int32 NCON_START;
 extern int32 NSYM_START;
 extern int32 bvp_n;
 extern FILE *convertf;
-extern int32 FIX_VAR;
+extern int32 fix_var;
 extern int32 eq_type[MAX_ODE];
 
 extern FixInfo fixinfo[MAX_ODE];
@@ -1534,7 +1534,7 @@ extern int32 spec_win;
 extern int32 spec_col2;
 extern int32 post_process;
 
-extern int32 FOUR_HERE;
+extern int32 four_here;
 
 extern BoxList ParamBox;
 
@@ -2141,7 +2141,7 @@ typedef struct OptionsSet {
     int32 PS_LW;
     int32 PS_FSIZE;
     int32 PS_COLOR;
-    int32 FOREVER;
+    int32 forever;
     int32 bvp_tol;
     int32 bvp_eps;
     int32 bpv_maxit;
@@ -2778,7 +2778,7 @@ extern int32 METHOD;
 extern int32 color_flag;
 extern int32 NC_ITER;
 extern int32 evec_iter;
-extern int32 FOREVER;
+extern int32 forever;
 
 extern int32 POIMAP;
 extern int32 POIVAR;
@@ -2887,8 +2887,8 @@ extern char UserDrawWinColor[8];
 extern char user_bg_bitmap[XPP_MAX_NAME];
 extern uint32 MyMainWinColor;
 extern uint32 MyDrawWinColor;
-extern uint32 GrFore;
-extern uint32 GrBack;
+extern uint32 gr_fore;
+extern uint32 gr_back;
 
 extern int32 SCALEY;
 extern int32 dcur_yb;

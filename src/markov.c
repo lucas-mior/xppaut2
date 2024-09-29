@@ -310,10 +310,10 @@ update_markov(double *x, double t, double dt) {
     for (int32 i = 0; i < NODE; i++) {
         set_ivar(i + 1, x[i]);
     }
-    for (int32 i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++) {
-        set_ivar(i + 1, x[i - FIX_VAR]);
+    for (int32 i = NODE + fix_var; i < NODE + fix_var + NMarkov; i++) {
+        set_ivar(i + 1, x[i - fix_var]);
     }
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
+    for (int32 i = NODE; i < NODE + fix_var; i++) {
         set_ivar(i + 1, evaluate(my_ode[i]));
     }
     for (int32 i = 0; i < NMarkov; i++) {
@@ -321,7 +321,7 @@ update_markov(double *x, double t, double dt) {
     }
     for (int32 i = 0; i < NMarkov; i++) {
         x[NODE + i] = yp[i];
-        set_ivar(i + NODE + FIX_VAR + 1, yp[i]);
+        set_ivar(i + NODE + fix_var + 1, yp[i]);
     }
     return;
 }

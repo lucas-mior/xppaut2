@@ -176,7 +176,7 @@ get_dae_fun(double *y, double *f) {
     for (int32 i = 0; i < nsvar; i++) {
         SETVAR(svar[i].index, y[i]);
     }
-    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
+    for (int32 i = NODE; i < NODE + fix_var; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
     for (int32 i = 0; i < naeqn; i++) {

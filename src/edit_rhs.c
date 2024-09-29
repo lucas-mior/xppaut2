@@ -381,7 +381,7 @@ edit_rhs(void) {
                     strcpy(ode_names[i], values[i]);
                     i0 = i;
                     if (i >= NODE) {
-                        i0 = i0 + FIX_VAR - NMarkov;
+                        i0 = i0 + fix_var - NMarkov;
                     }
 
                     for (int32 j = 0; j < len; j++) {

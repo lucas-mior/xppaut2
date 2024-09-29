@@ -29,7 +29,7 @@ static int32 four_len;
 static double *my_hist[MAX_ODE + 1];
 static double *my_four[MAX_ODE + 1];
 static int32 HIST_HERE;
-int32 FOUR_HERE;
+int32 four_here;
 
 static int32 histogram_two_d2(void);
 
@@ -112,12 +112,12 @@ histogram_new_four(int32 nmodes, int32 col) {
     int32 length = nmodes + 1;
     double total = storage[0][storind - 1] - storage[0][0];
     double *bob;
-    if (FOUR_HERE) {
+    if (four_here) {
         adjoints_data_back();
         free(my_four[0]);
         free(my_four[1]);
         free(my_four[2]);
-        FOUR_HERE = 0;
+        four_here = 0;
     }
     four_len = nmodes;
     my_four[0] = xmalloc(sizeof(*(my_four[0]))*(usize)length);
@@ -129,7 +129,7 @@ histogram_new_four(int32 nmodes, int32 col) {
         ggets_err_msg("Cant allocate enough memory...");
         return;
     }
-    FOUR_HERE = 1;
+    four_here = 1;
     for (int32 i = 3; i <= NEQ; i++) {
         my_four[i] = storage[i];
     }
@@ -138,7 +138,7 @@ histogram_new_four(int32 nmodes, int32 col) {
     }
     bob = browser_get_data_col(col);
     histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
-    if (FOUR_HERE) {
+    if (four_here) {
         // histogram four back
         browser_set_data(my_four, 1);
         browser_refresh(four_len);
@@ -365,7 +365,7 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
                     set_ivar(j, (double)storage[j][i]);
                 }
                 for (int32 j = 0; j < NMarkov; j++) {
-                    set_ivar(j + NODE + 1 + FIX_VAR,
+                    set_ivar(j + NODE + 1 + fix_var,
                              (double)storage[j + NODE + 1][i]);
                 }
                 z = evaluate(command);

@@ -19,7 +19,7 @@ extern int32 INFLAG;
 extern int32 MY_STOR;
 extern int32 STORFLAG;
 
-extern int32 FOREVER;
+extern int32 forever;
 
 extern int32 end_sing;
 

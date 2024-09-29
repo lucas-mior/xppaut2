@@ -225,7 +225,7 @@ browser_add_stor_col(char *name, char *formula, Browser *b) {
         ggets_err_msg("Bad Formula .... ");
         return 0;
     }
-    if ((my_ode[NEQ + FIX_VAR] = xmalloc((usize)(i + 2)*sizeof(int32))) ==
+    if ((my_ode[NEQ + fix_var] = xmalloc((usize)(i + 2)*sizeof(int32))) ==
         NULL) {
         ggets_err_msg("Cant allocate formula space");
         return 0;
@@ -244,7 +244,7 @@ browser_add_stor_col(char *name, char *formula, Browser *b) {
     strcpy(ode_names[NEQ], formula);
     strupr(ode_names[NEQ]);
     for (int32 j = 0; j <= i; j++) {
-        my_ode[NEQ + FIX_VAR][j] = com[j];
+        my_ode[NEQ + fix_var][j] = com[j];
     }
     strcpy(uvar_names[NEQ], name);
     strupr(uvar_names[NEQ]);
@@ -1360,7 +1360,7 @@ browser_data_get(Browser *b) {
     }
     for (int32 i = 0; i < NMarkov; i++) {
         last_ic[i + NODE] = (double)storage[i + NODE + 1][in];
-        set_ivar(i + 1 + NODE + FIX_VAR, last_ic[i + NODE]);
+        set_ivar(i + 1 + NODE + fix_var, last_ic[i + NODE]);
     }
     for (int32 i = NODE + NMarkov; i < NEQ; i++) {
         set_val(uvar_names[i], storage[i + 1][in]);

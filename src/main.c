@@ -86,8 +86,8 @@ uint32 MyBackColor;
 uint32 MyForeColor;
 uint32 MyMainWinColor;
 uint32 MyDrawWinColor;
-uint32 GrFore;
-uint32 GrBack;
+uint32 gr_fore;
+uint32 gr_back;
 int32 SCALEY;
 Display *display;
 int32 screen;
@@ -326,7 +326,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.PS_LW = 1;
     notAlreadySet.PS_FSIZE = 1;
     notAlreadySet.PS_COLOR = 1;
-    notAlreadySet.FOREVER = 1;
+    notAlreadySet.forever = 1;
     notAlreadySet.bvp_tol = 1;
     notAlreadySet.bvp_eps = 1;
     notAlreadySet.bpv_maxit = 1;
@@ -646,8 +646,8 @@ main_init_x(void) {
     }
 
     if (paper_white == 0) {
-        GrFore = White;
-        GrBack = Black;
+        gr_fore = White;
+        gr_back = Black;
     }
 
     main_win =
@@ -665,7 +665,7 @@ main_init_x(void) {
                     &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
-        MyForeColor = GrFore = (uint32)user_col.pixel;
+        MyForeColor = gr_fore = (uint32)user_col.pixel;
         Black = MyForeColor;
     }
 
@@ -676,13 +676,13 @@ main_init_x(void) {
                     &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
-        MyBackColor = GrBack = (uint32)user_col.pixel;
+        MyBackColor = gr_back = (uint32)user_col.pixel;
         White = MyBackColor;
     }
 
     //  Switch for reversed video
-    MyForeColor = GrFore = Black;
-    MyBackColor = GrBack = White;
+    MyForeColor = gr_fore = Black;
+    MyBackColor = gr_back = White;
 
     if (paper_white == 1) {
         // Respect the swapping implied by the -white option.
@@ -692,8 +692,8 @@ main_init_x(void) {
         strcpy(user_white, user_black);
         strcpy(user_black, swapcol);
 
-        MyForeColor = GrFore = White;
-        MyBackColor = GrBack = Black;
+        MyForeColor = gr_fore = White;
+        MyBackColor = gr_back = Black;
     }
 
     if (strlen(user_main_win_color) != 0) {
