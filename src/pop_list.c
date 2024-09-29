@@ -1196,8 +1196,7 @@ pop_list_yes_no_box(void) {
     return 0;
 }
 
-/*  new pop_up_list   */
-
+/* new pop_up_list */
 int32
 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
             int32 max, int32 def, int32 x, int32 y, char **hints, Window hwin,

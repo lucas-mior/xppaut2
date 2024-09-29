@@ -6,13 +6,13 @@ TYPE="[[:alnum:]_]+"
 FUNC="\**[[:alnum:]_]+"
 files="src/*.c"
 
-grep -E "^$FUNC\(" $files \
+grep -E "^$TYPE $FUNC\(" "src/functions.h" \
 | while read match; do
     file="${match%:*}"
     function="${match##*:}"
-
-    file="$(echo "$file" | sed -E 's|^src/(cude/\|cvode/)?||g; s/\.c$//;')"
-    function="$(echo "$function" | sed -E 's/\(.+//')"
+    function="${function#* }"
+    function="${function%(*}"
+    file="$(grep -l -E "^$function\(" src/*.c | sed -E 's|^src/(cude/\|cvode/)?||g; s/\.c$//;')"
     
     [[ "$file" =~ "autlib" ]] && continue
 
