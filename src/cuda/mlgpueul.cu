@@ -16,6 +16,7 @@ the dt and the nsteps is included in the parameters
 #include <sys/time.h>
 #include <cuda_runtime.h>
 #include "cublas_v2.h"
+#include <functions.h>
 #define MAXPAR 50
 #define NTHREAD 128
 

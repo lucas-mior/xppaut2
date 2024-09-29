@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
+#include <functions.h>
 
 /*  ml.c for use in the ode file mlnet.ode
 

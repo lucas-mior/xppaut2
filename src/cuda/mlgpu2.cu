@@ -23,6 +23,7 @@ export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-7.0/lib:$DYLD_LIBRARY_PATH
 #include <sys/time.h>
 #include <cuda_runtime.h>
 #include "cublas_v2.h"
+#include <functions.h>
 #define MAXPAR 50
 #define NTHREAD 128
 
