@@ -1180,8 +1180,6 @@ extern int32 fftnf(int32 ndim, int32 dims[], double Re[],
 
 #endif
 
-/*----------------------- end-of-file (C header) -----------------------*/
-
 #ifndef FLAGS_H
 #define FLAGS_H
 
