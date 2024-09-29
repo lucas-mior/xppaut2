@@ -108,8 +108,8 @@ lunch_do_info(FILE *fp) {
 
     fprintf(fp, "NJMP=%d  NMESH=%d METHOD=%s EVEC_ITER=%d \n", NJMP, NMESH,
             method[METHOD], EVEC_ITER);
-    fprintf(fp, "BVP_EPS=%g,BVP_TOL=%g,BVP_MAXIT=%d \n", BVP_EPS, BVP_TOL,
-            BVP_MAXIT);
+    fprintf(fp, "bvp_eps=%g,bvp_tol=%g,bpv_maxit=%d \n", bvp_eps, bvp_tol,
+            bpv_maxit);
     fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g DELAY=%g MaxPts=%d\n",
             DELTA_T, T0, TRANS, TEND, bound, DELAY, MaxPoints);
     fprintf(fp, "EVEC_ERR=%g, NEWT_ERR=%g HMIN=%g HMAX=%g TOLER=%g \n",
@@ -358,9 +358,9 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_double(&EVEC_ERR, fp, f, "Eigenvector tolerance");
     lunch_io_double(&NEWT_ERR, fp, f, "Newton tolerance");
     lunch_io_double(&POIPLN, fp, f, "Poincare plane");
-    lunch_io_double(&BVP_TOL, fp, f, "Boundary value tolerance");
-    lunch_io_double(&BVP_EPS, fp, f, "Boundary value epsilon");
-    lunch_io_int(&BVP_MAXIT, fp, f, "Boundary value iterates");
+    lunch_io_double(&bvp_tol, fp, f, "Boundary value tolerance");
+    lunch_io_double(&bvp_eps, fp, f, "Boundary value epsilon");
+    lunch_io_int(&bpv_maxit, fp, f, "Boundary value iterates");
     lunch_io_int(&POIMAP, fp, f, pmap[POIMAP]);
 
     lunch_io_int(&POIVAR, fp, f, "Poincare variable");

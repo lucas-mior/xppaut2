@@ -88,8 +88,8 @@ double TOLER;
 double atoler;
 double HMIN;
 double HMAX;
-double BVP_EPS;
-double BVP_TOL;
+double bvp_eps;
+double bvp_tol;
 
 double POIPLN;
 
@@ -101,8 +101,8 @@ int32 METHOD;
 int32 color_flag;
 int32 NC_ITER;
 int32 EVEC_ITER;
-int32 BVP_MAXIT;
-int32 BVP_FLAG;
+int32 bpv_maxit;
+int32 bvp_flag;
 
 int32 POIMAP;
 int32 POIVAR;
@@ -263,21 +263,21 @@ load_eqn_set_all_vals(void) {
         FOREVER = 0;
         notAlreadySet.FOREVER = 0;
     }
-    if (notAlreadySet.BVP_TOL) {
-        BVP_TOL = 1.e-5;
-        notAlreadySet.BVP_TOL = 0;
+    if (notAlreadySet.bvp_tol) {
+        bvp_tol = 1.e-5;
+        notAlreadySet.bvp_tol = 0;
     }
-    if (notAlreadySet.BVP_EPS) {
-        BVP_EPS = 1.e-5;
-        notAlreadySet.BVP_EPS = 0;
+    if (notAlreadySet.bvp_eps) {
+        bvp_eps = 1.e-5;
+        notAlreadySet.bvp_eps = 0;
     }
-    if (notAlreadySet.BVP_MAXIT) {
-        BVP_MAXIT = 20;
-        notAlreadySet.BVP_MAXIT = 0;
+    if (notAlreadySet.bpv_maxit) {
+        bpv_maxit = 20;
+        notAlreadySet.bpv_maxit = 0;
     }
-    if (notAlreadySet.BVP_FLAG) {
-        BVP_FLAG = 0;
-        notAlreadySet.BVP_FLAG = 0;
+    if (notAlreadySet.bvp_flag) {
+        bvp_flag = 0;
+        notAlreadySet.bvp_flag = 0;
     }
     if (notAlreadySet.NMESH) {
         NMESH = 40;

@@ -327,10 +327,10 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.PS_FSIZE = 1;
     notAlreadySet.PS_COLOR = 1;
     notAlreadySet.FOREVER = 1;
-    notAlreadySet.BVP_TOL = 1;
-    notAlreadySet.BVP_EPS = 1;
-    notAlreadySet.BVP_MAXIT = 1;
-    notAlreadySet.BVP_FLAG = 1;
+    notAlreadySet.bvp_tol = 1;
+    notAlreadySet.bvp_eps = 1;
+    notAlreadySet.bpv_maxit = 1;
+    notAlreadySet.bvp_flag = 1;
     notAlreadySet.SOS = 1;
     notAlreadySet.FFT = 1;
     notAlreadySet.HIST = 1;

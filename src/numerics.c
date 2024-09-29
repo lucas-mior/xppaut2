@@ -124,10 +124,10 @@ numerics_get_num_par(int32 ch) {
         numerics_check_pos(&NMESH);
         break;
     case 'v':
-        ggets_new_int("Maximum iterates :", &BVP_MAXIT);
-        numerics_check_pos(&BVP_MAXIT);
-        ggets_new_float("Tolerance :", &BVP_TOL);
-        ggets_new_float("Epsilon :", &BVP_EPS);
+        ggets_new_int("Maximum iterates :", &bpv_maxit);
+        numerics_check_pos(&bpv_maxit);
+        ggets_new_float("Tolerance :", &bvp_tol);
+        ggets_new_float("Epsilon :", &bvp_eps);
         pp_shoot_reset_bvp();
         break;
     case 'i':

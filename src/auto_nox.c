@@ -1876,7 +1876,7 @@ auto_nox_run(void) {
             opn = NO_OPEN_3;
             cls = OVERWRITE;
             pp_shoot_compile_bvp();
-            if (BVP_FLAG == 0) {
+            if (bvp_flag == 0) {
                 return;
             }
             TypeOfCalc = BV1;

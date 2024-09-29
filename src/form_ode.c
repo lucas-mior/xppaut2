@@ -65,7 +65,7 @@ int32 NLINES;
 int32 PrimeStart;
 int32 NCON_START;
 int32 NSYM_START;
-int32 BVP_N;
+int32 bvp_n;
 
 int32 ConvertStyle = 0;
 FILE *convertf;
@@ -286,7 +286,7 @@ form_ode_get_eqn(FILE *fptr) {
     NLINES = 0;
     IN_VARS = 0;
     NODE = 0;
-    BVP_N = 0;
+    bvp_n = 0;
     NUPAR = 0;
     NWiener = 0;
     strcpy(options, "default.opt");
@@ -347,15 +347,15 @@ form_ode_get_eqn(FILE *fptr) {
             " Must have at least one equation! \n Probably not an ODE file.\n");
         exit(0);
     }
-    if (BVP_N > IN_VARS) {
+    if (bvp_n > IN_VARS) {
         ggets_plintf("Too many boundary conditions\n");
         exit(0);
     }
-    if (BVP_N < IN_VARS) {
-        if (BVP_N > 0) {
+    if (bvp_n < IN_VARS) {
+        if (bvp_n > 0) {
             printf("Warning: Too few boundary conditions\n");
         }
-        for (i = BVP_N; i < IN_VARS; i++) {
+        for (i = bvp_n; i < IN_VARS; i++) {
             my_bc[i].com = xmalloc(200*sizeof(*(my_bc[i].com)));
             my_bc[i].string = xmalloc(256);
             my_bc[i].name = xmalloc(10);
@@ -364,7 +364,7 @@ form_ode_get_eqn(FILE *fptr) {
             strcpy(my_bc[i].name, "0=");
         }
     }
-    BVP_FLAG = 1;
+    bvp_flag = 1;
 
     if (NODE != NEQ + FIX_VAR - NMarkov) {
         ggets_plintf(" Too many/few equations\n");
@@ -691,17 +691,17 @@ form_ode_compiler(char *bob, FILE *fptr) {
         break;
     case 'b':
         my_string = form_ode_do_fit_get_next("\n");
-        my_bc[BVP_N].com = xmalloc(200*sizeof(*(my_bc[BVP_N].com)));
-        my_bc[BVP_N].string = xmalloc(256);
-        my_bc[BVP_N].name = xmalloc(10);
-        strcpy(my_bc[BVP_N].string, my_string);
-        strcpy(my_bc[BVP_N].name, "0=");
+        my_bc[bvp_n].com = xmalloc(200*sizeof(*(my_bc[bvp_n].com)));
+        my_bc[bvp_n].string = xmalloc(256);
+        my_bc[bvp_n].name = xmalloc(10);
+        strcpy(my_bc[bvp_n].string, my_string);
+        strcpy(my_bc[bvp_n].name, "0=");
         if (ConvertStyle) {
-            fprintf(convertf, "bndry %s\n", my_bc[BVP_N].string);
+            fprintf(convertf, "bndry %s\n", my_bc[bvp_n].string);
         }
 
-        ggets_plintf("|%s| |%s| \n", my_bc[BVP_N].name, my_bc[BVP_N].string);
-        BVP_N++;
+        ggets_plintf("|%s| |%s| \n", my_bc[bvp_n].name, my_bc[bvp_n].string);
+        bvp_n++;
         break;
     case 'k':
         if (ConvertStyle) {

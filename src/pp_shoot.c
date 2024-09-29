@@ -66,13 +66,13 @@ pp_shoot_compile_bvp(void) {
     int32 len;
     char badcom[50];
     pp_shoot_reset_bvp();
-    if (BVP_FLAG == 0) {
+    if (bvp_flag == 0) {
         return;
     }
 
     NCON = NCON_START;
     NSYM = NSYM_START;
-    BVP_FLAG = 0;
+    bvp_flag = 0;
     for (int32 i = 0; i < NODE; i++) {
         if (parserslow_add_expr(my_bc[i].string, my_bc[i].com, &len)) {
             snprintf(badcom, sizeof(badcom), "Bad syntax on %d th BC", i + 1);
@@ -80,13 +80,13 @@ pp_shoot_compile_bvp(void) {
             return;
         }
     }
-    BVP_FLAG = 1;
+    bvp_flag = 1;
     return;
 }
 
 void
 pp_shoot_reset_bvp(void) {
-    BVP_FLAG = 1;
+    bvp_flag = 1;
     return;
 }
 
@@ -218,7 +218,7 @@ pp_shoot_do_range(double *ystart, double *yend) {
             main_clr_scrn();
         }
 
-        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &ierr, NODE, 0,
+        pp_shoot_bv(ystart, yend, bvp_tol, bvp_eps, bpv_maxit, &ierr, NODE, 0,
                     0, 0, 0, 0.0);
         if (ierr == -5) {
             continue;
@@ -314,7 +314,7 @@ pp_shoot_find_bvp_com(int32 com) {
     browser_wipe_rep();
     adjoints_data_back();
     pp_shoot_compile_bvp();
-    if (FFT || HIST || DelayFlag || BVP_FLAG == 0) {
+    if (FFT || HIST || DelayFlag || bvp_flag == 0) {
         return;
     }
     STORFLAG = 0;
@@ -349,10 +349,10 @@ pp_shoot_find_bvp_com(int32 com) {
         break;
     }
     if (iper) {
-        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE,
+        pp_shoot_bv(ystart, yend, bvp_tol, bvp_eps, bpv_maxit, &iret, NODE,
                     ishow, iper, ipar, ivar, sect);
     } else {
-        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE,
+        pp_shoot_bv(ystart, yend, bvp_tol, bvp_eps, bpv_maxit, &iret, NODE,
                     ishow, 0, 0, 0, 0.0);
     }
     pp_shoot_bad(iret);
