@@ -14,6 +14,7 @@ CFLAGS += -DNON_UNIX_STDIO -DAUTO -DCVODE_YES -DHAVEDLL
 LDFLAGS = -lX11 -lm -ldl -L.
 
 SOURCES = $(wildcard src/*.c src/cvode/*.c)
+HEADERS = $(wildcard src/*.h)
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = xppaut
 
@@ -69,10 +70,7 @@ src/parserslow.o: CFLAGS += -Wno-pedantic
 $(TARGET): $(OBJECTS)
 	$(C) $(CFLAGS) -o $(TARGET) $^ $(LDFLAGS) 
 
-%.o: %.c %.h Makefile src/functions.h
-	$(C) $(CFLAGS) -o $@ -c $<
-
-%.o: %.c Makefile src/functions.h
+%.o: %.c $(HEADERS) Makefile
 	$(C) $(CFLAGS) -o $@ -c $<
 
 clean:
