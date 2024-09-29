@@ -299,9 +299,9 @@ load_eqn_set_all_vals(void) {
         hist = 0;
         notAlreadySet.hist = 0;
     }
-    if (notAlreadySet.PltFmtFlag) {
-        PltFmtFlag = 0;
-        notAlreadySet.PltFmtFlag = 0;
+    if (notAlreadySet.plt_fmt_flag) {
+        plt_fmt_flag = 0;
+        notAlreadySet.plt_fmt_flag = 0;
     }
     if (notAlreadySet.axes) {
         axes = 0;
@@ -2074,8 +2074,8 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("PS_COLOR", s1)) {
         if ((notAlreadySet.PS_COLOR || force) ||
             ((mask != NULL) && (mask->PS_COLOR == 1))) {
-            PSColorFlag = atoi(s2);
-            ps_color = PSColorFlag;
+            ps_color_flag = atoi(s2);
+            ps_color = ps_color_flag;
             notAlreadySet.PS_COLOR = 0;
         }
         return;

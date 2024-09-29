@@ -1102,7 +1102,7 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
         if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
         }
-        PointType = UPT;
+        point_type = UPT;
         graphics_point_abs((double)x, (double)y1);
         graphics_point_abs((double)x, (double)y2);
         break;
@@ -1118,7 +1118,7 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
         if (flag2 > 0 && Auto.icp2 != icp2) {
             break;
         }
-        PointType = SPT;
+        point_type = SPT;
         graphics_point_abs((double)x, (double)y1);
         graphics_point_abs((double)x, (double)y2);
         break;

@@ -192,7 +192,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
     int32 ioff;
     int32 ker;
     SETVAR(0, t);
-    SETVAR(PrimeStart, tp);
+    SETVAR(prime_start, tp);
     for (l = 0; l < nvar; l++) {
         SETVAR(l + 1, Memory[l][ishift]);
     }
@@ -212,7 +212,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
     for (int32 i = 1; i <= iend; i++) {
         ioff = (ishift + i) % max_points;
         tp += dt;
-        SETVAR(PrimeStart, tp);
+        SETVAR(prime_start, tp);
         for (l = 0; l < nvar; l++) {
             SETVAR(l + 1, Memory[l][ioff]);
         }
@@ -281,7 +281,7 @@ volterra_get_kn(double *y, double t) {
     // uses the guessed value y to update Kn
 
     SETVAR(0, t);
-    SETVAR(PrimeStart, t);
+    SETVAR(prime_start, t);
     for (int32 i = 0; i < NODE; i++) {
         SETVAR(i + 1, y[i]);
     }
@@ -332,7 +332,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
             kernel[i].betnn = bet;
         }
         SETVAR(0, *t);
-        SETVAR(PrimeStart, *t);
+        SETVAR(prime_start, *t);
         for (int32 i = 0; i < NODE; i++) {
             if (!eq_type[i]) {
                 SETVAR(i + 1, y[i]);  // assign initial data

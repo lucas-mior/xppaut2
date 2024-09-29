@@ -334,7 +334,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.SOS = 1;
     notAlreadySet.FFT = 1;
     notAlreadySet.hist = 1;
-    notAlreadySet.PltFmtFlag = 1;
+    notAlreadySet.plt_fmt_flag = 1;
     notAlreadySet.atoler = 1;
     notAlreadySet.euler_max_iter = 1;
     notAlreadySet.euler_tol = 1;

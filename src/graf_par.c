@@ -1081,7 +1081,7 @@ graf_par_draw_freeze_key(void) {
     if (FreezeKeyFlag == SCRNFMT) {
         return;
     }
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         dy = -dy;
     }
     graphics_scale_to_screen((double)FreezeKeyX, (double)FreezeKeyY, &ix, &iy);

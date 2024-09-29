@@ -19,7 +19,7 @@ double THETA0 = 45;
 double PHI0 = 45;
 
 int32 ps_port = 0;
-int32 PointRadius = 0;
+int32 point_radius = 0;
 
 static char dashes[10][5] = {{0},       {1, 6, 0}, {0},       {4, 2, 0},
                              {1, 3, 0}, {4, 4, 0}, {1, 5, 0}, {4, 4, 4, 1, 0},
@@ -67,7 +67,7 @@ double XMin;
 double YMin;
 double XMax;
 double YMax;
-int32 PointType = -1;
+int32 point_type = -1;
 int32 TextJustify;
 int32 TextAngle;
 
@@ -168,9 +168,9 @@ graphics_set_normal_scale(void) {
 
 void
 graphics_point(int32 x, int32 y) {
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         ps_point(x, y);
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (plt_fmt_flag == SVGFMT) {
         svg_point(x, y);
     } else {
         graphics_point_x11(x, y);
@@ -180,9 +180,9 @@ graphics_point(int32 x, int32 y) {
 
 void
 graphics_line(int32 x1, int32 y1, int32 x2, int32 y2) {
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         ps_line(x1, y1, x2, y2);
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (plt_fmt_flag == SVGFMT) {
         svg_line(x1, y1, x2, y2);
     } else {
         graphics_line_x11(x1, y1, x2, y2);
@@ -192,9 +192,9 @@ graphics_line(int32 x1, int32 y1, int32 x2, int32 y2) {
 
 void
 graphics_bead(int32 x1, int32 y1) {
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         return;
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (plt_fmt_flag == SVGFMT) {
         svg_bead();
     } else {
         graphics_bead_x11(x1, y1);
@@ -204,9 +204,9 @@ graphics_bead(int32 x1, int32 y1) {
 
 void
 graphics_frect(int32 x1, int32 y1, int32 w, int32 h) {
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         ps_frect(x1, y1, w, h);
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (plt_fmt_flag == SVGFMT) {
         svg_frect(x1, y1, w, h);
     } else {
         graphics_rect_x11(x1, y1, w, h);
@@ -216,9 +216,9 @@ graphics_frect(int32 x1, int32 y1, int32 w, int32 h) {
 
 void
 graphics_put_text(int32 x, int32 y, char *str) {
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         ps_text(x, y, str);
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (plt_fmt_flag == SVGFMT) {
         svg_text(x, y, str);
     } else {
         graphics_put_text_x11(x, y, str);
@@ -277,10 +277,10 @@ graphics_init_svg(void) {
 
 void
 graphics_point_x11(int32 xp, int32 yp) {
-    int32 r = PointRadius;
+    int32 r = point_radius;
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
     int32 wh = 2*r2;
-    if (PointRadius == 0) {
+    if (point_radius == 0) {
         XDrawPoint(display, draw_win, gc_graph, xp, yp);
     } else {
         XFillArc(display, draw_win, gc_graph, xp - r2, yp - r2, (uint)wh,
@@ -291,9 +291,9 @@ graphics_point_x11(int32 xp, int32 yp) {
 
 void
 graphics_set_linestyle(int32 ls) {
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         ps_linetype(ls);
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (plt_fmt_flag == SVGFMT) {
         svg_linetype(ls);
     } else {
         // graphics set line style x11
@@ -1214,9 +1214,9 @@ graphics_fancy_text_abs(double x, double y, char *old, int32 size) {
     char text[256];
     graphics_scale_to_screen(x, y, &xp, &yp);
     graphics_fillin_text(old, text);
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         ps_special_put_text(xp, yp, text, size);
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (plt_fmt_flag == SVGFMT) {
         special_put_text_svg(xp, yp, text, size);
     } else {
         graphics_special_put_text_x11(xp, yp, text, size);

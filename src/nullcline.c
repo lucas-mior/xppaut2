@@ -560,7 +560,7 @@ nullcline_redraw_dfield(void) {
     }
     integrate_get_ic(2, y);
     nullcline_get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
-    if (PltFmtFlag == SVGFMT) {
+    if (plt_fmt_flag == SVGFMT) {
         doing_dfield = 1;
         fprintf(svgfile, "<g>\n");
     }
@@ -612,7 +612,7 @@ nullcline_redraw_dfield(void) {
         }
     }
 
-    if (PltFmtFlag == SVGFMT) {
+    if (plt_fmt_flag == SVGFMT) {
         doing_dfield = 0;
         fprintf(svgfile, "</g>\n");
     }
@@ -692,7 +692,7 @@ nullcline_direct_field_com(int32 c) {
         DF_IY = iny + 1;
         integrate_get_ic(2, y);
         nullcline_get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
-        if (PltFmtFlag == SVGFMT) {
+        if (plt_fmt_flag == SVGFMT) {
             doing_dfield = 1;
             fprintf(svgfile, "<g>\n");
         }
@@ -737,7 +737,7 @@ nullcline_direct_field_com(int32 c) {
             }
         }
         TRANS = oldtrans;
-        if (PltFmtFlag == SVGFMT) {
+        if (plt_fmt_flag == SVGFMT) {
             doing_dfield = 0;
             fprintf(svgfile, "</g>\n");
         }
@@ -767,7 +767,7 @@ nullcline_direct_field_com(int32 c) {
     }
     SuppressBounds = 0;
     delta_t = dtold;
-    if (PltFmtFlag == SVGFMT) {
+    if (plt_fmt_flag == SVGFMT) {
         doing_dfield = 0;
         fprintf(svgfile, "</g>\n");
     }
@@ -834,7 +834,7 @@ nullcline_restor(  // d=1 for x and 2 for y
     double ym;
     int32 x1;
     int32 y1;
-    if (PltFmtFlag == SVGFMT) {
+    if (plt_fmt_flag == SVGFMT) {
         fprintf(svgfile, "<g>\n");
     }
 
@@ -859,7 +859,7 @@ nullcline_restor(  // d=1 for x and 2 for y
         }
     }
 
-    if (PltFmtFlag == SVGFMT) {
+    if (plt_fmt_flag == SVGFMT) {
         fprintf(svgfile, "</g>\n");
     }
     return;

@@ -365,7 +365,7 @@ axes_draw_ytics(char *s1, double start, double incr, double end) {
     if (d_top < d_buttom) {
         s = -1;
     }
-    if (PltFmtFlag == SVGFMT) {
+    if (plt_fmt_flag == SVGFMT) {
         fprintf(svgfile,
                 "\n      <text class=\"xppyaxislabelv\" text-anchor=\"middle\" "
                 "x=\"%d\"  y=\"%d\"\n",

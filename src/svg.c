@@ -34,7 +34,7 @@ svg_init(char *filename) {
         ggets_err_msg("Cannot open file ");
         return 0;
     }
-    PltFmtFlag = SVGFMT;
+    plt_fmt_flag = SVGFMT;
 
     fprintf(svgfile, "<!-- Uncomment following when using your own custom "
                      "external stylesheet.-->\n");
@@ -395,13 +395,13 @@ svg_do_color(int32 color) {
     int32 g;
     int32 b;
 
-    if (PltFmtFlag == SCRNFMT) {
+    if (plt_fmt_flag == SCRNFMT) {
         return;
     }
-    if (PltFmtFlag == PSFMT) {
+    if (plt_fmt_flag == PSFMT) {
         return;
     }
-    if (PSColorFlag == 0) {
+    if (ps_color_flag == 0) {
         return;
     }
     color_get_svg(color, &r, &g, &b);
@@ -417,7 +417,7 @@ void
 svg_end(void) {
     svg_write("</svg>");
     fclose(svgfile);
-    PltFmtFlag = SCRNFMT;
+    plt_fmt_flag = SCRNFMT;
     DOING_SVG_COLOR = 0;
     if (Xup) {
         graphics_init_x11();
@@ -562,7 +562,7 @@ svg_linetype(int32 linetype) {
 
     SVGLINETYPE = line[(linetype % 11) + 2];
 
-    PSLines = 0;
+    ps_lines = 0;
     return;
 }
 
@@ -570,7 +570,7 @@ void
 svg_point(int32 x, int32 y) {
     char svgcol[8];
     char svgfill[8];
-    int32 number = PointType;
+    int32 number = point_type;
     char *point = "PDABCTSKF";
 
     snprintf(svgfill, sizeof(svgfill), "none");
@@ -580,7 +580,7 @@ svg_point(int32 x, int32 y) {
     if (number < -1) {
         number = -1;
     }
-    if (PointRadius > 0) {
+    if (point_radius > 0) {
         number = 7;
     }
 
@@ -607,7 +607,7 @@ svg_point(int32 x, int32 y) {
                 point[number + 1], x, y, svgcol, svgfill);
     }
 
-    PSLines = 0;
+    ps_lines = 0;
     last_pt_line = 0;
     DOING_SVG_COLOR = 0;
     return;

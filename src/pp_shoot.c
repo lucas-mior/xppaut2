@@ -42,7 +42,7 @@ static void pp_shoot_bad(int32 iret);
 void
 pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
                int32 n) {
-    int32 n0 = PrimeStart;
+    int32 n0 = prime_start;
 
     SETVAR(0, t0);
     SETVAR(n0, t1);
@@ -318,7 +318,7 @@ pp_shoot_find_bvp_com(int32 com) {
         return;
     }
     STORFLAG = 0;
-    RANGE_FLAG = 1;
+    range_flag = 1;
     POIMAP = 0;
     oldtrans = TRANS;
     TRANS = 0.0;

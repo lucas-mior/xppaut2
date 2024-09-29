@@ -107,7 +107,7 @@ int32 delay_err;
 double my_data[MAX_ODE];
 double my_time;
 int32 my_start;
-int32 RANGE_FLAG;
+int32 range_flag;
 double last_time;
 
 static int32 STOP_FLAG = 0;
@@ -347,7 +347,7 @@ integrate_set_up_range(void) {
         } else {
             range.movie = 0;
         }
-        RANGE_FLAG = 1;
+        range_flag = 1;
         return 1;
     }
     return 0;
@@ -790,7 +790,7 @@ integrate_do_range(double *x, int32 flag) {
         }
         range.rtype = atoi(values[11]);
 
-        RANGE_FLAG = 1;
+        range_flag = 1;
     }
 
     my_start = 1;
@@ -1173,7 +1173,7 @@ batch_integrate_once(void) {
 
     my_start = 1;
     x = &my_data[0];
-    RANGE_FLAG = 0;
+    range_flag = 0;
     delay_err = 0;
     my_time = T0;
 
@@ -1183,7 +1183,7 @@ batch_integrate_once(void) {
     browser_reset();
     if (batch_range == 1 || STOCH_FLAG > 0) {
         dae_fun_reset_dae();
-        RANGE_FLAG = 1;
+        range_flag = 1;
 
         if (integrate_do_range(x, 0) != 0) {
             ggets_plintf(" Errors occured in range integration \n");
@@ -1281,7 +1281,7 @@ integrate_do_init_data(int32 com) {
     oldstart = my_start;
     my_start = 1;
     x = &my_data[0];
-    RANGE_FLAG = 0;
+    range_flag = 0;
     delay_err = 0;
     dae_fun_reset_dae();
     if (FFT || hist) {
@@ -1487,7 +1487,7 @@ integrate_run_now(void) {
     double *x;
     my_start = 1;
     x = &my_data[0];
-    RANGE_FLAG = 0;
+    range_flag = 0;
     delay_err = 0;
     dae_fun_reset_dae();
     my_time = T0;
@@ -1825,7 +1825,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
 
         if (kflag < 0) {
             ggets_ping();
-            if (RANGE_FLAG) {
+            if (range_flag) {
                 return 0;
             }
             switch (kflag) {
@@ -1853,7 +1853,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
                 ggets_ping();
-                if (RANGE_FLAG) {
+                if (range_flag) {
                     return 0;
                 }
                 switch (kflag) {
@@ -1893,7 +1893,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                &kflag);
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
-                if (RANGE_FLAG) {
+                if (range_flag) {
                     return 0;
                 }
                 dormpri_dp_err(kflag);
@@ -1906,7 +1906,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
                 ggets_ping();
-                if (RANGE_FLAG) {
+                if (range_flag) {
                     return 0;
                 }
                 ggets_err_msg("Step size too small");
@@ -1920,7 +1920,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             MSWTCH(y, xpv.x);
             if (kflag) {
                 ggets_ping();
-                if (RANGE_FLAG) {
+                if (range_flag) {
                     return 0;
                 }
                 switch (kflag) {
@@ -2070,7 +2070,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
             if (kflag < 0) {
                 ggets_ping();
-                if (RANGE_FLAG || SuppressBounds) {
+                if (range_flag || SuppressBounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2116,7 +2116,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
             if (kflag < 0) {
                 ggets_ping();
-                if (RANGE_FLAG || SuppressBounds) {
+                if (range_flag || SuppressBounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2148,7 +2148,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag < 0) {
-                if (RANGE_FLAG || SuppressBounds) {
+                if (range_flag || SuppressBounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2176,7 +2176,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag < 0) {
-                if (RANGE_FLAG || SuppressBounds) {
+                if (range_flag || SuppressBounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2207,7 +2207,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
             if (kflag) {
                 ggets_ping();
-                if (RANGE_FLAG || SuppressBounds) {
+                if (range_flag || SuppressBounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2245,7 +2245,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
             if (kflag < 0) {
                 ggets_ping();
-                if (RANGE_FLAG || SuppressBounds) {
+                if (range_flag || SuppressBounds) {
                     break;
                 }
                 switch (kflag) {
@@ -2314,7 +2314,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
             // end of NaN
             if (fabs(x[ieqn - 1]) > bound) {
-                if (RANGE_FLAG || SuppressBounds) {
+                if (range_flag || SuppressBounds) {
                     break;
                 }
                 sprintf(error_message, " %s out of bounds at t = %f ",
@@ -2568,7 +2568,7 @@ integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
         /*	   if(MyGraph->line[ip]<0)
                      continue;  */
         if (MyGraph->line[ip] <= 0) {
-            PointRadius = -MyGraph->line[ip];
+            point_radius = -MyGraph->line[ip];
             if (MyGraph->ThreeDFlag == 0) {
                 graphics_point_abs(xpl[ip], ypl[ip]);
             } else {
@@ -2745,7 +2745,7 @@ integrate_restore(int32 i1, int32 i2) {
     }
 
     for (ip = 0; ip < np; ip++) {
-        if (PltFmtFlag == SVGFMT) {
+        if (plt_fmt_flag == SVGFMT) {
             fprintf(svgfile, "<g>\n");
         }
         kxoff = i1 - XSHFT;
@@ -2789,7 +2789,7 @@ integrate_restore(int32 i1, int32 i2) {
             /* if(MyGraph->line[ip]<0)
                goto noplot; */
             if (MyGraph->line[ip] <= 0) {
-                PointRadius = -MyGraph->line[ip];
+                point_radius = -MyGraph->line[ip];
                 if (MyGraph->ThreeDFlag == 0) {
                     graphics_point_abs(xpl, ypl);
                 } else {
@@ -2810,7 +2810,7 @@ integrate_restore(int32 i1, int32 i2) {
             kyoff++;
             kzoff++;
         }
-        if (PltFmtFlag == SVGFMT) {
+        if (plt_fmt_flag == SVGFMT) {
             fprintf(svgfile, "</g>\n");
         }
     }
@@ -2843,9 +2843,9 @@ integrate_comp_color(double *v1, double *v2, int32 n, double dt) {
     if (Xup) {
         color_set(cur_color);
     }
-    if (PltFmtFlag == 1) {
+    if (plt_fmt_flag == 1) {
         ps_do_color(cur_color);
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (plt_fmt_flag == SVGFMT) {
         svg_do_color(cur_color);
     }
     return;

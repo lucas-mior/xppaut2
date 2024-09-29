@@ -62,7 +62,7 @@ double default_ic[MAX_ODE];
 int32 NODE;
 int32 NUPAR;
 int32 NLINES;
-int32 PrimeStart;
+int32 prime_start;
 int32 NCON_START;
 int32 NSYM_START;
 int32 bvp_n;
@@ -391,7 +391,7 @@ form_ode_get_eqn(FILE *fptr) {
         ani_de_space(ode_names[i]);
     }
     // add primed variables
-    PrimeStart = NVAR;
+    prime_start = NVAR;
     if (NVAR < MAX_PRIME_VAR) {
         parserslow_add_var("t'", 0.0);
         for (i = 0; i < NODE; i++) {

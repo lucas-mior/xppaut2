@@ -29,9 +29,9 @@ double ps_lw = 5;
 char ps_font[200] = "Times-Roman";
 FILE *psfile;
 /*Default is now with color*/
-int32 PltFmtFlag;
-int32 PSColorFlag = 1;
-int32 PSLines;
+int32 plt_fmt_flag;
+int32 ps_color_flag = 1;
+int32 ps_lines;
 int32 last_psx;
 int32 last_psy;
 
@@ -119,8 +119,8 @@ ps_init(char *filename, int32 color) {
         return 0;
     }
     graphics_init_ps();
-    PltFmtFlag = 1;
-    PSLines = 0;
+    plt_fmt_flag = 1;
+    ps_lines = 0;
     last_psx = -10000;
     last_psy = -10000;
     fprintf(psfile, "%%!PS-Adobe-2.0\n");
@@ -131,12 +131,12 @@ ps_init(char *filename, int32 color) {
     fprintf(psfile, "/xppdict 40 dict def\nxppdict begin\n");
     if (color == 0) {
         fprintf(psfile, "/Color false def \n");
-        PSColorFlag = 0;
+        ps_color_flag = 0;
     } else {
         fprintf(psfile, "/Color true def \n");
         fprintf(psfile, "/RGB {setrgbcolor currentpoint stroke moveto} def\n");
         fprintf(psfile, "/RGb {setrgbcolor } def\n");
-        PSColorFlag = 1;
+        ps_color_flag = 1;
     }
     fprintf(psfile, "/xpplinewidth %.3f def\n", ps_lw);
     fprintf(psfile, "/vshift %d def\n", (int32)(PS_VCHAR) / (-3));
@@ -173,10 +173,10 @@ ps_do_color(int32 color) {
     double g;
     double b;
     // this doesn work very well
-    if (PltFmtFlag == 0) {
+    if (plt_fmt_flag == 0) {
         return;
     }
-    if (PSColorFlag == 0) {
+    if (ps_color_flag == 0) {
         return;
     }
     color_get_ps(color, &r, &g, &b);
@@ -192,7 +192,7 @@ ps_end(void) {
     ps_write("showpage");
     lunch_ps_write_pars(psfile);
     fclose(psfile);
-    PltFmtFlag = 0;
+    plt_fmt_flag = 0;
     if (Xup) {
         graphics_init_x11();
     }
@@ -245,10 +245,10 @@ ps_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
 
 void
 ps_check_lines(void) {
-    PSLines++;
-    if (PSLines >= MAXPSLINE) {
+    ps_lines++;
+    if (ps_lines >= MAXPSLINE) {
         fprintf(psfile, "currentpoint stroke moveto\n");
-        PSLines = 0;
+        ps_lines = 0;
     }
     return;
 }
@@ -258,7 +258,7 @@ ps_linetype(int32 linetype) {
     char *line = "ba0123456789c";
 
     fprintf(psfile, "LT%c\n", line[(linetype % 11) + 2]);
-    PSLines = 0;
+    ps_lines = 0;
     last_psx = -100000000;
     last_psy = -100000000;
     return;
@@ -266,17 +266,17 @@ ps_linetype(int32 linetype) {
 
 void
 ps_point(int32 x, int32 y) {
-    int32 number = PointType;
+    int32 number = point_type;
     char *point = "PDABCTSKF";
     number %= POINT_TYPES;
     if (number < -1) {
         number = -1;
     }
-    if (PointRadius > 0) {
+    if (point_radius > 0) {
         number = 7;
     }
     fprintf(psfile, "%d %d %c\n", x, y, point[number + 1]);
-    PSLines = 0;
+    ps_lines = 0;
     last_pt_line = 0;
     return;
 }
@@ -314,7 +314,7 @@ ps_show(char *str, int32 type) {
     } else {
         fprintf(psfile, ") show\n");
     }
-    PSLines = 0;
+    ps_lines = 0;
     return;
 }
 
@@ -440,5 +440,5 @@ ps_text(int32 x, int32 y, char *str) {
     if (TextAngle != 0) {
         fprintf(psfile, "grestore\n");
     }
-    PSLines = 0;
+    ps_lines = 0;
 }
