@@ -10,11 +10,11 @@
 #define DING ggets_ping()
 
 int32 UnstableManifoldColor = 5;
-int32 StableManifoldColor = 8;
+int32 stable_manifold_color = 8;
 
-double ShootIC[8][MAX_ODE];
-int32 ShootICFlag;
-int32 ShootIndex;
+double shoot_ic[8][MAX_ODE];
+int32 shoot_ic_flag;
+int32 shoot_index;
 
 static int32 ShootType[8];
 static int32 gear_pivot[MAX_ODE];
@@ -73,8 +73,8 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
         ggets_err_msg("Insufficient core ");
         return;
     }
-    ShootICFlag = 0;
-    ShootIndex = 0;
+    shoot_ic_flag = 0;
+    shoot_index = 0;
     for (int32 i = 0; i < n; i++) {
         old_x[i] = x[i];
     }
@@ -221,7 +221,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                 gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                               eval[2*nege], ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(StableManifoldColor,
+                    graphics_change_current_linestyle(stable_manifold_color,
                                                       &oldcol);
                     gear_pr_evec(x, b, n, -1);
                     delta_t = -fabs(delta_t);
@@ -274,7 +274,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                 gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                               bigneg, ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(StableManifoldColor,
+                    graphics_change_current_linestyle(stable_manifold_color,
                                                       &oldcol);
                     gear_pr_evec(x, b, n, -1);
                     delta_t = -fabs(delta_t);
@@ -300,14 +300,14 @@ gear_save_batch_shoot(void) {
     double olddt;
     char name[256];
     FILE *fp;
-    if (ShootIndex < 1) {
+    if (shoot_index < 1) {
         return;
     }
     olddt = delta_t;
     STORFLAG = 1;
-    for (int32 k = 0; k < ShootIndex; k++) {
+    for (int32 k = 0; k < shoot_index; k++) {
         for (int32 i = 0; i < NODE; i++) {
-            x[i] = ShootIC[k][i];
+            x[i] = shoot_ic[k][i];
         }
 
         type = ShootType[k];
@@ -344,14 +344,14 @@ gear_shoot_this_now(void) {
     double x[MAX_ODE];
     double olddt;
 
-    if (ShootIndex < 1) {
+    if (shoot_index < 1) {
         return;
     }
     olddt = delta_t;
 
-    for (k = 0; k < ShootIndex; k++) {
+    for (k = 0; k < shoot_index; k++) {
         for (int32 i = 0; i < NODE; i++) {
-            x[i] = ShootIC[k][i];
+            x[i] = shoot_ic[k][i];
         }
 
         type = ShootType[k];
@@ -362,7 +362,7 @@ gear_shoot_this_now(void) {
             graphics_change_current_linestyle(oldcol, &dummy);
         }
         if (type < 0) {
-            graphics_change_current_linestyle(StableManifoldColor, &oldcol);
+            graphics_change_current_linestyle(stable_manifold_color, &oldcol);
             delta_t = -fabs(delta_t);
             integrate_shoot_easy(x);
             graphics_change_current_linestyle(oldcol, &dummy);
@@ -399,8 +399,8 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
         return;
     }
 
-    ShootICFlag = 0;
-    ShootIndex = 0;
+    shoot_ic_flag = 0;
+    shoot_index = 0;
     for (int32 i = 0; i < n; i++) {
         old_x[i] = x[i];
     }
@@ -523,15 +523,15 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 void
 gear_pr_evec(double *x, double *ev, int32 n, int32 type) {
     double d = fabs(delta_t)*.1;
-    ShootICFlag = 1;
-    if (ShootIndex < 7) {
+    shoot_ic_flag = 1;
+    if (shoot_index < 7) {
         for (int32 i = 0; i < n; i++) {
-            ShootIC[ShootIndex][i] = x[i] + d*ev[i];
-            ShootType[ShootIndex] = type;
-            ShootIC[ShootIndex + 1][i] = x[i] - d*ev[i];
-            ShootType[ShootIndex + 1] = type;
+            shoot_ic[shoot_index][i] = x[i] + d*ev[i];
+            ShootType[shoot_index] = type;
+            shoot_ic[shoot_index + 1][i] = x[i] - d*ev[i];
+            ShootType[shoot_index + 1] = type;
         }
-        ShootIndex += 2;
+        shoot_index += 2;
     }
     return;
 }

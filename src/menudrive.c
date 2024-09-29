@@ -204,7 +204,7 @@ menudrive_drw_all_scrns(void) {
     int32 me = manual_expose;
     int32 ic = current_pop;
     manual_expose = 0;
-    if (SimulPlotFlag == 0) {
+    if (simul_plot_flag == 0) {
         main_redraw_all();
         manual_expose = me;
         return;
@@ -225,7 +225,7 @@ void
 menudrive_clr_all_scrns(void) {
     int32 ic = current_pop;
 
-    if (SimulPlotFlag == 0) {
+    if (simul_plot_flag == 0) {
         main_clr_scrn();
         many_pops_hi_lite(draw_win);
         return;
@@ -673,7 +673,7 @@ menudrive_do_windows(void) {
     static char key[] = "ckdbams";
     static char title[] = "Make window";
     Window temp = main_win;
-    if (SimulPlotFlag == 0) {
+    if (simul_plot_flag == 0) {
         ch = (char)pop_list_popup_list_new(&temp, title, list, key, 7, 11, 0,
                                            10, 14*dcur_y + 8, half_hint,
                                            info_pop, info_message);

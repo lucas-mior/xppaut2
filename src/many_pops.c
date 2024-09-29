@@ -58,7 +58,7 @@ Graph graph[MAXPOP];
 Curve frz[MAXFRZ];
 Graph *MyGraph;
 
-int32 SimulPlotFlag = 0;
+int32 simul_plot_flag = 0;
 int32 current_pop;
 int32 num_pops;
 static int32 MINI_H = 300;
@@ -1035,7 +1035,7 @@ many_pops_do_windows_com(int32 c) {
         many_pops_set_restore(1);
         break;
     case 6:
-        SimulPlotFlag = 1 - SimulPlotFlag;
+        simul_plot_flag = 1 - simul_plot_flag;
         break;
     default:
         break;

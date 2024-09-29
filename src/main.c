@@ -251,7 +251,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.user_min_height = 1;
     notAlreadySet.YNullColor = 1;
     notAlreadySet.XNullColor = 1;
-    notAlreadySet.StableManifoldColor = 1;
+    notAlreadySet.stable_manifold_color = 1;
     notAlreadySet.UnstableManifoldColor = 1;
     notAlreadySet.start_line_type = 1;
     notAlreadySet.rand_seed = 1;

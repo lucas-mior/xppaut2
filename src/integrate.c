@@ -99,8 +99,8 @@ typedef struct FixPointGuess {
 static FixPointGuess fixptguess;
 
 XppVec xpv;
-int32 SuppressOut = 0;
-int32 SuppressBounds = 0;
+int32 suppress_out = 0;
+int32 suppress_bounds = 0;
 
 int32 delay_err;
 
@@ -1222,7 +1222,7 @@ batch_integrate_once(void) {
         if (stoch_flag == 2) {
             markov_variance_back();
         }
-        if (!SuppressOut) {
+        if (!suppress_out) {
             fp = fopen(batch_out, "w");
             if (fp == NULL) {
                 ggets_plintf(" Unable to open %s to write \n", batch_out);
@@ -1244,7 +1244,7 @@ int32
 integrate_write_this_run(char *file, int32 i) {
     char outfile[XPP_MAX_NAME];
     FILE *fp;
-    if (!SuppressOut) {
+    if (!suppress_out) {
         sprintf(outfile, "%s.%d", file, i);
         fp = fopen(outfile, "w");
         if (fp == NULL) {
@@ -1375,7 +1375,7 @@ integrate_do_init_data(int32 com) {
                 return;
             }
         } else {
-            SuppressBounds = 1;
+            suppress_bounds = 1;
 
             menudrive_message_box("Click on initial data -- ESC to quit");
             while (true) {
@@ -1402,7 +1402,7 @@ integrate_do_init_data(int32 com) {
                 usual_integrate_stuff(x);
             }
             menudrive_message_box_kill();
-            SuppressBounds = 0;
+            suppress_bounds = 0;
             return;
         }
         break;
@@ -1418,17 +1418,17 @@ integrate_do_init_data(int32 com) {
         integrate_get_ic(2, x);
         break;
     case M_IH:
-        if (ShootICFlag == 0) {
+        if (shoot_ic_flag == 0) {
             ggets_err_msg("No shooting data available");
             break;
         }
-        sprintf(sr, "Which? (1-%d)", ShootIndex);
+        sprintf(sr, "Which? (1-%d)", shoot_index);
         si = 1;
         ggets_new_int(sr, &si);
         si--;
-        if (si < ShootIndex && si >= 0) {
+        if (si < shoot_index && si >= 0) {
             for (int32 i = 0; i < NODE; i++) {
-                last_ic[i] = ShootIC[si][i];
+                last_ic[i] = shoot_ic[si][i];
             }
             integrate_get_ic(2, x);
         } else {
@@ -2070,7 +2070,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
             if (kflag < 0) {
                 ggets_ping();
-                if (range_flag || SuppressBounds) {
+                if (range_flag || suppress_bounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2116,7 +2116,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
             if (kflag < 0) {
                 ggets_ping();
-                if (range_flag || SuppressBounds) {
+                if (range_flag || suppress_bounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2148,7 +2148,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag < 0) {
-                if (range_flag || SuppressBounds) {
+                if (range_flag || suppress_bounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2176,7 +2176,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag < 0) {
-                if (range_flag || SuppressBounds) {
+                if (range_flag || suppress_bounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2207,7 +2207,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
             if (kflag) {
                 ggets_ping();
-                if (range_flag || SuppressBounds) {
+                if (range_flag || suppress_bounds) {
                     last_time = *t;
                     return 1;
                 }
@@ -2245,7 +2245,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
             if (kflag < 0) {
                 ggets_ping();
-                if (range_flag || SuppressBounds) {
+                if (range_flag || suppress_bounds) {
                     break;
                 }
                 switch (kflag) {
@@ -2314,7 +2314,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
             // end of NaN
             if (fabs(x[ieqn - 1]) > bound) {
-                if (range_flag || SuppressBounds) {
+                if (range_flag || suppress_bounds) {
                     break;
                 }
                 sprintf(error_message, " %s out of bounds at t = %f ",
@@ -2654,7 +2654,7 @@ void
 integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
                           int32 flag) {
     int32 ic = current_pop;
-    if (SimulPlotFlag == 0) {
+    if (simul_plot_flag == 0) {
         integrate_plot_one_graph(xv, xvold, ddt, tc);
         return;
     }
@@ -2855,10 +2855,10 @@ void
 integrate_shoot_easy(double *x) {
     double t = 0.0;
     int32 i;
-    SuppressBounds = 1;
+    suppress_bounds = 1;
 
     integrate(&t, x, TEND, delta_t, 1, NJMP, &i);
-    SuppressBounds = 0;
+    suppress_bounds = 0;
     return;
 }
 
@@ -2866,14 +2866,14 @@ void
 integrate_shoot(double *x, double *xg, double *evec, int32 sgn) {
     int32 i;
     double t = 0.0;
-    SuppressBounds = 1;
+    suppress_bounds = 1;
     for (i = 0; i < NODE; i++) {
         x[i] = xg[i] + sgn*evec[i]*delta_t*.1;
     }
     i = 1;
     integrate(&t, x, TEND, delta_t, 1, NJMP, &i);
     ggets_ping();
-    SuppressBounds = 0;
+    suppress_bounds = 0;
     return;
 }
 

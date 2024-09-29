@@ -745,7 +745,7 @@ nullcline_direct_field_com(int32 c) {
     }
     STORFLAG = 0;
 
-    SuppressBounds = 1;
+    suppress_bounds = 1;
     for (int32 k = 0; k < 2; k++) {
         for (int32 i = 0; i <= grid; i++) {
             for (int32 j = 0; j <= grid; j++) {
@@ -765,7 +765,7 @@ nullcline_direct_field_com(int32 c) {
         }
         delta_t = -delta_t;
     }
-    SuppressBounds = 0;
+    suppress_bounds = 0;
     delta_t = dtold;
     if (plt_fmt_flag == SVGFMT) {
         doing_dfield = 0;

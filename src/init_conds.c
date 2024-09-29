@@ -1266,7 +1266,7 @@ init_conds_slider_motion(XEvent event) {
 void
 init_conds_do_slide_motion(Window window, int32 x, struct ParSlider *p,
                            int32 s) {
-    int32 sp = SuppressBounds;
+    int32 sp = suppress_bounds;
     if (window == p->slide) {
         p->pos = x;
         if (x < 2) {
@@ -1289,9 +1289,9 @@ init_conds_do_slide_motion(Window window, int32 x, struct ParSlider *p,
                 nullcline_redraw_dfield();
                 nullcline_create_new_cline();
                 many_pops_draw_label(draw_win);
-                SuppressBounds = 1;
+                suppress_bounds = 1;
                 integrate_run_now();
-                SuppressBounds = sp;
+                suppress_bounds = sp;
             }
         }
     }

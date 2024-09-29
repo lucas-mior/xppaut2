@@ -1180,12 +1180,12 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("SMC", s1)) {
-        if ((notAlreadySet.StableManifoldColor || force) ||
-            ((mask != NULL) && (mask->StableManifoldColor == 1))) {
+        if ((notAlreadySet.stable_manifold_color || force) ||
+            ((mask != NULL) && (mask->stable_manifold_color == 1))) {
             i = atoi(s2);
             if (i > -1 && i < 11) {
-                StableManifoldColor = i;
-                notAlreadySet.StableManifoldColor = 0;
+                stable_manifold_color = i;
+                notAlreadySet.stable_manifold_color = 0;
             }
         }
         return;
@@ -1278,7 +1278,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
     // can now initialize several plots
     if (load_eqn_msc("SIMPLOT", s1)) {
-        SimulPlotFlag = 1;
+        simul_plot_flag = 1;
         return;
     }
     if (load_eqn_msc("MULTIWIN", s1)) {

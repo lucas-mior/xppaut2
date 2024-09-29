@@ -1303,11 +1303,11 @@ char *form_ode_get_next2(char **tokens_ptr);
 #define GEAR_H
 
 extern int32 UnstableManifoldColor;
-extern int32 StableManifoldColor;
-extern double ShootIC[8][MAX_ODE];
-extern int32 ShootICFlag;
-extern int32 ShootICFlag;
-extern int32 ShootIndex;
+extern int32 stable_manifold_color;
+extern double shoot_ic[8][MAX_ODE];
+extern int32 shoot_ic_flag;
+extern int32 shoot_ic_flag;
+extern int32 shoot_index;
 
 void gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, int32 *ierr, double *stabinfo);
@@ -1623,8 +1623,8 @@ void init_conds_set_edit_params(BoxList *b, int32 i, char *string);
 #include <stdio.h>
 
 extern int32 make_plot_flag;
-extern int32 SuppressOut;
-extern int32 SuppressBounds;
+extern int32 suppress_out;
+extern int32 suppress_bounds;
 
 typedef struct Range {
     char item[30];
@@ -2065,7 +2065,7 @@ typedef struct OptionsSet {
     int32 user_min_height;
     int32 YNullColor;
     int32 XNullColor;
-    int32 StableManifoldColor;
+    int32 stable_manifold_color;
     int32 UnstableManifoldColor;
     int32 start_line_type;
     int32 rand_seed;
@@ -2297,7 +2297,7 @@ int32 main_get_command_width(void);
 #define MANY_POPS_H
 
 extern int32 manual_expose;
-extern int32 SimulPlotFlag;
+extern int32 simul_plot_flag;
 extern Graph graph[MAXPOP];
 extern Curve frz[MAXFRZ];
 extern Graph *MyGraph;

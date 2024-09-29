@@ -286,7 +286,7 @@ cli_do(int32 argc, char **argv) {
             i++;
         }
         if (k == 25) {
-            SuppressOut = 1;
+            suppress_out = 1;
         }
         if (k == 26) {
             load_eqn_set_option("DFDRAW", argv[i + 1], 1, NULL);
