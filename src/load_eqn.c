@@ -32,9 +32,9 @@ int32 IZ_PLT[10];
 int32 NPltV;
 int32 multi_win = 0;
 double X_LO[10];
-double Y_LO[10];
+double y_lo[10];
 double X_HI[10];
-double Y_HI[10];
+double y_hi[10];
 int32 START_LINE_TYPE = 1;
 InternSet intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
@@ -494,9 +494,9 @@ load_eqn_set_all_vals(void) {
             IY_PLT[i] = iy_plt;
             IZ_PLT[i] = iz_plt;
             X_LO[i] = 0;
-            Y_LO[i] = -1;
+            y_lo[i] = -1;
             X_HI[i] = 20;
-            Y_HI[i] = 1;
+            y_hi[i] = 1;
         }
         notAlreadySet.NPLOT = 0;
     }
@@ -1323,11 +1323,11 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             return;
         }
         if (load_eqn_msc(yyh, s1)) {
-            Y_HI[j] = atof(s2);
+            y_hi[j] = atof(s2);
             return;
         }
         if (load_eqn_msc(yyl, s1)) {
-            Y_LO[j] = atof(s2);
+            y_lo[j] = atof(s2);
             return;
         }
     }
