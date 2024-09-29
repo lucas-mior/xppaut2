@@ -451,7 +451,7 @@ cli_parse_it(char *com) {
             all_win_vis = 1;
             break;
         case MSSTYLE:
-            MSStyle = 1;
+            ms_style = 1;
             break;
         case PWHITE:
             ggets_plintf(

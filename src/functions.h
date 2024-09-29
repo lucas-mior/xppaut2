@@ -327,7 +327,7 @@ uint32 color_map(int32 i);
 #define MAX_INCLUDE_FILES 10
 #define ClickTime 200
 
-extern int32 MSStyle;
+extern int32 ms_style;
 extern char *info_message;
 extern int32 CURS_X;
 extern int32 CURS_Y;

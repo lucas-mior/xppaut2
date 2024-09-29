@@ -18,7 +18,7 @@
 
 #define ESCAPE 27
 char *info_message;
-int32 MSStyle = 0;
+int32 ms_style = 0;
 
 int32 CURS_X;
 int32 CURS_Y;
@@ -457,7 +457,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
         *done2 = -1;  // quit without saving
         return;
     case KEY_FINE:
-        if (MSStyle == 0) {
+        if (ms_style == 0) {
             *done2 = 1;
         } else {
             *done2 = 2;
@@ -481,7 +481,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
         }
         break;
     case KEY_TAB:
-        if (MSStyle == 0) {
+        if (ms_style == 0) {
             *done2 = 2;
         } else {
             *done2 = 1;
