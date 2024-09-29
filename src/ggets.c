@@ -20,8 +20,9 @@
 char *info_message;
 int32 ms_style = 0;
 
-int32 CURS_X;
-int32 CURS_Y;
+static int32 CURS_X;
+static int32 CURS_Y;
+
 int32 xor_flag;
 
 static void ggets_put_string_at(Window window, int32 col, char *s, int32 off);

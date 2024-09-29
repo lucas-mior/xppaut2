@@ -329,8 +329,6 @@ uint32 color_map(int32 i);
 
 extern int32 ms_style;
 extern char *info_message;
-extern int32 CURS_X;
-extern int32 CURS_Y;
 extern int32 PS_Color;
 
 void ggets_ping(void);
