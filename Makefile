@@ -35,7 +35,7 @@ tcc: all
 bear: CFLAGS += -Wno-error
 bear: compile_commands.json
 
-compile_commands.json: Makefile
+compile_commands.json: Makefile src/functions.h
 	rm -f *.o src/*.o src/cvode/*.o src/sbml/*.o $(TARGET)
 	bear -- make -j1 clang > compile_commands.json
 
@@ -66,13 +66,13 @@ src/extra.o: CFLAGS += -Wno-pedantic
 src/form_ode.o: CFLAGS += -Wno-pedantic
 src/parserslow.o: CFLAGS += -Wno-pedantic
 
-$(TARGET): $(OBJECTS) Makefile
+$(TARGET): $(OBJECTS) Makefile src/functions.h
 	$(C) $(CFLAGS) -o $(TARGET) $(filter-out Makefile, $^) $(LDFLAGS) 
 
-%.o: %.c %.h Makefile
+%.o: %.c %.h Makefile src/functions.h
 	$(C) $(CFLAGS) -o $@ -c $<
 
-%.o: %.c Makefile
+%.o: %.c Makefile src/functions.h
 	$(C) $(CFLAGS) -o $@ -c $<
 
 clean:

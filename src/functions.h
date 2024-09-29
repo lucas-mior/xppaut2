@@ -2634,8 +2634,8 @@ void menu_draw_help(void);
 
 #endif
 
-#ifndef MY_PS_H
-#define MY_PS_H
+#ifndef POSTSCRIPT_H
+#define POSTSCRIPT_H
 
 extern int32 NoBreakLine;
 extern int32 PS_FONTSIZE;
