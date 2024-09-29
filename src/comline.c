@@ -458,7 +458,7 @@ cli_parse_it(char *com) {
                 "-white option is no longer part of this version. \n Sorry \n");
             break;
         case RUNNOW:
-            RunImmediately = 1;
+            run_immediately = 1;
             break;
         case SETFILE:
             return 1;

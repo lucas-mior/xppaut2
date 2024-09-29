@@ -239,7 +239,7 @@ ggets_cput_text(void) {
     if (size < 0) {
         size = 0;
     }
-    pop_list_message_box(&temp, 0, SCALEY - 5*dcur_y, "Place text with mouse");
+    pop_list_message_box(&temp, 0, scale_y - 5*dcur_y, "Place text with mouse");
     if (menudrive_get_mouse_xy(&x, &y)) {
         many_pops_gr_col();
         graphics_fillin_text(string, new);

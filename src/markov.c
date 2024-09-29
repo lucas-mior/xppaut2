@@ -452,8 +452,8 @@ markov_do_stochast_com(int32 i) {
     }
     switch (ch) {
     case 'n':
-        ggets_new_int("Seed:", &RandSeed);
-        markov_nsrand48(RandSeed);
+        ggets_new_int("Seed:", &rand_seed);
+        markov_nsrand48(rand_seed);
         break;
     case 'd':
         adjoints_data_back();

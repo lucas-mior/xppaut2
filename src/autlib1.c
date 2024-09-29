@@ -2817,7 +2817,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
     lb = *lab;
     if ((restart_flag == 1) && (lb != 0)) {
         restart_flag = 0;
-        RestartLabel = (int32)*lab;
+        restart_label = (int32)*lab;
     }
 
     // Write one line of output on unit 6 and 7.

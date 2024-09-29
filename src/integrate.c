@@ -565,11 +565,11 @@ integrate_eq_range(double *x) {
     delay_err = 0;
     end_sing = 0;
     PAR_FOL = 1;
-    SHOOT = eq_range.shoot;
+    shoot = eq_range.shoot;
     browser_reset();
     if (mc == 1) {
         eq_range.movie = 1;
-        SHOOT = 0;
+        shoot = 0;
     }
     if (eq_range.movie) {
         kinescope_reset_film();

@@ -198,7 +198,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
             ch = (char)menudrive_two_choice("YES", "NO", "Draw Invariant Sets?",
                                             "yn");
         }
-        if ((ch == 'y') || (PAR_FOL && SHOOT)) {
+        if ((ch == 'y') || (PAR_FOL && shoot)) {
             oldt = delta_t;
 
             if (rp == 1) {
@@ -246,7 +246,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                                             "yn");
         }
 
-        if ((ch == 'y') || (PAR_FOL && SHOOT)) {
+        if ((ch == 'y') || (PAR_FOL && shoot)) {
             oldt = delta_t;
 
             if ((rp > 1) && (bpos >= 0))  // then there is a strong unstable

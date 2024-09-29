@@ -88,7 +88,7 @@ uint32 my_main_win_color;
 uint32 my_draw_win_color;
 uint32 gr_fore;
 uint32 gr_back;
-int32 SCALEY;
+int32 scale_y;
 Display *display;
 int32 screen;
 int32 periodic = 0;
@@ -254,7 +254,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.StableManifoldColor = 1;
     notAlreadySet.UnstableManifoldColor = 1;
     notAlreadySet.START_LINE_TYPE = 1;
-    notAlreadySet.RandSeed = 1;
+    notAlreadySet.rand_seed = 1;
     notAlreadySet.paper_white = 1;
     notAlreadySet.COLORMAP = 1;
     notAlreadySet.NPLOT = 1;
@@ -378,7 +378,7 @@ do_main(int32 argc, char **argv) {
     read_dir_get_directory(myfile);
 
     SCALEX = 640;
-    SCALEY = 480;
+    scale_y = 480;
 
     Xup = 0;
     snprintf(batch_out, sizeof(batch_out), "output.dat");
@@ -642,7 +642,7 @@ main_init_x(void) {
 
     if (user_min_height > 0) {
         min_hgt = (uint32)user_min_height;
-        SCALEY = (int32)min_hgt;
+        scale_y = (int32)min_hgt;
     }
 
     if (paper_white == 0) {
@@ -722,7 +722,7 @@ main_init_x(void) {
         my_draw_win_color = my_back_color;
     }
 
-    main_fix_window_size(main_win, SCALEX, SCALEY, FIX_MIN_SIZE);
+    main_fix_window_size(main_win, SCALEX, scale_y, FIX_MIN_SIZE);
     periodic = 1;
     if (DefaultDepth(display, screen) >= 8) {
         COLOR = 1;
@@ -854,10 +854,10 @@ main_init_x(void) {
     }
 
     if (user_min_height <= 0) {
-        SCALEY = 25*dcur_yb + 7*dcur_ys;
+        scale_y = 25*dcur_yb + 7*dcur_ys;
     }
 
-    XResizeWindow(display, main_win, (uint)SCALEX, (uint)SCALEY);
+    XResizeWindow(display, main_win, (uint)SCALEX, (uint)scale_y);
     return;
 }
 
@@ -899,18 +899,18 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         auto_x11_resize_window(report);
         if (report.xconfigure.window == main_win) {
             SCALEX = report.xconfigure.width;
-            SCALEY = report.xconfigure.height;
-            if ((SCALEX < min_wid) || (SCALEY < min_hgt)) {
+            scale_y = report.xconfigure.height;
+            if ((SCALEX < min_wid) || (scale_y < min_hgt)) {
                 SCALEX = min_wid;
-                SCALEY = min_hgt;
+                scale_y = min_hgt;
             } else {
                 XResizeWindow(display, command_pop, (uint)SCALEX - 4,
                               (uint)dcur_y + 1);
-                XMoveResizeWindow(display, info_pop, 0, SCALEY - dcur_y - 4,
+                XMoveResizeWindow(display, info_pop, 0, scale_y - dcur_y - 4,
                                   (uint)SCALEX - 4, (uint)dcur_y);
-                init_conds_resize_par_slides(SCALEY - 3*dcur_ys - 1*dcur_yb -
+                init_conds_resize_par_slides(scale_y - 3*dcur_ys - 1*dcur_yb -
                                              13);
-                many_pops_resize_all(SCALEX, SCALEY);
+                many_pops_resize_all(SCALEX, scale_y);
                 main_redraw_all();
             }
         }
@@ -1002,9 +1002,9 @@ main_do_events(uint32 min_wid, uint32 min_hgt) {
 
     ggets_blank_screen(main_win);
     menu_help();
-    if (RunImmediately == 1) {
+    if (run_immediately == 1) {
         menudrive_run_the_commands(4);
-        RunImmediately = 0;
+        run_immediately = 0;
     }
     while (true) {
         XNextEvent(display, &report);
@@ -1224,11 +1224,11 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
     if (SCALEX > dp_w) {
         SCALEX = dp_w;
     }
-    if (SCALEY > dp_h) {
-        SCALEY = dp_h;
+    if (scale_y > dp_h) {
+        scale_y = dp_h;
     }
     wine = XCreateSimpleWindow(display, RootWindow(display, screen), x, y,
-                               (uint)SCALEX, (uint)SCALEY, bw, my_fore_color,
+                               (uint)SCALEX, (uint)scale_y, bw, my_fore_color,
                                my_back_color);
     XGetIconSizes(display, RootWindow(display, screen), &size_list, &count);
     icon_map = XCreateBitmapFromData(display, wine, (char *)pp_bits, pp_width,

@@ -149,7 +149,7 @@ extern int32 UEc;
 extern int32 SPc;
 extern int32 UPc;
 
-extern int32 RestartLabel;
+extern int32 restart_label;
 
 extern int32 auto_ntst;
 extern int32 auto_nmx;

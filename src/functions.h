@@ -377,7 +377,7 @@ typedef struct InternSet {
 } InternSet;
 
 extern InternSet intern_set[MAX_INTERN_SET];
-extern int32 RunImmediately;
+extern int32 run_immediately;
 extern int32 multi_win;
 extern int32 START_LINE_TYPE;
 extern int32 Nintern_set;
@@ -399,7 +399,7 @@ extern int32 POIEXT;
 extern int32 hist;
 
 extern int32 end_sing;
-extern int32 SHOOT;
+extern int32 shoot;
 extern int32 PAR_FOL;
 extern int32 xorfix;
 extern int32 silent;
@@ -2068,7 +2068,7 @@ typedef struct OptionsSet {
     int32 StableManifoldColor;
     int32 UnstableManifoldColor;
     int32 START_LINE_TYPE;
-    int32 RandSeed;
+    int32 rand_seed;
     int32 paper_white;
     int32 COLORMAP;
     int32 NPLOT;
@@ -2890,7 +2890,7 @@ extern uint32 my_draw_win_color;
 extern uint32 gr_fore;
 extern uint32 gr_back;
 
-extern int32 SCALEY;
+extern int32 scale_y;
 extern int32 dcur_yb;
 extern int32 cury_offb;
 extern int32 dcur_ys;

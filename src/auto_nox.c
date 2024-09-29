@@ -89,7 +89,7 @@ static int32 PD_color = 23;
 static int32 BR_color = 27;
 static int32 FP_color = 25;
 
-int32 RestartLabel = 0;
+int32 restart_label = 0;
 
 int32 auto_ntst = 15;
 int32 auto_nmx = 200;
@@ -516,13 +516,13 @@ auto_nox_do(int32 iold, int32 isave) {
                           irrelevant stuff
                        */
 
-    if (RestartLabel != 0) {
-        printf("RestartLabel=%d itp=%d ips=%d nfpar=%d ilp=%d isw=%d isp=%d "
+    if (restart_label != 0) {
+        printf("restart_label=%d itp=%d ips=%d nfpar=%d ilp=%d isw=%d isp=%d "
                "A2p=%d \n",
-               RestartLabel, Auto.itp, Auto.ips, Auto.nfpar, Auto.ilp, Auto.isw,
+               restart_label, Auto.itp, Auto.ips, Auto.nfpar, Auto.ilp, Auto.isw,
                Auto.isp, auto_two_param);
-        Auto.irs = RestartLabel;
-        RestartLabel = 0;
+        Auto.irs = restart_label;
+        restart_label = 0;
         auto_nox_do(iold, isave);
     }
     ggets_ping();

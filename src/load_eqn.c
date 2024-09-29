@@ -24,7 +24,7 @@
 
 static char *interopt[MAXOPT];
 static int32 Nopts = 0;
-int32 RunImmediately = 0;
+int32 run_immediately = 0;
 
 int32 IX_PLT[10];
 int32 IY_PLT[10];
@@ -119,7 +119,7 @@ int32 forever;
 /*  control of range stuff  */
 
 int32 end_sing;
-int32 SHOOT;
+int32 shoot;
 int32 PAR_FOL;
 
 /*  custon color stuff  */
@@ -1215,13 +1215,13 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("SEED", s1)) {
-        if ((notAlreadySet.RandSeed || force) ||
-            ((mask != NULL) && (mask->RandSeed == 1))) {
+        if ((notAlreadySet.rand_seed || force) ||
+            ((mask != NULL) && (mask->rand_seed == 1))) {
             i = atoi(s2);
             if (i >= 0) {
-                RandSeed = i;
-                markov_nsrand48(RandSeed);
-                notAlreadySet.RandSeed = 0;
+                rand_seed = i;
+                markov_nsrand48(rand_seed);
+                notAlreadySet.rand_seed = 0;
             }
         }
         return;
@@ -1950,7 +1950,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("RUNNOW", s1)) {
         if ((notAlreadySet.RUNNOW || force) ||
             ((mask != NULL) && (mask->RUNNOW == 1))) {
-            RunImmediately = atoi(s2);
+            run_immediately = atoi(s2);
             notAlreadySet.RUNNOW = 0;
         }
         return;

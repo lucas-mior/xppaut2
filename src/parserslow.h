@@ -5,7 +5,7 @@
 #include "xpplim.h"
 
 extern int32 NDELAYS;
-extern int32 RandSeed;
+extern int32 rand_seed;
 
 extern int32 NCON;
 extern int32 NVAR;

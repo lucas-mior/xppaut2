@@ -36,7 +36,7 @@ int32 NDELAYS = 0;
 static double hom_bcs(int32);
 static double BoxMuller;
 static int32 BoxMullerFlag = 0;
-int32 RandSeed = 12345678;
+int32 rand_seed = 12345678;
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846264338327950288
@@ -285,9 +285,9 @@ init_rpn(void) {
 
     tabular_init_table();
     if (newseed == 1) {
-        RandSeed = (int32)time(0);
+        rand_seed = (int32)time(0);
     }
-    markov_nsrand48(RandSeed);
+    markov_nsrand48(rand_seed);
     return;
 }
 
