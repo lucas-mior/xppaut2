@@ -63,13 +63,13 @@ ggets_blank_screen(Window window) {
 
 void
 ggets_set_fore(void) {
-    XSetForeground(display, gc, MyForeColor);
+    XSetForeground(display, gc, my_fore_color);
     return;
 }
 
 void
 ggets_set_back(void) {
-    XSetForeground(display, gc, MyBackColor);
+    XSetForeground(display, gc, my_back_color);
     return;
 }
 

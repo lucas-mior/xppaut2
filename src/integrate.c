@@ -104,9 +104,9 @@ int32 SuppressBounds = 0;
 
 int32 delay_err;
 
-double MyData[MAX_ODE];
-double MyTime;
-int32 MyStart;
+double my_data[MAX_ODE];
+double my_time;
+int32 my_start;
 int32 RANGE_FLAG;
 double last_time;
 
@@ -256,14 +256,14 @@ integrate_cont_integ(void) {
     if (ggets_new_float("Continue until:", &tetemp) == -1) {
         return;
     }
-    x = &MyData[0];
+    x = &my_data[0];
     tetemp = fabs(tetemp);
-    if (fabs(MyTime) >= tetemp) {
+    if (fabs(my_time) >= tetemp) {
         return;
     }
-    dif = tetemp - fabs(MyTime);
-    MyStart = 1;  //  I know it is wasteful to restart, but lets be safe....
-    integrate(&MyTime, x, dif, delta_t, 1, NJMP, &MyStart);
+    dif = tetemp - fabs(my_time);
+    my_start = 1;  //  I know it is wasteful to restart, but lets be safe....
+    integrate(&my_time, x, dif, delta_t, 1, NJMP, &my_start);
     ggets_ping();
     browser_refresh(storind);
 }
@@ -652,7 +652,7 @@ integrate_set_cycle(int32 flag, int32 *icol) {
 int32
 integrate_do_auto_range_go(void) {
     double *x;
-    x = &MyData[0];
+    x = &my_data[0];
     return integrate_do_range(x, 2);
 }
 
@@ -793,7 +793,7 @@ integrate_do_range(double *x, int32 flag) {
         RANGE_FLAG = 1;
     }
 
-    MyStart = 1;
+    my_start = 1;
     itype = range.type;
     ivar = range.index;
 
@@ -852,7 +852,7 @@ integrate_do_range(double *x, int32 flag) {
                 icol = 0;
             }
             t = T0;
-            MyStart = 1;
+            my_start = 1;
             POIEXT = 0;
 
             if (flag != 2) {
@@ -908,17 +908,17 @@ integrate_do_range(double *x, int32 flag) {
                 sprintf(bob, "%s=%.16g", parn, temp);
                 ggets_bottom_msg(bob);
             }
-            integrate_start_flags(x, &MyTime);
-            if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
-                storage[0][storind] = (double)MyTime;
-                main_rhs_extra(x, MyTime, NODE, NEQ);
+            integrate_start_flags(x, &my_time);
+            if (fabs(my_time) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
+                storage[0][storind] = (double)my_time;
+                main_rhs_extra(x, my_time, NODE, NEQ);
                 for (iii = 0; iii < NEQ; iii++) {
                     storage[1 + iii][storind] = (double)x[iii];
                 }
                 storind++;
             }
 
-            if (integrate(&t, x, TEND, delta_t, 1, NJMP, &MyStart) == 1) {
+            if (integrate(&t, x, TEND, delta_t, 1, NJMP, &my_start) == 1) {
                 ierr = -1;
                 break;
             }
@@ -1033,7 +1033,7 @@ integrate_find_equilib_com(int32 com) {
     double *x;
     double oldtrans;
 
-    x = &MyData[0];
+    x = &my_data[0];
     if (FFT || hist || NKernel > 0) {
         return;
     }
@@ -1171,11 +1171,11 @@ batch_integrate_once(void) {
         return;
     }
 
-    MyStart = 1;
-    x = &MyData[0];
+    my_start = 1;
+    x = &my_data[0];
     RANGE_FLAG = 0;
     delay_err = 0;
-    MyTime = T0;
+    my_time = T0;
 
     STORFLAG = 1;
     POIEXT = 0;
@@ -1196,17 +1196,17 @@ batch_integrate_once(void) {
                 return;
             }
         }
-        integrate_start_flags(x, &MyTime);
-        if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
-            storage[0][0] = (double)MyTime;
-            main_rhs_extra(x, MyTime, NODE, NEQ);
+        integrate_start_flags(x, &my_time);
+        if (fabs(my_time) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
+            storage[0][0] = (double)my_time;
+            main_rhs_extra(x, my_time, NODE, NEQ);
             for (int32 i = 0; i < NEQ; i++) {
                 storage[1 + i][0] = (double)x[i];
             }
             storind = 1;
         }
 
-        if (integrate(&MyTime, x, TEND, delta_t, 1, NJMP, &MyStart) != 0) {
+        if (integrate(&my_time, x, TEND, delta_t, 1, NJMP, &my_start) != 0) {
             ggets_plintf(
                 " Integration not completed -- will write anyway...\n");
         }
@@ -1278,9 +1278,9 @@ integrate_do_init_data(int32 com) {
     int32 jv;
     int32 badmouse;
 
-    oldstart = MyStart;
-    MyStart = 1;
-    x = &MyData[0];
+    oldstart = my_start;
+    my_start = 1;
+    x = &my_data[0];
     RANGE_FLAG = 0;
     delay_err = 0;
     dae_fun_reset_dae();
@@ -1295,7 +1295,7 @@ integrate_do_init_data(int32 com) {
 
     adjoints_data_back();
     browser_wipe_rep();
-    MyTime = T0;
+    my_time = T0;
 
     STORFLAG = 1;
     POIEXT = 0;
@@ -1320,13 +1320,13 @@ integrate_do_init_data(int32 com) {
         integrate_get_ic(0, x);
         if (com == M_IS) {
             T0 = last_time;
-            MyTime = T0;
+            my_time = T0;
         }
         if (METHOD == VOLTERRA && oldstart == 0) {
             ch = (char)menudrive_two_choice("No", "Yes", "Reset integrals?",
                                             "ny");
             if (ch == 'n') {
-                MyStart = oldstart;
+                my_start = oldstart;
             }
         }
         break;
@@ -1397,8 +1397,8 @@ integrate_do_init_data(int32 com) {
                         break;
                     }
                 }
-                MyStart = 1;
-                MyTime = T0;
+                my_start = 1;
+                my_time = T0;
                 usual_integrate_stuff(x);
             }
             menudrive_message_box_kill();
@@ -1485,12 +1485,12 @@ integrate_do_init_data(int32 com) {
 void
 integrate_run_now(void) {
     double *x;
-    MyStart = 1;
-    x = &MyData[0];
+    my_start = 1;
+    x = &my_data[0];
     RANGE_FLAG = 0;
     delay_err = 0;
     dae_fun_reset_dae();
-    MyTime = T0;
+    my_time = T0;
     integrate_get_ic(2, x);
     STORFLAG = 1;
     POIEXT = 0;
@@ -1511,17 +1511,17 @@ integrate_start_flags(double *x, double *t) {
 
 void
 usual_integrate_stuff(double *x) {
-    integrate_start_flags(x, &MyTime);
-    if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
-        storage[0][0] = (double)MyTime;
-        main_rhs_extra(x, MyTime, NODE, NEQ);
+    integrate_start_flags(x, &my_time);
+    if (fabs(my_time) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
+        storage[0][0] = (double)my_time;
+        main_rhs_extra(x, my_time, NODE, NEQ);
         for (int32 i = 0; i < NEQ; i++) {
             storage[1 + i][0] = (double)x[i];
         }
         storind = 1;
     }
 
-    integrate(&MyTime, x, TEND, delta_t, 1, NJMP, &MyStart);
+    integrate(&my_time, x, TEND, delta_t, 1, NJMP, &my_start);
 
     ggets_ping();
     in_flag = 1;

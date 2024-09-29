@@ -114,7 +114,7 @@ numerics_get_num_par(int32 ch) {
         }
         if (NKernel > 0) {
             in_flag = 0;
-            MyStart = 1;
+            my_start = 1;
             volterra_alloc_kernels(1);
         }
         break;
@@ -206,8 +206,8 @@ numerics_get_num_par(int32 ch) {
             ggets_new_int("MaxIter :", &euler_max_iter);
         }
         if (METHOD == VOLTERRA) {
-            tmp = MaxPoints;
-            ggets_new_int("MaxPoints:", &tmp);
+            tmp = max_points;
+            ggets_new_int("max_points:", &tmp);
             ggets_new_int("AutoEval(1=yes) :", &auto_evaluate);
             volterra_allocate(tmp, 1);
         }
@@ -330,7 +330,7 @@ numerics_compute_one_period(double period, double *x, char *name) {
     FILE *fp;
     TRANS = 0;
     T0 = 0;
-    MyTime = 0;
+    my_time = 0;
     TEND = period;
     POIMAP = 0;  // turn off poincare map
     browser_reset();

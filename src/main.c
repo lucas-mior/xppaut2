@@ -82,10 +82,10 @@ char user_bg_bitmap[XPP_MAX_NAME];
 int32 UserGradients = -1;
 int32 UserMinWidth = 0;
 int32 UserMinHeight = 0;
-uint32 MyBackColor;
-uint32 MyForeColor;
-uint32 MyMainWinColor;
-uint32 MyDrawWinColor;
+uint32 my_back_color;
+uint32 my_fore_color;
+uint32 my_main_win_color;
+uint32 my_draw_win_color;
 uint32 gr_fore;
 uint32 gr_back;
 int32 SCALEY;
@@ -486,10 +486,10 @@ do_main(int32 argc, char **argv) {
         menu_create_them(main_win);
         command_pop =
             XCreateSimpleWindow(display, main_win, 0, dcur_ys + 4, w - 2,
-                                (uint)dcur_y + 4, 2, MyForeColor, MyBackColor);
+                                (uint)dcur_y + 4, 2, my_fore_color, my_back_color);
         info_pop = XCreateSimpleWindow(display, main_win, 0,
                                        (int32)h - dcur_y - 4, w - 2, (uint)dcur_y,
-                                       2, MyForeColor, MyBackColor);
+                                       2, my_fore_color, my_back_color);
         XCreateFontCursor(display, XC_hand2);
         XSelectInput(display, command_pop,
                      KeyPressMask | ButtonPressMask | ExposureMask);
@@ -665,8 +665,8 @@ main_init_x(void) {
                     &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
-        MyForeColor = gr_fore = (uint32)user_col.pixel;
-        Black = MyForeColor;
+        my_fore_color = gr_fore = (uint32)user_col.pixel;
+        Black = my_fore_color;
     }
 
     if (strlen(user_white) != 0) {
@@ -676,13 +676,13 @@ main_init_x(void) {
                     &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
-        MyBackColor = gr_back = (uint32)user_col.pixel;
-        White = MyBackColor;
+        my_back_color = gr_back = (uint32)user_col.pixel;
+        White = my_back_color;
     }
 
     //  Switch for reversed video
-    MyForeColor = gr_fore = Black;
-    MyBackColor = gr_back = White;
+    my_fore_color = gr_fore = Black;
+    my_back_color = gr_back = White;
 
     if (paper_white == 1) {
         // Respect the swapping implied by the -white option.
@@ -692,8 +692,8 @@ main_init_x(void) {
         strcpy(user_white, user_black);
         strcpy(user_black, swapcol);
 
-        MyForeColor = gr_fore = White;
-        MyBackColor = gr_back = Black;
+        my_fore_color = gr_fore = White;
+        my_back_color = gr_back = Black;
     }
 
     if (strlen(user_main_win_color) != 0) {
@@ -703,13 +703,13 @@ main_init_x(void) {
                     user_main_win_color, &main_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &main_win_col);
 
-        MyMainWinColor = (uint32)main_win_col.pixel;
+        my_main_win_color = (uint32)main_win_col.pixel;
     } else {
-        MyMainWinColor = MyBackColor;
+        my_main_win_color = my_back_color;
     }
 
-    XSetWindowBorder(display, main_win, MyForeColor);
-    XSetWindowBackground(display, main_win, MyMainWinColor);
+    XSetWindowBorder(display, main_win, my_fore_color);
+    XSetWindowBackground(display, main_win, my_main_win_color);
 
     if (strlen(UserDrawWinColor) != 0) {
         XColor draw_win_col;
@@ -717,9 +717,9 @@ main_init_x(void) {
                     &draw_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &draw_win_col);
 
-        MyDrawWinColor = (uint32)draw_win_col.pixel;
+        my_draw_win_color = (uint32)draw_win_col.pixel;
     } else {
-        MyDrawWinColor = MyBackColor;
+        my_draw_win_color = my_back_color;
     }
 
     main_fix_window_size(main_win, SCALEX, SCALEY, FIX_MIN_SIZE);
@@ -826,7 +826,7 @@ main_init_x(void) {
         } else {
             Pixmap pmap = XCreatePixmapFromBitmapData(
                 display, main_win, (char *)pixdata, width_return, height_return,
-                MyForeColor, MyMainWinColor,
+                my_fore_color, my_main_win_color,
                 (uint)DefaultDepth(display, DefaultScreen(display)));
             XSetWindowBackgroundPixmap(display, main_win, pmap);
             XFreePixmap(display, pmap);
@@ -1228,8 +1228,8 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
         SCALEY = dp_h;
     }
     wine = XCreateSimpleWindow(display, RootWindow(display, screen), x, y,
-                               (uint)SCALEX, (uint)SCALEY, bw, MyForeColor,
-                               MyBackColor);
+                               (uint)SCALEX, (uint)SCALEY, bw, my_fore_color,
+                               my_back_color);
     XGetIconSizes(display, RootWindow(display, screen), &size_list, &count);
     icon_map = XCreateBitmapFromData(display, wine, (char *)pp_bits, pp_width,
                                      pp_height);
@@ -1362,7 +1362,7 @@ main_get_gc(GC *gc2) {
     uint32 valuemask = 0;
     XGCValues values;
     *gc2 = XCreateGC(display, main_win, valuemask, &values);
-    XSetForeground(display, *gc2, MyForeColor);
+    XSetForeground(display, *gc2, my_fore_color);
     return;
 }
 

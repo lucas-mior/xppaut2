@@ -623,7 +623,7 @@ adjoints_do_liapunov(void) {
         adjoints_hrw_liapunov(&z, 0, NEWT_ERR);
         return;
     }
-    x = &MyData[0];
+    x = &my_data[0];
     integrate_do_range(x, 0);
     // done the range
     for (int32 i = 0; i < LIAP_I; i++) {

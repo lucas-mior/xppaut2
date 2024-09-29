@@ -680,8 +680,8 @@ auto_x11_col(int32 col) {
 
 void
 auto_x11_bw(void) {
-    XSetBackground(display, small_gc, MyBackColor);
-    XSetForeground(display, small_gc, MyForeColor);
+    XSetBackground(display, small_gc, my_back_color);
+    XSetForeground(display, small_gc, my_fore_color);
     return;
 }
 
@@ -715,8 +715,8 @@ auto_x11_xor_cross(int32 x, int32 y) {
     }
 
     if (xorfix) {
-        XSetForeground(display, small_gc, MyDrawWinColor);
-        XSetBackground(display, small_gc, MyForeColor);
+        XSetForeground(display, small_gc, my_draw_win_color);
+        XSetBackground(display, small_gc, my_fore_color);
     }
 
     XSetFunction(display, small_gc, GXxor);
@@ -726,8 +726,8 @@ auto_x11_xor_cross(int32 x, int32 y) {
     XSetFunction(display, small_gc, GXcopy);
     auto_x11_line_width(1);
     if (xorfix) {
-        XSetForeground(display, small_gc, MyForeColor);
-        XSetBackground(display, small_gc, MyDrawWinColor);
+        XSetForeground(display, small_gc, my_fore_color);
+        XSetBackground(display, small_gc, my_draw_win_color);
     }
 
     XFlush(display);
@@ -954,7 +954,7 @@ auto_x11_make(char *wname, char *iname) {
     Auto_y0 = y;
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, wid,
                                       hgt, 4);
-    XSetWindowBackground(display, base, MyMainWinColor);
+    XSetWindowBackground(display, base, my_main_win_color);
     auto_win.base = base;
 
     strcpy(Auto.hinttxt, "hint");
@@ -985,7 +985,7 @@ auto_x11_make(char *wname, char *iname) {
 
     auto_win.canvas = pop_list_make_plain_window(
         base, x, y, STD_WID_var + xmargin, STD_HGT_var + ymargin, 1);
-    XSetWindowBackground(display, auto_win.canvas, MyDrawWinColor);
+    XSetWindowBackground(display, auto_win.canvas, my_draw_win_color);
     XSelectInput(display, auto_win.canvas, MYMASK);
 
     x = dcur_x;

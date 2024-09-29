@@ -59,7 +59,7 @@ static double ustack[200];
 
 Kernel kernel[MAX_KER];
 int32 NKernel;
-int32 MaxPoints;
+int32 max_points;
 int32 NTable;
 
 UFUN_ARG ufun_arg[MAX_UFUN];
@@ -219,7 +219,7 @@ init_rpn(void) {
     NVAR = 0;
     NKernel = 0;
 
-    MaxPoints = 4000;
+    max_points = 4000;
     NSYM = STDSYM;
 
     fun2[4] = (void *)atan2;

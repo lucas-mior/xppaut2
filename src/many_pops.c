@@ -1079,7 +1079,7 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
     graphics_init_all();
 
     graph[0].window = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,
-                                          (uint)h, 2, gr_fore, MyDrawWinColor);
+                                          (uint)h, 2, gr_fore, my_draw_win_color);
     graph[0].w_info = info_pop;
 
     info_message = graph[0].gr_info;
@@ -1310,7 +1310,7 @@ many_pops_create_a_pop(void) {
                             (uint)MINI_W, (uint)MINI_H, 2, gr_fore, gr_back);
     graph[index].w_info = pop_list_make_window(graph[index].window, 10, 0,
                                                40*dcur_xs, dcur_ys, 0);
-    XSetWindowBackground(display, graph[i].window, MyDrawWinColor);
+    XSetWindowBackground(display, graph[i].window, my_draw_win_color);
 
     graphics_copy_graph(index, current_pop);
     graph[index].Width = MINI_W;
@@ -1340,8 +1340,8 @@ many_pops_gr_col(void) {
 
 void
 many_pops_base_col(void) {
-    XSetForeground(display, gc, MyForeColor);
-    XSetBackground(display, gc, MyBackColor);
+    XSetForeground(display, gc, my_fore_color);
+    XSetBackground(display, gc, my_back_color);
     return;
 }
 
@@ -1354,8 +1354,8 @@ many_pops_small_gr(void) {
 
 void
 many_pops_small_base(void) {
-    XSetForeground(display, small_gc, MyForeColor);
-    XSetBackground(display, small_gc, MyBackColor);
+    XSetForeground(display, small_gc, my_fore_color);
+    XSetBackground(display, small_gc, my_back_color);
     return;
 }
 

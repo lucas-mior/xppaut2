@@ -72,17 +72,17 @@ volterra_alloc_memory(void) {
             }
         }
     }
-    volterra_allocate(MaxPoints, 0);
+    volterra_allocate(max_points, 0);
     return;
 }
 
 void
 volterra_allocate(int32 npts, int32 flag) {
     int32 i;
-    int32 oldmem = MaxPoints;
+    int32 oldmem = max_points;
     int32 ntot = NODE + fix_var + NMarkov;
     npts = ABS(npts);
-    MaxPoints = npts;
+    max_points = npts;
     // now allocate the memory
     if (NKernel == 0) {
         return;
@@ -93,7 +93,7 @@ volterra_allocate(int32 npts, int32 flag) {
         }
     }
     for (i = 0; i < ntot; i++) {
-        Memory[i] = xmalloc(sizeof(*Memory)*(usize)MaxPoints);
+        Memory[i] = xmalloc(sizeof(*Memory)*(usize)max_points);
         if (Memory[i] == NULL) {
             break;
         }
@@ -104,12 +104,12 @@ volterra_allocate(int32 npts, int32 flag) {
         exit(0);
     }
     if (i < ntot) {
-        MaxPoints = oldmem;
+        max_points = oldmem;
         for (int32 j = 0; j < i; j++) {
             free(Memory[j]);
         }
         for (i = 0; i < ntot; i++) {
-            Memory[i] = xmalloc(sizeof(*Memory)*(usize)MaxPoints);
+            Memory[i] = xmalloc(sizeof(*Memory)*(usize)max_points);
         }
         ggets_err_msg("Not enough memory...resetting");
     }
@@ -126,7 +126,7 @@ volterra_re_evaluate_kernels(void) {
     }
     for (int32 i = 0; i < NKernel; i++) {
         if (kernel[i].flag == CONV) {
-            for (int32 j = 0; j <= MaxPoints; j++) {
+            for (int32 j = 0; j <= max_points; j++) {
                 SETVAR(0, T0 + delta_t*j);
                 kernel[i].cnv[j] = evaluate(kernel[i].kerform);
             }
@@ -137,7 +137,7 @@ volterra_re_evaluate_kernels(void) {
 
 void
 volterra_alloc_kernels(int32 flag) {
-    int32 n = MaxPoints;
+    int32 n = max_points;
     double mu;
 
     for (int32 i = 0; i < NKernel; i++) {
@@ -210,7 +210,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
         }
     }
     for (int32 i = 1; i <= iend; i++) {
-        ioff = (ishift + i) % MaxPoints;
+        ioff = (ishift + i) % max_points;
         tp += dt;
         SETVAR(PrimeStart, tp);
         for (l = 0; l < nvar; l++) {
@@ -390,9 +390,9 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     double yold;
     double fac;
     double delinv;
-    i0 = MAX(0, CurrentPoint - MaxPoints);
-    iend = MIN(CurrentPoint - 1, MaxPoints - 1);
-    ishift = i0 % MaxPoints;
+    i0 = MAX(0, CurrentPoint - max_points);
+    iend = MIN(CurrentPoint - 1, max_points - 1);
+    ishift = i0 % max_points;
     volterra_init_sums(T0, CurrentPoint, dt, i0, iend,
                        ishift);  //  initialize all the sums
     KnFlag = 0;
@@ -474,7 +474,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     for (int32 i = 0; i < NODE; i++) {
         y[i] = yg[i];
     }
-    ind = CurrentPoint % MaxPoints;
+    ind = CurrentPoint % max_points;
     for (int32 i = 0; i < NODE + fix_var + NMarkov; i++) {
         Memory[i][ind] = GETVAR(i + 1);
     }

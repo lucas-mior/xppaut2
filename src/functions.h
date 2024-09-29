@@ -378,7 +378,7 @@ typedef struct InternSet {
 
 extern InternSet intern_set[MAX_INTERN_SET];
 extern int32 RunImmediately;
-extern int32 MultiWin;
+extern int32 multi_win;
 extern int32 START_LINE_TYPE;
 extern int32 Nintern_set;
 extern double TOR_PERIOD;
@@ -1660,11 +1660,11 @@ typedef struct XppVec {
 extern XppVec xpv;
 
 extern int32 delay_err;
-extern double MyData[MAX_ODE];
-extern double MyTime;
-extern double MyData[MAX_ODE];
-extern double MyTime;
-extern int32 MyStart;
+extern double my_data[MAX_ODE];
+extern double my_time;
+extern double my_data[MAX_ODE];
+extern double my_time;
+extern int32 my_start;
 extern int32 RANGE_FLAG;
 extern double last_time;
 
@@ -2875,8 +2875,8 @@ extern int32 cury_offs;
 extern int32 xor_flag;
 extern GC gc;
 extern GC small_gc;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
+extern uint32 my_back_color;
+extern uint32 my_fore_color;
 
 extern int32 flag_tips;
 extern char user_black[8];
@@ -2885,8 +2885,8 @@ extern int32 UserGradients;
 extern char user_main_win_color[8];
 extern char UserDrawWinColor[8];
 extern char user_bg_bitmap[XPP_MAX_NAME];
-extern uint32 MyMainWinColor;
-extern uint32 MyDrawWinColor;
+extern uint32 my_main_win_color;
+extern uint32 my_draw_win_color;
 extern uint32 gr_fore;
 extern uint32 gr_back;
 

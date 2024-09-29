@@ -30,7 +30,7 @@ int32 IX_PLT[10];
 int32 IY_PLT[10];
 int32 IZ_PLT[10];
 int32 NPltV;
-int32 MultiWin = 0;
+int32 multi_win = 0;
 double X_LO[10];
 double Y_LO[10];
 double X_HI[10];
@@ -1282,7 +1282,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("MULTIWIN", s1)) {
-        MultiWin = 1;
+        multi_win = 1;
         return;
     }
     for (int32 j = 2; j <= 8; j++) {
@@ -1422,7 +1422,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("VMAXPTS", s1)) {
         if ((notAlreadySet.VMAXPTS || force) ||
             ((mask != NULL) && (mask->VMAXPTS == 1))) {
-            MaxPoints = atoi(s2);
+            max_points = atoi(s2);
             notAlreadySet.VMAXPTS = 0;
         }
         return;

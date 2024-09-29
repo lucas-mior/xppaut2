@@ -24,8 +24,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     XFlush(display);
     ggets_chk_xor();
     if (xorfix) {
-        XSetForeground(display, gc, MyDrawWinColor);
-        XSetBackground(display, gc, MyForeColor);
+        XSetForeground(display, gc, my_draw_win_color);
+        XSetBackground(display, gc, my_fore_color);
     }
 
     XSelectInput(display, window,
@@ -39,8 +39,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
             xor_flag = 1;
             ggets_chk_xor();
             if (xorfix) {
-                XSetForeground(display, gc, MyDrawWinColor);
-                XSetBackground(display, gc, MyForeColor);
+                XSetForeground(display, gc, my_draw_win_color);
+                XSetBackground(display, gc, my_fore_color);
             }
             break;
 
@@ -86,8 +86,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     ggets_chk_xor();
 
     if (xorfix) {
-        XSetForeground(display, gc, MyForeColor);
-        XSetBackground(display, gc, MyDrawWinColor);
+        XSetForeground(display, gc, my_fore_color);
+        XSetBackground(display, gc, my_draw_win_color);
     }
 
     if (!error) {

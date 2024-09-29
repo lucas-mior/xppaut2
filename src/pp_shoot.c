@@ -379,11 +379,11 @@ bye:
 void
 pp_shoot_last(int32 flag) {
     double *x;
-    x = &MyData[0];
-    MyStart = 1;
+    x = &my_data[0];
+    my_start = 1;
     integrate_get_ic(2, x);
     STORFLAG = flag;
-    MyTime = T0;
+    my_time = T0;
     if (flag) {
         storage[0][0] = (double)T0;
         main_rhs_extra(x, T0, NODE, NEQ);
@@ -392,7 +392,7 @@ pp_shoot_last(int32 flag) {
         }
         storind = 1;
     }
-    integrate(&MyTime, x, TEND, delta_t, 1, NJMP, &MyStart);
+    integrate(&my_time, x, TEND, delta_t, 1, NJMP, &my_start);
     /* if(flag){
        in_flag=1;
        browser_refresh(storind);

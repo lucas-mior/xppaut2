@@ -111,7 +111,7 @@ lunch_do_info(FILE *fp) {
     fprintf(fp, "bvp_eps=%g,bvp_tol=%g,bpv_maxit=%d \n", bvp_eps, bvp_tol,
             bpv_maxit);
     fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g delay=%g MaxPts=%d\n",
-            delta_t, T0, TRANS, TEND, bound, delay, MaxPoints);
+            delta_t, T0, TRANS, TEND, bound, delay, max_points);
     fprintf(fp, "evec_err=%g, NEWT_ERR=%g h_min=%g h_max=%g TOLER=%g \n",
             evec_err, NEWT_ERR, h_min, h_max, TOLER);
     if (POIVAR == 0) {
@@ -181,7 +181,7 @@ lunch_read(FILE *fp) {
     if (METHOD == VOLTERRA) {
         lunch_io_int(&temp, fp, f, " ");
         volterra_allocate(temp, 1);
-        MyStart = 1;
+        my_start = 1;
     }
     numerics_chk_delay();
     lunch_io_exprs(f, fp);
@@ -239,7 +239,7 @@ do_lunch(int32 f) {
         if (METHOD == VOLTERRA) {
             lunch_io_int(&temp, fp, f, " ");
             volterra_allocate(temp, 1);
-            MyStart = 1;
+            my_start = 1;
         }
         numerics_chk_delay();
         lunch_io_exprs(f, fp);
@@ -268,7 +268,7 @@ do_lunch(int32 f) {
     lunch_io_int(&NUPAR, fp, f, "Number of parameters");
     lunch_io_numerics(f, fp);
     if (METHOD == VOLTERRA) {
-        lunch_io_int(&MaxPoints, fp, f, "Max points for volterra");
+        lunch_io_int(&max_points, fp, f, "Max points for volterra");
     }
     lunch_io_exprs(f, fp);
     lunch_io_graph(f, fp);
@@ -367,9 +367,9 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_int(&POISGN, fp, f, "Poincare sign");
     lunch_io_int(&SOS, fp, f, "Stop on Section");
     lunch_io_int(&delay_flag, fp, f, "Delay flag");
-    lunch_io_double(&MyTime, fp, f, "Current time");
+    lunch_io_double(&my_time, fp, f, "Current time");
     lunch_io_double(&last_time, fp, f, "Last Time");
-    lunch_io_int(&MyStart, fp, f, "MyStart");
+    lunch_io_int(&my_start, fp, f, "my_start");
     lunch_io_int(&in_flag, fp, f, "in_flag");
     return;
 }
@@ -540,7 +540,7 @@ lunch_io_exprs(int32 f, FILE *fp) {
         fprintf(fp, "# Ending  ICs\n");
     }
     for (int32 i = 0; i < NODE + NMarkov; i++) {
-        lunch_io_double(&MyData[i], fp, f, uvar_names[i]);
+        lunch_io_double(&my_data[i], fp, f, uvar_names[i]);
     }
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp);  // skip a line

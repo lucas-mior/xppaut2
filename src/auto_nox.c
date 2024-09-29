@@ -2645,7 +2645,7 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
         fclose(fp);
         return;
     }
-    x = &MyData[0];
+    x = &my_data[0];
     for (i = 0; i < nrow; i++) {
         auto_nox_get_a_row(u, &t, ndim, fp);
         if (Auto.ips != 4) {

@@ -458,7 +458,7 @@ array_plot_button(Window window) {
             array_plot_tag = atoi(values[2]);
             array_plot_range = 1;
             array_plot_range_count = 0;
-            x = &MyData[0];
+            x = &my_data[0];
             integrate_do_range(x, 0);
         }
     }

@@ -861,10 +861,10 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     }
     many_pops_make_icon((char *)browse_bits, browse_width, browse_height, base);
     b->upper = pop_list_make_window(base, 0, 0, width, ystart + drow*6, 1);
-    XSetWindowBackground(display, b->upper, MyMainWinColor);
+    XSetWindowBackground(display, b->upper, my_main_win_color);
     b->main = pop_list_make_plain_window(base, 0, ystart + drow*6, width,
                                          row*drow, 1);
-    XSetWindowBackground(display, b->main, MyDrawWinColor);
+    XSetWindowBackground(display, b->main, my_draw_win_color);
     b->find = browser_button2(base, 0, 0, 0);
     b->get = browser_button2(base, 1, 0, 0);
     b->repl = browser_button2(base, 2, 0, 0);

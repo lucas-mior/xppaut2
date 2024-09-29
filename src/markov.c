@@ -476,7 +476,7 @@ markov_do_stochast_com(int32 i) {
             STOCH_HERE = 0;
         }
         STOCH_FLAG = 1;
-        integrate_do_range(&MyData[0], 0);
+        integrate_do_range(&my_data[0], 0);
         init_conds_redraw_ics();
 
         STOCH_FLAG = 0;

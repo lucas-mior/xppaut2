@@ -627,7 +627,7 @@ pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
                            int32 height, int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
-                              (uint)bw, MyForeColor, MyBackColor);
+                              (uint)bw, my_fore_color, my_back_color);
 
     if (UserGradients == 1) {
         int32 xx, yy;
@@ -705,7 +705,7 @@ pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
                               int32 height, int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
-                              (uint)bw, MyForeColor, MyBackColor);
+                              (uint)bw, my_fore_color, my_back_color);
 
     // Gradient stuff
 
@@ -799,7 +799,7 @@ pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                                    int32 height, int32 bw, uchar *icdata) {
     Window win =
         XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
-                            (uint)bw, MyForeColor, MyBackColor);
+                            (uint)bw, my_fore_color, my_back_color);
 
     // Gradient stuff
 
@@ -936,7 +936,7 @@ pop_list_make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
                                     int32 height, int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
-                              (uint)bw, MyForeColor, MyBackColor);
+                              (uint)bw, my_fore_color, my_back_color);
 
     XSelectInput(display, win,
                  ExposureMask | KeyPressMask | ButtonPressMask |

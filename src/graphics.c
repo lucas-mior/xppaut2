@@ -565,7 +565,7 @@ graphics_set_extra(void) {
     if (NPltV > 8) {
         NPltV = 8;
     }
-    if (MultiWin == 0) {
+    if (multi_win == 0) {
         MyGraph->nvars = NPltV;
         for (int32 i = 1; i < NPltV; i++) {
             MyGraph->xv[i] = IX_PLT[i + 1];

@@ -24,7 +24,7 @@ void
 choice_box_display(Window window, ChoiceBox p) {
     int32 n = p.n;
     XSetFillStyle(display, gc, FillSolid);
-    XSetForeground(display, gc, MyForeColor);
+    XSetForeground(display, gc, my_fore_color);
 
     if (window == p.ok) {
         XDrawString(display, window, gc, 0, cury_off, "Ok", 2);

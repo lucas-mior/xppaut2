@@ -21,7 +21,7 @@ extern char ufun_names[MAX_UFUN][12];
 extern int32 narg_fun[MAX_UFUN];
 
 extern int32 NKernel;
-extern int32 MaxPoints;
+extern int32 max_points;
 extern int32 NTable;
 
 typedef struct Kernel {
