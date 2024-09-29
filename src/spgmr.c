@@ -18,13 +18,7 @@
 #define ZERO 0.0
 #define ONE 1.0
 
-/*************** Private Helper Function Prototype *******************/
-
 static void spgmr_free_vector_array(Vector *A, int32 indMax);
-
-/* Implementation of Spgmr algorithm */
-
-/*************** SpgmrMalloc *****************************************/
 
 SpgmrMem
 spgmr_malloc(int64 N, int32 l_max) {
@@ -462,8 +456,6 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     return SPGMR_CONV_FAIL;
 }
 
-/*************** SpgmrFree *******************************************/
-
 void
 spgmr_free(SpgmrMem mem) {
     int32 l_max;
@@ -489,8 +481,6 @@ spgmr_free(SpgmrMem mem) {
     free(mem);
     return;
 }
-
-/*************** Private Helper Function: FreeVectorArray ************/
 
 static void
 spgmr_free_vector_array(Vector *A, int32 indMax) {
