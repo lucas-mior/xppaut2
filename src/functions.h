@@ -2680,8 +2680,8 @@ void main_rhs_only(double *ydot);
 
 #endif
 
-#ifndef MY_SVG_H
-#define MY_SVG_H
+#ifndef SVG_H
+#define SVG_H
 
 extern FILE *svgfile;
 
