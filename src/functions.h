@@ -2365,13 +2365,6 @@ void markov_nsrand48(int32 seed);
 
 #endif
 
-#ifndef MENU_H
-#define MENU_H
-
-extern int32 help_menu;
-
-#endif
-
 #ifndef MENUDRIVE_H
 #define MENUDRIVE_H
 
@@ -2623,8 +2616,10 @@ void menudrive_do_tutorial(void);
 
 #endif
 
-#ifndef XPPMENU_H
-#define XPPMENU_H
+#ifndef MENU_H
+#define MENU_H
+
+extern int32 help_menu;
 
 void add_menu(Window base, int32 j, int32 n, char **names, char *key,
               char **hint);
