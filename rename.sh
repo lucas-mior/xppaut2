@@ -6,11 +6,11 @@ TYPE="[[:alnum:]_]+"
 FUNC="\**[[:alnum:]_]+"
 files="src/*.c"
 
-grep -E "^$TYPE $FUNC\(" "src/functions.h" \
+grep -E "^$FUNC\(" $files \
 | while read match; do
     file="${match%:*}"
     function="${match##*:}"
-    function="${function#* }"
+    # function="${function#* }"
     function="${function%(*}"
     file="$(grep -l -E "^$function\(" src/*.c | sed -E 's|^src/(cude/\|cvode/)?||g; s/\.c$//;')"
     
