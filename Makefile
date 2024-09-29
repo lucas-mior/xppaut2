@@ -66,8 +66,8 @@ src/extra.o: CFLAGS += -Wno-pedantic
 src/form_ode.o: CFLAGS += -Wno-pedantic
 src/parserslow.o: CFLAGS += -Wno-pedantic
 
-$(TARGET): $(OBJECTS) Makefile src/functions.h
-	$(C) $(CFLAGS) -o $(TARGET) $(filter-out Makefile, $^) $(LDFLAGS) 
+$(TARGET): $(OBJECTS)
+	$(C) $(CFLAGS) -o $(TARGET) $^ $(LDFLAGS) 
 
 %.o: %.c %.h Makefile src/functions.h
 	$(C) $(CFLAGS) -o $@ -c $<
