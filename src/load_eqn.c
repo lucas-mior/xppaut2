@@ -53,12 +53,12 @@ char this_internset[XPP_MAX_NAME];
 int32 mov_ind;
 int32 storind;
 int32 STORFLAG;
-int32 INFLAG;
+int32 in_flag;
 int32 MAXSTOR;
 double x_3d[2];
 double y_3d[2];
 double z_3d[2];
-int32 IXPLT;
+int32 ix_plt;
 int32 IYPLT;
 int32 IZPLT;
 int32 axes;
@@ -112,7 +112,7 @@ int32 FFT;
 int32 NULL_HERE;
 int32 POIEXT;
 int32 hist;
-int32 HVAR;
+int32 h_var;
 int32 hist_ind;
 int32 forever;
 
@@ -382,7 +382,7 @@ load_eqn_set_all_vals(void) {
 
     STORFLAG = 0;
 
-    INFLAG = 0;
+    in_flag = 0;
     solver = odesol_rung_kut;
     PLOT_3D = 0;
     if (notAlreadySet.METHOD) {
@@ -469,9 +469,9 @@ load_eqn_set_all_vals(void) {
         TEND = 20.00;
         notAlreadySet.TEND = 0;
     }
-    if (notAlreadySet.IXPLT) {
-        IXPLT = 0;
-        notAlreadySet.IXPLT = 0;
+    if (notAlreadySet.ix_plt) {
+        ix_plt = 0;
+        notAlreadySet.ix_plt = 0;
     }
     if (notAlreadySet.IYPLT) {
         IYPLT = 1;
@@ -490,7 +490,7 @@ load_eqn_set_all_vals(void) {
         }
         NPltV = 1;
         for (int32 i = 0; i < 10; i++) {
-            IX_PLT[i] = IXPLT;
+            IX_PLT[i] = ix_plt;
             IY_PLT[i] = IYPLT;
             IZ_PLT[i] = IZPLT;
             X_LO[i] = 0;
@@ -523,7 +523,7 @@ load_eqn_set_all_vals(void) {
     if (IYPLT > NEQ) {
         IYPLT = NEQ;
     }
-    if (IXPLT == 0 || IYPLT == 0) {
+    if (ix_plt == 0 || IYPLT == 0) {
         TIMPLOT = 1;
     } else {
         TIMPLOT = 0;
@@ -589,9 +589,9 @@ load_eqn_read_defaults(FILE *fp) {
         load_eqn_fil_int(fp, &paper_white);
         notAlreadySet.paper_white = 0;
     }
-    if (notAlreadySet.IXPLT) {
-        load_eqn_fil_int(fp, &IXPLT);
-        notAlreadySet.IXPLT = 0;
+    if (notAlreadySet.ix_plt) {
+        load_eqn_fil_int(fp, &ix_plt);
+        notAlreadySet.ix_plt = 0;
     }
     if (notAlreadySet.IYPLT) {
         load_eqn_fil_int(fp, &IYPLT);
@@ -1336,10 +1336,10 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             ((mask != NULL) && (mask->XP == 1))) {
             browser_find_variable(s2, &i);
             if (i > -1) {
-                IXPLT = i;
+                ix_plt = i;
             }
             notAlreadySet.XP = 0;
-            notAlreadySet.IXPLT = 0;
+            notAlreadySet.ix_plt = 0;
         }
         return;
     }

@@ -295,7 +295,7 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
    command =0 continue, 1 is start 2 finish   */
     if (METHOD == GEAR) {
         gear(NODE, &t, t1, y, h_min, h_max, TOLER, 2, error, &kflag, istart, WORK,
-             IWORK);
+             i_work);
         if (kflag < 0) {
             ggets_ping();
             switch (kflag) {

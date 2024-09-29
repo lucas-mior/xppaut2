@@ -602,7 +602,7 @@ graphics_reset_graph(void) {
     } else {
         PLOT_3D = 0;
     }
-    MyGraph->xv[0] = IXPLT;
+    MyGraph->xv[0] = ix_plt;
     MyGraph->yv[0] = IYPLT;
     MyGraph->zv[0] = IZPLT;
     MyGraph->xmax = x_3d[1];
@@ -639,7 +639,7 @@ graphics_get_graph(void) {
     MY_YLO = MyGraph->ylo;
     MY_XHI = MyGraph->xhi;
     MY_YHI = MyGraph->yhi;
-    IXPLT = MyGraph->xv[0];
+    ix_plt = MyGraph->xv[0];
     IYPLT = MyGraph->yv[0];
     IZPLT = MyGraph->zv[0];
     PLOT_3D = MyGraph->ThreeDFlag;
@@ -668,7 +668,7 @@ graphics_init(int32 i) {
     }
     graph[i].nvars = 1;
     for (int32 j = 0; j < MAXPERPLOT; j++) {
-        graph[i].xv[j] = IXPLT;
+        graph[i].xv[j] = ix_plt;
         graph[i].yv[j] = IYPLT;
         graph[i].zv[j] = IZPLT;
         graph[i].line[j] = START_LINE_TYPE;

@@ -70,7 +70,7 @@ int32 bvp_n;
 int32 convert_style = 0;
 FILE *convertf;
 static int32 OldStyle = 1;
-int32 IN_VARS;
+int32 in_vars;
 int32 NMarkov;
 
 int32 fix_var;
@@ -284,7 +284,7 @@ form_ode_get_eqn(FILE *fptr) {
     int32 flag;
     init_rpn();
     NLINES = 0;
-    IN_VARS = 0;
+    in_vars = 0;
     NODE = 0;
     bvp_n = 0;
     NUPAR = 0;
@@ -347,15 +347,15 @@ form_ode_get_eqn(FILE *fptr) {
             " Must have at least one equation! \n Probably not an ODE file.\n");
         exit(0);
     }
-    if (bvp_n > IN_VARS) {
+    if (bvp_n > in_vars) {
         ggets_plintf("Too many boundary conditions\n");
         exit(0);
     }
-    if (bvp_n < IN_VARS) {
+    if (bvp_n < in_vars) {
         if (bvp_n > 0) {
             printf("Warning: Too few boundary conditions\n");
         }
-        for (i = bvp_n; i < IN_VARS; i++) {
+        for (i = bvp_n; i < in_vars; i++) {
             my_bc[i].com = xmalloc(200*sizeof(*(my_bc[i].com)));
             my_bc[i].string = xmalloc(256);
             my_bc[i].name = xmalloc(10);
@@ -370,11 +370,11 @@ form_ode_get_eqn(FILE *fptr) {
         ggets_plintf(" Too many/few equations\n");
         exit(0);
     }
-    if (IN_VARS > NEQ) {
+    if (in_vars > NEQ) {
         ggets_plintf(" Too many variables\n");
         exit(0);
     }
-    NODE = IN_VARS;
+    NODE = in_vars;
 
     for (i = 0; i < Naux; i++) {
         strcpy(uvar_names[i + NODE + NMarkov], aux_names[i]);
@@ -618,9 +618,9 @@ form_ode_compiler(char *bob, FILE *fptr) {
         my_string = form_ode_do_fit_get_next(" \n");
         nstates = atoi(my_string);
         parserslow_add_var(name, value);
-        strcpy(uvar_names[IN_VARS + NMarkov], name);
-        last_ic[IN_VARS + NMarkov] = value;
-        default_ic[IN_VARS + NMarkov] = value;
+        strcpy(uvar_names[in_vars + NMarkov], name);
+        last_ic[in_vars + NMarkov] = value;
+        default_ic[in_vars + NMarkov] = value;
         ggets_plintf(" Markov variable %s=%f has %d states \n", name, value,
                      nstates);
         if (OldStyle) {
@@ -636,11 +636,11 @@ form_ode_compiler(char *bob, FILE *fptr) {
         nlin = NLINES;
         index = markov_old_build(fptr, name);
         nn = (int32)strlen(save_eqn[nlin]);
-        if ((ode_names[IN_VARS + index] = xmalloc((usize)nn + 10)) == NULL) {
+        if ((ode_names[in_vars + index] = xmalloc((usize)nn + 10)) == NULL) {
             exit(0);
         }
         strcpy(formula, save_eqn[nlin]);
-        sprintf(ode_names[IN_VARS + index], "{ %s ... }", formula);
+        sprintf(ode_names[in_vars + index], "{ %s ... }", formula);
         break;
     case 'v':
         iflg = 1;
@@ -658,7 +658,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         }
         form_ode_advance_past_first_word(&ptr);
         while ((my_string = form_ode_get_next2(&ptr)) != NULL) {
-            if ((IN_VARS > NEQ) || (IN_VARS == MAX_ODE)) {
+            if ((in_vars > NEQ) || (in_vars == MAX_ODE)) {
                 ggets_plintf(" too many variables at line %d\n", NLINES);
                 exit(0);
             }
@@ -669,10 +669,10 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 exit(0);
             }
             if (iflg) {
-                strcpy(uvar_names[IN_VARS], name);
-                last_ic[IN_VARS] = value;
-                default_ic[IN_VARS] = value;
-                IN_VARS++;
+                strcpy(uvar_names[in_vars], name);
+                last_ic[in_vars] = value;
+                default_ic[in_vars] = value;
+                in_vars++;
                 if (convert_style) {
                     fprintf(convertf, "%s=%g  ", name, value);
                 }
@@ -816,7 +816,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             exit(0);
         }
 
-        if (NODE < IN_VARS) {
+        if (NODE < in_vars) {
             if ((ode_names[NODE] = xmalloc((usize)nn + 5)) == NULL) {
                 ggets_plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
@@ -835,15 +835,15 @@ form_ode_compiler(char *bob, FILE *fptr) {
             eq_type[NODE] = VFlag;
             VFlag = 0;
         }
-        if (NODE >= IN_VARS && NODE < (IN_VARS + fix_var)) {
+        if (NODE >= in_vars && NODE < (in_vars + fix_var)) {
             if (convert_style) {
-                fprintf(convertf, "%s=%s\n", fixname[NODE - IN_VARS], formula);
+                fprintf(convertf, "%s=%s\n", fixname[NODE - in_vars], formula);
             }
             form_ode_find_ker(formula, &alt);
         }
 
-        if (NODE >= (IN_VARS + fix_var)) {
-            i = NODE - (IN_VARS + fix_var);
+        if (NODE >= (in_vars + fix_var)) {
+            i = NODE - (in_vars + fix_var);
             if ((ode_names[NODE - fix_var + NMarkov] = xmalloc((usize)nn)) ==
                 NULL) {
                 ggets_plintf("Out of memory at line %d\n", NLINES);
@@ -1653,7 +1653,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         }
         dae_fun_add_svar_names();
 
-        IN_VARS = nvar;
+        in_vars = nvar;
         Naux = naux;
         NEQ = nvar + NMarkov + Naux;
         fix_var = nfix;
@@ -1683,7 +1683,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                     form_ode_take_apart(my_string, &z, name);
                     free(my_string);
                     convert(name, tmp);
-                    in = form_ode_find_the_name(vnames, IN_VARS, tmp);
+                    in = form_ode_find_the_name(vnames, in_vars, tmp);
                     if (in >= 0) {
                         last_ic[in] = z;
                         default_ic[in] = z;
@@ -1692,8 +1692,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                     } else {
                         in = form_ode_find_the_name(mnames, NMarkov, tmp);
                         if (in >= 0) {
-                            last_ic[in + IN_VARS] = z;
-                            default_ic[in + IN_VARS] = z;
+                            last_ic[in + in_vars] = z;
+                            default_ic[in + in_vars] = z;
                             set_val(tmp, z);
                             ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
                         } else {
@@ -1716,7 +1716,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                     }
                 }
 
-                in = form_ode_find_the_name(vnames, IN_VARS, tmp);
+                in = form_ode_find_the_name(vnames, in_vars, tmp);
                 if (in >= 0) {
                     last_ic[in] = z;
                     default_ic[in] = z;
@@ -1728,8 +1728,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 } else {
                     in = form_ode_find_the_name(mnames, NMarkov, tmp);
                     if (in >= 0) {
-                        last_ic[in + IN_VARS] = z;
-                        default_ic[in + IN_VARS] = z;
+                        last_ic[in + in_vars] = z;
+                        default_ic[in + in_vars] = z;
                         set_val(tmp, z);
                         ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
                     } else {
@@ -1780,10 +1780,10 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 break;
             case FIXED:
                 form_ode_find_ker(v2->rhs, &alt);
-                if ((my_ode[nfix + IN_VARS] =
+                if ((my_ode[nfix + in_vars] =
                          xmalloc(MAXEXPLEN*sizeof(int32))) == NULL ||
-                    parserslow_add_expr(v2->rhs, my_ode[nfix + IN_VARS],
-                                        &leng[IN_VARS + nfix]) != 0) {
+                    parserslow_add_expr(v2->rhs, my_ode[nfix + in_vars],
+                                        &leng[in_vars + nfix]) != 0) {
                     ggets_plintf(" Error allocating or compiling %s\n",
                                  v2->lhs);
                     exit(0);
@@ -1799,8 +1799,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 break;
 
             case AUX_VAR:
-                in1 = IN_VARS + NMarkov + naux;
-                in2 = IN_VARS + fix_var + naux;
+                in1 = in_vars + NMarkov + naux;
+                in2 = in_vars + fix_var + naux;
                 nn = (int32)strlen(v2->rhs) + 1;
                 if ((ode_names[in1] = xmalloc((usize)nn + 2)) == NULL ||
                     (my_ode[in2] = xmalloc(MAXEXPLEN*sizeof(int32))) ==
@@ -1834,13 +1834,13 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             case MARKOV_VAR:
                 nn = (int32)strlen(v2->rhs) + 1;
 
-                if ((ode_names[IN_VARS + nmark] = xmalloc((usize)nn + 2)) ==
+                if ((ode_names[in_vars + nmark] = xmalloc((usize)nn + 2)) ==
                     NULL) {
                     ggets_plintf(" Out of memory for  %s \n", v2->lhs);
                     exit(0);
                 }
-                strncpy(ode_names[IN_VARS + nmark], v2->rhs, (usize)nn);
-                ode_names[IN_VARS + nmark][nn] = 0;
+                strncpy(ode_names[in_vars + nmark], v2->rhs, (usize)nn);
+                ode_names[in_vars + nmark][nn] = 0;
                 nmark++;
                 ggets_plintf("%s: %s", v2->lhs, v2->rhs);
                 break;

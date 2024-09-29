@@ -363,7 +363,7 @@ pp_shoot_find_bvp_com(int32 com) {
             ggets_reset_graphics();
         }
         pp_shoot_last(1);
-        INFLAG = 1;
+        in_flag = 1;
         browser_refresh(storind);
         graf_par_auto_freeze_it();
         ggets_ping();
@@ -394,7 +394,7 @@ pp_shoot_last(int32 flag) {
     }
     integrate(&MyTime, x, TEND, delta_t, 1, NJMP, &MyStart);
     /* if(flag){
-       INFLAG=1;
+       in_flag=1;
        browser_refresh(storind);
      }
      */

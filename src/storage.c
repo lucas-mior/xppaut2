@@ -6,7 +6,7 @@
 
 double **storage;
 double *WORK;
-int32 IWORK[10000];
+int32 i_work[10000];
 
 #define BACKEUL 7
 #define VOLTERRA 6

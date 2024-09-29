@@ -247,7 +247,7 @@ integrate_cont_integ(void) {
     double *x;
     double dif;
 
-    if (INFLAG == 0 || FFT != 0 || hist != 0) {
+    if (in_flag == 0 || FFT != 0 || hist != 0) {
         return;
     }
     tetemp = TEND;
@@ -980,7 +980,7 @@ integrate_do_range(double *x, int32 flag) {
     }
     derived_evaluate();
     MyGraph->color[0] = color;
-    INFLAG = 1;
+    in_flag = 1;
 
     ggets_ping();
     adj_range = false;
@@ -1211,7 +1211,7 @@ batch_integrate_once(void) {
                 " Integration not completed -- will write anyway...\n");
         }
 
-        INFLAG = 1;
+        in_flag = 1;
         browser_refresh(storind);
     }
     histogram_post_process_stuff();
@@ -1312,7 +1312,7 @@ integrate_do_init_data(int32 com) {
         return;
     case M_IS:
     case M_IL:
-        if (INFLAG == 0) {
+        if (in_flag == 0) {
             ggets_ping();
             ggets_err_msg("No prior solution");
             return;
@@ -1524,7 +1524,7 @@ usual_integrate_stuff(double *x) {
     integrate(&MyTime, x, TEND, delta_t, 1, NJMP, &MyStart);
 
     ggets_ping();
-    INFLAG = 1;
+    in_flag = 1;
     browser_refresh(storind);
     if (Xup) {
         graf_par_auto_freeze_it();
@@ -1849,7 +1849,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                 *istart = 0;
             }
             gear(nodes, t, tout, xpv.x, h_min, h_max, TOLER, 2, error, &kflag,
-                 istart, WORK, IWORK);
+                 istart, WORK, i_work);
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
                 ggets_ping();
@@ -2058,7 +2058,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             MSWTCH(xpv.x, x);
 
             gear(nodes, t, tout, xpv.x, h_min, h_max, TOLER, 2, error, &kflag,
-                 start, WORK, IWORK);
+                 start, WORK, i_work);
 
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);

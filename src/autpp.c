@@ -59,16 +59,16 @@ stpnt(int64 ndim, double t, double *u, double *par) {
 
     auto_nox_get_start_period(&p);
     par[10] = p;
-    if (HomoFlag != 1) {
+    if (homo_flag != 1) {
         auto_nox_get_start_orbit(u, t, (int32)ndim);
     }
-    if (HomoFlag == 1) {
+    if (homo_flag == 1) {
         auto_nox_get_shifted_orbit(u, t, p, (int32)ndim);
         for (int32 i = 0; i < ndim; i++) {
             par[11 + i] = homo_l[i];
         }
     }
-    if (HomoFlag == 2) {  // heteroclinic
+    if (homo_flag == 2) {  // heteroclinic
         for (int32 i = 0; i < ndim; i++) {
             par[11 + i] = homo_l[i];
             par[11 + i + ndim] = homo_r[i];

@@ -222,7 +222,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.BIG_FONT_NAME = 1;
     notAlreadySet.SMALL_FONT_NAME = 1;
     notAlreadySet.BACKGROUND = 1;
-    notAlreadySet.IXPLT = 1;
+    notAlreadySet.ix_plt = 1;
     notAlreadySet.IYPLT = 1;
     notAlreadySet.IZPLT = 1;
     notAlreadySet.axes = 1;

@@ -107,13 +107,13 @@ numerics_get_num_par(int32 ch) {
         if (delay > 0.0) {
             delay_handle_free_delay();
             if (delay_handle_alloc_delay(delay)) {
-                INFLAG = 0;  //  Make sure no last ics allowed
+                in_flag = 0;  //  Make sure no last ics allowed
             }
         } else {
             delay_handle_free_delay();
         }
         if (NKernel > 0) {
-            INFLAG = 0;
+            in_flag = 0;
             MyStart = 1;
             volterra_alloc_kernels(1);
         }
@@ -238,7 +238,7 @@ numerics_get_num_par(int32 ch) {
         if (delay > 0.0) {
             delay_handle_free_delay();
             if (delay_handle_alloc_delay(delay)) {
-                INFLAG = 0;  //  Make sure no last ics allowed
+                in_flag = 0;  //  Make sure no last ics allowed
             }
         } else {
             delay_handle_free_delay();
@@ -299,7 +299,7 @@ numerics_chk_delay(void) {
     if (delay > 0.0) {
         delay_handle_free_delay();
         if (delay_handle_alloc_delay(delay)) {
-            INFLAG = 0;  //  Make sure no last ics allowed
+            in_flag = 0;  //  Make sure no last ics allowed
         }
     } else {
         delay_handle_free_delay();
@@ -315,7 +315,7 @@ numerics_set_delay(void) {
     if (delay > 0.0) {
         delay_handle_free_delay();
         if (delay_handle_alloc_delay(delay)) {
-            INFLAG = 0;
+            in_flag = 0;
         }
     }
     return;

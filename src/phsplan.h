@@ -15,7 +15,7 @@ extern int32 PLOT_3D;
 extern double **storage;
 extern int32 storind;
 extern int32 MAXSTOR;
-extern int32 INFLAG;
+extern int32 in_flag;
 extern int32 MY_STOR;
 extern int32 STORFLAG;
 
@@ -43,7 +43,7 @@ extern int32 FFT;
 
 extern double *hist_data;
 extern int32 hist;
-extern int32 HVAR;
+extern int32 h_var;
 extern int32 hist_ind;
 
 extern double TEND;

@@ -419,14 +419,14 @@ extern char this_internset[XPP_MAX_NAME];
 extern int32 mov_ind;
 extern int32 storind;
 extern int32 STORFLAG;
-extern int32 INFLAG;
+extern int32 in_flag;
 extern int32 MAXSTOR;
 
 extern double x_3d[2];
 extern double y_3d[2];
 extern double z_3d[2];
 
-extern int32 IXPLT;
+extern int32 ix_plt;
 extern int32 IYPLT;
 extern int32 IZPLT;
 
@@ -1274,7 +1274,7 @@ extern int32 convert_style;
 extern int32 NODE;
 extern int32 NUPAR;
 extern int32 NLINES;
-extern int32 IN_VARS;
+extern int32 in_vars;
 extern int32 leng[MAX_ODE];
 
 int32 form_ode_make_eqn(void);
@@ -2036,7 +2036,7 @@ typedef struct OptionsSet {
     int32 BIG_FONT_NAME;
     int32 SMALL_FONT_NAME;
     int32 BACKGROUND;
-    int32 IXPLT;
+    int32 ix_plt;
     int32 IYPLT;
     int32 IZPLT;
     int32 axes;
@@ -2786,7 +2786,7 @@ extern int32 POISGN;
 extern int32 SOS;
 
 extern int32 hist;
-extern int32 HVAR;
+extern int32 h_var;
 extern int32 hist_ind;
 
 void numerics_chk_volterra(void);
@@ -3059,7 +3059,7 @@ void stiff_rkck(double *y, double *dydx, int32 n, double x, double h,
 
 extern double **storage;
 extern double *WORK;
-extern int32 IWORK[10000];
+extern int32 i_work[10000];
 
 void storage_init_alloc_info(void);
 void storage_alloc_meth(void);

@@ -6,7 +6,7 @@
 #include "autlim.h"
 #define MAX_AUT_PER 10
 
-extern int32 HomoFlag;
+extern int32 homo_flag;
 
 typedef struct {
     int32 irot;

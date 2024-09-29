@@ -370,7 +370,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_double(&MyTime, fp, f, "Current time");
     lunch_io_double(&LastTime, fp, f, "Last Time");
     lunch_io_int(&MyStart, fp, f, "MyStart");
-    lunch_io_int(&INFLAG, fp, f, "INFLAG");
+    lunch_io_int(&in_flag, fp, f, "in_flag");
     return;
 }
 

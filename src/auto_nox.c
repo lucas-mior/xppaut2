@@ -141,7 +141,7 @@ static double XfromAuto;
 static double YfromAuto;
 static int32 FromAutoFlag = 0;
 
-int32 HomoFlag = 0;
+int32 homo_flag = 0;
 double homo_l[100];
 double homo_r[100];
 static double HOMO_SHIFT = 0.0;
@@ -1590,7 +1590,7 @@ auto_nox_init_win(void) {
     Auto.isw = 1;
     Auto.nbc = NODE;
     Auto.nfpar = 1;
-    HomoFlag = 0;
+    homo_flag = 0;
     //  User controls this
     Auto.ncol = auto_ncol;
     Auto.ntst = auto_ntst;
@@ -1816,7 +1816,7 @@ auto_nox_run(void) {
                             "Homoclinic", "hEteroclinic"};
         static char key[] = "spbhe";
         char ch2;
-        HomoFlag = 0;
+        homo_flag = 0;
         if (METHOD == DISCRETE) {
             // auto new discrete
             int32 opn = NO_OPEN_3, cls = OVERWRITE;
@@ -1898,13 +1898,13 @@ auto_nox_run(void) {
             return;
         }
         if (ch2 == 'h') {
-            HomoFlag = 1;
+            homo_flag = 1;
             auto_nox_start_at_homoclinic();
             return;
         }
 
         if (ch2 == 'e') {
-            HomoFlag = 2;
+            homo_flag = 2;
             auto_nox_start_at_homoclinic();
             return;
         }
@@ -2166,10 +2166,10 @@ auto_nox_homo_choice(int32 itp) {
         Auto.isp = 0;
         Auto.nbc = 0;
 
-        if (HomoFlag == 1) {
+        if (homo_flag == 1) {
             x_auto.iequib = 1;
         }
-        if (HomoFlag == 2) {
+        if (homo_flag == 2) {
             x_auto.iequib = -2;
         }
 
@@ -2388,7 +2388,7 @@ auto_nox_get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
         *nst = atoi(v[NODE + 1]);
         for (i = 0; i < NODE; i++) {
             ul[i] = atof(v[i + 1]);
-            if (HomoFlag == 2) {
+            if (homo_flag == 2) {
                 ur[i] = atof(v[i + 2 + NODE]);
             }
         }
@@ -2420,11 +2420,11 @@ auto_nox_start_at_homoclinic(void) {
     Auto.isp = 0;
     Auto.nbc = 0;
 
-    if (HomoFlag == 1) {
+    if (homo_flag == 1) {
         x_auto.iequib = 1;
         auto_nox_find_best_homo_shift(NODE);
     }
-    if (HomoFlag == 2) {
+    if (homo_flag == 2) {
         x_auto.iequib = -2;
     }
     flag =
