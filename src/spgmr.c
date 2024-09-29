@@ -23,14 +23,11 @@ spgmr_malloc(int64 N, int32 l_max) {
     Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
 
-    // Check the input parameters
-
     if ((N <= 0) || (l_max <= 0)) {
         return NULL;
     }
 
     // Get memory for the Krylov basis vectors V[0], ..., V[l_max]
-
     V = xmalloc((usize)(l_max + 1)*sizeof(*V));
     if (V == NULL) {
         return NULL;
@@ -45,7 +42,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     }
 
     // Get memory for the Hessenberg matrix Hes
-
     Hes = xmalloc((usize)(l_max + 1)*sizeof(*Hes));
     if (Hes == NULL) {
         spgmr_free_vector_array(V, l_max);
@@ -64,7 +60,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     }
 
     // Get memory for Givens rotation components
-
     givens = xmalloc(2*(usize)l_max*sizeof(*givens));
     if (givens == NULL) {
         for (int32 i = 0; i <= l_max; i++) {
@@ -75,7 +70,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     }
 
     // Get memory to hold the correction to z_tilde
-
     xcor = vector_new(N);
     if (xcor == NULL) {
         free(givens);
@@ -87,7 +81,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     }
 
     // Get memory to hold SPGMR y and g vectors
-
     yg = xmalloc(((usize)l_max + 1)*sizeof(*yg));
     if (yg == NULL) {
         vector_free(xcor);
@@ -100,7 +93,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     }
 
     // Get an array to hold a temporary vector
-
     vtemp = vector_new(N);
     if (vtemp == NULL) {
         free(yg);
@@ -114,7 +106,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     }
 
     // Get memory for an SpgmrMemRec containing SPGMR matrices and vectors
-
     mem = xmalloc(sizeof(*mem));
     if (mem == NULL) {
         vector_free(vtemp);
@@ -129,7 +120,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     }
 
     // Set the fields of mem
-
     mem->N = N;
     mem->l_max = l_max;
     mem->V = V;
@@ -140,11 +130,8 @@ spgmr_malloc(int64 N, int32 l_max) {
     mem->vtemp = vtemp;
 
     // Return the pointer to SPGMR memory
-
     return mem;
 }
-
-/*************** spgmr_solve ******************************************/
 
 int32
 spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
@@ -175,7 +162,6 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     }
 
     // Make local copies of mem variables
-
     l_max = mem->l_max;
     V = mem->V;
     Hes = mem->Hes;
@@ -202,7 +188,6 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     scale_b = (sb != NULL);
 
     // Set vtemp and V[0] to initial (unscaled) residual r_0 = b - A*x_0
-
     if (vector_dot_prod(x, x) == 0.0) {
         vector_scale(1.0, b, vtemp);
     } else {
@@ -247,11 +232,9 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     }
 
     // Set xcor = 0
-
     vector_const(0.0, xcor);
 
     // Begin outer iterations: up to (max_restarts + 1) attempts
-
     for (ntries = 0; ntries <= max_restarts; ntries++) {
         /* Initialize the Hessenberg matrix Hes and Givens rotation
            product.  Normalize the initial vector V[0].             */
@@ -267,14 +250,12 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
         vector_scale(1.0 / r_norm, V[0], V[0]);
 
         // Inner loop: generate Krylov sequence and Arnoldi basis
-
         for (l = 0; l < l_max; l++) {
             (*nli)++;
 
             krydim = l_plus_1 = l + 1;
 
-            /* Generate A-tilde V[l], where A-tilde = sb P1_inv A P2_inv sx_inv
-             */
+            // Generate A-tilde V[l], where A-tilde = sb P1_inv A P2_inv sx_inv
 
             // Apply x-scaling: vtemp = sx_inv V[l]
             if (scale_x) {
@@ -299,8 +280,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                 return SPGMR_ATIMES_FAIL;
             }
 
-            /* Apply left preconditioning: vtemp = P1_inv A P2_inv sx_inv V[l]
-             */
+            // Apply left preconditioning: vtemp = P1_inv A P2_inv sx_inv V[l]
             if (preOnLeft) {
                 ier = psolve(P_data, V[l_plus_1], vtemp, PRE_LEFT);
                 (*nps)++;
@@ -320,7 +300,6 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             }
 
             //  Orthogonalize V[l+1] against previous V[i]: V[l+1] = w_tilde.
-
             if (gstype == CLASSICAL_GS) {
                 if (iterativ_classical_gs(V, Hes, l_plus_1, l_max,
                                           &(Hes[l_plus_1][l]), vtemp,
@@ -335,13 +314,11 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             }
 
             //  Update the QR factorization of Hes
-
             if (iterativ_qr_fact(krydim, Hes, givens, l) != 0) {
                 return SPGMR_QRFACT_FAIL;
             }
 
-            /*  Update residual norm estimate; break if convergence test passes
-             */
+            // Update residual norm estimate; break if convergence test passes
 
             rotation_product *= givens[2*l + 1];
 
@@ -388,15 +365,13 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                 vector_scale(1.0, xcor, vtemp);
             }
 
-            /* Add correction to initial x to get final solution x, and return
-             */
+            // Add correction to initial x to get final solution x, and return
             vector_linear_sum(1.0, x, 1.0, vtemp, x);
 
             return SPGMR_SUCCESS;
         }
 
         // Not yet converged; if allowed, prepare for restart
-
         if (ntries == max_restarts) {
             break;
         }
