@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include "cvode.h"
 #include "functions.h"
+#include "band.h"
 #include "vector.h"
 #include "integers.h"
 

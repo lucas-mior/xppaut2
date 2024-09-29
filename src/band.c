@@ -14,6 +14,7 @@
 #include "functions.h"
 #include "integers.h"
 #include "vector.h"
+#include "band.h"
 
 #define ZERO 0.0
 #define ONE 1.0
