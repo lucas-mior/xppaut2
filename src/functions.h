@@ -952,63 +952,60 @@ typedef void (*FcnEqDiff)(uint32 n, double x, double *y, double *f);
 typedef void (*SolTrait)(long nr, double xold, double x, double *y, uint32 n,
                          int32 *irtrn);
 
-int32 dop853(uint32 n,       // dimension of the system <= UINT_MAX-1
-             FcnEqDiff fcn,  // function computing the value of f(x,y)
-             double x,       // initial x-value
-             double *y,      // initial values for y
-             double xend,  // final x-value (xend-x may be positive or negative)
-             double *rtoler,  // relative error tolerance
-             double *atoler,  // absolute error tolerance
-             int32 itoler,    // switch for rtoler and atoler
-             SolTrait solout, /* function providing the numerical solution
-                                 during integration */
-             int32 iout,      // switch for calling solout
-             FILE *fileout,   // messages stream
-             double uround,   // rounding unit
-             double safe,     // safety factor
-             double fac1,     // parameters for step size selection
-             double fac2, double beta,  // for stabilized step size control
-             double hmax,               // maximal step size
-             double h,                  // initial step size
-             long nmax,                 // maximal number of allowed steps
-             int32 meth,     // switch for the choice of the coefficients
-             long nstiff,    // test for stiffness
-             uint32 nrdens,  /* number of components for which dense outpout is
-                                  required */
-             uint32 *icont,  /* indexes of components for which dense output is
-                                  required, >= nrdens */
-             uint32 licont,  // declared length of icon
-             double *work);
+int32 dop853(
+    uint32 n,        // dimension of the system <= UINT_MAX-1
+    FcnEqDiff fcn,   // function computing the value of f(x,y)
+    double x,        // initial x-value
+    double *y,       // initial values for y
+    double xend,     // final x-value (xend-x may be positive or negative)
+    double *rtoler,  // relative error tolerance
+    double *atoler,  // absolute error tolerance
+    int32 itoler,    // switch for rtoler and atoler
+    SolTrait solout, // function providing the numerical solution during integration
+    int32 iout,      // switch for calling solout
+    FILE *fileout,   // messages stream
+    double uround,   // rounding unit
+    double safe,     // safety factor
+    double fac1,     // parameters for step size selection
+    double fac2,
+    double beta,     // for stabilized step size control
+    double hmax,     // maximal step size
+    double h,        // initial step size
+    long nmax,       // maximal number of allowed steps
+    int32 meth,      // switch for the choice of the coefficients
+    long nstiff,     // test for stiffness
+    uint32 nrdens,   // number of components for which dense outpout is required
+    uint32 *icont,   // indexes of components for which dense output is required, >= nrdens */
+    uint32 licont,   // declared length of icon
+    double *work);
 
 extern int32
-dopri5(uint32 n,        // dimension of the system <= UINT_MAX-1
-       FcnEqDiff fcn,   // function computing the value of f(x,y)
-       double x,        // initial x-value
-       double *y,       // initial values for y
-       double xend,     // final x-value (xend-x may be positive or negative)
-       double *rtoler,  // relative error tolerance
-       double *atoler,  // absolute error tolerance
-       int32 itoler,    // switch for rtoler and atoler
-       SolTrait solout, /* function providing the numerical solution during
-                           integration */
-       int32 iout,      // switch for calling solout
-       FILE *fileout,   // messages stream
-       double uround,   // rounding unit
-       double safe,     // safety factor
-       double fac1,     // parameters for step size selection
-       double fac2,
-       double beta,     // for stabilized step size control
-       double hmax,     // maximal step size
-       double h,        // initial step size
-       long nmax,       // maximal number of allowed steps
-       int32 meth,      // switch for the choice of the coefficients
-       long nstiff,     // test for stiffness
-       uint32 nrdens,  /* number of components for which dense outpout is
-                          required */
-       uint32 *icont,  /* indexes of components for which dense output is
-                          required, >= nrdens */
-       uint32 licont,  // declared length of icon
-       double *work);
+dopri5(
+    uint32 n,        // dimension of the system <= UINT_MAX-1
+    FcnEqDiff fcn,   // function computing the value of f(x,y)
+    double x,        // initial x-value
+    double *y,       // initial values for y
+    double xend,     // final x-value (xend-x may be positive or negative)
+    double *rtoler,  // relative error tolerance
+    double *atoler,  // absolute error tolerance
+    int32 itoler,    // switch for rtoler and atoler
+    SolTrait solout, // function providing the numerical solution during integration
+    int32 iout,      // switch for calling solout
+    FILE *fileout,   // messages stream
+    double uround,   // rounding unit
+    double safe,     // safety factor
+    double fac1,     // parameters for step size selection
+    double fac2,
+    double beta,     // for stabilized step size control
+    double hmax,     // maximal step size
+    double h,        // initial step size
+    long nmax,       // maximal number of allowed steps
+    int32 meth,      // switch for the choice of the coefficients
+    long nstiff,     // test for stiffness
+    uint32 nrdens,   // number of components for which dense outpout is required
+    uint32 *icont,   // indexes of components for which dense output is required, >= nrdens
+    uint32 licont,   // declared length of icon
+    double *work);
 
 void dormpri_dp_err(int32 k);
 int32 dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
@@ -1507,9 +1504,13 @@ typedef struct BoxList {
     Window *w;
     Window *we;
     Window *ck;
-    char **value, *iname, *wname;
+    char **value;
+    char *iname;
+    char *wname;
     int32 *isck;
-    int32 mc, *off, *pos;
+    int32 mc;
+    int32 *off;
+    int32 *pos;
 } BoxList;
 
 typedef struct HistInfo {
