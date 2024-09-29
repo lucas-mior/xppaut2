@@ -1,12 +1,10 @@
 /******************************************************************
- *                                                                *
  * File          : spgmr.c                                        *
  * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL    *
  * Last Modified : 1 September 1994                               *
  *----------------------------------------------------------------*
  * This is the implementation file for the scaled preconditioned  *
  * GMRES (SPGMR) iterative linear solver.                         *
- *                                                                *
  ******************************************************************/
 
 #include "integers.h"
