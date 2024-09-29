@@ -499,8 +499,8 @@ void dae_fun_get_new_guesses(void);
 
 extern double alpha_max;
 extern double OmegaMax;
-extern int32 DelayFlag;
-extern int32 DelayGrid;
+extern int32 delay_flag;
+extern int32 delay_grid;
 extern int32 NDelay;
 extern int32 del_stab_flag;
 extern int32 WhichDelay;
@@ -1400,9 +1400,9 @@ extern XFontStruct *romfonts[5];
 extern int32 avsymfonts[5];
 extern int32 avromfonts[5];
 
-extern int32 DLeft;
-extern int32 DRight;
-extern int32 DTop;
+extern int32 d_left;
+extern int32 d_right;
+extern int32 d_top;
 extern int32 d_buttom;
 extern int32 VTic;
 extern int32 HTic;
@@ -1659,7 +1659,7 @@ typedef struct XppVec {
 
 extern XppVec xpv;
 
-extern int32 DelayErr;
+extern int32 delay_err;
 extern double MyData[MAX_ODE];
 extern double MyTime;
 extern double MyData[MAX_ODE];
@@ -2050,7 +2050,7 @@ typedef struct OptionsSet {
     int32 TRANS;
     int32 bound;
     int32 TOLER;
-    int32 DELAY;
+    int32 delay;
     int32 XLO;
     int32 XHI;
     int32 YLO;
@@ -2703,13 +2703,13 @@ void svg_text(int32 x, int32 y, char *str);
 #ifndef NULLCLINE_H
 #define NULLCLINE_H
 
-extern int32 DFBatch;
+extern int32 df_batch;
 extern int32 NCBatch;
 extern int32 XNullColor;
 extern int32 YNullColor;
-extern int32 DF_GRID;
-extern int32 DF_FLAG;
-extern int32 DOING_DFIELD;
+extern int32 df_grid;
+extern int32 df_flag;
+extern int32 doing_dfield;
 
 extern char color_via[15];
 extern double color_via_lo;
@@ -2752,7 +2752,7 @@ void nullcline_silent_dfields(void);
 #ifndef NUMERICS_H
 #define NUMERICS_H
 
-extern double DELTA_T;
+extern double delta_t;
 extern double TEND;
 extern double T0;
 extern double TRANS;
@@ -2760,7 +2760,7 @@ extern double NULL_ERR;
 extern double EVEC_ERR;
 extern double NEWT_ERR;
 extern double bound;
-extern double DELAY;
+extern double delay;
 extern double TOLER;
 extern double HMIN;
 extern double HMAX;

@@ -30,7 +30,7 @@ extern double HMAX;
 extern double TOLER;
 extern double atoler;
 extern double bound;
-extern double DELAY;
+extern double delay;
 extern double NULL_ERR;
 extern double EVEC_ERR;
 extern double NEWT_ERR;
@@ -47,7 +47,7 @@ extern int32 HVAR;
 extern int32 hist_ind;
 
 extern double TEND;
-extern double DELTA_T;
+extern double delta_t;
 extern double T0;
 extern double TRANS;
 

@@ -27,7 +27,7 @@ diagram_start(int32 n) {
     bifd->norm = 0;
     bifd->lab = 0;
 
-    DiagFlag = 0;
+    diag_flag = 0;
     return;
 }
 
@@ -611,7 +611,7 @@ diagram_load(FILE *fp, int32 node) {
                                ubar, par, per, node, icp1, icp2, icp3, icp4,
                                evr, evi);
             flag = 1;
-            DiagFlag = 1;
+            diag_flag = 1;
         } else {
             add_diagram(ibr, ntot, itp, lab, nfpar, norm, uhi, ulo, u0, ubar,
                         par, per, node, icp1, icp2, icp3, icp4, flag2, evr,

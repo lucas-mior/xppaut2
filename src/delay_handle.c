@@ -12,8 +12,8 @@
 
 double alpha_max = 2;
 double OmegaMax = 2;
-int32 DelayFlag = 0;
-int32 DelayGrid;
+int32 delay_flag = 0;
+int32 delay_grid;
 
 static double *DelayWork;
 static int32 LatestDelay;
@@ -22,7 +22,7 @@ static int32 MaxDelay;
 int32 NDelay;
 int32 del_stab_flag;
 int32 WhichDelay;
-int32 DelayGrid = 1000;
+int32 delay_grid = 1000;
 
 double variable_shift[2][MAX_ODE];
 double delay_list[MAX_DELAY];
@@ -62,11 +62,11 @@ int32
 delay_handle_alloc_delay(double big) {
     int32 n;
 
-    n = (int32)(big / fabs(DELTA_T)) + 1;
+    n = (int32)(big / fabs(delta_t)) + 1;
 
     MaxDelay = n;
     LatestDelay = 1;
-    DelayFlag = 0;
+    delay_flag = 0;
     DelayWork = malloc((usize)(n*NODE)*sizeof(*DelayWork));
 
     if (DelayWork == NULL) {
@@ -75,7 +75,7 @@ delay_handle_alloc_delay(double big) {
     }
 
     memset(DelayWork, 0, (usize)(n*NODE));
-    DelayFlag = 1;
+    delay_flag = 1;
     NDelay = 0;
     WhichDelay = -1;
     del_stab_flag = 1;
@@ -87,10 +87,10 @@ delay_handle_alloc_delay(double big) {
 
 void
 delay_handle_free_delay(void) {
-    if (DelayFlag) {
+    if (delay_flag) {
         free(DelayWork);
     }
-    DelayFlag = 0;
+    delay_flag = 0;
     return;
 }
 
@@ -99,7 +99,7 @@ delay_handle_stor_delay(double *y) {
     int32 in;
     int32 nodes = NODE;
 
-    if (DelayFlag == 0) {
+    if (delay_flag == 0) {
         return;
     }
     --LatestDelay;
@@ -156,8 +156,8 @@ delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
 /* this is like get_delay but uses cubic interpolation */
 double
 delay_handle_get_delay(int32 in, double tau) {
-    double x = tau / fabs(DELTA_T);
-    double dd = fabs(DELTA_T);
+    double x = tau / fabs(delta_t);
+    double dd = fabs(delta_t);
     double y;
     double ya[4];
     double xa[4];
@@ -172,7 +172,7 @@ delay_handle_get_delay(int32 in, double tau) {
     int32 i2;
     int32 i3;
 
-    if (tau < 0.0 || tau > DELAY) {
+    if (tau < 0.0 || tau > delay) {
         ggets_err_msg("Delay negative or too large");
         integrate_stop_integration();
         return 0.0;
@@ -220,7 +220,7 @@ delay_handle_do_init_delay(double big) {
     int32 len;
 
     int32 *del_form[MAX_ODE];
-    nt = (int32)(big / fabs(DELTA_T));
+    nt = (int32)(big / fabs(delta_t));
     NCON = NCON_START;
     NSYM = NSYM_START;
     for (int32 i = 0; i < (NODE); i++) {
@@ -250,7 +250,7 @@ delay_handle_do_init_delay(double big) {
     get_val("t", &old_t);
 
     for (int32 i = nt; i >= 0; i--) {
-        t = T0 - fabs(DELTA_T)*i;
+        t = T0 - fabs(delta_t)*i;
         set_val("t", t);
         for (int32 j = 0; j < (NODE); j++) {
             y[j] = evaluate(del_form[j]);

@@ -130,7 +130,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
         }
         colnorm += colmax;
     }
-    sign = del_stab_plot_args(coef, delay_list, n, NDelay, DelayGrid, colnorm,
+    sign = del_stab_plot_args(coef, delay_list, n, NDelay, delay_grid, colnorm,
                               colnorm);
 
     okroot = del_stab_find_positive_root(coef, delay_list, n, NDelay, err, eps,

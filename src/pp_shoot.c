@@ -314,7 +314,7 @@ pp_shoot_find_bvp_com(int32 com) {
     browser_wipe_rep();
     adjoints_data_back();
     pp_shoot_compile_bvp();
-    if (FFT || HIST || DelayFlag || bvp_flag == 0) {
+    if (FFT || HIST || delay_flag || bvp_flag == 0) {
         return;
     }
     STORFLAG = 0;
@@ -392,7 +392,7 @@ pp_shoot_last(int32 flag) {
         }
         storind = 1;
     }
-    integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart);
+    integrate(&MyTime, x, TEND, delta_t, 1, NJMP, &MyStart);
     /* if(flag){
        INFLAG=1;
        browser_refresh(storind);
@@ -416,7 +416,7 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
     char esc;
     int32 info;
     int32 niter = 0;
-    double dt = DELTA_T;
+    double dt = delta_t;
     double t;
     double t0 = T0;
     double t1 = T0 + TEND*dt / fabs(dt);

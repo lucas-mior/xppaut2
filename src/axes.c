@@ -291,15 +291,15 @@ axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     int32 yaxis_x;
 
     int32 ybot = d_buttom;
-    int32 ytop = DTop;
-    int32 xleft = DLeft;
-    int32 xright = DRight;
+    int32 ytop = d_top;
+    int32 xleft = d_left;
+    int32 xright = d_right;
 
     axes_doing = 1;
 
     if (ybot > ytop) {
         ytop = ybot;
-        ybot = DTop;
+        ybot = d_top;
     }
 
     ytic = axes_make_tics(y_min, y_max);
@@ -355,14 +355,14 @@ axes_draw_ytics(char *s1, double start, double incr, double end) {
         sprintf(bob, "%g", place);
         graphics_scale_to_screen((double)x_min, (double)place, &xt, &yt);
         axes_doing_box = 0;
-        graphics_line(DLeft, yt, DLeft + HTic, yt);
+        graphics_line(d_left, yt, d_left + HTic, yt);
         axes_doing_box = 1;
-        graphics_line(DRight, yt, DRight - HTic, yt);
+        graphics_line(d_right, yt, d_right - HTic, yt);
         axes_doing_box = 0;
-        graphics_put_text(DLeft - (int32)(1.25*HChar), yt, bob);
+        graphics_put_text(d_left - (int32)(1.25*HChar), yt, bob);
     }
     graphics_scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
-    if (DTop < d_buttom) {
+    if (d_top < d_buttom) {
         s = -1;
     }
     if (PltFmtFlag == SVGFMT) {
@@ -377,10 +377,10 @@ axes_draw_ytics(char *s1, double start, double incr, double end) {
         fprintf(svgfile,
                 "\n      <text class=\"xppyaxislabelh\" text-anchor=\"end\" "
                 "x=\"%d\"  y=\"%d\"\n",
-                DLeft - HChar, yt + 2*s*VChar);
+                d_left - HChar, yt + 2*s*VChar);
         fprintf(svgfile, "      >%s</text>\n", s1);
     } else {
-        graphics_put_text(DLeft - HChar, yt + 2*s*VChar, s1);
+        graphics_put_text(d_left - HChar, yt + 2*s*VChar, s1);
     }
     return;
 }
@@ -397,7 +397,7 @@ axes_draw_xtics(char *s2, double start, double incr, double end) {
     int32 xt;
     int32 yt = 0;
     int32 s = 1;
-    if (DTop < d_buttom) {
+    if (d_top < d_buttom) {
         s = -1;
     }
     TextJustify = 1;  // Center justification
@@ -411,10 +411,10 @@ axes_draw_xtics(char *s2, double start, double incr, double end) {
         axes_doing_box = 0;
         graphics_line(xt, d_buttom, xt, d_buttom + s*VTic);
         axes_doing_box = 1;
-        graphics_line(xt, DTop, xt, DTop - s*VTic);
+        graphics_line(xt, d_top, xt, d_top - s*VTic);
         axes_doing_box = 0;
         graphics_put_text(xt, yt - (int32)(1.25*VChar*s), bob);
     }
-    graphics_put_text((DLeft + DRight) / 2, yt - (int32)(2.5*VChar*s), s2);
+    graphics_put_text((d_left + d_right) / 2, yt - (int32)(2.5*VChar*s), s2);
     return;
 }

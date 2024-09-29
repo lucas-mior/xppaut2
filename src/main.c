@@ -236,7 +236,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.TRANS = 1;
     notAlreadySet.bound = 1;
     notAlreadySet.TOLER = 1;
-    notAlreadySet.DELAY = 1;
+    notAlreadySet.delay = 1;
     notAlreadySet.XLO = 1;
     notAlreadySet.XHI = 1;
     notAlreadySet.YLO = 1;
@@ -463,7 +463,7 @@ do_main(int32 argc, char **argv) {
         if (NCBatch > 0) {
             silent_nullclines();
         }
-        if (DFBatch > 0) {
+        if (df_batch > 0) {
             nullcline_silent_dfields();
         }
         integrate_silent_equilibria();

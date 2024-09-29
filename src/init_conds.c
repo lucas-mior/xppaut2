@@ -2756,7 +2756,7 @@ init_conds_load_entire_box(BoxList *b) {
         init_conds_reset_sliders();
     }
     if (b->type == DELAYBOX) {
-        delay_handle_do_init_delay(DELAY);
+        delay_handle_do_init_delay(delay);
     }
     return;
 }

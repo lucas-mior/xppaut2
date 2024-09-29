@@ -127,7 +127,7 @@ volterra_re_evaluate_kernels(void) {
     for (int32 i = 0; i < NKernel; i++) {
         if (kernel[i].flag == CONV) {
             for (int32 j = 0; j <= MaxPoints; j++) {
-                SETVAR(0, T0 + DELTA_T*j);
+                SETVAR(0, T0 + delta_t*j);
                 kernel[i].cnv[j] = evaluate(kernel[i].kerform);
             }
         }
@@ -147,7 +147,7 @@ volterra_alloc_kernels(int32 flag) {
             }
             kernel[i].cnv = xmalloc((usize)(n + 1)*sizeof(*(kernel[i].cnv)));
             for (int32 j = 0; j <= n; j++) {
-                SETVAR(0, T0 + DELTA_T*j);
+                SETVAR(0, T0 + delta_t*j);
                 kernel[i].cnv[j] = evaluate(kernel[i].kerform);
             }
         }
@@ -159,7 +159,7 @@ volterra_alloc_kernels(int32 flag) {
             }
             kernel[i].al = xmalloc((usize)(n + 1)*sizeof(*(kernel[i].al)));
             for (int32 j = 0; j <= n; j++) {
-                kernel[i].al[j] = volterra_alpbetjn(mu, DELTA_T, j);
+                kernel[i].al[j] = volterra_alpbetjn(mu, delta_t, j);
             }
         }
     }

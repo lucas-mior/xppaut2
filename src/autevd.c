@@ -16,7 +16,7 @@
 
 XAuto x_auto;
 
-int32 DiagFlag = 0;
+int32 diag_flag = 0;
 
 static struct MyEV {
     int32 pt;
@@ -157,12 +157,12 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
                            icp2, auto_two_param, my_ev.evr, my_ev.evi);
     }
 
-    if (DiagFlag == 0) {
+    if (diag_flag == 0) {
         diagram_edit_start((int32)ibrs, (int32)ntots, (int32)iap->itp, lab,
                            (int32)iap->nfpr, *a, uhigh, ulow, u0, ubar, par,
                            per, (int32)iap->ndim, icp1, icp2, icp3, icp4,
                            my_ev.evr, my_ev.evi);
-        DiagFlag = 1;
+        diag_flag = 1;
         return;
     }
     add_diagram((int32)ibrs, (int32)ntots, (int32)iap->itp, lab,

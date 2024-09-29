@@ -24,7 +24,7 @@ typedef struct Point {
 
 static int32 NCSuppress = 0;
 static int32 DFSuppress = 0;
-int32 DFBatch = 0;
+int32 df_batch = 0;
 int32 NCBatch = 0;
 
 static int32 NullStyle = 0;  // 1 is with little vertical/horizontal lines
@@ -42,13 +42,13 @@ static double *Y_n;
 static double *saver;
 static double *NTop;
 static double *NBot;
-int32 DF_GRID = 16;
-int32 DF_FLAG = 0;
+int32 df_grid = 16;
+int32 df_flag = 0;
 static int32 DF_IX = -1;
 static int32 DF_IY = -1;
 static int32 DFIELD_TYPE = 0;
 
-int32 DOING_DFIELD = 0;
+int32 doing_dfield = 0;
 
 char color_via[15] = "speed";
 double color_via_lo = 0;
@@ -236,7 +236,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
 
 void
 nullcline_silent_dfields(void) {
-    if (DFBatch == 5 || DFBatch == 4) {
+    if (df_batch == 5 || df_batch == 4) {
         DFSuppress = 1;
         graphics_init_ps();
         nullcline_do_batch_dfield();
@@ -465,39 +465,39 @@ nullcline_do_batch_dfield(void) {
     if (!xpp_batch) {
         return;
     }
-    switch (DFBatch) {
+    switch (df_batch) {
     case 0:
         return;
     case 1:
-        DF_FLAG = 1;
+        df_flag = 1;
         DFIELD_TYPE = 1;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     case 2:
-        DF_FLAG = 1;
+        df_flag = 1;
         DFIELD_TYPE = 0;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     case 3:
-        DF_FLAG = 2;
+        df_flag = 2;
         DFIELD_TYPE = 0;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     case 4:
-        DF_FLAG = 1;
+        df_flag = 1;
         DFIELD_TYPE = 1;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     case 5:
-        DF_FLAG = 1;
+        df_flag = 1;
         DFIELD_TYPE = 0;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
@@ -534,8 +534,8 @@ nullcline_redraw_dfield(void) {
     double dup;
     double dvp;
 
-    int32 grid = DF_GRID;
-    if (DF_FLAG == 0 || MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
+    int32 grid = df_grid;
+    if (df_flag == 0 || MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
         MyGraph->ThreeDFlag || DF_IX != MyGraph->xv[0] ||
         DF_IY != MyGraph->yv[0]) {
         return;
@@ -550,8 +550,8 @@ nullcline_redraw_dfield(void) {
     du = (MyGraph->xhi - MyGraph->xlo) / (double)grid;
     dv = (MyGraph->yhi - MyGraph->ylo) / (double)grid;
 
-    dup = (double)(DRight - DLeft) / (double)grid;
-    dvp = (double)(DTop - d_buttom) / (double)grid;
+    dup = (double)(d_right - d_left) / (double)grid;
+    dvp = (double)(d_top - d_buttom) / (double)grid;
     dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
@@ -561,7 +561,7 @@ nullcline_redraw_dfield(void) {
     integrate_get_ic(2, y);
     nullcline_get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
     if (PltFmtFlag == SVGFMT) {
-        DOING_DFIELD = 1;
+        doing_dfield = 1;
         fprintf(svgfile, "<g>\n");
     }
     for (int32 i = 0; i <= grid; i++) {
@@ -570,7 +570,7 @@ nullcline_redraw_dfield(void) {
             y[iny] = v0 + dv*j;
             rhs_function(0.0, y, ydot, NODE);
             main_rhs_extra(y, 0.0, NODE, NEQ);
-            if (MyGraph->ColorFlag || DF_FLAG == 2) {
+            if (MyGraph->ColorFlag || df_flag == 2) {
                 v1[0] = 0.0;
                 v2[0] = 0.0;
                 for (int32 k = 0; k < NEQ; k++) {
@@ -581,7 +581,7 @@ nullcline_redraw_dfield(void) {
                     integrate_comp_color(v1, v2, NODE, 1.0);
                 }
             }
-            if (DF_FLAG == 1 || DF_FLAG == 4) {
+            if (df_flag == 1 || df_flag == 4) {
                 graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
                 if (DFIELD_TYPE == 1) {
                     ydot[inx] /= mdf;
@@ -605,7 +605,7 @@ nullcline_redraw_dfield(void) {
                     }
                 }
             }
-            if (DF_FLAG == 2 && j > 0 && i < grid) {
+            if (df_flag == 2 && j > 0 && i < grid) {
                 graphics_frect_abs((double)y[inx], (double)y[iny], (double)du,
                                    (double)dv);
             }
@@ -613,7 +613,7 @@ nullcline_redraw_dfield(void) {
     }
 
     if (PltFmtFlag == SVGFMT) {
-        DOING_DFIELD = 0;
+        doing_dfield = 0;
         fprintf(svgfile, "</g>\n");
     }
     if (DFSuppress == 1) {
@@ -632,7 +632,7 @@ nullcline_direct_field_com(int32 c) {
     double ydot[MAX_ODE];
     double xv1;
     double xv2;
-    double dtold = DELTA_T;
+    double dtold = delta_t;
     double v1[MAX_ODE];
     double v2[MAX_ODE];
 
@@ -650,7 +650,7 @@ nullcline_direct_field_com(int32 c) {
     double dvp;
     double oldtrans = TRANS;
 
-    int32 grid = DF_GRID;
+    int32 grid = df_grid;
 
     if (MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
         MyGraph->ThreeDFlag) {
@@ -658,7 +658,7 @@ nullcline_direct_field_com(int32 c) {
     }
 
     if (c == 2) {
-        DF_FLAG = 0;
+        df_flag = 0;
         return;
     }
     if (c == 0) {
@@ -671,20 +671,20 @@ nullcline_direct_field_com(int32 c) {
     if (grid <= 1) {
         return;
     }
-    DF_GRID = grid;
+    df_grid = grid;
     du = (MyGraph->xhi - MyGraph->xlo) / (double)grid;
     dv = (MyGraph->yhi - MyGraph->ylo) / (double)grid;
 
-    dup = (double)(DRight - DLeft) / (double)grid;
-    dvp = (double)(DTop - d_buttom) / (double)grid;
+    dup = (double)(d_right - d_left) / (double)grid;
+    dvp = (double)(d_top - d_buttom) / (double)grid;
     dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
     graphics_set_linestyle(MyGraph->color[0]);
     if (c != 1) {
-        DF_FLAG = 1;
+        df_flag = 1;
         if (c == 3) {
-            DF_FLAG = 2;
+            df_flag = 2;
             du = (MyGraph->xhi - MyGraph->xlo) / (double)(grid + 1);
             dv = (MyGraph->yhi - MyGraph->ylo) / (double)(grid + 1);
         }
@@ -693,7 +693,7 @@ nullcline_direct_field_com(int32 c) {
         integrate_get_ic(2, y);
         nullcline_get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
         if (PltFmtFlag == SVGFMT) {
-            DOING_DFIELD = 1;
+            doing_dfield = 1;
             fprintf(svgfile, "<g>\n");
         }
 
@@ -703,7 +703,7 @@ nullcline_direct_field_com(int32 c) {
                 y[iny] = v0 + dv*j;
                 rhs_function(0.0, y, ydot, NODE);
                 main_rhs_extra(y, 0.0, NODE, NEQ);
-                if (MyGraph->ColorFlag || DF_FLAG == 2) {
+                if (MyGraph->ColorFlag || df_flag == 2) {
                     v1[0] = 0.0;
                     v2[0] = 0.0;
                     for (int32 k = 0; k < NEQ; k++) {
@@ -712,7 +712,7 @@ nullcline_direct_field_com(int32 c) {
                     }
                     integrate_comp_color(v1, v2, NODE, 1.0);
                 }
-                if (DF_FLAG == 1) {
+                if (df_flag == 1) {
                     graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
                     if (DFIELD_TYPE == 0) {
                         amp = hypot(dxp, dyp);
@@ -730,7 +730,7 @@ nullcline_direct_field_com(int32 c) {
                     graphics_line_abs((double)y[inx], (double)y[iny],
                                       (double)xv1, (double)xv2);
                 }
-                if (DF_FLAG == 2 && j > 0 && i < grid) {
+                if (df_flag == 2 && j > 0 && i < grid) {
                     graphics_frect_abs((double)y[inx], (double)y[iny],
                                        (double)du, (double)dv);
                 }
@@ -738,7 +738,7 @@ nullcline_direct_field_com(int32 c) {
         }
         TRANS = oldtrans;
         if (PltFmtFlag == SVGFMT) {
-            DOING_DFIELD = 0;
+            doing_dfield = 0;
             fprintf(svgfile, "</g>\n");
         }
         return;
@@ -754,21 +754,21 @@ nullcline_direct_field_com(int32 c) {
                 y[iny] = v0 + dv*j;
                 t = 0.0;
                 start = 1;
-                /*if(integrate(&t,y,TEND,DELTA_T,1,NJMP,&start)==1){
+                /*if(integrate(&t,y,TEND,delta_t,1,NJMP,&start)==1){
                   TRANS=oldtrans;
-                  DELTA_T=dtold;
+                  delta_t=dtold;
                   return;
                   STORFLAG=1;
                   } */
-                integrate(&t, y, TEND, DELTA_T, 1, NJMP, &start);
+                integrate(&t, y, TEND, delta_t, 1, NJMP, &start);
             }
         }
-        DELTA_T = -DELTA_T;
+        delta_t = -delta_t;
     }
     SuppressBounds = 0;
-    DELTA_T = dtold;
+    delta_t = dtold;
     if (PltFmtFlag == SVGFMT) {
-        DOING_DFIELD = 0;
+        doing_dfield = 0;
         fprintf(svgfile, "</g>\n");
     }
     return;

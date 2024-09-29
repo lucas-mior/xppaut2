@@ -7,7 +7,7 @@
 #include "auto_c.h"
 #include "integers.h"
 
-extern int32 DiagFlag;
+extern int32 diag_flag;
 
 void autevd_send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev);
 void autevd_send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev);

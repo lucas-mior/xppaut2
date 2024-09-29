@@ -58,7 +58,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     int32 pr;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp;
-    double oldt = DELTA_T;
+    double oldt = delta_t;
     double old_x[MAX_ODE];
 
     char ch;
@@ -199,7 +199,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                                             "yn");
         }
         if ((ch == 'y') || (PAR_FOL && SHOOT)) {
-            oldt = DELTA_T;
+            oldt = delta_t;
 
             if (rp == 1) {
                 gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
@@ -208,7 +208,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                     graphics_change_current_linestyle(UnstableManifoldColor,
                                                       &oldcol);
                     gear_pr_evec(x, b, n, 1);
-                    DELTA_T = fabs(DELTA_T);
+                    delta_t = fabs(delta_t);
                     integrate_shoot(bp, x, b, 1);
                     integrate_shoot(bp, x, b, -1);
                     graphics_change_current_linestyle(oldcol, &dummy);
@@ -224,7 +224,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                     graphics_change_current_linestyle(StableManifoldColor,
                                                       &oldcol);
                     gear_pr_evec(x, b, n, -1);
-                    DELTA_T = -fabs(DELTA_T);
+                    delta_t = -fabs(delta_t);
                     integrate_shoot(bp, x, b, 1);
                     integrate_shoot(bp, x, b, -1);
                     graphics_change_current_linestyle(oldcol, &dummy);
@@ -232,7 +232,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                     ggets_err_msg("Failed to compute eigenvector");
                 }
             }
-            DELTA_T = oldt;
+            delta_t = oldt;
         }
     }  // end of normal shooting stuff
 
@@ -247,7 +247,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
         }
 
         if ((ch == 'y') || (PAR_FOL && SHOOT)) {
-            oldt = DELTA_T;
+            oldt = delta_t;
 
             if ((rp > 1) && (bpos >= 0))  // then there is a strong unstable
             {
@@ -258,7 +258,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                     graphics_change_current_linestyle(UnstableManifoldColor,
                                                       &oldcol);
                     gear_pr_evec(x, b, n, 1);
-                    DELTA_T = fabs(DELTA_T);
+                    delta_t = fabs(delta_t);
                     integrate_shoot(bp, x, b, 1);
                     integrate_shoot(bp, x, b, -1);
                     graphics_change_current_linestyle(oldcol, &dummy);
@@ -277,7 +277,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                     graphics_change_current_linestyle(StableManifoldColor,
                                                       &oldcol);
                     gear_pr_evec(x, b, n, -1);
-                    DELTA_T = -fabs(DELTA_T);
+                    delta_t = -fabs(delta_t);
                     integrate_shoot(bp, x, b, 1);
                     integrate_shoot(bp, x, b, -1);
                     graphics_change_current_linestyle(oldcol, &dummy);
@@ -286,7 +286,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                 }
             }
         }
-        DELTA_T = oldt;
+        delta_t = oldt;
     }
 
     free(work);
@@ -303,7 +303,7 @@ gear_save_batch_shoot(void) {
     if (ShootIndex < 1) {
         return;
     }
-    olddt = DELTA_T;
+    olddt = delta_t;
     STORFLAG = 1;
     for (int32 k = 0; k < ShootIndex; k++) {
         for (int32 i = 0; i < NODE; i++) {
@@ -312,7 +312,7 @@ gear_save_batch_shoot(void) {
 
         type = ShootType[k];
         if (type > 0) {
-            DELTA_T = fabs(DELTA_T);
+            delta_t = fabs(delta_t);
             usual_integrate_stuff(x);
             snprintf(name, sizeof(name), "UM%d.dat", k);
 
@@ -321,7 +321,7 @@ gear_save_batch_shoot(void) {
             fclose(fp);
         }
         if (type < 0) {
-            DELTA_T = -fabs(DELTA_T);
+            delta_t = -fabs(delta_t);
             usual_integrate_stuff(x);
             snprintf(name, sizeof(name), "SM%d.dat", k);
 
@@ -330,7 +330,7 @@ gear_save_batch_shoot(void) {
             fclose(fp);
         }
     }
-    DELTA_T = olddt;
+    delta_t = olddt;
     return;
 }
 
@@ -347,7 +347,7 @@ gear_shoot_this_now(void) {
     if (ShootIndex < 1) {
         return;
     }
-    olddt = DELTA_T;
+    olddt = delta_t;
 
     for (k = 0; k < ShootIndex; k++) {
         for (int32 i = 0; i < NODE; i++) {
@@ -357,18 +357,18 @@ gear_shoot_this_now(void) {
         type = ShootType[k];
         if (type > 0) {
             graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
-            DELTA_T = fabs(DELTA_T);
+            delta_t = fabs(delta_t);
             integrate_shoot_easy(x);
             graphics_change_current_linestyle(oldcol, &dummy);
         }
         if (type < 0) {
             graphics_change_current_linestyle(StableManifoldColor, &oldcol);
-            DELTA_T = -fabs(DELTA_T);
+            delta_t = -fabs(delta_t);
             integrate_shoot_easy(x);
             graphics_change_current_linestyle(oldcol, &dummy);
         }
     }
-    DELTA_T = olddt;
+    delta_t = olddt;
     return;
 }
 
@@ -522,7 +522,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
 void
 gear_pr_evec(double *x, double *ev, int32 n, int32 type) {
-    double d = fabs(DELTA_T)*.1;
+    double d = fabs(delta_t)*.1;
     ShootICFlag = 1;
     if (ShootIndex < 7) {
         for (int32 i = 0; i < n; i++) {

@@ -110,8 +110,8 @@ lunch_do_info(FILE *fp) {
             method[METHOD], EVEC_ITER);
     fprintf(fp, "bvp_eps=%g,bvp_tol=%g,bpv_maxit=%d \n", bvp_eps, bvp_tol,
             bpv_maxit);
-    fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g DELAY=%g MaxPts=%d\n",
-            DELTA_T, T0, TRANS, TEND, bound, DELAY, MaxPoints);
+    fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g delay=%g MaxPts=%d\n",
+            delta_t, T0, TRANS, TEND, bound, delay, MaxPoints);
     fprintf(fp, "EVEC_ERR=%g, NEWT_ERR=%g HMIN=%g HMAX=%g TOLER=%g \n",
             EVEC_ERR, NEWT_ERR, HMIN, HMAX, TOLER);
     if (POIVAR == 0) {
@@ -335,7 +335,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
         storage_alloc_meth();
     }
     lunch_io_double(&TEND, fp, f, "total");
-    lunch_io_double(&DELTA_T, fp, f, "DeltaT");
+    lunch_io_double(&delta_t, fp, f, "DeltaT");
     lunch_io_double(&T0, fp, f, "T0");
     lunch_io_double(&TRANS, fp, f, "Transient");
     lunch_io_double(&bound, fp, f, "Bound");
@@ -353,7 +353,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
         lunch_io_double(&atoler, fp, f, "Abs. Tolerance");
     }
 
-    lunch_io_double(&DELAY, fp, f, "Max Delay");
+    lunch_io_double(&delay, fp, f, "Max Delay");
     lunch_io_int(&EVEC_ITER, fp, f, "Eigenvector iterates");
     lunch_io_double(&EVEC_ERR, fp, f, "Eigenvector tolerance");
     lunch_io_double(&NEWT_ERR, fp, f, "Newton tolerance");
@@ -366,7 +366,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_int(&POIVAR, fp, f, "Poincare variable");
     lunch_io_int(&POISGN, fp, f, "Poincare sign");
     lunch_io_int(&SOS, fp, f, "Stop on Section");
-    lunch_io_int(&DelayFlag, fp, f, "Delay flag");
+    lunch_io_int(&delay_flag, fp, f, "Delay flag");
     lunch_io_double(&MyTime, fp, f, "Current time");
     lunch_io_double(&LastTime, fp, f, "Last Time");
     lunch_io_int(&MyStart, fp, f, "MyStart");

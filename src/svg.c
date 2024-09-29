@@ -476,7 +476,7 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
                         xp1, yp1, xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2]);
             }
         } else {
-            if (DOING_DFIELD) {
+            if (doing_dfield) {
                 if (DO_MARKER) {
                     fprintf(svgfile, "<g>\n");
                 }
@@ -523,7 +523,7 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
             }
         } else {
 
-            if (DOING_DFIELD) {
+            if (doing_dfield) {
                 if (DO_MARKER) {
                     fprintf(svgfile, "<g>\n");
                 }

@@ -105,9 +105,9 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
     for (int32 i = 0; i < NODE; i++) {
         yold[i] = y[i];
     }
-    if (DelayFlag) {
+    if (delay_flag) {
         // restart initial data
-        if (delay_handle_do_init_delay(DELAY) == 0) {
+        if (delay_handle_do_init_delay(delay) == 0) {
             return;
         }
     }
@@ -164,9 +164,9 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
                 }
             }
         }
-        if (DelayFlag) {
+        if (delay_flag) {
             // restart initial data
-            if (delay_handle_do_init_delay(DELAY) == 0) {
+            if (delay_handle_do_init_delay(delay) == 0) {
                 return;
             }
         }
@@ -228,7 +228,7 @@ int32
 do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
     int32 nit;
     int32 kflag;
-    double dt = DELTA_T;
+    double dt = delta_t;
     double z;
     double error[MAX_ODE];
     double t = t0;

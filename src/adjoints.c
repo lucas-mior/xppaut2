@@ -395,7 +395,7 @@ adjoints_new_adjoint(void) {
     for (int32 i = n; i <= NEQ; i++) {
         my_adj[i] = storage[i];
     }
-    if (adjoints_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS,
+    if (adjoints_adjoint(storage, my_adj, adj_len, delta_t*NJMP, ADJ_EPS,
                          ADJ_ERR, ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
         adjoints_back();

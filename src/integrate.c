@@ -102,7 +102,7 @@ XppVec xpv;
 int32 SuppressOut = 0;
 int32 SuppressBounds = 0;
 
-int32 DelayErr;
+int32 delay_err;
 
 double MyData[MAX_ODE];
 double MyTime;
@@ -263,7 +263,7 @@ integrate_cont_integ(void) {
     }
     dif = tetemp - fabs(MyTime);
     MyStart = 1;  //  I know it is wasteful to restart, but lets be safe....
-    integrate(&MyTime, x, dif, DELTA_T, 1, NJMP, &MyStart);
+    integrate(&MyTime, x, dif, delta_t, 1, NJMP, &MyStart);
     ggets_ping();
     browser_refresh(storind);
 }
@@ -562,7 +562,7 @@ integrate_eq_range(double *x) {
     stabcol = eq_range.col;
     mc = eq_range.mc;
     storind = 0;
-    DelayErr = 0;
+    delay_err = 0;
     ENDSING = 0;
     PAR_FOL = 1;
     SHOOT = eq_range.shoot;
@@ -588,7 +588,7 @@ integrate_eq_range(double *x) {
         if (mc) {
             integrate_monte_carlo_search(0, 0, 1);
         } else {
-            if (DelayFlag) {
+            if (delay_flag) {
                 del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, bound, EVEC_ITER,
                                        NODE, &ierr, &stabinfo);
             } else {
@@ -867,9 +867,9 @@ integrate_do_range(double *x, int32 flag) {
                 if (oldic == 1) {
                     integrate_get_ic(1, x);
 
-                    if (DelayFlag) {
+                    if (delay_flag) {
                         // restart initial data
-                        if (delay_handle_do_init_delay(DELAY) == 0) {
+                        if (delay_handle_do_init_delay(delay) == 0) {
                             break;
                         }
                     }
@@ -918,7 +918,7 @@ integrate_do_range(double *x, int32 flag) {
                 storind++;
             }
 
-            if (integrate(&t, x, TEND, DELTA_T, 1, NJMP, &MyStart) == 1) {
+            if (integrate(&t, x, TEND, delta_t, 1, NJMP, &MyStart) == 1) {
                 ierr = -1;
                 break;
             }
@@ -1078,7 +1078,7 @@ integrate_find_equilib_com(int32 com) {
         break;
     }
 
-    if (DelayFlag) {
+    if (delay_flag) {
         del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, bound, EVEC_ITER, NODE,
                                &ierr, &stabinfo);
         ggets_ping();
@@ -1174,7 +1174,7 @@ batch_integrate_once(void) {
     MyStart = 1;
     x = &MyData[0];
     RANGE_FLAG = 0;
-    DelayErr = 0;
+    delay_err = 0;
     MyTime = T0;
 
     STORFLAG = 1;
@@ -1190,9 +1190,9 @@ batch_integrate_once(void) {
         }
     } else {
         integrate_get_ic(2, x);
-        if (DelayFlag) {
+        if (delay_flag) {
             // restart initial data
-            if (delay_handle_do_init_delay(DELAY) == 0) {
+            if (delay_handle_do_init_delay(delay) == 0) {
                 return;
             }
         }
@@ -1206,7 +1206,7 @@ batch_integrate_once(void) {
             storind = 1;
         }
 
-        if (integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart) != 0) {
+        if (integrate(&MyTime, x, TEND, delta_t, 1, NJMP, &MyStart) != 0) {
             ggets_plintf(
                 " Integration not completed -- will write anyway...\n");
         }
@@ -1266,7 +1266,7 @@ integrate_do_init_data(int32 com) {
     char ch;
     int32 si;
     double *x;
-    double old_dt = DELTA_T;
+    double old_dt = delta_t;
     FILE *fp;
     char icfile[XPP_MAX_NAME];
     double xm;
@@ -1282,7 +1282,7 @@ integrate_do_init_data(int32 com) {
     MyStart = 1;
     x = &MyData[0];
     RANGE_FLAG = 0;
-    DelayErr = 0;
+    delay_err = 0;
     dae_fun_reset_dae();
     if (FFT || HIST) {
         return;
@@ -1332,9 +1332,9 @@ integrate_do_init_data(int32 com) {
         break;
     case M_IO:
         integrate_get_ic(1, x);
-        if (DelayFlag) {
+        if (delay_flag) {
             // restart initial data
-            if (delay_handle_do_init_delay(DELAY) == 0) {
+            if (delay_handle_do_init_delay(delay) == 0) {
                 return;
             }
         }
@@ -1364,9 +1364,9 @@ integrate_do_init_data(int32 com) {
                 last_ic[jm] = x[jm];
                 menudrive_message_box_kill();
 
-                if (DelayFlag) {
+                if (delay_flag) {
                     // restart initial data
-                    if (delay_handle_do_init_delay(DELAY) == 0) {
+                    if (delay_handle_do_init_delay(delay) == 0) {
                         return;
                     }
                 }
@@ -1391,9 +1391,9 @@ integrate_do_init_data(int32 com) {
                 x[jv] = (double)ym;
                 last_ic[im] = x[im];
                 last_ic[jm] = x[jm];
-                if (DelayFlag) {
+                if (delay_flag) {
                     // restart initial data
-                    if (delay_handle_do_init_delay(DELAY) == 0) {
+                    if (delay_handle_do_init_delay(delay) == 0) {
                         break;
                     }
                 }
@@ -1452,12 +1452,12 @@ integrate_do_init_data(int32 com) {
         break;
 
     case M_IB:
-        DELTA_T = -fabs(DELTA_T);
+        delta_t = -fabs(delta_t);
         integrate_get_ic(2, x);
         dae_fun_set_init_guess();
-        if (DelayFlag) {
+        if (delay_flag) {
             // restart initial data
-            if (delay_handle_do_init_delay(DELAY) == 0) {
+            if (delay_handle_do_init_delay(delay) == 0) {
                 return;
             }
         }
@@ -1469,16 +1469,16 @@ integrate_do_init_data(int32 com) {
 
         integrate_get_ic(2, x);
 
-        if (DelayFlag) {
+        if (delay_flag) {
             // restart initial data
-            if (delay_handle_do_init_delay(DELAY) == 0) {
+            if (delay_handle_do_init_delay(delay) == 0) {
                 return;
             }
         }
         break;
     }
     usual_integrate_stuff(x);
-    DELTA_T = old_dt;
+    delta_t = old_dt;
     return;
 }
 
@@ -1488,7 +1488,7 @@ integrate_run_now(void) {
     MyStart = 1;
     x = &MyData[0];
     RANGE_FLAG = 0;
-    DelayErr = 0;
+    delay_err = 0;
     dae_fun_reset_dae();
     MyTime = T0;
     integrate_get_ic(2, x);
@@ -1521,7 +1521,7 @@ usual_integrate_stuff(double *x) {
         storind = 1;
     }
 
-    integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart);
+    integrate(&MyTime, x, TEND, delta_t, 1, NJMP, &MyStart);
 
     ggets_ping();
     INFLAG = 1;
@@ -1804,7 +1804,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
     int32 nit;
     int32 nout = NJMP;
     double tend = TEND;
-    double dt = DELTA_T;
+    double dt = delta_t;
     double tout;
     if (METHOD == 0) {
         nit = (int32)tend;
@@ -2062,8 +2062,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
-            if (DelayErr) {
-                DelayErr = 0;
+            if (delay_err) {
+                delay_err = 0;
                 LastTime = *t;
                 dae_fun_err_dae();
                 return 1;
@@ -2108,8 +2108,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             cvode(start, xpv.x, t, nodes, tout, &kflag, &TOLER, &atoler);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
-            if (DelayErr) {
-                DelayErr = 0;
+            if (delay_err) {
+                delay_err = 0;
                 dae_fun_err_dae();
                 LastTime = *t;
                 return 1;
@@ -2141,8 +2141,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                &kflag);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
-            if (DelayErr) {
-                DelayErr = 0;
+            if (delay_err) {
+                delay_err = 0;
                 dae_fun_err_dae();
                 LastTime = *t;
                 return 1;
@@ -2169,8 +2169,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             odesol_rb23(xpv.x, t, tout, start, nodes, WORK, &kflag);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
-            if (DelayErr) {
-                DelayErr = 0;
+            if (delay_err) {
+                delay_err = 0;
                 dae_fun_err_dae();
                 LastTime = *t;
                 return 1;
@@ -2199,8 +2199,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                            &kflag, NEWT_ERR, METHOD, start);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
-            if (DelayErr) {
-                DelayErr = 0;
+            if (delay_err) {
+                delay_err = 0;
                 dae_fun_err_dae();
                 LastTime = *t;
                 return 1;
@@ -2359,11 +2359,11 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             STOP_FLAG = 0;
             break;
         }
-        if (DelayErr) {
+        if (delay_err) {
             dae_fun_err_dae();
             rval = 1;
             ENDSING = 1;
-            DelayErr = 0;
+            delay_err = 0;
             break;
         }
         if (ieqn < (NEQ + 1)) {
@@ -2857,7 +2857,7 @@ integrate_shoot_easy(double *x) {
     int32 i;
     SuppressBounds = 1;
 
-    integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
+    integrate(&t, x, TEND, delta_t, 1, NJMP, &i);
     SuppressBounds = 0;
     return;
 }
@@ -2868,10 +2868,10 @@ integrate_shoot(double *x, double *xg, double *evec, int32 sgn) {
     double t = 0.0;
     SuppressBounds = 1;
     for (i = 0; i < NODE; i++) {
-        x[i] = xg[i] + sgn*evec[i]*DELTA_T*.1;
+        x[i] = xg[i] + sgn*evec[i]*delta_t*.1;
     }
     i = 1;
-    integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
+    integrate(&t, x, TEND, delta_t, 1, NJMP, &i);
     ggets_ping();
     SuppressBounds = 0;
     return;
@@ -2880,10 +2880,10 @@ integrate_shoot(double *x, double *xg, double *evec, int32 sgn) {
 void
 integrate_stop_integration(void) {
     //  set some global error here...
-    if (DelayErr == 0) {
+    if (delay_err == 0) {
         ggets_err_msg("Delay too large or negative");
     }
-    DelayErr = 1;
+    delay_err = 1;
     return;
 }
 

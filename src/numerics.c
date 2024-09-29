@@ -67,8 +67,8 @@ numerics_quick_num(int32 com) {
 void
 numerics_set_total(double total) {
     int32 n;
-    n = (int32)(total / fabs(DELTA_T)) + 1;
-    TEND = n*fabs(DELTA_T);
+    n = (int32)(total / fabs(delta_t)) + 1;
+    TEND = n*fabs(delta_t);
     return;
 }
 
@@ -99,14 +99,14 @@ numerics_get_num_par(int32 ch) {
         break;
     case 'd':
         // DT
-        temp = DELTA_T;
-        ggets_new_float("Delta t :", &DELTA_T);
-        if (DELTA_T == 0.0) {
-            DELTA_T = temp;
+        temp = delta_t;
+        ggets_new_float("Delta t :", &delta_t);
+        if (delta_t == 0.0) {
+            delta_t = temp;
         }
-        if (DELAY > 0.0) {
+        if (delay > 0.0) {
             delay_handle_free_delay();
-            if (delay_handle_alloc_delay(DELAY)) {
+            if (delay_handle_alloc_delay(delay)) {
                 INFLAG = 0;  //  Make sure no last ics allowed
             }
         } else {
@@ -231,13 +231,13 @@ numerics_get_num_par(int32 ch) {
         if (NDELAYS == 0) {
             break;
         }
-        ggets_new_float("Maximal delay :", &DELAY);
+        ggets_new_float("Maximal delay :", &delay);
         ggets_new_float("real guess :", &alpha_max);
         ggets_new_float("imag guess :", &OmegaMax);
-        ggets_new_int("DelayGrid :", &DelayGrid);
-        if (DELAY > 0.0) {
+        ggets_new_int("delay_grid :", &delay_grid);
+        if (delay > 0.0) {
             delay_handle_free_delay();
-            if (delay_handle_alloc_delay(DELAY)) {
+            if (delay_handle_alloc_delay(delay)) {
                 INFLAG = 0;  //  Make sure no last ics allowed
             }
         } else {
@@ -296,9 +296,9 @@ numerics_get_num_par(int32 ch) {
 
 void
 numerics_chk_delay(void) {
-    if (DELAY > 0.0) {
+    if (delay > 0.0) {
         delay_handle_free_delay();
-        if (delay_handle_alloc_delay(DELAY)) {
+        if (delay_handle_alloc_delay(delay)) {
             INFLAG = 0;  //  Make sure no last ics allowed
         }
     } else {
@@ -312,9 +312,9 @@ numerics_set_delay(void) {
     if (NDELAYS == 0) {
         return;
     }
-    if (DELAY > 0.0) {
+    if (delay > 0.0) {
         delay_handle_free_delay();
-        if (delay_handle_alloc_delay(DELAY)) {
+        if (delay_handle_alloc_delay(delay)) {
             INFLAG = 0;
         }
     }
@@ -521,8 +521,8 @@ numerics_set_col_par_com(int32 i) {
             }
         }
         if (minder >= 0.0 && maxder > minder) {
-            MyGraph->color_scale = (maxder - minder) / (fabs(DELTA_T*NJMP));
-            MyGraph->min_scale = minder / (fabs(DELTA_T*NJMP));
+            MyGraph->color_scale = (maxder - minder) / (fabs(delta_t*NJMP));
+            MyGraph->min_scale = minder / (fabs(delta_t*NJMP));
         }
     } else {
         graf_par_get_max(MyGraph->ColorValue, &temp[0], &temp[1]);
@@ -543,7 +543,7 @@ numerics_do_meth(void) {
     switch (METHOD) {
     case 0:
         solver = odesol_discrete;
-        DELTA_T = 1;
+        delta_t = 1;
         break;
     case 1:
         solver = odesol_euler;

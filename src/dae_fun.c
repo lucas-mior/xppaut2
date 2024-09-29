@@ -292,7 +292,7 @@ dae_fun_do_daes(void) {
     if (ans == 1 || ans == 2) {
         return;  // accepts a no change error!
     }
-    DelayErr = 1;
+    delay_err = 1;
     return;
 }
 

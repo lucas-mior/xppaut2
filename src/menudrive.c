@@ -326,7 +326,7 @@ menudrive_run_the_commands(int32 com) {
 
     if (com == M_EE) {
         menudrive_clr_all_scrns();
-        DF_FLAG = 0;
+        df_flag = 0;
         return;
     }
 

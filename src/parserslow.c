@@ -113,7 +113,7 @@ static struct Symbol {
     {"#$%8", 4, COM(USTACKTYPE, 7), 0, 10},
     {"FLR", 3, COM(FUN1TYPE, 18), 0, 10},  //  40
     {"MOD", 3, COM(FUN2TYPE, 8), 2, 10},   //  41
-    {"DELAY", 5, ENDDELAY, 2, 10},
+    {"delay", 5, ENDDELAY, 2, 10},
     /*  42 */                              //  Delay symbol
     {"RAN", 3, COM(FUN1TYPE, 19), 1, 10},  // 43
     {"&", 1, COM(FUN2TYPE, 9), 0, 6},      // logical stuff
@@ -1009,7 +1009,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 my_symb[LASTTOK].pri = 10;
 
             } else {
-                printf("Illegal use of DELAY \n");
+                printf("Illegal use of delay \n");
                 return 1;
             }
         }
@@ -1027,7 +1027,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 my_symb[LASTTOK].pri = 10;
 
             } else {
-                printf("Illegal use of DELAY Shift \n");
+                printf("Illegal use of delay Shift \n");
                 return 1;
             }
         }
@@ -1826,7 +1826,7 @@ bessis1(double x) {
 #undef BIGNI
 
 /*********************************************
-          FANCY DELAY HERE                   *-------------------------<<<
+          FANCY delay HERE                   *-------------------------<<<
 *********************************************/
 
 char *
@@ -1896,7 +1896,7 @@ do_delay_shift(double delay, double shift, double variable) {
     }
 
     if (del_stab_flag > 0) {
-        if (DelayFlag && delay > 0.0) {
+        if (delay_flag && delay > 0.0) {
             return delay_handle_get_delay(in - 1, delay);
         }
         return variables[in];
@@ -1913,7 +1913,7 @@ do_delay(double delay, double i) {
     variable = ((int32)i) % MAXTYPE;
 
     if (del_stab_flag > 0) {
-        if (DelayFlag && delay > 0.0) {
+        if (delay_flag && delay > 0.0) {
             return delay_handle_get_delay(variable - 1, delay);
         }
         return variables[variable];

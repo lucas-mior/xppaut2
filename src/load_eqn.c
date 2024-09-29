@@ -75,7 +75,7 @@ char options[100];
 
 /*   Numerical stuff ....   */
 
-double DELTA_T;
+double delta_t;
 double TEND;
 double T0;
 double TRANS;
@@ -83,7 +83,7 @@ double NULL_ERR;
 double EVEC_ERR;
 double NEWT_ERR;
 double bound;
-double DELAY;
+double delay;
 double TOLER;
 double atoler;
 double HMIN;
@@ -323,9 +323,9 @@ load_eqn_set_all_vals(void) {
         euler_tol = 1.e-7;
         notAlreadySet.euler_tol = 0;
     }
-    if (notAlreadySet.DELAY) {
-        DELAY = 0.0;
-        notAlreadySet.DELAY = 0;
+    if (notAlreadySet.delay) {
+        delay = 0.0;
+        notAlreadySet.delay = 0;
     }
     if (notAlreadySet.DTMIN) {
         HMIN = 1e-12;
@@ -432,7 +432,7 @@ load_eqn_set_all_vals(void) {
         notAlreadySet.TRANS = 0;
     }
     if (notAlreadySet.DT) {
-        DELTA_T = .05;
+        delta_t = .05;
         notAlreadySet.DT = 0;
     }
 
@@ -631,7 +631,7 @@ load_eqn_read_defaults(FILE *fp) {
         notAlreadySet.TEND = 0;
     }
     if (notAlreadySet.DT) {
-        load_eqn_fil_flt(fp, &DELTA_T);
+        load_eqn_fil_flt(fp, &delta_t);
         notAlreadySet.DT = 0;
     }
     if (notAlreadySet.T0) {
@@ -658,9 +658,9 @@ load_eqn_read_defaults(FILE *fp) {
         load_eqn_fil_flt(fp, &TOLER);
         notAlreadySet.TOLER = 0;
     }
-    if (notAlreadySet.DELAY) {
-        load_eqn_fil_flt(fp, &DELAY);
-        notAlreadySet.DELAY = 0;
+    if (notAlreadySet.delay) {
+        load_eqn_fil_flt(fp, &delay);
+        notAlreadySet.delay = 0;
     }
     if (notAlreadySet.XLO) {
         load_eqn_fil_flt(fp, &MY_XLO);
@@ -1506,7 +1506,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("DT", s1)) {
         if ((notAlreadySet.DT || force) ||
             ((mask != NULL) && (mask->DT == 1))) {
-            DELTA_T = atof(s2);
+            delta_t = atof(s2);
             notAlreadySet.DT = 0;
         }
         return;
@@ -1552,11 +1552,11 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
 
-    if (load_eqn_msc("DELAY", s1)) {
-        if ((notAlreadySet.DELAY || force) ||
-            ((mask != NULL) && (mask->DELAY == 1))) {
-            DELAY = atof(s2);
-            notAlreadySet.DELAY = 0;
+    if (load_eqn_msc("delay", s1)) {
+        if ((notAlreadySet.delay || force) ||
+            ((mask != NULL) && (mask->delay == 1))) {
+            delay = atof(s2);
+            notAlreadySet.delay = 0;
         }
         return;
     }
@@ -2307,7 +2307,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("DFGRID", s1)) {
         if ((notAlreadySet.DFGRID || force) ||
             ((mask != NULL) && (mask->DFGRID == 1))) {
-            DF_GRID = atoi(s2);
+            df_grid = atoi(s2);
             notAlreadySet.DFGRID = 0;
         }
         return;
@@ -2315,7 +2315,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("DFDRAW", s1)) {
         if ((notAlreadySet.DFBATCH || force) ||
             ((mask != NULL) && (mask->DFBATCH == 1))) {
-            DFBatch = atoi(s2);
+            df_batch = atoi(s2);
             notAlreadySet.DFBATCH = 0;
         }
         return;
