@@ -726,7 +726,7 @@ menudrive_add_a_curve(void) {
         }
     }
     if (i == 6) {
-        if (AutoFreezeFlag == 0) {
+        if (auto_freeze_flag == 0) {
             ch = (char)pop_list_popup_list_new(&temp, "Freeze", nf, keyf, 8, 15,
                                                0, 10, 8*DCURY + 8, frz_hint,
                                                info_pop, info_message);

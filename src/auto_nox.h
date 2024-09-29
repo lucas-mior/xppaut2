@@ -171,8 +171,8 @@ extern double auto_epsu;
 extern double auto_epss;
 extern int32 auto_var;
 
-extern int32 Auto_index_to_array[8];
-extern int32 AutoPar[8];
+extern int32 auto_index_to_array[8];
+extern int32 auto_par[8];
 extern double outperiod[20];
 extern int64 UzrPar[20];
 extern int32 NAutoUzr;
@@ -184,7 +184,7 @@ extern char fort9[200];
 
 extern int32 load_all_labeled_orbits;
 
-extern int32 AutoTwoParam;
+extern int32 auto_two_param;
 extern int32 NAutoPar;
 
 void auto_nox_colset(int32 type);

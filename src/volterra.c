@@ -26,7 +26,7 @@ static double *Memory[MAX_KER];
 static int32 CurrentPoint;
 static int32 KnFlag;
 
-int32 AutoEvaluate = 0;
+int32 auto_evaluate = 0;
 
 static void volterra_get_kn(double *y, double t);
 static double volterra_betnn(double mu, double dt);
@@ -121,7 +121,7 @@ volterra_allocate(int32 npts, int32 flag) {
 
 void
 volterra_re_evaluate_kernels(void) {
-    if (AutoEvaluate == 0) {
+    if (auto_evaluate == 0) {
         return;
     }
     for (int32 i = 0; i < NKernel; i++) {

@@ -119,10 +119,10 @@ Rotchk blrtn;
 
 GrabPoint grabpt;
 
-int32 AutoTwoParam = 0;
+int32 auto_two_param = 0;
 int32 NAutoPar = 8;
-int32 Auto_index_to_array[8];
-int32 AutoPar[8];
+int32 auto_index_to_array[8];
+int32 auto_par[8];
 
 double outperiod[20];
 int64 UzrPar[20];
@@ -255,7 +255,7 @@ auto_nox_store_point(double x, double y) {
 
 void
 auto_nox_get_str(char *xlabel, char *ylabel) {
-    sprintf(xlabel, "%s", upar_names[AutoPar[Auto.icp1]]);
+    sprintf(xlabel, "%s", upar_names[auto_par[Auto.icp1]]);
     switch (Auto.plot) {
     case HI_P:
     case HL_P:
@@ -271,7 +271,7 @@ auto_nox_get_str(char *xlabel, char *ylabel) {
         sprintf(ylabel, "Frequency");
         break;
     case P_P:
-        sprintf(ylabel, "%s", upar_names[AutoPar[Auto.icp2]]);
+        sprintf(ylabel, "%s", upar_names[auto_par[Auto.icp2]]);
         break;
     case AV_P:
         sprintf(ylabel, "%s_bar", uvar_names[Auto.var]);
@@ -520,7 +520,7 @@ auto_nox_do(int32 iold, int32 isave) {
         printf("RestartLabel=%d itp=%d ips=%d nfpar=%d ilp=%d isw=%d isp=%d "
                "A2p=%d \n",
                RestartLabel, Auto.itp, Auto.ips, Auto.nfpar, Auto.ilp, Auto.isw,
-               Auto.isp, AutoTwoParam);
+               Auto.isp, auto_two_param);
         Auto.irs = RestartLabel;
         RestartLabel = 0;
         auto_nox_do(iold, isave);
@@ -539,7 +539,7 @@ auto_nox_name_to_index(char *s) {
     }
     in = init_conds_find_user_name(PARAM_BOX, s);
     for (i = 0; i < NAutoPar; i++) {
-        if (AutoPar[i] == in) {
+        if (auto_par[i] == in) {
             return i;
         }
     }
@@ -555,7 +555,7 @@ auto_nox_par_to_name(int64 index, char *s) {
     if (index < 0 || index > 8) {
         return 0;
     }
-    sprintf(s, "%s", upar_names[AutoPar[index]]);
+    sprintf(s, "%s", upar_names[auto_par[index]]);
     return 1;
 }
 
@@ -616,7 +616,7 @@ auto_nox_params(void) {
     char values[LENGTH(n)][MAX_LEN_SBOX];
     for (int32 i = 0; i < 8; i++) {
         if (i < NAutoPar) {
-            sprintf(values[i], "%s", upar_names[AutoPar[i]]);
+            sprintf(values[i], "%s", upar_names[auto_par[i]]);
         } else {
             values[i][0] = '\0';
         }
@@ -627,9 +627,9 @@ auto_nox_params(void) {
             if (i < NAutoPar) {
                 in = init_conds_find_user_name(PARAM_BOX, values[i]);
                 if (in >= 0) {
-                    AutoPar[i] = in;
+                    auto_par[i] = in;
                     in = get_param_index(values[i]);
-                    Auto_index_to_array[i] = in;
+                    auto_index_to_array[i] = in;
                 }
             }
         }
@@ -795,8 +795,8 @@ auto_nox_plot_par(void) {
     }
     graf_par_ind_to_sym(i1, n1);
     sprintf(values[0], "%s", n1);
-    sprintf(values[1], "%s", upar_names[AutoPar[Auto.icp1]]);
-    sprintf(values[2], "%s", upar_names[AutoPar[Auto.icp2]]);
+    sprintf(values[1], "%s", upar_names[auto_par[Auto.icp1]]);
+    sprintf(values[2], "%s", upar_names[auto_par[Auto.icp2]]);
     sprintf(values[3], "%g", Auto.xmin);
     sprintf(values[4], "%g", Auto.ymin);
     sprintf(values[5], "%g", Auto.xmax);
@@ -812,7 +812,7 @@ auto_nox_plot_par(void) {
         i1 = init_conds_find_user_name(PARAM_BOX, values[1]);
         if (i1 >= 0) {
             for (i = 0; i < NAutoPar; i++) {
-                if (i1 == AutoPar[i]) {
+                if (i1 == auto_par[i]) {
                     Auto.icp1 = i;
                 }
             }
@@ -820,7 +820,7 @@ auto_nox_plot_par(void) {
         i1 = init_conds_find_user_name(PARAM_BOX, values[2]);
         if (i1 >= 0) {
             for (i = 0; i < NAutoPar; i++) {
-                if (i1 == AutoPar[i]) {
+                if (i1 == auto_par[i]) {
                     Auto.icp2 = i;
                 }
             }
@@ -1381,9 +1381,9 @@ auto_nox_info_header(int32 icp1, int32 icp2) {
     char p1name[12];
     char p2name[12];
 
-    strncpy(p1name, upar_names[AutoPar[icp1]], sizeof(p1name));
+    strncpy(p1name, upar_names[auto_par[icp1]], sizeof(p1name));
     if (icp2 < NAutoPar) {
-        strncpy(p2name, upar_names[AutoPar[icp2]], sizeof(p2name));
+        strncpy(p2name, upar_names[auto_par[icp2]], sizeof(p2name));
     } else {
         strncpy(p2name, "   ", sizeof(p2name));
     }
@@ -1547,10 +1547,10 @@ auto_nox_init_win(void) {
         NAutoPar = NUPAR;
     }
     for (i = 0; i < NAutoPar; i++) {
-        AutoPar[i] = i;
+        auto_par[i] = i;
     }
     for (i = 0; i < NAutoPar; i++) {
-        Auto_index_to_array[i] = get_param_index(upar_names[AutoPar[i]]);
+        auto_index_to_array[i] = get_param_index(upar_names[auto_par[i]]);
     }
     Auto.nper = 0;
     grabpt.flag = 0;  //  no point in buffer
@@ -1837,7 +1837,7 @@ auto_nox_run(void) {
                 Auto.isp = 0;
             }
             Auto.nfpar = 1;
-            AutoTwoParam = 0;
+            auto_two_param = 0;
             auto_nox_do(opn, cls);
             return;
         }
@@ -1863,7 +1863,7 @@ auto_nox_run(void) {
                 Auto.isp = 0;
             }
             Auto.nfpar = 1;
-            AutoTwoParam = 0;
+            auto_two_param = 0;
             NewPeriodFlag = 1;
             auto_nox_do(opn, cls);
             return;
@@ -1892,7 +1892,7 @@ auto_nox_run(void) {
             }
 
             Auto.nfpar = 1;
-            AutoTwoParam = 0;
+            auto_two_param = 0;
             NewPeriodFlag = 2;
             auto_nox_do(opn, cls);
             return;
@@ -1932,7 +1932,7 @@ auto_nox_run(void) {
                 Auto.isp = 0;
             }
             Auto.nfpar = 1;
-            AutoTwoParam = 0;
+            auto_two_param = 0;
             auto_nox_do(NO_OPEN_3, APPEND);
         }
 
@@ -2004,7 +2004,7 @@ auto_nox_run(void) {
                 Auto.isp = 0;
             }
             Auto.ips = 2;
-            AutoTwoParam = 0;
+            auto_two_param = 0;
             auto_nox_do(OPEN_3, APPEND);
             return;
         }
@@ -2022,7 +2022,7 @@ auto_nox_run(void) {
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
             Auto.nfpar = 2;
-            AutoTwoParam = PD2;
+            auto_two_param = PD2;
             TypeOfCalc = PD2;
             Auto.ips = 2;
             Auto.ilp = 0;
@@ -2086,7 +2086,7 @@ auto_nox_run(void) {
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
             Auto.nfpar = 2;
-            AutoTwoParam = TR2;
+            auto_two_param = TR2;
             TypeOfCalc = TR2;
             Auto.ips = 2;
             Auto.ilp = 0;
@@ -2140,7 +2140,7 @@ auto_nox_run(void) {
             Auto.isp = 0;
         }
         Auto.ips = 4;
-        AutoTwoParam = 0;
+        auto_two_param = 0;
         auto_nox_do(OPEN_3, APPEND);
         ggets_ping();
         return;
@@ -2156,7 +2156,7 @@ auto_nox_homo_choice(int32 itp) {
         Auto.itp = grabpt.itp;
 
         TypeOfCalc = HO2;
-        AutoTwoParam = HO2;
+        auto_two_param = HO2;
         NewPeriodFlag = 1;
         Auto.ips = 9;
 
@@ -2202,7 +2202,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
                 Auto.isp = 0;
             }
             Auto.ips = 2;
-            AutoTwoParam = 0;
+            auto_two_param = 0;
             auto_nox_do(OPEN_3, APPEND);
         } else if (ips == 4) {
             // auto switch bvp
@@ -2217,7 +2217,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
                 Auto.isp = 0;
             }
             Auto.ips = 4;
-            AutoTwoParam = 0;
+            auto_two_param = 0;
             auto_nox_do(OPEN_3, APPEND);
         } else {
             // auto switch ss
@@ -2235,7 +2235,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             if (METHOD == DISCRETE) {
                 Auto.ips = -1;
             }
-            AutoTwoParam = 0;
+            auto_two_param = 0;
             auto_nox_do(OPEN_3, APPEND);
         }
         return;
@@ -2317,7 +2317,7 @@ auto_nox_new_ss(void) {
     }
 
     Auto.nfpar = 1;
-    AutoTwoParam = 0;
+    auto_two_param = 0;
     auto_nox_do(opn, cls);
     return;
 }
@@ -2355,7 +2355,7 @@ auto_nox_extend_ss(void) {
         Auto.isp = 0;
     }
 
-    AutoTwoParam = 0;
+    auto_two_param = 0;
     auto_nox_do(OPEN_3, APPEND);
     return;
 }
@@ -2409,7 +2409,7 @@ auto_nox_start_at_homoclinic(void) {
     Auto.itp = 0;
     TypeOfCalc = HO2;
 
-    AutoTwoParam = HO2;
+    auto_two_param = HO2;
     NewPeriodFlag = 1;
     Auto.ips = 9;
 
@@ -2470,7 +2470,7 @@ auto_nox_new_per(void) {
         Auto.isp = 0;
     }
     Auto.ips = 2;
-    AutoTwoParam = 0;
+    auto_two_param = 0;
     auto_nox_do(OPEN_3, APPEND);
     return;
 }
@@ -2499,13 +2499,13 @@ auto_nox_2p_limit(int32 ips) {
     }
 
     Auto.ips = ipsuse;
-    AutoTwoParam = LPP2;
+    auto_two_param = LPP2;
     if (ipsuse == 1) {
         TypeOfCalc = LPE2;
-        AutoTwoParam = LPE2;
+        auto_two_param = LPE2;
     } else {
         TypeOfCalc = LPP2;
-        AutoTwoParam = LPP2;
+        auto_two_param = LPP2;
     }
     // printf("ips=%d  itp=%d \n",Auto.ips,Auto.itp);
     auto_nox_do(OPEN_3, APPEND);
@@ -2538,7 +2538,7 @@ auto_nox_2p_branch(int32 ips) {
     if (METHOD == DISCRETE) {
         Auto.ips = -1;
     }
-    AutoTwoParam = BR2;
+    auto_two_param = BR2;
     TypeOfCalc = BR2;
     auto_nox_do(OPEN_3, APPEND);
     return;
@@ -2553,7 +2553,7 @@ auto_nox_2p_fixper(void) {
     Auto.isw = 1;
     Auto.isp = 0;
     Auto.ips = 2;
-    AutoTwoParam = FP2;
+    auto_two_param = FP2;
     TypeOfCalc = FP2;
     auto_nox_do(OPEN_3, APPEND);
     return;
@@ -2587,7 +2587,7 @@ auto_nox_2p_hopf(void) {
     if (METHOD == DISCRETE) {
         Auto.ips = -1;
     }
-    AutoTwoParam = HB2;
+    auto_two_param = HB2;
     TypeOfCalc = HB2;
     auto_nox_do(OPEN_3, APPEND);
     return;
@@ -2711,7 +2711,7 @@ auto_nox_save_numerics(FILE *fp) {
     int32 i;
     fprintf(fp, "%d ", NAutoPar);
     for (i = 0; i < NAutoPar; i++) {
-        fprintf(fp, "%d ", AutoPar[i]);
+        fprintf(fp, "%d ", auto_par[i]);
     }
     fprintf(fp, "%d\n", NAutoUzr);
     for (i = 0; i < 9; i++) {
@@ -2730,9 +2730,9 @@ auto_nox_load_numerics(FILE *fp) {
     int32 in;
     fscanf(fp, "%d ", &NAutoPar);
     for (int64 i = 0; i < NAutoPar; i++) {
-        fscanf(fp, "%d ", &AutoPar[i]);
-        in = get_param_index(upar_names[AutoPar[i]]);
-        Auto_index_to_array[i] = in;
+        fscanf(fp, "%d ", &auto_par[i]);
+        in = get_param_index(upar_names[auto_par[i]]);
+        auto_index_to_array[i] = in;
     }
     fscanf(fp, "%d ", &NAutoUzr);
     for (int32 i = 0; i < 9; i++) {
@@ -2980,8 +2980,8 @@ auto_nox_file(void) {
         if (FromAutoFlag) {
             // auto nox set point
             FromAutoFlag = 0;
-            set_val(upar_names[AutoPar[Auto.icp1]], XfromAuto);
-            set_val(upar_names[AutoPar[Auto.icp2]], YfromAuto);
+            set_val(upar_names[auto_par[Auto.icp1]], XfromAuto);
+            set_val(upar_names[auto_par[Auto.icp2]], YfromAuto);
             derived_evaluate();
             tabular_redo_all_fun_tables();
             init_conds_redraw_params();

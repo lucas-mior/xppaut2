@@ -151,10 +151,10 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
 
     if (iap->ntot == 1) {
         auto_nox_add_point(par, per, uhigh, ulow, ubar, *a, type, 0, lab, icp1,
-                           icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
+                           icp2, auto_two_param, my_ev.evr, my_ev.evi);
     } else {
         auto_nox_add_point(par, per, uhigh, ulow, ubar, *a, type, 1, lab, icp1,
-                           icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
+                           icp2, auto_two_param, my_ev.evr, my_ev.evi);
     }
 
     if (DiagFlag == 0) {
@@ -167,7 +167,7 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
     }
     add_diagram((int32)ibrs, (int32)ntots, (int32)iap->itp, lab,
                 (int32)iap->nfpr, *a, uhigh, ulow, u0, ubar, par, per,
-                (int32)iap->ndim, icp1, icp2, icp3, icp4, AutoTwoParam,
+                (int32)iap->ndim, icp1, icp2, icp3, icp4, auto_two_param,
                 my_ev.evr, my_ev.evi);
     return;
 }

@@ -37,7 +37,7 @@ diagram_edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
                    double *par, double per, int32 n, int32 icp1, int32 icp2,
                    int32 icp3, int32 icp4, double *evr, double *evi) {
     edit_diagram(bifd, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,
-                 per, n, icp1, icp2, icp3, icp4, AutoTwoParam, evr, evi,
+                 per, n, icp1, icp2, icp3, icp4, auto_two_param, evr, evi,
                  blrtn.torper);
     return;
 }

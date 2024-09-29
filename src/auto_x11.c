@@ -198,7 +198,7 @@ auto_x11_get_info(int32 *n, char *pname) {
         d = bifd;
         while (true) {
             if (d->ibr == ibr && ((d->ntot == i1) || (d->ntot == (-i1)))) {
-                strcpy(pname, upar_names[AutoPar[d->icp1]]);
+                strcpy(pname, upar_names[auto_par[d->icp1]]);
                 break;
             }
             dnew = d->next;
@@ -247,7 +247,7 @@ auto_x11_find_point(int32 ibr, int32 pt) {
             }
             integrate_get_ic(0, d->u0);
             for (int32 i = 0; i < NAutoPar; i++) {
-                constants[Auto_index_to_array[i]] = d->par[i];
+                constants[auto_index_to_array[i]] = d->par[i];
             }
             derived_evaluate();
             tabular_redo_all_fun_tables();
@@ -600,7 +600,7 @@ auto_x11_traverse_diagram(void) {
         grabpt.nfpar = d->nfpar;
         grabpt.index = d->index;
         for (int32 i = 0; i < NAutoPar; i++) {
-            constants[Auto_index_to_array[i]] = grabpt.par[i];
+            constants[auto_index_to_array[i]] = grabpt.par[i];
         }
     }
     derived_evaluate();

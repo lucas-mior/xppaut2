@@ -44,7 +44,7 @@ static double FreezeKeyY;
 static double FreezeKeyX;
 static double FreezeKeyY;
 static int32 FreezeKeyFlag;
-int32 AutoFreezeFlag = 0;
+int32 auto_freeze_flag = 0;
 static int32 CurrentCurve = 0;
 
 int32 colorline[] = {0, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 0};
@@ -1052,7 +1052,7 @@ graf_par_freeze_com(int32 c) {
         }
         break;
     case 7:
-        AutoFreezeFlag = 1 - AutoFreezeFlag;
+        auto_freeze_flag = 1 - auto_freeze_flag;
         break;
     default:
         break;
@@ -1162,7 +1162,7 @@ graf_par_delete_frz(void) {
 
 void
 graf_par_auto_freeze_it(void) {
-    if (AutoFreezeFlag == 0) {
+    if (auto_freeze_flag == 0) {
         return;
     }
     graf_par_create_crv(0);

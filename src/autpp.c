@@ -21,7 +21,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     (void)dfdp;
 
     for (int32 i = 0; i < NAutoPar; i++) {
-        constants[Auto_index_to_array[i]] = par[i];
+        constants[auto_index_to_array[i]] = par[i];
     }
     derived_evaluate();
     tabular_redo_all_fun_tables();
@@ -47,7 +47,7 @@ stpnt(int64 ndim, double t, double *u, double *par) {
     double p;
 
     for (int32 i = 0; i < NAutoPar; i++) {
-        par[i] = constants[Auto_index_to_array[i]];
+        par[i] = constants[auto_index_to_array[i]];
     }
 
     if (NewPeriodFlag == 0) {
@@ -87,7 +87,7 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
     // Hooks to the XPP bc parser!!
 
     for (int32 i = 0; i < NAutoPar; i++) {
-        constants[Auto_index_to_array[i]] = par[i];
+        constants[auto_index_to_array[i]] = par[i];
     }
 
     derived_evaluate();

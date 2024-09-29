@@ -1362,7 +1362,7 @@ int32 go_go_auto(void);
 #define MAXBIFCRV 100
 #define LMAX(a, b) ((a > b) ? a : b)
 
-extern int32 AutoFreezeFlag;
+extern int32 auto_freeze_flag;
 extern int32 colorline[];
 
 void graf_par_change_view_com(int32 com);
@@ -3127,7 +3127,7 @@ void txt_make_view(void);
 #ifndef VOLTERRA2_H
 #define VOLTERRA2_H
 
-extern int32 AutoEvaluate;
+extern int32 auto_evaluate;
 
 double volterra_ker_val(int32 in);
 void volterra_alloc_memory(void);

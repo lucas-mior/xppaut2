@@ -208,7 +208,7 @@ numerics_get_num_par(int32 ch) {
         if (METHOD == VOLTERRA) {
             tmp = MaxPoints;
             ggets_new_int("MaxPoints:", &tmp);
-            ggets_new_int("AutoEval(1=yes) :", &AutoEvaluate);
+            ggets_new_int("AutoEval(1=yes) :", &auto_evaluate);
             volterra_allocate(tmp, 1);
         }
 
