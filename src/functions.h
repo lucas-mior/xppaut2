@@ -329,7 +329,7 @@ uint32 color_map(int32 i);
 
 extern int32 ms_style;
 extern char *info_message;
-extern int32 PS_Color;
+extern int32 ps_color;
 
 void ggets_ping(void);
 void ggets_reset_graphics(void);

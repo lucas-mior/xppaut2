@@ -423,7 +423,7 @@ diagram_post_auto(void) {
     if (status == 0) {
         return;
     }
-    if (!ps_init(filename, PS_Color)) {
+    if (!ps_init(filename, ps_color)) {
         return;
     }
     auto_nox_draw_ps_axes();

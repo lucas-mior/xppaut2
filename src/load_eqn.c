@@ -2075,7 +2075,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.PS_COLOR || force) ||
             ((mask != NULL) && (mask->PS_COLOR == 1))) {
             PSColorFlag = atoi(s2);
-            PS_Color = PSColorFlag;
+            ps_color = PSColorFlag;
             notAlreadySet.PS_COLOR = 0;
         }
         return;

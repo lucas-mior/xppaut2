@@ -11,7 +11,7 @@
 #include <libgen.h>
 
 static NullCline nclines[MAXNCLINE];
-int32 PS_Color = 1;
+int32 ps_color = 1;
 
 #define SPER 3
 #define UPER 4
@@ -981,7 +981,7 @@ graf_par_dump_ps(int32 i) {
     }
 
     if (strcmp(plot_format, "ps") == 0) {
-        if (ps_init(filename, PS_Color)) {
+        if (ps_init(filename, ps_color)) {
             many_pops_ps_restore();
         }
     } else if (strcmp(plot_format, "svg") == 0) {
@@ -1489,7 +1489,7 @@ graf_par_add_a_curve_com(int32 c) {
                              "Font", "Linewidth"};
         int32 status;
         char values[LENGTH(nn)][MAX_LEN_SBOX];
-        snprintf(values[0], sizeof(values[0]), "%d", PS_Color);
+        snprintf(values[0], sizeof(values[0]), "%d", ps_color);
         snprintf(values[1], sizeof(values[1]), "%d", PS_Port);
         snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
         strncpy(values[3], PS_FONT, sizeof(values[3]));
@@ -1497,7 +1497,7 @@ graf_par_add_a_curve_com(int32 c) {
         status = pop_list_do_string_box(5, 5, 1, "Postscript parameters", nn,
                                         values, 25);
         if (status != 0) {
-            PS_Color = atoi(values[0]);
+            ps_color = atoi(values[0]);
             PS_Port = atoi(values[1]);
             PS_FONTSIZE = atoi(values[2]);
             PS_LW = atof(values[4]);
@@ -1509,7 +1509,7 @@ graf_par_add_a_curve_com(int32 c) {
                                           "*.ps")) {
                 return;
             }
-            if (ps_init(filename, PS_Color)) {
+            if (ps_init(filename, ps_color)) {
                 many_pops_ps_restore();
                 ggets_ping();
             }

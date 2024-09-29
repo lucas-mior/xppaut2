@@ -1057,7 +1057,7 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
             break;
         }
 
-        if (PS_Color) {
+        if (ps_color) {
             graphics_set_linestyle(1);
             if (flag2 > 0) {
                 auto_nox_pscolset2(flag2);
@@ -1079,7 +1079,7 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
             break;
         }
         if (Auto.plot != P_P) {
-            if (PS_Color) {
+            if (ps_color) {
                 graphics_set_linestyle(0);
             } else {
                 graphics_set_linestyle(4);
@@ -1091,7 +1091,7 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
                           (double)Auto.lasty);
         break;
     case UPER:
-        if (PS_Color) {
+        if (ps_color) {
             graphics_set_linestyle(9);
         } else {
             graphics_set_linestyle(0);
@@ -1107,7 +1107,7 @@ auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
         graphics_point_abs((double)x, (double)y2);
         break;
     case SPER:
-        if (PS_Color) {
+        if (ps_color) {
             graphics_set_linestyle(7);
         } else {
             graphics_set_linestyle(0);
