@@ -3340,10 +3340,7 @@ extern char SLIDER3VAR[20];
 extern OptionsSet notAlreadySet;
 extern XFontStruct *font_small;
 
-/*  This is a string box widget which handles a list of
-        editable strings
- */
-
+/* This is a string box widget which handles a list of editable strings */
 typedef struct StringBox {
     Window base;
     Window ok;
