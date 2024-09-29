@@ -16,6 +16,7 @@
 #include "cvode.h"
 #include "vector.h"
 #include "functions.h"
+#include "spgmr.h"
 #include "integers.h"
 
 /* Error Messages */
