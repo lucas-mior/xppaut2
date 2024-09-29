@@ -55,7 +55,7 @@ extern double *WORK;
 
 extern int32 TORUS;
 extern int32 itor[MAX_ODE];
-extern double TOR_PERIOD;
+extern double torus_period;
 
 extern int32 POIMAP;
 extern int32 POISGN;

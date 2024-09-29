@@ -36,8 +36,8 @@ do_torus_com(int32 c) {
         Window wt;
         int32 oldit[MAX_ODE];
 
-        ggets_new_float("Period :", &TOR_PERIOD);
-        if (TOR_PERIOD <= 0.0) {
+        ggets_new_float("Period :", &torus_period);
+        if (torus_period <= 0.0) {
             ggets_err_msg("Choose positive period");
             return;
         }

@@ -1559,7 +1559,7 @@ auto_nox_init_win(void) {
     for (i = 0; i < NODE; i++) {
         blrtn.nrot[i] = 0;
     }
-    blrtn.torper = TOR_PERIOD;
+    blrtn.torper = torus_period;
 
     {
         // auto nox create file name

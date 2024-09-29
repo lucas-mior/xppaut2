@@ -68,7 +68,7 @@ double my_xlo;
 double my_ylo;
 double my_xhi;
 double my_yhi;
-double TOR_PERIOD = 6.2831853071795864770;
+double torus_period = 6.2831853071795864770;
 int32 TORUS = 0;
 int32 NEQ;
 char options[100];
@@ -143,7 +143,7 @@ load_eqn_dump_torus(FILE *fp, int32 f) {
         fprintf(fp, "# Torus information \n");
     }
     lunch_io_int(&TORUS, fp, f, " Torus flag 1=ON");
-    lunch_io_double(&TOR_PERIOD, fp, f, "Torus period");
+    lunch_io_double(&torus_period, fp, f, "Torus period");
     if (TORUS) {
         for (int32 i = 0; i < NEQ; i++) {
             lunch_io_int(&itor[i], fp, f, uvar_names[i]);
@@ -1039,7 +1039,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if (override_quiet ==
             0)  // Will be 1 if -quiet was specified on the command line.
         {
-            XPPVERBOSE = (atoi(s2) == 0);
+            xpp_verbose = (atoi(s2) == 0);
         }
         return;
     }
@@ -1438,7 +1438,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("TOR_PER", s1)) {
         if ((notAlreadySet.TOR_PER || force) ||
             ((mask != NULL) && (mask->TOR_PER == 1))) {
-            TOR_PERIOD = atof(s2);
+            torus_period = atof(s2);
             TORUS = 1;
             notAlreadySet.TOR_PER = 0;
         }

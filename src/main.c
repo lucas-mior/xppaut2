@@ -101,7 +101,7 @@ int32 dcur_y;
 int32 dcur_x;
 int32 cury_off;
 FILE *logfile;
-int32 XPPVERBOSE = 1;
+int32 xpp_verbose = 1;
 int32 override_quiet = 0;
 int32 override_logfile = 0;
 int32 tfBell;

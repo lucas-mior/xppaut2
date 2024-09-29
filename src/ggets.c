@@ -132,7 +132,7 @@ ggets_plintf(char *fmt, ...) {
     int32 nchar = 0;
     va_list arglist;
 
-    if (!XPPVERBOSE) {
+    if (!xpp_verbose) {
         return nchar;  // Don't print at all!
     }
 

@@ -381,7 +381,7 @@ extern int32 run_immediately;
 extern int32 multi_win;
 extern int32 start_line_type;
 extern int32 Nintern_set;
-extern double TOR_PERIOD;
+extern double torus_period;
 extern int32 TORUS;
 extern int32 IX_PLT[10];
 extern int32 IY_PLT[10];
@@ -2236,7 +2236,7 @@ extern int32 user_gradients;
 extern int32 user_min_width;
 extern int32 user_min_height;
 extern int32 periodic;
-extern int32 XPPVERBOSE;
+extern int32 xpp_verbose;
 extern int32 override_quiet;
 extern int32 override_logfile;
 

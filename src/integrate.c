@@ -2272,12 +2272,12 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             for (ieqn = 0; ieqn < NEQ; ieqn++) {
                 torcross[ieqn] = 0;
                 if (itor[ieqn] == 1) {
-                    if (x[ieqn] > TOR_PERIOD) {
-                        x[ieqn] -= TOR_PERIOD;
+                    if (x[ieqn] > torus_period) {
+                        x[ieqn] -= torus_period;
                         torcross[ieqn] = -1;
                     }
                     if (x[ieqn] < 0) {
-                        x[ieqn] += TOR_PERIOD;
+                        x[ieqn] += torus_period;
                         torcross[ieqn] = 1;
                     }
                 }
@@ -2686,7 +2686,7 @@ integrate_plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
     izplt = MyGraph->zv;
     for (ip = 0; ip < NEQ; ip++) {
         if (itor[ip] == 1) {
-            xvold[ip + 1] = xvold[ip + 1] + tc[ip]*TOR_PERIOD;
+            xvold[ip + 1] = xvold[ip + 1] + tc[ip]*torus_period;
         }
     }
     for (ip = 0; ip < NPlots; ip++) {
@@ -2767,13 +2767,13 @@ integrate_restore(int32 i1, int32 i2) {
             }
 
             if (TORUS == 1) {
-                if (fabs(oldxpl - xpl) > (double)(.5*TOR_PERIOD)) {
+                if (fabs(oldxpl - xpl) > (double)(.5*torus_period)) {
                     oldxpl = xpl;
                 }
-                if (fabs(oldypl - ypl) > (double)(.5*TOR_PERIOD)) {
+                if (fabs(oldypl - ypl) > (double)(.5*torus_period)) {
                     oldypl = ypl;
                 }
-                if (fabs(oldzpl - zpl) > (double)(.5*TOR_PERIOD)) {
+                if (fabs(oldzpl - zpl) > (double)(.5*torus_period)) {
                     oldzpl = zpl;
                 }
             }
