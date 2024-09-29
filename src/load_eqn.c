@@ -61,7 +61,7 @@ double z_3d[2];
 int32 IXPLT;
 int32 IYPLT;
 int32 IZPLT;
-int32 AXES;
+int32 axes;
 int32 TIMPLOT;
 int32 PLOT_3D;
 double MY_XLO;
@@ -85,7 +85,7 @@ double NEWT_ERR;
 double BOUND;
 double DELAY;
 double TOLER;
-double ATOLER;
+double atoler;
 double HMIN;
 double HMAX;
 double BVP_EPS;
@@ -303,17 +303,17 @@ load_eqn_set_all_vals(void) {
         PltFmtFlag = 0;
         notAlreadySet.PltFmtFlag = 0;
     }
-    if (notAlreadySet.AXES) {
-        AXES = 0;
-        notAlreadySet.AXES = 0;
+    if (notAlreadySet.axes) {
+        axes = 0;
+        notAlreadySet.axes = 0;
     }
     if (notAlreadySet.TOLER) {
         TOLER = 0.001;
         notAlreadySet.TOLER = 0;
     }
-    if (notAlreadySet.ATOLER) {
-        ATOLER = 0.001;
-        notAlreadySet.ATOLER = 0;
+    if (notAlreadySet.atoler) {
+        atoler = 0.001;
+        notAlreadySet.atoler = 0;
     }
     if (notAlreadySet.euler_max_iter) {
         euler_max_iter = 10;
@@ -548,14 +548,14 @@ load_eqn_set_all_vals(void) {
         MY_YLO = -2.0;
         MY_YHI = 2.0;
     }
-    if (AXES < 5) {
+    if (axes < 5) {
         x_3d[0] = MY_XLO;
         y_3d[0] = MY_YLO;
         x_3d[1] = MY_XHI;
         y_3d[1] = MY_YHI;
     }
     storage_init_stor(MAXSTOR, NEQ + 1);
-    if (AXES >= 5) {
+    if (axes >= 5) {
         PLOT_3D = 1;
     }
     numerics_chk_delay();  // check for delay allocation
@@ -601,8 +601,8 @@ load_eqn_read_defaults(FILE *fp) {
         load_eqn_fil_int(fp, &IZPLT);
         notAlreadySet.IZPLT = 0;
     }
-    if (notAlreadySet.AXES) {
-        load_eqn_fil_int(fp, &AXES);
+    if (notAlreadySet.axes) {
+        load_eqn_fil_int(fp, &axes);
         notAlreadySet.paper_white = 0;
     }
     if (notAlreadySet.NOUT) {
@@ -1368,16 +1368,16 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         }
         return;
     }
-    if (load_eqn_msc("AXES", s1)) {
-        if ((notAlreadySet.AXES || force) ||
-            ((mask != NULL) && (mask->AXES == 1))) {
+    if (load_eqn_msc("axes", s1)) {
+        if ((notAlreadySet.axes || force) ||
+            ((mask != NULL) && (mask->axes == 1))) {
             if (s2[0] == '3') {
-                AXES = 5;
+                axes = 5;
             } else {
-                AXES = 0;
+                axes = 0;
             }
 
-            notAlreadySet.AXES = 0;
+            notAlreadySet.axes = 0;
         }
         return;
     }
@@ -1536,10 +1536,10 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("ATOL", s1)) {
-        if ((notAlreadySet.ATOLER || force) ||
-            ((mask != NULL) && (mask->ATOLER == 1))) {
-            ATOLER = atof(s2);
-            notAlreadySet.ATOLER = 0;
+        if ((notAlreadySet.atoler || force) ||
+            ((mask != NULL) && (mask->atoler == 1))) {
+            atoler = atof(s2);
+            notAlreadySet.atoler = 0;
         }
         return;
     }

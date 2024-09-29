@@ -465,7 +465,7 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     double tdir = 1;
     double t0 = *tstart;
     double t = t0;
-    double atol = ATOLER;
+    double atol = atoler;
     double rtol = TOLER;
     double sqrteps = sqrt(eps);
     double thresh = atol / rtol, absh, h = 0;

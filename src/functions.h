@@ -430,7 +430,7 @@ extern int32 IXPLT;
 extern int32 IYPLT;
 extern int32 IZPLT;
 
-extern int32 AXES;
+extern int32 axes;
 extern int32 TIMPLOT;
 
 extern int32 TIMPLOT;
@@ -441,7 +441,7 @@ extern double MY_XHI;
 extern double MY_YHI;
 
 extern char options[100];
-extern double ATOLER;
+extern double atoler;
 extern double HMIN;
 extern double HMAX;
 extern double BVP_EPS;
@@ -497,7 +497,7 @@ void dae_fun_get_new_guesses(void);
 #ifndef DELAY_HANDLE_H
 #define DELAY_HANDLE_H
 
-extern double AlphaMax;
+extern double alpha_max;
 extern double OmegaMax;
 extern int32 DelayFlag;
 extern int32 DelayGrid;
@@ -2039,7 +2039,7 @@ typedef struct OptionsSet {
     int32 IXPLT;
     int32 IYPLT;
     int32 IZPLT;
-    int32 AXES;
+    int32 axes;
     int32 NMESH;
     int32 METHOD;
     int32 TIMEPLOT;
@@ -2150,7 +2150,7 @@ typedef struct OptionsSet {
     int32 FFT;
     int32 HIST;
     int32 PltFmtFlag;
-    int32 ATOLER;
+    int32 atoler;
     int32 euler_max_iter;
     int32 euler_tol;
     int32 EVEC_ITER;
@@ -2303,7 +2303,7 @@ extern Curve frz[MAXFRZ];
 extern Graph *MyGraph;
 extern int32 current_pop;
 extern int32 num_pops;
-extern int32 ActiveWinList[MAXPOP];
+extern int32 active_win_list[MAXPOP];
 
 int32 many_pops_select_table(void);
 void many_pops_get_intern_set(void);

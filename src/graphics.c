@@ -597,7 +597,7 @@ graphics_set_extra(void) {
 
 void
 graphics_reset_graph(void) {
-    if (AXES >= 5) {
+    if (axes >= 5) {
         PLOT_3D = 1;
     } else {
         PLOT_3D = 0;
@@ -621,7 +621,7 @@ graphics_reset_graph(void) {
     MyGraph->ylo = MY_YLO;
     MyGraph->xhi = MY_XHI;
     MyGraph->yhi = MY_YHI;
-    MyGraph->grtype = AXES;
+    MyGraph->grtype = axes;
     graf_par_check_windows();
     graphics_set_normal_scale();
     graf_par_redraw_the_graph();
@@ -644,18 +644,18 @@ graphics_get_graph(void) {
     IZPLT = MyGraph->zv[0];
     PLOT_3D = MyGraph->ThreeDFlag;
     if (PLOT_3D) {
-        AXES = 5;
+        axes = 5;
     } else {
-        AXES = 0;
+        axes = 0;
     }
-    AXES = MyGraph->grtype;
+    axes = MyGraph->grtype;
     return;
 }
 
 void
 graphics_init(int32 i) {
-    if (AXES <= 3) {
-        AXES = 0;
+    if (axes <= 3) {
+        axes = 0;
     }
     for (int32 j = 0; j < 3; j++) {
         for (int32 k = 0; k < 3; k++) {
@@ -689,7 +689,7 @@ graphics_init(int32 i) {
     graph[i].ThreeDFlag = PLOT_3D;
     graph[i].TimeFlag = TIMPLOT;
     graph[i].ColorFlag = 0;
-    graph[i].grtype = AXES;
+    graph[i].grtype = axes;
     graph[i].color_scale = 1.0;
     graph[i].min_scale = 0.0;
     strcpy(graph[i].gr_info, "");

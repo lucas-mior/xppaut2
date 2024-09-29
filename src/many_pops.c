@@ -64,7 +64,7 @@ int32 num_pops;
 static int32 MINI_H = 300;
 static int32 MINI_W = 450;
 
-int32 ActiveWinList[MAXPOP];
+int32 active_win_list[MAXPOP];
 
 static void many_pops_select_sym(Window window);
 static void many_pops_select_window(Window window);
@@ -968,7 +968,7 @@ many_pops_set_active_windows(void) {
     int32 np = 0;
     for (int32 i = 0; i < MAXPOP; i++) {
         if (graph[i].Use == 1) {
-            ActiveWinList[np] = i;
+            active_win_list[np] = i;
             np++;
         }
     }
@@ -1075,7 +1075,7 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
     for (int32 i = 0; i < MAXPOP; i++) {
         graph[i].Use = 0;
     }
-    ActiveWinList[0] = 0;
+    active_win_list[0] = 0;
     graphics_init_all();
 
     graph[0].window = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,

@@ -143,7 +143,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     *stabinfo = (double)fabs(sign);
     // if(*stabinfo>0)
     i = (int32)sign;
-    if (i == 0 && okroot == 1 && AlphaMax > 0) {
+    if (i == 0 && okroot == 1 && alpha_max > 0) {
         i = 2;
     }
 
@@ -151,7 +151,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     del_stab_flag = 1;
     free(ev);
     if (okroot == 1) {
-        *stabinfo = AlphaMax;
+        *stabinfo = alpha_max;
     }
     return;
 }
@@ -303,7 +303,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
     double xlp;
     double ylp;
 
-    lambda.r = AlphaMax;
+    lambda.r = alpha_max;
     lambda.i = OmegaMax;
 
     z = xmalloc(sizeof(*z)*(usize)(n*n));
@@ -316,7 +316,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         r = del_stab_z_abs(det);
         if (r < err) {  // within the tolerance
             del_stab_process_root(lambda.r, lambda.i);
-            AlphaMax = lambda.r;
+            alpha_max = lambda.r;
             OmegaMax = lambda.i;
             return 1;
         }
@@ -360,9 +360,9 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         lambda.i = yl;
         if (r < err) {  // within the tolerance
             del_stab_process_root(lambda.r, lambda.i);
-            AlphaMax = lambda.r;
+            alpha_max = lambda.r;
             OmegaMax = lambda.i;
-            rr[0] = AlphaMax;
+            rr[0] = alpha_max;
             rr[1] = OmegaMax;
             return 1;
         }

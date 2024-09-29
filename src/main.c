@@ -225,7 +225,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.IXPLT = 1;
     notAlreadySet.IYPLT = 1;
     notAlreadySet.IZPLT = 1;
-    notAlreadySet.AXES = 1;
+    notAlreadySet.axes = 1;
     notAlreadySet.NMESH = 1;
     notAlreadySet.METHOD = 1;
     notAlreadySet.TIMEPLOT = 1;
@@ -335,7 +335,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.FFT = 1;
     notAlreadySet.HIST = 1;
     notAlreadySet.PltFmtFlag = 1;
-    notAlreadySet.ATOLER = 1;
+    notAlreadySet.atoler = 1;
     notAlreadySet.euler_max_iter = 1;
     notAlreadySet.euler_tol = 1;
     notAlreadySet.EVEC_ITER = 1;

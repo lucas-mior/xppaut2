@@ -1878,7 +1878,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             break;
 #ifdef CVODE_YES
         case CVODE:
-            cvode(istart, xpv.x, t, nodes, tout, &kflag, &TOLER, &ATOLER);
+            cvode(istart, xpv.x, t, nodes, tout, &kflag, &TOLER, &atoler);
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
                 cvode_err_msg(kflag);
@@ -1889,7 +1889,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
 #endif
         case DP5:
         case DP83:
-            dp(istart, xpv.x, t, nodes, tout, &TOLER, &ATOLER, METHOD - DP5,
+            dp(istart, xpv.x, t, nodes, tout, &TOLER, &atoler, METHOD - DP5,
                &kflag);
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
@@ -2105,7 +2105,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             MSWTCH(xpv.x, x);
-            cvode(start, xpv.x, t, nodes, tout, &kflag, &TOLER, &ATOLER);
+            cvode(start, xpv.x, t, nodes, tout, &kflag, &TOLER, &atoler);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
             if (DelayErr) {
@@ -2137,7 +2137,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             MSWTCH(xpv.x, x);
-            dp(start, xpv.x, t, nodes, tout, &TOLER, &ATOLER, METHOD - DP5,
+            dp(start, xpv.x, t, nodes, tout, &TOLER, &atoler, METHOD - DP5,
                &kflag);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
@@ -2660,7 +2660,7 @@ integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
     }
 
     for (int32 i = 0; i < num_pops; i++) {
-        many_pops_make_active(ActiveWinList[i], flag);
+        many_pops_make_active(active_win_list[i], flag);
         integrate_plot_one_graph(xv, xvold, ddt, tc);
     }
     many_pops_make_active(ic, flag);

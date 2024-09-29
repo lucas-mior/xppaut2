@@ -234,7 +234,7 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
     double t = t0;
 #ifdef CVODE_YES
     if (METHOD == CVODE) {
-        cvode(istart, y, &t, NODE, t1, &kflag, &TOLER, &ATOLER);
+        cvode(istart, y, &t, NODE, t1, &kflag, &TOLER, &atoler);
         if (kflag < 0) {
             cvode_err_msg(kflag);
             return 0;
@@ -244,7 +244,7 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
     }
 #endif
     if (METHOD == DP5 || METHOD == DP83) {
-        dp(istart, y, &t, NODE, t1, &TOLER, &ATOLER, METHOD - DP5, &kflag);
+        dp(istart, y, &t, NODE, t1, &TOLER, &atoler, METHOD - DP5, &kflag);
         if (kflag != 1) {
             dormpri_dp_err(kflag);
             return 0;

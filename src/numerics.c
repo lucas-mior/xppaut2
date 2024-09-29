@@ -199,7 +199,7 @@ numerics_get_num_par(int32 ch) {
         if (METHOD == CVODE || METHOD == DP5 || METHOD == DP83 ||
             METHOD == RB23) {
             ggets_new_float("Relative tol:", &TOLER);
-            ggets_new_float("Abs. Toler:", &ATOLER);
+            ggets_new_float("Abs. Toler:", &atoler);
         }
         if (METHOD == BACKEUL || METHOD == VOLTERRA) {
             ggets_new_float("Tolerance :", &euler_tol);
@@ -232,7 +232,7 @@ numerics_get_num_par(int32 ch) {
             break;
         }
         ggets_new_float("Maximal delay :", &DELAY);
-        ggets_new_float("real guess :", &AlphaMax);
+        ggets_new_float("real guess :", &alpha_max);
         ggets_new_float("imag guess :", &OmegaMax);
         ggets_new_int("DelayGrid :", &DelayGrid);
         if (DELAY > 0.0) {

@@ -10,7 +10,7 @@
 #include "xpplim.h"
 #include "integers.h"
 
-double AlphaMax = 2;
+double alpha_max = 2;
 double OmegaMax = 2;
 int32 DelayFlag = 0;
 int32 DelayGrid;

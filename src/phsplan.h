@@ -28,7 +28,7 @@ extern int32 NJMP;
 extern double HMIN;
 extern double HMAX;
 extern double TOLER;
-extern double ATOLER;
+extern double atoler;
 extern double BOUND;
 extern double DELAY;
 extern double NULL_ERR;

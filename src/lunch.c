@@ -345,12 +345,12 @@ lunch_io_numerics(int32 f, FILE *fp) {
     // fix stuff concerning the tolerance
     if (f == READEM) {
         if (set_type == 1) {
-            lunch_io_double(&ATOLER, fp, f, "Abs. Tolerance");
+            lunch_io_double(&atoler, fp, f, "Abs. Tolerance");
         } else {
-            ATOLER = TOLER*10;
+            atoler = TOLER*10;
         }
     } else {
-        lunch_io_double(&ATOLER, fp, f, "Abs. Tolerance");
+        lunch_io_double(&atoler, fp, f, "Abs. Tolerance");
     }
 
     lunch_io_double(&DELAY, fp, f, "Max Delay");

@@ -211,7 +211,7 @@ menudrive_drw_all_scrns(void) {
     }
 
     for (int32 i = 0; i < num_pops; i++) {
-        many_pops_make_active(ActiveWinList[i], 1);
+        many_pops_make_active(active_win_list[i], 1);
         main_redraw_all();
     }
 
@@ -232,7 +232,7 @@ menudrive_clr_all_scrns(void) {
     }
 
     for (int32 i = 0; i < num_pops; i++) {
-        many_pops_make_active(ActiveWinList[i], 1);
+        many_pops_make_active(active_win_list[i], 1);
         main_clr_scrn();
     }
 
