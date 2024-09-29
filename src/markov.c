@@ -40,7 +40,7 @@ static double *my_mean[MAX_ODE];
 static double *my_variance[MAX_ODE];
 static int32 stoch_len;
 
-int32 STOCH_FLAG;
+int32 stoch_flag;
 static int32 STOCH_HERE;
 static int32 N_TRIALS;
 static int32 Wiener[MAX_PAR];
@@ -475,11 +475,11 @@ markov_do_stochast_com(int32 i) {
             }
             STOCH_HERE = 0;
         }
-        STOCH_FLAG = 1;
+        stoch_flag = 1;
         integrate_do_range(&my_data[0], 0);
         init_conds_redraw_ics();
 
-        STOCH_FLAG = 0;
+        stoch_flag = 0;
         break;
     case 'h':
         histogram_compute();

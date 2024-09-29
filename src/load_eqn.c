@@ -35,7 +35,7 @@ double x_lo[10];
 double y_lo[10];
 double x_hi[10];
 double y_hi[10];
-int32 START_LINE_TYPE = 1;
+int32 start_line_type = 1;
 InternSet intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
 
@@ -1203,13 +1203,13 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("LT", s1)) {
-        if ((notAlreadySet.START_LINE_TYPE || force) ||
-            ((mask != NULL) && (mask->START_LINE_TYPE == 1))) {
+        if ((notAlreadySet.start_line_type || force) ||
+            ((mask != NULL) && (mask->start_line_type == 1))) {
             i = atoi(s2);
             if (i < 2 && i > -6) {
-                START_LINE_TYPE = i;
+                start_line_type = i;
                 graphics_reset_all_line_type();
-                notAlreadySet.START_LINE_TYPE = 0;
+                notAlreadySet.start_line_type = 0;
             }
         }
         return;
@@ -1745,7 +1745,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (load_eqn_msc("STOCH", s1)) {
         if ((notAlreadySet.STOCH || force) ||
             ((mask != NULL) && (mask->STOCH == 1))) {
-            STOCH_FLAG = atoi(s2);
+            stoch_flag = atoi(s2);
             notAlreadySet.STOCH = 0;
         }
         return;

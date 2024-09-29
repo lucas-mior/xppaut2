@@ -379,7 +379,7 @@ typedef struct InternSet {
 extern InternSet intern_set[MAX_INTERN_SET];
 extern int32 run_immediately;
 extern int32 multi_win;
-extern int32 START_LINE_TYPE;
+extern int32 start_line_type;
 extern int32 Nintern_set;
 extern double TOR_PERIOD;
 extern int32 TORUS;
@@ -1185,7 +1185,7 @@ extern int32 fftnf(int32 ndim, int32 dims[], double Re[], double im[],
 #define FLAGS_H
 
 extern int32 NFlags;
-extern double STOL;
+extern double stol;
 
 int32 flags_add_global(char *cond, int32 sign, char *rest);
 void flags_show(void);
@@ -2067,7 +2067,7 @@ typedef struct OptionsSet {
     int32 XNullColor;
     int32 StableManifoldColor;
     int32 UnstableManifoldColor;
-    int32 START_LINE_TYPE;
+    int32 start_line_type;
     int32 rand_seed;
     int32 paper_white;
     int32 COLORMAP;
@@ -2344,7 +2344,7 @@ void many_pops_set_active_windows(void);
 #ifndef MARKOV_H
 #define MARKOV_H
 
-extern int32 STOCH_FLAG;
+extern int32 stoch_flag;
 extern int32 NWiener;
 
 void markov_add_wiener(int32 index);

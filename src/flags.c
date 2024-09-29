@@ -98,7 +98,7 @@ typedef struct {
 static FLAG flag[MAX_FLAG];
 int32 NFlags = 0;
 
-double STOL = 1.e-10;
+double stol = 1.e-10;
 
 int32
 flags_add_global(char *cond, int32 sign, char *rest) {
@@ -338,10 +338,10 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         }
     }  // run through flags
 
-    if (smin < STOL) {
-        smin = STOL;
+    if (smin < stol) {
+        smin = stol;
     } else {
-        smin = (1 + STOL)*smin;
+        smin = (1 + stol)*smin;
     }
     if (smin > 1.0) {
         return 0;

@@ -253,7 +253,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.XNullColor = 1;
     notAlreadySet.StableManifoldColor = 1;
     notAlreadySet.UnstableManifoldColor = 1;
-    notAlreadySet.START_LINE_TYPE = 1;
+    notAlreadySet.start_line_type = 1;
     notAlreadySet.rand_seed = 1;
     notAlreadySet.paper_white = 1;
     notAlreadySet.COLORMAP = 1;

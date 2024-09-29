@@ -541,7 +541,7 @@ void
 graphics_reset_all_line_type(void) {
     for (int32 j = 0; j < MAXPOP; j++) {
         for (int32 k = 0; k < MAXPERPLOT; k++) {
-            graph[j].line[k] = START_LINE_TYPE;
+            graph[j].line[k] = start_line_type;
         }
     }
     return;
@@ -671,7 +671,7 @@ graphics_init(int32 i) {
         graph[i].xv[j] = ix_plt;
         graph[i].yv[j] = iy_plt;
         graph[i].zv[j] = iz_plt;
-        graph[i].line[j] = START_LINE_TYPE;
+        graph[i].line[j] = start_line_type;
         graph[i].color[j] = 0;
     }
 

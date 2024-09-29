@@ -137,7 +137,7 @@ numerics_get_num_par(int32 ch) {
         ggets_new_float("Newton tolerance :", &evec_err);
         ggets_new_float("Jacobian epsilon :", &NEWT_ERR);
         if (NFlags > 0) {
-            ggets_new_float("SMIN :", &STOL);
+            ggets_new_float("SMIN :", &stol);
         }
 
         break;

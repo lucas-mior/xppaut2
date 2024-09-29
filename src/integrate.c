@@ -922,7 +922,7 @@ integrate_do_range(double *x, int32 flag) {
                 ierr = -1;
                 break;
             }
-            if (STOCH_FLAG) {
+            if (stoch_flag) {
                 markov_append_stoch(i, storind);
             }
 
@@ -952,7 +952,7 @@ integrate_do_range(double *x, int32 flag) {
                 array_plot_draw_one(bob);
             }
 
-            if (res == 1 || STOCH_FLAG) {
+            if (res == 1 || stoch_flag) {
                 if (batch_range == 1) {
                     histogram_post_process_stuff();
                     integrate_write_this_run(batch_out, i);
@@ -984,7 +984,7 @@ integrate_do_range(double *x, int32 flag) {
 
     ggets_ping();
     adj_range = false;
-    if (STOCH_FLAG) {
+    if (stoch_flag) {
         markov_do_stats(ierr);
     }
 
@@ -1181,7 +1181,7 @@ batch_integrate_once(void) {
     POIEXT = 0;
     storind = 0;
     browser_reset();
-    if (batch_range == 1 || STOCH_FLAG > 0) {
+    if (batch_range == 1 || stoch_flag > 0) {
         dae_fun_reset_dae();
         range_flag = 1;
 
@@ -1216,10 +1216,10 @@ batch_integrate_once(void) {
     }
     histogram_post_process_stuff();
     if (!batch_range || range.reset == 0) {
-        if (STOCH_FLAG == 1) {
+        if (stoch_flag == 1) {
             markov_mean_back();
         }
-        if (STOCH_FLAG == 2) {
+        if (stoch_flag == 2) {
             markov_variance_back();
         }
         if (!SuppressOut) {
