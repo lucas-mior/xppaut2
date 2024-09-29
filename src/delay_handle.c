@@ -21,7 +21,7 @@ static int32 MaxDelay;
 
 int32 NDelay;
 int32 del_stab_flag;
-int32 WhichDelay;
+int32 which_delay;
 int32 delay_grid = 1000;
 
 double variable_shift[2][MAX_ODE];
@@ -50,7 +50,7 @@ delay_handle_stab_eval(
     //  del_stab_flag =-1
     for (int32 i = 0; i < NDelay; i++) {
         if (delay == delay_list[i]) {
-            if (i == WhichDelay) {
+            if (i == which_delay) {
                 return variable_shift[1][var - 1];
             }
         }
@@ -77,7 +77,7 @@ delay_handle_alloc_delay(double big) {
     memset(DelayWork, 0, (usize)(n*NODE));
     delay_flag = 1;
     NDelay = 0;
-    WhichDelay = -1;
+    which_delay = -1;
     del_stab_flag = 1;
     for (int32 i = 0; i < n*(NODE); i++) {
         DelayWork[i] = 0.0;

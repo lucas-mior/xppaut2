@@ -2932,14 +2932,14 @@ auto_nox_file(void) {
         grabpt.flag = 0;
     }
     if (ch == 'p') {
-        NoBreakLine = 1;
+        no_break_line = 1;
         diagram_post_auto();
-        NoBreakLine = 0;
+        no_break_line = 0;
     }
     if (ch == 'v') {
-        NoBreakLine = 1;
+        no_break_line = 1;
         diagram_svg_auto();
-        NoBreakLine = 0;
+        no_break_line = 0;
     }
     if (ch == 'w') {
         diagram_write_pts();

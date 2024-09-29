@@ -503,7 +503,7 @@ extern int32 delay_flag;
 extern int32 delay_grid;
 extern int32 NDelay;
 extern int32 del_stab_flag;
-extern int32 WhichDelay;
+extern int32 which_delay;
 
 extern double variable_shift[2][MAX_ODE];
 extern double delay_list[MAX_DELAY];
@@ -2638,7 +2638,7 @@ void menu_draw_help(void);
 #ifndef POSTSCRIPT_H
 #define POSTSCRIPT_H
 
-extern int32 NoBreakLine;
+extern int32 no_break_line;
 extern int32 ps_fontsize;
 
 extern double ps_lw;

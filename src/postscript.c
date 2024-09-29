@@ -23,7 +23,7 @@
 #define CENTER 1
 #define POINT_TYPES 8
 int32 last_pt_line;
-int32 NoBreakLine = 0;
+int32 no_break_line = 0;
 int32 ps_fontsize = 14;
 double ps_lw = 5;
 char ps_font[200] = "Times-Roman";
@@ -215,7 +215,7 @@ ps_last_pt_off(void) {
 void
 ps_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
     last_pt_line = 1;
-    if (NoBreakLine == 1) {
+    if (no_break_line == 1) {
         fprintf(psfile, "%d %d M\n%d %d L\n", xp1, yp1, xp2, yp2);
         last_psx = xp2;
         last_psy = yp2;

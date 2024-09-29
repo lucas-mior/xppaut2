@@ -84,7 +84,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     // now we must compute a bunch of jacobians
     // first the normal one
     del_stab_flag = -1;
-    WhichDelay = -1;
+    which_delay = -1;
     colmax = 0.0;
 
     for (i = 0; i < n; i++) {
@@ -109,7 +109,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     }
     // now the jacobians for the delays
     for (int32 k = 0; k < NDelay; k++) {
-        WhichDelay = k;
+        which_delay = k;
         colmax = 0.0;
         for (i = 0; i < n; i++) {
             colsum = 0.0;
