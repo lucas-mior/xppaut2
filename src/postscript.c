@@ -411,9 +411,9 @@ ps_text(int32 x, int32 y, char *str) {
     fprintf(psfile, "/%s findfont %d ", ps_font, ps_fontsize*PS_SC);
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "%d %d moveto\n", x, y);
-    if (TextAngle != 0) {
+    if (text_angle != 0) {
         fprintf(psfile, "currentpoint gsave translate %d rotate 0 0 moveto\n",
-                TextAngle*90);
+                text_angle*90);
     }
     putc('(', psfile);
     ch = *str++;
@@ -424,7 +424,7 @@ ps_text(int32 x, int32 y, char *str) {
         putc(ch, psfile);
         ch = *str++;
     }
-    switch (TextJustify) {
+    switch (text_justify) {
     case LEFT:
         fprintf(psfile, ") Lshow\n");
         break;
@@ -437,7 +437,7 @@ ps_text(int32 x, int32 y, char *str) {
     default:
         break;
     }
-    if (TextAngle != 0) {
+    if (text_angle != 0) {
         fprintf(psfile, "grestore\n");
     }
     ps_lines = 0;

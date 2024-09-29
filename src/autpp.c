@@ -50,7 +50,7 @@ stpnt(int64 ndim, double t, double *u, double *par) {
         par[i] = constants[auto_index_to_array[i]];
     }
 
-    if (NewPeriodFlag == 0) {
+    if (new_period_flag == 0) {
         for (int32 i = 0; i < ndim; i++) {
             u[i] = last_ic[i];
         }

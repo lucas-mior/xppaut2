@@ -11,7 +11,7 @@
 #include "integers.h"
 
 double alpha_max = 2;
-double OmegaMax = 2;
+double omega_max = 2;
 int32 delay_flag = 0;
 int32 delay_grid;
 

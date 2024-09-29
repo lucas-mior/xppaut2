@@ -102,8 +102,8 @@ int32 dcur_x;
 int32 cury_off;
 FILE *logfile;
 int32 XPPVERBOSE = 1;
-int32 OVERRIDE_QUIET = 0;
-int32 OVERRIDE_LOGFILE = 0;
+int32 override_quiet = 0;
+int32 override_logfile = 0;
 int32 tfBell;
 
 int32 slider1 = -1;
@@ -605,10 +605,10 @@ main_check_for_quiet(int32 argc, char **argv) {
     /* If -quiet or -logfile were specified at least once on the command line
      * we lock those in now...  */
     if (quiet_specified_once == 1) {
-        OVERRIDE_QUIET = 1;
+        override_quiet = 1;
     }
     if (logfile_specified_once == 1) {
-        OVERRIDE_LOGFILE = 1;
+        override_logfile = 1;
     }
     return;
 }

@@ -743,7 +743,7 @@ nullcline_direct_field_com(int32 c) {
         }
         return;
     }
-    STORFLAG = 0;
+    stor_flag = 0;
 
     suppress_bounds = 1;
     for (int32 k = 0; k < 2; k++) {
@@ -758,7 +758,7 @@ nullcline_direct_field_com(int32 c) {
                   TRANS=oldtrans;
                   delta_t=dtold;
                   return;
-                  STORFLAG=1;
+                  stor_flag=1;
                   } */
                 integrate(&t, y, TEND, delta_t, 1, NJMP, &start);
             }

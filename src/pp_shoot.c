@@ -317,7 +317,7 @@ pp_shoot_find_bvp_com(int32 com) {
     if (FFT || hist || delay_flag || bvp_flag == 0) {
         return;
     }
-    STORFLAG = 0;
+    stor_flag = 0;
     range_flag = 1;
     POIMAP = 0;
     oldtrans = TRANS;
@@ -382,7 +382,7 @@ pp_shoot_last(int32 flag) {
     x = &my_data[0];
     my_start = 1;
     integrate_get_ic(2, x);
-    STORFLAG = flag;
+    stor_flag = flag;
     my_time = T0;
     if (flag) {
         storage[0][0] = (double)T0;

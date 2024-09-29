@@ -400,7 +400,7 @@ extern int32 hist;
 
 extern int32 end_sing;
 extern int32 shoot;
-extern int32 PAR_FOL;
+extern int32 par_fol;
 extern int32 xorfix;
 extern int32 silent;
 extern int32 got_file;
@@ -418,7 +418,7 @@ extern char this_internset[XPP_MAX_NAME];
 
 extern int32 mov_ind;
 extern int32 storind;
-extern int32 STORFLAG;
+extern int32 stor_flag;
 extern int32 in_flag;
 extern int32 max_stor;
 
@@ -498,7 +498,7 @@ void dae_fun_get_new_guesses(void);
 #define DELAY_HANDLE_H
 
 extern double alpha_max;
-extern double OmegaMax;
+extern double omega_max;
 extern int32 delay_flag;
 extern int32 delay_grid;
 extern int32 NDelay;
@@ -1414,8 +1414,8 @@ extern double XMin;
 extern double YMin;
 extern double XMax;
 extern double YMax;
-extern int32 TextJustify;
-extern int32 TextAngle;
+extern int32 text_justify;
+extern int32 text_angle;
 
 void graphics_get_scale(double *x1, double *y1, double *x2, double *y2);
 void graphics_set_scale(double x1, double y1, double x2, double y2);
@@ -2237,8 +2237,8 @@ extern int32 user_min_width;
 extern int32 user_min_height;
 extern int32 periodic;
 extern int32 XPPVERBOSE;
-extern int32 OVERRIDE_QUIET;
-extern int32 OVERRIDE_LOGFILE;
+extern int32 override_quiet;
+extern int32 override_logfile;
 
 extern int32 slider1;
 extern int32 slider2;

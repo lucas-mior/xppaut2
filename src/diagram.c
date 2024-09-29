@@ -48,7 +48,7 @@ edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
              double *ubar, double *par, double per, int32 n, int32 icp1,
              int32 icp2, int32 icp3, int32 icp4, int32 flag2, double *evr,
              double *evi, double tp) {
-    d->calc = TypeOfCalc;
+    d->calc = type_of_calc;
     d->ibr = ibr;
     d->ntot = ntot;
     d->itp = itp;

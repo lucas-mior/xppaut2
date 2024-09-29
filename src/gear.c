@@ -113,7 +113,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     }
     // succesfully computed evals now lets work with them
     ch = 'n';
-    if (!PAR_FOL) {
+    if (!par_fol) {
         ch =
             (char)menudrive_two_choice("YES", "NO", "Print eigenvalues?", "yn");
     }
@@ -194,11 +194,11 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     eig_list_create_eq_box(cp, cn, rp, rn, im, x, n);
     if (((rp == 1) || (rn == 1)) && (n > 1)) {
         ch = 'n';
-        if (!PAR_FOL) {
+        if (!par_fol) {
             ch = (char)menudrive_two_choice("YES", "NO", "Draw Invariant Sets?",
                                             "yn");
         }
-        if ((ch == 'y') || (PAR_FOL && shoot)) {
+        if ((ch == 'y') || (par_fol && shoot)) {
             oldt = delta_t;
 
             if (rp == 1) {
@@ -241,12 +241,12 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     // lets check to see if it is relevant
     if (((rn > 1) && (bneg >= 0)) || ((rp > 1) && (bpos >= 0))) {
         ch = 'n';
-        if (!PAR_FOL) {
+        if (!par_fol) {
             ch = (char)menudrive_two_choice("YES", "NO", "Draw Strong Sets?",
                                             "yn");
         }
 
-        if ((ch == 'y') || (PAR_FOL && shoot)) {
+        if ((ch == 'y') || (par_fol && shoot)) {
             oldt = delta_t;
 
             if ((rp > 1) && (bpos >= 0))  // then there is a strong unstable
@@ -304,7 +304,7 @@ gear_save_batch_shoot(void) {
         return;
     }
     olddt = delta_t;
-    STORFLAG = 1;
+    stor_flag = 1;
     for (int32 k = 0; k < shoot_index; k++) {
         for (int32 i = 0; i < NODE; i++) {
             x[i] = shoot_ic[k][i];

@@ -222,25 +222,25 @@ axes_do(void) {
         }
 
         dt = .06;
-        TextJustify = 2;
+        text_justify = 2;
         sprintf(bob, "%g", xmin);
         graphics_text3d(x1, -1 - 2.*dt, -1.0, bob);
         sprintf(bob, "%g", xmax);
         graphics_text3d(x2, -1 - 2.*dt, -1.0, bob);
         graphics_text3d(0.0, -1 - dt, -1.0, MyGraph->xlabel);
-        TextJustify = 0;
+        text_justify = 0;
         sprintf(bob, "%g", ymin);
         graphics_text3d(1 + dt, y1, -1.0, bob);
         sprintf(bob, "%g", ymax);
         graphics_text3d(1 + dt, y2, -1.0, bob);
         graphics_text3d(1 + dt, 0.0, -1.0, MyGraph->ylabel);
-        TextJustify = 2;
+        text_justify = 2;
         sprintf(bob, "%g", zmin);
         graphics_text3d(-1. - dt, -1 - dt, z1, bob);
         sprintf(bob, "%g", zmax);
         graphics_text3d(-1. - dt, -1 - dt, z2, bob);
         graphics_text3d(-1. - dt, -1. - dt, 0.0, MyGraph->zlabel);
-        TextJustify = 0;
+        text_justify = 0;
 
         axes_doing = 0;
         break;
@@ -328,7 +328,7 @@ axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
                     ytic*ceil(y_max / ytic));
     axes_draw_xtics(sx, xtic*floor(x_min / xtic), xtic,
                     xtic*ceil(x_max / xtic));
-    TextJustify = 0;
+    text_justify = 0;
     graphics_set_linestyle(0);
 
     axes_doing = 0;
@@ -346,7 +346,7 @@ axes_draw_ytics(char *s1, double start, double incr, double end) {
     int32 xt;
     int32 yt;
     int32 s = 1;
-    TextJustify = 2;  // Right justification
+    text_justify = 2;  // Right justification
     for (ticvalue = start; ticvalue <= end; ticvalue += incr) {
         place = CheckZero(ticvalue, incr);
         if (ticvalue < y_min || ticvalue > y_max) {
@@ -400,7 +400,7 @@ axes_draw_xtics(char *s2, double start, double incr, double end) {
     if (d_top < d_buttom) {
         s = -1;
     }
-    TextJustify = 1;  // Center justification
+    text_justify = 1;  // Center justification
     for (ticvalue = start; ticvalue <= end; ticvalue += incr) {
         place = CheckZero(ticvalue, incr);
         if (ticvalue < x_min || ticvalue > x_max) {

@@ -17,7 +17,7 @@ extern int32 storind;
 extern int32 max_stor;
 extern int32 in_flag;
 extern int32 my_stor;
-extern int32 STORFLAG;
+extern int32 stor_flag;
 
 extern int32 forever;
 

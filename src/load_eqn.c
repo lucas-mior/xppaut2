@@ -52,7 +52,7 @@ char this_file[XPP_MAX_NAME];
 char this_internset[XPP_MAX_NAME];
 int32 mov_ind;
 int32 storind;
-int32 STORFLAG;
+int32 stor_flag;
 int32 in_flag;
 int32 max_stor;
 double x_3d[2];
@@ -120,7 +120,7 @@ int32 forever;
 
 int32 end_sing;
 int32 shoot;
-int32 PAR_FOL;
+int32 par_fol;
 
 /*  custon color stuff  */
 
@@ -380,7 +380,7 @@ load_eqn_set_all_vals(void) {
     storind = 0;
     mov_ind = 0;
 
-    STORFLAG = 0;
+    stor_flag = 0;
 
     in_flag = 0;
     solver = odesol_rung_kut;
@@ -1036,7 +1036,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             ggets_plintf("QUIET option must be 0 or 1.\n");
             exit(-1);
         }
-        if (OVERRIDE_QUIET ==
+        if (override_quiet ==
             0)  // Will be 1 if -quiet was specified on the command line.
         {
             XPPVERBOSE = (atoi(s2) == 0);
@@ -1044,7 +1044,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("LOGFILE", s1)) {
-        if (OVERRIDE_LOGFILE ==
+        if (override_logfile ==
             0)  // Will be 1 if -logfile was specified on the command line.
         {
             if (logfile != NULL) {

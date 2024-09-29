@@ -138,12 +138,12 @@ extern Rotchk blrtn;
 extern Bifurcation Auto;
 extern AdvAuto aauto;
 
-extern int32 NewPeriodFlag;
+extern int32 new_period_flag;
 
 extern double homo_l[100];
 extern double homo_r[100];
 
-extern int32 TypeOfCalc;
+extern int32 type_of_calc;
 extern int32 SEc;
 extern int32 UEc;
 extern int32 SPc;

@@ -564,7 +564,7 @@ integrate_eq_range(double *x) {
     storind = 0;
     delay_err = 0;
     end_sing = 0;
-    PAR_FOL = 1;
+    par_fol = 1;
     shoot = eq_range.shoot;
     browser_reset();
     if (mc == 1) {
@@ -580,7 +580,7 @@ integrate_eq_range(double *x) {
         }
         temp = parlo + dpar*(double)i;
         set_val(eq_range.item, temp);
-        PAR_FOL = 1;
+        par_fol = 1;
         sprintf(bob, "%s=%.16g", eq_range.item, temp);
         ggets_bottom_msg(bob);
         derived_evaluate();
@@ -622,7 +622,7 @@ integrate_eq_range(double *x) {
         }
     }
     browser_refresh(storind);
-    PAR_FOL = 0;
+    par_fol = 0;
     return;
 }
 
@@ -808,7 +808,7 @@ integrate_do_range(double *x, int32 flag) {
 
     integrate_get_ic(2, x);
     storind = 0;
-    STORFLAG = 1;
+    stor_flag = 1;
     nit2 = 0;
     if (range.rtype == 2) {
         nit2 = range.steps2;
@@ -909,7 +909,7 @@ integrate_do_range(double *x, int32 flag) {
                 ggets_bottom_msg(bob);
             }
             integrate_start_flags(x, &my_time);
-            if (fabs(my_time) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
+            if (fabs(my_time) >= TRANS && stor_flag == 1 && POIMAP == 0) {
                 storage[0][storind] = (double)my_time;
                 main_rhs_extra(x, my_time, NODE, NEQ);
                 for (iii = 0; iii < NEQ; iii++) {
@@ -1038,7 +1038,7 @@ integrate_find_equilib_com(int32 com) {
         return;
     }
 
-    STORFLAG = 0;
+    stor_flag = 0;
     POIMAP = 0;
     oldtrans = TRANS;
     TRANS = 0.0;
@@ -1177,7 +1177,7 @@ batch_integrate_once(void) {
     delay_err = 0;
     my_time = T0;
 
-    STORFLAG = 1;
+    stor_flag = 1;
     POIEXT = 0;
     storind = 0;
     browser_reset();
@@ -1197,7 +1197,7 @@ batch_integrate_once(void) {
             }
         }
         integrate_start_flags(x, &my_time);
-        if (fabs(my_time) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
+        if (fabs(my_time) >= TRANS && stor_flag == 1 && POIMAP == 0) {
             storage[0][0] = (double)my_time;
             main_rhs_extra(x, my_time, NODE, NEQ);
             for (int32 i = 0; i < NEQ; i++) {
@@ -1297,7 +1297,7 @@ integrate_do_init_data(int32 com) {
     browser_wipe_rep();
     my_time = T0;
 
-    STORFLAG = 1;
+    stor_flag = 1;
     POIEXT = 0;
     storind = 0;
     browser_reset();
@@ -1492,7 +1492,7 @@ integrate_run_now(void) {
     dae_fun_reset_dae();
     my_time = T0;
     integrate_get_ic(2, x);
-    STORFLAG = 1;
+    stor_flag = 1;
     POIEXT = 0;
     storind = 0;
     browser_reset();
@@ -1512,7 +1512,7 @@ integrate_start_flags(double *x, double *t) {
 void
 usual_integrate_stuff(double *x) {
     integrate_start_flags(x, &my_time);
-    if (fabs(my_time) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
+    if (fabs(my_time) >= TRANS && stor_flag == 1 && POIMAP == 0) {
         storage[0][0] = (double)my_time;
         main_rhs_extra(x, my_time, NODE, NEQ);
         for (int32 i = 0; i < NEQ; i++) {
@@ -2296,7 +2296,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (isnan(x[ieqn - 1]) != 0) {
                 sprintf(error_message, " %s is NaN at t = %f ",
                         uvar_names[ieqn - 1], *t);
-                /* if((STORFLAG==1)&&(storind<max_stor))
+                /* if((stor_flag==1)&&(storind<max_stor))
                    { */
                 i_nan = 0;
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
@@ -2319,7 +2319,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
                 sprintf(error_message, " %s out of bounds at t = %f ",
                         uvar_names[ieqn - 1], *t);
-                /* if((STORFLAG==1)&&(storind<max_stor))
+                /* if((stor_flag==1)&&(storind<max_stor))
                     { */
                 i_nan = 0;
                 fprintf(stderr, "variable\tf(t-1)\tf(t) \n");
@@ -2495,7 +2495,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             integrate_plot_the_graphs(xv, xvold, fabs(dt*NJMP), torcross, 0);
         }
 
-        if ((STORFLAG == 1) && (count != 0) && (storind < max_stor) &&
+        if ((stor_flag == 1) && (count != 0) && (storind < max_stor) &&
             !(fabs(*t) < TRANS)) {
             if (animation_on_the_fly) {
                 ani_on_the_fly(0);
@@ -2545,7 +2545,7 @@ integrate_send_output(double *y, double t) {
         yy[i] = y[i];
     }
     main_rhs_extra(yy, t, NODE, NEQ);
-    if ((STORFLAG == 1) && (storind < max_stor)) {
+    if ((stor_flag == 1) && (storind < max_stor)) {
         for (int32 i = 0; i < NEQ; i++) {
             storage[i + 1][storind] = (double)yy[i];
         }

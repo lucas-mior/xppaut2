@@ -617,7 +617,7 @@ void
 special_put_text_svg(int32 x, int32 y, char *str, int32 size) {
     char anchor[7];
 
-    switch (TextJustify) {
+    switch (text_justify) {
     case LEFT:
         snprintf(anchor, sizeof(anchor), "start");
         break;
@@ -645,7 +645,7 @@ void
 svg_text(int32 x, int32 y, char *str) {
     char anchor[7];
 
-    switch (TextJustify) {
+    switch (text_justify) {
     case LEFT:
         snprintf(anchor, sizeof(anchor), "start");
         break;

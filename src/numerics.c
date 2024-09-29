@@ -233,7 +233,7 @@ numerics_get_num_par(int32 ch) {
         }
         ggets_new_float("Maximal delay :", &delay);
         ggets_new_float("real guess :", &alpha_max);
-        ggets_new_float("imag guess :", &OmegaMax);
+        ggets_new_float("imag guess :", &omega_max);
         ggets_new_int("delay_grid :", &delay_grid);
         if (delay > 0.0) {
             delay_handle_free_delay();

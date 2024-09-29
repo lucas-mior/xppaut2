@@ -304,7 +304,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
     double ylp;
 
     lambda.r = alpha_max;
-    lambda.i = OmegaMax;
+    lambda.i = omega_max;
 
     z = xmalloc(sizeof(*z)*(usize)(n*n));
 
@@ -317,7 +317,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         if (r < err) {  // within the tolerance
             del_stab_process_root(lambda.r, lambda.i);
             alpha_max = lambda.r;
-            OmegaMax = lambda.i;
+            omega_max = lambda.i;
             return 1;
         }
         xl = lambda.r;
@@ -361,9 +361,9 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         if (r < err) {  // within the tolerance
             del_stab_process_root(lambda.r, lambda.i);
             alpha_max = lambda.r;
-            OmegaMax = lambda.i;
+            omega_max = lambda.i;
             rr[0] = alpha_max;
-            rr[1] = OmegaMax;
+            rr[1] = omega_max;
             return 1;
         }
         if (r > big) {

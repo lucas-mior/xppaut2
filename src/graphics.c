@@ -36,7 +36,7 @@ int32 avromfonts[5];
 
     graphics_point(x,y)        Draws point to (x,y) with pointtype PointStyle
     graphics_line(x1,y1,x2,y2) Draws line with linetype LineStyle
-    graphics_put_text(x1,y,text)  Draws text with TextAngle, Justify
+    graphics_put_text(x1,y,text)  Draws text with text_angle, Justify
     init_device()     Sets up the default for tics, plotting area,
                       and anything else
 
@@ -68,8 +68,8 @@ double YMin;
 double XMax;
 double YMax;
 int32 point_type = -1;
-int32 TextJustify;
-int32 TextAngle;
+int32 text_justify;
+int32 text_angle;
 
 static void graphics_draw_symbol(double x, double y, double size,
                                  int32 my_symb);
@@ -364,7 +364,7 @@ graphics_line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
 void
 graphics_put_text_x11(int32 x, int32 y, char *str) {
     int32 sw = (int32)strlen(str)*dcur_xs;
-    switch (TextJustify) {
+    switch (text_justify) {
     case 0:
         sw = 0;
         break;

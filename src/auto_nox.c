@@ -39,7 +39,7 @@
 
 /* calculation types */
 
-int32 TypeOfCalc = 0;
+int32 type_of_calc = 0;
 #define LPE2 1
 #define LPP2 2
 #define HB2 3
@@ -149,7 +149,7 @@ static double HOMO_SHIFT = 0.0;
 Bifurcation Auto;
 AdvAuto aauto;
 
-int32 NewPeriodFlag;
+int32 new_period_flag;
 
 static AutoAX Old1p;
 static AutoAX Old2p;
@@ -1820,13 +1820,13 @@ auto_nox_run(void) {
         if (METHOD == DISCRETE) {
             // auto new discrete
             int32 opn = NO_OPEN_3, cls = OVERWRITE;
-            NewPeriodFlag = 0;
+            new_period_flag = 0;
 
             if (NBifs > 1) {
                 auto_nox_reset();
             }
 
-            TypeOfCalc = DI1;
+            type_of_calc = DI1;
             Auto.ips = -1;
             Auto.irs = 0;
             Auto.itp = 0;
@@ -1851,7 +1851,7 @@ auto_nox_run(void) {
             // auto start at per
             int32 opn = NO_OPEN_3, cls = OVERWRITE;
 
-            TypeOfCalc = PE1;
+            type_of_calc = PE1;
             Auto.ips = 2;
             Auto.irs = 0;
             Auto.itp = 0;
@@ -1864,7 +1864,7 @@ auto_nox_run(void) {
             }
             Auto.nfpar = 1;
             auto_two_param = 0;
-            NewPeriodFlag = 1;
+            new_period_flag = 1;
             auto_nox_do(opn, cls);
             return;
         }
@@ -1879,7 +1879,7 @@ auto_nox_run(void) {
             if (bvp_flag == 0) {
                 return;
             }
-            TypeOfCalc = BV1;
+            type_of_calc = BV1;
             Auto.ips = 4;
             Auto.irs = 0;
             Auto.itp = 0;
@@ -1893,7 +1893,7 @@ auto_nox_run(void) {
 
             Auto.nfpar = 1;
             auto_two_param = 0;
-            NewPeriodFlag = 2;
+            new_period_flag = 2;
             auto_nox_do(opn, cls);
             return;
         }
@@ -1918,7 +1918,7 @@ auto_nox_run(void) {
                                         "Not Labeled Pt: New Start?", "y");
         if (ch == 'y') {
             // auto start diff ss
-            TypeOfCalc = EQ1;
+            type_of_calc = EQ1;
             Auto.ips = 1;
             if (METHOD == DISCRETE) {
                 Auto.ips = -1;
@@ -1998,7 +1998,7 @@ auto_nox_run(void) {
             Auto.itp = grabpt.itp;
             Auto.ilp = 1;
             Auto.isw = -1;
-            TypeOfCalc = PE1;
+            type_of_calc = PE1;
             Auto.isp = 2;
             if (SuppressBP == 1) {
                 Auto.isp = 0;
@@ -2023,7 +2023,7 @@ auto_nox_run(void) {
             Auto.itp = grabpt.itp;
             Auto.nfpar = 2;
             auto_two_param = PD2;
-            TypeOfCalc = PD2;
+            type_of_calc = PD2;
             Auto.ips = 2;
             Auto.ilp = 0;
             Auto.isw = 2;
@@ -2087,7 +2087,7 @@ auto_nox_run(void) {
             Auto.itp = grabpt.itp;
             Auto.nfpar = 2;
             auto_two_param = TR2;
-            TypeOfCalc = TR2;
+            type_of_calc = TR2;
             Auto.ips = 2;
             Auto.ilp = 0;
             Auto.isw = 2;
@@ -2129,7 +2129,7 @@ auto_nox_run(void) {
     }
     if (grabpt.ibr > 0 && ips == 4) {
         // auto extend bvp
-        TypeOfCalc = BV1;
+        type_of_calc = BV1;
         Auto.irs = grabpt.lab;
         Auto.itp = grabpt.itp;
         Auto.nfpar = grabpt.nfpar;
@@ -2155,9 +2155,9 @@ auto_nox_homo_choice(int32 itp) {
         Auto.irs = grabpt.lab;
         Auto.itp = grabpt.itp;
 
-        TypeOfCalc = HO2;
+        type_of_calc = HO2;
         auto_two_param = HO2;
-        NewPeriodFlag = 1;
+        new_period_flag = 1;
         Auto.ips = 9;
 
         Auto.nfpar = 2;
@@ -2190,7 +2190,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
     if (ch == 's') {
         if (ibr < 0 && ips == 2) {
             // auto switch per
-            TypeOfCalc = PE1;
+            type_of_calc = PE1;
             blrtn.torper = grabpt.torper;
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
@@ -2206,7 +2206,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             auto_nox_do(OPEN_3, APPEND);
         } else if (ips == 4) {
             // auto switch bvp
-            TypeOfCalc = BV1;
+            type_of_calc = BV1;
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
             Auto.nfpar = grabpt.nfpar;
@@ -2221,7 +2221,7 @@ auto_nox_branch_choice(int32 ibr, int32 ips) {
             auto_nox_do(OPEN_3, APPEND);
         } else {
             // auto switch ss
-            TypeOfCalc = EQ1;
+            type_of_calc = EQ1;
             Auto.irs = grabpt.lab;
             Auto.itp = grabpt.itp;
             Auto.nfpar = grabpt.nfpar;
@@ -2299,13 +2299,13 @@ void
 auto_nox_new_ss(void) {
     int32 opn = NO_OPEN_3;
     int32 cls = OVERWRITE;
-    NewPeriodFlag = 0;
+    new_period_flag = 0;
 
     if (NBifs > 1) {
         auto_nox_reset();
     }
 
-    TypeOfCalc = EQ1;
+    type_of_calc = EQ1;
     Auto.ips = 1;
     Auto.irs = 0;
     Auto.itp = 0;
@@ -2340,7 +2340,7 @@ auto_nox_extend_ss(void) {
         return;
     }
 
-    TypeOfCalc = EQ1;
+    type_of_calc = EQ1;
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
     Auto.nfpar = grabpt.nfpar;
@@ -2407,10 +2407,10 @@ auto_nox_start_at_homoclinic(void) {
     int32 flag;
     Auto.irs = 0;
     Auto.itp = 0;
-    TypeOfCalc = HO2;
+    type_of_calc = HO2;
 
     auto_two_param = HO2;
-    NewPeriodFlag = 1;
+    new_period_flag = 1;
     Auto.ips = 9;
 
     Auto.nfpar = 2;
@@ -2458,7 +2458,7 @@ auto_nox_new_per(void) {
         pop_list_respond_box("Okay", "Can't continue infinite period Hopf.");
         return;
     }
-    TypeOfCalc = PE1;
+    type_of_calc = PE1;
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
     // Auto.nfpar=grabpt.nfpar;
@@ -2501,10 +2501,10 @@ auto_nox_2p_limit(int32 ips) {
     Auto.ips = ipsuse;
     auto_two_param = LPP2;
     if (ipsuse == 1) {
-        TypeOfCalc = LPE2;
+        type_of_calc = LPE2;
         auto_two_param = LPE2;
     } else {
-        TypeOfCalc = LPP2;
+        type_of_calc = LPP2;
         auto_two_param = LPP2;
     }
     // printf("ips=%d  itp=%d \n",Auto.ips,Auto.itp);
@@ -2539,7 +2539,7 @@ auto_nox_2p_branch(int32 ips) {
         Auto.ips = -1;
     }
     auto_two_param = BR2;
-    TypeOfCalc = BR2;
+    type_of_calc = BR2;
     auto_nox_do(OPEN_3, APPEND);
     return;
 }
@@ -2554,7 +2554,7 @@ auto_nox_2p_fixper(void) {
     Auto.isp = 0;
     Auto.ips = 2;
     auto_two_param = FP2;
-    TypeOfCalc = FP2;
+    type_of_calc = FP2;
     auto_nox_do(OPEN_3, APPEND);
     return;
 }
@@ -2588,7 +2588,7 @@ auto_nox_2p_hopf(void) {
         Auto.ips = -1;
     }
     auto_two_param = HB2;
-    TypeOfCalc = HB2;
+    type_of_calc = HB2;
     auto_nox_do(OPEN_3, APPEND);
     return;
 }
