@@ -60,9 +60,11 @@ extern char *aspecial_hint[];
 extern char *arun_hint[];
 extern char *browse_hint[];
 
-#define MENU_MAIN 0
-#define MENU_FILE 1
-#define MENU_NUM 2
+enum {
+    MENU_MAIN = 0,
+    MENU_FILE = 1,
+    MENU_NUM = 2,
+};
 
 #define LENGTH(X) (sizeof(X) / sizeof(*X))
 
