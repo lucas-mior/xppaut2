@@ -194,10 +194,10 @@ static usize SpaceAlloced = 0;
 static long MaxPermAlloced = 0;
 
 /* temp space, (void *) since both double and double routines use it */
-static void *Tmp0 = NULL;   // temp space for real part
-static void *Tmp1 = NULL;   // temp space for imaginary part
-static void *Tmp2 = NULL;   // temp space for Cosine values
-static void *Tmp3 = NULL;   // temp space for Sine values
+static void *tmp0 = NULL;   // temp space for real part
+static void *tmp1 = NULL;   // temp space for imaginary part
+static void *tmp2 = NULL;   // temp space for Cosine values
+static void *tmp3 = NULL;   // temp space for Sine values
 static int32 *Perm = NULL;  // Permutation vector
 
 #define NFACTOR 11
@@ -208,21 +208,21 @@ static int32 fftn_factorize(int32 nPass, int32 *kt);
 void
 fft_free(void) {
     SpaceAlloced = MaxPermAlloced = 0;
-    if (Tmp0) {
-        free(Tmp0);
-        Tmp0 = NULL;
+    if (tmp0) {
+        free(tmp0);
+        tmp0 = NULL;
     }
-    if (Tmp1) {
-        free(Tmp1);
-        Tmp1 = NULL;
+    if (tmp1) {
+        free(tmp1);
+        tmp1 = NULL;
     }
-    if (Tmp2) {
-        free(Tmp2);
-        Tmp2 = NULL;
+    if (tmp2) {
+        free(tmp2);
+        tmp2 = NULL;
     }
-    if (Tmp3) {
-        free(Tmp3);
-        Tmp3 = NULL;
+    if (tmp3) {
+        free(tmp3);
+        tmp3 = NULL;
     }
     if (Perm) {
         free(Perm);
@@ -530,10 +530,10 @@ FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan, int32 iSi
     // allocate storage
     if (SpaceAlloced < (usize)maxFactors*sizeof(REAL)) {
         SpaceAlloced = (usize)maxFactors*sizeof(REAL);
-        Tmp0 = realloc(Tmp0, SpaceAlloced);
-        Tmp1 = realloc(Tmp1, SpaceAlloced);
-        Tmp2 = realloc(Tmp2, SpaceAlloced);
-        Tmp3 = realloc(Tmp3, SpaceAlloced);
+        tmp0 = realloc(tmp0, SpaceAlloced);
+        tmp1 = realloc(tmp1, SpaceAlloced);
+        tmp2 = realloc(tmp2, SpaceAlloced);
+        tmp3 = realloc(tmp3, SpaceAlloced);
     } else {
         // allow full use of alloc'd space
         maxFactors = (int32)(SpaceAlloced / sizeof(REAL));
@@ -545,15 +545,15 @@ FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan, int32 iSi
         // allow full use of alloc'd space
         maxPerm = (int32)MaxPermAlloced;
     }
-    if (!Tmp0 || !Tmp1 || !Tmp2 || !Tmp3 || !Perm) {
+    if (!tmp0 || !tmp1 || !tmp2 || !tmp3 || !Perm) {
         goto Memory_Error;
     }
 
     // assign pointers
-    Rtmp = (REAL *)Tmp0;
-    Itmp = (REAL *)Tmp1;
-    Cos = (REAL *)Tmp2;
-    Sin = (REAL *)Tmp3;
+    Rtmp = (REAL *)tmp0;
+    Itmp = (REAL *)tmp1;
+    Cos = (REAL *)tmp2;
+    Sin = (REAL *)tmp3;
 
     /*
      * Function Body
