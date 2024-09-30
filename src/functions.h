@@ -87,8 +87,8 @@ enum {
 
 #define MAX_LEN_SBOX 30
 
-#ifndef ADJ2_H
-#define ADJ2_H
+#ifndef ADJOINTS_H
+#define ADJOINTS_H
 
 extern bool adj_range;
 
