@@ -1,26 +1,21 @@
-/****************************************************************
- *                                                              *
- * File          : vector.c                                     *
- * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL  *
- * Last Modified : 1 September 1994                             *
- *--------------------------------------------------------------*
- *                                                              *
- * This is the implementation file for a generic VECTOR         *
- * package. It contains the implementation of the Vector      *
- * kernels listed in vector.h.                                  *
- *                                                              *
- ****************************************************************/
+/*******************************************************************************
+ *                                                              
+ * File          : vector.c                                     
+ * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL  
+ * Last Modified : 1 September 1994                             
+ * -----------------------------------------------------------------------------
+ *                                                              
+ * This is the implementation file for a generic VECTOR         
+ * package. It contains the implementation of the Vector      
+ * kernels listed in vector.h.                                  
+ *                                                              
+ ******************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
 #include "functions.h"
 #include <stdbool.h>
-
-#define ZERO 0.0
-#define ONE 1.0
-
-/* Private Helper Prototypes */
 
 static void vector_copy(Vector x, Vector z);            // z=x
 static void vector_sum(Vector x, Vector y, Vector z);   // z=x+y
@@ -34,8 +29,6 @@ static void vector_lin1(double a, Vector x, Vector y, Vector z);  // z=ax+y
 static void vector_lin2(double a, Vector x, Vector y, Vector z);  // z=ax-y
 static void vector_axpy(double a, Vector x, Vector y);            // y <- ax+y
 static void vector_scaleBy(double a, Vector x);                   // x <- ax
-
-/********************* Exported Functions ************************/
 
 Vector
 vector_new(int64 N) {
@@ -76,26 +69,26 @@ vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
     Vector v2;
     bool test;
 
-    if ((b == ONE) && (z == y)) {  // BLAS usage: axpy y <- ax+y
+    if ((b == 1.0) && (z == y)) {  // BLAS usage: axpy y <- ax+y
         vector_axpy(a, x, y);
         return;
     }
 
-    if ((a == ONE) && (z == x)) {  // BLAS usage: axpy x <- by+x
+    if ((a == 1.0) && (z == x)) {  // BLAS usage: axpy x <- by+x
         vector_axpy(b, y, x);
         return;
     }
 
     // Case: a == b == 1.0
 
-    if ((a == ONE) && (b == ONE)) {
+    if ((a == 1.0) && (b == 1.0)) {
         vector_sum(x, y, z);
         return;
     }
 
     // Cases: (1) a == 1.0, b = -1.0, (2) a == -1.0, b == 1.0
 
-    if ((test = ((a == ONE) && (b == -ONE))) || ((a == -ONE) && (b == ONE))) {
+    if ((test = ((a == 1.0) && (b == -1.0))) || ((a == -1.0) && (b == 1.0))) {
         v1 = test ? y : x;
         v2 = test ? x : y;
         vector_diff(v2, v1, z);
@@ -106,7 +99,7 @@ vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
      */
     // if a or b is 0.0, then user should have called N_VScale
 
-    if ((test = (a == ONE)) || (b == ONE)) {
+    if ((test = (a == 1.0)) || (b == 1.0)) {
         c = test ? b : a;
         v1 = test ? y : x;
         v2 = test ? x : y;
@@ -116,7 +109,7 @@ vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
 
     // Cases: (1) a == -1.0, b != 1.0, (2) a != 1.0, b == -1.0
 
-    if ((test = (a == -ONE)) || (b == -ONE)) {
+    if ((test = (a == -1.0)) || (b == -1.0)) {
         c = test ? b : a;
         v1 = test ? y : x;
         v2 = test ? x : y;
@@ -211,9 +204,9 @@ vector_scale(double c, Vector x, Vector z) {
         return;
     }
 
-    if (c == ONE) {
+    if (c == 1.0) {
         vector_copy(x, z);
-    } else if (c == -ONE) {
+    } else if (c == -1.0) {
         vector_neg(x, z);
     } else {
         N = x->length;
@@ -251,7 +244,7 @@ vector_inv(Vector x, Vector z) {
     zd = z->data;
 
     for (int32 i = 0; i < N; i++) {
-        *zd++ = ONE / (*xd++);
+        *zd++ = 1.0 / (*xd++);
     }
     return;
 }
@@ -274,7 +267,7 @@ vector_add_const(Vector x, double b, Vector z) {
 double
 vector_dot_prod(Vector x, Vector y) {
     int64 N;
-    double sum = ZERO, *xd, *yd;
+    double sum = 0.0, *xd, *yd;
 
     N = x->length;
     xd = x->data;
@@ -290,7 +283,7 @@ vector_dot_prod(Vector x, Vector y) {
 double
 vector_max_norm(Vector x) {
     int64 N;
-    double max = ZERO, *xd;
+    double max = 0.0, *xd;
 
     N = x->length;
     xd = x->data;
@@ -307,7 +300,7 @@ vector_max_norm(Vector x) {
 double
 vector_wrms_norm(Vector x, Vector w) {
     int64 N;
-    double sum = ZERO, prodi, *xd, *wd;
+    double sum = 0.0, prodi, *xd, *wd;
 
     N = x->length;
     xd = x->data;
@@ -349,7 +342,7 @@ vector_compare(double c, Vector x, Vector z) {
     zd = z->data;
 
     for (int32 i = 0; i < N; i++, xd++, zd++) {
-        *zd = (ABS(*xd) >= c) ? ONE : ZERO;
+        *zd = (ABS(*xd) >= c) ? 1.0 : 0.0;
     }
     return;
 }
@@ -364,10 +357,10 @@ vector_inv_test(Vector x, Vector z) {
     zd = z->data;
 
     for (int32 i = 0; i < N; i++) {
-        if (*xd == ZERO) {
+        if (*xd == 0.0) {
             return false;
         }
-        *zd++ = ONE / (*xd++);
+        *zd++ = 1.0 / (*xd++);
     }
 
     return true;
@@ -526,14 +519,14 @@ vector_axpy(double a, Vector x, Vector y) {
     xd = x->data;
     yd = y->data;
 
-    if (a == ONE) {
+    if (a == 1.0) {
         for (int32 i = 0; i < N; i++) {
             *yd++ += (*xd++);
         }
         return;
     }
 
-    if (a == -ONE) {
+    if (a == -1.0) {
         for (int32 i = 0; i < N; i++) {
             *yd++ -= (*xd++);
         }
