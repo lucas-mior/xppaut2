@@ -1055,7 +1055,7 @@ main_redraw_all(void) {
 void
 main_commander(int32 ch) {
     switch (help_menu) {
-    case MAIN_MENU: {
+    case MENU_MAIN: {
         switch (ch) {
         case 'i':
             menudrive_ini_data_menu();
@@ -1127,11 +1127,11 @@ main_commander(int32 ch) {
         }
         break;
     }
-    case NUM_MENU: {
+    case MENU_NUM: {
         numerics_get_num_par(ch);
         break;
     }
-    case FILE_MENU: {
+    case MENU_FILE: {
         switch (ch) {
         case 't':
             adjoints_do_transpose();

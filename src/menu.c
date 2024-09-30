@@ -396,14 +396,14 @@ void
 menu_create_them(Window base) {
     char key[30];
     strcpy(key, "icndwakgufpemtsvxr3b");
-    menu_add(base, MAIN_MENU, MAIN_ENTRIES, main_menu, key, main_hint);
+    menu_add(base, MENU_MAIN, MAIN_ENTRIES, main_menu, key, main_hint);
     strcpy(key, "tsrdniobmechpukva");
     key[17] = 27;
     key[18] = 0;
-    menu_add(base, NUM_MENU, NUM_ENTRIES, num_menu, key, num_hint);
+    menu_add(base, MENU_NUM, NUM_ENTRIES, num_menu, key, num_hint);
     // CLONE
     strcpy(key, "pwracesbhqtiglxu");
-    menu_add(base, FILE_MENU, FILE_ENTRIES, fileon_menu, key, file_hint);
+    menu_add(base, MENU_FILE, FILE_ENTRIES, fileon_menu, key, file_hint);
     help_menu = -1;
     return;
 }
@@ -428,26 +428,26 @@ unshow_menu(int32 j) {
 void
 menu_help(void) {
     unshow_menu(help_menu);
-    show_menu(MAIN_MENU);
+    show_menu(MENU_MAIN);
     return;
 }
 
 void
 menu_help_num(void) {
     unshow_menu(help_menu);
-    show_menu(NUM_MENU);
+    show_menu(MENU_NUM);
     return;
 }
 
 void
 menu_help_file(void) {
     if (tfBell) {
-        my_menus[FILE_MENU].names = fileon_menu;
+        my_menus[MENU_FILE].names = fileon_menu;
     } else {
-        my_menus[FILE_MENU].names = fileoff_menu;
+        my_menus[MENU_FILE].names = fileoff_menu;
     }
     unshow_menu(help_menu);
-    show_menu(FILE_MENU);
+    show_menu(MENU_FILE);
     return;
 }
 
