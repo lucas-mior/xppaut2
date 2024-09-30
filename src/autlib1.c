@@ -1831,8 +1831,8 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     if (ips == -1) {
         for (int64 i = 0; i < ndm; ++i) {
             if (ev[i].r != -1. || d_imag(&ev[i]) != 0.) {
-doublecomplex  in;
-doublecomplex  out;
+                doublecomplex in;
+                doublecomplex out;
                 in.r = ev[i].r + 1.;
                 in.i = ev[i].i;
                 z_log(&out, &in);

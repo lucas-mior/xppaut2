@@ -676,10 +676,10 @@ FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan,
                 s1 = 0.0;
                 do {
                     do {
-REAL  ajm;
-REAL  ajp;
-REAL  akm;
-REAL  akp;
+                        REAL ajm;
+                        REAL ajp;
+                        REAL akm;
+                        REAL akp;
                         REAL bjm, bjp, bkm, bkp;
                         int32 k2;
 
@@ -768,8 +768,8 @@ REAL  akp;
             case 3:  // transform for factor of 3 (optional code)
                 do {
                     do {
-REAL  aj;
-REAL  tmpr;
+                        REAL aj;
+                        REAL tmpr;
                         REAL bj, tmpi;
                         int32 k2;
 
@@ -800,16 +800,16 @@ REAL  tmpr;
                 s2 = 2.0*c72*s72;
                 do {
                     do {
-REAL  aa;
-REAL  aj;
-REAL  ak;
-REAL  ajm;
-REAL  ajp;
-REAL  akm;
-REAL  akp;
+                        REAL aa;
+                        REAL aj;
+                        REAL ak;
+                        REAL ajm;
+                        REAL ajp;
+                        REAL akm;
+                        REAL akp;
                         REAL bb, bj, bk, bjm, bjp, bkm, bkp;
-int32  k2;
-int32  k4;
+                        int32 k2;
+                        int32 k4;
 
                         k1 = kk + kspan;
                         k2 = k1 + kspan;
@@ -873,8 +873,8 @@ int32  k4;
                 }
                 do {
                     do {
-REAL  aa;
-REAL  ak;
+                        REAL aa;
+                        REAL ak;
                         REAL bb, bk;
                         int32 k2;
 

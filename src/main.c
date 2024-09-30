@@ -780,8 +780,8 @@ main_init_x(void) {
     if (strlen(user_bg_bitmap) != 0) {
         uint32 width_return;
         uint32 height_return;
-int32  x_hot;
-int32  y_hot;
+        int32 x_hot;
+        int32 y_hot;
         uchar *pixdata;
 
         int32 success =

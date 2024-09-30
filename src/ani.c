@@ -2353,12 +2353,12 @@ render_ani(void) {
         double x2;
         double y2;
         double z;
-int32  i1;
-int32  j1;
-int32  i2;
-int32  j2;
-int32  ic;
-int32  jc;
+        int32 i1;
+        int32 j1;
+        int32 i2;
+        int32 j2;
+        int32 ic;
+        int32 jc;
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
         for (int32 i = 0; i < n_ani_grab; i++) {
             xc = evaluate(ani_grab[i].x);

@@ -1505,11 +1505,11 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         int32 nfix = 0;
         int32 naux = 0;
         int32 nvar = 0;
-int32  nn;
-int32  alt;
-int32  in;
-int32  ntab = 0;
-int32  nufun = 0;
+        int32 nn;
+        int32 alt;
+        int32 in;
+        int32 ntab = 0;
+        int32 nufun = 0;
         int32 in1;
         int32 in2;
         int32 iflag;

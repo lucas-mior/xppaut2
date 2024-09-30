@@ -359,8 +359,8 @@ auto_x11_traverse_diagram(void) {
             }
         } else if (event.type == KeyPress) {
             int32 found = 0;
-char  symb[3];
-char  nsymb[3];
+            char symb[3];
+            char nsymb[3];
             auto_x11_clear_msg();
             kp = ggets_get_key_press(&event);
 
