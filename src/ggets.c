@@ -20,8 +20,8 @@
 char *info_message;
 int32 ms_style = 0;
 
-static int32 CURS_X;
-static int32 CURS_Y;
+static int32 curs_x;
+static int32 curs_y;
 
 int32 xor_flag;
 
@@ -54,8 +54,8 @@ ggets_reset_graphics(void) {
 
 void
 ggets_blank_screen(Window window) {
-    CURS_X = 0;
-    CURS_Y = 0;
+    curs_x = 0;
+    curs_y = 0;
     xor_flag = 0;
     XClearWindow(display, window);
     return;
@@ -161,7 +161,7 @@ void
 ggets_put_command(char *string) {
     ggets_clr_command();
     ggets_f_text(0, 0, string, command_pop);
-    CURS_X = (int32)strlen(string);
+    curs_x = (int32)strlen(string);
     return;
 }
 

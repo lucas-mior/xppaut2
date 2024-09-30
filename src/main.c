@@ -127,7 +127,7 @@ int32 do_tutorial = 0;
 OptionsSet notAlreadySet;
 XFontStruct *font_small;
 
-static int32 DCURXb;
+static int32 dcurx_b;
 static int32 SCALEX;
 static Window TopButton[6];
 static XFontStruct *font_big;
@@ -742,7 +742,7 @@ main_init_x(void) {
      * capital letters (for example "GO"). Thus, we divide by the string
      * length of our test string minus 2 for a little more wiggle room. */
 
-    DCURXb = XTextWidth(font_big, teststr, (int)strlen(teststr)) / (int)(strlen(teststr) - 2);
+    dcurx_b = XTextWidth(font_big, teststr, (int)strlen(teststr)) / (int)(strlen(teststr) - 2);
 
     dcur_yb = font_big->ascent + font_big->descent;
     cury_offb = font_big->ascent - 1;
@@ -792,7 +792,7 @@ main_init_x(void) {
     }
 
     // main set big font
-    dcur_x = DCURXb;
+    dcur_x = dcurx_b;
     dcur_y = dcur_yb;
     cury_off = cury_offb;
     XSetFont(display, gc, font_big->fid);

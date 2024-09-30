@@ -24,7 +24,7 @@
 
 #define CONV 2
 static double *Memory[MAX_KER];
-static int32 CurrentPoint;
+static int32 current_point;
 static int32 KnFlag;
 
 int32 auto_evaluate = 0;
@@ -110,7 +110,7 @@ volterra_allocate(int32 npts, int32 flag) {
         }
         ggets_err_msg("Not enough memory...resetting");
     }
-    CurrentPoint = 0;
+    current_point = 0;
     KnFlag = 1;
     volterra_alloc_kernels(flag);
     return;
@@ -310,7 +310,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart, do
 
     //  Initialization of everything
     if (*istart == 1) {
-        CurrentPoint = 0;
+        current_point = 0;
         KnFlag = 1;
         for (int32 i = 0; i < NKernel; i++) {  // zero the integrals
             kernel[i].k_n = 0.0;
@@ -347,7 +347,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart, do
         for (int32 i = 0; i < NODE + fix_var + NMarkov; i++) {
             Memory[i][0] = get_ivar(i + 1);  // save everything
         }
-        CurrentPoint = 1;
+        current_point = 1;
         *istart = 0;
     }
 
@@ -380,10 +380,10 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     double yold;
     double fac;
     double delinv;
-    i0 = MAX(0, CurrentPoint - max_points);
-    iend = MIN(CurrentPoint - 1, max_points - 1);
+    i0 = MAX(0, current_point - max_points);
+    iend = MIN(current_point - 1, max_points - 1);
     ishift = i0 % max_points;
-    volterra_init_sums(T0, CurrentPoint, dt, i0, iend,
+    volterra_init_sums(T0, current_point, dt, i0, iend,
                        ishift);  //  initialize all the sums
     KnFlag = 0;
     for (int32 i = 0; i < neq; i++) {
@@ -464,11 +464,11 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     for (int32 i = 0; i < NODE; i++) {
         y[i] = yg[i];
     }
-    ind = CurrentPoint % max_points;
+    ind = current_point % max_points;
     for (int32 i = 0; i < NODE + fix_var + NMarkov; i++) {
         Memory[i][ind] = GETVAR(i + 1);
     }
-    CurrentPoint++;
+    current_point++;
 
     return 0;
 }

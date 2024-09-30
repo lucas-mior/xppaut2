@@ -36,8 +36,8 @@ static int32 auto_extra_wid;
 static int32 auto_extra_hgt;
 static int32 auto_extra_wid;
 static int32 auto_extra_hgt;
-static int32 Auto_x0;
-static int32 Auto_y0;
+static int32 auto_x0;
+static int32 auto_y0;
 
 /* stuff for marking a branch  */
 int32 mark_flag = 0;
@@ -72,7 +72,7 @@ static struct AutoWin {
     Window kill;
 } auto_win;
 
-static Diagram *CUR_DIAGRAM;
+static Diagram *cur_diagram;
 
 static void auto_x11_mark(int32 x, int32 y);
 static int32 auto_x11_query_special(char *title, char *nsymb);
@@ -304,7 +304,7 @@ auto_x11_traverse_diagram(void) {
                     d = dnew;
                 }
                 d = dnew;
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 auto_nox_traverse_out(d, &ix, &iy, 0);
 
                 mindex = 0;
@@ -329,7 +329,7 @@ auto_x11_traverse_diagram(void) {
                                           0);  // Need this each time to update the distance calc
                 }
                 d = dnew;
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 load_all_labeled_orbits = lalo;
                 auto_nox_traverse_out(d, &ix, &iy, 0);
 
@@ -347,7 +347,7 @@ auto_x11_traverse_diagram(void) {
                     d = dnew;
                 }
                 d = dnew;
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 DONT_XORCross = 0;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
             }
@@ -366,7 +366,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 auto_x11_xor_cross(ix, iy);
                 d = dnew;
-                CUR_DIAGRAM = dnew;
+                cur_diagram = dnew;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
 
@@ -377,7 +377,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 auto_x11_xor_cross(ix, iy);
                 d = dnew;
-                CUR_DIAGRAM = dnew;
+                cur_diagram = dnew;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_UP:
@@ -408,7 +408,7 @@ auto_x11_traverse_diagram(void) {
                     auto_x11_display(auto_win.hint);
                     d = dold;
                 }
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_DOWN:
@@ -439,7 +439,7 @@ auto_x11_traverse_diagram(void) {
                     auto_x11_display(auto_win.hint);
                     d = dold;
                 }
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_TAB:
@@ -456,7 +456,7 @@ auto_x11_traverse_diagram(void) {
                     }
                 }
                 d = dnew;
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case 's':  // mark the start of a branch
@@ -490,7 +490,7 @@ auto_x11_traverse_diagram(void) {
                     d = dnew;
                 }
                 d = dnew;
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_HOME:  // All the way to beginning
@@ -504,7 +504,7 @@ auto_x11_traverse_diagram(void) {
                     d = dnew;
                 }
                 d = dnew;
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_PGUP:  // Same as KEY_TAB except we don't wrap
@@ -521,7 +521,7 @@ auto_x11_traverse_diagram(void) {
                     }
                 }
                 d = dnew;
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_PGDN:  // REVERSE KEY_TAB
@@ -538,7 +538,7 @@ auto_x11_traverse_diagram(void) {
                     }
                 }
                 d = dnew;
-                CUR_DIAGRAM = d;
+                cur_diagram = d;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
 
@@ -861,8 +861,8 @@ auto_x11_display(Window window) {
         int32 r = Auto.st_wid / 4;
         XFlush(display);
         XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r), 0, 360*64);
-        if (CUR_DIAGRAM != NULL) {
-            auto_nox_traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
+        if (cur_diagram != NULL) {
+            auto_nox_traverse_out(cur_diagram, &ix, &iy, 1);
         }
         XFlush(display);
     }
@@ -939,8 +939,8 @@ auto_x11_make(char *wname, char *iname) {
     hgt = addhgt + 2*dcur_y + STD_HGT_var + ymargin + hinthgt;
     x = addwid + 5;
     y = dcur_y;
-    Auto_x0 = x;
-    Auto_y0 = y;
+    auto_x0 = x;
+    auto_y0 = y;
     base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, wid, hgt, 4);
     XSetWindowBackground(display, base, my_main_win_color);
     auto_win.base = base;
@@ -1060,7 +1060,7 @@ auto_x11_resize_window(XEvent event) {
         if (NBifs < 2) {
             return;
         }
-        auto_nox_traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
+        auto_nox_traverse_out(cur_diagram, &ix, &iy, 1);
     }
     return;
 }

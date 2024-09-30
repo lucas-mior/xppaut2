@@ -786,7 +786,7 @@ int32 do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a, i
  * Authors : E. Hairer & G. Wanner
  *           Universite de Geneve, dept. de Mathematiques
  *           CH-1211 GENEVE 4, SWITZERLAND
- *           E-mail : HAIRER@DIVSUN.UNIGE.CH, WANNER@DIVSUN.UNIGE.CH
+ *           E-mail : HAIRER at DIVSUN.UNIGE.CH, WANNER at DIVSUN.UNIGE.CH
  * 
  * The code is described in : E. Hairer, S.P. Norsett and G. Wanner, Solving
  * ordinary differential equations I, nonstiff problems, 2nd edition,
@@ -800,7 +800,7 @@ int32 do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a, i
  * and x have been encapsulated in the module and are now accessible through
  * dedicated functions, the variable names have been kept to maintain a kind
  * of reading compatibility between the C and FORTRAN codes; adaptation made by
- * J.Colinge (COLINGE@DIVSUN.UNIGE.CH).
+ * J.Colinge (COLINGE at DIVSUN.UNIGE.CH).
  * 
  * INPUT PARAMETERS
  * ----------------

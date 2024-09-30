@@ -161,7 +161,7 @@ static int32 HotBoxItem = -1;
 static BoxList ICBox;
 BoxList param_box;
 static BoxList DelayBox;
-static BoxList BCBox;
+static BoxList bc_box;
 
 /* CLONE */
 void
@@ -1436,12 +1436,12 @@ init_conds_make_new_ic_box(void) {
 
 void
 init_conds_make_new_bc_box(void) {
-    if (BCBox.xuse) {
-        XRaiseWindow(display, BCBox.base);
+    if (bc_box.xuse) {
+        XRaiseWindow(display, bc_box.base);
         return;
     }
-    init_conds_make_box_list_window(&BCBox, BCBOX);
-    many_pops_make_icon((char *)bc_bits, bc_width, bc_height, BCBox.base);
+    init_conds_make_box_list_window(&bc_box, BCBOX);
+    many_pops_make_icon((char *)bc_bits, bc_width, bc_height, bc_box.base);
     return;
 }
 
@@ -1486,14 +1486,14 @@ init_conds_initialize_box(void) {
     } else {
         DelayBox.use = 0;
     }
-    init_conds_make_box_list(&BCBox, "Boundary Conds", "BCs", NODE, BCBOX, 1);
+    init_conds_make_box_list(&bc_box, "Boundary Conds", "BCs", NODE, BCBOX, 1);
 
     //  Iconify them !!
     /*  if(noicon==0){
     if(ICBox.xuse)XIconifyWindow(display,ICBox.base,screen);
     if(DelayBox.xuse) XIconifyWindow(display,DelayBox.base,screen);
     if(param_box.xuse) XIconifyWindow(display,param_box.base,screen);
-     if(BCBox.xuse)XIconifyWindow(display,BCBox.base,screen);
+     if(bc_box.xuse)XIconifyWindow(display,bc_box.base,screen);
      } */
     return;
 }
@@ -1521,9 +1521,9 @@ init_conds_resize_par_box(Window window) {
         eig_list_get_new_size(window, &w, &h);
         init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
-    if (BCBox.xuse == 1 && window == BCBox.base) {
+    if (bc_box.xuse == 1 && window == bc_box.base) {
         ok = 3;
-        b = &BCBox;
+        b = &bc_box;
         eig_list_get_new_size(window, &w, &h);
         init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
@@ -1563,7 +1563,7 @@ init_conds_resize_par_box(Window window) {
         init_conds_make_new_param_box();
         break;
     case 3:
-        init_conds_destroy_box(&BCBox);
+        init_conds_destroy_box(&bc_box);
         init_conds_make_new_bc_box();
         break;
     case 4:
@@ -1783,8 +1783,8 @@ init_conds_do_box_expose(Window window) {
     if (ICBox.xuse) {
         init_conds_display_box(ICBox, window);
     }
-    if (BCBox.xuse) {
-        init_conds_display_box(BCBox, window);
+    if (bc_box.xuse) {
+        init_conds_display_box(bc_box, window);
     }
     if (param_box.xuse) {
         init_conds_display_box(param_box, window);
@@ -1905,7 +1905,7 @@ init_conds_redraw_ics(void) {
 void
 init_conds_redraw_bcs(void) {
     for (int32 i = 0; i < NODE; i++) {
-        init_conds_draw_one_box(BCBox, i);
+        init_conds_draw_one_box(bc_box, i);
     }
     return;
 }
@@ -1992,8 +1992,8 @@ init_conds_box_enter_events(Window window, int32 yn) {
     if (ICBox.xuse) {
         init_conds_box_enter(ICBox, window, val);
     }
-    if (BCBox.xuse) {
-        init_conds_box_enter(BCBox, window, val);
+    if (bc_box.xuse) {
+        init_conds_box_enter(bc_box, window, val);
     }
     if (param_box.xuse) {
         init_conds_box_enter(param_box, window, val);
@@ -2247,8 +2247,8 @@ init_conds_box_buttons(Window window) {
     if (ICBox.xuse) {
         init_conds_do_box_button(&ICBox, window);
     }
-    if (BCBox.xuse) {
-        init_conds_do_box_button(&BCBox, window);
+    if (bc_box.xuse) {
+        init_conds_do_box_button(&bc_box, window);
     }
     if (DelayBox.xuse) {
         init_conds_do_box_button(&DelayBox, window);
@@ -2267,8 +2267,8 @@ init_conds_box_keypress(XEvent event, int32 *used) {
             return;
         }
     }
-    if (BCBox.xuse) {
-        init_conds_do_box_key(&BCBox, event, used);
+    if (bc_box.xuse) {
+        init_conds_do_box_key(&bc_box, event, used);
         if (*used) {
             return;
         }

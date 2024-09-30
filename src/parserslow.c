@@ -35,15 +35,15 @@ static double zippy;
 int32 errout;
 int32 NDELAYS = 0;
 static double hom_bcs(int32);
-static double BoxMuller;
-static int32 BoxMullerFlag = 0;
+static double box_muller;
+static int32 box_muller_flag = 0;
 int32 rand_seed = 12345678;
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846264338327950288
 #endif
 
-static double CurrentIndex = 0;
+static double current_index = 0;
 static int32 SumIndex = 1;
 
 /* FIXXX */
@@ -1906,19 +1906,19 @@ normal(double mean, double std) {
     double r;
     double v1;
     double v2;
-    if (BoxMullerFlag == 0) {
+    if (box_muller_flag == 0) {
         do {
             v1 = 2.0*markov_ndrand48() - 1.0;
             v2 = 2.0*markov_ndrand48() - 1.0;
             r = v1*v1 + v2*v2;
         } while (r >= 1.0);
         fac = sqrt(-2.0*log(r) / r);
-        BoxMuller = v1*fac;
-        BoxMullerFlag = 1;
+        box_muller = v1*fac;
+        box_muller_flag = 1;
         return v2*fac*std + mean;
     } else {
-        BoxMullerFlag = 0;
-        return BoxMuller*std + mean;
+        box_muller_flag = 0;
+        return box_muller*std + mean;
     }
 }
 
@@ -2128,7 +2128,7 @@ eval_rpn(int32 *equat) {
         case ENDSUM:
             return POP;
         case INDXCOM:
-            PUSH(CurrentIndex);
+            PUSH(current_index);
             break;
         default: {
             it = i / MAXTYPE;

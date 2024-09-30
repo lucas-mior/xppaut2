@@ -87,7 +87,7 @@ static int32 LPE_color = 20;
 static int32 HB_color = 28;
 static int32 TR_color = 26;
 static int32 PD_color = 23;
-static int32 BR_color = 27;
+static int32 br_color = 27;
 static int32 FP_color = 25;
 
 int32 restart_label = 0;
@@ -199,7 +199,7 @@ auto_nox_pscolset2(int32 flag2) {
         graphics_set_linestyle(TR_color - 19);
         break;
     case BR2:
-        graphics_set_linestyle(BR_color - 19);
+        graphics_set_linestyle(br_color - 19);
         break;
     case PD2:
         graphics_set_linestyle(PD_color - 19);
@@ -230,7 +230,7 @@ auto_nox_colset2(int32 flag2) {
         auto_x11_col(TR_color);
         break;
     case BR2:
-        auto_x11_col(BR_color);
+        auto_x11_col(br_color);
         break;
     case PD2:
         auto_x11_col(PD_color);

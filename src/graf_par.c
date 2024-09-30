@@ -46,7 +46,7 @@ static double FreezeKeyX;
 static double FreezeKeyY;
 static int32 FreezeKeyFlag;
 int32 auto_freeze_flag = 0;
-static int32 CurrentCurve = 0;
+static int32 current_curve = 0;
 
 int32 colorline[] = {0, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 0};
 char *color_names[] = {"WHITE",       "RED",   "REDORANGE", "ORANGE", "YELLOWORANGE", "YELLOW",
@@ -87,7 +87,7 @@ graf_par_change_view_com(int32 com) {
 
     MyGraph->grtype = 5*com;
     if (MyGraph->grtype < 5) {
-        int32 ind = CurrentCurve;
+        int32 ind = current_curve;
         static char *n[] = {"*0X-axis", "*0Y-axis", "Xmin",   "Ymin",
                             "Xmax",     "Ymax",     "Xlabel", "Ylabel"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -133,7 +133,7 @@ graf_par_change_view_com(int32 com) {
             graf_par_check_windows();
         }
     } else {
-        int32 ind = CurrentCurve;
+        int32 ind = current_curve;
         static char *n[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "Xmin",  "Xmax", "Ymin",
                             "Ymax",     "Zmin",     "Zmax",     "XLo",   "XHi",  "YLo",
                             "YHi",      "Xlabel",   "Ylabel",   "Zlabel"};

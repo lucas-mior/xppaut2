@@ -24,7 +24,7 @@ typedef struct Point {
 } Point;
 
 static int32 NCSuppress = 0;
-static int32 DFSuppress = 0;
+static int32 df_supress = 0;
 int32 df_batch = 0;
 int32 NCBatch = 0;
 
@@ -45,9 +45,9 @@ static double *NTop;
 static double *NBot;
 int32 df_grid = 16;
 int32 df_flag = 0;
-static int32 DF_IX = -1;
-static int32 DF_IY = -1;
-static int32 DFIELD_TYPE = 0;
+static int32 df_ix = -1;
+static int32 df_iy = -1;
+static int32 dfield_type = 0;
 
 int32 doing_dfield = 0;
 
@@ -242,10 +242,10 @@ nullcline_froz_cline_stuff_com(int32 i) {
 void
 nullcline_silent_dfields(void) {
     if (df_batch == 5 || df_batch == 4) {
-        DFSuppress = 1;
+        df_supress = 1;
         graphics_init_ps();
         nullcline_do_batch_dfield();
-        DFSuppress = 0;
+        df_supress = 0;
     }
     return;
 }
@@ -472,37 +472,37 @@ nullcline_do_batch_dfield(void) {
         return;
     case 1:
         df_flag = 1;
-        DFIELD_TYPE = 1;
-        DF_IX = MyGraph->xv[0];
-        DF_IY = MyGraph->yv[0];
+        dfield_type = 1;
+        df_ix = MyGraph->xv[0];
+        df_iy = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     case 2:
         df_flag = 1;
-        DFIELD_TYPE = 0;
-        DF_IX = MyGraph->xv[0];
-        DF_IY = MyGraph->yv[0];
+        dfield_type = 0;
+        df_ix = MyGraph->xv[0];
+        df_iy = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     case 3:
         df_flag = 2;
-        DFIELD_TYPE = 0;
-        DF_IX = MyGraph->xv[0];
-        DF_IY = MyGraph->yv[0];
+        dfield_type = 0;
+        df_ix = MyGraph->xv[0];
+        df_iy = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     case 4:
         df_flag = 1;
-        DFIELD_TYPE = 1;
-        DF_IX = MyGraph->xv[0];
-        DF_IY = MyGraph->yv[0];
+        dfield_type = 1;
+        df_ix = MyGraph->xv[0];
+        df_iy = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     case 5:
         df_flag = 1;
-        DFIELD_TYPE = 0;
-        DF_IX = MyGraph->xv[0];
-        DF_IY = MyGraph->yv[0];
+        dfield_type = 0;
+        df_ix = MyGraph->xv[0];
+        df_iy = MyGraph->yv[0];
         nullcline_redraw_dfield();
         return;
     default:
@@ -538,10 +538,10 @@ nullcline_redraw_dfield(void) {
 
     int32 grid = df_grid;
     if (df_flag == 0 || MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
-        MyGraph->ThreeDFlag || DF_IX != MyGraph->xv[0] || DF_IY != MyGraph->yv[0]) {
+        MyGraph->ThreeDFlag || df_ix != MyGraph->xv[0] || df_iy != MyGraph->yv[0]) {
         return;
     }
-    if (DFSuppress == 1) {
+    if (df_supress == 1) {
         fp = fopen("dirfields.dat", "w");
         if (fp == NULL) {
             return;
@@ -553,10 +553,10 @@ nullcline_redraw_dfield(void) {
 
     dup = (double)(d_right - d_left) / (double)grid;
     dvp = (double)(d_top - d_buttom) / (double)grid;
-    dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
+    dz = hypot(dup, dvp)*(.25 + .75*dfield_type);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
-    if (!DFSuppress) {
+    if (!df_supress) {
         graphics_set_linestyle(MyGraph->color[0]);
     }
     integrate_get_ic(2, y);
@@ -578,13 +578,13 @@ nullcline_redraw_dfield(void) {
                     v1[k + 1] = (double)y[k];
                     v2[k + 1] = v1[k + 1] + (double)ydot[k];
                 }
-                if (!DFSuppress) {
+                if (!df_supress) {
                     integrate_comp_color(v1, v2, NODE, 1.0);
                 }
             }
             if (df_flag == 1 || df_flag == 4) {
                 graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
-                if (DFIELD_TYPE == 1) {
+                if (dfield_type == 1) {
                     ydot[inx] /= mdf;
                     ydot[iny] /= mdf;
                 } else {
@@ -596,7 +596,7 @@ nullcline_redraw_dfield(void) {
                 }
                 xv1 = y[inx] + ydot[inx]*dz;
                 xv2 = y[iny] + ydot[iny]*dz;
-                if (!DFSuppress) {
+                if (!df_supress) {
                     graphics_bead_abs((double)xv1, (double)xv2);
                     graphics_line_abs((double)y[inx], (double)y[iny], (double)xv1, (double)xv2);
                 } else {
@@ -615,10 +615,10 @@ nullcline_redraw_dfield(void) {
         doing_dfield = 0;
         fprintf(svgfile, "</g>\n");
     }
-    if (DFSuppress == 1) {
+    if (df_supress == 1) {
         fclose(fp);
     }
-    DFSuppress = 0;
+    df_supress = 0;
     return;
 }
 
@@ -660,10 +660,10 @@ nullcline_direct_field_com(int32 c) {
         return;
     }
     if (c == 0) {
-        DFIELD_TYPE = 1;
+        dfield_type = 1;
     }
     if (c == 4) {
-        DFIELD_TYPE = 0;
+        dfield_type = 0;
     }
     ggets_new_int("Grid:", &grid);
     if (grid <= 1) {
@@ -675,7 +675,7 @@ nullcline_direct_field_com(int32 c) {
 
     dup = (double)(d_right - d_left) / (double)grid;
     dvp = (double)(d_top - d_buttom) / (double)grid;
-    dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
+    dz = hypot(dup, dvp)*(.25 + .75*dfield_type);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
     graphics_set_linestyle(MyGraph->color[0]);
@@ -686,8 +686,8 @@ nullcline_direct_field_com(int32 c) {
             du = (MyGraph->xhi - MyGraph->xlo) / (double)(grid + 1);
             dv = (MyGraph->yhi - MyGraph->ylo) / (double)(grid + 1);
         }
-        DF_IX = inx + 1;
-        DF_IY = iny + 1;
+        df_ix = inx + 1;
+        df_iy = iny + 1;
         integrate_get_ic(2, y);
         nullcline_get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
         if (plt_fmt_flag == SVGFMT) {
@@ -712,7 +712,7 @@ nullcline_direct_field_com(int32 c) {
                 }
                 if (df_flag == 1) {
                     graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
-                    if (DFIELD_TYPE == 0) {
+                    if (dfield_type == 0) {
                         amp = hypot(dxp, dyp);
                         if (amp != 0.0) {
                             ydot[inx] /= amp;
