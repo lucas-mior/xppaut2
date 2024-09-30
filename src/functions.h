@@ -2679,14 +2679,10 @@ typedef struct Tabular {
     double *y;
     double *x;
     int32 n;
-    // flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
-    int32 flag;
-    /* interp=0 for normal interpolation, interp=1 for 'step' interp=2 for cubic
-     * spline table */
-    int32 interp;
+    int32 flag; // flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
+    int32 interp; // interp=0 for normal interpolation, interp=1 for 'step' interp=2 for cubic spline table
     int32 autoeval;
-    /* xyvals=1 if both x and y vals are needed (xyvals=0 is faster lookup) */
-    int32 xyvals;
+    int32 xyvals; // xyvals=1 if both x and y vals are needed (xyvals=0 is faster lookup)
     char filename[128];
     char name[12];
 } Tabular;
