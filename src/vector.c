@@ -382,9 +382,7 @@ vector_print(Vector x) {
     return;
 }
 
-/***************** Private Helper Functions **********************/
-
-static void
+void
 vector_copy(Vector x, Vector z) {
     int64 N;
     double *xd, *zd;
@@ -399,7 +397,7 @@ vector_copy(Vector x, Vector z) {
     return;
 }
 
-static void
+void
 vector_sum(Vector x, Vector y, Vector z) {
     int64 N;
     double *xd, *yd, *zd;
@@ -415,7 +413,7 @@ vector_sum(Vector x, Vector y, Vector z) {
     return;
 }
 
-static void
+void
 vector_diff(Vector x, Vector y, Vector z) {
     int64 N;
     double *xd, *yd, *zd;
@@ -431,7 +429,7 @@ vector_diff(Vector x, Vector y, Vector z) {
     return;
 }
 
-static void
+void
 vector_neg(Vector x, Vector z) {
     int64 N;
     double *xd, *zd;
@@ -446,7 +444,7 @@ vector_neg(Vector x, Vector z) {
     return;
 }
 
-static void
+void
 vector_scaleSum(double c, Vector x, Vector y, Vector z) {
     int64 N;
     double *xd, *yd, *zd;
@@ -478,7 +476,7 @@ vector_scaleDiff(double c, Vector x, Vector y, Vector z) {
     return;
 }
 
-static void
+void
 vector_lin1(double a, Vector x, Vector y, Vector z) {
     int64 N;
     double *xd, *yd, *zd;
@@ -494,7 +492,7 @@ vector_lin1(double a, Vector x, Vector y, Vector z) {
     return;
 }
 
-static void
+void
 vector_lin2(double a, Vector x, Vector y, Vector z) {
     int64 N;
     double *xd, *yd, *zd;
@@ -510,7 +508,7 @@ vector_lin2(double a, Vector x, Vector y, Vector z) {
     return;
 }
 
-static void
+void
 vector_axpy(double a, Vector x, Vector y) {
     int64 N;
     double *xd, *yd;
@@ -539,7 +537,7 @@ vector_axpy(double a, Vector x, Vector y) {
     return;
 }
 
-static void
+void
 vector_scaleBy(double a, Vector x) {
     int64 N;
     double *xd;
