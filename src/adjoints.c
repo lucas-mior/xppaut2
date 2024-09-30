@@ -34,11 +34,11 @@ static struct MyTrans {
     char firstcol[MAX_ODE_NAME_LENGTH];
 } my_trans;
 
-static int32 LIAP_FLAG = 0;
-static int32 LIAP_N;
-static int32 LIAP_I;
-static int32 LIAP_N;
-static int32 LIAP_I;
+static int32 liap_flag = 0;
+static int32 liap_n;
+static int32 liap_i;
+static int32 liap_n;
+static int32 liap_i;
 static double adj_eps = 1.e-8;
 static double adj_err = 1.e-3;
 static int32 adj_maxit = 20;
@@ -614,21 +614,21 @@ void
 adjoints_do_liapunov(void) {
     double z;
     double *x;
-    ggets_new_int("Range over parameters?(0/1)", &LIAP_FLAG);
-    if (LIAP_FLAG != 1) {
+    ggets_new_int("Range over parameters?(0/1)", &liap_flag);
+    if (liap_flag != 1) {
         adjoints_hrw_liapunov(&z, 0, NEWT_ERR);
         return;
     }
     x = &my_data[0];
     integrate_do_range(x, 0);
     // done the range
-    for (int32 i = 0; i < LIAP_I; i++) {
+    for (int32 i = 0; i < liap_i; i++) {
         storage[0][i] = my_liap[0][i];
         storage[1][i] = my_liap[1][i];
     }
-    storind = LIAP_I;
+    storind = liap_i;
     browser_refresh(storind);
-    LIAP_FLAG = 0;
+    liap_flag = 0;
     free(my_liap[0]);
     free(my_liap[1]);
     return;
@@ -636,26 +636,26 @@ adjoints_do_liapunov(void) {
 
 void
 adjoints_alloc_liap(int32 n) {
-    if (LIAP_FLAG == 0) {
+    if (liap_flag == 0) {
         return;
     }
     my_liap[0] = xmalloc(sizeof(*my_liap)*(usize)(n + 1));
     my_liap[1] = xmalloc(sizeof(*my_liap)*(usize)(n + 1));
-    LIAP_N = (n + 1);
-    LIAP_I = 0;
+    liap_n = (n + 1);
+    liap_i = 0;
     return;
 }
 
 void
 adjoints_do_this_liaprun(int32 i, double p) {
     double liap;
-    if (LIAP_FLAG == 0) {
+    if (liap_flag == 0) {
         return;
     }
     my_liap[0][i] = p;
     if (adjoints_hrw_liapunov(&liap, 1, NEWT_ERR)) {
         my_liap[1][i] = liap;
-        LIAP_I++;
+        liap_i++;
     }
     return;
 }

@@ -25,7 +25,7 @@
 #define CONV 2
 static double *Memory[MAX_KER];
 static int32 current_point;
-static int32 KnFlag;
+static int32 kn_flag;
 
 int32 auto_evaluate = 0;
 
@@ -36,7 +36,7 @@ static double volterra_alpha1n(double mu, double dt, double t, double t0);
 
 double
 volterra_ker_val(int32 in) {
-    if (KnFlag) {
+    if (kn_flag) {
         return kernel[in].k_n;
     }
     return kernel[in].k_n1;
@@ -111,7 +111,7 @@ volterra_allocate(int32 npts, int32 flag) {
         ggets_err_msg("Not enough memory...resetting");
     }
     current_point = 0;
-    KnFlag = 1;
+    kn_flag = 1;
     volterra_alloc_kernels(flag);
     return;
 }
@@ -311,7 +311,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart, do
     //  Initialization of everything
     if (*istart == 1) {
         current_point = 0;
-        KnFlag = 1;
+        kn_flag = 1;
         for (int32 i = 0; i < NKernel; i++) {  // zero the integrals
             kernel[i].k_n = 0.0;
             kernel[i].k_n1 = 0.0;
@@ -385,7 +385,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     ishift = i0 % max_points;
     volterra_init_sums(T0, current_point, dt, i0, iend,
                        ishift);  //  initialize all the sums
-    KnFlag = 0;
+    kn_flag = 0;
     for (int32 i = 0; i < neq; i++) {
         SETVAR(i + 1, y[i]);
         yg[i] = y[i];
@@ -404,7 +404,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             yp2[i] = 0.0;
         }
     }
-    KnFlag = 1;
+    kn_flag = 1;
     while (true) {
         volterra_get_kn(yg, t);
         for (int32 i = NODE; i < NODE + fix_var; i++) {

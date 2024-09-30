@@ -82,8 +82,8 @@ int32 UPc = 28;
  * BR is 27 (turquoise)
  * FP is 25 (olive) */
 
-static int32 LPP_color = 0;
-static int32 LPE_color = 20;
+static int32 lpp_color = 0;
+static int32 lpe_color = 20;
 static int32 hb_color = 28;
 static int32 TR_color = 26;
 static int32 PD_color = 23;
@@ -187,10 +187,10 @@ void
 auto_nox_pscolset2(int32 flag2) {
     switch (flag2) {
     case LPE2:
-        graphics_set_linestyle(LPE_color - 19);
+        graphics_set_linestyle(lpe_color - 19);
         break;
     case LPP2:
-        graphics_set_linestyle(LPP_color);
+        graphics_set_linestyle(lpp_color);
         break;
     case HB2:
         graphics_set_linestyle(hb_color - 19);
@@ -218,10 +218,10 @@ auto_nox_colset2(int32 flag2) {
     auto_x11_line_width(2);
     switch (flag2) {
     case LPE2:
-        auto_x11_col(LPE_color);
+        auto_x11_col(lpe_color);
         break;
     case LPP2:
-        auto_x11_col(LPP_color);
+        auto_x11_col(lpp_color);
         break;
     case HB2:
         auto_x11_col(hb_color);
