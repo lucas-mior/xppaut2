@@ -11,6 +11,7 @@
 #include <math.h>
 #include "functions.h"
 #include "integers.h"
+#include "llnlmath.h"
 
 #define ZERO 0.0
 #define ONE 1.0

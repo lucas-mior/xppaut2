@@ -10,6 +10,8 @@
 #define SPGMR_H
 
 #include "vector.h"
+#include "iterativ.h"
+#include "llnlmath.h"
 
 /******************************************************************
  *                                                                *

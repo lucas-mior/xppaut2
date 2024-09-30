@@ -13,9 +13,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "vector.h"
 #include "functions.h"
-#include <stdbool.h>
+#include "llnlmath.h"
 
 static void vector_copy(Vector x, Vector z);
 static void vector_sum(Vector x, Vector y, Vector z);

@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "cvode.h"
+#include "llnlmath.h"
 #include "vector.h"
 #include "functions.h"
 #include "integers.h"

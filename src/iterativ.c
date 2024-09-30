@@ -10,13 +10,18 @@
  *                                                                *
  ******************************************************************/
 
-#include "functions.h"
+#include "iterativ.h"
+#include "llnlmath.h"
 #include "vector.h"
 #include "integers.h"
 
 #define FACTOR 1000.0
 #define ZERO 0.0
 #define ONE 1.0
+
+#define MAX(A, B) ((A) > (B) ? (A) : (B))
+#define ABS(A) ((A > 0) ? (A) : -(A))
+#define SQR(A) ((A)*(A))
 
 /************************* modified_gs ***********************************
  This implementation of modified_gs is a slight modification of a previous
