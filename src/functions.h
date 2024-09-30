@@ -1952,8 +1952,9 @@ extern int32 Xup;
 extern char batch_out[XPP_MAX_NAME];
 extern char user_out_file[XPP_MAX_NAME];
 extern int32 flag_true_color;
-extern char font_name_big[100];
-extern char font_name_small[100];
+#define XPP_MAX_FONT_NAME 200
+extern char font_name_big[XPP_MAX_FONT_NAME];
+extern char font_name_small[XPP_MAX_FONT_NAME];
 extern char plot_format[10];
 
 extern Window command_pop;

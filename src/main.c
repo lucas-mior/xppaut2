@@ -60,8 +60,8 @@ char user_out_file[XPP_MAX_NAME];
 int32 display_height;
 int32 display_width;
 int32 flag_true_color;
-char font_name_big[100];
-char font_name_small[100];
+char font_name_big[XPP_MAX_FONT_NAME];
+char font_name_small[XPP_MAX_FONT_NAME];
 char plot_format[10];
 
 int32 paper_white = -1;
