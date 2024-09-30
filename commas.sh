@@ -7,25 +7,25 @@ BRACKET="\[[^]]*\]"
 find src -iname "*.[ch]" | while read file; do
 
 awk \
-" /^(static |extern )?$IDENT ($IDENT($BRACKET)?($ASSIGN)?, )+$IDENT($BRACKET)?($ASSIGN)?;\$/ {
+" /^    +$IDENT ($IDENT($BRACKET)?($ASSIGN)?, )+$IDENT($BRACKET)?($ASSIGN)?;\$/ {
 print; exit
-    static = \$1
-    type = \$2
+    # static = \$1
+    type = \$1
     \$1 = \"\"
-    \$2 = \"\"
+    # \$2 = \"\"
 
     split(\$0, array, \",\");
     for (i in array) {
-        printf(\"%s %s%s;NEWLINELINE\", static, type, array[i]);
+        printf(\"%s %s%s;NEWLINELINE\", type, array[i]);
     }
     getline
-# }{
-#     print
+}{
+    print
 }" \
 "$file" | tee "${file}.2"
-# mv "${file}.2" "$file"
+mv "${file}.2" "$file"
 
-# sed -i ':a;N;$!ba; s/NEWLINELINE/\n/g' "$file"
-# sed -i 's/,;$/;/' "$file"
-# sed -i 's/;;$/;/' "$file"
+sed -i ':a;N;$!ba; s/NEWLINELINE/\n/g' "$file"
+sed -i 's/,;$/;/' "$file"
+sed -i 's/;;$/;/' "$file"
 done
