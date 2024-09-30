@@ -251,7 +251,7 @@ eig_list_eq_list_button(XEvent event) {
         }
         if (eq_box.close == window) {
             eq_box.flag = 0;
-            browser_wait_a_sec(ClickTime);
+            browser_wait_a_sec(CLICK_TIME);
             XDestroySubwindows(display, eq_box.base);
             XDestroyWindow(display, eq_box.base);
         }
@@ -270,7 +270,7 @@ eig_list_eq_list_button(XEvent event) {
     }
     if (window == eq_list.close) {
         eq_list.flag = 0;
-        browser_wait_a_sec(2*ClickTime);
+        browser_wait_a_sec(2*CLICK_TIME);
         XDestroySubwindows(display, eq_list.base);
         XDestroyWindow(display, eq_list.base);
     }

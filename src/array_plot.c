@@ -471,7 +471,7 @@ array_plot_button(Window window) {
     if (window == array_plot.wclose) {
         // array plot destroy
         array_plot.alive = 0;
-        browser_wait_a_sec(ClickTime);
+        browser_wait_a_sec(CLICK_TIME);
         XDestroySubwindows(display, array_plot.base);
         XDestroyWindow(display, array_plot.base);
     }

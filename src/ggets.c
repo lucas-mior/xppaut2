@@ -247,7 +247,7 @@ ggets_cput_text(void) {
         many_pops_add_label(string, x, y, size, font);
         many_pops_base_col();
     }
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroyWindow(display, temp);
     return;
 }

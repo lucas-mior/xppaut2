@@ -762,7 +762,7 @@ browser_init(void) {
 void
 kill_browser(Browser *b) {
     b->xflag = 0;
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);
     return;

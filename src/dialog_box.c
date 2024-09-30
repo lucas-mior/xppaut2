@@ -88,7 +88,7 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
     XSelectInput(display, d.cancel, EV_MASK);
     XSelectInput(display, d.ok, EV_MASK);
 
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, d.base);
     XDestroyWindow(display, d.base);
     XFlush(display);

@@ -327,7 +327,7 @@ uint32 color_map(int32 i);
 #define GGETS_H
 
 #define MAX_INCLUDE_FILES 10
-#define ClickTime 200
+#define CLICK_TIME 200
 
 extern int32 ms_style;
 extern char *info_message;

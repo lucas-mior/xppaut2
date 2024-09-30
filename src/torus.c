@@ -126,7 +126,7 @@ do_torus_com(int32 c) {
         }
         XSelectInput(display, torbox.cancel, EV_MASK);
         XSelectInput(display, torbox.done, EV_MASK);
-        browser_wait_a_sec(ClickTime);
+        browser_wait_a_sec(CLICK_TIME);
         XDestroySubwindows(display, torbox.base);
         XDestroyWindow(display, torbox.base);
 

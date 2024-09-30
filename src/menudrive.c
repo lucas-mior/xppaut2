@@ -168,7 +168,7 @@ menudrive_message_box_kill(void) {
         return;
     }
     MsgBox.here = 0;
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroyWindow(display, MsgBox.window);
     return;
 }

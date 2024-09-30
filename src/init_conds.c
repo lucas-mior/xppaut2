@@ -1167,7 +1167,7 @@ end:
 
     // destroy selector
     filesel.here = 0;
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, filesel.base);
     XDestroyWindow(display, filesel.base);
     read_dir_free_finfo(&my_ff);
@@ -1553,7 +1553,7 @@ init_conds_resize_par_box(Window window) {
     if (param_box.xuse == 1 && window == param_box.base) {
         ok = 2;
         b = &param_box;
-        browser_wait_a_sec(ClickTime);
+        browser_wait_a_sec(CLICK_TIME);
 
         eig_list_get_new_size(window, &w, &h);
         init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
@@ -1636,7 +1636,7 @@ init_conds_destroy_box(BoxList *b) {
     if (b->use == 0) {
         return;
     }
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
 
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);

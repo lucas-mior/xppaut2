@@ -183,7 +183,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
         }
     }
     // choice box destroy
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
 

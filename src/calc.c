@@ -151,7 +151,7 @@ calc_q_calc(void) {
     // quit calc
     my_calc.use = 0;
     XSelectInput(display, my_calc.quit, SIMPMASK);
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, my_calc.base);
     XDestroyWindow(display, my_calc.base);
     ggets_clr_command();

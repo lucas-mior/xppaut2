@@ -98,7 +98,7 @@ edit_rhs_box(int32 n, char *title, char **names, char **values) {
     XSelectInput(display, sb.ok, EV_MASK);
     XSelectInput(display, sb.reset, EV_MASK);
 
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 

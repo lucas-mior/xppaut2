@@ -1022,7 +1022,7 @@ many_pops_do_windows_com(int32 c) {
         graph[i].Use = 0;
         many_pops_destroy_label(graph[i].window);
         many_pops_destroy_grob(graph[i].window);
-        browser_wait_a_sec(ClickTime);
+        browser_wait_a_sec(CLICK_TIME);
         XDestroySubwindows(display, graph[i].window);
         XDestroyWindow(display, graph[i].window);
         num_pops--;

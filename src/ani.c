@@ -436,7 +436,7 @@ ani_create_vcr(char *name) {
     if (ani_pixmap == 0) {
         ggets_err_msg("Failed to get the required pixmap");
         XFlush(display);
-        browser_wait_a_sec(ClickTime);
+        browser_wait_a_sec(CLICK_TIME);
         XDestroySubwindows(display, base);
         XDestroyWindow(display, base);
         vcr.iexist = 0;

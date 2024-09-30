@@ -159,7 +159,7 @@ void
 pop_list_destroy_scroll_box(ScrollBox *sb) {
     if (sb->exist == 1) {
         sb->exist = 0;
-        browser_wait_a_sec(ClickTime);
+        browser_wait_a_sec(CLICK_TIME);
         XDestroySubwindows(display, sb->base);
         XDestroyWindow(display, sb->base);
     }
@@ -359,7 +359,7 @@ pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title,
     XSelectInput(display, sb.cancel, EV_MASK);
     XSelectInput(display, sb.ok, EV_MASK);
 
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 
@@ -1057,7 +1057,7 @@ pop_list_respond_box(char *button, char *message) {
     }
 
     XSelectInput(display, wb, EV_MASK);
-    browser_wait_a_sec(ClickTime);
+    browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, wmain);
     XDestroyWindow(display, wmain);
     return;
@@ -1176,7 +1176,7 @@ pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
             break;
         }
     }
-    browser_wait_a_sec(2*ClickTime);
+    browser_wait_a_sec(2*CLICK_TIME);
     XFlush(display);
     XSelectInput(display, c1, EV_MASK);
     XSelectInput(display, c2, EV_MASK);
@@ -1279,7 +1279,7 @@ pop_list_popup_list_new(Window *root, char *title, char **list, char *key,
     for (int32 i = 0; i < n; i++) {
         XSelectInput(display, p.w[i], EV_MASK);
     }
-    // browser_wait_a_sec(ClickTime); Not here. Don't want to delay short cuts
+    // browser_wait_a_sec(CLICK_TIME); Not here. Don't want to delay short cuts
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
     XFlush(display);
