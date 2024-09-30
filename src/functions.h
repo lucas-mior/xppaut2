@@ -1084,7 +1084,7 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
 
 #endif
 
-/*-----------------------------------------------------------------*
+/*******************************************************************************
  * File:
  *	fftn.h
  *
@@ -1118,7 +1118,7 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
  * that everyone benefits.
  *
  * Brief overview of parameters:
- * ---------------------------------------------------------------------*
+ * ---------------------------------------------------------------------
  * Re[]:	real value array
  * im[]:	imaginary value array
  * nTotal:	total number of floatcomplex values
@@ -1132,13 +1132,13 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
  *
  *
  * Slightly more detailed information:
- * ----------------------------------------------------------------------*
+ * ----------------------------------------------------------------------
  * void fft_free (void);
  *
  * free-up allocated temporary storage after finished all the Fourier
  * transforms.
  *
- * ----------------------------------------------------------------------*
+ * ----------------------------------------------------------------------
  *
  * int32 fftn (int32 ndim,  int32 dims[], REAL Re[], REAL im[],
  *	    int32 iSign, double scaling);
@@ -1170,7 +1170,7 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
  * or, using a null terminated dimension list
  *	int32 dims[4] = {n1,n2,n3,0}
  *	fftn (0, dims, Re, im, 1, scaling);
- * ----------------------------------------------------------------------*/
+ ******************************************************************************/
 #ifndef FFTN_H
 #define FFTN_H
 
