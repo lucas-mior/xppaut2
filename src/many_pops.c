@@ -178,7 +178,10 @@ many_pops_gtitle_text(char *string, Window win) {
         int32 len = (int32)strlen(string);
         int32 x;
         int32 y;
-        uint32 w, h, bw, de;
+uint32  w;
+uint32  h;
+uint32  bw;
+uint32  de;
         int32 xs;
         int32 ys = 2;
         Window root;

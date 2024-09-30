@@ -155,7 +155,10 @@ nullcline_froz_cline_stuff_com(int32 i) {
         double z;
         double dz;
         double zold;
-        double xmin, xmax, y_tp, y_bot;
+double  xmin;
+double  xmax;
+double  y_tp;
+double  y_bot;
         int32 col1 = XNullColor;
         int32 col2 = YNullColor;
         int32 course = NMESH;

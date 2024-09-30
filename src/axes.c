@@ -166,7 +166,13 @@ axes_do(void) {
         double tx;
         double ty;
         double tz;
-        double x1, y1, z1, x2, y2, z2, dt = .03;
+double  x1;
+double  y1;
+double  z1;
+double  x2;
+double  y2;
+double  z2;
+double  dt = .03;
         double x0 = MyGraph->xorg;
         double y0 = MyGraph->yorg;
         double z0 = MyGraph->zorg;
@@ -175,14 +181,21 @@ axes_do(void) {
         double xmin = MyGraph->xmin;
         double xmax = MyGraph->xmax;
         double ymin = MyGraph->ymin;
-        double ymax = MyGraph->ymax, zmin = MyGraph->zmin, zmax = MyGraph->zmax;
+double  ymax = MyGraph->ymax;
+double  zmin = MyGraph->zmin;
+double  zmax = MyGraph->zmax;
         double x4 = xmin;
         double y4 = ymin;
         double z4 = zmin;
         double x5 = xmax;
         double y5 = ymax;
         double z5 = zmax;
-        double x3, y3, z3, x6, y6, z6;
+double  x3;
+double  y3;
+double  z3;
+double  x6;
+double  y6;
+double  z6;
 
         axes_doing = 1;
 

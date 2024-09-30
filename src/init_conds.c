@@ -2205,7 +2205,8 @@ init_conds_do_box_button(BoxList *b, Window window) {
         }
         if (window == b->pp) {
             // set up pp
-            int32 plot_list[3], n2 = 0;
+int32  plot_list[3];
+int32  n2 = 0;
 
             for (int32 i = 0; i < ICBox.n; i++) {
                 if (ICBox.isck[i]) {
@@ -2226,7 +2227,8 @@ init_conds_do_box_button(BoxList *b, Window window) {
 
         if (window == b->arr) {
             // set up arry
-            int32 plot_list[2], n2 = 0;
+int32  plot_list[2];
+int32  n2 = 0;
 
             for (int32 i = 0; i < ICBox.n; i++) {
                 if (ICBox.isck[i]) {

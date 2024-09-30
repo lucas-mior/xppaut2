@@ -100,7 +100,8 @@ graf_par_change_view_com(int32 com) {
         int32 i;
         int32 i1 = MyGraph->xv[ind];
         int32 i2 = MyGraph->yv[ind];
-        char n1[15], n2[15];
+char  n1[15];
+char  n2[15];
         graf_par_ind_to_sym(i1, n1);
         graf_par_ind_to_sym(i2, n2);
         snprintf(values[0], sizeof(values[0]), "%s", n1);

@@ -1820,7 +1820,8 @@ auto_nox_run(void) {
         homo_flag = 0;
         if (METHOD == DISCRETE) {
             // auto new discrete
-            int32 opn = NO_OPEN_3, cls = OVERWRITE;
+int32  opn = NO_OPEN_3;
+int32  cls = OVERWRITE;
             new_period_flag = 0;
 
             if (NBifs > 1) {
@@ -1850,7 +1851,8 @@ auto_nox_run(void) {
         }
         if (ch2 == 'p') {
             // auto start at per
-            int32 opn = NO_OPEN_3, cls = OVERWRITE;
+int32  opn = NO_OPEN_3;
+int32  cls = OVERWRITE;
 
             type_of_calc = PE1;
             Auto.ips = 2;
@@ -1870,7 +1872,8 @@ auto_nox_run(void) {
             return;
         }
         if (ch2 == 'b') {
-            int32 opn, cls;
+int32  opn;
+int32  cls;
             Auto.nbc = NODE;
 
             // auto start at bvp
