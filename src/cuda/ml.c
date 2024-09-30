@@ -62,8 +62,6 @@ cuda_s_inf(double v) {
 
 void
 cuda_update_sums(double *s, double *wgt, int n) {
-    int i;
-    int j;
     for (int32 i = 0; i < n; i++) {
         sum[i] = 0.0;
         for (int32 j = 0; j < n; j++) {
@@ -75,7 +73,6 @@ cuda_update_sums(double *s, double *wgt, int n) {
 void
 cuda_update_rhs(double *vp, double *wp, double *sp, double *v, double *w,
                 double *s, int n) {
-    int i;
     for (int32 i = 0; i < n; i++) {
         vp[i] = iapp - gl*(v[i] - vl) - gk*w[i]*(v[i] - vk) -
                 gca*cuda_minf(v[i])*(v[i] - 1.0) -
