@@ -59,11 +59,11 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
                                    (uint)lc + 4, (uint)dcur_y + 8, 1,
                                    my_fore_color, my_back_color);
 
-    XSelectInput(display, d.base, EV_MASK);
-    XSelectInput(display, d.input, EV_MASK);
-    XSelectInput(display, d.mes, EV_MASK);
-    XSelectInput(display, d.ok, BUT_MASK);
-    XSelectInput(display, d.cancel, BUT_MASK);
+    XSelectInput(display, d.base, MASK_EVENT);
+    XSelectInput(display, d.input, MASK_EVENT);
+    XSelectInput(display, d.mes, MASK_EVENT);
+    XSelectInput(display, d.ok, MASK_BUTTON);
+    XSelectInput(display, d.cancel, MASK_BUTTON);
     XMapWindow(display, d.base);
     XMapWindow(display, d.mes);
     XMapWindow(display, d.input);
@@ -77,8 +77,8 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
             break;
         }
     }
-    XSelectInput(display, d.cancel, EV_MASK);
-    XSelectInput(display, d.ok, EV_MASK);
+    XSelectInput(display, d.cancel, MASK_EVENT);
+    XSelectInput(display, d.ok, MASK_EVENT);
 
     browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, d.base);

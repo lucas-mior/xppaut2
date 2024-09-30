@@ -75,9 +75,9 @@ edit_rhs_box(int32 n, char *title, char **names, char **values) {
     sb.n = n;
     sb.hot = 0;
     edit_rhs_make_box_windows(&sb, title);
-    XSelectInput(display, sb.cancel, BUT_MASK);
-    XSelectInput(display, sb.ok, BUT_MASK);
-    XSelectInput(display, sb.reset, BUT_MASK);
+    XSelectInput(display, sb.cancel, MASK_BUTTON);
+    XSelectInput(display, sb.ok, MASK_BUTTON);
+    XSelectInput(display, sb.reset, MASK_BUTTON);
     pos = (int32)strlen(sb.value[0]);
     colm = (pos + (int32)strlen(sb.name[0]))*dcur_x;
 
@@ -87,9 +87,9 @@ edit_rhs_box(int32 n, char *title, char **names, char **values) {
             break;
         }
     }
-    XSelectInput(display, sb.cancel, EV_MASK);
-    XSelectInput(display, sb.ok, EV_MASK);
-    XSelectInput(display, sb.reset, EV_MASK);
+    XSelectInput(display, sb.cancel, MASK_EVENT);
+    XSelectInput(display, sb.ok, MASK_EVENT);
+    XSelectInput(display, sb.reset, MASK_EVENT);
 
     browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, sb.base);

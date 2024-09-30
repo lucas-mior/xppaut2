@@ -16,10 +16,10 @@
 #include "struct.h"
 #include "xpplim.h"
 
-#define EV_MASK                                                                \
+#define MASK_EVENT                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
-#define BUT_MASK                                                               \
+#define MASK_BUTTON                                                               \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 

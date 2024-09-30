@@ -345,8 +345,8 @@ pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title,
     sb.n = n;
     sb.hot = 0;
     pop_list_make_sbox_windows(&sb, rows, cols, title, maxchar);
-    XSelectInput(display, sb.cancel, BUT_MASK);
-    XSelectInput(display, sb.ok, BUT_MASK);
+    XSelectInput(display, sb.cancel, MASK_BUTTON);
+    XSelectInput(display, sb.ok, MASK_BUTTON);
     pos = (int32)strlen(sb.value[0]);
     colm = (pos + (int32)strlen(sb.name[0]))*dcur_x;
 
@@ -356,8 +356,8 @@ pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title,
             break;
         }
     }
-    XSelectInput(display, sb.cancel, EV_MASK);
-    XSelectInput(display, sb.ok, EV_MASK);
+    XSelectInput(display, sb.cancel, MASK_EVENT);
+    XSelectInput(display, sb.ok, MASK_EVENT);
 
     browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, sb.base);
@@ -1023,7 +1023,7 @@ pop_list_respond_box(char *button, char *message) {
 
     ggets_ping();
     pop_list_set_window_title(wmain, "!!");
-    XSelectInput(display, wb, BUT_MASK);
+    XSelectInput(display, wb, MASK_BUTTON);
     while (!done) {
         XNextEvent(display, &event);
         switch (event.type) {
@@ -1056,7 +1056,7 @@ pop_list_respond_box(char *button, char *message) {
         }
     }
 
-    XSelectInput(display, wb, EV_MASK);
+    XSelectInput(display, wb, MASK_EVENT);
     browser_wait_a_sec(CLICK_TIME);
     XDestroySubwindows(display, wmain);
     XDestroyWindow(display, wmain);
@@ -1122,8 +1122,8 @@ pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
 
     c1 = pop_list_make_window(base, x1, 3*dcur_y, l1 + dcur_x, dcur_y + 4, 1);
     c2 = pop_list_make_window(base, x2, 3*dcur_y, l2 + dcur_x, dcur_y + 4, 1);
-    XSelectInput(display, c1, BUT_MASK);
-    XSelectInput(display, c2, BUT_MASK);
+    XSelectInput(display, c1, MASK_BUTTON);
+    XSelectInput(display, c2, MASK_BUTTON);
 
     wm = pop_list_make_window(base, xm, dcur_y / 2, lm + 2, dcur_y, 0);
 
@@ -1178,8 +1178,8 @@ pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
     }
     browser_wait_a_sec(2*CLICK_TIME);
     XFlush(display);
-    XSelectInput(display, c1, EV_MASK);
-    XSelectInput(display, c2, EV_MASK);
+    XSelectInput(display, c1, MASK_EVENT);
+    XSelectInput(display, c2, MASK_EVENT);
     XFlush(display);
     XDestroySubwindows(display, base);
     XDestroyWindow(display, base);
@@ -1226,7 +1226,7 @@ pop_list_popup_list_new(Window *root, char *title, char **list, char *key,
         p.w[i] =
             pop_list_make_window(window, dcur_x, dcur_y + 10 + i*(dcur_y + 6),
                                  dcur_x*(max + 3), dcur_y + 3, 0);
-        XSelectInput(display, p.w[i], BUT_MASK);
+        XSelectInput(display, p.w[i], MASK_BUTTON);
     }
 
     while (!done) {
@@ -1277,7 +1277,7 @@ pop_list_popup_list_new(Window *root, char *title, char **list, char *key,
     }
 
     for (int32 i = 0; i < n; i++) {
-        XSelectInput(display, p.w[i], EV_MASK);
+        XSelectInput(display, p.w[i], MASK_EVENT);
     }
     // browser_wait_a_sec(CLICK_TIME); Not here. Don't want to delay short cuts
     XDestroySubwindows(display, p.base);

@@ -117,8 +117,8 @@ do_torus_com(int32 c) {
             }
             TORUS = 0;
         }
-        XSelectInput(display, torbox.cancel, EV_MASK);
-        XSelectInput(display, torbox.done, EV_MASK);
+        XSelectInput(display, torbox.cancel, MASK_EVENT);
+        XSelectInput(display, torbox.done, MASK_EVENT);
         browser_wait_a_sec(CLICK_TIME);
         XDestroySubwindows(display, torbox.base);
         XDestroyWindow(display, torbox.base);
@@ -224,8 +224,8 @@ torus_make_box(char *title) {
         pop_list_make_window(base, xpos, ypos, 8*dcur_xs, dcur_ys, 1);
     torbox.done = pop_list_make_window(base, xpos + 8*dcur_xs + 10, ypos,
                                        8*dcur_xs, dcur_ys, 1);
-    XSelectInput(display, torbox.cancel, BUT_MASK);
-    XSelectInput(display, torbox.done, BUT_MASK);
+    XSelectInput(display, torbox.cancel, MASK_BUTTON);
+    XSelectInput(display, torbox.done, MASK_BUTTON);
     XRaiseWindow(display, torbox.base);
     return;
 }
