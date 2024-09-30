@@ -8,7 +8,7 @@ find src -iname "*.[ch]" | while read file; do
 
 awk \
 " /^    +$IDENT ($IDENT($BRACKET)?($ASSIGN)?, )+$IDENT($BRACKET)?($ASSIGN)?;\$/ {
-print; exit
+# print; exit
     # static = \$1
     type = \$1
     \$1 = \"\"
