@@ -9,14 +9,12 @@ find src -iname "*.[ch]" | while read file; do
 awk \
 " /^    +$IDENT ($IDENT($BRACKET)?($ASSIGN)?, )+$IDENT($BRACKET)?($ASSIGN)?;\$/ {
 # print; exit
-    # static = \$1
     type = \$1
     \$1 = \"\"
-    # \$2 = \"\"
 
     split(\$0, array, \",\");
     for (i in array) {
-        printf(\"%s %s%s;NEWLINELINE\", type, array[i]);
+        printf(\"%s %s;NEWLINELINE\", type, array[i]);
     }
     getline
 }{
