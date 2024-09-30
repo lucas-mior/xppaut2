@@ -1795,7 +1795,7 @@ typedef struct OptionsSet {
     int32 evec_iter;
     int32 evec_err;
     int32 NULL_ERR;
-    int32 NEWT_ERR;
+    int32 newt_err;
     int32 NULL_HERE;
     int32 TUTORIAL;
     int32 slider1;
@@ -2388,7 +2388,7 @@ extern double T0;
 extern double TRANS;
 extern double NULL_ERR;
 extern double evec_err;
-extern double NEWT_ERR;
+extern double newt_err;
 extern double bound;
 extern double delay;
 extern double TOLER;

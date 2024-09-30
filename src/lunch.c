@@ -98,7 +98,7 @@ lunch_do_info(FILE *fp) {
             fprintf(fp, "%s = %s \n", fixinfo[i].name, fixinfo[i].value);
         }
     }
-    if (NFUN > 0) {
+    if (nfun > 0) {
         fprintf(fp, "\nUser-defined functions:\n");
         edit_rhs_user_fun_info(fp);
     }
@@ -110,7 +110,7 @@ lunch_do_info(FILE *fp) {
     fprintf(fp, "bvp_eps=%g,bvp_tol=%g,bpv_maxit=%d \n", bvp_eps, bvp_tol, bpv_maxit);
     fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g delay=%g MaxPts=%d\n", delta_t, T0, TRANS,
             TEND, bound, delay, max_points);
-    fprintf(fp, "evec_err=%g, NEWT_ERR=%g h_min=%g h_max=%g TOLER=%g \n", evec_err, NEWT_ERR, h_min,
+    fprintf(fp, "evec_err=%g, newt_err=%g h_min=%g h_max=%g TOLER=%g \n", evec_err, newt_err, h_min,
             h_max, TOLER);
     if (POIVAR == 0) {
         strcpy(bob, "T");
@@ -302,7 +302,7 @@ lunch_dump_eqn(FILE *fp) {
             fprintf(fp, "%s = %s \n", fixinfo[i].name, fixinfo[i].value);
         }
     }
-    if (NFUN > 0) {
+    if (nfun > 0) {
         fprintf(fp, "\nUser-defined functions:\n");
         edit_rhs_user_fun_info(fp);
     }
@@ -351,7 +351,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
     lunch_io_double(&delay, fp, f, "Max Delay");
     lunch_io_int(&evec_iter, fp, f, "Eigenvector iterates");
     lunch_io_double(&evec_err, fp, f, "Eigenvector tolerance");
-    lunch_io_double(&NEWT_ERR, fp, f, "Newton tolerance");
+    lunch_io_double(&newt_err, fp, f, "Newton tolerance");
     lunch_io_double(&POIPLN, fp, f, "Poincare plane");
     lunch_io_double(&bvp_tol, fp, f, "Boundary value tolerance");
     lunch_io_double(&bvp_eps, fp, f, "Boundary value epsilon");

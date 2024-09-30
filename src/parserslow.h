@@ -9,7 +9,7 @@ extern int32 rand_seed;
 
 extern int32 NCON;
 extern int32 NVAR;
-extern int32 NFUN;
+extern int32 nfun;
 extern int32 NSYM;
 extern int32 errout;
 

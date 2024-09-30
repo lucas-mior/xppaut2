@@ -114,7 +114,7 @@ odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, doub
             err1 += fabs(errvec[i]);
             ytemp[i] = yg[i];
         }
-        odesol_get_the_jac(*t, yg, yp, ytemp, jac, neq, NEWT_ERR, -.5*dt);
+        odesol_get_the_jac(*t, yg, yp, ytemp, jac, neq, newt_err, -.5*dt);
         if (cv_bandflag) {
             for (int32 i = 0; i < neq; i++) {
                 jac[i*mt + ml] += 1;
@@ -451,7 +451,7 @@ int32
 odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n, double *work,
              int32 *ierr) {
     static double htry;
-    double epsjac = NEWT_ERR;
+    double epsjac = newt_err;
     double eps = 1e-15;
     double hmin;
     double hmax;

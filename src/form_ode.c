@@ -1637,7 +1637,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         n_equations = nvar + NMarkov + Naux;
         fix_var = nfix;
         NTable = ntab;
-        NFUN = nufun;
+        nfun = nufun;
 
         // Reset all this stuff so we align the indices correctly
 

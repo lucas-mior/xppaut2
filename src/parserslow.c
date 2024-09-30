@@ -173,7 +173,7 @@ static struct Symbol {
 
 int32 NCON = 0;
 int32 NVAR = 0;
-int32 NFUN = 0;
+int32 nfun = 0;
 int32 NSYM = STDSYM;
 
 typedef double (*FunctionInt32)(int32);
@@ -216,7 +216,7 @@ void
 init_rpn(void) {
     errout = 1;
     NCON = 0;
-    NFUN = 0;
+    nfun = 0;
     NVAR = 0;
     NKernel = 0;
 
@@ -719,19 +719,19 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
     if (duplicate_name(junk) == 1) {
         return 1;
     }
-    if (NFUN >= MAX_UFUN) {
+    if (nfun >= MAX_UFUN) {
         if (errout) {
             printf("too many functions !!\n");
         }
         return 1;
     }
-    if ((ufun[NFUN] = xmalloc(1024)) == NULL) {
+    if ((ufun[nfun] = xmalloc(1024)) == NULL) {
         if (errout) {
             printf("not enough memory!!\n");
         }
         return 1;
     }
-    if ((ufun_def[NFUN] = xmalloc(MAXEXPLEN)) == NULL) {
+    if ((ufun_def[nfun] = xmalloc(MAXEXPLEN)) == NULL) {
         if (errout) {
             printf("not enough memory!!\n");
         }
@@ -739,7 +739,7 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
     }
 
     convert(junk, string);
-    if (parserslow_add_expr(expr, ufun[NFUN], &end) == 0) {
+    if (parserslow_add_expr(expr, ufun[nfun], &end) == 0) {
         if (len > MXLEN) {
             len = MXLEN;
         }
@@ -748,20 +748,20 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
         my_symb[NSYM].len = len;
         my_symb[NSYM].pri = 10;
         my_symb[NSYM].arg = narg;
-        my_symb[NSYM].com = COM(UFUNTYPE, NFUN);
+        my_symb[NSYM].com = COM(UFUNTYPE, nfun);
         NSYM++;
-        ufun[NFUN][end - 1] = ENDFUN;
-        ufun[NFUN][end] = narg;
-        ufun[NFUN][end + 1] = ENDEXP;
-        strcpy(ufun_def[NFUN], expr);
-        l = (int32)strlen(ufun_def[NFUN]);
-        ufun_def[NFUN][l - 1] = 0;
-        strcpy(ufun_names[NFUN], junk);
-        narg_fun[NFUN] = narg;
+        ufun[nfun][end - 1] = ENDFUN;
+        ufun[nfun][end] = narg;
+        ufun[nfun][end + 1] = ENDEXP;
+        strcpy(ufun_def[nfun], expr);
+        l = (int32)strlen(ufun_def[nfun]);
+        ufun_def[nfun][l - 1] = 0;
+        strcpy(ufun_names[nfun], junk);
+        narg_fun[nfun] = narg;
         for (int32 i = 0; i < narg; i++) {
-            snprintf(ufun_arg[NFUN].args[i], sizeof(ufun_arg[NFUN].args[i]), "ARG%d", i + 1);
+            snprintf(ufun_arg[nfun].args[i], sizeof(ufun_arg[nfun].args[i]), "ARG%d", i + 1);
         }
-        NFUN++;
+        nfun++;
         return 0;
     }
     if (errout) {

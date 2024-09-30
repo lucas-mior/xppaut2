@@ -33,7 +33,7 @@ extern double bound;
 extern double delay;
 extern double NULL_ERR;
 extern double evec_err;
-extern double NEWT_ERR;
+extern double newt_err;
 extern int32 evec_iter;
 extern int32 NMESH;
 extern int32 NC_ITER;

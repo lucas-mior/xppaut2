@@ -82,7 +82,7 @@ double T0;
 double TRANS;
 double NULL_ERR;
 double evec_err;
-double NEWT_ERR;
+double newt_err;
 double bound;
 double delay;
 double TOLER;
@@ -343,9 +343,9 @@ load_eqn_set_all_vals(void) {
         NULL_ERR = .001;
         notAlreadySet.NULL_ERR = 0;
     }
-    if (notAlreadySet.NEWT_ERR) {
-        NEWT_ERR = .001;
-        notAlreadySet.NEWT_ERR = 0;
+    if (notAlreadySet.newt_err) {
+        newt_err = .001;
+        notAlreadySet.newt_err = 0;
     }
     if (notAlreadySet.NULL_HERE) {
         NULL_HERE = 0;
@@ -1420,7 +1420,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
     if (load_eqn_msc("JAC_EPS", s1)) {
         if ((notAlreadySet.JAC_EPS || force) || ((mask != NULL) && (mask->JAC_EPS == 1))) {
-            NEWT_ERR = atof(s2);
+            newt_err = atof(s2);
             notAlreadySet.JAC_EPS = 0;
         }
         return;

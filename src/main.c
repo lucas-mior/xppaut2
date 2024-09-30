@@ -315,7 +315,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.evec_iter = 1;
     notAlreadySet.evec_err = 1;
     notAlreadySet.NULL_ERR = 1;
-    notAlreadySet.NEWT_ERR = 1;
+    notAlreadySet.newt_err = 1;
     notAlreadySet.NULL_HERE = 1;
     notAlreadySet.TUTORIAL = 1;
     notAlreadySet.slider1 = 1;

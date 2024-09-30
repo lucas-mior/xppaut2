@@ -420,7 +420,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         }
         //   Compute Jacobian
         for (int32 i = 0; i < NODE; i++) {
-            del = NEWT_ERR*MAX(NEWT_ERR, fabs(yg[i]));
+            del = newt_err*MAX(newt_err, fabs(yg[i]));
             yold = yg[i];
             yg[i] += del;
             delinv = 1. / del;

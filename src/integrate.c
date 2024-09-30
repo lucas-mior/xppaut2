@@ -416,7 +416,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         for (int32 j = 0; j < NODE; j++) {
             x[j] = markov_ndrand48()*(fixptguess.xhi[j] - fixptguess.xlo[j]) + fixptguess.xlo[j];
         }
-        gear_do_sing_info(x, NEWT_ERR, evec_err, bound, evec_iter, NODE, er, em, &ierr);
+        gear_do_sing_info(x, newt_err, evec_err, bound, evec_iter, NODE, er, em, &ierr);
         if (ierr == 0) {
             m = fixptlist.n;
             if (m == 0) {  // first fixed point found
@@ -581,10 +581,10 @@ integrate_eq_range(double *x) {
             integrate_monte_carlo_search(0, 0, 1);
         } else {
             if (delay_flag) {
-                del_stab_do_delay_sing(x, NEWT_ERR, evec_err, bound, evec_iter, NODE, &ierr,
+                del_stab_do_delay_sing(x, newt_err, evec_err, bound, evec_iter, NODE, &ierr,
                                        &stabinfo);
             } else {
-                gear_do_sing(x, NEWT_ERR, evec_err, bound, evec_iter, NODE, &ierr, &stabinfo);
+                gear_do_sing(x, newt_err, evec_err, bound, evec_iter, NODE, &ierr, &stabinfo);
             }
         }
         if (eq_range.movie) {
@@ -991,7 +991,7 @@ integrate_silent_equilibria(void) {
         x[i] = last_ic[i];
     }
 
-    gear_do_sing_info(x, NEWT_ERR, evec_err, bound, evec_iter, NODE, er, em, &ierr);
+    gear_do_sing_info(x, newt_err, evec_err, bound, evec_iter, NODE, er, em, &ierr);
     if (ierr == 0) {
         fp = fopen("equil.dat", "w");
         for (int32 i = 0; i < NODE; i++) {
@@ -1063,10 +1063,10 @@ integrate_find_equilib_com(int32 com) {
     }
 
     if (delay_flag) {
-        del_stab_do_delay_sing(x, NEWT_ERR, evec_err, bound, evec_iter, NODE, &ierr, &stabinfo);
+        del_stab_do_delay_sing(x, newt_err, evec_err, bound, evec_iter, NODE, &ierr, &stabinfo);
         ggets_ping();
     } else {
-        gear_do_sing(x, NEWT_ERR, evec_err, bound, evec_iter, NODE, &ierr, &stabinfo);
+        gear_do_sing(x, newt_err, evec_err, bound, evec_iter, NODE, &ierr, &stabinfo);
     }
     TRANS = oldtrans;
     return;
@@ -1888,7 +1888,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             break;
         case RKQS:
         case STIFF:
-            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &dt, h_min, WORK, &kflag, NEWT_ERR, METHOD,
+            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &dt, h_min, WORK, &kflag, newt_err, METHOD,
                            istart);
             MSWTCH(y, xpv.x);
             if (kflag) {
@@ -2164,7 +2164,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             MSWTCH(xpv.x, x);
-            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, h_min, WORK, &kflag, NEWT_ERR,
+            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, h_min, WORK, &kflag, newt_err,
                            METHOD, start);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);

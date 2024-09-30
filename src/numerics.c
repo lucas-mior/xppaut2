@@ -135,7 +135,7 @@ numerics_get_num_par(int32 ch) {
         ggets_new_int("Maximum iterates :", &evec_iter);
         numerics_check_pos(&evec_iter);
         ggets_new_float("Newton tolerance :", &evec_err);
-        ggets_new_float("Jacobian epsilon :", &NEWT_ERR);
+        ggets_new_float("Jacobian epsilon :", &newt_err);
         if (NFlags > 0) {
             ggets_new_float("SMIN :", &stol);
         }

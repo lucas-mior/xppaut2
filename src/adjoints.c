@@ -616,7 +616,7 @@ adjoints_do_liapunov(void) {
     double *x;
     ggets_new_int("Range over parameters?(0/1)", &liap_flag);
     if (liap_flag != 1) {
-        adjoints_hrw_liapunov(&z, 0, NEWT_ERR);
+        adjoints_hrw_liapunov(&z, 0, newt_err);
         return;
     }
     x = &my_data[0];
@@ -653,7 +653,7 @@ adjoints_do_this_liaprun(int32 i, double p) {
         return;
     }
     my_liap[0][i] = p;
-    if (adjoints_hrw_liapunov(&liap, 1, NEWT_ERR)) {
+    if (adjoints_hrw_liapunov(&liap, 1, newt_err)) {
         my_liap[1][i] = liap;
         liap_i++;
     }

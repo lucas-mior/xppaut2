@@ -395,7 +395,7 @@ edit_rhs(void) {
 void
 edit_rhs_user_fun_info(FILE *fp) {
     char fundef[256];
-    for (int32 j = 0; j < NFUN; j++) {
+    for (int32 j = 0; j < nfun; j++) {
         sprintf(fundef, "%s(", ufun_names[j]);
         for (int32 i = 0; i < narg_fun[j]; i++) {
             strcat(fundef, ufun_arg[j].args[i]);
@@ -417,7 +417,7 @@ edit_rhs_functions(void) {
     int32 status;
     int32 err;
     int32 len;
-    int32 n = NFUN;
+    int32 n = nfun;
     char msg[200];
     if (n == 0 || n > NEQMAXFOREDIT) {
         return;
@@ -515,7 +515,7 @@ edit_rhs_save_as(void) {
         fprintf(fp, " %s=%.16g   ", upar_names[i], z);
     }
     fprintf(fp, "\n");
-    for (int32 i = 0; i < NFUN; i++) {
+    for (int32 i = 0; i < nfun; i++) {
         fprintf(fp, "user %s %d %s\n", ufun_names[i], narg_fun[i], ufun_def[i]);
     }
     for (int32 i = 0; i < NODE; i++) {
