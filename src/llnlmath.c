@@ -13,22 +13,18 @@
 #include "integers.h"
 #include "llnlmath.h"
 
-#define ZERO 0.0
-#define ONE 1.0
-#define TWO 2.0
-
 double
 llnlmath_unit_roundoff(void) {
     double u;
     volatile double one_plus_u;
 
-    u = ONE;
-    one_plus_u = ONE + u;
-    while (one_plus_u != ONE) {
-        u /= TWO;
-        one_plus_u = ONE + u;
+    u = 1.0;
+    one_plus_u = 1.0 + u;
+    while (one_plus_u != 1.0) {
+        u /= 2.0;
+        one_plus_u = 1.0 + u;
     }
-    u *= TWO;
+    u *= 2.0;
 
     return u;
 }
@@ -38,21 +34,21 @@ llnlmath_rpower_i(double base, int32 exponent) {
     int32 expt;
     double prod;
 
-    prod = ONE;
+    prod = 1.0;
     expt = ABS(exponent);
     for (int32 i = 1; i <= expt; i++) {
         prod *= base;
     }
     if (exponent < 0) {
-        prod = ONE / prod;
+        prod = 1.0 / prod;
     }
     return prod;
 }
 
 double
 llnlmath_rpower_r(double base, double exponent) {
-    if (base <= ZERO) {
-        return ZERO;
+    if (base <= 0.0) {
+        return 0.0;
     }
 
     return (double)pow((double)base, (double)exponent);
@@ -60,8 +56,8 @@ llnlmath_rpower_r(double base, double exponent) {
 
 double
 llnlmath_rsqrt(double x) {
-    if (x <= ZERO) {
-        return ZERO;
+    if (x <= 0.0) {
+        return 0.0;
     }
 
     return (double)sqrt((double)x);
