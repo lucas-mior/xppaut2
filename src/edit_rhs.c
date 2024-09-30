@@ -328,10 +328,10 @@ edit_rhs(void) {
     int32 err;
     int32 len;
     int32 i0;
-    int32 n = NEQ;
+    int32 n = n_equations;
     char fstr[20];
     char msg[200];
-    if (NEQ > NEQMAXFOREDIT) {
+    if (n_equations > NEQMAXFOREDIT) {
         return;
     }
     names = xmalloc((usize)n*sizeof(char *));
@@ -492,7 +492,7 @@ edit_rhs_save_as(void) {
     if (fp == NULL) {
         return 0;
     }
-    fprintf(fp, "%d", NEQ);
+    fprintf(fp, "%d", n_equations);
     for (int32 i = 0; i < NODE; i++) {
         if (i % 5 == 0) {
             fprintf(fp, "\nvariable ");
@@ -500,7 +500,7 @@ edit_rhs_save_as(void) {
         fprintf(fp, " %s=%.16g ", uvar_names[i], last_ic[i]);
     }
     fprintf(fp, "\n");
-    for (int32 i = NODE; i < NEQ; i++) {
+    for (int32 i = NODE; i < n_equations; i++) {
         if ((i - NODE) % 5 == 0) {
             fprintf(fp, "\naux ");
         }
@@ -526,7 +526,7 @@ edit_rhs_save_as(void) {
         }
         fprintf(fp, "%s\n", ode_names[i]);
     }
-    for (int32 i = NODE; i < NEQ; i++) {
+    for (int32 i = NODE; i < n_equations; i++) {
         fprintf(fp, "o %s\n", ode_names[i]);
     }
     for (int32 i = 0; i < NODE; i++) {

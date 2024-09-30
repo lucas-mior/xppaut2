@@ -71,7 +71,7 @@ double my_xhi;
 double my_yhi;
 double torus_period = 6.2831853071795864770;
 int32 TORUS = 0;
-int32 NEQ;
+int32 n_equations;
 char options[100];
 
 /*   Numerical stuff ....   */
@@ -146,7 +146,7 @@ load_eqn_dump_torus(FILE *fp, int32 f) {
     lunch_io_int(&TORUS, fp, f, " Torus flag 1=ON");
     lunch_io_double(&torus_period, fp, f, "Torus period");
     if (TORUS) {
-        for (int32 i = 0; i < NEQ; i++) {
+        for (int32 i = 0; i < n_equations; i++) {
             lunch_io_int(&itor[i], fp, f, uvar_names[i]);
         }
     }
@@ -483,7 +483,7 @@ load_eqn_set_all_vals(void) {
     }
 
     if (notAlreadySet.NPLOT) {
-        if (NEQ > 2) {
+        if (n_equations > 2) {
             if (notAlreadySet.iz_plt) {
                 iz_plt = 2;
             }
@@ -517,11 +517,11 @@ load_eqn_set_all_vals(void) {
 
     //
 
-    if (iz_plt > NEQ) {
-        iz_plt = NEQ;
+    if (iz_plt > n_equations) {
+        iz_plt = n_equations;
     }
-    if (iy_plt > NEQ) {
-        iy_plt = NEQ;
+    if (iy_plt > n_equations) {
+        iy_plt = n_equations;
     }
     if (ix_plt == 0 || iy_plt == 0) {
         TIMPLOT = 1;
@@ -554,7 +554,7 @@ load_eqn_set_all_vals(void) {
         x_3d[1] = my_xhi;
         y_3d[1] = my_yhi;
     }
-    storage_init_stor(max_stor, NEQ + 1);
+    storage_init_stor(max_stor, n_equations + 1);
     if (axes >= 5) {
         PLOT_3D = 1;
     }

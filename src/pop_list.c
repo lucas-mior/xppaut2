@@ -85,11 +85,11 @@ pop_list_make_scrbox_lists(void) {
                              "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
                              "CVode",    "DoPri5",   "DoPri8(3)",  "Rosenbrock",  "Symplectic"};
     // plottable list
-    scrbox_list[0].n = NEQ + 1;
-    scrbox_list[0].list = xmalloc((usize)(NEQ + 1)*sizeof(char *));
+    scrbox_list[0].n = n_equations + 1;
+    scrbox_list[0].list = xmalloc((usize)(n_equations + 1)*sizeof(char *));
     scrbox_list[0].list[0] = xmalloc(5);
     strcpy(scrbox_list[0].list[0], "T");
-    for (int32 i = 0; i < NEQ; i++) {
+    for (int32 i = 0; i < n_equations; i++) {
         scrbox_list[0].list[i + 1] = xmalloc(15);
         strcpy(scrbox_list[0].list[i + 1], uvar_names[i]);
     }

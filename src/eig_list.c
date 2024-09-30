@@ -74,7 +74,7 @@ eig_list_draw_eq_list(Window window) {
     }
     if (window == eq_list.list) {
         for (int32 i = eq_list.istart; i < eq_list.istart + eq_list.nlines; i++) {
-            if (i >= NEQ) {
+            if (i >= n_equations) {
                 break;
             }
             if (i < NODE && METHOD > 0) {
@@ -120,7 +120,7 @@ eig_list_create_eq_list(void) {
     eq_list.flag = 0;  //  this is to tell that no eq_box is here
 
     hmain = 3*dcur_ys;
-    hlist = NEQ*(dcur_ys + 2);
+    hlist = n_equations*(dcur_ys + 2);
     height = hlist + hmain;
     if (height > 300) {
         height = 300;
@@ -282,7 +282,7 @@ eig_list_eq_list_up(void) {
 
 void
 eig_list_eq_list_down(void) {
-    if (eq_list.istart < (NEQ - 1)) {
+    if (eq_list.istart < (n_equations - 1)) {
         eq_list.istart++;
         XClearWindow(display, eq_list.list);
         eig_list_draw_eq_list(eq_list.list);

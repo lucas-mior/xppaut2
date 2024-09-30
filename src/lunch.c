@@ -79,7 +79,7 @@ lunch_do_info(FILE *fp) {
     char bob[200];
     char fstr[15];
     fprintf(fp, "File: %s \n\n Equations... \n", this_file);
-    for (int32 i = 0; i < NEQ; i++) {
+    for (int32 i = 0; i < n_equations; i++) {
         if (i < NODE && METHOD > 0) {
             strcpy(fstr, "d%s/dT=%s\n");
         }
@@ -170,7 +170,7 @@ lunch_read(FILE *fp) {
         set_type = 0;
     }
     lunch_io_int(&np, fp, f, " ");
-    if (ne != NEQ || np != NUPAR) {
+    if (ne != n_equations || np != NUPAR) {
         ggets_plintf("Set file has incompatible parameters\n");
         return 0;
     }
@@ -227,7 +227,7 @@ do_lunch(int32 f) {
             set_type = 0;
         }
         lunch_io_int(&np, fp, f, " ");
-        if (ne != NEQ || np != NUPAR) {
+        if (ne != n_equations || np != NUPAR) {
             ggets_err_msg("Incompatible parameters");
             fclose(fp);
             return;
@@ -261,7 +261,7 @@ do_lunch(int32 f) {
     init_conds_redraw_params();
     ttt = time(0);
     fprintf(fp, "## Set file for %s on %s", this_file, ctime(&ttt));
-    lunch_io_int(&NEQ, fp, f, "Number of equations and auxiliaries");
+    lunch_io_int(&n_equations, fp, f, "Number of equations and auxiliaries");
     lunch_io_int(&NUPAR, fp, f, "Number of parameters");
     lunch_io_numerics(f, fp);
     if (METHOD == VOLTERRA) {
@@ -283,7 +283,7 @@ void
 lunch_dump_eqn(FILE *fp) {
     char fstr[15];
     fprintf(fp, "RHS etc ...\n");
-    for (int32 i = 0; i < NEQ; i++) {
+    for (int32 i = 0; i < n_equations; i++) {
         if (i < NODE && METHOD > 0) {
             strcpy(fstr, "d%s/dT=%s\n");
         }

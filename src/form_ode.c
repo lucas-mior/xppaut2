@@ -118,7 +118,7 @@ form_ode_make_eqn(void) {
     char wild[256];
     char string[256];
     int32 okay;
-    NEQ = 2;
+    n_equations = 2;
     fix_var = 0;
     NMarkov = 0;
 
@@ -315,8 +315,8 @@ form_ode_get_eqn(FILE *fptr) {
         }
     } else {
         OldStyle = 1;
-        NEQ = i;
-        ggets_plintf("NEQ=%d\n", NEQ);
+        n_equations = i;
+        ggets_plintf("n_equations=%d\n", n_equations);
         if (convert_style) {
             if (strlen(this_file) == 0) {
                 strcpy(filename, "convert.ode");
@@ -366,11 +366,11 @@ form_ode_get_eqn(FILE *fptr) {
     }
     bvp_flag = 1;
 
-    if (NODE != NEQ + fix_var - NMarkov) {
+    if (NODE != n_equations + fix_var - NMarkov) {
         ggets_plintf(" Too many/few equations\n");
         exit(0);
     }
-    if (in_vars > NEQ) {
+    if (in_vars > n_equations) {
         ggets_plintf(" Too many variables\n");
         exit(0);
     }
@@ -380,11 +380,11 @@ form_ode_get_eqn(FILE *fptr) {
         strcpy(uvar_names[i + NODE + NMarkov], aux_names[i]);
     }
 
-    for (i = NODE + NMarkov + Naux; i < NEQ; i++) {
+    for (i = NODE + NMarkov + Naux; i < n_equations; i++) {
         snprintf(uvar_names[i], sizeof(uvar_names[i]), "AUX%d", i - NODE - NMarkov + 1);
     }
 
-    for (i = 0; i < NEQ; i++) {
+    for (i = 0; i < n_equations; i++) {
         strupr(uvar_names[i]);
         strupr(ode_names[i]);
         ani_de_space(ode_names[i]);
@@ -412,7 +412,7 @@ form_ode_get_eqn(FILE *fptr) {
     }
     flags_show();
     // add auxiliary variables
-    for (i = NODE + NMarkov; i < NEQ; i++) {
+    for (i = NODE + NMarkov; i < n_equations; i++) {
         parserslow_add_var(uvar_names[i], 0.0);
     }
     NCON_START = NCON;
@@ -655,7 +655,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         }
         form_ode_advance_past_first_word(&ptr);
         while ((my_string = form_ode_get_next2(&ptr)) != NULL) {
-            if ((in_vars > NEQ) || (in_vars == MAX_ODE)) {
+            if ((in_vars > n_equations) || (in_vars == MAX_ODE)) {
                 ggets_plintf(" too many variables at line %d\n", NLINES);
                 exit(0);
             }
@@ -799,7 +799,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         VFlag = 1;
         __attribute__((fallthrough));
     case 'o':
-        if (NODE >= (NEQ + fix_var - NMarkov)) {
+        if (NODE >= (n_equations + fix_var - NMarkov)) {
             done = 0;
             break;
         }
@@ -1044,7 +1044,7 @@ form_ode_clrscr(void) {
  * NODE = #ode variables
  * NMarkov = # Markov variables
  * NAux = # named auxiliary variables
- * NEQ = ode+naux   --> plotted quantities
+ * n_equations = ode+naux   --> plotted quantities
 
  * my_ode[] <---  formulas
  * ode_names[] <---- "rhs"
@@ -1634,7 +1634,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
         in_vars = nvar;
         Naux = naux;
-        NEQ = nvar + NMarkov + Naux;
+        n_equations = nvar + NMarkov + Naux;
         fix_var = nfix;
         NTable = ntab;
         NFUN = nufun;
@@ -1884,8 +1884,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         extra_do_export_list();
         ggets_plintf(" All formulas are valid!!\n");
         NODE = nvar + naux + nfix;
-        ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar, naux, nfix, nmark,
-                     NEQ, NODE);
+        ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d n_equations=%d NODE=%d \n", nvar, naux, nfix, nmark,
+                     n_equations, NODE);
     }
 
     {

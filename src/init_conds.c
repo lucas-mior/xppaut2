@@ -263,12 +263,12 @@ init_conds_find_user_name(int32 type, char *oname) {
     if (i < NUPAR) {
         return i;
     }
-    for (i = 0; i < NEQ; i++) {
+    for (i = 0; i < n_equations; i++) {
         if ((type == ICBOX) && (strcasecmp(uvar_names[i], name) == 0)) {
             break;
         }
     }
-    if (i < NEQ) {
+    if (i < n_equations) {
         return i;
     }
     return -1;

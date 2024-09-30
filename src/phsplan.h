@@ -7,7 +7,7 @@
 
 #include "xpplim.h"
 
-extern int32 NEQ;
+extern int32 n_equations;
 extern int32 NODE;
 
 extern int32 PLOT_3D;

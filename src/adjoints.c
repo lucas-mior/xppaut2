@@ -131,8 +131,8 @@ adjoints_do_transpose(void) {
     }
     strncpy(my_trans.firstcol, values[0], sizeof(my_trans.firstcol));
     ii = atoi(values[4]);
-    if (ii >= NEQ) {
-        ii = NEQ - 1;
+    if (ii >= n_equations) {
+        ii = n_equations - 1;
     }
     my_trans.nrow = ii;
     my_trans.ncol = atoi(values[1]);
@@ -140,11 +140,11 @@ adjoints_do_transpose(void) {
     my_trans.row0 = atoi(values[3]);
     my_trans.rowskip = atoi(values[5]);
 
-    my_trans.data = xmalloc(sizeof(*(my_trans.data))*(usize)(NEQ + 1));
+    my_trans.data = xmalloc(sizeof(*(my_trans.data))*(usize)(n_equations + 1));
     for (int32 i = 0; i <= my_trans.nrow; i++) {
         my_trans.data[i] = xmalloc(sizeof(my_trans.data[i])*(usize)my_trans.ncol);
     }
-    for (int32 i = my_trans.nrow + 1; i <= NEQ; i++) {
+    for (int32 i = my_trans.nrow + 1; i <= n_equations; i++) {
         my_trans.data[i] = storage[i];
     }
     for (int32 j = 0; j < my_trans.ncol; j++) {
@@ -153,8 +153,8 @@ adjoints_do_transpose(void) {
 
     for (int32 i = 0; i < my_trans.ncol; i++) {
         incol = my_trans.col0 - 1 + i*my_trans.colskip;
-        if (incol > NEQ) {
-            incol = NEQ;
+        if (incol > n_equations) {
+            incol = n_equations;
         }
         for (int32 j = 0; j < my_trans.nrow; j++) {
             inrow = my_trans.row0 + j*my_trans.rowskip;
@@ -280,17 +280,17 @@ adjoints_new_h_fun(int32 silent2) {
         H_HERE = 0;
         hodd_ev = 0;
     }
-    if (NEQ > 2) {
+    if (n_equations > 2) {
         hodd_ev = 1;
         n = 4;
     }
     h_len = storind;
     adjoints_data_back();
-    my_h = xmalloc(sizeof(*my_h)*(usize)(NEQ + 1));
+    my_h = xmalloc(sizeof(*my_h)*(usize)(n_equations + 1));
     for (int32 i = 0; i < n; i++) {
         my_h[i] = xmalloc(sizeof(*my_h)*(usize)h_len);
     }
-    for (int32 i = n; i <= NEQ; i++) {
+    for (int32 i = n; i <= n_equations; i++) {
         my_h[i] = storage[i];
     }
     if (adjoints_make_h(storage, my_adj, h_len, NODE, silent2)) {
@@ -384,11 +384,11 @@ adjoints_new_adjoint(void) {
         adj_here = 0;
     }
     adj_len = storind;
-    my_adj = xmalloc((usize)(NEQ + 1)*sizeof(*my_adj));
+    my_adj = xmalloc((usize)(n_equations + 1)*sizeof(*my_adj));
     for (int32 i = 0; i < n; i++) {
         my_adj[i] = xmalloc(sizeof(*my_adj)*(usize)adj_len);
     }
-    for (int32 i = n; i <= NEQ; i++) {
+    for (int32 i = n; i <= n_equations; i++) {
         my_adj[i] = storage[i];
     }
     if (adjoints_adjoint(storage, my_adj, adj_len, delta_t*NJMP, adj_eps, adj_err, adj_maxit,

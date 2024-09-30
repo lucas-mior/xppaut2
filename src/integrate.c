@@ -540,7 +540,7 @@ integrate_eq_range(double *x) {
         eq_range.mc = 0;
     }
     eq_range.col = atoi(values[5]);
-    if (eq_range.col <= 1 || eq_range.col > (NEQ + 1)) {
+    if (eq_range.col <= 1 || eq_range.col > (n_equations + 1)) {
         eq_range.col = -1;
     }
 
@@ -898,8 +898,8 @@ integrate_do_range(double *x, int32 flag) {
             integrate_start_flags(x, &my_time);
             if (fabs(my_time) >= TRANS && stor_flag == 1 && POIMAP == 0) {
                 storage[0][storind] = (double)my_time;
-                main_rhs_extra(x, my_time, NODE, NEQ);
-                for (iii = 0; iii < NEQ; iii++) {
+                main_rhs_extra(x, my_time, NODE, n_equations);
+                for (iii = 0; iii < n_equations; iii++) {
                     storage[1 + iii][storind] = (double)x[iii];
                 }
                 storind++;
@@ -1134,7 +1134,7 @@ integrate_batch_dry_run(void) {
 
     if (queryics) {
         fprintf(fp, "#Initial conditions query:\n");
-        for (int32 i = 0; i < NEQ; i++) {
+        for (int32 i = 0; i < n_equations; i++) {
             fprintf(fp, "%s %f\n", uvar_names[i], last_ic[i]);
         }
     }
@@ -1180,8 +1180,8 @@ batch_integrate_once(void) {
         integrate_start_flags(x, &my_time);
         if (fabs(my_time) >= TRANS && stor_flag == 1 && POIMAP == 0) {
             storage[0][0] = (double)my_time;
-            main_rhs_extra(x, my_time, NODE, NEQ);
-            for (int32 i = 0; i < NEQ; i++) {
+            main_rhs_extra(x, my_time, NODE, n_equations);
+            for (int32 i = 0; i < n_equations; i++) {
                 storage[1 + i][0] = (double)x[i];
             }
             storind = 1;
@@ -1492,8 +1492,8 @@ usual_integrate_stuff(double *x) {
     integrate_start_flags(x, &my_time);
     if (fabs(my_time) >= TRANS && stor_flag == 1 && POIMAP == 0) {
         storage[0][0] = (double)my_time;
-        main_rhs_extra(x, my_time, NODE, NEQ);
-        for (int32 i = 0; i < NEQ; i++) {
+        main_rhs_extra(x, my_time, NODE, n_equations);
+        for (int32 i = 0; i < n_equations; i++) {
             storage[1 + i][0] = (double)x[i];
         }
         storind = 1;
@@ -1991,10 +1991,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     one_flag_step(xpv.x, xpv.x, &iflagstart, *t, &tnew, nodes, &sss);
     MSWTCH(x, xpv.x);
     main_rhs_extra(x, *t, NODE,
-                   NEQ);  // Note this takes care of initializing Markov variables
+                   n_equations);  // Note this takes care of initializing Markov variables
     MSWTCH(xpv.x, x);
     xv[0] = (double)*t;
-    for (ieqn = 1; ieqn <= NEQ; ieqn++) {
+    for (ieqn = 1; ieqn <= n_equations; ieqn++) {
         xv[ieqn] = (double)x[ieqn - 1];
     }
     if (animation_on_the_fly) {
@@ -2005,7 +2005,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
     if (POIMAP) {
         oldt = *t;
-        for (ieqn = 0; ieqn < NEQ; ieqn++) {
+        for (ieqn = 0; ieqn < n_equations; ieqn++) {
             oldx[ieqn] = x[ieqn];
         }
     }
@@ -2235,10 +2235,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         }
         //   START POST INTEGRATE STUFF
 
-        main_rhs_extra(x, *t, NODE, NEQ);
+        main_rhs_extra(x, *t, NODE, n_equations);
 
         if (TORUS == 1) {
-            for (ieqn = 0; ieqn < NEQ; ieqn++) {
+            for (ieqn = 0; ieqn < n_equations; ieqn++) {
                 torcross[ieqn] = 0;
                 if (itor[ieqn] == 1) {
                     if (x[ieqn] > torus_period) {
@@ -2253,7 +2253,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             }
         }
         xvold[0] = xv[0];
-        for (ieqn = 1; ieqn < (NEQ + 1); ieqn++) {
+        for (ieqn = 1; ieqn < (n_equations + 1); ieqn++) {
             xvold[ieqn] = xv[ieqn];
             xv[ieqn] = (double)x[ieqn - 1];
             /* trap NaN using isnan() in math.h
@@ -2272,7 +2272,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1], xvold[i_nan],
                             xv[i_nan]);
                 }
-                for (; i_nan <= NEQ; i_nan++) {
+                for (; i_nan <= n_equations; i_nan++) {
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1], xv[i_nan],
                             (double)x[i_nan - 1]);
                 }
@@ -2294,7 +2294,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1], xvold[i_nan],
                             xv[i_nan]);
                 }
-                for (; i_nan <= NEQ; i_nan++) {
+                for (; i_nan <= n_equations; i_nan++) {
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1], xv[i_nan],
                             (double)x[i_nan - 1]);
                 }
@@ -2333,7 +2333,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             delay_err = 0;
             break;
         }
-        if (ieqn < (NEQ + 1)) {
+        if (ieqn < (n_equations + 1)) {
             break;
         }
         tv = (double)*t;
@@ -2351,8 +2351,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 if (POISGN*POIEXT >= 0) {
                     //  We will interpolate to get a good local extremum
 
-                    rhs_function(*t, x, xprime, NEQ);
-                    rhs_function(oldt, oldx, oldxprime, NEQ);
+                    rhs_function(*t, x, xprime, n_equations);
+                    rhs_function(oldt, oldx, oldxprime, n_equations);
                     dxp = xprime[POIVAR - 1] - oldxprime[POIVAR - 1];
                     if (dxp == 0.0) {
                         ggets_err_msg("Cannot zero RHS for max/min - use a variable");
@@ -2362,7 +2362,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
                     tv = (1 - dint)**t + dint*oldt;
                     xv[0] = tv;
-                    for (i = 1; i <= NEQ; i++) {
+                    for (i = 1; i <= n_equations; i++) {
                         xv[i] = dint*oldx[i - 1] + (1 - dint)*x[i - 1];
                     }
                     pflag = 1;
@@ -2390,7 +2390,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     i = (int32)(fabs(*t) / fabs(POIPLN));
                     tv = (double)POIPLN*i;
                     xv[0] = tv;
-                    for (i = 1; i <= NEQ; i++) {
+                    for (i = 1; i <= n_equations; i++) {
                         xv[i] = (double)(dint*oldx[i - 1] + (1 - dint)*x[i - 1]);
                     }
                     pflag = 1;
@@ -2407,7 +2407,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                         dint = (x[POIVAR - 1] - POIPLN) / (x[POIVAR - 1] - oldx[POIVAR - 1]);
                         tv = (1 - dint)**t + dint*oldt;
                         xv[0] = tv;
-                        for (i = 1; i <= NEQ; i++) {
+                        for (i = 1; i <= n_equations; i++) {
                             xv[i] = dint*oldx[i - 1] + (1 - dint)*x[i - 1];
                         }
                         pflag = 1;
@@ -2422,7 +2422,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                         dint = (x[POIVAR - 1] - POIPLN) / (x[POIVAR - 1] - oldx[POIVAR - 1]);
                         tv = (1 - dint)**t + dint*oldt;
                         xv[0] = tv;
-                        for (i = 1; i <= NEQ; i++) {
+                        for (i = 1; i <= n_equations; i++) {
                             xv[i] = dint*oldx[i - 1] + (1 - dint)*x[i - 1];
                         }
                         pflag = 1;
@@ -2432,7 +2432,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
             }
         poi:
-            for (i = 0; i < NEQ; i++) {
+            for (i = 0; i < n_equations; i++) {
                 oldx[i] = x[i];
             }
             oldt = *t;
@@ -2460,7 +2460,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (animation_on_the_fly) {
                 ani_on_the_fly(0);
             }
-            for (ieqn = 0; ieqn <= NEQ; ieqn++) {
+            for (ieqn = 0; ieqn <= n_equations; ieqn++) {
                 storage[ieqn][storind] = xv[ieqn];
             }
             storind++;
@@ -2504,9 +2504,9 @@ integrate_send_output(double *y, double t) {
     for (int32 i = 0; i < NODE; i++) {
         yy[i] = y[i];
     }
-    main_rhs_extra(yy, t, NODE, NEQ);
+    main_rhs_extra(yy, t, NODE, n_equations);
     if ((stor_flag == 1) && (storind < max_stor)) {
-        for (int32 i = 0; i < NEQ; i++) {
+        for (int32 i = 0; i < n_equations; i++) {
             storage[i + 1][storind] = (double)yy[i];
         }
         storage[0][storind] = (double)t;
@@ -2642,7 +2642,7 @@ integrate_plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
     ixplt = MyGraph->xv;
     iyplt = MyGraph->yv;
     izplt = MyGraph->zv;
-    for (ip = 0; ip < NEQ; ip++) {
+    for (ip = 0; ip < n_equations; ip++) {
         if (itor[ip] == 1) {
             xvold[ip + 1] = xvold[ip + 1] + tc[ip]*torus_period;
         }
@@ -2736,7 +2736,7 @@ integrate_restore(int32 i1, int32 i2) {
                 }
             }
             if (MyGraph->ColorFlag != 0 && i > i1) {
-                for (int32 j = 0; j <= NEQ; j++) {
+                for (int32 j = 0; j <= n_equations; j++) {
                     v1[j] = data[j][i];
                     v2[j] = data[j][i - 1];
                 }
@@ -2848,7 +2848,7 @@ int32
 integrate_stor_full(void) {
     char ch;
     int32 nrow = 2*max_stor;
-    if (storage_realloc(NEQ + 1, nrow)) {
+    if (storage_realloc(n_equations + 1, nrow)) {
         max_stor = nrow;
         return 1;
     }

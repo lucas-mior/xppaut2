@@ -466,7 +466,7 @@ markov_do_stochast_com(int32 i) {
         // markov free stoch
         if (STOCH_HERE) {
             adjoints_data_back();
-            for (int32 i2 = 0; i2 < (NEQ + 1); i2++) {
+            for (int32 i2 = 0; i2 < (n_equations + 1); i2++) {
                 free(my_mean[i2]);
                 free(my_variance[i2]);
             }
@@ -546,7 +546,7 @@ markov_append_stoch(int32 first, int32 length) {
         // markov init stoch
         N_TRIALS = 0;
         stoch_len = length;
-        for (int32 i = 0; i < (NEQ + 1); i++) {
+        for (int32 i = 0; i < (n_equations + 1); i++) {
             my_mean[i] = xmalloc(sizeof(*(my_mean[i]))*(usize)stoch_len);
             my_variance[i] = xmalloc(sizeof(*(my_variance[i]))*(usize)stoch_len);
             for (int32 j = 0; j < stoch_len; j++) {
@@ -565,7 +565,7 @@ markov_append_stoch(int32 first, int32 length) {
         return;
     }
     for (int32 i = 0; i < stoch_len; i++) {
-        for (int32 j = 1; j <= NEQ; j++) {
+        for (int32 j = 1; j <= n_equations; j++) {
             z = storage[j][i];
             my_mean[j][i] = my_mean[j][i] + z;
             my_variance[j][i] = my_variance[j][i] + z*z;
@@ -582,7 +582,7 @@ markov_do_stats(int32 ierr) {
     if (ierr != -1 && N_TRIALS > 0) {
         ninv = 1. / (double)(N_TRIALS);
         for (int32 i = 0; i < stoch_len; i++) {
-            for (int32 j = 1; j <= NEQ; j++) {
+            for (int32 j = 1; j <= n_equations; j++) {
                 mean = my_mean[j][i]*ninv;
                 my_mean[j][i] = mean;
                 my_variance[j][i] = (my_variance[j][i]*ninv - mean*mean);

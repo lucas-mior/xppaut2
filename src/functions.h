@@ -2538,7 +2538,7 @@ typedef struct StringBox {
 } StringBox;
 
 extern int32 NUPAR;
-extern int32 NEQ;
+extern int32 n_equations;
 extern int32 NODE;
 extern int32 NMarkov;
 extern char upar_names[MAX_PAR][MAX_ODE_NAME_LENGTH];

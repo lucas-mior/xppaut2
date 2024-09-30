@@ -2638,8 +2638,8 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
             storage[j + 1][i] = u[j];
             x[j] = u[j];
         }
-        main_rhs_extra(x, (double)storage[0][i], nstor, NEQ);
-        for (int32 j = nstor; j < NEQ; j++) {
+        main_rhs_extra(x, (double)storage[0][i], nstor, n_equations);
+        for (int32 j = nstor; j < n_equations; j++) {
             storage[j + 1][i] = (double)x[j];
         }
     }

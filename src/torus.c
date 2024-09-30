@@ -46,7 +46,7 @@ torus_do_com(int32 c) {
         torus_make_box("Fold which");
 
         // do torus events
-        for (int32 i = 0; i < NEQ; i++) {
+        for (int32 i = 0; i < n_equations; i++) {
             oldit[i] = itor[i];
         }
         while (!done) {
@@ -66,7 +66,7 @@ torus_do_com(int32 c) {
                         return;
                     }
 
-                    for (int32 i = 0; i < NEQ; i++) {
+                    for (int32 i = 0; i < n_equations; i++) {
                         if (win == torbox.window[i]) {
                             torus_draw_var(i);
                         }
@@ -84,7 +84,7 @@ torus_do_com(int32 c) {
                     done = 1;
                     break;
                 }
-                for (int32 i = 0; i < NEQ; i++) {
+                for (int32 i = 0; i < n_equations; i++) {
                     if (event.xbutton.window == torbox.window[i]) {
                         itor[i] = 1 - itor[i];
                         torus_draw_var(i);
@@ -110,7 +110,7 @@ torus_do_com(int32 c) {
         }
 
         if (status == -1) {
-            for (int32 i = 0; i < NEQ; i++) {
+            for (int32 i = 0; i < n_equations; i++) {
                 itor[i] = oldit[i];
             }
             TORUS = 0;
@@ -121,7 +121,7 @@ torus_do_com(int32 c) {
         XDestroySubwindows(display, torbox.base);
         XDestroyWindow(display, torbox.base);
 
-        for (int32 i = 0; i < NEQ; i++) {
+        for (int32 i = 0; i < n_equations; i++) {
             if (itor[i] == 1) {
                 TORUS = 1;
             }
@@ -168,13 +168,13 @@ torus_make_box(char *title) {
 
     nv = 4*display_height / (5*(dcur_ys + 8));
 
-    if (NEQ < nv) {
-        ndn = NEQ;
+    if (n_equations < nv) {
+        ndn = n_equations;
     } else {
         ndn = nv;
     }
-    nac = NEQ / ndn;
-    if (nac*ndn < NEQ) {
+    nac = n_equations / ndn;
+    if (nac*ndn < n_equations) {
         nac++;
     }
 
@@ -203,7 +203,7 @@ torus_make_box(char *title) {
 
         XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL, &class_hints);
     }
-    for (int32 i = 0; i < NEQ; i++) {
+    for (int32 i = 0; i < n_equations; i++) {
         i1 = i / nv;
         j1 = i % nv;
         xpos = xstart + 18*dcur_xs*i1;

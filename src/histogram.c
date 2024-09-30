@@ -128,7 +128,7 @@ histogram_new_four(int32 nmodes, int32 col) {
         return;
     }
     four_here = 1;
-    for (int32 i = 3; i <= NEQ; i++) {
+    for (int32 i = 3; i <= n_equations; i++) {
         my_four[i] = storage[i];
     }
     for (int32 i = 0; i < length; i++) {
@@ -197,7 +197,7 @@ histogram_post_process_stuff(void) {
             return;
         }
         hist_here = 1;
-        for (int32 i = 2; i <= NEQ; i++) {
+        for (int32 i = 2; i <= n_equations; i++) {
             my_hist[i] = storage[i];
         }
         for (int32 j = 0; j < hist_len; j++) {
@@ -245,7 +245,7 @@ histogram_two_d2(void) {
         return -1;
     }
     hist_here = 2;
-    for (int32 i = 3; i <= NEQ; i++) {
+    for (int32 i = 3; i <= n_equations; i++) {
         my_hist[i] = storage[i];
     }
     hist_len = length;
@@ -261,7 +261,7 @@ histogram_two_d2(void) {
 
 int32
 histogram_new_2d(void) {
-    if ((NEQ < 2) || (storind < 3)) {
+    if ((n_equations < 2) || (storind < 3)) {
         ggets_err_msg("Need more data and at least 3 columns");
         return 0;
     }
@@ -334,7 +334,7 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2, char *
         return;
     }
     hist_here = 1;
-    for (i = 2; i <= NEQ; i++) {
+    for (i = 2; i <= n_equations; i++) {
         my_hist[i] = storage[i];
     }
     for (i = 0; i < length; i++) {
@@ -462,7 +462,7 @@ histogram_compute_power(void) {
     double c;
     double *datx, *daty, ptot = 0;
     histogram_compute_fourier();
-    if ((NEQ < 2) || (storind <= 1)) {
+    if ((n_equations < 2) || (storind <= 1)) {
         return;
     }
     datx = browser_get_data_col(1);
@@ -708,7 +708,7 @@ histogram_compute_sd(void) {
         return;
     }
     hist_here = 1;
-    for (int32 i = 2; i <= NEQ; i++) {
+    for (int32 i = 2; i <= n_equations; i++) {
         my_hist[i] = storage[i];
     }
     for (int32 j = 0; j < hist_len; j++) {
@@ -731,7 +731,7 @@ histogram_just_fourier(int32 flag) {
     double c;
     double *datx, *daty;
     int32 nmodes = storind / 2 - 1;
-    if (NEQ < 2 || storind <= 1) {
+    if (n_equations < 2 || storind <= 1) {
         return;
     }
     histogram_new_four(nmodes, spec_col);
@@ -752,7 +752,7 @@ histogram_just_fourier(int32 flag) {
 void
 histogram_compute_fourier(void) {
     int32 nmodes = 10;
-    if (NEQ < 2) {
+    if (n_equations < 2) {
         ggets_err_msg("Need at least three data columns");
         return;
     }

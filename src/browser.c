@@ -221,43 +221,43 @@ browser_add_stor_col(char *name, char *formula, Browser *b) {
         ggets_err_msg("Bad Formula .... ");
         return 0;
     }
-    if ((my_ode[NEQ + fix_var] = xmalloc((usize)(i + 2)*sizeof(int32))) == NULL) {
+    if ((my_ode[n_equations + fix_var] = xmalloc((usize)(i + 2)*sizeof(int32))) == NULL) {
         ggets_err_msg("Cant allocate formula space");
         return 0;
     }
-    if ((storage[NEQ + 1] = xmalloc((usize)max_stor*sizeof(double))) == NULL) {
+    if ((storage[n_equations + 1] = xmalloc((usize)max_stor*sizeof(double))) == NULL) {
         ggets_err_msg("Cant allocate space ....");
-        free(my_ode[NEQ]);
+        free(my_ode[n_equations]);
         return 0;
     }
-    if ((ode_names[NEQ] = xmalloc(80)) == NULL) {
+    if ((ode_names[n_equations] = xmalloc(80)) == NULL) {
         ggets_err_msg("Cannot allocate space ...");
-        free(my_ode[NEQ]);
-        free(storage[NEQ + 1]);
+        free(my_ode[n_equations]);
+        free(storage[n_equations + 1]);
         return 0;
     }
-    strcpy(ode_names[NEQ], formula);
-    strupr(ode_names[NEQ]);
+    strcpy(ode_names[n_equations], formula);
+    strupr(ode_names[n_equations]);
     for (int32 j = 0; j <= i; j++) {
-        my_ode[NEQ + fix_var][j] = com[j];
+        my_ode[n_equations + fix_var][j] = com[j];
     }
-    strcpy(uvar_names[NEQ], name);
-    strupr(uvar_names[NEQ]);
+    strcpy(uvar_names[n_equations], name);
+    strupr(uvar_names[n_equations]);
     for (i = 0; i < b->maxrow; i++) {
-        storage[NEQ + 1][i] = 0.0;  //  zero it all
+        storage[n_equations + 1][i] = 0.0;  //  zero it all
     }
     for (i = 0; i < b->maxrow; i++) {
         for (int32 j = 0; j < NODE + 1; j++) {
             set_ivar(j, (double)storage[j][i]);
         }
-        for (int32 j = NODE; j < NEQ; j++) {
+        for (int32 j = NODE; j < n_equations; j++) {
             set_val(uvar_names[j], (double)storage[j + 1][i]);
         }
-        storage[NEQ + 1][i] = (double)evaluate(com);
+        storage[n_equations + 1][i] = (double)evaluate(com);
     }
-    parserslow_add_var(uvar_names[NEQ], 0.0);  //  this could be trouble ....
-    NEQ++;
-    b->maxcol = NEQ + 1;
+    parserslow_add_var(uvar_names[n_equations], 0.0);  //  this could be trouble ....
+    n_equations++;
+    b->maxcol = n_equations + 1;
     redraw_browser(*b);
     return 1;
 }
@@ -388,7 +388,7 @@ browser_replace_column(char *var, char *form, double **dat, int32 n) {
                 for (int32 j = 0; j < NODE + 1; j++) {
                     set_ivar(j, (double)dat[j][i]);
                 }
-                for (int32 j = NODE; j < NEQ; j++) {
+                for (int32 j = NODE; j < n_equations; j++) {
                     set_val(uvar_names[j], (double)dat[j + 1][i]);
                 }
                 if (intflag) {
@@ -742,7 +742,7 @@ void
 browser_init(void) {
     browser_my.dataflag = 0;
     browser_my.data = storage;
-    browser_my.maxcol = NEQ + 1;
+    browser_my.maxcol = n_equations + 1;
     browser_my.maxrow = 0;
     browser_my.col0 = 1;
     browser_my.row0 = 0;
@@ -1350,7 +1350,7 @@ browser_data_get(Browser *b) {
         last_ic[i + NODE] = (double)storage[i + NODE + 1][in];
         set_ivar(i + 1 + NODE + fix_var, last_ic[i + NODE]);
     }
-    for (int32 i = NODE + NMarkov; i < NEQ; i++) {
+    for (int32 i = NODE + NMarkov; i < n_equations; i++) {
         set_val(uvar_names[i], storage[i + 1][in]);
     }
 

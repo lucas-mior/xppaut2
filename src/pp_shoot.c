@@ -383,8 +383,8 @@ pp_shoot_last(int32 flag) {
     my_time = T0;
     if (flag) {
         storage[0][0] = (double)T0;
-        main_rhs_extra(x, T0, NODE, NEQ);
-        for (int32 i = 0; i < NEQ; i++) {
+        main_rhs_extra(x, T0, NODE, n_equations);
+        for (int32 i = 0; i < n_equations; i++) {
             storage[1 + i][0] = (double)x[i];
         }
         storind = 1;
