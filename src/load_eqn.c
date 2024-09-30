@@ -169,8 +169,7 @@ load_eqn(void) {
     if (strcmp(this_file, "/dev/stdin") == 0) {
         std = 1;
     }
-    if (got_file == 1 && (std == 0) &&
-        (dp = (struct dirent *)opendir(this_file)) != NULL) {
+    if (got_file == 1 && (std == 0) && (dp = (struct dirent *)opendir(this_file)) != NULL) {
         no_eqn = 1;
         okay = 0;
         read_dir_change_dir(this_file);
@@ -712,8 +711,7 @@ load_eqn_add_intern_set(char *name, char *does) {
     int32 k = 0;
 
     if (Nintern_set >= MAX_INTERN_SET) {
-        ggets_plintf(" %s not added -- too many must be less than %d \n", name,
-                     MAX_INTERN_SET);
+        ggets_plintf(" %s not added -- too many must be less than %d \n", name, MAX_INTERN_SET);
         return;
     }
     intern_set[j].use = 1;
@@ -741,8 +739,7 @@ load_eqn_add_intern_set(char *name, char *does) {
     bob[k] = 0;
     intern_set[j].does = xmalloc((usize)n + 3);
     strcpy(intern_set[j].does, bob);
-    ggets_plintf(" added %s doing %s \n", intern_set[j].name,
-                 intern_set[j].does);
+    ggets_plintf(" added %s doing %s \n", intern_set[j].name, intern_set[j].does);
     Nintern_set++;
     return;
 }
@@ -1037,16 +1034,14 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             ggets_plintf("QUIET option must be 0 or 1.\n");
             exit(-1);
         }
-        if (override_quiet ==
-            0)  // Will be 1 if -quiet was specified on the command line.
+        if (override_quiet == 0)  // Will be 1 if -quiet was specified on the command line.
         {
             xpp_verbose = (atoi(s2) == 0);
         }
         return;
     }
     if (load_eqn_msc("LOGFILE", s1)) {
-        if (override_logfile ==
-            0)  // Will be 1 if -logfile was specified on the command line.
+        if (override_logfile == 0)  // Will be 1 if -logfile was specified on the command line.
         {
             if (logfile != NULL) {
                 fclose(logfile);
@@ -1080,16 +1075,14 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("FORECOLOR", s1)) {
-        if ((notAlreadySet.user_black || force) ||
-            ((mask != NULL) && (mask->user_black == 1))) {
+        if ((notAlreadySet.user_black || force) || ((mask != NULL) && (mask->user_black == 1))) {
             sprintf(user_black, "#%s", s2);
             notAlreadySet.user_black = 0;
         }
         return;
     }
     if (load_eqn_msc("BACKCOLOR", s1)) {
-        if ((notAlreadySet.user_white || force) ||
-            ((mask != NULL) && (mask->user_white == 1))) {
+        if ((notAlreadySet.user_white || force) || ((mask != NULL) && (mask->user_white == 1))) {
             sprintf(user_white, "#%s", s2);
             notAlreadySet.user_white = 0;
         }
@@ -1125,8 +1118,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("PLOTFMT", s1)) {
-        if ((notAlreadySet.PLOTFORMAT || force) ||
-            ((mask != NULL) && (mask->PLOTFORMAT == 1))) {
+        if ((notAlreadySet.PLOTFORMAT || force) || ((mask != NULL) && (mask->PLOTFORMAT == 1))) {
             strcpy(plot_format, s2);
             notAlreadySet.PLOTFORMAT = 0;
         }
@@ -1158,8 +1150,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("YNC", s1)) {
-        if ((notAlreadySet.YNullColor || force) ||
-            ((mask != NULL) && (mask->YNullColor == 1))) {
+        if ((notAlreadySet.YNullColor || force) || ((mask != NULL) && (mask->YNullColor == 1))) {
             i = atoi(s2);
             if (i > -1 && i < 11) {
                 YNullColor = i;
@@ -1169,8 +1160,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("XNC", s1)) {
-        if ((notAlreadySet.XNullColor || force) ||
-            ((mask != NULL) && (mask->XNullColor == 1))) {
+        if ((notAlreadySet.XNullColor || force) || ((mask != NULL) && (mask->XNullColor == 1))) {
             i = atoi(s2);
             if (i > -1 && i < 11) {
                 XNullColor = i;
@@ -1216,8 +1206,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("SEED", s1)) {
-        if ((notAlreadySet.rand_seed || force) ||
-            ((mask != NULL) && (mask->rand_seed == 1))) {
+        if ((notAlreadySet.rand_seed || force) || ((mask != NULL) && (mask->rand_seed == 1))) {
             i = atoi(s2);
             if (i >= 0) {
                 rand_seed = i;
@@ -1228,8 +1217,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("BACK", s1)) {
-        if ((notAlreadySet.paper_white || force) ||
-            ((mask != NULL) && (mask->paper_white == 1))) {
+        if ((notAlreadySet.paper_white || force) || ((mask != NULL) && (mask->paper_white == 1))) {
             if (s2[0] == 'w' || s2[0] == 'W') {
                 paper_white = 1;
             } else {
@@ -1240,8 +1228,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("COLORMAP", s1)) {
-        if ((notAlreadySet.COLORMAP || force) ||
-            ((mask != NULL) && (mask->COLORMAP == 1))) {
+        if ((notAlreadySet.COLORMAP || force) || ((mask != NULL) && (mask->COLORMAP == 1))) {
             i = atoi(s2);
             if (i < 7) {
                 custom_color = i;
@@ -1251,8 +1238,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("NPLOT", s1)) {
-        if ((notAlreadySet.NPLOT || force) ||
-            ((mask != NULL) && (mask->NPLOT == 1))) {
+        if ((notAlreadySet.NPLOT || force) || ((mask != NULL) && (mask->NPLOT == 1))) {
             NPltV = atoi(s2);
             notAlreadySet.NPLOT = 0;
         }
@@ -1260,8 +1246,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("DLL_LIB", s1)) {
-        if ((notAlreadySet.DLL_LIB || force) ||
-            ((mask != NULL) && (mask->DLL_LIB == 1))) {
+        if ((notAlreadySet.DLL_LIB || force) || ((mask != NULL) && (mask->DLL_LIB == 1))) {
             sprintf(dll_lib, "%s", s2);
             dll_flag += 1;
             notAlreadySet.DLL_LIB = 0;
@@ -1269,8 +1254,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("DLL_FUN", s1)) {
-        if ((notAlreadySet.DLL_FUN || force) ||
-            ((mask != NULL) && (mask->DLL_FUN == 1))) {
+        if ((notAlreadySet.DLL_FUN || force) || ((mask != NULL) && (mask->DLL_FUN == 1))) {
             sprintf(dll_fun, "%s", s2);
             dll_flag += 2;
             notAlreadySet.DLL_FUN = 0;
@@ -1333,8 +1317,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         }
     }
     if (load_eqn_msc("XP", s1)) {
-        if ((notAlreadySet.XP || force) ||
-            ((mask != NULL) && (mask->XP == 1))) {
+        if ((notAlreadySet.XP || force) || ((mask != NULL) && (mask->XP == 1))) {
             browser_find_variable(s2, &i);
             if (i > -1) {
                 ix_plt = i;
@@ -1345,8 +1328,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("YP", s1)) {
-        if ((notAlreadySet.YP || force) ||
-            ((mask != NULL) && (mask->YP == 1))) {
+        if ((notAlreadySet.YP || force) || ((mask != NULL) && (mask->YP == 1))) {
             browser_find_variable(s2, &i);
             if (i > -1) {
                 iy_plt = i;
@@ -1357,8 +1339,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("ZP", s1)) {
-        if ((notAlreadySet.ZP || force) ||
-            ((mask != NULL) && (mask->ZP == 1))) {
+        if ((notAlreadySet.ZP || force) || ((mask != NULL) && (mask->ZP == 1))) {
             browser_find_variable(s2, &i);
             if (i > -1) {
                 iz_plt = i;
@@ -1370,8 +1351,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("axes", s1)) {
-        if ((notAlreadySet.axes || force) ||
-            ((mask != NULL) && (mask->axes == 1))) {
+        if ((notAlreadySet.axes || force) || ((mask != NULL) && (mask->axes == 1))) {
             if (s2[0] == '3') {
                 axes = 5;
             } else {
@@ -1384,32 +1364,28 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("NJMP", s1)) {
-        if ((notAlreadySet.NOUT || force) ||
-            ((mask != NULL) && (mask->NOUT == 1))) {
+        if ((notAlreadySet.NOUT || force) || ((mask != NULL) && (mask->NOUT == 1))) {
             NJMP = atoi(s2);
             notAlreadySet.NOUT = 0;
         }
         return;
     }
     if (load_eqn_msc("NOUT", s1)) {
-        if ((notAlreadySet.NOUT || force) ||
-            ((mask != NULL) && (mask->NOUT == 1))) {
+        if ((notAlreadySet.NOUT || force) || ((mask != NULL) && (mask->NOUT == 1))) {
             NJMP = atoi(s2);
             notAlreadySet.NOUT = 0;
         }
         return;
     }
     if (load_eqn_msc("NMESH", s1)) {
-        if ((notAlreadySet.NMESH || force) ||
-            ((mask != NULL) && (mask->NMESH == 1))) {
+        if ((notAlreadySet.NMESH || force) || ((mask != NULL) && (mask->NMESH == 1))) {
             NMESH = atoi(s2);
             notAlreadySet.NMESH = 0;
         }
         return;
     }
     if (load_eqn_msc("METH", s1)) {
-        if ((notAlreadySet.METHOD || force) ||
-            ((mask != NULL) && (mask->METHOD == 1))) {
+        if ((notAlreadySet.METHOD || force) || ((mask != NULL) && (mask->METHOD == 1))) {
             for (i = 0; i < 15; i++) {
                 if (s2[0] == mkey[i] || s2[0] == Mkey[i]) {
                     METHOD = i;
@@ -1421,24 +1397,21 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("VMAXPTS", s1)) {
-        if ((notAlreadySet.VMAXPTS || force) ||
-            ((mask != NULL) && (mask->VMAXPTS == 1))) {
+        if ((notAlreadySet.VMAXPTS || force) || ((mask != NULL) && (mask->VMAXPTS == 1))) {
             max_points = atoi(s2);
             notAlreadySet.VMAXPTS = 0;
         }
         return;
     }
     if (load_eqn_msc("max_stor", s1)) {
-        if ((notAlreadySet.max_stor || force) ||
-            ((mask != NULL) && (mask->max_stor == 1))) {
+        if ((notAlreadySet.max_stor || force) || ((mask != NULL) && (mask->max_stor == 1))) {
             max_stor = atoi(s2);
             notAlreadySet.max_stor = 0;
         }
         return;
     }
     if (load_eqn_msc("TOR_PER", s1)) {
-        if ((notAlreadySet.TOR_PER || force) ||
-            ((mask != NULL) && (mask->TOR_PER == 1))) {
+        if ((notAlreadySet.TOR_PER || force) || ((mask != NULL) && (mask->TOR_PER == 1))) {
             torus_period = atof(s2);
             TORUS = 1;
             notAlreadySet.TOR_PER = 0;
@@ -1446,32 +1419,28 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("JAC_EPS", s1)) {
-        if ((notAlreadySet.JAC_EPS || force) ||
-            ((mask != NULL) && (mask->JAC_EPS == 1))) {
+        if ((notAlreadySet.JAC_EPS || force) || ((mask != NULL) && (mask->JAC_EPS == 1))) {
             NEWT_ERR = atof(s2);
             notAlreadySet.JAC_EPS = 0;
         }
         return;
     }
     if (load_eqn_msc("NEWT_TOL", s1)) {
-        if ((notAlreadySet.NEWT_TOL || force) ||
-            ((mask != NULL) && (mask->NEWT_TOL == 1))) {
+        if ((notAlreadySet.NEWT_TOL || force) || ((mask != NULL) && (mask->NEWT_TOL == 1))) {
             evec_err = atof(s2);
             notAlreadySet.NEWT_TOL = 0;
         }
         return;
     }
     if (load_eqn_msc("NEWT_ITER", s1)) {
-        if ((notAlreadySet.NEWT_ITER || force) ||
-            ((mask != NULL) && (mask->NEWT_ITER == 1))) {
+        if ((notAlreadySet.NEWT_ITER || force) || ((mask != NULL) && (mask->NEWT_ITER == 1))) {
             evec_iter = atoi(s2);
             notAlreadySet.NEWT_ITER = 0;
         }
         return;
     }
     if (load_eqn_msc("FOLD", s1)) {
-        if ((notAlreadySet.FOLD || force) ||
-            ((mask != NULL) && (mask->FOLD == 1))) {
+        if ((notAlreadySet.FOLD || force) || ((mask != NULL) && (mask->FOLD == 1))) {
             browser_find_variable(s2, &i);
             if (i > 0) {
                 itor[i - 1] = 1;
@@ -1481,72 +1450,63 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("TOTAL", s1)) {
-        if ((notAlreadySet.TEND || force) ||
-            ((mask != NULL) && (mask->TEND == 1))) {
+        if ((notAlreadySet.TEND || force) || ((mask != NULL) && (mask->TEND == 1))) {
             TEND = atof(s2);
             notAlreadySet.TEND = 0;
         }
         return;
     }
     if (load_eqn_msc("DTMIN", s1)) {
-        if ((notAlreadySet.DTMIN || force) ||
-            ((mask != NULL) && (mask->DTMIN == 1))) {
+        if ((notAlreadySet.DTMIN || force) || ((mask != NULL) && (mask->DTMIN == 1))) {
             h_min = atof(s2);
             notAlreadySet.DTMIN = 0;
         }
         return;
     }
     if (load_eqn_msc("DTMAX", s1)) {
-        if ((notAlreadySet.DTMAX || force) ||
-            ((mask != NULL) && (mask->DTMAX == 1))) {
+        if ((notAlreadySet.DTMAX || force) || ((mask != NULL) && (mask->DTMAX == 1))) {
             h_max = atof(s2);
             notAlreadySet.DTMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("DT", s1)) {
-        if ((notAlreadySet.DT || force) ||
-            ((mask != NULL) && (mask->DT == 1))) {
+        if ((notAlreadySet.DT || force) || ((mask != NULL) && (mask->DT == 1))) {
             delta_t = atof(s2);
             notAlreadySet.DT = 0;
         }
         return;
     }
     if (load_eqn_msc("T0", s1)) {
-        if ((notAlreadySet.T0 || force) ||
-            ((mask != NULL) && (mask->T0 == 1))) {
+        if ((notAlreadySet.T0 || force) || ((mask != NULL) && (mask->T0 == 1))) {
             T0 = atof(s2);
             notAlreadySet.T0 = 0;
         }
         return;
     }
     if (load_eqn_msc("TRANS", s1)) {
-        if ((notAlreadySet.TRANS || force) ||
-            ((mask != NULL) && (mask->TRANS == 1))) {
+        if ((notAlreadySet.TRANS || force) || ((mask != NULL) && (mask->TRANS == 1))) {
             TRANS = atof(s2);
             notAlreadySet.TRANS = 0;
         }
         return;
     }
     if (load_eqn_msc("bound", s1)) {
-        if ((notAlreadySet.bound || force) ||
-            ((mask != NULL) && (mask->bound == 1))) {
+        if ((notAlreadySet.bound || force) || ((mask != NULL) && (mask->bound == 1))) {
             bound = atof(s2);
             notAlreadySet.bound = 0;
         }
         return;
     }
     if (load_eqn_msc("ATOL", s1)) {
-        if ((notAlreadySet.atoler || force) ||
-            ((mask != NULL) && (mask->atoler == 1))) {
+        if ((notAlreadySet.atoler || force) || ((mask != NULL) && (mask->atoler == 1))) {
             atoler = atof(s2);
             notAlreadySet.atoler = 0;
         }
         return;
     }
     if (load_eqn_msc("TOL", s1)) {
-        if ((notAlreadySet.TOLER || force) ||
-            ((mask != NULL) && (mask->TOLER == 1))) {
+        if ((notAlreadySet.TOLER || force) || ((mask != NULL) && (mask->TOLER == 1))) {
             TOLER = atof(s2);
             notAlreadySet.TOLER = 0;
         }
@@ -1554,16 +1514,14 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("delay", s1)) {
-        if ((notAlreadySet.delay || force) ||
-            ((mask != NULL) && (mask->delay == 1))) {
+        if ((notAlreadySet.delay || force) || ((mask != NULL) && (mask->delay == 1))) {
             delay = atof(s2);
             notAlreadySet.delay = 0;
         }
         return;
     }
     if (load_eqn_msc("BANDUP", s1)) {
-        if ((notAlreadySet.BANDUP || force) ||
-            ((mask != NULL) && (mask->BANDUP == 1))) {
+        if ((notAlreadySet.BANDUP || force) || ((mask != NULL) && (mask->BANDUP == 1))) {
             cv_bandflag = 1;
             cv_bandupper = atoi(s2);
             notAlreadySet.BANDUP = 0;
@@ -1571,8 +1529,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("BANDLO", s1)) {
-        if ((notAlreadySet.BANDLO || force) ||
-            ((mask != NULL) && (mask->BANDLO == 1))) {
+        if ((notAlreadySet.BANDLO || force) || ((mask != NULL) && (mask->BANDLO == 1))) {
             cv_bandflag = 1;
             cv_bandlower = atoi(s2);
             notAlreadySet.BANDLO = 0;
@@ -1581,32 +1538,28 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("PHI", s1)) {
-        if ((notAlreadySet.PHI || force) ||
-            ((mask != NULL) && (mask->PHI == 1))) {
+        if ((notAlreadySet.PHI || force) || ((mask != NULL) && (mask->PHI == 1))) {
             PHI0 = atof(s2);
             notAlreadySet.PHI = 0;
         }
         return;
     }
     if (load_eqn_msc("THETA", s1)) {
-        if ((notAlreadySet.THETA || force) ||
-            ((mask != NULL) && (mask->THETA == 1))) {
+        if ((notAlreadySet.THETA || force) || ((mask != NULL) && (mask->THETA == 1))) {
             THETA0 = atof(s2);
             notAlreadySet.THETA = 0;
         }
         return;
     }
     if (load_eqn_msc("XLO", s1)) {
-        if ((notAlreadySet.XLO || force) ||
-            ((mask != NULL) && (mask->XLO == 1))) {
+        if ((notAlreadySet.XLO || force) || ((mask != NULL) && (mask->XLO == 1))) {
             my_xlo = atof(s2);
             notAlreadySet.XLO = 0;
         }
         return;
     }
     if (load_eqn_msc("YLO", s1)) {
-        if ((notAlreadySet.YLO || force) ||
-            ((mask != NULL) && (mask->YLO == 1))) {
+        if ((notAlreadySet.YLO || force) || ((mask != NULL) && (mask->YLO == 1))) {
             my_ylo = atof(s2);
             notAlreadySet.YLO = 0;
         }
@@ -1614,52 +1567,45 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("XHI", s1)) {
-        if ((notAlreadySet.XHI || force) ||
-            ((mask != NULL) && (mask->XHI == 1))) {
+        if ((notAlreadySet.XHI || force) || ((mask != NULL) && (mask->XHI == 1))) {
             my_xhi = atof(s2);
             notAlreadySet.XHI = 0;
         }
         return;
     }
     if (load_eqn_msc("YHI", s1)) {
-        if ((notAlreadySet.YHI || force) ||
-            ((mask != NULL) && (mask->YHI == 1))) {
+        if ((notAlreadySet.YHI || force) || ((mask != NULL) && (mask->YHI == 1))) {
             my_yhi = atof(s2);
             notAlreadySet.YHI = 0;
         }
         return;
     }
     if (load_eqn_msc("XMAX", s1)) {
-        if ((notAlreadySet.XMAX || force) ||
-            ((mask != NULL) && (mask->XMAX == 1))) {
+        if ((notAlreadySet.XMAX || force) || ((mask != NULL) && (mask->XMAX == 1))) {
             x_3d[1] = atof(s2);
             notAlreadySet.XMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("YMAX", s1)) {
-        if ((notAlreadySet.YMAX || force) ||
-            ((mask != NULL) && (mask->YMAX == 1))) {
+        if ((notAlreadySet.YMAX || force) || ((mask != NULL) && (mask->YMAX == 1))) {
             y_3d[1] = atof(s2);
             notAlreadySet.YMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("ZMAX", s1)) {
-        if ((notAlreadySet.ZMAX || force) ||
-            ((mask != NULL) && (mask->ZMAX == 1))) {
+        if ((notAlreadySet.ZMAX || force) || ((mask != NULL) && (mask->ZMAX == 1))) {
             z_3d[1] = atof(s2);
             notAlreadySet.ZMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("XMIN", s1)) {
-        if ((notAlreadySet.XMIN || force) ||
-            ((mask != NULL) && (mask->XMIN == 1))) {
+        if ((notAlreadySet.XMIN || force) || ((mask != NULL) && (mask->XMIN == 1))) {
             x_3d[0] = atof(s2);
             notAlreadySet.XMIN = 0;
-            if ((notAlreadySet.XLO || force) ||
-                ((mask != NULL) && (mask->XLO == 1))) {
+            if ((notAlreadySet.XLO || force) || ((mask != NULL) && (mask->XLO == 1))) {
                 my_xlo = atof(s2);
                 notAlreadySet.XLO = 0;
             }
@@ -1667,12 +1613,10 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("YMIN", s1)) {
-        if ((notAlreadySet.YMIN || force) ||
-            ((mask != NULL) && (mask->YMIN == 1))) {
+        if ((notAlreadySet.YMIN || force) || ((mask != NULL) && (mask->YMIN == 1))) {
             y_3d[0] = atof(s2);
             notAlreadySet.YMIN = 0;
-            if ((notAlreadySet.YLO || force) ||
-                ((mask != NULL) && (mask->YLO == 1))) {
+            if ((notAlreadySet.YLO || force) || ((mask != NULL) && (mask->YLO == 1))) {
                 my_ylo = atof(s2);
                 notAlreadySet.YLO = 0;
             }
@@ -1680,8 +1624,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("ZMIN", s1)) {
-        if ((notAlreadySet.ZMIN || force) ||
-            ((mask != NULL) && (mask->ZMIN == 1))) {
+        if ((notAlreadySet.ZMIN || force) || ((mask != NULL) && (mask->ZMIN == 1))) {
             z_3d[0] = atof(s2);
             notAlreadySet.ZMIN = 0;
         }
@@ -1689,8 +1632,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("POIMAP", s1)) {
-        if ((notAlreadySet.POIMAP || force) ||
-            ((mask != NULL) && (mask->POIMAP == 1))) {
+        if ((notAlreadySet.POIMAP || force) || ((mask != NULL) && (mask->POIMAP == 1))) {
             if (s2[0] == 'm' || s2[0] == 'M') {
                 POIMAP = 2;
             }
@@ -1706,8 +1648,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("POIVAR", s1)) {
-        if ((notAlreadySet.POIVAR || force) ||
-            ((mask != NULL) && (mask->POIVAR == 1))) {
+        if ((notAlreadySet.POIVAR || force) || ((mask != NULL) && (mask->POIVAR == 1))) {
             browser_find_variable(s2, &i);
             if (i > -1) {
                 POIVAR = i;
@@ -1718,8 +1659,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("OUTPUT", s1)) {
-        if ((notAlreadySet.OUTPUT || force) ||
-            ((mask != NULL) && (mask->OUTPUT == 1))) {
+        if ((notAlreadySet.OUTPUT || force) || ((mask != NULL) && (mask->OUTPUT == 1))) {
             strcpy(batch_out, s2);
             notAlreadySet.OUTPUT = 0;
         }
@@ -1727,8 +1667,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("POISGN", s1)) {
-        if ((notAlreadySet.POISGN || force) ||
-            ((mask != NULL) && (mask->POISGN == 1))) {
+        if ((notAlreadySet.POISGN || force) || ((mask != NULL) && (mask->POISGN == 1))) {
             POISGN = atoi(s2);
             notAlreadySet.POISGN = 0;
         }
@@ -1736,24 +1675,21 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("POISTOP", s1)) {
-        if ((notAlreadySet.POISTOP || force) ||
-            ((mask != NULL) && (mask->POISTOP == 1))) {
+        if ((notAlreadySet.POISTOP || force) || ((mask != NULL) && (mask->POISTOP == 1))) {
             SOS = atoi(s2);
             notAlreadySet.POISTOP = 0;
         }
         return;
     }
     if (load_eqn_msc("STOCH", s1)) {
-        if ((notAlreadySet.STOCH || force) ||
-            ((mask != NULL) && (mask->STOCH == 1))) {
+        if ((notAlreadySet.STOCH || force) || ((mask != NULL) && (mask->STOCH == 1))) {
             stoch_flag = atoi(s2);
             notAlreadySet.STOCH = 0;
         }
         return;
     }
     if (load_eqn_msc("POIPLN", s1)) {
-        if ((notAlreadySet.POIPLN || force) ||
-            ((mask != NULL) && (mask->POIPLN == 1))) {
+        if ((notAlreadySet.POIPLN || force) || ((mask != NULL) && (mask->POIPLN == 1))) {
             POIPLN = atof(s2);
             notAlreadySet.POIPLN = 0;
         }
@@ -1761,8 +1697,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("RANGEOVER", s1)) {
-        if ((notAlreadySet.RANGEOVER || force) ||
-            ((mask != NULL) && (mask->RANGEOVER == 1))) {
+        if ((notAlreadySet.RANGEOVER || force) || ((mask != NULL) && (mask->RANGEOVER == 1))) {
             strcpy(range.item, s2);
             notAlreadySet.RANGEOVER = 0;
         }
@@ -1770,8 +1705,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("RANGESTEP", s1)) {
-        if ((notAlreadySet.RANGESTEP || force) ||
-            ((mask != NULL) && (mask->RANGESTEP == 1))) {
+        if ((notAlreadySet.RANGESTEP || force) || ((mask != NULL) && (mask->RANGESTEP == 1))) {
             range.steps = atoi(s2);
             notAlreadySet.RANGESTEP = 0;
         }
@@ -1779,8 +1713,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("RANGELOW", s1)) {
-        if ((notAlreadySet.RANGELOW || force) ||
-            ((mask != NULL) && (mask->RANGELOW == 1))) {
+        if ((notAlreadySet.RANGELOW || force) || ((mask != NULL) && (mask->RANGELOW == 1))) {
             range.plow = atof(s2);
             notAlreadySet.RANGELOW = 0;
         }
@@ -1789,8 +1722,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("RANGEHIGH", s1)) {
-        if ((notAlreadySet.RANGEHIGH || force) ||
-            ((mask != NULL) && (mask->RANGEHIGH == 1))) {
+        if ((notAlreadySet.RANGEHIGH || force) || ((mask != NULL) && (mask->RANGEHIGH == 1))) {
             range.phigh = atof(s2);
             notAlreadySet.RANGEHIGH = 0;
         }
@@ -1798,8 +1730,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("RANGERESET", s1)) {
-        if ((notAlreadySet.RANGERESET || force) ||
-            ((mask != NULL) && (mask->RANGERESET == 1))) {
+        if ((notAlreadySet.RANGERESET || force) || ((mask != NULL) && (mask->RANGERESET == 1))) {
             if (s2[0] == 'y' || s2[0] == 'Y') {
                 range.reset = 1;
             } else {
@@ -1811,8 +1742,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("RANGEOLDIC", s1)) {
-        if ((notAlreadySet.RANGEOLDIC || force) ||
-            ((mask != NULL) && (mask->RANGEOLDIC == 1))) {
+        if ((notAlreadySet.RANGEOLDIC || force) || ((mask != NULL) && (mask->RANGEOLDIC == 1))) {
             if (s2[0] == 'y' || s2[0] == 'Y') {
                 range.oldic = 1;
             } else {
@@ -1825,8 +1755,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("RANGE", s1)) {
-        if ((notAlreadySet.RANGE || force) ||
-            ((mask != NULL) && (mask->RANGE == 1))) {
+        if ((notAlreadySet.RANGE || force) || ((mask != NULL) && (mask->RANGE == 1))) {
             batch_range = atoi(s2);
             notAlreadySet.RANGE = 0;
         }
@@ -1834,32 +1763,28 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("NTST", s1)) {
-        if ((notAlreadySet.NTST || force) ||
-            ((mask != NULL) && (mask->NTST == 1))) {
+        if ((notAlreadySet.NTST || force) || ((mask != NULL) && (mask->NTST == 1))) {
             auto_ntst = atoi(s2);
             notAlreadySet.NTST = 0;
         }
         return;
     }
     if (load_eqn_msc("NMAX", s1)) {
-        if ((notAlreadySet.NMAX || force) ||
-            ((mask != NULL) && (mask->NMAX == 1))) {
+        if ((notAlreadySet.NMAX || force) || ((mask != NULL) && (mask->NMAX == 1))) {
             auto_nmx = atoi(s2);
             notAlreadySet.NMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("NPR", s1)) {
-        if ((notAlreadySet.NPR || force) ||
-            ((mask != NULL) && (mask->NPR == 1))) {
+        if ((notAlreadySet.NPR || force) || ((mask != NULL) && (mask->NPR == 1))) {
             auto_npr = atoi(s2);
             notAlreadySet.NPR = 0;
         }
         return;
     }
     if (load_eqn_msc("NCOL", s1)) {
-        if ((notAlreadySet.NCOL || force) ||
-            ((mask != NULL) && (mask->NCOL == 1))) {
+        if ((notAlreadySet.NCOL || force) || ((mask != NULL) && (mask->NCOL == 1))) {
             auto_ncol = atoi(s2);
             notAlreadySet.NCOL = 0;
         }
@@ -1867,24 +1792,21 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("DSMIN", s1)) {
-        if ((notAlreadySet.DSMIN || force) ||
-            ((mask != NULL) && (mask->DSMIN == 1))) {
+        if ((notAlreadySet.DSMIN || force) || ((mask != NULL) && (mask->DSMIN == 1))) {
             auto_dsmin = atof(s2);
             notAlreadySet.DSMIN = 0;
         }
         return;
     }
     if (load_eqn_msc("DSMAX", s1)) {
-        if ((notAlreadySet.DSMAX || force) ||
-            ((mask != NULL) && (mask->DSMAX == 1))) {
+        if ((notAlreadySet.DSMAX || force) || ((mask != NULL) && (mask->DSMAX == 1))) {
             auto_dsmax = atof(s2);
             notAlreadySet.DSMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("DS", s1)) {
-        if ((notAlreadySet.DS || force) ||
-            ((mask != NULL) && (mask->DS == 1))) {
+        if ((notAlreadySet.DS || force) || ((mask != NULL) && (mask->DS == 1))) {
             auto_ds = atof(s2);
             notAlreadySet.DS = 0;
         }
@@ -1892,40 +1814,35 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("PARMIN", s1)) {
-        if ((notAlreadySet.XMAX || force) ||
-            ((mask != NULL) && (mask->XMAX == 1))) {
+        if ((notAlreadySet.XMAX || force) || ((mask != NULL) && (mask->XMAX == 1))) {
             auto_rl0 = atof(s2);
             notAlreadySet.XMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("PARMAX", s1)) {
-        if ((notAlreadySet.PARMAX || force) ||
-            ((mask != NULL) && (mask->PARMAX == 1))) {
+        if ((notAlreadySet.PARMAX || force) || ((mask != NULL) && (mask->PARMAX == 1))) {
             auto_rl1 = atof(s2);
             notAlreadySet.PARMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("NORMMIN", s1)) {
-        if ((notAlreadySet.NORMMIN || force) ||
-            ((mask != NULL) && (mask->NORMMIN == 1))) {
+        if ((notAlreadySet.NORMMIN || force) || ((mask != NULL) && (mask->NORMMIN == 1))) {
             auto_a0 = atof(s2);
             notAlreadySet.NORMMIN = 0;
         }
         return;
     }
     if (load_eqn_msc("NORMMAX", s1)) {
-        if ((notAlreadySet.NORMMAX || force) ||
-            ((mask != NULL) && (mask->NORMMAX == 1))) {
+        if ((notAlreadySet.NORMMAX || force) || ((mask != NULL) && (mask->NORMMAX == 1))) {
             auto_a1 = atof(s2);
             notAlreadySet.NORMMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("EPSL", s1)) {
-        if ((notAlreadySet.EPSL || force) ||
-            ((mask != NULL) && (mask->EPSL == 1))) {
+        if ((notAlreadySet.EPSL || force) || ((mask != NULL) && (mask->EPSL == 1))) {
             auto_epsl = atof(s2);
             notAlreadySet.EPSL = 0;
         }
@@ -1933,24 +1850,21 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("EPSU", s1)) {
-        if ((notAlreadySet.EPSU || force) ||
-            ((mask != NULL) && (mask->EPSU == 1))) {
+        if ((notAlreadySet.EPSU || force) || ((mask != NULL) && (mask->EPSU == 1))) {
             auto_epsu = atof(s2);
             notAlreadySet.EPSU = 0;
         }
         return;
     }
     if (load_eqn_msc("EPSS", s1)) {
-        if ((notAlreadySet.EPSS || force) ||
-            ((mask != NULL) && (mask->EPSS == 1))) {
+        if ((notAlreadySet.EPSS || force) || ((mask != NULL) && (mask->EPSS == 1))) {
             auto_epss = atof(s2);
             notAlreadySet.EPSS = 0;
         }
         return;
     }
     if (load_eqn_msc("RUNNOW", s1)) {
-        if ((notAlreadySet.RUNNOW || force) ||
-            ((mask != NULL) && (mask->RUNNOW == 1))) {
+        if ((notAlreadySet.RUNNOW || force) || ((mask != NULL) && (mask->RUNNOW == 1))) {
             run_immediately = atoi(s2);
             notAlreadySet.RUNNOW = 0;
         }
@@ -1958,32 +1872,28 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("SEC", s1)) {
-        if ((notAlreadySet.SEC || force) ||
-            ((mask != NULL) && (mask->SEC == 1))) {
+        if ((notAlreadySet.SEC || force) || ((mask != NULL) && (mask->SEC == 1))) {
             SEc = atoi(s2);
             notAlreadySet.SEC = 0;
         }
         return;
     }
     if (load_eqn_msc("UEC", s1)) {
-        if ((notAlreadySet.UEC || force) ||
-            ((mask != NULL) && (mask->UEC == 1))) {
+        if ((notAlreadySet.UEC || force) || ((mask != NULL) && (mask->UEC == 1))) {
             UEc = atoi(s2);
             notAlreadySet.UEC = 0;
         }
         return;
     }
     if (load_eqn_msc("SPC", s1)) {
-        if ((notAlreadySet.SPC || force) ||
-            ((mask != NULL) && (mask->SPC == 1))) {
+        if ((notAlreadySet.SPC || force) || ((mask != NULL) && (mask->SPC == 1))) {
             SPc = atoi(s2);
             notAlreadySet.SPC = 0;
         }
         return;
     }
     if (load_eqn_msc("UPC", s1)) {
-        if ((notAlreadySet.UPC || force) ||
-            ((mask != NULL) && (mask->UPC == 1))) {
+        if ((notAlreadySet.UPC || force) || ((mask != NULL) && (mask->UPC == 1))) {
             UPc = atoi(s2);
             notAlreadySet.UPC = 0;
         }
@@ -1991,8 +1901,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("AUTOEVAL", s1)) {
-        if ((notAlreadySet.AUTOEVAL || force) ||
-            ((mask != NULL) && (mask->AUTOEVAL == 1))) {
+        if ((notAlreadySet.AUTOEVAL || force) || ((mask != NULL) && (mask->AUTOEVAL == 1))) {
             f = atoi(s2);
             tabular_set_auto_eval_flags(f);
             notAlreadySet.AUTOEVAL = 0;
@@ -2000,40 +1909,35 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("AUTOXMAX", s1)) {
-        if ((notAlreadySet.AUTOXMAX || force) ||
-            ((mask != NULL) && (mask->AUTOXMAX == 1))) {
+        if ((notAlreadySet.AUTOXMAX || force) || ((mask != NULL) && (mask->AUTOXMAX == 1))) {
             auto_xmax = atof(s2);
             notAlreadySet.AUTOXMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("AUTOYMAX", s1)) {
-        if ((notAlreadySet.AUTOYMAX || force) ||
-            ((mask != NULL) && (mask->AUTOYMAX == 1))) {
+        if ((notAlreadySet.AUTOYMAX || force) || ((mask != NULL) && (mask->AUTOYMAX == 1))) {
             auto_ymax = atof(s2);
             notAlreadySet.AUTOYMAX = 0;
         }
         return;
     }
     if (load_eqn_msc("AUTOXMIN", s1)) {
-        if ((notAlreadySet.AUTOXMIN || force) ||
-            ((mask != NULL) && (mask->AUTOXMIN == 1))) {
+        if ((notAlreadySet.AUTOXMIN || force) || ((mask != NULL) && (mask->AUTOXMIN == 1))) {
             auto_xmin = atof(s2);
             notAlreadySet.AUTOXMIN = 0;
         }
         return;
     }
     if (load_eqn_msc("AUTOYMIN", s1)) {
-        if ((notAlreadySet.AUTOYMIN || force) ||
-            ((mask != NULL) && (mask->AUTOYMIN == 1))) {
+        if ((notAlreadySet.AUTOYMIN || force) || ((mask != NULL) && (mask->AUTOYMIN == 1))) {
             auto_ymin = atof(s2);
             notAlreadySet.AUTOYMIN = 0;
         }
         return;
     }
     if (load_eqn_msc("AUTOVAR", s1)) {
-        if ((notAlreadySet.AUTOVAR || force) ||
-            ((mask != NULL) && (mask->AUTOVAR == 1))) {
+        if ((notAlreadySet.AUTOVAR || force) || ((mask != NULL) && (mask->AUTOVAR == 1))) {
             browser_find_variable(s2, &i);
             if (i > 0) {
                 auto_var = i - 1;
@@ -2046,8 +1950,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     // postscript options
 
     if (load_eqn_msc("ps_font", s1)) {
-        if ((notAlreadySet.ps_font || force) ||
-            ((mask != NULL) && (mask->ps_font == 1))) {
+        if ((notAlreadySet.ps_font || force) || ((mask != NULL) && (mask->ps_font == 1))) {
             strcpy(ps_font, s2);
             notAlreadySet.ps_font = 0;
         }
@@ -2055,8 +1958,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("ps_lw", s1)) {
-        if ((notAlreadySet.ps_lw || force) ||
-            ((mask != NULL) && (mask->ps_lw == 1))) {
+        if ((notAlreadySet.ps_lw || force) || ((mask != NULL) && (mask->ps_lw == 1))) {
             ps_lw = atof(s2);
             notAlreadySet.ps_lw = 0;
         }
@@ -2064,8 +1966,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("PS_FSIZE", s1)) {
-        if ((notAlreadySet.PS_FSIZE || force) ||
-            ((mask != NULL) && (mask->PS_FSIZE == 1))) {
+        if ((notAlreadySet.PS_FSIZE || force) || ((mask != NULL) && (mask->PS_FSIZE == 1))) {
             ps_fontsize = atoi(s2);
             notAlreadySet.PS_FSIZE = 0;
         }
@@ -2073,8 +1974,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("PS_COLOR", s1)) {
-        if ((notAlreadySet.PS_COLOR || force) ||
-            ((mask != NULL) && (mask->PS_COLOR == 1))) {
+        if ((notAlreadySet.PS_COLOR || force) || ((mask != NULL) && (mask->PS_COLOR == 1))) {
             ps_color_flag = atoi(s2);
             ps_color = ps_color_flag;
             notAlreadySet.PS_COLOR = 0;
@@ -2086,16 +1986,14 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             ggets_plintf("TUTORIAL option must be 0 or 1.\n");
             exit(-1);
         }
-        if ((notAlreadySet.TUTORIAL || force) ||
-            ((mask != NULL) && (mask->TUTORIAL == 1))) {
+        if ((notAlreadySet.TUTORIAL || force) || ((mask != NULL) && (mask->TUTORIAL == 1))) {
             do_tutorial = atoi(s2);
             notAlreadySet.TUTORIAL = 0;
         }
         return;
     }
     if (load_eqn_msc("S1", s1)) {
-        if ((notAlreadySet.slider1 || force) ||
-            ((mask != NULL) && (mask->slider1 == 1))) {
+        if ((notAlreadySet.slider1 || force) || ((mask != NULL) && (mask->slider1 == 1))) {
             strncpy(slider1var, s2, 20);
             slider1var[19] = '\0';
             notAlreadySet.slider1 = 0;
@@ -2104,8 +2002,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("S2", s1)) {
-        if ((notAlreadySet.slider2 || force) ||
-            ((mask != NULL) && (mask->slider2 == 1))) {
+        if ((notAlreadySet.slider2 || force) || ((mask != NULL) && (mask->slider2 == 1))) {
             strncpy(slider2var, s2, 20);
             slider2var[19] = '\0';
             notAlreadySet.slider2 = 0;
@@ -2113,8 +2010,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("S3", s1)) {
-        if ((notAlreadySet.slider3 || force) ||
-            ((mask != NULL) && (mask->slider3 == 1))) {
+        if ((notAlreadySet.slider3 || force) || ((mask != NULL) && (mask->slider3 == 1))) {
             strncpy(slider3var, s2, 20);
             slider3var[19] = '\0';
             notAlreadySet.slider3 = 0;
@@ -2122,8 +2018,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if (load_eqn_msc("SLO1", s1)) {
-        if ((notAlreadySet.slider1lo || force) ||
-            ((mask != NULL) && (mask->slider1lo == 1))) {
+        if ((notAlreadySet.slider1lo || force) || ((mask != NULL) && (mask->slider1lo == 1))) {
             slider1lo = atof(s2);
             notAlreadySet.slider1lo = 0;
         }
@@ -2131,40 +2026,35 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("SLO2", s1)) {
-        if ((notAlreadySet.slider2lo || force) ||
-            ((mask != NULL) && (mask->slider2lo == 1))) {
+        if ((notAlreadySet.slider2lo || force) || ((mask != NULL) && (mask->slider2lo == 1))) {
             slider2lo = atof(s2);
             notAlreadySet.slider2lo = 0;
         }
         return;
     }
     if (load_eqn_msc("SLO3", s1)) {
-        if ((notAlreadySet.slider3lo || force) ||
-            ((mask != NULL) && (mask->slider3lo == 1))) {
+        if ((notAlreadySet.slider3lo || force) || ((mask != NULL) && (mask->slider3lo == 1))) {
             slider3lo = atof(s2);
             notAlreadySet.slider3lo = 0;
         }
         return;
     }
     if (load_eqn_msc("SHI1", s1)) {
-        if ((notAlreadySet.slider1hi || force) ||
-            ((mask != NULL) && (mask->slider1hi == 1))) {
+        if ((notAlreadySet.slider1hi || force) || ((mask != NULL) && (mask->slider1hi == 1))) {
             slider1hi = atof(s2);
             notAlreadySet.slider1hi = 0;
         }
         return;
     }
     if (load_eqn_msc("SHI2", s1)) {
-        if ((notAlreadySet.slider2hi || force) ||
-            ((mask != NULL) && (mask->slider2hi == 1))) {
+        if ((notAlreadySet.slider2hi || force) || ((mask != NULL) && (mask->slider2hi == 1))) {
             slider2hi = atof(s2);
             notAlreadySet.slider2hi = 0;
         }
         return;
     }
     if (load_eqn_msc("SHI3", s1)) {
-        if ((notAlreadySet.slider3hi || force) ||
-            ((mask != NULL) && (mask->slider3hi == 1))) {
+        if ((notAlreadySet.slider3hi || force) || ((mask != NULL) && (mask->slider3hi == 1))) {
             slider3hi = atof(s2);
             notAlreadySet.slider3hi = 0;
         }
@@ -2177,8 +2067,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     */
 
     if (load_eqn_msc("POSTPROCESS", s1)) {
-        if ((notAlreadySet.POSTPROCESS || force) ||
-            ((mask != NULL) && (mask->POSTPROCESS == 1))) {
+        if ((notAlreadySet.POSTPROCESS || force) || ((mask != NULL) && (mask->POSTPROCESS == 1))) {
             post_process = atoi(s2);
             notAlreadySet.POSTPROCESS = 0;
         }
@@ -2186,8 +2075,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("HISTLO", s1)) {
-        if ((notAlreadySet.HISTLO || force) ||
-            ((mask != NULL) && (mask->HISTLO == 1))) {
+        if ((notAlreadySet.HISTLO || force) || ((mask != NULL) && (mask->HISTLO == 1))) {
             hist_inf.xlo = atof(s2);
             notAlreadySet.HISTLO = 0;
         }
@@ -2195,8 +2083,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("HISTHI", s1)) {
-        if ((notAlreadySet.HISTHI || force) ||
-            ((mask != NULL) && (mask->HISTHI == 1))) {
+        if ((notAlreadySet.HISTHI || force) || ((mask != NULL) && (mask->HISTHI == 1))) {
             hist_inf.xhi = atof(s2);
             notAlreadySet.HISTHI = 0;
         }
@@ -2204,8 +2091,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("HISTBINS", s1)) {
-        if ((notAlreadySet.HISTBINS || force) ||
-            ((mask != NULL) && (mask->HISTBINS == 1))) {
+        if ((notAlreadySet.HISTBINS || force) || ((mask != NULL) && (mask->HISTBINS == 1))) {
             hist_inf.nbins = atoi(s2);
             notAlreadySet.HISTBINS = 0;
         }
@@ -2213,8 +2099,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("HISTCOL", s1)) {
-        if ((notAlreadySet.HISTCOL || force) ||
-            ((mask != NULL) && (mask->HISTCOL == 1))) {
+        if ((notAlreadySet.HISTCOL || force) || ((mask != NULL) && (mask->HISTCOL == 1))) {
             browser_find_variable(s2, &i);
             if (i > (-1)) {
                 hist_inf.col = i;
@@ -2225,8 +2110,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("HISTLO2", s1)) {
-        if ((notAlreadySet.HISTLO2 || force) ||
-            ((mask != NULL) && (mask->HISTLO2 == 1))) {
+        if ((notAlreadySet.HISTLO2 || force) || ((mask != NULL) && (mask->HISTLO2 == 1))) {
             hist_inf.ylo = atof(s2);
             notAlreadySet.HISTLO2 = 0;
         }
@@ -2234,8 +2118,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("HISTHI2", s1)) {
-        if ((notAlreadySet.HISTHI2 || force) ||
-            ((mask != NULL) && (mask->HISTHI2 == 1))) {
+        if ((notAlreadySet.HISTHI2 || force) || ((mask != NULL) && (mask->HISTHI2 == 1))) {
             hist_inf.yhi = atof(s2);
             notAlreadySet.HISTHI2 = 0;
         }
@@ -2243,8 +2126,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("HISTBINS2", s1)) {
-        if ((notAlreadySet.HISTBINS2 || force) ||
-            ((mask != NULL) && (mask->HISTBINS2 == 1))) {
+        if ((notAlreadySet.HISTBINS2 || force) || ((mask != NULL) && (mask->HISTBINS2 == 1))) {
             hist_inf.nbins2 = atoi(s2);
             notAlreadySet.HISTBINS2 = 0;
         }
@@ -2252,8 +2134,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("HISTCOL2", s1)) {
-        if ((notAlreadySet.HISTCOL2 || force) ||
-            ((mask != NULL) && (mask->HISTCOL2 == 1))) {
+        if ((notAlreadySet.HISTCOL2 || force) || ((mask != NULL) && (mask->HISTCOL2 == 1))) {
             browser_find_variable(s2, &i);
             if (i > (-1)) {
                 hist_inf.col2 = i;
@@ -2264,8 +2145,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("SPECCOL", s1)) {
-        if ((notAlreadySet.SPECCOL || force) ||
-            ((mask != NULL) && (mask->SPECCOL == 1))) {
+        if ((notAlreadySet.SPECCOL || force) || ((mask != NULL) && (mask->SPECCOL == 1))) {
             browser_find_variable(s2, &i);
             if (i > (-1)) {
                 spec_col = i;
@@ -2276,8 +2156,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("SPECCOL2", s1)) {
-        if ((notAlreadySet.SPECCOL2 || force) ||
-            ((mask != NULL) && (mask->SPECCOL2 == 1))) {
+        if ((notAlreadySet.SPECCOL2 || force) || ((mask != NULL) && (mask->SPECCOL2 == 1))) {
             browser_find_variable(s2, &i);
             if (i > (-1)) {
                 spec_col2 = i;
@@ -2288,8 +2167,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("SPECWIDTH", s1)) {
-        if ((notAlreadySet.SPECWIDTH || force) ||
-            ((mask != NULL) && (mask->SPECWIDTH == 1))) {
+        if ((notAlreadySet.SPECWIDTH || force) || ((mask != NULL) && (mask->SPECWIDTH == 1))) {
             spec_wid = atoi(s2);
             notAlreadySet.SPECWIDTH = 0;
         }
@@ -2297,8 +2175,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("SPECWIN", s1)) {
-        if ((notAlreadySet.SPECWIN || force) ||
-            ((mask != NULL) && (mask->SPECWIN == 1))) {
+        if ((notAlreadySet.SPECWIN || force) || ((mask != NULL) && (mask->SPECWIN == 1))) {
             spec_win = atoi(s2);
             notAlreadySet.SPECWIN = 0;
         }
@@ -2306,24 +2183,21 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (load_eqn_msc("DFGRID", s1)) {
-        if ((notAlreadySet.DFGRID || force) ||
-            ((mask != NULL) && (mask->DFGRID == 1))) {
+        if ((notAlreadySet.DFGRID || force) || ((mask != NULL) && (mask->DFGRID == 1))) {
             df_grid = atoi(s2);
             notAlreadySet.DFGRID = 0;
         }
         return;
     }
     if (load_eqn_msc("DFDRAW", s1)) {
-        if ((notAlreadySet.DFBATCH || force) ||
-            ((mask != NULL) && (mask->DFBATCH == 1))) {
+        if ((notAlreadySet.DFBATCH || force) || ((mask != NULL) && (mask->DFBATCH == 1))) {
             df_batch = atoi(s2);
             notAlreadySet.DFBATCH = 0;
         }
         return;
     }
     if (load_eqn_msc("NCDRAW", s1)) {
-        if ((notAlreadySet.NCBATCH || force) ||
-            ((mask != NULL) && (mask->NCBATCH == 1))) {
+        if ((notAlreadySet.NCBATCH || force) || ((mask != NULL) && (mask->NCBATCH == 1))) {
             NCBatch = atoi(s2);
             notAlreadySet.NCBATCH = 0;
         }
@@ -2332,32 +2206,28 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
 
     // colorize customizing !!
     if (load_eqn_msc("COLORVIA", s1)) {
-        if ((notAlreadySet.COLORVIA || force) ||
-            ((mask != NULL) && (mask->COLORVIA == 1))) {
+        if ((notAlreadySet.COLORVIA || force) || ((mask != NULL) && (mask->COLORVIA == 1))) {
             strcpy(color_via, s2);
         }
         notAlreadySet.COLORVIA = 0;
         return;
     }
     if (load_eqn_msc("COLORIZE", s1)) {
-        if ((notAlreadySet.COLORIZE || force) ||
-            ((mask != NULL) && (mask->COLORIZE == 1))) {
+        if ((notAlreadySet.COLORIZE || force) || ((mask != NULL) && (mask->COLORIZE == 1))) {
             colorize_flag = atoi(s2);
         }
         notAlreadySet.COLORIZE = 0;
         return;
     }
     if (load_eqn_msc("COLORLO", s1)) {
-        if ((notAlreadySet.COLORLO || force) ||
-            ((mask != NULL) && (mask->COLORLO == 1))) {
+        if ((notAlreadySet.COLORLO || force) || ((mask != NULL) && (mask->COLORLO == 1))) {
             color_via_lo = atof(s2);
         }
         notAlreadySet.COLORLO = 0;
         return;
     }
     if (load_eqn_msc("COLORHI", s1)) {
-        if ((notAlreadySet.COLORHI || force) ||
-            ((mask != NULL) && (mask->COLORHI == 1))) {
+        if ((notAlreadySet.COLORHI || force) || ((mask != NULL) && (mask->COLORHI == 1))) {
             color_via_hi = atof(s2);
         }
         notAlreadySet.COLORHI = 0;

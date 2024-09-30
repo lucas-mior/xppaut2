@@ -132,13 +132,11 @@ read_dir_get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     ff->nfiles = nf;
     ff->ndirs = nd;
     if (nd > 0) {
-        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *),
-              read_dir_cmp_string_p);
+        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *), read_dir_cmp_string_p);
     }
 
     if (nf > 0) {
-        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *),
-              read_dir_cmp_string_p);
+        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *), read_dir_cmp_string_p);
     }
     closedir(dirp);
     return 1;
@@ -185,21 +183,18 @@ read_dir_get_fileinfo(char *wild, char *direct, FileInfo *ff) {
     }
 
     if (nd > 0) {
-        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *),
-              read_dir_cmp_string_p);
+        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *), read_dir_cmp_string_p);
     }
 
     if (nf > 0) {
-        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *),
-              read_dir_cmp_string_p);
+        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *), read_dir_cmp_string_p);
     }
     closedir(dirp);
     return 1;
 }
 
 int32
-read_dir_fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild,
-                   int32 *mld, int32 *mlf) {
+read_dir_fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld, int32 *mlf) {
     DIR *dirp;
     int32 l;
     struct dirent *dp;
@@ -373,8 +368,7 @@ read_dir_wild_match(char *string, char *pattern) {
             if (reverse) {
                 pattern++;
             }
-            for (prev = 256, matched = 0; *++pattern && *pattern != ']';
-                 prev = *pattern) {
+            for (prev = 256, matched = 0; *++pattern && *pattern != ']'; prev = *pattern) {
                 if (*pattern == '-' ? *string <= *++pattern && *string >= prev
                                     : *string == *pattern) {
                     matched = 1;

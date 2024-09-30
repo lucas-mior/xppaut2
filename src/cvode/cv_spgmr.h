@@ -184,11 +184,9 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef int32 (*CVSpgmrPrecondFn)(int64 N, double t, Vector y, Vector fy,
-                                  bool jok, bool *jcurPtr, double gamma,
-                                  Vector ewt, double h, double uround,
-                                  int32 *nfePtr, void *P_data, Vector vtemp1,
-                                  Vector vtemp2, Vector vtemp3);
+typedef int32 (*CVSpgmrPrecondFn)(int64 N, double t, Vector y, Vector fy, bool jok, bool *jcurPtr,
+                                  double gamma, Vector ewt, double h, double uround, int32 *nfePtr,
+                                  void *P_data, Vector vtemp1, Vector vtemp2, Vector vtemp3);
 
 /******************************************************************
  *                                                                *
@@ -251,10 +249,9 @@ typedef int32 (*CVSpgmrPrecondFn)(int64 N, double t, Vector y, Vector fy,
  *                                                                *
  ******************************************************************/
 
-typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, Vector y, Vector fy,
-                                 Vector vtemp, double gamma, Vector ewt,
-                                 double delta, int32 *nfePtr, Vector r,
-                                 int32 lr, void *P_data, Vector z);
+typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, Vector y, Vector fy, Vector vtemp, double gamma,
+                                 Vector ewt, double delta, int32 *nfePtr, Vector r, int32 lr,
+                                 void *P_data, Vector z);
 
 /******************************************************************
  *                                                                *
@@ -315,8 +312,7 @@ typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, Vector y, Vector fy,
  *                                                                *
  ******************************************************************/
 
-void cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl,
-              double delt, CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve,
-              void *P_data);
+void cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
+              CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data);
 
 #endif

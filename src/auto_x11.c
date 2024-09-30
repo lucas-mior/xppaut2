@@ -16,17 +16,17 @@
 #include "mykeydef.h"
 #include "parserslow.h"
 
-#define XDS(a)                                                                 \
-    do {                                                                       \
-        XDrawString(display, window, gc, 5, cury_offb, a, strlen(a));          \
-        return;                                                                \
+#define XDS(a)                                                                                     \
+    do {                                                                                           \
+        XDrawString(display, window, gc, 5, cury_offb, a, strlen(a));                              \
+        return;                                                                                    \
     } while (0)
 
 #define SBW XSetWindowBorderWidth(display, window, 1)
 
-#define MYMASK                                                                 \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     LeaveWindowMask | EnterWindowMask | ButtonMotionMask)
+#define MYMASK                                                                                     \
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask | LeaveWindowMask |       \
+     EnterWindowMask | ButtonMotionMask)
 
 int32 auto_redraw_flag = 1;
 
@@ -80,8 +80,7 @@ static void auto_x11_clear_msg(void);
 static void auto_x11_find_point(int32 ibr, int32 pt);
 static void auto_x11_msg(int32 i, int32 v);
 static Window auto_x11_lil_button(Window root, int32 x, int32 y);
-static void auto_x11_update_view(double xlo, double xhi, double ylo,
-                                 double yhi);
+static void auto_x11_update_view(double xlo, double xhi, double ylo, double yhi);
 
 void
 auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
@@ -91,15 +90,13 @@ auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
 
 void
 auto_x11_line_trans(double a, double b, double c, double d) {
-    auto_x11_line(auto_nox_ix_val(a), auto_nox_iy_val(b), auto_nox_ix_val(c),
-                  auto_nox_iy_val(d));
+    auto_x11_line(auto_nox_ix_val(a), auto_nox_iy_val(b), auto_nox_ix_val(c), auto_nox_iy_val(d));
     return;
 }
 
 void
 auto_x11_text(int32 a, int32 b, char *c) {
-    XDrawString(display, auto_win.canvas, small_gc, (a), (b), (c),
-                (int)strlen(c));
+    XDrawString(display, auto_win.canvas, small_gc, (a), (b), (c), (int)strlen(c));
     return;
 }
 
@@ -107,8 +104,7 @@ void
 auto_x11_clr_stab(void) {
     int32 r = Auto.st_wid / 4;
     XClearWindow(display, auto_win.stab);
-    XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r),
-             (uint)(2*r), 0, 360*64);
+    XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r), 0, 360*64);
     return;
 }
 
@@ -145,8 +141,8 @@ auto_x11_query_special(char *title, char *nsymb) {
     int32 status = 1;
     static char *m[] = {"BP", "EP", "HB", "LP", "MX", "PD", "TR", "UZ"};
     static char key[] = "behlmptu";
-    int32 ch = (char)auto_x11_pop_up_list(title, m, key, 8, 11, 1, 10, 10,
-                                          aspecial_hint, Auto.hinttxt);
+    int32 ch =
+        (char)auto_x11_pop_up_list(title, m, key, 8, 11, 1, 10, 10, aspecial_hint, Auto.hinttxt);
     if (ch == 'b') {
         sprintf(nsymb, "BP");
     } else if (ch == 'e') {
@@ -239,8 +235,7 @@ auto_x11_find_point(int32 ibr, int32 pt) {
     while (true) {
         if (d->ibr == ibr &&
             ((d->ntot == pt) ||
-             (d->ntot ==
-              (-pt)))) {  // need to look at both signs to ignore stability
+             (d->ntot == (-pt)))) {  // need to look at both signs to ignore stability
             // now we use this info to set parameters and init data
             for (int32 i = 0; i < NODE; i++) {
                 set_ivar(i + 1, d->u0[i]);
@@ -330,9 +325,8 @@ auto_x11_traverse_diagram(void) {
                         break;
                     }
                     d = dnew;
-                    auto_nox_traverse_out(
-                        d, &ix, &iy,
-                        0);  // Need this each time to update the distance calc
+                    auto_nox_traverse_out(d, &ix, &iy,
+                                          0);  // Need this each time to update the distance calc
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
@@ -668,8 +662,8 @@ auto_x11_bye(int32 *iflag) {
 
 void
 auto_x11_circle(int32 x, int32 y, int32 r) {
-    XDrawArc(display, auto_win.canvas, small_gc, x - r, y - r, (uint)r << 1,
-             (uint)r << 1, 0, 360*64);
+    XDrawArc(display, auto_win.canvas, small_gc, x - r, y - r, (uint)r << 1, (uint)r << 1, 0,
+             360*64);
     return;
 }
 
@@ -692,11 +686,11 @@ auto_x11_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag) {
 }
 
 int32
-auto_x11_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
-                     int32 def, int32 x, int32 y, char **hints, char *httxt) {
+auto_x11_pop_up_list(char *title, char **list, char *key, int32 n, int32 max, int32 def, int32 x,
+                     int32 y, char **hints, char *httxt) {
     Window temp = auto_win.base;
-    int32 value = pop_list_popup_list_new(&temp, title, list, key, n, max, def,
-                                          x, y, hints, auto_win.hint, httxt);
+    int32 value = pop_list_popup_list_new(&temp, title, list, key, n, max, def, x, y, hints,
+                                          auto_win.hint, httxt);
     return value;
 }
 
@@ -740,8 +734,7 @@ auto_x11_fill_circle(int32 x, int32 y, int32 r) {
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
     uint32 wh = (uint32)(2*r2);
 
-    XFillArc(display, auto_win.canvas, small_gc, x - r2, y - r2, wh, wh, 0,
-             360*64);
+    XFillArc(display, auto_win.canvas, small_gc, x - r2, y - r2, wh, wh, 0, 360*64);
     return;
 }
 
@@ -770,8 +763,8 @@ auto_x11_scroll(void) {
     double dy = 0;
     int32 alldone = 0;
     XSelectInput(display, auto_win.canvas,
-                 KeyPressMask | ButtonPressMask | ButtonReleaseMask |
-                     PointerMotionMask | ButtonMotionMask | ExposureMask);
+                 KeyPressMask | ButtonPressMask | ButtonReleaseMask | PointerMotionMask |
+                     ButtonMotionMask | ExposureMask);
     while (!alldone) {
         XNextEvent(display, &event);
         switch (event.type) {
@@ -803,10 +796,8 @@ auto_x11_scroll(void) {
             if (state == 2) {
                 i = event.xmotion.x;
                 j = event.xmotion.y;
-                dx = (double)(i0 - i)*(Auto.xmax - Auto.xmin) /
-                     (double)Auto.wid;
-                dy = (double)(j - j0)*(Auto.ymax - Auto.ymin) /
-                     (double)Auto.hgt;
+                dx = (double)(i0 - i)*(Auto.xmax - Auto.xmin) / (double)Auto.wid;
+                dy = (double)(j - j0)*(Auto.ymax - Auto.ymin) / (double)Auto.hgt;
                 auto_x11_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
             }
             break;
@@ -844,10 +835,9 @@ auto_x11_motion(XEvent event) {
         return;
     }
     if (window == auto_win.canvas) {
-        x = Auto.xmin +
-            (double)(i - Auto.x0)*(Auto.xmax - Auto.xmin) / (double)Auto.wid;
-        y = Auto.ymin + (double)(Auto.y0 - j + Auto.hgt) *
-                            (Auto.ymax - Auto.ymin) / (double)Auto.hgt;
+        x = Auto.xmin + (double)(i - Auto.x0)*(Auto.xmax - Auto.xmin) / (double)Auto.wid;
+        y = Auto.ymin +
+            (double)(Auto.y0 - j + Auto.hgt)*(Auto.ymax - Auto.ymin) / (double)Auto.hgt;
         sprintf(Auto.hinttxt, "x=%g,y=%g", x, y);
         auto_nox_store_point(x, y);
         auto_x11_display(auto_win.hint);
@@ -870,8 +860,7 @@ auto_x11_display(Window window) {
     if (window == auto_win.stab) {
         int32 r = Auto.st_wid / 4;
         XFlush(display);
-        XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r),
-                 (uint)(2*r), 0, 360*64);
+        XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r), 0, 360*64);
         if (CUR_DIAGRAM != NULL) {
             auto_nox_traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
         }
@@ -912,8 +901,7 @@ auto_x11_display(Window window) {
     }
     if (window == auto_win.hint) {
         XClearWindow(display, window);
-        XDrawString(display, window, gc, 8, cury_off, Auto.hinttxt,
-                    (int)strlen(Auto.hinttxt));
+        XDrawString(display, window, gc, 8, cury_off, Auto.hinttxt, (int)strlen(Auto.hinttxt));
         return;
     }
     return;
@@ -953,16 +941,14 @@ auto_x11_make(char *wname, char *iname) {
     y = dcur_y;
     Auto_x0 = x;
     Auto_y0 = y;
-    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, wid,
-                                      hgt, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, wid, hgt, 4);
     XSetWindowBackground(display, base, my_main_win_color);
     auto_win.base = base;
 
     strcpy(Auto.hinttxt, "hint");
 
     XSelectInput(display, base,
-                 ExposureMask | KeyPressMask | ButtonPressMask |
-                     StructureNotifyMask);
+                 ExposureMask | KeyPressMask | ButtonPressMask | StructureNotifyMask);
 
     XStringListToTextProperty(&wname, 1, &winname);
     XStringListToTextProperty(&iname, 1, &iconname);
@@ -978,21 +964,20 @@ auto_x11_make(char *wname, char *iname) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display, base, &winname, &iconname, NULL, 0,
-                         &size_hints, NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints, NULL,
+                         &class_hints);
     }
 
     many_pops_make_icon((char *)auto_bits, auto_width, auto_height, base);
 
-    auto_win.canvas = pop_list_make_plain_window(
-        base, x, y, STD_WID_var + xmargin, STD_HGT_var + ymargin, 1);
+    auto_win.canvas =
+        pop_list_make_plain_window(base, x, y, STD_WID_var + xmargin, STD_HGT_var + ymargin, 1);
     XSetWindowBackground(display, auto_win.canvas, my_draw_win_color);
     XSelectInput(display, auto_win.canvas, MYMASK);
 
     x = dcur_x;
     y = dcur_y + STD_HGT_var + ymargin - 8*dcur_x;
-    auto_win.stab =
-        pop_list_make_plain_window(base, x, y, 12*dcur_x, 12*dcur_x, 2);
+    auto_win.stab = pop_list_make_plain_window(base, x, y, 12*dcur_x, 12*dcur_x, 2);
     Auto.st_wid = 12*dcur_x;
     x = dcur_x + 2;
     y = 2*dcur_y;
@@ -1024,10 +1009,9 @@ auto_x11_make(char *wname, char *iname) {
 
     y = dcur_y + STD_HGT_var + ymargin + 5;
     x = addwid + 5;
-    auto_win.info = pop_list_make_plain_window(
-        base, x, y, STD_WID_var + xmargin, addhgt, 2);
-    auto_win.hint = pop_list_make_plain_window(
-        base, x, y + addhgt + 6, STD_WID_var + xmargin, dcur_y + 2, 2);
+    auto_win.info = pop_list_make_plain_window(base, x, y, STD_WID_var + xmargin, addhgt, 2);
+    auto_win.hint =
+        pop_list_make_plain_window(base, x, y + addhgt + 6, STD_WID_var + xmargin, dcur_y + 2, 2);
 
     auto_nox_draw_bix_axes();
     return;
@@ -1061,18 +1045,16 @@ auto_x11_resize_window(XEvent event) {
 
         XResizeWindow(display, auto_win.canvas, (uint)wid, (uint)hgt);
 
-        XGetGeometry(display, auto_win.canvas, &root, &xloc, &yloc, &cwid,
-                     &chgt, &cbwid, &cdepth);
+        XGetGeometry(display, auto_win.canvas, &root, &xloc, &yloc, &cwid, &chgt, &cbwid, &cdepth);
 
         Auto.hgt = (int32)chgt - ymargin;
         Auto.wid = (int32)cwid - xmargin;
         if (flag_true_color > 0) {
-            XMoveResizeWindow(display, auto_win.info, xloc,
-                              yloc + (int32)chgt + 4, (uint)wid, (uint)addhgt);
+            XMoveResizeWindow(display, auto_win.info, xloc, yloc + (int32)chgt + 4, (uint)wid,
+                              (uint)addhgt);
 
-            XMoveResizeWindow(display, auto_win.hint, xloc,
-                              yloc + (int32)chgt + addhgt + 10, (uint)wid,
-                              (uint)dcur_y + 2);
+            XMoveResizeWindow(display, auto_win.hint, xloc, yloc + (int32)chgt + addhgt + 10,
+                              (uint)wid, (uint)dcur_y + 2);
         }
 
         if (NBifs < 2) {
@@ -1233,8 +1215,7 @@ auto_x11_keypress(XEvent event, int32 *used) {
     }
     XGetInputFocus(display, &w2, &rev);
 
-    if (window == auto_win.base || window == auto_win.canvas ||
-        w2 == auto_win.base) {
+    if (window == auto_win.base || window == auto_win.canvas || w2 == auto_win.base) {
         *used = 1;
         ks = (char)ggets_get_key_press(&event);
 

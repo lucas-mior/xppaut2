@@ -9,20 +9,20 @@ typedef struct {
     FUNI_TYPE((*funi));                                        // scalar input
     ICNI_TYPE((*icni));                                        // scalar input
     int64 ndxloc;                                              // scalar input
-    iap_type *iap;  // array input size: NIAP
-    rap_type *rap;  // array input size: NRAP
-    double *par;    // array input size: NPARX2
-    int64 *icp;     // array input size:  NPARX2
-    double *aa;     /*array output (but must be initialized to 0) size: *nca X
-                     *nra X *na */
-    double *bb;     /*array output (but must be initialized to 0) size: *ncb X
-                     *nra X *na */
-    double *cc;     /*array output (but must be initialized to 0) size: *nca X
-                     *nrc X *na */
-    double *dd;     // array output (but must be initialized to 0) size: *ncb X
-                    // *nrc
-    double *fa;  // array output (but must be initialized to 0) size: *nra X *na
-    double *fc;  // array output (but must be initialized to 0) size: *nrc
+    iap_type *iap;                                             // array input size: NIAP
+    rap_type *rap;                                             // array input size: NRAP
+    double *par;                                               // array input size: NPARX2
+    int64 *icp;                                                // array input size:  NPARX2
+    double *aa;         /*array output (but must be initialized to 0) size: *nca X
+                         *nra X *na */
+    double *bb;         /*array output (but must be initialized to 0) size: *ncb X
+                         *nra X *na */
+    double *cc;         /*array output (but must be initialized to 0) size: *nca X
+                         *nrc X *na */
+    double *dd;         // array output (but must be initialized to 0) size: *ncb X
+                        // *nrc
+    double *fa;         // array output (but must be initialized to 0) size: *nra X *na
+    double *fc;         // array output (but must be initialized to 0) size: *nrc
     double *ups;        // array input size: *ndxloc X (*ndim X *ncol)
     double *uoldps;     // array input size: *ndxloc X (*ndim X *ncol)
     double *udotps;     // array input size: *ndxloc X (*ndim X *ncol)
@@ -33,10 +33,10 @@ typedef struct {
     int64 loop_offset;  // scalar input
     double *wp;         // array input size: MCL2*MCL1
     double *wt;         // array input size: MCL2*MCL1
-    double *wi;     // array input size: MCL2*MCL1??? Not sure of this one yet
-    double *thu;    // array input size: ndim*8
-    double *thl;    // array input size: NPARX
-    double *rldot;  // array input size: NPARX
+    double *wi;         // array input size: MCL2*MCL1??? Not sure of this one yet
+    double *thu;        // array input size: ndim*8
+    double *thl;        // array input size: NPARX
+    double *rldot;      // array input size: NPARX
     BCNI_TYPE((*bcni));
 } setubv_parallel_arglist;
 

@@ -86,8 +86,8 @@ kinescope_film_clip(void) {
     XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
     movie[mov_ind].h = (int32)h;
     movie[mov_ind].w = (int32)w;
-    movie[mov_ind].xi = XCreatePixmap(display, RootWindow(display, screen), w,
-                                      h, (uint)DefaultDepth(display, screen));
+    movie[mov_ind].xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
+                                      (uint)DefaultDepth(display, screen));
     XCopyArea(display, draw_win, movie[mov_ind].xi, gc_graph, 0, 0, w, h, 0, 0);
     mov_ind++;
     return 1;
@@ -99,8 +99,7 @@ kinescope_show_frame(int32 i, int32 h, int32 w) {
         kinescope_too_small();
         return 1;
     }
-    XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h,
-              0, 0);
+    XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h, 0, 0);
     XFlush(display);
 
     return 0;
@@ -118,8 +117,8 @@ kinescope_play_back(void) {
     Window root;
     XEvent event;
     int32 i = 0;
-    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
-                 (uint32 *)&bw, (uint32 *)&d);
+    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw,
+                 (uint32 *)&d);
     if (mov_ind == 0) {
         return;
     }
@@ -128,8 +127,7 @@ kinescope_play_back(void) {
         return;
     }
 
-    XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h,
-              0, 0);
+    XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h, 0, 0);
     XFlush(display);
     while (true) {
         XNextEvent(display, &event);
@@ -210,8 +208,8 @@ kinescope_make_anigif(void) {
     int32 w;
     int32 bw;
     int32 d;
-    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
-                 (uint32 *)&bw, (uint32 *)&d);
+    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw,
+                 (uint32 *)&d);
     if (mov_ind == 0) {
         return;
     }
@@ -230,8 +228,7 @@ kinescope_make_anigif(void) {
     fp = fopen("anim.gif", "wb");
     scrngif_set_global_map(1);
     for (i = 0; i < mov_ind; i++) {
-        XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w,
-                  (uint)h, 0, 0);
+        XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h, 0, 0);
         XFlush(display);
         scrngif_add_ani_gif(movie[i].xi, fp, i);
     }
@@ -255,8 +252,8 @@ kinescope_save_movie(char *basename, int32 fmat) {
     int32 w;
     int32 bw;
     int32 d;
-    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
-                 (uint32 *)&bw, (uint32 *)&d);
+    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw,
+                 (uint32 *)&d);
     if (mov_ind == 0) {
         return;
     }
@@ -271,20 +268,18 @@ kinescope_save_movie(char *basename, int32 fmat) {
         } else {
             sprintf(file, "%s_%d.gif", basename, i);
         }
-        XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w,
-                  (uint)h, 0, 0);
+        XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h, 0, 0);
         XFlush(display);
         if (fmat == 1) {
             ani_write_frame(file, draw_win, w, h);
         }
 #ifndef NOGIF
         else {
-            XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w,
-                         (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
-            xi = XCreatePixmap(display, RootWindow(display, screen), (uint)w,
-                               (uint)h, (uint)DefaultDepth(display, screen));
-            XCopyArea(display, draw_win, xi, gc_graph, 0, 0, (uint)w, (uint)h,
-                      0, 0);
+            XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
+                         (uint32 *)&bw, (uint32 *)&d);
+            xi = XCreatePixmap(display, RootWindow(display, screen), (uint)w, (uint)h,
+                               (uint)DefaultDepth(display, screen));
+            XCopyArea(display, draw_win, xi, gc_graph, 0, 0, (uint)w, (uint)h, 0, 0);
 
             fp = fopen(file, "wb");
             scrngif_screen_to_gif(xi, fp);
@@ -322,8 +317,8 @@ kinescope_auto_play(void) {
     if (ks_ncycle <= 0) {
         return;
     }
-    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
-                 (uint32 *)&bw, (uint32 *)&d);
+    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw,
+                 (uint32 *)&d);
     if (mov_ind == 0) {
         return;
     }
@@ -332,8 +327,7 @@ kinescope_auto_play(void) {
         return;
     }
 
-    XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h,
-              0, 0);
+    XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h, 0, 0);
     XFlush(display);
 
     while (true) {
@@ -377,8 +371,7 @@ kinescope_auto_play(void) {
             kinescope_too_small();
             return;
         }
-        XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w,
-                  (uint)h, 0, 0);
+        XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h, 0, 0);
         XFlush(display);
         if (cycle >= ks_ncycle) {
             return;

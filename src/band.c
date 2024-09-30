@@ -247,8 +247,7 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
             // a_kj = a(k,j), *kptr = - a(i,k)/a(k,k), *jptr = a(i,j)
 
             if (a_kj != 0.0) {
-                for (i = k + 1, kptr = sub_diag_k,
-                    jptr = col_j + ROW(k + 1, j, smu);
+                for (i = k + 1, kptr = sub_diag_k, jptr = col_j + ROW(k + 1, j, smu);
                      i <= last_row_k; i++, kptr++, jptr++) {
                     (*jptr) += a_kj*(*kptr);
                 }
@@ -323,8 +322,7 @@ band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
 }
 
 void
-band_copy2(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
-           int64 copymu, int64 copyml) {
+band_copy2(double **a, double **b, int64 n, int64 a_smu, int64 b_smu, int64 copymu, int64 copyml) {
     int64 copySize;
     double *a_col_j;
     double *b_col_j;

@@ -31,20 +31,18 @@ static double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
 static void gear_sscal(int32 n, double sa, double *sx, int32 incx);
 static double gear_sdot(int32 n, double *sx, int32 incx, int32 incy);
 static int32 gear_is_amax(int32 n, double *sx, int32 incx);
-static void gear_saxpy(int32 n, double sa, double *sx, int32 incx, double *sy,
-                       int32 incy);
+static void gear_saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy);
 static double gear_sgnum(double x, double y);
 static double gear_sqr2(double z);
 static void gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
-static void gear_hqrx(int32 n, int32 low, int32 igh, double *h, double *ev,
-                      int32 *ierr);
+static void gear_hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr);
 static void gear_pr_evec(double *x, double *ev, int32 n, int32 type);
 static double gear_max(double x, double y);
 
 /* main fixed point finder */
 void
-gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
-             int32 n, int32 *ierr, double *stabinfo) {
+gear_do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n, int32 *ierr,
+             double *stabinfo) {
     int32 kmem;
     int32 ipivot[MAX_ODE];
     int32 oldcol;
@@ -115,8 +113,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     // succesfully computed evals now lets work with them
     ch = 'n';
     if (!par_fol) {
-        ch =
-            (char)menudrive_two_choice("YES", "NO", "Print eigenvalues?", "yn");
+        ch = (char)menudrive_two_choice("YES", "NO", "Print eigenvalues?", "yn");
     }
     pr = 0;
 
@@ -196,18 +193,15 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     if (((rp == 1) || (rn == 1)) && (n > 1)) {
         ch = 'n';
         if (!par_fol) {
-            ch = (char)menudrive_two_choice("YES", "NO", "Draw Invariant Sets?",
-                                            "yn");
+            ch = (char)menudrive_two_choice("YES", "NO", "Draw Invariant Sets?", "yn");
         }
         if ((ch == 'y') || (par_fol && shoot)) {
             oldt = delta_t;
 
             if (rp == 1) {
-                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                              eval[2*pose], ierr);
+                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, eval[2*pose], ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(UnstableManifoldColor,
-                                                      &oldcol);
+                    graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
                     gear_pr_evec(x, b, n, 1);
                     delta_t = fabs(delta_t);
                     integrate_shoot(bp, x, b, 1);
@@ -219,11 +213,9 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
                 }
             }
             if (rn == 1) {
-                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                              eval[2*nege], ierr);
+                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, eval[2*nege], ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(stable_manifold_color,
-                                                      &oldcol);
+                    graphics_change_current_linestyle(stable_manifold_color, &oldcol);
                     gear_pr_evec(x, b, n, -1);
                     delta_t = -fabs(delta_t);
                     integrate_shoot(bp, x, b, 1);
@@ -243,8 +235,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     if (((rn > 1) && (bneg >= 0)) || ((rp > 1) && (bpos >= 0))) {
         ch = 'n';
         if (!par_fol) {
-            ch = (char)menudrive_two_choice("YES", "NO", "Draw Strong Sets?",
-                                            "yn");
+            ch = (char)menudrive_two_choice("YES", "NO", "Draw Strong Sets?", "yn");
         }
 
         if ((ch == 'y') || (par_fol && shoot)) {
@@ -253,11 +244,9 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
             if ((rp > 1) && (bpos >= 0))  // then there is a strong unstable
             {
                 ggets_plintf("strong unstable %g \n", bigpos);
-                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                              bigpos, ierr);
+                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigpos, ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(UnstableManifoldColor,
-                                                      &oldcol);
+                    graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
                     gear_pr_evec(x, b, n, 1);
                     delta_t = fabs(delta_t);
                     integrate_shoot(bp, x, b, 1);
@@ -272,11 +261,9 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
             if ((rn > 1) && (bneg >= 0))  // then there is a strong stable
             {
                 ggets_plintf("strong stable %g \n", bigneg);
-                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                              bigneg, ierr);
+                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigneg, ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(stable_manifold_color,
-                                                      &oldcol);
+                    graphics_change_current_linestyle(stable_manifold_color, &oldcol);
                     gear_pr_evec(x, b, n, -1);
                     delta_t = -fabs(delta_t);
                     integrate_shoot(bp, x, b, 1);
@@ -375,8 +362,8 @@ gear_shoot_this_now(void) {
 
 /* fixed point with no requests and store manifolds */
 void
-gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
-                  int32 n, double *er, double *em, int32 *ierr) {
+gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit, int32 n, double *er,
+                  double *em, int32 *ierr) {
     int32 kmem;
     int32 ipivot[MAX_ODE];
 
@@ -499,8 +486,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
     if ((n > 1)) {
         if (rp == 1) {
-            gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                          eval[2*pose], ierr);
+            gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, eval[2*pose], ierr);
 
             if (*ierr == 0) {
                 gear_pr_evec(x, b, n, 1);
@@ -508,8 +494,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
         }
 
         if (rn == 1) {
-            gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                          eval[2*nege], ierr);
+            gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, eval[2*nege], ierr);
 
             if (*ierr == 0) {
                 gear_pr_evec(x, b, n, -1);
@@ -538,8 +523,8 @@ gear_pr_evec(double *x, double *ev, int32 n, int32 type) {
 }
 
 void
-gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
-                      int32 n, int32 maxit, double err, int32 *ierr) {
+gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm, int32 n,
+                      int32 maxit, double err, int32 *ierr) {
     double *a;
     double *anew;
     int32 *ipivot;
@@ -589,9 +574,8 @@ gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
 }
 
 void
-gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
-              int32 maxit, double err, int32 *ipivot, double eval,
-              int32 *ierr) {
+gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit, double err,
+              int32 *ipivot, double eval, int32 *ierr) {
     int32 iter;
     int32 jmax;
     double temp;
@@ -776,8 +760,7 @@ l130:
             break;
         }
         if ((fabs(h[m - 1 + (m - 2)*n])*(fabs(q) + fabs(r))) <=
-            (machep*fabs(p) *
-             (fabs(h[m - 2 + (m - 2)*n]) + fabs(zz) + fabs(h[m + m*n])))) {
+            (machep*fabs(p)*(fabs(h[m - 2 + (m - 2)*n]) + fabs(zz) + fabs(h[m + m*n])))) {
             break;
         }
     }
@@ -930,8 +913,7 @@ gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
             }
             f = f / h;
             for (i = m; i <= igh; i++) {
-                a[i - 1 + (j - 1)*n] =
-                    a[i - 1 + (j - 1)*n] - f*ort[i - 1];
+                a[i - 1 + (j - 1)*n] = a[i - 1 + (j - 1)*n] - f*ort[i - 1];
             }
         }
         for (i = 1; i <= igh; i++)  // 160
@@ -944,8 +926,7 @@ gear_orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
             }
             f = f / h;
             for (j = m; j <= igh; j++) {
-                a[i - 1 + (j - 1)*n] =
-                    a[i - 1 + (j - 1)*n] - f*ort[j - 1];
+                a[i - 1 + (j - 1)*n] = a[i - 1 + (j - 1)*n] - f*ort[j - 1];
             }
         }
         ort[m - 1] = scale*ort[m - 1];
@@ -979,8 +960,7 @@ gear_amax(double u, double v) {
 }
 
 void
-gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
-             double *dermat, int32 n) {
+gear_get_jac(double *x, double *y, double *yp, double *xp, double eps, double *dermat, int32 n) {
     double r;
     rhs_function(0.0, x, y, n);
     if (METHOD == 0) {
@@ -1013,8 +993,7 @@ gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
 }
 
 void
-gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
-               double *dermat, int32 n) {
+gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps, double *dermat, int32 n) {
     double r;
     rhs_function(0.0, x, y, n);
     for (int32 i = 0; i < n; i++) {
@@ -1036,8 +1015,8 @@ gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
 }
 
 void
-gear_rooter(double *x, double err, double eps, double big, double *work,
-            int32 *ierr, int32 maxit, int32 n) {
+gear_rooter(double *x, double err, double eps, double big, double *work, int32 *ierr, int32 maxit,
+            int32 n) {
     int32 iter;
     int32 ipivot[MAX_ODE];
     int32 info;
@@ -1112,27 +1091,23 @@ gear_sqr2(double z) {
 }
 
 int32
-gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
-     double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
-     double *work, int32 *iwork) {
+gear(int32 n, double *t, double tout, double *y, double hmin, double hmax, double eps, int32 mf,
+     double *error, int32 *kflag, int32 *jstart, double *work, int32 *iwork) {
     if (NFlags == 0) {
-        return (ggear(n, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart,
-                      work, iwork));
+        return (ggear(n, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart, work, iwork));
     }
-    return (one_flag_step_gear(n, t, tout, y, hmin, hmax, eps, mf, error, kflag,
-                               jstart, work, iwork));
+    return (
+        one_flag_step_gear(n, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart, work, iwork));
 }
 
 int32
-ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
-      double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
-      double *work, int32 *iwork) {
-    double deltat = 0.0, hnew = 0.0, hold = 0.0, h = 0.0, racum = 0.0,
-           told = 0.0, r = 0.0, d = 0.0;
+ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax, double eps, int32 mf,
+      double *error, int32 *kflag, int32 *jstart, double *work, int32 *iwork) {
+    double deltat = 0.0, hnew = 0.0, hold = 0.0, h = 0.0, racum = 0.0, told = 0.0, r = 0.0, d = 0.0;
     double *a, pr1, pr2, pr3, r1;
     double *dermat, *save[8], *save9, *save10, *save11, *save12;
-    double enq1 = 0.0, enq2 = 0.0, enq3 = 0.0, pepsh = 0.0, e = 0.0, edwn = 0.0,
-           eup = 0.0, bnd = 0.0;
+    double enq1 = 0.0, enq2 = 0.0, enq3 = 0.0, pepsh = 0.0, e = 0.0, edwn = 0.0, eup = 0.0,
+           bnd = 0.0;
     double *ytable[8], *ymax, *work2;
     int32 iret = 0;
     int32 maxder = 0;
@@ -1141,8 +1116,7 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
     int32 nqold = 0;
     int32 nq = 0;
     int32 newq = 0;
-    int32 idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0,
-          job = 0, nt = 0;
+    int32 idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0, job = 0, nt = 0;
     for (int32 i = 0; i < 8; i++) {
         save[i] = work + i*n;
         ytable[i] = work + (8 + i)*n;
@@ -1729,8 +1703,7 @@ gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
                         a[l*lda + j - 1] = a[(k - 1)*lda + j - 1];
                         a[(k - 1)*lda + j - 1] = t;
                     }
-                    gear_saxpy(n - k, t, (a + k*lda + k - 1), lda,
-                               (a + k*lda + j - 1), lda);
+                    gear_saxpy(n - k, t, (a + k*lda + k - 1), lda, (a + k*lda + j - 1), lda);
                 }
             } else {
                 *info = k - 1;
@@ -1780,8 +1753,7 @@ gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
     if (nm1 > 0) {
         for (kb = 1; kb <= nm1; kb++) {
             k = n - kb;
-            b[k - 1] =
-                b[k - 1] + gear_sdot(n - k, (a + k*lda + k - 1), lda, 1);
+            b[k - 1] = b[k - 1] + gear_sdot(n - k, (a + k*lda + k - 1), lda, 1);
             l = ipvt[k - 1];
             if (l != (k - 1)) {
                 t = b[l];

@@ -90,20 +90,20 @@
 #define ONEPSM 1.000001
 
 #define SMALL_NST 10  // nst > SMALL_NST => use ETAMX3
-#define MXNCF                                                                  \
+#define MXNCF                                                                                      \
     10  // max no. of convergence failures during
         // one step try
-#define MXNEF                                                                  \
+#define MXNEF                                                                                      \
     7  // max no. of error test failures during
        // one step try
-#define MXNEF1                                                                 \
+#define MXNEF1                                                                                     \
     3  // max no. of error test failures before
        // forcing a reduction of order
-#define SMALL_NEF                                                              \
+#define SMALL_NEF                                                                                  \
     2  // if an error failure occurs and
        // SMALL_NEF <= nef <= MXNEF1, then
        // reset eta =  MIN(eta, ETAMXF)
-#define LONG_WAIT                                                              \
+#define LONG_WAIT                                                                                  \
     10  // number of steps to wait before
         // considering an order change when
         // q==1 and MXNEF1 error test failures
@@ -124,25 +124,25 @@
 
 /* CVnls other constants */
 
-#define FUNC_MAXCOR                                                            \
+#define FUNC_MAXCOR                                                                                \
     3  // maximum no. of corrector iterations
        // for iter == FUNCTIONAL
-#define NEWT_MAXCOR                                                            \
+#define NEWT_MAXCOR                                                                                \
     3  // maximum no. of corrector iterations
        // for iter == NEWTON
 
-#define CRDOWN                                                                 \
+#define CRDOWN                                                                                     \
     0.3  // constant used in the estimation of the
          // convergence rate (crate) of the
          // iterates for the nonlinear equation
-#define DGMAX                                                                  \
+#define DGMAX                                                                                      \
     0.3  // iter == NEWTON, |gamma/gammap-1| > DGMAX
          // => call lsetup
 
 #define RDIV 2.0  // declare divergence if ratio del/delp > RDIV
 #define MSBP 20   // max no. of steps between lsetup calls
 
-#define TRY_AGAIN                                                              \
+#define TRY_AGAIN                                                                                  \
     99  // control constant for CVnlsNewton - should be
         // distinct from CVnls return values
 
@@ -300,12 +300,12 @@
 static bool cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord);
 static void cv_free_vectors(CVodeMem cv_mem, int32 maxord);
 
-static bool cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol,
-                       int32 tol_type, Vector ycur, Vector ewtvec, int64 neq);
-static bool cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol,
-                          Vector ycur, Vector ewtvec, int64 neq);
-static bool cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol,
-                          Vector ycur, Vector ewtvec, int64 neq);
+static bool cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type, Vector ycur,
+                       Vector ewtvec, int64 neq);
+static bool cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur, Vector ewtvec,
+                          int64 neq);
+static bool cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur, Vector ewtvec,
+                          int64 neq);
 
 static bool cv_hin(CVodeMem cv_mem, double tout);
 static double cv_upper_bound_h0(CVodeMem cv_mem, double tdist);
@@ -327,25 +327,23 @@ static void cv_predict(CVodeMem cv_mem);
 static void cv_set(CVodeMem cv_mem);
 static void cv_set_adams(CVodeMem cv_mem);
 static double cv_adams_start(CVodeMem cv_mem, double m[]);
-static void cv_adams_finish(CVodeMem cv_mem, double m[], double M[],
-                            double hsum);
+static void cv_adams_finish(CVodeMem cv_mem, double m[], double M[], double hsum);
 static double cv_alt_sum(int32 iend, double a[], int32 k);
 static void cv_set_bdf(CVodeMem cv_mem);
-static void cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0,
-                          double alpha0_hat, double xi_inv, double xistar_inv);
+static void cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
+                          double xi_inv, double xistar_inv);
 
 static int32 cv_nls(CVodeMem cv_mem, int32 nflag);
 static int32 cv_nls_functional(CVodeMem cv_mem);
 static int32 cv_nls_newton(CVodeMem cv_mem, int32 nflag);
 static int32 cv_newton_iteration(CVodeMem cv_mem);
 
-static int32 cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
-                              int32 *ncfPtr);
+static int32 cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t, int32 *ncfPtr);
 
 static void cv_restore(CVodeMem cv_mem, double saved_t);
 
-static bool cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
-                             double saved_t, int32 *nefPtr, double *dsmPtr);
+static bool cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
+                             int32 *nefPtr, double *dsmPtr);
 
 static void cv_complete_step(CVodeMem cv_mem);
 
@@ -353,8 +351,7 @@ static void cv_prepare_next_step(CVodeMem cv_mem, double dsm);
 static void cv_set_eta(CVodeMem cv_mem);
 static double cv_compute_etaqm1(CVodeMem cv_mem);
 static double cv_compute_etaqp1(CVodeMem cv_mem);
-static void cv_choose_eta(CVodeMem cv_mem, double etaqm1, double etaq,
-                          double etaqp1);
+static void cv_choose_eta(CVodeMem cv_mem, double etaqm1, double etaq, double etaqp1);
 
 static int32 cv_handle_failure(CVodeMem cv_mem, int32 kflag);
 
@@ -445,9 +442,9 @@ static int32 cv_handle_failure(CVodeMem cv_mem, int32 kflag);
 *****************************************************************/
 
 void *
-cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
-             int32 itol, double *reltol, void *abstol, void *f_data,
-             FILE *errfp, bool optIn, int32 iopt[], double ropt[]) {
+cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter, int32 itol,
+             double *reltol, void *abstol, void *f_data, FILE *errfp, bool optIn, int32 iopt[],
+             double ropt[]) {
     bool allocOK;
     bool ioptExists;
     bool roptExists;
@@ -1155,8 +1152,8 @@ cv_free_vectors(CVodeMem cv_mem, int32 maxord) {
 ***********************************************************************/
 
 static bool
-cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
-           Vector ycur, Vector ewtvec, int64 neq) {
+cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type, Vector ycur, Vector ewtvec,
+           int64 neq) {
     switch (tol_type) {
     case SS:
         return cv_ewt_set_ss(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq);
@@ -1179,8 +1176,7 @@ cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
 ********************************************************************/
 
 static bool
-cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
-              Vector ewtvec, int64 neq) {
+cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur, Vector ewtvec, int64 neq) {
     double rtoli;
     double atoli;
     (void)neq;
@@ -1208,8 +1204,7 @@ cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
 ********************************************************************/
 
 static bool
-cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur,
-              Vector ewtvec, int64 neq) {
+cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur, Vector ewtvec, int64 neq) {
     double rtoli;
     (void)neq;
 
@@ -1288,8 +1283,7 @@ cv_hin(CVodeMem cv_mem, double tout) {
     while (true) {
         hgs = hg*sign;
         yddnrm = cv_ydd_norm(cv_mem, hgs);
-        hnew = (yddnrm*hub*hub > 2.0) ? llnlmath_rsqrt(2.0 / yddnrm)
-                                          : llnlmath_rsqrt(hg*hub);
+        hnew = (yddnrm*hub*hub > 2.0) ? llnlmath_rsqrt(2.0 / yddnrm) : llnlmath_rsqrt(hg*hub);
         count++;
         if (count >= MAX_ITERS) {
             break;
@@ -1949,8 +1943,8 @@ cv_set_bdf(CVodeMem cv_mem) {
 ******************************************************************/
 
 static void
-cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
-              double xi_inv, double xistar_inv) {
+cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat, double xi_inv,
+              double xistar_inv) {
     double A1;
     double A2;
     double A3;
@@ -2084,14 +2078,12 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
     vtemp3 = tempv;  // rename tempv as vtemp3 for readability
 
     // Set flag convfail, input to lsetup for its evaluation decision
-    convfail = ((nflag == FIRST_CALL) || (nflag == PREV_ERR_FAIL)) ? NO_FAILURES
-                                                                   : FAIL_OTHER;
+    convfail = ((nflag == FIRST_CALL) || (nflag == PREV_ERR_FAIL)) ? NO_FAILURES : FAIL_OTHER;
 
     // Decide whether or not to call setup routine (if one exists)
     if (setupNonNull) {
-        callSetup = (nflag == PREV_CONV_FAIL) || (nflag == PREV_ERR_FAIL) ||
-                    (nst == 0) || (nst >= nstlp + MSBP) ||
-                    (ABS(gamrat - 1.0) > DGMAX);
+        callSetup = (nflag == PREV_CONV_FAIL) || (nflag == PREV_ERR_FAIL) || (nst == 0) ||
+                    (nst >= nstlp + MSBP) || (ABS(gamrat - 1.0) > DGMAX);
     } else {
         crate = 1.0;
         callSetup = false;
@@ -2107,8 +2099,7 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
         nfe++;
 
         if (callSetup) {
-            ier = lsetup(cv_mem, convfail, zn[0], ftemp, &jcur, vtemp1, vtemp2,
-                         vtemp3);
+            ier = lsetup(cv_mem, convfail, zn[0], ftemp, &jcur, vtemp1, vtemp2, vtemp3);
             nsetups++;
             callSetup = false;
             gamrat = crate = 1.0;
@@ -2255,8 +2246,7 @@ cv_newton_iteration(CVodeMem cv_mem) {
 *********************************************************************/
 
 static int32
-cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
-                 int32 *ncfPtr) {
+cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t, int32 *ncfPtr) {
     int32 nflag;
 
     nflag = *nflagPtr;
@@ -2336,8 +2326,8 @@ cv_restore(CVodeMem cv_mem, double saved_t) {
 ******************************************************************/
 
 static bool
-cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
-                 double saved_t, int32 *nefPtr, double *dsmPtr) {
+cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t, int32 *nefPtr,
+                 double *dsmPtr) {
     double dsm;
 
     dsm = acnrm / tq[2];

@@ -23,8 +23,8 @@ start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
     for (int32 i = 0; i < n; i++) {
         ycv->data[i] = y[i];
     }
-    cvode_mem = cvode_malloc(n, cv_func, t, ycv, BDF, NEWTON, SS, rtol, atol,
-                             NULL, NULL, false, cv_iopt, cv_ropt);
+    cvode_mem = cvode_malloc(n, cv_func, t, ycv, BDF, NEWTON, SS, rtol, atol, NULL, NULL, false,
+                             cv_iopt, cv_ropt);
     if (cv_bandflag == 1) {
         cv_band(cvode_mem, cv_bandupper, cv_bandlower, NULL, NULL);
     } else {
@@ -65,8 +65,8 @@ cvode_err_msg(int32 kflag) {
         strcpy(s, "Too much work -- try smaller DT");
         break;
     case -4:
-        sprintf(s, "Tolerance too low-- try TOL=%g ATOL=%g",
-                TOLER*cv_ropt[TOLSF], atoler*cv_ropt[TOLSF]);
+        sprintf(s, "Tolerance too low-- try TOL=%g ATOL=%g", TOLER*cv_ropt[TOLSF],
+                atoler*cv_ropt[TOLSF]);
         break;
     case -5:
         strcpy(s, "Error test failure too frequent ??");
@@ -96,8 +96,8 @@ cvode_err_msg(int32 kflag) {
 int32
 cvode(
     // command =0 continue, 1 is start 2 finish
-    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
-    double *atol, double *rtol) {
+    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag, double *atol,
+    double *rtol) {
     int32 err = 0;
 
     if (NFlags == 0) {
@@ -113,8 +113,8 @@ cvode(
 int32
 ccvode(
     // command =0 continue, 1 is start 2 finish
-    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
-    double *atol, double *rtol) {
+    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag, double *atol,
+    double *rtol) {
     int32 flag;
     *kflag = 0;
     if (*command == 2) {

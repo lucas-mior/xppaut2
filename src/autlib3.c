@@ -14,9 +14,8 @@
 /* ----------------------------------------------------------------------- */
 
 int32
-fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -37,8 +36,7 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    fflp(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    fflp(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -63,20 +61,19 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        fflp(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        fflp(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        fflp(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        fflp(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     par[icp[0]] += ep;
 
-    fflp(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
-         global_scratch.dfu, global_scratch.dfp);
+    fflp(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+         global_scratch.dfp);
 
     for (int64 j = 0; j < ndim; ++j) {
         ARRAY2D(dfdp, j, (icp[0])) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -88,9 +85,8 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -156,11 +152,9 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     readlb(u, par);
 
     if (ips == -1) {
-        fnds(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu,
-             global_scratch.dfp);
+        fnds(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu, global_scratch.dfp);
     } else {
-        funi(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu,
-             global_scratch.dfp);
+        funi(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu, global_scratch.dfp);
     }
     nlvc(ndm, ndm, 1, global_scratch.dfu, v);
     nrmlz(&ndm, v);
@@ -179,9 +173,8 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -263,9 +256,8 @@ stpnc1(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 }
 
 int32
-fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -287,8 +279,7 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    ffc2(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    ffc2(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -313,13 +304,12 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        ffc2(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        ffc2(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        ffc2(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        ffc2(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
@@ -332,9 +322,8 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -425,8 +414,7 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     readlb(u, par);
 
     if (nfpr == 3) {
-        funi(iap, rap, ndm, u, &uold, icp, par, 2, f, global_scratch.dfu,
-             global_scratch.dfp);
+        funi(iap, rap, ndm, u, &uold, icp, par, 2, f, global_scratch.dfu, global_scratch.dfp);
         fopi(iap, rap, ndm, u, icp, par, 2, &fop, du, dp);
         //       TRANSPOSE
         for (int64 i = 0; i < ndm; ++i) {
@@ -466,9 +454,8 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -500,9 +487,8 @@ fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -544,9 +530,8 @@ fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -568,8 +553,7 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    ffhd(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    ffhd(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -594,20 +578,19 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        ffhd(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        ffhd(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        ffhd(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        ffhd(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     par[icp[0]] += ep;
 
-    ffhd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
-         global_scratch.dfu, global_scratch.dfp);
+    ffhd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+         global_scratch.dfp);
 
     for (int64 j = 0; j < ndim; ++j) {
         ARRAY2D(dfdp, j, icp[0]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -619,9 +602,8 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -660,15 +642,13 @@ ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     f[ndim - 2] = -1.;
 
     for (int64 i = 0; i < ndm; ++i) {
-        f[ndim - 2] =
-            f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
+        f[ndim - 2] = f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
     }
 
     f[-1 + ndim] = 0.;
 
     for (int64 i = 0; i < ndm; ++i) {
-        f[-1 + ndim] = f[-1 + ndim] + uold[ndm2 + i]*u[ndm + i] -
-                       uold[ndm + i]*u[ndm2 + i];
+        f[-1 + ndim] = f[-1 + ndim] + uold[ndm2 + i]*u[ndm + i] - uold[ndm + i]*u[ndm2 + i];
     }
 
     return 0;
@@ -714,8 +694,7 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     thta = pi(2.0) / par[10];
     s1 = sin(thta);
     c1 = cos(thta);
-    funi(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu,
-         global_scratch.dfp);
+    funi(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu, global_scratch.dfp);
 
     ndm2 = ndm*2;
     for (int64 i = 0; i < ndm2; ++i) {
@@ -735,8 +714,7 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     for (int64 i = 0; i < ndm; ++i) {
         for (int64 j = 0; j < ndm; ++j) {
             smat[i + j*(ndim*2)] = global_scratch.dfu[j*ndm + i];
-            smat[ndm + i + (ndm + j)*(ndim*2)] =
-                global_scratch.dfu[j*ndm + i];
+            smat[ndm + i + (ndm + j)*(ndim*2)] = global_scratch.dfu[j*ndm + i];
         }
         smat[i + i*(ndim*2)] -= c1;
         smat[ndm + i + (ndm + i)*(ndim*2)] -= c1;
@@ -765,9 +743,8 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -790,8 +767,7 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    ffhb(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    ffhb(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -816,20 +792,19 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        ffhb(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        ffhb(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        ffhb(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        ffhb(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     par[icp[0]] += ep;
 
-    ffhb(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
-         global_scratch.dfu, global_scratch.dfp);
+    ffhb(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+         global_scratch.dfp);
 
     for (int64 j = 0; j < ndim; ++j) {
         ARRAY2D(dfdp, j, icp[0]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -840,9 +815,8 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -873,15 +847,13 @@ ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     f[ndim - 2] = -1.;
 
     for (int64 i = 0; i < ndm; ++i) {
-        f[ndim - 2] =
-            f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
+        f[ndim - 2] = f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
     }
 
     f[-1 + ndim] = 0.;
 
     for (int64 i = 0; i < ndm; ++i) {
-        f[-1 + ndim] = f[-1 + ndim] +
-                       uold[ndm2 + i]*(u[ndm + i] - uold[ndm + i]) -
+        f[-1 + ndim] = f[-1 + ndim] + uold[ndm2 + i]*(u[ndm + i] - uold[ndm + i]) -
                        uold[ndm + i]*(u[ndm2 + i] - uold[ndm2 + i]);
     }
 
@@ -923,8 +895,7 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     period = par[10];
     rom = period / pi(2.0);
-    funi(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu,
-         global_scratch.dfp);
+    funi(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu, global_scratch.dfp);
 
     ndm2 = ndm*2;
     for (int64 i = 0; i < ndm2; ++i) {
@@ -944,8 +915,7 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     for (int64 i = 0; i < ndm; ++i) {
         for (int64 j = 0; j < ndm; ++j) {
             smat[i + j*(ndim*2)] = rom*global_scratch.dfu[j*ndm + i];
-            smat[ndm + i + (ndm + j)*(ndim*2)] =
-                rom*global_scratch.dfu[j*ndm + i];
+            smat[ndm + i + (ndm + j)*(ndim*2)] = rom*global_scratch.dfu[j*ndm + i];
         }
     }
     {
@@ -971,9 +941,8 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -996,8 +965,7 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    ffhw(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    ffhw(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -1022,20 +990,19 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        ffhw(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        ffhw(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        ffhw(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        ffhw(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     par[icp[0]] += ep;
 
-    ffhw(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
-         global_scratch.dfu, global_scratch.dfp);
+    ffhw(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+         global_scratch.dfp);
 
     for (int64 j = 0; j < ndim; ++j) {
         ARRAY2D(dfdp, j, icp[0]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -1047,9 +1014,8 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -1081,15 +1047,13 @@ ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     f[ndim - 2] = -1.;
 
     for (int64 i = 0; i < ndm; ++i) {
-        f[ndim - 2] =
-            f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
+        f[ndim - 2] = f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
     }
 
     f[-1 + ndim] = 0.;
 
     for (int64 i = 0; i < ndm; ++i) {
-        f[-1 + ndim] = f[-1 + ndim] +
-                       uold[ndm2 + i]*(u[ndm + i] - uold[ndm + i]) -
+        f[-1 + ndim] = f[-1 + ndim] + uold[ndm2 + i]*(u[ndm + i] - uold[ndm + i]) -
                        uold[ndm + i]*(u[ndm2 + i] - uold[ndm2 + i]);
     }
 
@@ -1157,8 +1121,7 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     for (int64 i = 0; i < ndm; ++i) {
         for (int64 j = 0; j < ndm; ++j) {
             smat[i + j*(ndim*2)] = rom*global_scratch.dfu[j*ndm + i];
-            smat[ndm + i + (ndm + j)*(ndim*2)] =
-                rom*global_scratch.dfu[j*ndm + i];
+            smat[ndm + i + (ndm + j)*(ndim*2)] = rom*global_scratch.dfu[j*ndm + i];
         }
     }
     {
@@ -1188,9 +1151,8 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -1247,8 +1209,8 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
+bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nbc, double *u0,
+     double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 jtmp;
@@ -1296,9 +1258,8 @@ bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, double *u, double *uold, double *udot, double *upold,
-     double *f, int64 ijac, double *dint) {
+icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+     double *uold, double *udot, double *upold, double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 jtmp;
@@ -1344,8 +1305,8 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
-      int64 *ndxloc, double *ups, double *udotps, double *tm, double *par) {
+pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol, int64 *ndxloc,
+      double *ups, double *udotps, double *tm, double *par) {
     int64 ups_dim1;
     int64 udotps_dim1;
 
@@ -1378,12 +1339,10 @@ pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
         for (i1 = 0; i1 < *ndim; ++i1) {
             for (i2 = 0; i2 < *ncol; ++i2) {
                 i = i2**ndim + i1;
-                ARRAY2D(ups, *ntst + j, i) = ARRAY2D(ups, *ntst, i1) +
-                                             ARRAY2D(ups, j, i) -
-                                             ARRAY2D(ups, 0, i1);
-                ARRAY2D(udotps, *ntst + j, i) = ARRAY2D(udotps, *ntst, i1) +
-                                                ARRAY2D(udotps, j, i) -
-                                                ARRAY2D(udotps, 0, i);
+                ARRAY2D(ups, *ntst + j, i) =
+                    ARRAY2D(ups, *ntst, i1) + ARRAY2D(ups, j, i) - ARRAY2D(ups, 0, i1);
+                ARRAY2D(udotps, *ntst + j, i) =
+                    ARRAY2D(udotps, *ntst, i1) + ARRAY2D(udotps, j, i) - ARRAY2D(udotps, 0, i);
             }
         }
     }
@@ -1394,10 +1353,9 @@ pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
 }
 
 int32
-stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
-       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
-       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
-       double *thl, double *thu) {
+stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr, int64 *ncolrs,
+       double *rlcur, double *rldot, int64 *ndxloc, double *ups, double *udotps, double *upoldp,
+       double *tm, double *dtm, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1;
     int64 udotps_dim1;
     int64 upoldp_dim1;
@@ -1426,8 +1384,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 irs;
 
     smat = xmalloc(sizeof(*smat)*(usize)((iap->ndim*2)*(iap->ndim*2)));
-    rnllv =
-        xmalloc(sizeof(*rnllv)*(usize)((iap->ndim*2)*(iap->ndim*2)));
+    rnllv = xmalloc(sizeof(*rnllv)*(usize)((iap->ndim*2)*(iap->ndim*2)));
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     u = xmalloc(sizeof(*u)*(usize)(iap->ndim));
     // Generates starting data for the continuation of a branch of periodic
@@ -1471,13 +1428,11 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         smat[ndim + i + (ndim + i)*(ndim*2)] = rimhb;
     }
 
-    funi(iap, rap, ndim, u, &uold, icp, par, 1, f, global_scratch.dfu,
-         global_scratch.dfp);
+    funi(iap, rap, ndim, u, &uold, icp, par, 1, f, global_scratch.dfu, global_scratch.dfp);
 
     for (int64 i = 0; i < ndim; ++i) {
         for (int64 j = 0; j < ndim; ++j) {
-            smat[i + (ndim + j)*(ndim*2)] =
-                global_scratch.dfu[j*ndim + i];
+            smat[i + (ndim + j)*(ndim*2)] = global_scratch.dfu[j*ndim + i];
             smat[ndim + i + j*(ndim*2)] = global_scratch.dfu[j*ndim + i];
         }
     }
@@ -1541,9 +1496,8 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -1565,16 +1519,15 @@ fnws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     // Generate the function.
 
     ndm2 = ndm / 2;
-    ffws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm2,
-         global_scratch.dfu, global_scratch.dfp);
+    ffws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm2, global_scratch.dfu,
+         global_scratch.dfp);
 
     return 0;
 }
 
 int32
-ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
-     int64 ndm, double *dfu, double *dfp) {
+ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
     int64 dfu_dim1;
@@ -1615,13 +1568,11 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         ARRAY2D(dfdu, i + ndm, (i + ndm)) = -c / par[i + 14];
         if (icp[0] < 9) {
             ARRAY2D(dfdp, i, (icp[0])) = 0.;
-            ARRAY2D(dfdp, i + ndm, icp[0]) =
-                -ARRAY2D(dfp, i, icp[0]) / par[i + 14];
+            ARRAY2D(dfdp, i + ndm, icp[0]) = -ARRAY2D(dfp, i, icp[0]) / par[i + 14];
         }
         if (nfpr > 1 && icp[1] < 9) {
             ARRAY2D(dfdp, i, (icp[1])) = 0.;
-            ARRAY2D(dfdp, i + ndm, icp[1]) =
-                -ARRAY2D(dfp, i, icp[1]) / par[i + 14];
+            ARRAY2D(dfdp, i + ndm, icp[1]) = -ARRAY2D(dfp, i, icp[1]) / par[i + 14];
         }
     }
 
@@ -1646,9 +1597,8 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -1707,10 +1657,9 @@ fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
-       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
-       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
-       double *thl, double *thu) {
+stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr, int64 *ncolrs,
+       double *rlcur, double *rldot, int64 *ndxloc, double *ups, double *udotps, double *upoldp,
+       double *tm, double *dtm, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1;
     int64 udotps_dim1;
     int64 upoldp_dim1;
@@ -1855,9 +1804,8 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -1875,16 +1823,15 @@ fnsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function and Jacobian.
 
-    ffsp(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm,
-         global_scratch.dfu, global_scratch.dfp);
+    ffsp(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm, global_scratch.dfu,
+         global_scratch.dfp);
 
     return 0;
 }
 
 int32
-ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
-     int64 ndm, double *dfu, double *dfp) {
+ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
     int64 dfu_dim1;
@@ -1915,8 +1862,7 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         for (int64 j = 0; j < ndm; ++j) {
             ARRAY2D(dfdu, i, j) = 0.;
             ARRAY2D(dfdu, i, (j + ndm)) = 0.;
-            ARRAY2D(dfdu, i + ndm, j) =
-                -period*ARRAY2D(dfu, i, j) / par[i + 14];
+            ARRAY2D(dfdu, i + ndm, j) = -period*ARRAY2D(dfu, i, j) / par[i + 14];
             ARRAY2D(dfdu, i + ndm, (j + ndm)) = 0.;
         }
         ARRAY2D(dfdu, i, (i + ndm)) = period;
@@ -1928,8 +1874,7 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             ARRAY2D(dfdp, ndm + i, icp[0]) = -f[ndm + i] / par[i + 14];
         } else if (icp[0] != 10 && !(icp[0] > 13 && icp[0] <= ndm + 13)) {
             ARRAY2D(dfdp, i, (icp[0])) = 0.;
-            ARRAY2D(dfdp, i + ndm, icp[0]) =
-                -period*ARRAY2D(dfp, i, icp[0]) / par[i + 14];
+            ARRAY2D(dfdp, i + ndm, icp[0]) = -period*ARRAY2D(dfp, i, icp[0]) / par[i + 14];
         }
     }
 
@@ -1941,9 +1886,8 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -1960,16 +1904,15 @@ fnpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ndm = iap->ndm;
 
     // Generate the function and Jacobian.
-    ffpe(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm,
-         global_scratch.dfu, global_scratch.dfp);
+    ffpe(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm, global_scratch.dfu,
+         global_scratch.dfp);
 
     return 0;
 }
 
 int32
-ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
-     int64 ndm, double *dfu, double *dfp) {
+ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
     int64 dfu_dim1;
@@ -2003,8 +1946,7 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     for (int64 i = 0; i < ndm; ++i) {
         f[i] = period*u[ndm + i];
-        f[ndm + i] =
-            period*((u[i] - uold[i]) / dt - f[ndm + i]) / par[i + 14];
+        f[ndm + i] = period*((u[i] - uold[i]) / dt - f[ndm + i]) / par[i + 14];
     }
 
     if (ijac == 0) {
@@ -2015,25 +1957,22 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         for (int64 j = 0; j < ndm; ++j) {
             ARRAY2D(dfdu, i, j) = 0.;
             ARRAY2D(dfdu, i, (j + ndm)) = 0.;
-            ARRAY2D(dfdu, i + ndm, j) =
-                -period*ARRAY2D(dfu, i, j) / par[i + 14];
+            ARRAY2D(dfdu, i + ndm, j) = -period*ARRAY2D(dfu, i, j) / par[i + 14];
             ARRAY2D(dfdu, i + ndm, (j + ndm)) = 0.;
         }
         ARRAY2D(dfdu, i, (i + ndm)) = period;
         ARRAY2D(dfdu, i + ndm, i) += period / (dt*par[i + 14]);
         ARRAY2D(dfdp, i, (icp[0])) = 0.;
         // Computing 2nd power
-        ARRAY2D(dfdp, i + ndm, icp[0]) =
-            -period*(u[i] - uold[i]) / (dt*dt*par[i + 14]);
+        ARRAY2D(dfdp, i + ndm, icp[0]) = -period*(u[i] - uold[i]) / (dt*dt*par[i + 14]);
     }
 
     return 0;
 }
 
 int32
-icpe(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, double *u, double *uold, double *udot, double *upold,
-     double *f, int64 ijac, double *dint) {
+icpe(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+     double *uold, double *udot, double *upold, double *f, int64 ijac, double *dint) {
     (void)iap;
     (void)rap;
     (void)ndim;
@@ -2058,9 +1997,8 @@ icpe(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -2081,8 +2019,7 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    ffpl(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    ffpl(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -2107,20 +2044,19 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        ffpl(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        ffpl(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        ffpl(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        ffpl(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
-        ffpl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
-             global_scratch.dfu, global_scratch.dfp);
+        ffpl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+             global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
             ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
         }
@@ -2131,9 +2067,8 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -2163,8 +2098,7 @@ ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             f[ndm + i] = period*f[ndm + i] + beta*f[i];
         } else {
             //            ** Fixed period
-            f[ndm + i] =
-                period*f[ndm + i] + beta*ARRAY2D(dfdp, i, (icp[1]));
+            f[ndm + i] = period*f[ndm + i] + beta*ARRAY2D(dfdp, i, (icp[1]));
         }
         f[i] = period*f[i];
     }
@@ -2173,8 +2107,8 @@ ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
+bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nbc, double *u0,
+     double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
     int64 jtmp;
     int64 nn;
@@ -2223,9 +2157,8 @@ bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, double *u, double *uold, double *udot, double *upold,
-     double *f, int64 ijac, double *dint) {
+icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+     double *uold, double *udot, double *upold, double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 jtmp;
@@ -2287,10 +2220,9 @@ icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
-       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
-       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
-       double *thl, double *thu) {
+stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr, int64 *ncolrs,
+       double *rlcur, double *rldot, int64 *ndxloc, double *ups, double *udotps, double *upoldp,
+       double *tm, double *dtm, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1;
     int64 udotps_dim1;
     int64 upoldp_dim1;
@@ -2455,9 +2387,8 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -2478,8 +2409,7 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    ffpd(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    ffpd(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -2504,20 +2434,19 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        ffpd(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        ffpd(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        ffpd(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        ffpd(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
-        ffpd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
-             global_scratch.dfu, global_scratch.dfp);
+        ffpd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+             global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
             ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
         }
@@ -2528,9 +2457,8 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -2558,8 +2486,8 @@ ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
+bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nbc, double *u0,
+     double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 jtmp;
@@ -2616,9 +2544,8 @@ bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, double *u, double *uold, double *udot, double *upold,
-     double *f, int64 ijac, double *dint) {
+icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+     double *uold, double *udot, double *upold, double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 jtmp;
@@ -2672,10 +2599,9 @@ icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
-       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
-       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
-       double *thl, double *thu) {
+stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr, int64 *ncolrs,
+       double *rlcur, double *rldot, int64 *ndxloc, double *ups, double *udotps, double *upoldp,
+       double *tm, double *dtm, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1;
     int64 udotps_dim1;
     int64 upoldp_dim1;
@@ -2819,9 +2745,8 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -2845,8 +2770,7 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    fftr(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    fftr(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -2871,20 +2795,19 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        fftr(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        fftr(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        fftr(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        fftr(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
-        fftr(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
-             global_scratch.dfu, global_scratch.dfp);
+        fftr(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+             global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
             ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
         }
@@ -2895,9 +2818,8 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -2930,8 +2852,8 @@ fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
+bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nbc, double *u0,
+     double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 jtmp;
@@ -2989,22 +2911,19 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         ARRAY2D(dbc, ndm + i, (ndm + i)) = -cs;
         ARRAY2D(dbc, ndm + i, (ndm2 + i)) = ss;
         ARRAY2D(dbc, ndm + i, (ndim + ndm + i)) = 1.;
-        ARRAY2D(dbc, ndm + i, ((ndim*2) + 11)) =
-            cs*u0[ndm2 + i] + ss*u0[ndm + i];
+        ARRAY2D(dbc, ndm + i, ((ndim*2) + 11)) = cs*u0[ndm2 + i] + ss*u0[ndm + i];
         ARRAY2D(dbc, ndm2 + i, (ndm + i)) = -ss;
         ARRAY2D(dbc, ndm2 + i, (ndm2 + i)) = -cs;
         ARRAY2D(dbc, ndm2 + i, (ndim + ndm2 + i)) = 1.;
-        ARRAY2D(dbc, ndm2 + i, ((ndim*2) + 11)) =
-            ss*u0[ndm2 + i] - cs*u0[ndm + i];
+        ARRAY2D(dbc, ndm2 + i, ((ndim*2) + 11)) = ss*u0[ndm2 + i] - cs*u0[ndm + i];
     }
 
     return 0;
 }
 
 int32
-ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, double *u, double *uold, double *udot, double *upold,
-     double *f, int64 ijac, double *dint) {
+ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+     double *uold, double *udot, double *upold, double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 jtmp;
@@ -3065,10 +2984,9 @@ ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
-       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
-       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
-       double *thl, double *thu) {
+stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr, int64 *ncolrs,
+       double *rlcur, double *rldot, int64 *ndxloc, double *ups, double *udotps, double *upoldp,
+       double *tm, double *dtm, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1;
     int64 udotps_dim1;
 
@@ -3219,9 +3137,8 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -3254,8 +3171,7 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    ffpo(iap, rap, ndim, u, uold, upold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    ffpo(iap, rap, ndim, u, uold, upold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         free(upold);
@@ -3281,20 +3197,19 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        ffpo(iap, rap, ndim, global_scratch.uu1, uold, upold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        ffpo(iap, rap, ndim, global_scratch.uu2, uold, upold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        ffpo(iap, rap, ndim, global_scratch.uu1, uold, upold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        ffpo(iap, rap, ndim, global_scratch.uu2, uold, upold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
-        ffpo(iap, rap, ndim, u, uold, upold, icp, par, global_scratch.ff1, ndm,
-             global_scratch.dfu, global_scratch.dfp);
+        ffpo(iap, rap, ndim, u, uold, upold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+             global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
             ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
         }
@@ -3306,9 +3221,8 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     double *upold, int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, double *upold, int64 *icp,
+     double *par, double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -3352,8 +3266,8 @@ ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
+bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nbc, double *u0,
+     double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 nfpr;
@@ -3401,9 +3315,8 @@ bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, double *u, double *uold, double *udot, double *upold,
-     double *f, int64 ijac, double *dint) {
+icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+     double *uold, double *udot, double *upold, double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 nfpr;
@@ -3431,8 +3344,8 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     // Generate the function.
 
-    fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f, dnt,
-         ndm, global_scratch.dfu, global_scratch.dfp);
+    fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f, dnt, ndm,
+         global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         free(f1);
@@ -3460,10 +3373,10 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        fipo(iap, rap, ndim, par, icp, nint, nnt0, global_scratch.uu1, uold,
-             udot, upold, f1, dnt, ndm, global_scratch.dfu, global_scratch.dfp);
-        fipo(iap, rap, ndim, par, icp, nint, nnt0, global_scratch.uu2, uold,
-             udot, upold, f2, dnt, ndm, global_scratch.dfu, global_scratch.dfp);
+        fipo(iap, rap, ndim, par, icp, nint, nnt0, global_scratch.uu1, uold, udot, upold, f1, dnt,
+             ndm, global_scratch.dfu, global_scratch.dfp);
+        fipo(iap, rap, ndim, par, icp, nint, nnt0, global_scratch.uu2, uold, udot, upold, f2, dnt,
+             ndm, global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < nint; ++j) {
             ARRAY2D(dint, j, i) = (f2[j] - f1[j]) / (ep*2);
         }
@@ -3471,8 +3384,8 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
-        fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f1,
-             dnt, ndm, global_scratch.dfu, global_scratch.dfp);
+        fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f1, dnt, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < nint; ++j) {
             ARRAY2D(dint, j, ndim + icp[i]) = (f1[j] - f[j]) / ep;
         }
@@ -3486,10 +3399,9 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, int64 nnt0, double *u, double *uold, double *udot,
-     double *upold, double *fi, double *dint, int64 ndmt, double *dfdu,
-     double *dfdp) {
+fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, int64 nnt0,
+     double *u, double *uold, double *udot, double *upold, double *fi, double *dint, int64 ndmt,
+     double *dfdu, double *dfdp) {
     int64 dint_dim1;
     int64 dfdu_dim1;
     int64 dfdp_dim1;
@@ -3566,10 +3478,9 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
-       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
-       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
-       double *thl, double *thu) {
+stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr, int64 *ncolrs,
+       double *rlcur, double *rldot, int64 *ndxloc, double *ups, double *udotps, double *upoldp,
+       double *tm, double *dtm, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1;
     int64 udotps_dim1;
     int64 upoldp_dim1;
@@ -3623,8 +3534,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        calculations). So, that is why I use ndxloc here.  Also, iap->ncol MAY BE
        tool small, but I am not sure how to get value from the fort.8 file into
        here. */
-    size = sizeof(*temporary_storage) *
-           (usize)((*ndxloc)*(iap->ndim*iap->ncol));
+    size = sizeof(*temporary_storage)*(usize)((*ndxloc)*(iap->ndim*iap->ncol));
     temporary_storage = xmalloc(size);
     u = xmalloc(sizeof(*u)*(usize)(iap->ndim));
 
@@ -3771,9 +3681,8 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -3797,8 +3706,7 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     // Generate the function.
 
-    ffbl(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
-         global_scratch.dfp);
+    ffbl(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu, global_scratch.dfp);
 
     if (ijac == 0) {
         return 0;
@@ -3823,20 +3731,19 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         global_scratch.uu1[i] -= ep;
         global_scratch.uu2[i] += ep;
-        ffbl(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
-             global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-        ffbl(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
-             global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
+        ffbl(iap, rap, ndim, global_scratch.uu1, uold, icp, par, global_scratch.ff1, ndm,
+             global_scratch.dfu, global_scratch.dfp);
+        ffbl(iap, rap, ndim, global_scratch.uu2, uold, icp, par, global_scratch.ff2, ndm,
+             global_scratch.dfu, global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
-            ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
+            ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
     for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
-        ffbl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
-             global_scratch.dfu, global_scratch.dfp);
+        ffbl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm, global_scratch.dfu,
+             global_scratch.dfp);
         for (int64 j = 0; j < ndim; ++j) {
             ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
         }
@@ -3847,9 +3754,8 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-     double *dfdp) {
+ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -3874,8 +3780,7 @@ ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
         if (nfpx > 0) {
             for (int64 j = 0; j < nfpx; ++j) {
-                f[ndm + i] +=
-                    ARRAY2D(dfdp, i, icp[j + 1])*par[icp[nfpr - nfpx + j]];
+                f[ndm + i] += ARRAY2D(dfdp, i, icp[j + 1])*par[icp[nfpr - nfpx + j]];
             }
         }
     }
@@ -3884,8 +3789,8 @@ ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
+bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nbc, double *u0,
+     double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 nfpr;
@@ -3989,8 +3894,8 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nbc, int64 nbc0, double *u0, double *u1, double *f, double *dbc) {
+fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nbc, int64 nbc0,
+     double *u0, double *u1, double *f, double *dbc) {
     int64 dbc_dim1;
 
     int64 nfpr;
@@ -4015,8 +3920,7 @@ fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
         if (nfpx != 0) {
             for (int64 j = 0; j < nfpx; ++j) {
-                f[nbc0 + i] += ARRAY2D(dbc, i, ndim + icp[j + 1]) *
-                               par[icp[nfpr - nfpx + j]];
+                f[nbc0 + i] += ARRAY2D(dbc, i, ndim + icp[j + 1])*par[icp[nfpr - nfpx + j]];
             }
         }
     }
@@ -4025,9 +3929,8 @@ fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, double *u, double *uold, double *udot, double *upold,
-     double *f, int64 ijac, double *dint) {
+icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+     double *uold, double *udot, double *upold, double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 nfpr;
@@ -4084,10 +3987,8 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
         uu1[i] -= ep;
         uu2[i] += ep;
-        fibl(iap, rap, ndim, par, icp, nint, nnt0, uu1, uold, udot, upold, ff1,
-             dfu);
-        fibl(iap, rap, ndim, par, icp, nint, nnt0, uu2, uold, udot, upold, ff2,
-             dfu);
+        fibl(iap, rap, ndim, par, icp, nint, nnt0, uu1, uold, udot, upold, ff1, dfu);
+        fibl(iap, rap, ndim, par, icp, nint, nnt0, uu2, uold, udot, upold, ff2, dfu);
         for (int64 j = 0; j < nint; ++j) {
             ARRAY2D(dint, j, i) = (ff2[j] - ff1[j]) / (ep*2);
         }
@@ -4095,8 +3996,7 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
-        fibl(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, ff1,
-             dfu);
+        fibl(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, ff1, dfu);
         for (int64 j = 0; j < nint; ++j) {
             ARRAY2D(dint, j, ndim + icp[i]) = (ff1[j] - f[j]) / ep;
         }
@@ -4112,9 +4012,8 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, int64 nnt0, double *u, double *uold, double *udot,
-     double *upold, double *f, double *dint) {
+fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, int64 nnt0,
+     double *u, double *uold, double *udot, double *upold, double *f, double *dint) {
     int64 dint_dim1;
 
     int64 nfpr;
@@ -4139,8 +4038,7 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             }
             if (nfpx != 0) {
                 for (int64 j = 0; j < nfpx; ++j) {
-                    f[nnt0 + i] += ARRAY2D(dint, i, ndm + icp[j + 1]) *
-                                   par[icp[nfpr - nfpx + j]];
+                    f[nnt0 + i] += ARRAY2D(dint, i, ndm + icp[j + 1])*par[icp[nfpr - nfpx + j]];
                 }
             }
         }
@@ -4154,8 +4052,7 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     if (nfpx != 0) {
         for (int64 i = 0; i < nfpx; ++i) {
             // Computing 2nd power
-            f[-1 + nint] +=
-                par[icp[nfpr - nfpx + i]]*par[icp[nfpr - nfpx + i]];
+            f[-1 + nint] += par[icp[nfpr - nfpx + i]]*par[icp[nfpr - nfpx + i]];
         }
     }
 
@@ -4163,10 +4060,9 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
-       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
-       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
-       double *thl, double *thu) {
+stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr, int64 *ncolrs,
+       double *rlcur, double *rldot, int64 *ndxloc, double *ups, double *udotps, double *upoldp,
+       double *tm, double *dtm, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1;
     int64 udotps_dim1;
 
@@ -4303,9 +4199,8 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
-     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, int64 *icp, double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
@@ -4408,8 +4303,8 @@ funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 }
 
 int32
-bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
+bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nbc, double *u0,
+     double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     double *u1zz;
@@ -4528,9 +4423,8 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
-     int64 nint, double *u, double *uold, double *udot, double *upold,
-     double *f, int64 ijac, double *dint) {
+icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+     double *uold, double *udot, double *upold, double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     double *u1zz;
@@ -4626,8 +4520,8 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 }
 
 int32
-fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
-     double *par, int64 ijac, double *f, double *dfdu, double *dfdp) {
+fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp, double *par, int64 ijac,
+     double *f, double *dfdu, double *dfdp) {
     double *u1zz;
     double *u2zz;
     int64 nfpr;

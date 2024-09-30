@@ -222,8 +222,7 @@ flags_compile(void) {
                             flag[j].lhs[i] = 0;
 
                         } else {
-                            if (strcasecmp(flag[j].lhsname[i], "no_interp") ==
-                                0) {
+                            if (strcasecmp(flag[j].lhsname[i], "no_interp") == 0) {
                                 flag[j].nointerp = 1;
                                 flag[j].type[i] = 0;
                                 flag[j].lhs[i] = 0;
@@ -247,12 +246,10 @@ flags_compile(void) {
                 flag[j].type[i] = 0;
             }
             if (parserslow_add_expr(flag[j].rhs[i], command, &nc)) {
-                printf("Illegal event %s for global %s\n", flag[j].rhs[i],
-                       flag[j].cond);
+                printf("Illegal event %s for global %s\n", flag[j].rhs[i], flag[j].cond);
                 return 1;
             }
-            flag[j].comrhs[i] =
-                xmalloc(sizeof(*(flag[j].comrhs[i]))*(usize)(nc + 1));
+            flag[j].comrhs[i] = xmalloc(sizeof(*(flag[j].comrhs[i]))*(usize)(nc + 1));
             for (int32 k = 0; k <= nc; k++) {
                 flag[j].comrhs[i][k] = command[k];
             }
@@ -264,8 +261,8 @@ flags_compile(void) {
 /*  here is the shell code for a loop around  integration step  */
 
 int32
-one_flag_step(double *yold, double *ynew, int32 *istart, double told,
-              double *tnew, int32 neq, double *s) {
+one_flag_step(double *yold, double *ynew, int32 *istart, double told, double *tnew, int32 neq,
+              double *s) {
     double dt = *tnew - told;
     double f0;
     double f1;
@@ -308,8 +305,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         tol = fabs(f1 - f0);
         switch (sign) {
         case 1:
-            if ((((f0 < 0.0) && (f1 > 0.0)) || ((f0 < 0.0) && (f1 > 0.0))) &&
-                tol > tolmin) {
+            if ((((f0 < 0.0) && (f1 > 0.0)) || ((f0 < 0.0) && (f1 > 0.0))) && tol > tolmin) {
                 flag[i].hit = ncycle + 1;
                 flag[i].tstar = f0 / (f0 - f1);
             }
@@ -383,12 +379,10 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                         if (flag[i].type[j] == 1) {
                             set_val(upar_names[in], flag[i].vrhs[j]);
                         } else {
-                            if ((flag[i].type[j] == 2) &&
-                                (flag[i].vrhs[j] > 0)) {
+                            if ((flag[i].type[j] == 2) && (flag[i].vrhs[j] > 0)) {
                                 integrate_send_output(ynew, *tnew);
                             }
-                            if ((flag[i].type[j] == 3) &&
-                                (flag[i].vrhs[j] > 0)) {
+                            if ((flag[i].type[j] == 3) && (flag[i].vrhs[j] > 0)) {
                                 integrate_send_halt();
                             }
                         }
@@ -451,8 +445,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
 /*  here are the ODE drivers */
 
 int32
-one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
-                   int32 *istart) {
+one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim, int32 *istart) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -482,8 +475,7 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
 }
 
 int32
-one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
-                    int32 *istart) {
+one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim, int32 *istart) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -513,8 +505,7 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
 }
 
 int32
-one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
-                       double *tim, int32 *istart) {
+one_flag_step_discrete(double *y, double dt, double *work, int32 neq, double *tim, int32 *istart) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -543,8 +534,7 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
 }
 
 int32
-one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
-                   double *tim, int32 *istart) {
+one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim, int32 *istart) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -573,8 +563,7 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
 }
 
 int32
-one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
-                  int32 *istart) {
+one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim, int32 *istart) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -603,9 +592,9 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
 }
 
 int32
-one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
-                   double hmax, double eps, int32 mf, double *error,
-                   int32 *kflag, int32 *jstart, double *work, int32 *iwork) {
+one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin, double hmax,
+                   double eps, int32 mf, double *error, int32 *kflag, int32 *jstart, double *work,
+                   int32 *iwork) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -616,8 +605,7 @@ one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
             yold[i] = y[i];
         }
         told = *t;
-        ggear(neq, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart, work,
-              iwork);
+        ggear(neq, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart, work, iwork);
         if (*kflag < 0) {
             break;
         }
@@ -640,8 +628,8 @@ one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
 }
 
 int32
-one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
-                    int32 n, double *work, int32 *ierr) {
+one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n, double *work,
+                    int32 *ierr) {
     double yold[MAX_ODE];
     double told;
     int32 ok;
@@ -677,8 +665,8 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
 }
 
 int32
-one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
-                 double *tol, double *atol, int32 flag2, int32 *kflag) {
+one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
+                 double *atol, int32 flag2, int32 *kflag) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -715,8 +703,8 @@ one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
 int32
 one_flag_step_cvode(
     // command =0 continue, 1 is start 2 finish
-    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
-    double *atol, double *rtol) {
+    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag, double *atol,
+    double *rtol) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -753,9 +741,9 @@ one_flag_step_cvode(
 
 #endif
 int32
-one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
-                   double *hguess, double hmin, double *work, int32 *ier,
-                   double epjac, int32 iflag, int32 *jstart) {
+one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps, double *hguess,
+                   double hmin, double *work, int32 *ier, double epjac, int32 iflag,
+                   int32 *jstart) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -766,8 +754,7 @@ one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
             yold[i] = y[i];
         }
         told = *t;
-        stiff_gadaptive(y, neq, t, tout, eps, hguess, hmin, work, ier, epjac,
-                        iflag);
+        stiff_gadaptive(y, neq, t, tout, eps, hguess, hmin, work, ier, epjac, iflag);
         if (*ier) {
             break;
         }
@@ -790,9 +777,8 @@ one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
 }
 
 int32
-one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
-                      double *yp, double *yp2, double *ytemp, double *errvec,
-                      double *jac, int32 *istart) {
+one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
+                      double *yp2, double *ytemp, double *errvec, double *jac, int32 *istart) {
     double yold[MAX_ODE];
     double told;
     int32 hit;
@@ -805,8 +791,7 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
             yold[i] = y[i];
         }
         told = *t;
-        if ((j = odesol_one_bak_step(y, t, dtt, neq, yg, yp, yp2, ytemp, errvec,
-                                     jac)) != 0) {
+        if ((j = odesol_one_bak_step(y, t, dtt, neq, yg, yp, yp2, ytemp, errvec, jac)) != 0) {
             return j;
         }
         if ((hit = one_flag_step(yold, y, istart, told, t, neq, &s)) == 0) {

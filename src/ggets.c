@@ -103,8 +103,7 @@ ggets_draw_info_pop(Window window) {
     if (window == info_pop) {
         XClearWindow(display, info_pop);
         many_pops_base_col();
-        XDrawString(display, info_pop, gc, 5, cury_off, info_message,
-                    (int)strlen(info_message));
+        XDrawString(display, info_pop, gc, 5, cury_off, info_message, (int)strlen(info_message));
     }
     return;
 }
@@ -239,8 +238,7 @@ ggets_cput_text(void) {
     if (size < 0) {
         size = 0;
     }
-    pop_list_message_box(&temp, 0, scale_y - 5*dcur_y,
-                         "Place text with mouse");
+    pop_list_message_box(&temp, 0, scale_y - 5*dcur_y, "Place text with mouse");
     if (menudrive_get_mouse_xy(&x, &y)) {
         many_pops_gr_col();
         graphics_fillin_text(string, new);
@@ -314,8 +312,8 @@ ggets_rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window) {
 
 void
 ggets_circle(int32 x, int32 y, int32 radius, Window window) {
-    XDrawArc(display, window, gc, x - radius, y - radius, (uint)(2*radius),
-             (uint)(2*radius), 0, 360*64);
+    XDrawArc(display, window, gc, x - radius, y - radius, (uint)(2*radius), (uint)(2*radius), 0,
+             360*64);
     return;
 }
 
@@ -379,8 +377,8 @@ ggets_display_command(char *name, char *value, int32 pos) {
 
 void
 ggets_clr_line_at(Window window, int32 col0, int32 pos, int32 n) {
-    XClearArea(display, window, col0 + pos*dcur_x, 0,
-               (uint)((n + 2)*dcur_x), 2*(uint)dcur_y, False);
+    XClearArea(display, window, col0 + pos*dcur_x, 0, (uint)((n + 2)*dcur_x), 2*(uint)dcur_y,
+               False);
     return;
 }
 
@@ -419,8 +417,7 @@ ggets_mem_mov(char *s1, char *s2, int32 len) {
 }
 
 void
-ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
-                  int32 *done2, int32 ch) {
+ggets_edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2, int32 ch) {
     int32 col0 = *col - *pos*dcur_x;
 
     *done2 = 0;
@@ -474,8 +471,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
         break; */
     case KEY_DEL:
         if (*pos > 0) {
-            ggets_mem_mov(&value[*pos - 1], &value[*pos],
-                          (int32)strlen(value) - *pos + 1);
+            ggets_mem_mov(&value[*pos - 1], &value[*pos], (int32)strlen(value) - *pos + 1);
             *pos = *pos - 1;
             *col -= dcur_x;
         } else {
@@ -491,8 +487,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
         return;
     default:
         if ((ch >= ' ') && (ch <= '~')) {
-            ggets_mov_mem(&value[*pos + 1], &value[*pos],
-                          (int32)strlen(value) - *pos + 1);
+            ggets_mov_mem(&value[*pos + 1], &value[*pos], (int32)strlen(value) - *pos + 1);
             value[*pos] = (char)ch;
             *pos = *pos + 1;
             *col += dcur_x;
@@ -509,8 +504,8 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
 }
 
 void
-ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done2,
-                          int32 *pos, int32 *col) {
+ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done2, int32 *pos,
+                          int32 *col) {
     char ch;
     switch (event.type) {
     case ConfigureNotify:

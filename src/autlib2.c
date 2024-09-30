@@ -38,30 +38,26 @@ typedef struct {
     int64 *np;
 } MainAutoStorage;
 
-static MainAutoStorage mas = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                              NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                              NULL, NULL, NULL, NULL, NULL};
+static MainAutoStorage mas = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 static int32 gdsum(void);
 static int32 gsendx(void);
-static int32 infpar(int64 *iam, int64 *par, double *a, double *b, double *fa,
-                    double *sol1, double *sol2, double *fc, int64 *na,
-                    int64 *nov, int64 *nra, int64 *nca, int64 *ncb, int64 *irf,
-                    int64 *icf);
-int32 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa,
-             int64 *irf);
+static int32 infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
+                    double *sol2, double *fc, int64 *na, int64 *nov, int64 *nra, int64 *nca,
+                    int64 *ncb, int64 *irf, int64 *icf);
+int32 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf);
 
 /* ----------------------------------------------------------------------- */
 /*           Setting up of the Jacobian and right hand side */
 /* ----------------------------------------------------------------------- */
 
 int32
-solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
-       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *rds,
-       int64 *nllv, double *rlcur, double *rlold, double *rldot, int64 *ndxloc,
-       double *ups, double *dups, double *uoldps, double *udotps,
-       double *upoldp, double *dtm, double *fa, double *fc, double *p0,
-       double *p1, double *thl, double *thu) {
+solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
+       BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *rds, int64 *nllv, double *rlcur,
+       double *rlold, double *rldot, int64 *ndxloc, double *ups, double *dups, double *uoldps,
+       double *udotps, double *upoldp, double *dtm, double *fa, double *fc, double *p0, double *p1,
+       double *thl, double *thu) {
     int64 ndim;
     int64 ipar;
     int64 ncol;
@@ -102,10 +98,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        and setubv).
     */
 
-    ff =
-        xmalloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
-    ft = xmalloc(sizeof(*ft) *
-                 (usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
+    ff = xmalloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
+    ft = xmalloc(sizeof(*ft)*(usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
 
     ndim = iap->ndim;
     ips = iap->ips;
@@ -162,28 +156,22 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(mas.icf2);
         free(mas.np);
 
-        mas.a = xmalloc(sizeof(*(mas.a))*(usize)((ndim*ncol + ndim) *
-                                                   (ndim*ncol)*(ntst + 1)));
-        mas.b = xmalloc(sizeof(*(mas.b)) *
-                        (usize)(NPARX*(ndim*ncol)*(ntst + 1)));
-        mas.c =
-            xmalloc(sizeof(*(mas.c))*(usize)((ndim*ncol + ndim) *
-                                               (nbc + nint + 1)*(ntst + 1)));
+        mas.a =
+            xmalloc(sizeof(*(mas.a))*(usize)((ndim*ncol + ndim)*(ndim*ncol)*(ntst + 1)));
+        mas.b = xmalloc(sizeof(*(mas.b))*(usize)(NPARX*(ndim*ncol)*(ntst + 1)));
+        mas.c = xmalloc(sizeof(*(mas.c)) *
+                        (usize)((ndim*ncol + ndim)*(nbc + nint + 1)*(ntst + 1)));
         mas.d = xmalloc(sizeof(*(mas.d))*(usize)((nbc + nint + 1)*NPARX));
         mas.a1 = xmalloc(sizeof(*(mas.a1))*(usize)(ndim*ndim*(ntst + 1)));
         mas.a2 = xmalloc(sizeof(*(mas.a2))*(usize)(ndim*ndim*(ntst + 1)));
         mas.s1 = xmalloc(sizeof(*(mas.s1))*(usize)(ndim*ndim*(ntst + 1)));
         mas.s2 = xmalloc(sizeof(*(mas.s2))*(usize)(ndim*ndim*(ntst + 1)));
-        mas.bb =
-            xmalloc(sizeof(*(mas.bb))*(usize)(ndim*NPARX*(ntst + 1)));
-        mas.cc = xmalloc(sizeof(*(mas.cc)) *
-                         (usize)((nbc + nint + 1)*ndim*(ntst + 1) + 1));
+        mas.bb = xmalloc(sizeof(*(mas.bb))*(usize)(ndim*NPARX*(ntst + 1)));
+        mas.cc = xmalloc(sizeof(*(mas.cc))*(usize)((nbc + nint + 1)*ndim*(ntst + 1) + 1));
         mas.faa = xmalloc(sizeof(*(mas.faa))*(usize)(ndim*(ntst + 1)));
         mas.ca1 = xmalloc(sizeof(*(mas.ca1))*(usize)(ndim*ndim*KREDO));
-        mas.icf = xmalloc(sizeof(*(mas.icf)) *
-                          (usize)((ndim*ncol + ndim)*(ntst + 1)));
-        mas.irf =
-            xmalloc(sizeof(*(mas.irf))*(usize)(ndim*ncol*(ntst + 1)));
+        mas.icf = xmalloc(sizeof(*(mas.icf))*(usize)((ndim*ncol + ndim)*(ntst + 1)));
+        mas.irf = xmalloc(sizeof(*(mas.irf))*(usize)(ndim*ncol*(ntst + 1)));
         mas.ipr = xmalloc(sizeof(*(mas.ipr))*(usize)(ndim*(ntst + 1)));
         mas.icf11 = xmalloc(sizeof(*(mas.icf11))*(usize)(ndim*KREDO));
         mas.icf1 = xmalloc(sizeof(*(mas.icf1))*(usize)(ndim*(ntst + 1)));
@@ -212,10 +200,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     ntst = mas.np[iam];
 
     if (*ifst == 1) {
-        setubv(ndim, ips, ntst, ncol, nbc, nint, nfpr, nrc, nrow, nclm, funi,
-               bcni, icni, *ndxloc, iap, rap, par, icp, *rds, mas.a, mas.b,
-               mas.c, mas.d, ft, fc, rlcur, rlold, rldot, ups, uoldps, udotps,
-               upoldp, dups, dtm, thl, thu, p0, p1);
+        setubv(ndim, ips, ntst, ncol, nbc, nint, nfpr, nrc, nrow, nclm, funi, bcni, icni, *ndxloc,
+               iap, rap, par, icp, *rds, mas.a, mas.b, mas.c, mas.d, ft, fc, rlcur, rlold, rldot,
+               ups, uoldps, udotps, upoldp, dups, dtm, thl, thu, p0, p1);
 #ifdef ACCES_TEST
         test.a = mas.a;
         test.b = mas.b;
@@ -225,10 +212,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         mas.c = NULL;
 #endif
     } else {
-        setrhs(&ndim, &ips, &ntst, &ntst0, mas.np, &ncol, &nbc, &nint, &nfpr,
-               &nrc, &nrow, &nclm, &iam, &kwt, &ipar, funi, bcni, icni, ndxloc,
-               iap, rap, par, icp, rds, ft, fc, rlcur, rlold, rldot, ups,
-               uoldps, udotps, upoldp, dups, dtm, thl, thu, p0, p1);
+        setrhs(&ndim, &ips, &ntst, &ntst0, mas.np, &ncol, &nbc, &nint, &nfpr, &nrc, &nrow, &nclm,
+               &iam, &kwt, &ipar, funi, bcni, icni, ndxloc, iap, rap, par, icp, rds, ft, fc, rlcur,
+               rlold, rldot, ups, uoldps, udotps, upoldp, dups, dtm, thl, thu, p0, p1);
     }
     /*     The matrix D and FC are set to zero for all nodes except the first.
      */
@@ -246,10 +232,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         print_fa_fc(*iap, ft, fc, filename);
     }
 #endif
-    brbd(mas.a, mas.b, mas.c, mas.d, ft, fc, p0, p1, ifst, &iid, nllv, &det,
-         &ndim, &ntst, &nbc, &nrow, &nclm, &nfpr, &nrc, &iam, &kwt, &ipar,
-         mas.a1, mas.a2, mas.bb, mas.cc, mas.faa, mas.ca1, mas.s1, mas.s2,
-         mas.icf11, mas.ipr, mas.icf1, mas.icf2, mas.irf, mas.icf);
+    brbd(mas.a, mas.b, mas.c, mas.d, ft, fc, p0, p1, ifst, &iid, nllv, &det, &ndim, &ntst, &nbc,
+         &nrow, &nclm, &nfpr, &nrc, &iam, &kwt, &ipar, mas.a1, mas.a2, mas.bb, mas.cc, mas.faa,
+         mas.ca1, mas.s1, mas.s2, mas.icf11, mas.ipr, mas.icf1, mas.icf2, mas.irf, mas.icf);
 #ifdef ACCES_TEST
     mas.a = test.a;
     mas.b = test.b;
@@ -367,14 +352,13 @@ mypart(int64 *iam, int64 *np) {
 }
 
 int32
-setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
-       int64 *nbc, int64 *nint, int64 *ncb, int64 *nrc, int64 *nra, int64 *nca,
-       int64 *iam, int64 *kwt, int64 *ipar, FUNI_TYPE((*funi)),
-       BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), int64 *ndxloc, iap_type *iap,
-       rap_type *rap, double *par, int64 *icp, double *rds, double *fa,
-       double *fc, double *rlcur, double *rlold, double *rldot, double *ups,
-       double *uoldps, double *udotps, double *upoldp, double *dups,
-       double *dtm, double *thl, double *thu, double *p0, double *p1) {
+setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol, int64 *nbc,
+       int64 *nint, int64 *ncb, int64 *nrc, int64 *nra, int64 *nca, int64 *iam, int64 *kwt,
+       int64 *ipar, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), int64 *ndxloc,
+       iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds, double *fa, double *fc,
+       double *rlcur, double *rlold, double *rldot, double *ups, double *uoldps, double *udotps,
+       double *upoldp, double *dups, double *dtm, double *thl, double *thu, double *p0,
+       double *p1) {
     int64 ups_dim1;
     int64 dups_dim1;
     int64 uoldps_dim1;
@@ -504,12 +488,10 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
             (*funi)(iap, rap, *ndim, u, uold, icp, prm, 2, f, dfdu, dfdp);
             ic1 = ic**ndim;
             for (int64 i = 0; i < *ndim; ++i) {
-                ARRAY2D(fa, ic1 + i, jj) =
-                    f[i] - ARRAY2D(wploc, *ncol, ic)*ARRAY2D(ups, jp1, i);
+                ARRAY2D(fa, ic1 + i, jj) = f[i] - ARRAY2D(wploc, *ncol, ic)*ARRAY2D(ups, jp1, i);
                 for (int32 k = 0; k < *ncol; ++k) {
                     k1 = k**ndim + i;
-                    ARRAY2D(fa, ic1 + i, jj) -=
-                        ARRAY2D(wploc, k, ic)*ARRAY2D(ups, j, k1);
+                    ARRAY2D(fa, ic1 + i, jj) -= ARRAY2D(wploc, k, ic)*ARRAY2D(ups, j, k1);
                 }
             }
             // L1:
@@ -533,8 +515,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
         //       Save difference :
         for (j = 0; j < *ntst + 1; ++j) {
             for (int64 i = 0; i < *nra; ++i) {
-                ARRAY2D(dups, j, i) =
-                    ARRAY2D(ups, j, i) - ARRAY2D(uoldps, j, i);
+                ARRAY2D(dups, j, i) = ARRAY2D(ups, j, i) - ARRAY2D(uoldps, j, i);
             }
         }
     }
@@ -559,8 +540,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
                     uid[i] = ARRAY2D(udotps, j1, i1);
                     uip[i] = ARRAY2D(upoldp, j1, i1);
                 }
-                (*icni)(iap, rap, *ndim, par, icp, *nint, uic, uio, uid, uip,
-                        ficd, 2, dicd);
+                (*icni)(iap, rap, *ndim, par, icp, *nint, uic, uio, uid, uip, ficd, 2, dicd);
                 for (m = 0; m < *nint; ++m) {
                     fc[*nbc + m] -= dtm[j]*wi[k]*ficd[m];
                 }
@@ -574,8 +554,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
         rlsum += thl[icp[i]]*(rlcur[i] - rlold[i])*rldot[i];
     }
 
-    fc[-1 + *nrc] =
-        *rds - rinpr(iap, ndim, ndxloc, udotps, dups, dtm, thu) - rlsum;
+    fc[-1 + *nrc] = *rds - rinpr(iap, ndim, ndxloc, udotps, dups, dtm, thu) - rlsum;
 
     free(dicd);
     free(ficd);
@@ -602,20 +581,17 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
 }
 
 int32
-brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
-     double *p0, double *p1, int64 *ifst, int64 *idb, int64 *nllv, double *det,
-     int64 *nov, int64 *na, int64 *nbc, int64 *nra, int64 *nca, int64 *ncb,
-     int64 *nrc, int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2,
-     double *bb, double *cc, double *faa, double *ca1, double *s1, double *s2,
-     int64 *icf11, int64 *ipr, int64 *icf1, int64 *icf2, int64 *irf,
-     int64 *icf) {
+brbd(double *a, double *b, double *c, double *d, double *fa, double *fc, double *p0, double *p1,
+     int64 *ifst, int64 *idb, int64 *nllv, double *det, int64 *nov, int64 *na, int64 *nbc,
+     int64 *nra, int64 *nca, int64 *ncb, int64 *nrc, int64 *iam, int64 *kwt, int64 *par, double *a1,
+     double *a2, double *bb, double *cc, double *faa, double *ca1, double *s1, double *s2,
+     int64 *icf11, int64 *ipr, int64 *icf1, int64 *icf2, int64 *irf, int64 *icf) {
     double *e;
     double *fcc;
     double *sol1, *sol2, *sol3;
 
     e = xmalloc(sizeof(*e)*(usize)((*nov + *nrc)*(*nov + *nrc)));
-    fcc = xmalloc(sizeof(*fcc) *
-                  (usize)((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
+    fcc = xmalloc(sizeof(*fcc)*(usize)((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
 
     sol1 = xmalloc(sizeof(*sol1)*(usize)((*nov)*(*na + 1)));
     sol2 = xmalloc(sizeof(*sol2)*(usize)((*nov)*(*na + 1)));
@@ -635,8 +611,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
         c = test.c;
 #endif
         conpar(nov, na, nra, nca, a, ncb, b, nbc, nrc, c, d, irf, icf);
-        copycp(iam, kwt, na, nov, nra, nca, a, ncb, b, nrc, c, a1, a2, bb, cc,
-               irf);
+        copycp(iam, kwt, na, nov, nra, nca, a, ncb, b, nrc, c, a1, a2, bb, cc, irf);
     }
 
     if (*nllv == 0) {
@@ -658,23 +633,21 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     }
 
     if (*ifst == 1) {
-        reduce(iam, kwt, par, a1, a2, bb, cc, d, na, nov, ncb, nrc, s1, s2, ca1,
-               icf1, icf2, icf11, ipr, nbc);
+        reduce(iam, kwt, par, a1, a2, bb, cc, d, na, nov, ncb, nrc, s1, s2, ca1, icf1, icf2, icf11,
+               ipr, nbc);
     }
 
     if (*nllv == 0) {
-        redrhs(iam, kwt, par, a1, a2, cc, faa, fc, na, nov, ncb, nrc, ca1, icf1,
-               icf2, icf11, ipr, nbc);
+        redrhs(iam, kwt, par, a1, a2, cc, faa, fc, na, nov, ncb, nrc, ca1, icf1, icf2, icf11, ipr,
+               nbc);
     }
 
-    dimrge(iam, kwt, par, e, cc, d, fc, ifst, na, nrc, nov, ncb, idb, nllv, fcc,
-           p0, p1, det, s1, a2, faa, bb);
+    dimrge(iam, kwt, par, e, cc, d, fc, ifst, na, nrc, nov, ncb, idb, nllv, fcc, p0, p1, det, s1,
+           a2, faa, bb);
 
-    bcksub(iam, kwt, par, s1, s2, a2, bb, faa, fc, fcc, sol1, sol2, sol3, na,
-           nov, ncb, icf2);
+    bcksub(iam, kwt, par, s1, s2, a2, bb, faa, fc, fcc, sol1, sol2, sol3, na, nov, ncb, icf2);
 
-    infpar(iam, par, a, b, fa, sol1, sol2, fc, na, nov, nra, nca, ncb, irf,
-           icf);
+    infpar(iam, par, a, b, fa, sol1, sol2, fc, na, nov, nra, nca, ncb, irf, icf);
 
     free(e);
     free(fcc);
@@ -702,9 +675,8 @@ setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
 }
 
 int32
-conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
-       int64 *nrc, double *c, double *fa, double *fc, int64 *irf, int64 *icf,
-       int64 *iam) {
+conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc, int64 *nrc, double *c,
+       double *fa, double *fc, int64 *irf, int64 *icf, int64 *iam) {
     int64 icf_dim1;
     int64 irf_dim1;
     int64 a_dim1;
@@ -756,14 +728,12 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
                 irfir = ARRAY2D(irf, ir, i);
                 if (ARRAY3D(a, (icfic - 1), (irfir - 1), i) != (double)0.) {
                     ARRAY2D(fa, (irfir - 1), i) -=
-                        ARRAY3D(a, (icfic - 1), (irfir - 1), i) *
-                        ARRAY2D(fa, (irfirp - 1), i);
+                        ARRAY3D(a, (icfic - 1), (irfir - 1), i)*ARRAY2D(fa, (irfirp - 1), i);
                 }
             }
             for (ir = *nbc; ir < *nrc; ++ir) {
                 if (ARRAY3D(c, (icfic - 1), ir, i) != (double)0.) {
-                    fc[ir] -= ARRAY3D(c, (icfic - 1), ir, i) *
-                              ARRAY2D(fa, (irfirp - 1), i);
+                    fc[ir] -= ARRAY3D(c, (icfic - 1), ir, i)*ARRAY2D(fa, (irfirp - 1), i);
                 }
             }
         }
@@ -773,11 +743,11 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
 }
 
 int32
-copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
-       double *a, int64 *ncb, double *b, int64 *nrc, double *c, double *a1,
-       double *a2, double *bb, double *cc, int64 *irf) {
-    int64 irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1,
-        a1_dim2, a2_dim1, a2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2;
+copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca, double *a, int64 *ncb,
+       double *b, int64 *nrc, double *c, double *a1, double *a2, double *bb, double *cc,
+       int64 *irf) {
+    int64 irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1, a1_dim2, a2_dim1,
+        a2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2;
 
     int64 irfir;
     int64 ic;
@@ -831,8 +801,8 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
                 } else if (i + 1 == nap1) {
                     ARRAY3D(cc, ic, ir, i) = ARRAY3D(c, *nra + ic, ir, (i - 1));
                 } else {
-                    ARRAY3D(cc, ic, ir, i) = ARRAY3D(c, ic, ir, i) +
-                                             ARRAY3D(c, *nra + ic, ir, (i - 1));
+                    ARRAY3D(cc, ic, ir, i) =
+                        ARRAY3D(c, ic, ir, i) + ARRAY3D(c, *nra + ic, ir, (i - 1));
                 }
             }
         }
@@ -865,17 +835,14 @@ cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
 }
 
 int32
-reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
-       double *cc, double *dd, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
-       double *s1, double *s2, double *ca1, int64 *icf1, int64 *icf2,
-       int64 *icf11, int64 *ipr, int64 *nbc) {
-    int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
-        s1_dim1, s1_dim2, s2_dim1, s2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2,
-        dd_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
+reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb, double *cc,
+       double *dd, int64 *na, int64 *nov, int64 *ncb, int64 *nrc, double *s1, double *s2,
+       double *ca1, int64 *icf1, int64 *icf2, int64 *icf11, int64 *ipr, int64 *nbc) {
+    int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2, s1_dim1, s1_dim2,
+        s2_dim1, s2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
     int64 oddc[KREDO];
-    int64 niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO], ismm[KREDO],
-        nlev, itmp;
+    int64 niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO], ismm[KREDO], nlev, itmp;
     double zero;
     double tpiv;
     double xkwt;
@@ -1100,10 +1067,9 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                     ARRAY3D(s1, (ipiv1 - 1), l, i1) = tmp;
                     if (l >= ic) {
                         tmp = ARRAY3D(a2, ic, ARRAY2D(icf2, l, i1) - 1, i1);
-                        ARRAY3D(a2, ic, ARRAY2D(icf2, l, i1) - 1, i1) = ARRAY3D(
-                            a2, (ipiv1 - 1), ARRAY2D(icf2, l, i1) - 1, i1);
-                        ARRAY3D(a2, (ipiv1 - 1), ARRAY2D(icf2, l, i1) - 1, i1) =
-                            tmp;
+                        ARRAY3D(a2, ic, ARRAY2D(icf2, l, i1) - 1, i1) =
+                            ARRAY3D(a2, (ipiv1 - 1), ARRAY2D(icf2, l, i1) - 1, i1);
+                        ARRAY3D(a2, (ipiv1 - 1), ARRAY2D(icf2, l, i1) - 1, i1) = tmp;
                     }
                     tmp = ARRAY3D(s2, ic, l, i1);
                     ARRAY3D(s2, ic, l, i1) = ARRAY3D(s2, (ipiv1 - 1), l, i1);
@@ -1127,10 +1093,9 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                 for (l = 0; l < *nov; ++l) {
                     if (l >= ic) {
                         tmp = ARRAY3D(a2, ic, ARRAY2D(icf2, l, i1) - 1, i1);
-                        ARRAY3D(a2, ic, ARRAY2D(icf2, l, i1) - 1, i1) = ARRAY3D(
-                            a1, (ipiv2 - 1), ARRAY2D(icf2, l, i1) - 1, i2);
-                        ARRAY3D(a1, (ipiv2 - 1), ARRAY2D(icf2, l, i1) - 1, i2) =
-                            tmp;
+                        ARRAY3D(a2, ic, ARRAY2D(icf2, l, i1) - 1, i1) =
+                            ARRAY3D(a1, (ipiv2 - 1), ARRAY2D(icf2, l, i1) - 1, i2);
+                        ARRAY3D(a1, (ipiv2 - 1), ARRAY2D(icf2, l, i1) - 1, i2) = tmp;
                     }
                     tmp = ARRAY3D(s2, ic, l, i1);
                     ARRAY3D(s2, ic, l, i1) = ARRAY3D(a2, (ipiv2 - 1), l, i2);
@@ -1255,8 +1220,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
             if (worker[i]) {
                 for (ir = 0; ir < *nov; ++ir) {
                     for (ic = 0; ic < *nov; ++ic) {
-                        ARRAY3D(ca1, ir, ic, i) =
-                            ARRAY3D(s1, ir, ic, (*na - 1));
+                        ARRAY3D(ca1, ir, ic, i) = ARRAY3D(s1, ir, ic, (*na - 1));
                         ARRAY3D(s1, ir, ic, (*na - 1)) = 0.;
                     }
                 }
@@ -1310,8 +1274,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                     if (piv1 >= piv2) {
                         ARRAY2D(ipr, ic, (*na - 1)) = ipiv1;
                         itmp = ARRAY2D(icf2, ic, (*na - 1));
-                        ARRAY2D(icf2, ic, (*na - 1)) =
-                            ARRAY2D(icf2, (jpiv1 - 1), (*na - 1));
+                        ARRAY2D(icf2, ic, (*na - 1)) = ARRAY2D(icf2, (jpiv1 - 1), (*na - 1));
                         ARRAY2D(icf2, (jpiv1 - 1), (*na - 1)) = itmp;
 
                         // Send pivot row to worker
@@ -1319,21 +1282,17 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                             if (l >= ic) {
                                 l1 = l - ic + 2;
                                 l2 = ARRAY2D(icf2, l, (*na - 1)) - 1;
-                                buf[l1 + 1] =
-                                    ARRAY3D(a2, (ipiv1 - 1), l2, (*na - 1));
+                                buf[l1 + 1] = ARRAY3D(a2, (ipiv1 - 1), l2, (*na - 1));
                             }
                             l1 = iprow + l;
                             l2 = iprown + l;
-                            buf[l1 + 1] =
-                                ARRAY3D(s1, (ipiv1 - 1), l, (*na - 1));
-                            buf[l2 + 1] =
-                                ARRAY3D(s2, (ipiv1 - 1), l, (*na - 1));
+                            buf[l1 + 1] = ARRAY3D(s1, (ipiv1 - 1), l, (*na - 1));
+                            buf[l2 + 1] = ARRAY3D(s2, (ipiv1 - 1), l, (*na - 1));
                         }
 
                         for (l = 0; l < *nbc; ++l) {
                             l1 = iprown2 + l;
-                            buf[l1 + 1] =
-                                ARRAY3D(bb, (ipiv1 - 1), l, (*na - 1));
+                            buf[l1 + 1] = ARRAY3D(bb, (ipiv1 - 1), l, (*na - 1));
                         }
 
                         buf[ib1 + 1] = (double)jpiv1;
@@ -1352,8 +1311,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                         // Row swapping
                         for (l = 0; l < *nov; ++l) {
                             tmp = ARRAY3D(s1, ic, l, (*na - 1));
-                            ARRAY3D(s1, ic, l, (*na - 1)) =
-                                ARRAY3D(s1, (ipiv1 - 1), l, (*na - 1));
+                            ARRAY3D(s1, ic, l, (*na - 1)) = ARRAY3D(s1, (ipiv1 - 1), l, (*na - 1));
                             ARRAY3D(s1, (ipiv1 - 1), l, (*na - 1)) = tmp;
                             if (l >= ic) {
                                 l1 = ARRAY2D(icf2, l, (*na - 1)) - 1;
@@ -1363,15 +1321,13 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                                 ARRAY3D(a2, (ipiv1 - 1), l1, (*na - 1)) = tmp;
                             }
                             tmp = ARRAY3D(s2, ic, l, (*na - 1));
-                            ARRAY3D(s2, ic, l, (*na - 1)) =
-                                ARRAY3D(s2, (ipiv1 - 1), l, (*na - 1));
+                            ARRAY3D(s2, ic, l, (*na - 1)) = ARRAY3D(s2, (ipiv1 - 1), l, (*na - 1));
                             ARRAY3D(s2, (ipiv1 - 1), l, (*na - 1)) = tmp;
                         }
 
                         for (l = 0; l < *ncb; ++l) {
                             tmp = ARRAY3D(bb, ic, l, (*na - 1));
-                            ARRAY3D(bb, ic, l, (*na - 1)) =
-                                ARRAY3D(bb, (ipiv1 - 1), l, (*na - 1));
+                            ARRAY3D(bb, ic, l, (*na - 1)) = ARRAY3D(bb, (ipiv1 - 1), l, (*na - 1));
                             ARRAY3D(bb, (ipiv1 - 1), l, (*na - 1)) = tmp;
                         }
 
@@ -1380,8 +1336,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                         ARRAY2D(ipr, ic, (*na - 1)) = *nov + ipiv2;
                         jpiv1 = jpiv2;
                         itmp = ARRAY2D(icf2, ic, (*na - 1));
-                        ARRAY2D(icf2, ic, (*na - 1)) =
-                            ARRAY2D(icf2, (jpiv1 - 1), (*na - 1));
+                        ARRAY2D(icf2, ic, (*na - 1)) = ARRAY2D(icf2, (jpiv1 - 1), (*na - 1));
                         ARRAY2D(icf2, (jpiv1 - 1), (*na - 1)) = itmp;
 
                         for (l = 0; l < *nov; ++l) {
@@ -1445,8 +1400,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                     // Elimination
                     for (ir = icp1; ir < *nov; ++ir) {
                         l2 = ARRAY2D(icf2, ic, (*na - 1)) - 1;
-                        rm = ARRAY3D(a2, ir, l2, (*na - 1)) /
-                             ARRAY3D(a2, ic, l2, (*na - 1));
+                        rm = ARRAY3D(a2, ir, l2, (*na - 1)) / ARRAY3D(a2, ic, l2, (*na - 1));
                         ARRAY3D(a2, ir, l2, (*na - 1)) = rm;
                         if (rm != zero) {
                             for (l = icp1; l < *nov; ++l) {
@@ -1455,22 +1409,18 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                                     rm*ARRAY3D(a2, ic, l1, (*na - 1));
                             }
                             for (l = 0; l < *nov; ++l) {
-                                ARRAY3D(s1, ir, l, (*na - 1)) -=
-                                    rm*ARRAY3D(s1, ic, l, (*na - 1));
-                                ARRAY3D(s2, ir, l, (*na - 1)) -=
-                                    rm*ARRAY3D(s2, ic, l, (*na - 1));
+                                ARRAY3D(s1, ir, l, (*na - 1)) -= rm*ARRAY3D(s1, ic, l, (*na - 1));
+                                ARRAY3D(s2, ir, l, (*na - 1)) -= rm*ARRAY3D(s2, ic, l, (*na - 1));
                             }
                             for (l = 0; l < *ncb; ++l) {
-                                ARRAY3D(bb, ir, l, (*na - 1)) -=
-                                    rm*ARRAY3D(bb, ic, l, (*na - 1));
+                                ARRAY3D(bb, ir, l, (*na - 1)) -= rm*ARRAY3D(bb, ic, l, (*na - 1));
                             }
                         }
                     }
 
                     for (ir = nbcp1 - 1; ir < *nrc; ++ir) {
                         l2 = ARRAY2D(icf2, ic, (*na - 1)) - 1;
-                        rm = ARRAY3D(cc, l2, ir, (nap1 - 1)) /
-                             ARRAY3D(a2, ic, l2, (*na - 1));
+                        rm = ARRAY3D(cc, l2, ir, (nap1 - 1)) / ARRAY3D(a2, ic, l2, (*na - 1));
                         ARRAY3D(cc, l2, ir, (nap1 - 1)) = rm;
                         if (rm != zero) {
                             for (l = icp1; l <= *nov; ++l) {
@@ -1479,8 +1429,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                                     rm*ARRAY3D(a2, ic, l1, (*na - 1));
                             }
                             for (l = 0; l < *nbc; ++l) {
-                                ARRAY2D(dd, l, ir) -=
-                                    rm*ARRAY3D(bb, ic, l, (*na - 1));
+                                ARRAY2D(dd, l, ir) -= rm*ARRAY3D(bb, ic, l, (*na - 1));
                             }
                         }
                     }
@@ -1514,8 +1463,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                         if (l >= ic) {
                             l1 = l - ic + 2;
                             l2 = ARRAY2D(icf11, l, i) - 1;
-                            buf[l1 + 1] =
-                                ARRAY3D(ca1, (ipiv2 - 1), l2, (*na - 1));
+                            buf[l1 + 1] = ARRAY3D(ca1, (ipiv2 - 1), l2, (*na - 1));
                         }
                         l1 = iprow + l;
                         l2 = l1 + *nov;
@@ -1550,19 +1498,16 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                             l1 = iprow + l;
                             l2 = l1 + *nov;
                             tmp = ARRAY3D(s1, (ipiv2 - 1), l, (*na - 1));
-                            ARRAY3D(s1, (ipiv2 - 1), l, (*na - 1)) =
-                                buf[l1 + 1];
+                            ARRAY3D(s1, (ipiv2 - 1), l, (*na - 1)) = buf[l1 + 1];
                             buf[l1 + 1] = tmp;
                             tmp = ARRAY3D(a2, (ipiv2 - 1), l, (*na - 1));
-                            ARRAY3D(a2, (ipiv2 - 1), l, (*na - 1)) =
-                                buf[l2 + 1];
+                            ARRAY3D(a2, (ipiv2 - 1), l, (*na - 1)) = buf[l2 + 1];
                             buf[l2 + 1] = tmp;
                         }
                         for (l = 0; l < *nbc; ++l) {
                             l1 = iprown2 + l;
                             tmp = ARRAY3D(bb, (ipiv2 - 1), l, (*na - 1));
-                            ARRAY3D(bb, (ipiv2 - 1), l, (*na - 1)) =
-                                buf[l1 + 1];
+                            ARRAY3D(bb, (ipiv2 - 1), l, (*na - 1)) = buf[l1 + 1];
                             buf[l1 + 1] = tmp;
                         }
                     } else {
@@ -1592,15 +1537,12 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                             for (l = 0; l < *nov; ++l) {
                                 l1 = iprow + l;
                                 l2 = l1 + *nov;
-                                ARRAY3D(s1, ir, l, (*na - 1)) -=
-                                    rm*buf[l1 + 1];
-                                ARRAY3D(a2, ir, l, (*na - 1)) -=
-                                    rm*buf[l2 + 1];
+                                ARRAY3D(s1, ir, l, (*na - 1)) -= rm*buf[l1 + 1];
+                                ARRAY3D(a2, ir, l, (*na - 1)) -= rm*buf[l2 + 1];
                             }
                             for (l = 0; l < *ncb; ++l) {
                                 l1 = iprown2 + l;
-                                ARRAY3D(bb, ir, l, (*na - 1)) -=
-                                    rm*buf[l1 + 1];
+                                ARRAY3D(bb, ir, l, (*na - 1)) -= rm*buf[l1 + 1];
                             }
                         }
                     }
@@ -1612,8 +1554,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
                         if (rm != zero) {
                             for (l = 0; l < *nov; ++l) {
                                 l3 = iprown + l;
-                                ARRAY3D(cc, l, ir, (nap1 - 1)) -=
-                                    rm*buf[l3 + 1];
+                                ARRAY3D(cc, l, ir, (nap1 - 1)) -= rm*buf[l3 + 1];
                             }
                         }
                     }
@@ -1649,12 +1590,11 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 }
 
 int32
-redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
-       double *faa, double *fc, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
-       double *ca1, int64 *icf1, int64 *icf2, int64 *icf11, int64 *ipr,
-       int64 *nbc) {
-    int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
-        cc_dim1, cc_dim2, faa_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
+redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc, double *faa,
+       double *fc, int64 *na, int64 *nov, int64 *ncb, int64 *nrc, double *ca1, int64 *icf1,
+       int64 *icf2, int64 *icf11, int64 *ipr, int64 *nbc) {
+    int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2, cc_dim1, cc_dim2,
+        faa_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
     int64 niam;
     int64 nlev;
@@ -1780,8 +1720,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
                     ipiv1 = ARRAY2D(ipr, ic, (*na - 1));
                     if (ipiv1 <= *nov) {
                         buf[0] = ARRAY2D(faa, (ipiv1 - 1), (*na - 1));
-                        ARRAY2D(faa, (ipiv1 - 1), *na) =
-                            ARRAY2D(faa, ic, (*na - 1));
+                        ARRAY2D(faa, (ipiv1 - 1), *na) = ARRAY2D(faa, ic, (*na - 1));
                         ARRAY2D(faa, ic, (*na - 1)) = buf[0];
                         buf[1] = -1.;
                         csend();
@@ -1795,8 +1734,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
                     for (ir = icp1; ir < *nov; ++ir) {
                         l1 = ARRAY2D(icf2, ic, (*na - 1)) - 1;
                         rm = ARRAY3D(a2, ir, l1, (*na - 1));
-                        ARRAY2D(faa, ir, (*na - 1)) -=
-                            rm*ARRAY2D(faa, ic, (*na - 1));
+                        ARRAY2D(faa, ir, (*na - 1)) -= rm*ARRAY2D(faa, ic, (*na - 1));
                     }
                     for (ir = nbcp1 - 1; ir < *nrc; ++ir) {
                         l1 = ARRAY2D(icf2, ic, (*na - 1)) - 1;
@@ -1835,12 +1773,12 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
 }
 
 int32
-dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
-       double *fc, int64 *ifst, int64 *na, int64 *nrc, int64 *nov, int64 *ncb,
-       int64 *idb, int64 *nllv, double *fcc, double *p0, double *p1,
-       double *det, double *s, double *a2, double *faa, double *bb) {
-    int64 e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2,
-        faa_dim1, a2_dim1, a2_dim2, bb_dim1, bb_dim2;
+dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d, double *fc,
+       int64 *ifst, int64 *na, int64 *nrc, int64 *nov, int64 *ncb, int64 *idb, int64 *nllv,
+       double *fcc, double *p0, double *p1, double *det, double *s, double *a2, double *faa,
+       double *bb) {
+    int64 e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2, faa_dim1, a2_dim1,
+        a2_dim2, bb_dim1, bb_dim2;
 
     int64 k;
 
@@ -2036,12 +1974,11 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 }
 
 int32
-bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
-       double *bb, double *faa, double *fc, double *fcc, double *sol1,
-       double *sol2, double *sol3, int64 *na, int64 *nov, int64 *ncb,
-       int64 *icf2) {
-    int64 icf2_dim1, s1_dim1, s1_dim2, s2_dim1, s2_dim2, a2_dim1, a2_dim2,
-        bb_dim1, bb_dim2, sol1_dim1, sol2_dim1, sol3_dim1, faa_dim1;
+bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2, double *bb,
+       double *faa, double *fc, double *fcc, double *sol1, double *sol2, double *sol3, int64 *na,
+       int64 *nov, int64 *ncb, int64 *icf2) {
+    int64 icf2_dim1, s1_dim1, s1_dim2, s2_dim1, s2_dim2, a2_dim1, a2_dim2, bb_dim1, bb_dim2,
+        sol1_dim1, sol2_dim1, sol3_dim1, faa_dim1;
 
     int64 niam;
     int64 ibuf;
@@ -2155,23 +2092,19 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
                     kp1 = k + 1;
                     sm = 0.;
                     for (l = 0; l < *nov; ++l) {
-                        sm += ARRAY3D(s1, k, l, (*na - 1)) *
-                              ARRAY2D(sol1, l, (*na - 1));
-                        sm += ARRAY3D(s2, k, l, (*na - 1)) *
-                              ARRAY2D(sol3, l, (*na - 1));
+                        sm += ARRAY3D(s1, k, l, (*na - 1))*ARRAY2D(sol1, l, (*na - 1));
+                        sm += ARRAY3D(s2, k, l, (*na - 1))*ARRAY2D(sol3, l, (*na - 1));
                     }
                     for (l = 0; l < *ncb; ++l) {
                         sm += ARRAY3D(bb, k, l, (*na - 1))*fc[*nov + l];
                     }
                     for (l = kp1; l < *nov; ++l) {
                         l1 = ARRAY2D(icf2, l, (*na - 1)) - 1;
-                        sm += ARRAY2D(sol2, l1, (*na - 1)) *
-                              ARRAY3D(a2, k, l1, (*na - 1));
+                        sm += ARRAY2D(sol2, l1, (*na - 1))*ARRAY3D(a2, k, l1, (*na - 1));
                     }
                     l2 = ARRAY2D(icf2, k, (*na - 1)) - 1;
                     ARRAY2D(sol2, l2, (*na - 1)) =
-                        (ARRAY2D(faa, k, (*na - 1)) - sm) /
-                        ARRAY3D(a2, k, l2, (*na - 1));
+                        (ARRAY2D(faa, k, (*na - 1)) - sm) / ARRAY3D(a2, k, l2, (*na - 1));
                 }
                 //              **Send solutions to the next level
                 if (i + 1 > 1) {
@@ -2276,8 +2209,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
                 sm += ARRAY2D(sol2, l1, i)*ARRAY3D(a2, k, l1, i);
             }
             l2 = ARRAY2D(icf2, k, i) - 1;
-            ARRAY2D(sol2, l2, i) =
-                (ARRAY2D(faa, k, i) - sm) / ARRAY3D(a2, k, l2, i);
+            ARRAY2D(sol2, l2, i) = (ARRAY2D(faa, k, i) - sm) / ARRAY3D(a2, k, l2, i);
         }
         for (l = 0; l < *nov; ++l) {
             ARRAY2D(sol1, l, (i + 1)) = ARRAY2D(sol2, l, i);
@@ -2292,11 +2224,10 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
 }
 
 int32
-infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
-       double *sol2, double *fc, int64 *na, int64 *nov, int64 *nra, int64 *nca,
-       int64 *ncb, int64 *irf, int64 *icf) {
-    int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1,
-        sol1_dim1, sol2_dim1;
+infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1, double *sol2,
+       double *fc, int64 *na, int64 *nov, int64 *nra, int64 *nca, int64 *ncb, int64 *irf,
+       int64 *icf) {
+    int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1, sol1_dim1, sol2_dim1;
 
     int64 nram;
     int64 icfj1;
@@ -2353,8 +2284,7 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
             }
             novpir = *nov + ir;
             icfnovpir = ARRAY2D(icf, novpir, i) - 1;
-            x[icfnovpir] =
-                (ARRAY2D(fa, irfir, i) - sm) / ARRAY3D(a, icfnovpir, irfir, i);
+            x[icfnovpir] = (ARRAY2D(fa, irfir, i) - sm) / ARRAY3D(a, icfnovpir, irfir, i);
         }
         //        **Copy SOL1 and X into FA
         for (int64 j = 0; j < *nov; ++j) {
@@ -2444,8 +2374,8 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
 }
 
 int32
-print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
-       double *a, double *b, double *c, double *d, double *fa, double *fc) {
+print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc, double *a, double *b,
+       double *c, double *d, double *fa, double *fc) {
     int64 a_dim1;
     int64 a_dim2;
     int64 b_dim1;

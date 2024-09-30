@@ -135,10 +135,9 @@ spgmr_malloc(int64 N, int32 l_max) {
 }
 
 int32
-spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
-            int32 gstype, double delta, int32 max_restarts, void *P_data,
-            Vector sx, Vector sb, ATimesFn atimes, PSolveFn psolve,
-            double *res_norm, int32 *nli, int32 *nps) {
+spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype, int32 gstype,
+            double delta, int32 max_restarts, void *P_data, Vector sx, Vector sb, ATimesFn atimes,
+            PSolveFn psolve, double *res_norm, int32 *nli, int32 *nps) {
     Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
     double beta;
@@ -178,8 +177,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
         max_restarts = 0;
     }
 
-    if ((pretype != PRE_LEFT) && (pretype != PRE_RIGHT) &&
-        (pretype != PRE_BOTH)) {
+    if ((pretype != PRE_LEFT) && (pretype != PRE_RIGHT) && (pretype != PRE_BOTH)) {
         pretype = PRE_NONE;
     }
 
@@ -211,8 +209,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
         ier = psolve(P_data, V[0], vtemp, PRE_LEFT);
         (*nps)++;
         if (ier != 0) {
-            return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
-                              : SPGMR_PSOLVE_FAIL_REC);
+            return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC : SPGMR_PSOLVE_FAIL_REC);
         }
     } else {
         vector_scale(1.0, V[0], vtemp);
@@ -271,8 +268,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                 ier = psolve(P_data, V[l_plus_1], vtemp, PRE_RIGHT);
                 (*nps)++;
                 if (ier != 0) {
-                    return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
-                                      : SPGMR_PSOLVE_FAIL_REC);
+                    return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC : SPGMR_PSOLVE_FAIL_REC);
                 }
             }
 
@@ -286,8 +282,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                 ier = psolve(P_data, V[l_plus_1], vtemp, PRE_LEFT);
                 (*nps)++;
                 if (ier != 0) {
-                    return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
-                                      : SPGMR_PSOLVE_FAIL_REC);
+                    return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC : SPGMR_PSOLVE_FAIL_REC);
                 }
             } else {
                 vector_scale(1.0, V[l_plus_1], vtemp);
@@ -302,14 +297,12 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
             //  Orthogonalize V[l+1] against previous V[i]: V[l+1] = w_tilde.
             if (gstype == CLASSICAL_GS) {
-                if (iterativ_classical_gs(V, Hes, l_plus_1, l_max,
-                                          &(Hes[l_plus_1][l]), vtemp,
+                if (iterativ_classical_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l]), vtemp,
                                           yg) != 0) {
                     return SPGMR_GS_FAIL;
                 }
             } else {
-                if (iterativ_modified_gs(V, Hes, l_plus_1, l_max,
-                                         &(Hes[l_plus_1][l])) != 0) {
+                if (iterativ_modified_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l])) != 0) {
                     return SPGMR_GS_FAIL;
                 }
             }
@@ -359,8 +352,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                 ier = psolve(P_data, xcor, vtemp, PRE_RIGHT);
                 (*nps)++;
                 if (ier != 0) {
-                    return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
-                                      : SPGMR_PSOLVE_FAIL_REC);
+                    return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC : SPGMR_PSOLVE_FAIL_REC);
                 }
             } else {
                 vector_scale(1.0, xcor, vtemp);
@@ -413,8 +405,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             ier = psolve(P_data, xcor, vtemp, PRE_RIGHT);
             (*nps)++;
             if (ier != 0) {
-                return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
-                                  : SPGMR_PSOLVE_FAIL_REC);
+                return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC : SPGMR_PSOLVE_FAIL_REC);
             }
         } else {
             vector_scale(1.0, xcor, vtemp);

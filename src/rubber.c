@@ -7,8 +7,7 @@
 
 #include "functions.h"
 
-static void rubber_box(int32 i1, int32 j1, int32 i2, int32 j2, Window window,
-                       int32 f);
+static void rubber_box(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f);
 
 int32
 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
@@ -29,8 +28,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     }
 
     XSelectInput(display, window,
-                 KeyPressMask | ButtonPressMask | ButtonReleaseMask |
-                     PointerMotionMask | ButtonMotionMask | ExposureMask);
+                 KeyPressMask | ButtonPressMask | ButtonReleaseMask | PointerMotionMask |
+                     ButtonMotionMask | ExposureMask);
     while (!there) {
         XNextEvent(display, &event);
         switch (event.type) {
@@ -98,8 +97,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     }
 
     XSelectInput(display, window,
-                 KeyPressMask | ButtonPressMask | ExposureMask |
-                     ButtonReleaseMask | ButtonMotionMask);
+                 KeyPressMask | ButtonPressMask | ExposureMask | ButtonReleaseMask |
+                     ButtonMotionMask);
     if (error) {
         return 0;
     }

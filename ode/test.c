@@ -11,11 +11,10 @@ typedef struct Symbol {
 } Symbol;
 
 Symbol ms[11] = {{"(", 1, 999, 0, 1},  //  0
-                 {")", 1, 999, 0, 2}, {",", 1, 999, 0, 3},
-                 {"+", 1, 100, 0, 4}, {"-", 1, 101, 0, 4},
-                 {"*", 1, 102, 0, 6}, {"/", 1, 103, 0, 6},
-                 {"^", 1, 105, 0, 7}, {"**", 2, 105, 0, 7},
-                 {"~", 1, 14, 0, 6},  {"START", 5, -1, 0, 0}};
+                 {")", 1, 999, 0, 2},   {",", 1, 999, 0, 3},  {"+", 1, 100, 0, 4},
+                 {"-", 1, 101, 0, 4},   {"*", 1, 102, 0, 6},  {"/", 1, 103, 0, 6},
+                 {"^", 1, 105, 0, 7},   {"**", 2, 105, 0, 7}, {"~", 1, 14, 0, 6},
+                 {"START", 5, -1, 0, 0}};
 
 SYMBOL *m;
 
@@ -36,8 +35,7 @@ main() {
     }
 
     for (i = 0; i < 10; i++) {
-        printf("%s %d %d %d %d %g \n", m[i].name, m[i].len, m[i].com, m[i].arg,
-               m[i].pri, v[i]);
+        printf("%s %d %d %d %d %g \n", m[i].name, m[i].len, m[i].com, m[i].arg, m[i].pri, v[i]);
     }
     for (i = 12; i < 80; i++) {
         sprintf(m[i].name, "var%d", i);
@@ -50,7 +48,6 @@ main() {
 
     printf("here we go \\n");
     for (i = 12; i < 80; i++) {
-        printf("%s %d %d %d %d %g\n", m[i].name, m[i].len, m[i].com, m[i].arg,
-               m[i].pri, v[i]);
+        printf("%s %d %d %d %d %g\n", m[i].name, m[i].len, m[i].com, m[i].arg, m[i].pri, v[i]);
     }
 }

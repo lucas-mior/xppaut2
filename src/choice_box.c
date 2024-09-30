@@ -15,8 +15,8 @@
 
 static void choice_box_do_checks(ChoiceBox p);
 static void choice_box_display(Window window, ChoiceBox p);
-static int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc,
-                           char **names, int32 *check, int32 type);
+static int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names, int32 *check,
+                           int32 type);
 
 void
 choice_box_display(Window window, ChoiceBox p) {
@@ -34,8 +34,7 @@ choice_box_display(Window window, ChoiceBox p) {
         if (window != p.cw[i]) {
             continue;
         }
-        XDrawString(display, window, gc, 0, cury_off, p.name[i],
-                    (int)strlen(p.name[i]));
+        XDrawString(display, window, gc, 0, cury_off, p.name[i], (int)strlen(p.name[i]));
         if (p.flag[i] == 1) {
             ggets_set_fore();
         } else {
@@ -55,24 +54,21 @@ choice_box_do_checks(ChoiceBox p) {
         } else {
             ggets_set_back();
         }
-        XDrawString(display, p.cw[i], gc, (p.mc + 1)*dcur_x, cury_off, "X",
-                    1);
+        XDrawString(display, p.cw[i], gc, (p.mc + 1)*dcur_x, cury_off, "X", 1);
     }
     ggets_set_fore();
     return;
 }
 
 void
-choice_box_base(char *wname, int32 n, int32 mcc, char **names, int32 *check,
-                int32 type) {
-    do_choice_box(RootWindow(display, screen), wname, n, mcc, names, check,
-                  type);
+choice_box_base(char *wname, int32 n, int32 mcc, char **names, int32 *check, int32 type) {
+    do_choice_box(RootWindow(display, screen), wname, n, mcc, names, check, type);
     return;
 }
 
 int32
-do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
-              int32 *check, int32 type) {
+do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names, int32 *check,
+              int32 type) {
     ChoiceBox p;
 
     int32 width;
@@ -104,8 +100,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     size_hints.min_height = height;
     size_hints.max_width = width;
     size_hints.max_height = height;
-    XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
-                     NULL);
+    XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL, NULL);
 
     ystart = dcur_y;
     xstart = dcur_x;
@@ -116,15 +111,13 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
         oldcheck[i] = check[i];
         xpos = xstart;
         ypos = ystart + i*(dcur_y + 10);
-        p.cw[i] = pop_list_make_window(base, xpos, ypos, (mcc + 3)*dcur_x,
-                                       dcur_y, 1);
+        p.cw[i] = pop_list_make_window(base, xpos, ypos, (mcc + 3)*dcur_x, dcur_y, 1);
     }
 
     ypos = height - 2*dcur_y;
     xpos = (width - 12*dcur_x) / 2;
     p.ok = pop_list_make_window(base, xpos, ypos, 2*dcur_x, dcur_y, 2);
-    p.cancel = pop_list_make_window(base, xpos + 4*dcur_x, ypos, 6*dcur_x,
-                                    dcur_y, 2);
+    p.cancel = pop_list_make_window(base, xpos + 4*dcur_x, ypos, 6*dcur_x, dcur_y, 2);
     p.base = base;
 
     p.n = n;

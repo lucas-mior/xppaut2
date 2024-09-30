@@ -14,12 +14,11 @@
 #define Param 1
 #define IC 2
 
-#define MYMASK                                                                 \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     LeaveWindowMask | EnterWindowMask)
+#define MYMASK                                                                                     \
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask | LeaveWindowMask |       \
+     EnterWindowMask)
 
-#define SIMPMASK                                                               \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
+#define SIMPMASK (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
 static struct MyCalc {
     Window base;
@@ -40,8 +39,7 @@ draw_calc(Window window) {
     if (window == my_calc.answer) {
         XClearWindow(display, window);
         sprintf(bob, "%.16g", my_calc.last_val);
-        XDrawString(display, window, small_gc, 0, cury_offs, bob,
-                    (int)strlen(bob));
+        XDrawString(display, window, small_gc, 0, cury_offs, bob, (int)strlen(bob));
         return;
     }
     if (window == my_calc.quit) {
@@ -64,8 +62,7 @@ make_calc(double z) {
     if (my_calc.use == 0) {
         width = 20 + 24*dcur_xs;
         height = 4*dcur_ys;
-        base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
-                                          width, height, 4);
+        base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
         my_calc.base = base;
         XStringListToTextProperty(name, 1, &winname);
         size_hints.flags = PPosition | PSize | PMinSize | PMaxSize;
@@ -78,13 +75,11 @@ make_calc(double z) {
         size_hints.max_width = width;
         size_hints.max_height = height;
 
-        XSetWMProperties(display, base, &winname, &winname, NULL, 0,
-                         &size_hints, NULL, NULL);
-        my_calc.answer = pop_list_make_window(base, 10, dcur_ys / 2,
-                                              24*dcur_xs, dcur_ys, 0);
+        XSetWMProperties(display, base, &winname, &winname, NULL, 0, &size_hints, NULL, NULL);
+        my_calc.answer = pop_list_make_window(base, 10, dcur_ys / 2, 24*dcur_xs, dcur_ys, 0);
         width = (width - 4*dcur_xs) / 2;
-        my_calc.quit = pop_list_make_window(base, width, (int32)(2.5*dcur_ys),
-                                            4*dcur_xs, dcur_ys, 1);
+        my_calc.quit =
+            pop_list_make_window(base, width, (int32)(2.5*dcur_ys), 4*dcur_xs, dcur_ys, 1);
         XSelectInput(display, my_calc.quit, MYMASK);
         my_calc.use = 1;
     }
@@ -125,13 +120,11 @@ calc_q_calc(void) {
                 break;
             }
         }
-        if (event.type == EnterNotify &&
-            event.xcrossing.window == my_calc.quit) {
+        if (event.type == EnterNotify && event.xcrossing.window == my_calc.quit) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 2);
         }
 
-        if (event.type == LeaveNotify &&
-            event.xcrossing.window == my_calc.quit) {
+        if (event.type == LeaveNotify && event.xcrossing.window == my_calc.quit) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 1);
         }
         ggets_edit_command_string(event, name, value, &done, &pos, &col);

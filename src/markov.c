@@ -232,8 +232,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
     int32 l0 = markov[index].nstates*j + k;
     int32 type = markov[index].type;
     if (type == 0) {
-        markov[index].trans[l0] =
-            xmalloc(sizeof(*(markov[index].trans[l0]))*(strlen(expr) + 1));
+        markov[index].trans[l0] = xmalloc(sizeof(*(markov[index].trans[l0]))*(strlen(expr) + 1));
         strcpy(markov[index].trans[l0], expr);
         //  compilation step -- can be delayed
         /*
@@ -269,8 +268,7 @@ markov_compile_all(void) {
             for (int32 k = 0; k < ns; k++) {
                 l0 = ns*j + k;
                 if (compile_markov(index, j, k) == -1) {
-                    ggets_plintf("Bad expression %s[%d][%d] = %s \n",
-                                 markov[index].name, j, k,
+                    ggets_plintf("Bad expression %s[%d][%d] = %s \n", markov[index].name, j, k,
                                  markov[index].trans[l0]);
                     exit(0);
                 }
@@ -291,8 +289,7 @@ compile_markov(int32 index, int32 j, int32 k) {
     if (parserslow_add_expr(expr, com, &leng2)) {
         return -1;
     }
-    markov[index].command[l0] =
-        xmalloc(sizeof(*(markov[index].command[l0]))*(usize)(leng2 + 2));
+    markov[index].command[l0] = xmalloc(sizeof(*(markov[index].command[l0]))*(usize)(leng2 + 2));
     for (int32 i = 0; i < leng2; i++) {
         markov[index].command[l0][i] = com[i];
     }
@@ -551,8 +548,7 @@ markov_append_stoch(int32 first, int32 length) {
         stoch_len = length;
         for (int32 i = 0; i < (NEQ + 1); i++) {
             my_mean[i] = xmalloc(sizeof(*(my_mean[i]))*(usize)stoch_len);
-            my_variance[i] =
-                xmalloc(sizeof(*(my_variance[i]))*(usize)stoch_len);
+            my_variance[i] = xmalloc(sizeof(*(my_variance[i]))*(usize)stoch_len);
             for (int32 j = 0; j < stoch_len; j++) {
                 my_mean[i][j] = 0.0;
                 my_variance[i][j] = 0.0;
@@ -602,9 +598,8 @@ markov_gammln(double xx) {
     double y;
     double tmp;
     double ser;
-    static double cof[6] = {76.18009172947146,     -86.50532032941677,
-                            24.01409824083091,     -1.231739572450155,
-                            0.1208650973866179e-2, -0.5395239384953e-5};
+    static double cof[6] = {76.18009172947146,  -86.50532032941677,    24.01409824083091,
+                            -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5};
     y = x = xx;
     tmp = x + 5.5;
     tmp -= (x + 0.5)*log(tmp);
@@ -647,8 +642,7 @@ markov_poidev(double xm) {
                 em = sq*y + xm;
             } while (em < 0.0);
             em = floor(em);
-            t = 0.9*(1.0 + y*y) *
-                exp(em*alxm - markov_gammln(em + 1.0) - g);
+            t = 0.9*(1.0 + y*y)*exp(em*alxm - markov_gammln(em + 1.0) - g);
         } while (markov_ndrand48() > t);
     }
     return em;

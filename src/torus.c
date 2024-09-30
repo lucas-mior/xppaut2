@@ -58,13 +58,11 @@ torus_do_com(int32 c) {
                     // draw torus box
                     Window win = event.xany.window;
                     if (win == torbox.cancel) {
-                        XDrawString(display, win, small_gc, 5, cury_offs,
-                                    "Cancel", 6);
+                        XDrawString(display, win, small_gc, 5, cury_offs, "Cancel", 6);
                         return;
                     }
                     if (win == torbox.done) {
-                        XDrawString(display, win, small_gc, 5, cury_offs,
-                                    "Done", 4);
+                        XDrawString(display, win, small_gc, 5, cury_offs, "Done", 4);
                         return;
                     }
 
@@ -146,8 +144,7 @@ torus_draw_var(int32 i) {
     } else {
         snprintf(strng, sizeof(strng), "   %s", uvar_names[i]);
     }
-    XDrawString(display, torbox.window[i], small_gc, 0, cury_offs, strng,
-                (int)strlen(strng));
+    XDrawString(display, torbox.window[i], small_gc, 0, cury_offs, strng, (int)strlen(strng));
     return;
 }
 
@@ -184,8 +181,7 @@ torus_make_box(char *title) {
     width = 24*dcur_xs*nac + 10;
     height = 3*dcur_ys + ndn*(dcur_ys + 8);
 
-    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
-                                      height, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
 
     torbox.base = base;
     XStringListToTextProperty(&title, 1, &winname);
@@ -205,25 +201,22 @@ torus_make_box(char *title) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints,
-                         NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL, &class_hints);
     }
     for (int32 i = 0; i < NEQ; i++) {
         i1 = i / nv;
         j1 = i % nv;
         xpos = xstart + 18*dcur_xs*i1;
         ypos = ystart + j1*(dcur_ys + 8);
-        torbox.window[i] =
-            pop_list_make_window(base, xpos, ypos, 15*dcur_xs, dcur_ys, 1);
+        torbox.window[i] = pop_list_make_window(base, xpos, ypos, 15*dcur_xs, dcur_ys, 1);
     }
 
     xpos = (width - 16*dcur_xs - 10) / 2;
     ypos = height - 3*dcur_ys / 2;
 
-    torbox.cancel =
-        pop_list_make_window(base, xpos, ypos, 8*dcur_xs, dcur_ys, 1);
-    torbox.done = pop_list_make_window(base, xpos + 8*dcur_xs + 10, ypos,
-                                       8*dcur_xs, dcur_ys, 1);
+    torbox.cancel = pop_list_make_window(base, xpos, ypos, 8*dcur_xs, dcur_ys, 1);
+    torbox.done =
+        pop_list_make_window(base, xpos + 8*dcur_xs + 10, ypos, 8*dcur_xs, dcur_ys, 1);
     XSelectInput(display, torbox.cancel, MASK_BUTTON);
     XSelectInput(display, torbox.done, MASK_BUTTON);
     XRaiseWindow(display, torbox.base);

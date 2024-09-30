@@ -189,10 +189,9 @@ typedef void (*RhsFn)(int64 N, double t, Vector y, Vector ydot, void *f_data);
  *                                                                *
  ******************************************************************/
 
-void *cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm,
-                   int32 iter, int32 itol, double *reltol, void *abstol,
-                   void *f_data, FILE *errfp, bool optIn, int32 iopt[],
-                   double ropt[]);
+void *cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter, int32 itol,
+                   double *reltol, void *abstol, void *f_data, FILE *errfp, bool optIn,
+                   int32 iopt[], double ropt[]);
 
 /******************************************************************
  *                                                                *
@@ -584,12 +583,10 @@ typedef struct CVodeMemRec {
 
     int32 (*cv_linit)(struct CVodeMemRec *cv_mem, bool *setupNonNull);
 
-    int32 (*cv_lsetup)(struct CVodeMemRec *cv_mem, int32 convfail, Vector ypred,
-                       Vector fpred, bool *jcurPtr, Vector vtemp1,
-                       Vector vtemp2, Vector vtemp3);
+    int32 (*cv_lsetup)(struct CVodeMemRec *cv_mem, int32 convfail, Vector ypred, Vector fpred,
+                       bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3);
 
-    int32 (*cv_lsolve)(struct CVodeMemRec *cv_mem, Vector b, Vector ycur,
-                       Vector fcur);
+    int32 (*cv_lsolve)(struct CVodeMemRec *cv_mem, Vector b, Vector ycur, Vector fcur);
 
     void (*cv_lfree)(struct CVodeMemRec *cv_mem);
 

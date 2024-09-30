@@ -156,11 +156,10 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J,
-                            RhsFn f, void *f_data, double t, Vector y,
-                            Vector fy, Vector ewt, double h, double uround,
-                            void *jac_data, int32 *nfePtr, Vector vtemp1,
-                            Vector vtemp2, Vector vtemp3);
+typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f, void *f_data,
+                            double t, Vector y, Vector fy, Vector ewt, double h, double uround,
+                            void *jac_data, int32 *nfePtr, Vector vtemp1, Vector vtemp2,
+                            Vector vtemp3);
 
 /******************************************************************
  *                                                                *
@@ -190,8 +189,7 @@ typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J,
  *                                                                *
  ******************************************************************/
 
-void cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
-             void *jac_data);
+void cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac, void *jac_data);
 
 /******************************************************************
  *                                                                *
@@ -202,9 +200,8 @@ void cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
  *                                                                *
  ******************************************************************/
 
-void cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
-                    void *f_data, double t, Vector y, Vector fy, Vector ewt,
-                    double h, double uround, void *jac_data, int32 *nfePtr,
-                    Vector vtemp1, Vector vtemp2, Vector vtemp3);
+void cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f, void *f_data, double t,
+                    Vector y, Vector fy, Vector ewt, double h, double uround, void *jac_data,
+                    int32 *nfePtr, Vector vtemp1, Vector vtemp2, Vector vtemp3);
 
 #endif

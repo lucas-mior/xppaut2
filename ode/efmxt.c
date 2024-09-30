@@ -36,8 +36,8 @@ norm() {
    of trials
 */
 double
-onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
-       double isig, double nsig, double S, double tau) {
+onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar, double isig, double nsig,
+       double S, double tau) {
     int ni, nt, i;
     double cs[MAXN];
     double ssum = 0.0;
@@ -64,9 +64,7 @@ onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
             for (i = 0; i < n; i++) {
                 cs[i] = cos(x[i]);
                 s[i] += dt*(.01*pow((1 - cs[i]), 10.0) - s[i]) / tau;
-                x[i] +=
-                    dt*(1 - cs[i] +
-                          (1 + cs[i])*(i0[i] + sbar + sdt*norm()*nsig));
+                x[i] += dt*(1 - cs[i] + (1 + cs[i])*(i0[i] + sbar + sdt*norm()*nsig));
             }  // all have been updated
         }
         // approx slope
@@ -82,8 +80,7 @@ onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
 efmx(double *in, double *out, int nin, int nout, double *var, double *con) {
     double S = in[0], ibar = in[1], isig = in[2], nsig = in[3], tau = in[4];
     double dt = .05;
-    int ntrials = (int)in[6], niter = (int)in[5], nstart = (int)(.25*niter),
-        n = (int)in[7];
+    int ntrials = (int)in[6], niter = (int)in[5], nstart = (int)(.25*niter), n = (int)in[7];
     ulong start;
     ulong stop;
 

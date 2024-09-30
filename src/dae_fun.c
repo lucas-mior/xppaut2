@@ -49,8 +49,7 @@ dae_fun_add_svar(char *name, char *rhs) {
     strcpy(svar[nsvar].name, name);
     svar[nsvar].rhs = xmalloc(80);
     strcpy(svar[nsvar].rhs, rhs);
-    ggets_plintf(" Added sol-var[%d] %s = %s \n", nsvar, svar[nsvar].name,
-                 svar[nsvar].rhs);
+    ggets_plintf(" Added sol-var[%d] %s = %s \n", nsvar, svar[nsvar].name, svar[nsvar].rhs);
     nsvar++;
     return 0;
 }
@@ -89,8 +88,7 @@ dae_fun_compile_svars(void) {
     int32 n;
 
     if (nsvar != naeqn) {
-        ggets_plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar,
-                     naeqn);
+        ggets_plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar, naeqn);
         return 1;
     }
 
@@ -117,8 +115,7 @@ dae_fun_compile_svars(void) {
     }
 
     // dae fun init work
-    dae_work.work =
-        xmalloc(sizeof(*(dae_work.work))*(usize)(nsvar*nsvar + 10*nsvar));
+    dae_work.work = xmalloc(sizeof(*(dae_work.work))*(usize)(nsvar*nsvar + 10*nsvar));
     dae_work.iwork = xmalloc(sizeof(*(dae_work.iwork))*(usize)nsvar);
     dae_work.status = 1;
     return 0;

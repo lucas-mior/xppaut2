@@ -38,8 +38,7 @@ rhs(double g, double a, double sig, double tau, double dt, double st) {
     }
 }
 
-one_step(double g, double a, double sig, double tau, double dt, double *stot,
-         int ntran) {
+one_step(double g, double a, double sig, double tau, double dt, double *stot, int ntran) {
     int i, j;
     // try to reach a steady state
     for (i = 0; i < ntran; i++) {

@@ -28,30 +28,27 @@ static struct MenuDef {
 /* CLONE */
 #define FILE_ENTRIES 16
 #define NUM_ENTRIES 18
-static char *main_menu[] = {"XPP",        "Initialconds",   "Continue",
-                            "Nullcline",  "Dir.field/flow", "Window/zoom",
-                            "phAsespace", "Kinescope",      "Graphic stuff",
-                            "nUmerics",   "File",           "Parameters",
-                            "Erase",      "Makewindow",     "Text,etc",
-                            "Sing pts",   "Viewaxes",       "Xi vs t",
-                            "Restore",    "3d-params",      "Bndryval"};
+static char *main_menu[] = {
+    "XPP",        "Initialconds", "Continue",      "Nullcline", "Dir.field/flow", "Window/zoom",
+    "phAsespace", "Kinescope",    "Graphic stuff", "nUmerics",  "File",           "Parameters",
+    "Erase",      "Makewindow",   "Text,etc",      "Sing pts",  "Viewaxes",       "Xi vs t",
+    "Restore",    "3d-params",    "Bndryval"};
 
 static char *num_menu[] = {
-    "NUMERICS",    "Total",        "Start time", "tRansient",    "Dt",
-    "Ncline ctrl", "sIng pt ctrl", "nOutput",    "Bounds",       "Method",
-    "dElay",       "Color code",   "stocHast",   "Poincare map", "rUelle plot",
-    "looKup",      "bndVal",       "Averaging",  "[Esc]-exit"};
+    "NUMERICS",    "Total",  "Start time", "tRansient", "Dt",         "Ncline ctrl", "sIng pt ctrl",
+    "nOutput",     "Bounds", "Method",     "dElay",     "Color code", "stocHast",    "Poincare map",
+    "rUelle plot", "looKup", "bndVal",     "Averaging", "[Esc]-exit"};
 /* CLONE change */
 
-static char *fileon_menu[] = {
-    "FILE", "Prt src",     "Write set", "Read set", "Auto",    "Calculator",
-    "Edit", "Save info",   "Bell off",  "Help",     "Quit",    "Transpose",
-    "tIps", "Get par set", "cLone",     ".Xpprc",   "tUtorial"};
+static char *fileon_menu[] = {"FILE",       "Prt src",   "Write set", "Read set",    "Auto",
+                              "Calculator", "Edit",      "Save info", "Bell off",    "Help",
+                              "Quit",       "Transpose", "tIps",      "Get par set", "cLone",
+                              ".Xpprc",     "tUtorial"};
 
-static char *fileoff_menu[] = {
-    "FILE", "Prt src",     "Write set", "Read set", "Auto",    "Calculator",
-    "Edit", "Save info",   "Bell on",   "Help",     "Quit",    "Transpose",
-    "tIps", "Get par set", "cLone",     ".Xpprc",   "tUtorial"};
+static char *fileoff_menu[] = {"FILE",       "Prt src",   "Write set", "Read set",    "Auto",
+                               "Calculator", "Edit",      "Save info", "Bell on",     "Help",
+                               "Quit",       "Transpose", "tIps",      "Get par set", "cLone",
+                               ".Xpprc",     "tUtorial"};
 
 /* hints for the main menus */
 static char *main_hint[] = {"Integrate the equations",
@@ -75,23 +72,22 @@ static char *main_hint[] = {"Integrate the equations",
                             "Set parameters for 3D view",
                             "Run boundary value solver"};
 
-static char *file_hint[] = {
-    "Display source and active comments",
-    "Save information for restart",
-    "Read information for restart",
-    "Run AUTO, the bifurcation package",
-    "A little calculator -- press ESC to exit",
-    "Edit right-hand sides or functions or auxiliaries",
-    "Save info about simulation in human readable format",
-    "Turn bell on/off",
-    "Browser help",
-    "Duh!",
-    "Transpose storage",
-    "Turn off these silly tips",
-    "Set predefined parameters",
-    "Clone the ode file",
-    "Edit your .xpprc preferences file",
-    "Run a quick tutorial on XPPAUT"};
+static char *file_hint[] = {"Display source and active comments",
+                            "Save information for restart",
+                            "Read information for restart",
+                            "Run AUTO, the bifurcation package",
+                            "A little calculator -- press ESC to exit",
+                            "Edit right-hand sides or functions or auxiliaries",
+                            "Save info about simulation in human readable format",
+                            "Turn bell on/off",
+                            "Browser help",
+                            "Duh!",
+                            "Transpose storage",
+                            "Turn off these silly tips",
+                            "Set predefined parameters",
+                            "Clone the ode file",
+                            "Edit your .xpprc preferences file",
+                            "Run a quick tutorial on XPPAUT"};
 
 static char *num_hint[] = {"Total time to integrate eqns",
                            "Starting time -- T0",
@@ -138,13 +134,11 @@ char *ic_hint[] = {"Integrate over a range of parameters, init data, etc",
                    "Guess new values for DAE",
                    "Integrate backwards"};
 
-char *wind_hint[] = {
-    "Manually choose 2D view", "Zoom into with mouse",
-    "Zoom out with mouse",     "Let XPP automatically choose window",
-    "Reset to default view",   "Scroll around the view"};
+char *wind_hint[] = {"Manually choose 2D view", "Zoom into with mouse",
+                     "Zoom out with mouse",     "Let XPP automatically choose window",
+                     "Reset to default view",   "Scroll around the view"};
 
-char *flow_hint[] = {"Draw vector field for 2D section",
-                     "Draw regular series of trajectories", " ",
+char *flow_hint[] = {"Draw vector field for 2D section", "Draw regular series of trajectories", " ",
                      "Color the PP on a grid", "Draw only directions"};
 
 char *phas_hint[] = {"Each variable is on a circle", "No variable on circle",
@@ -168,13 +162,9 @@ char *graf_hint[] = {"Add another curve to the current plot",
                      "Export the numbers used in the graphs on the screen",
                      "Change colormap"};
 
-char *cmap_hint[] = {" blue-green-red",
-                     "red-...-violet-red",
-                     "black-red-yellow-white",
-                     "pale cyan->pale yellow",
-                     "blue-violet-red",
-                     "black-white",
-                     "helical luminence corrected"};
+char *cmap_hint[] = {
+    " blue-green-red", "red-...-violet-red", "black-red-yellow-white",     "pale cyan->pale yellow",
+    "blue-violet-red", "black-white",        "helical luminence corrected"};
 char *frz_hint[] = {
     "Permanently keep main curve -- even after reintegrating",
     "Delete specified frozen curve",
@@ -203,10 +193,9 @@ char *stoch_hint[] = {"Seed random number generator",
                       "Compute windowed spectral density",
                       "Compute two-variable histograms"};
 
-char *bvp_hint[] = {
-    "Solve BVP over range of parameters", "Don't show any but final step",
-    "Show each step of iteration", "Solve BVP with periodic conditions",
-    "Set up special homoclinic stuff"};
+char *bvp_hint[] = {"Solve BVP over range of parameters", "Don't show any but final step",
+                    "Show each step of iteration", "Solve BVP with periodic conditions",
+                    "Set up special homoclinic stuff"};
 
 char *adj_hint[] = {"Compute a new adjoint function",
                     "Compute averaging interaction function",
@@ -223,9 +212,8 @@ char *map_hint[] = {
     "Compute map based on period between events",
 };
 
-char *view_hint[] = {"Two-dimensional view settings",
-                     "Three-dimensional view settings", "Plot array ",
-                     "Animation window"};
+char *view_hint[] = {"Two-dimensional view settings", "Three-dimensional view settings",
+                     "Plot array ", "Animation window"};
 
 char *half_hint[] = {"Create new window",
                      "Delete all but main window",
@@ -243,13 +231,11 @@ char *text_hint[] = {"Create text labels in different fonts ",
                      "Delete all text, markers, arrows",
                      "Create many markers based on browser data"};
 
-char *edit_hint[] = {"Move the selected item",
-                     "Change properties of selected item",
+char *edit_hint[] = {"Move the selected item", "Change properties of selected item",
                      "Delete selected item"};
 
 char *sing_hint[] = {"Find fixed points over range of parameter", " ",
-                     "Use mouse to guess fixed point",
-                     "Monte carlo search for fixed points"};
+                     "Use mouse to guess fixed point", "Monte carlo search for fixed points"};
 
 char *meth_hint[] = {"Discrete time -- difference equations",
                      "Euler method",
@@ -270,12 +256,10 @@ char *meth_hint[] = {"Discrete time -- difference equations",
 char *color_hint[] = {" ", "Color according to magnitude of derivative",
                       "Color according to height of Z-axis"};
 
-char *tab_hint[] = {"Edit the lookup tables",
-                    "View a table in the data browser"};
+char *tab_hint[] = {"Edit the lookup tables", "View a table in the data browser"};
 
-char *edrh_hint[] = {
-    "Edit right-hand sides and auxiliaries", "Edit function definitions",
-    "Save current file with new defs", "Load external C right-hand sides"};
+char *edrh_hint[] = {"Edit right-hand sides and auxiliaries", "Edit function definitions",
+                     "Save current file with new defs", "Load external C right-hand sides"};
 
 char *auto_hint[] = {"Tell AUTO the parameters you may vary",
                      "What will be plotted on the axes and what parameter(s)",
@@ -287,8 +271,7 @@ char *auto_hint[] = {"Tell AUTO the parameters you may vary",
                      "Redraw the diagram",
                      "Save and output options"};
 
-char *no_hint[] = {" ", " ", " ", " ", " ", " ", " ",
-                   " ", " ", " ", " ", " ", " ", " "};
+char *no_hint[] = {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "};
 
 char *aaxes_hint[] = {"Plot maximum of variable vs parameter",
                       "Plot norm of solution vs parameter",
@@ -372,19 +355,18 @@ menu_add(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     Window window;
     Cursor cursor;
     cursor = XCreateFontCursor(display, XC_hand2);
-    window = pop_list_make_plain_unmapped_window(
-        base, 0, dcur_ys + dcur_yb + 10, 16*dcur_x, 21*(dcur_y + 2) - 3, 1);
+    window = pop_list_make_plain_unmapped_window(base, 0, dcur_ys + dcur_yb + 10, 16*dcur_x,
+                                                 21*(dcur_y + 2) - 3, 1);
     my_menus[j].base = window;
     XDefineCursor(display, window, cursor);
     my_menus[j].names = names;
     my_menus[j].n = n;
     my_menus[j].hints = hint;
     strcpy(my_menus[j].key, key);
-    my_menus[j].title =
-        pop_list_make_unmapped_window(window, 0, 0, 16*dcur_x, dcur_y, 1);
+    my_menus[j].title = pop_list_make_unmapped_window(window, 0, 0, 16*dcur_x, dcur_y, 1);
     for (int32 i = 0; i < n; i++) {
-        my_menus[j].window[i] = pop_list_make_unmapped_window(
-            window, 0, (i + 1)*(dcur_y + 2), 16*dcur_x, dcur_y, 0);
+        my_menus[j].window[i] = pop_list_make_unmapped_window(window, 0, (i + 1)*(dcur_y + 2),
+                                                              16*dcur_x, dcur_y, 0);
     }
     my_menus[j].visible = 0;
     XMapRaised(display, my_menus[j].base);
@@ -493,16 +475,14 @@ menu_expose(Window win) {
         ggets_set_fore();
         ggets_bar(0, 0, 16*dcur_x, dcur_y, win);
         ggets_set_back();
-        XDrawString(display, win, gc, dcur_x / 2 + 5, cury_off, z[0],
-                    (int)strlen(z[0]));
+        XDrawString(display, win, gc, dcur_x / 2 + 5, cury_off, z[0], (int)strlen(z[0]));
         ggets_set_fore();
         return;
     }
     for (int32 i = 0; i < n; i++) {
         if (win == my_menus[j].window[i]) {
             many_pops_base_col();
-            XDrawString(display, win, gc, 5, cury_off, z[i + 1],
-                        (int)strlen(z[i + 1]));
+            XDrawString(display, win, gc, 5, cury_off, z[i + 1], (int)strlen(z[i + 1]));
             return;
         }
     }

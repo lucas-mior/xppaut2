@@ -32,8 +32,8 @@ norm(void) {
 }
 
 double
-onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
-       double isig, double S, double tau) {
+onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar, double isig, double S,
+       double tau) {
     int ni, nt, i;
     double cs[MAXN];
     double ssum = 0.0;
@@ -59,8 +59,7 @@ onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
             for (i = 0; i < n; i++) {
                 cs[i] = cos(x[i]);
                 s[i] += dt*(.01*pow((1 - cs[i]), 10.0) - s[i]) / tau;
-                x[i] += dt*(1 - cs[i] +
-                              (1 + cs[i])*(i0 + sbar + isig*sdt*norm()));
+                x[i] += dt*(1 - cs[i] + (1 + cs[i])*(i0 + sbar + isig*sdt*norm()));
             }  // all have been updated
         }
         // approx slope

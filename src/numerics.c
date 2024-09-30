@@ -160,11 +160,10 @@ numerics_get_num_par(int32 ch) {
         int32 nmeth;
 
         Window temp2 = main_win;
-        static char *n[] = {"(D)iscrete",    "(E)uler",   "(M)od. Euler",
-                            "(R)unge-Kutta", "(A)dams",   "(G)ear",
-                            "(V)olterra",    "(B)ackEul", "(Q)ualst.RK4",
-                            "(S)tiff",       "(C)Vode",   "DoPri(5)",
-                            "DoPri(8)3",     "Rosen(2)3", "sYmplectic"};
+        static char *n[] = {"(D)iscrete",   "(E)uler",   "(M)od. Euler", "(R)unge-Kutta",
+                            "(A)dams",      "(G)ear",    "(V)olterra",   "(B)ackEul",
+                            "(Q)ualst.RK4", "(S)tiff",   "(C)Vode",      "DoPri(5)",
+                            "DoPri(8)3",    "Rosen(2)3", "sYmplectic"};
         static char key[] = "demragvbqsc582y";
 
 #ifdef CVODE_YES
@@ -172,9 +171,8 @@ numerics_get_num_par(int32 ch) {
 #else
         nmeth = 15;
 #endif
-        ch2 = (char)pop_list_popup_list_new(&temp2, "Method", n, key, nmeth, 15,
-                                            METHOD, 10, dcur_y + 8, meth_hint,
-                                            info_pop, info_message);
+        ch2 = (char)pop_list_popup_list_new(&temp2, "Method", n, key, nmeth, 15, METHOD, 10,
+                                            dcur_y + 8, meth_hint, info_pop, info_message);
         for (i2 = 0; i2 < nmeth; i2++) {
             if (ch2 == key[i2]) {
                 METHOD = i2;
@@ -196,8 +194,7 @@ numerics_get_num_par(int32 ch) {
             ggets_new_float("minimum step :", &h_min);
             ggets_new_float("maximum step :", &h_max);
         }
-        if (METHOD == CVODE || METHOD == DP5 || METHOD == DP83 ||
-            METHOD == RB23) {
+        if (METHOD == CVODE || METHOD == DP5 || METHOD == DP83 || METHOD == RB23) {
             ggets_new_float("Relative tol:", &TOLER);
             ggets_new_float("Abs. Toler:", &atoler);
         }
@@ -377,8 +374,7 @@ void
 numerics_get_pmap_pars_com(int32 l) {
     static char mkey[] = "nsmp";
     char ch;
-    static char *n[] = {"*0Variable", "Section", "Direction (+1,-1,0)",
-                        "Stop on sect(y/n)"};
+    static char *n[] = {"*0Variable", "Section", "Direction (+1,-1,0)", "Stop on sect(y/n)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     static char *yn[] = {"N", "Y"};
     int32 status;
@@ -492,8 +488,7 @@ numerics_set_col_par_com(int32 i) {
         ggets_new_float("Min :", &temp[0]);
         ggets_new_float("Max :", &temp[1]);
         if (temp[1] > temp[0] &&
-            ((MyGraph->ColorFlag == 2) ||
-             (MyGraph->ColorFlag == 1 && temp[0] >= 0.0))) {
+            ((MyGraph->ColorFlag == 2) || (MyGraph->ColorFlag == 1 && temp[0] >= 0.0))) {
             MyGraph->min_scale = temp[0];
             MyGraph->color_scale = (temp[1] - temp[0]);
         } else {
@@ -510,8 +505,8 @@ numerics_set_col_par_com(int32 i) {
         for (i = 1; i < browser_my.maxrow; i++) {
             sum = 0.0;
             for (int32 j = 0; j < NODE; j++) {
-                sum += (double)fabs((double)(browser_my.data[1 + j][i] -
-                                             browser_my.data[1 + j][i - 1]));
+                sum += (double)fabs(
+                    (double)(browser_my.data[1 + j][i] - browser_my.data[1 + j][i - 1]));
             }
             if (sum < minder) {
                 minder = sum;

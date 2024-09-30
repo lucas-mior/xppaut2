@@ -70,9 +70,8 @@ typedef struct {
 
 static int32 cv_band_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
-                           Vector fpred, bool *jcurPtr, Vector vtemp1,
-                           Vector vtemp2, Vector vtemp3);
+static int32 cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+                           bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3);
 
 static int32 cv_band_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur);
 
@@ -90,10 +89,9 @@ static void cv_band_free(CVodeMem cv_mem);
 **********************************************************************/
 
 void
-cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
-               void *f_data, double tn, Vector y, Vector fy, Vector ewt,
-               double h, double uround, void *jac_data, int32 *nfePtr,
-               Vector vtemp1, Vector vtemp2, Vector vtemp3) {
+cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f, void *f_data, double tn,
+               Vector y, Vector fy, Vector ewt, double h, double uround, void *jac_data,
+               int32 *nfePtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     double fnorm;
     double minInc;
     double inc;
@@ -130,9 +128,7 @@ cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
     // Set minimum increment based on uround and norm of f
     srur = llnlmath_rsqrt(uround);
     fnorm = vector_wrms_norm(fy, ewt);
-    minInc = (fnorm != 0.0)
-                 ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm)
-                 : 1.0;
+    minInc = (fnorm != 0.0) ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm) : 1.0;
 
     // Set bandwidth and number of column groups for band differencing
     width = mlower + mupper + 1;
@@ -158,8 +154,7 @@ cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
             i1 = MAX(0, j - mupper);
             i2 = MIN(j + mlower, N - 1);
             for (i = i1; i <= i2; i++) {
-                BAND_COL_ELEM(col_j, i, j) =
-                    inc_inv*(ftemp_data[i] - fy_data[i]);
+                BAND_COL_ELEM(col_j, i, j) = inc_inv*(ftemp_data[i] - fy_data[i]);
             }
         }
     }
@@ -222,8 +217,7 @@ cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
 **********************************************************************/
 
 void
-cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
-        void *jac_data) {
+cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac, void *jac_data) {
     CVodeMem cv_mem;
     CVBandMem cvband_mem;
 
@@ -335,8 +329,8 @@ cv_band_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
-              bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
+cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred, bool *jcurPtr,
+              Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     bool jbad;
     bool jok;
     double dgamma;
@@ -349,8 +343,7 @@ cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 
     dgamma = ABS((gamma / gammap) - 1.0);
     jbad = (nst == 0) || (nst > nstlj + CVB_MSBJ) ||
-           ((convfail == FAIL_BAD_J) && (dgamma < CVB_DGMAX)) ||
-           (convfail == FAIL_OTHER);
+           ((convfail == FAIL_BAD_J) && (dgamma < CVB_DGMAX)) || (convfail == FAIL_OTHER);
     jok = !jbad;
 
     if (jok) {
@@ -366,8 +359,8 @@ cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
         nstlj = nst;
         *jcurPtr = true;
         band_zero(M);
-        jac(N, mu, ml, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data,
-            &nfe, vtemp1, vtemp2, vtemp3);
+        jac(N, mu, ml, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data, &nfe, vtemp1, vtemp2,
+            vtemp3);
         band_copy(M, savedJ, mu, ml);
     }
 

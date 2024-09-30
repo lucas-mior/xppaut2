@@ -54,8 +54,7 @@
 /* ----------------------------------------------------------------------- */
 
 int32
-flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
-       doublecomplex *ev) {
+flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork, doublecomplex *ev) {
     int64 c0_dim1;
     int64 c1_dim1;
     int64 rwork_dim1;
@@ -190,8 +189,8 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
            BLAS routines. */
         int64 tmp = 1;
         double tmp_tol = 1.0E-16;
-        ezsvd(rwork, ndim, ndim, ndim, svds, svde, svdu, &tmp, svdv, ndim,
-              svdwrk, &tmp, &svdinf, &tmp_tol);
+        ezsvd(rwork, ndim, ndim, ndim, svds, svde, svdu, &tmp, svdv, ndim, svdwrk, &tmp, &svdinf,
+              &tmp_tol);
     }
     if (svdinf != 0) {
         fprintf(fp9,
@@ -212,11 +211,9 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         double tmp0 = 0.0;
         int64 tmp_false = false;
 
-        dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv, ndim, &tmp0,
-              rwork, ndim, 1L, 1L);
+        dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv, ndim, &tmp0, rwork, ndim, 1L, 1L);
         dgemc(ndim, ndim, rwork, ndim, c0, ndim, &tmp_false);
-        dgemm("n", "n", ndim, ndim, ndim, &tmp1, c1, ndim, svdv, ndim, &tmp0,
-              rwork, ndim, 1L, 1L);
+        dgemm("n", "n", ndim, ndim, ndim, &tmp1, c1, ndim, svdv, ndim, &tmp0, rwork, ndim, 1L, 1L);
         dgemc(ndim, ndim, rwork, ndim, c1, ndim, &tmp_false);
     }
     //  Apply a Householder matrix (call it H2) based on
@@ -231,9 +228,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         nrmc1x = dnrm2(ndim, &ARRAY2D(c1, 0, (*ndim - 1)), &tmp);
     }
     for (int32 i = 0; i < *ndim; ++i) {
-        x[i] = (ARRAY2D(c0, i, (*ndim - 1)) / nrmc0x +
-                ARRAY2D(c1, i, (*ndim - 1)) / nrmc1x) /
-               2.;
+        x[i] = (ARRAY2D(c0, i, (*ndim - 1)) / nrmc0x + ARRAY2D(c1, i, (*ndim - 1)) / nrmc1x) / 2.;
     }
     {
         /* This is here since I don't want to change the calling sequence of the
@@ -249,8 +244,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
      */
 
     // Computing MAX
-    const__ = max(fabs(ARRAY2D(c0, 0, (*ndim - 1))),
-                  fabs(ARRAY2D(c1, 0, (*ndim - 1))));
+    const__ = max(fabs(ARRAY2D(c0, 0, (*ndim - 1))), fabs(ARRAY2D(c1, 0, (*ndim - 1))));
     for (int32 j = 0; j < *ndim; ++j) {
         for (int32 i = 0; i < *ndim; ++i) {
             ARRAY2D(c0, i, j) /= const__;
@@ -341,9 +335,8 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         }
     }
     if (infev) {
-        fprintf(fp9,
-                " NOTE : Warning from subroutine FLOWKM : Infinite Floquet "
-                "multiplier represented by CMPLX( 1.0D+30, 1.0D+30 )\n");
+        fprintf(fp9, " NOTE : Warning from subroutine FLOWKM : Infinite Floquet "
+                     "multiplier represented by CMPLX( 1.0D+30, 1.0D+30 )\n");
     }
 
     free(svde);
@@ -372,8 +365,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 /*       First Edition, Pages 38-43 */
 
 int32
-dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
-      double *v) {
+dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta, double *v) {
     static int64 iend, jmkp1;
 
     static int64 i, l;
@@ -513,8 +505,8 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 }
 
 int32
-dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
-      int64 *job, double *a, int64 *lda) {
+dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v, int64 *job, double *a,
+      int64 *lda) {
     int64 a_dim1;
 
     static int64 jmkp1;
@@ -641,8 +633,7 @@ dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
                 /* This is here since I don't want to change the calling
                    sequence of the BLAS routines. */
                 int64 tmp = 1;
-                s = *beta*ddot(&jmkp1, &v[-1 + *k], &tmp,
-                                 &ARRAY2D(a, -1 + *k, col), &tmp);
+                s = *beta*ddot(&jmkp1, &v[-1 + *k], &tmp, &ARRAY2D(a, -1 + *k, col), &tmp);
             }
             for (row = *k - 1; row < *j; ++row) {
                 ARRAY2D(a, row, col) -= s*v[row];
@@ -654,8 +645,7 @@ dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
                 /* This is here since I don't want to change the calling
                    sequence of the BLAS routines. */
                 int64 tmp = 1;
-                s = *beta*ddot(&jmkp1, &v[-1 + *k], &tmp,
-                                 &ARRAY2D(a, row, (*k - 1)), lda);
+                s = *beta*ddot(&jmkp1, &v[-1 + *k], &tmp, &ARRAY2D(a, row, (*k - 1)), lda);
             }
             for (col = *k - 1; col < *j; ++col) {
                 ARRAY2D(a, row, col) -= s*v[col];

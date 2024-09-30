@@ -18,7 +18,6 @@
 #define max(a, b) ((a) >= (b) ? (a) : (b))
 
 #define ARRAY2D(array, i, j) array[(i) + (j)*array##_dim1]
-#define ARRAY3D(array, i, j, k)                                                \
-    array[(i) + ((j) + (k)*array##_dim2)*array##_dim1]
+#define ARRAY3D(array, i, j, k) array[(i) + ((j) + (k)*array##_dim2)*array##_dim1]
 
 #endif

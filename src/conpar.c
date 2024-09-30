@@ -7,11 +7,9 @@
   on a SMP using shared memory, or wrapped inside another
   routine for message passing*/
 
-static int32 conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra,
-                                     int64 *nca, double *a, int64 *ncb,
-                                     double *b, int64 *nbc, int64 *nrc,
-                                     double *c, double *d, int64 *irf,
-                                     int64 *icf);
+static int32 conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
+                                     int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
+                                     double *d, int64 *irf, int64 *icf);
 
 void *
 conpar2_process(void *arg) {
@@ -121,8 +119,7 @@ conpar2_process(void *arg) {
                 int32 irf_k1_i = (int32)irf[-1 + k1 + i*irf_dim1];
                 for (k2 = ic; k2 <= m2; ++k2) {
                     int32 icf_k2_i = (int32)icf[-1 + k2 + i*icf_dim1];
-                    tpiv = a[-1 + icf_k2_i +
-                             a_dim1*(-1 + irf_k1_i + a_dim2*i)];
+                    tpiv = a[-1 + icf_k2_i + a_dim1*(-1 + irf_k1_i + a_dim2*i)];
                     if (tpiv < 0.0) {
                         tpiv = -tpiv;
                     }
@@ -143,31 +140,23 @@ conpar2_process(void *arg) {
             {
                 int32 icf_ic_i = (int32)icf[-1 + ic + i*icf_dim1];
                 int32 irf_irp_i = (int32)irf[-1 + irp + i*irf_dim1];
-                int32 a_offset2 =
-                    (int32)(a_dim1*(-1 + irf_irp_i + a_dim2*i));
-                int32 b_offset2 =
-                    (int32)(b_dim1*(-1 + irf_irp_i + b_dim2*i));
+                int32 a_offset2 = (int32)(a_dim1*(-1 + irf_irp_i + a_dim2*i));
+                int32 b_offset2 = (int32)(b_dim1*(-1 + irf_irp_i + b_dim2*i));
                 //	     **End of pivoting; elimination starts here
                 for (ir = ir1; ir <= *nra; ++ir) {
                     int32 irf_ir_i = (int32)irf[-1 + ir + i*irf_dim1];
-                    int32 a_offset1 =
-                        (int32)(a_dim1*(-1 + irf_ir_i + a_dim2*i));
-                    int32 b_offset1 =
-                        (int32)(b_dim1*(-1 + irf_ir_i + b_dim2*i));
-                    rm = a[-1 + icf_ic_i +
-                           a_dim1*(-1 + irf_ir_i + a_dim2*i)] /
-                         a[-1 + icf_ic_i +
-                           a_dim1*(-1 + irf_irp_i + a_dim2*i)];
-                    a[-1 + icf_ic_i + a_dim1*(-1 + irf_ir_i + a_dim2*i)] =
-                        rm;
+                    int32 a_offset1 = (int32)(a_dim1*(-1 + irf_ir_i + a_dim2*i));
+                    int32 b_offset1 = (int32)(b_dim1*(-1 + irf_ir_i + b_dim2*i));
+                    rm = a[-1 + icf_ic_i + a_dim1*(-1 + irf_ir_i + a_dim2*i)] /
+                         a[-1 + icf_ic_i + a_dim1*(-1 + irf_irp_i + a_dim2*i)];
+                    a[-1 + icf_ic_i + a_dim1*(-1 + irf_ir_i + a_dim2*i)] = rm;
                     if (rm != (double)0.) {
                         for (l = 0; l < *nov; ++l) {
                             a[l + a_offset1] -= rm*a[l + a_offset2];
                         }
                         for (l = icp1 - 1; l < *nca; ++l) {
                             int32 icf_l_i = (int32)icf[l + i*icf_dim1];
-                            a[-1 + icf_l_i + a_offset1] -=
-                                rm*a[-1 + icf_l_i + a_offset2];
+                            a[-1 + icf_l_i + a_offset1] -= rm*a[-1 + icf_l_i + a_offset2];
                         }
                         for (l = 0; l < *ncb; ++l) {
                             b[l + b_offset1] -= rm*b[l + b_offset2];
@@ -178,8 +167,7 @@ conpar2_process(void *arg) {
                     int32 c_offset1 = (int32)(c_dim1*(-1 + ir + c_dim2*i));
                     int32 d_offset1 = (int32)((-1 + ir)*d_dim1);
                     rm = c[-1 + icf_ic_i + c_dim1*(-1 + ir + c_dim2*i)] /
-                         a[-1 + icf_ic_i +
-                           a_dim1*(-1 + irf_irp_i + a_dim2*i)];
+                         a[-1 + icf_ic_i + a_dim1*(-1 + irf_irp_i + a_dim2*i)];
                     c[-1 + icf_ic_i + c_dim1*(-1 + ir + c_dim2*i)] = rm;
                     if (rm != (double)0.) {
                         for (l = 0; l < *nov; ++l) {
@@ -187,8 +175,7 @@ conpar2_process(void *arg) {
                         }
                         for (l = icp1 - 1; l < *nca; ++l) {
                             int32 icf_l_i = (int32)icf[l + i*icf_dim1];
-                            c[-1 + icf_l_i + c_offset1] -=
-                                rm*a[-1 + icf_l_i + a_offset2];
+                            c[-1 + icf_l_i + c_offset1] -= rm*a[-1 + icf_l_i + a_offset2];
                         }
                         for (l = 0; l < *ncb; ++l) {
                             /*
@@ -229,9 +216,8 @@ conpar2_process(void *arg) {
 }
 
 int32
-conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca,
-                        double *a, int64 *ncb, double *b, int64 *nbc,
-                        int64 *nrc, double *c, double *d, int64 *irf,
+conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
+                        double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
                         int64 *icf) {
     conpar_parallel_arglist data;
     data.nov = nov;
@@ -253,9 +239,8 @@ conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca,
 }
 
 int32
-conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
-       double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
-       int64 *icf) {
+conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb, double *b, int64 *nbc,
+       int64 *nrc, double *c, double *d, int64 *irf, int64 *icf) {
     // Aliases for the dimensions of the arrays
     int64 icf_dim1;
     int64 irf_dim1;
@@ -282,8 +267,7 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
 
     switch (global_conpar_type) {
     default:
-        conpar2_default_wrapper(nov, na, nra, nca, a, ncb, b, nbc, nrc, c, d,
-                                irf, icf);
+        conpar2_default_wrapper(nov, na, nra, nca, a, ncb, b, nbc, nrc, c, d, irf, icf);
         break;
     }
     return 0;

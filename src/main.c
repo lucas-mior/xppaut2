@@ -407,11 +407,10 @@ do_main(int32 argc, char **argv) {
     xpp_version_maj = (double)MAJOR_VERSION;
     xpp_version_min = (double)MINOR_VERSION;
     if (strlen(this_file) < 60) {
-        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s",
-                 xpp_version_maj, xpp_version_min, this_file);
+        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xpp_version_maj, xpp_version_min,
+                 this_file);
     } else {
-        snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xpp_version_maj,
-                 xpp_version_min);
+        snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xpp_version_maj, xpp_version_min);
     }
     numerics_do_meth();
 
@@ -461,20 +460,16 @@ do_main(int32 argc, char **argv) {
         Window wn;
         XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
         menu_create_them(main_win);
-        command_pop = XCreateSimpleWindow(display, main_win, 0, dcur_ys + 4,
-                                          w - 2, (uint)dcur_y + 4, 2,
-                                          my_fore_color, my_back_color);
-        info_pop = XCreateSimpleWindow(
-            display, main_win, 0, (int32)h - dcur_y - 4, w - 2, (uint)dcur_y, 2,
-            my_fore_color, my_back_color);
+        command_pop = XCreateSimpleWindow(display, main_win, 0, dcur_ys + 4, w - 2,
+                                          (uint)dcur_y + 4, 2, my_fore_color, my_back_color);
+        info_pop = XCreateSimpleWindow(display, main_win, 0, (int32)h - dcur_y - 4, w - 2,
+                                       (uint)dcur_y, 2, my_fore_color, my_back_color);
         XCreateFontCursor(display, XC_hand2);
-        XSelectInput(display, command_pop,
-                     KeyPressMask | ButtonPressMask | ExposureMask);
+        XSelectInput(display, command_pop, KeyPressMask | ButtonPressMask | ExposureMask);
         XSelectInput(display, info_pop, ExposureMask);
         XMapWindow(display, info_pop);
         XMapWindow(display, command_pop);
-        many_pops_init_grafs(16*dcur_x + 6, dcur_ys + dcur_yb + 6,
-                             (int32)w - 16 - 16*dcur_x,
+        many_pops_init_grafs(16*dcur_x + 6, dcur_ys + dcur_yb + 6, (int32)w - 16 - 16*dcur_x,
                              (int32)h - 6*dcur_y - 16);
         init_conds_create_par_sliders(main_win, 0, (int32)h - 5*dcur_y + 8);
         graphics_get_draw_area();
@@ -483,27 +478,21 @@ do_main(int32 argc, char **argv) {
     {
         // main make top buttons
         int32 x1 = 2, x2 = 6*dcur_xs + 5, dx = dcur_xs;
-        TopButton[0] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        TopButton[0] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
-        TopButton[1] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        TopButton[1] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
-        TopButton[2] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        TopButton[2] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
-        TopButton[3] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        TopButton[3] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
-        TopButton[4] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        TopButton[4] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
-        TopButton[5] =
-            pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        TopButton[5] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
     }
 
@@ -627,8 +616,7 @@ main_init_x(void) {
         gr_back = Black;
     }
 
-    main_win =
-        main_init_win(4, icon_name, win_name, x, y, min_wid, min_hgt, 0, NULL);
+    main_win = main_init_win(4, icon_name, win_name, x, y, min_wid, min_hgt, 0, NULL);
 
     // Set up foreground and background colors
 
@@ -638,8 +626,7 @@ main_init_x(void) {
     if (strlen(user_black) != 0) {
         XColor user_col;
 
-        XParseColor(display, DefaultColormap(display, screen), user_black,
-                    &user_col);
+        XParseColor(display, DefaultColormap(display, screen), user_black, &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
         my_fore_color = gr_fore = (uint32)user_col.pixel;
@@ -649,8 +636,7 @@ main_init_x(void) {
     if (strlen(user_white) != 0) {
         XColor user_col;
 
-        XParseColor(display, DefaultColormap(display, screen), user_white,
-                    &user_col);
+        XParseColor(display, DefaultColormap(display, screen), user_white, &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
         my_back_color = gr_back = (uint32)user_col.pixel;
@@ -676,8 +662,7 @@ main_init_x(void) {
     if (strlen(user_main_win_color) != 0) {
         XColor main_win_col;
 
-        XParseColor(display, DefaultColormap(display, screen),
-                    user_main_win_color, &main_win_col);
+        XParseColor(display, DefaultColormap(display, screen), user_main_win_color, &main_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &main_win_col);
 
         my_main_win_color = (uint32)main_win_col.pixel;
@@ -690,8 +675,7 @@ main_init_x(void) {
 
     if (strlen(user_draw_win_color) != 0) {
         XColor draw_win_col;
-        XParseColor(display, DefaultColormap(display, screen),
-                    user_draw_win_color, &draw_win_col);
+        XParseColor(display, DefaultColormap(display, screen), user_draw_win_color, &draw_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &draw_win_col);
 
         my_draw_win_color = (uint32)draw_win_col.pixel;
@@ -708,9 +692,8 @@ main_init_x(void) {
     }
 
     XSelectInput(display, main_win,
-                 ExposureMask | KeyPressMask | ButtonPressMask |
-                     StructureNotifyMask | ButtonReleaseMask |
-                     ButtonMotionMask);
+                 ExposureMask | KeyPressMask | ButtonPressMask | StructureNotifyMask |
+                     ButtonReleaseMask | ButtonMotionMask);
 
     // main load fonts
     if ((font_big = XLoadQueryFont(display, font_name_big)) == NULL) {
@@ -719,8 +702,7 @@ main_init_x(void) {
     }
 
     if ((font_small = XLoadQueryFont(display, font_name_small)) == NULL) {
-        ggets_plintf("X Error: Failed to load small font: %s\n",
-                     font_name_small);
+        ggets_plintf("X Error: Failed to load small font: %s\n", font_name_small);
         exit(-1);
     }
 
@@ -760,14 +742,12 @@ main_init_x(void) {
      * capital letters (for example "GO"). Thus, we divide by the string
      * length of our test string minus 2 for a little more wiggle room. */
 
-    DCURXb = XTextWidth(font_big, teststr, (int)strlen(teststr)) /
-             (int)(strlen(teststr) - 2);
+    DCURXb = XTextWidth(font_big, teststr, (int)strlen(teststr)) / (int)(strlen(teststr) - 2);
 
     dcur_yb = font_big->ascent + font_big->descent;
     cury_offb = font_big->ascent - 1;
 
-    dcur_xs = XTextWidth(font_small, teststr, (int)strlen(teststr)) /
-              (int)(strlen(teststr) - 2);
+    dcur_xs = XTextWidth(font_small, teststr, (int)strlen(teststr)) / (int)(strlen(teststr) - 2);
 
     dcur_ys = font_small->ascent + font_small->descent;
     cury_offs = font_small->ascent - 1;
@@ -784,29 +764,23 @@ main_init_x(void) {
         int32 y_hot;
         uchar *pixdata;
 
-        int32 success =
-            XReadBitmapFileData(user_bg_bitmap, &width_return, &height_return,
-                                &pixdata, &x_hot, &y_hot);
+        int32 success = XReadBitmapFileData(user_bg_bitmap, &width_return, &height_return, &pixdata,
+                                            &x_hot, &y_hot);
 
         if (success != BitmapSuccess) {
             if (success == BitmapOpenFailed) {
-                ggets_plintf(
-                    "Problem reading bitmap file %s -> BitmapOpenFailed\n",
-                    user_bg_bitmap);
+                ggets_plintf("Problem reading bitmap file %s -> BitmapOpenFailed\n",
+                             user_bg_bitmap);
             } else if (success == BitmapFileInvalid) {
-                ggets_plintf(
-                    "Problem reading bitmap file %s -> BitmapFileInvalid\n",
-                    user_bg_bitmap);
+                ggets_plintf("Problem reading bitmap file %s -> BitmapFileInvalid\n",
+                             user_bg_bitmap);
             } else if (success == BitmapNoMemory) {
-                ggets_plintf(
-                    "Problem reading bitmap file %s -> BitmapNoMemory\n",
-                    user_bg_bitmap);
+                ggets_plintf("Problem reading bitmap file %s -> BitmapNoMemory\n", user_bg_bitmap);
             }
         } else {
             Pixmap pmap = XCreatePixmapFromBitmapData(
-                display, main_win, (char *)pixdata, width_return, height_return,
-                my_fore_color, my_main_win_color,
-                (uint)DefaultDepth(display, DefaultScreen(display)));
+                display, main_win, (char *)pixdata, width_return, height_return, my_fore_color,
+                my_main_win_color, (uint)DefaultDepth(display, DefaultScreen(display)));
             XSetWindowBackgroundPixmap(display, main_win, pmap);
             XFreePixmap(display, pmap);
             XFree(pixdata);
@@ -883,12 +857,10 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                 SCALEX = min_wid;
                 scale_y = min_hgt;
             } else {
-                XResizeWindow(display, command_pop, (uint)SCALEX - 4,
-                              (uint)dcur_y + 1);
-                XMoveResizeWindow(display, info_pop, 0, scale_y - dcur_y - 4,
-                                  (uint)SCALEX - 4, (uint)dcur_y);
-                init_conds_resize_par_slides(scale_y - 3*dcur_ys -
-                                             1*dcur_yb - 13);
+                XResizeWindow(display, command_pop, (uint)SCALEX - 4, (uint)dcur_y + 1);
+                XMoveResizeWindow(display, info_pop, 0, scale_y - dcur_y - 4, (uint)SCALEX - 4,
+                                  (uint)dcur_y);
+                init_conds_resize_par_slides(scale_y - 3*dcur_ys - 1*dcur_yb - 13);
                 many_pops_resize_all(SCALEX, scale_y);
                 main_redraw_all();
             }
@@ -1177,8 +1149,8 @@ main_commander(int32 ch) {
 }
 
 Window
-main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
-              uint32 min_wid, uint32 min_hgt, int32 argc, char **argv) {
+main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y, uint32 min_wid,
+              uint32 min_hgt, int32 argc, char **argv) {
     Window wine;
     int32 count;
     int32 dp_h;
@@ -1206,12 +1178,10 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
     if (scale_y > dp_h) {
         scale_y = dp_h;
     }
-    wine = XCreateSimpleWindow(display, RootWindow(display, screen), x, y,
-                               (uint)SCALEX, (uint)scale_y, bw, my_fore_color,
-                               my_back_color);
+    wine = XCreateSimpleWindow(display, RootWindow(display, screen), x, y, (uint)SCALEX,
+                               (uint)scale_y, bw, my_fore_color, my_back_color);
     XGetIconSizes(display, RootWindow(display, screen), &size_list, &count);
-    icon_map = XCreateBitmapFromData(display, wine, (char *)pp_bits, pp_width,
-                                     pp_height);
+    icon_map = XCreateBitmapFromData(display, wine, (char *)pp_bits, pp_width, pp_height);
 
 #ifdef X11R3
     size_hints.flags = PPosition | PSize | PMinsize;
@@ -1229,8 +1199,7 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
 #endif
 
 #ifdef X11R3
-    XSetStandardProperties(display, wine, win_name, icon_name, icon_map, argv,
-                           argc, &size_hints);
+    XSetStandardProperties(display, wine, win_name, icon_name, icon_map, argv, argc, &size_hints);
 #else
     {
         XWMHints wm_hints;
@@ -1253,8 +1222,8 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
         class_hints.res_name = "base";
         class_hints.res_class = win_name;
 
-        XSetWMProperties(display, wine, &winname, &iconname, argv, argc,
-                         &size_hints, &wm_hints, &class_hints);
+        XSetWMProperties(display, wine, &winname, &iconname, argv, argc, &size_hints, &wm_hints,
+                         &class_hints);
         XSetWMProtocols(display, wine, &atom_delete_window, 1);
     }
 #endif
@@ -1375,8 +1344,7 @@ main_fix_window_size(Window window, int32 width, int32 height, int32 flag) {
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
         exit(EXIT_FAILURE);
     }
-    XSetWMProperties(display, window, NULL, NULL, NULL, 0, &size_hints, NULL,
-                     NULL);
+    XSetWMProperties(display, window, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
     return;
 }
 

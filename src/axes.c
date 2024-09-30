@@ -100,8 +100,7 @@ axes_make_tics(double tmin, double tmax) {
     xr = fabs(tmin - tmax);
 
     l10 = log10(xr);
-    xnorm =
-        pow(10.0, l10 - (double)((l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1)));
+    xnorm = pow(10.0, l10 - (double)((l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1)));
     if (xnorm <= 2) {
         tics = 0.2;
     } else if (xnorm <= 5) {
@@ -109,8 +108,7 @@ axes_make_tics(double tmin, double tmax) {
     } else {
         tics = 1.0;
     }
-    tic = tics *
-          axes_dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
+    tic = tics*axes_dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
     return tic;
 }
 
@@ -159,8 +157,8 @@ axes_do(void) {
 
     switch (MyGraph->grtype) {
     case 0:
-        axes_box(MyGraph->xlo, MyGraph->xhi, MyGraph->ylo, MyGraph->yhi,
-                 MyGraph->xlabel, MyGraph->ylabel, 1);
+        axes_box(MyGraph->xlo, MyGraph->xhi, MyGraph->ylo, MyGraph->yhi, MyGraph->xlabel,
+                 MyGraph->ylabel, 1);
         break;
     case 5: {
         double tx;
@@ -205,10 +203,8 @@ axes_do(void) {
         axes_find_max_min_tic(&xmin, &xmax, tx);
         axes_find_max_min_tic(&zmin, &zmax, tz);
         axes_find_max_min_tic(&ymin, &ymax, ty);
-        graphics_scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1,
-                         &z1);
-        graphics_scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2,
-                         &z2);
+        graphics_scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1, &z1);
+        graphics_scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2, &z2);
 
         graphics_scale3d(x4, y4, z4, &x3, &y3, &z3);
         graphics_scale3d(x5, y5, z5, &x6, &y6, &z6);
@@ -306,8 +302,7 @@ axes_redraw_cube(double theta, double phi) {
 }
 
 void
-axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
-         char *sy, int32 flag) {
+axes_box(double x_min, double x_max, double y_min, double y_max, char *sx, char *sy, int32 flag) {
     double ytic;
     double xtic;
 
@@ -328,8 +323,7 @@ axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 
     ytic = axes_make_tics(y_min, y_max);
     xtic = axes_make_tics(x_min, x_max);
-    graphics_scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg,
-                             &yaxis_x, &xaxis_y);
+    graphics_scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg, &yaxis_x, &xaxis_y);
     graphics_set_linestyle(-1);
     if (MyGraph->xorgflag && flag) {
         if (xaxis_y >= ybot && xaxis_y <= ytop) {
@@ -348,10 +342,8 @@ axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     axes_doing_box = 0;
     graphics_line(xright, ytop, xleft, ytop);
     graphics_line(xleft, ytop, xleft, ybot);
-    axes_draw_ytics(sy, ytic*floor(y_min / ytic), ytic,
-                    ytic*ceil(y_max / ytic));
-    axes_draw_xtics(sx, xtic*floor(x_min / xtic), xtic,
-                    xtic*ceil(x_max / xtic));
+    axes_draw_ytics(sy, ytic*floor(y_min / ytic), ytic, ytic*ceil(y_max / ytic));
+    axes_draw_xtics(sx, xtic*floor(x_min / xtic), xtic, xtic*ceil(x_max / xtic));
     text_justify = 0;
     graphics_set_linestyle(0);
 
@@ -394,8 +386,7 @@ axes_draw_ytics(char *s1, double start, double incr, double end) {
                 "\n      <text class=\"xppyaxislabelv\" text-anchor=\"middle\" "
                 "x=\"%d\"  y=\"%d\"\n",
                 0, 0);
-        fprintf(svgfile,
-                "      transform=\"rotate(-90,75,180) translate(75,180)\"\n");
+        fprintf(svgfile, "      transform=\"rotate(-90,75,180) translate(75,180)\"\n");
         fprintf(svgfile, "      >%s</text>\n", s1);
 
         fprintf(svgfile,
@@ -439,7 +430,6 @@ axes_draw_xtics(char *s2, double start, double incr, double end) {
         axes_doing_box = 0;
         graphics_put_text(xt, yt - (int32)(1.25*VChar*s), bob);
     }
-    graphics_put_text((d_left + d_right) / 2, yt - (int32)(2.5*VChar*s),
-                      s2);
+    graphics_put_text((d_left + d_right) / 2, yt - (int32)(2.5*VChar*s), s2);
     return;
 }

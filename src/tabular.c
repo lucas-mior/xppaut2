@@ -66,10 +66,8 @@ to be added later
 
 Tabular my_table[MAX_TAB];
 
-static int32 tabular_eval_fun(int32 n, double xlo, double xhi, char *formula,
-                              double *y);
-static double tabular_interp(double xlo, double h, double x, double *y,
-                             int32 i);
+static int32 tabular_eval_fun(int32 n, double xlo, double xhi, char *formula, double *y);
+static double tabular_interp(double xlo, double h, double x, double *y, int32 i);
 static double tabular_lookup_xy(double x, int32 n, double *xv, double *yv);
 
 void
@@ -159,8 +157,7 @@ tabular_lookup_xy(double x, int32 n, double *xv, double *yv) {
         return yv[0] + (yv[1] - yv[0])*(x - xv[0]) / (xv[1] - xv[0]);
     }
     if (x >= xv[n - 1]) {
-        return (yv[n - 1] + (yv[n - 2] - yv[n - 1])*(x - xv[n - 1]) /
-                                (xv[n - 1] - xv[n - 2]));
+        return (yv[n - 1] + (yv[n - 2] - yv[n - 1])*(x - xv[n - 1]) / (xv[n - 1] - xv[n - 2]));
     }
     x1 = xv[0];
     y1 = yv[0];
@@ -203,8 +200,7 @@ tabular_interp(double xlo, double h, double x, double *y, int32 i) {
 
 double
 tabular_lookup(double x, int32 index) {
-    double xlo = my_table[index].xlo, xhi = my_table[index].xhi,
-           dx = my_table[index].dx;
+    double xlo = my_table[index].xlo, xhi = my_table[index].xhi, dx = my_table[index].dx;
     double *y;
     double x1;
     double y1;
@@ -235,9 +231,8 @@ tabular_lookup(double x, int32 index) {
             return y1 + (y2 - y1)*(x - x1) / dx;
         } else {
 #ifdef DEBUG
-            ggets_plintf(
-                "index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n",
-                index, x, i1, i2, x1, y1, y2);
+            ggets_plintf("index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n", index, x, i1,
+                         i2, x1, y1, y2);
 #endif
             return y1;
         }
@@ -266,8 +261,8 @@ void
 tabular_redo_all_fun_tables(void) {
     for (int32 i = 0; i < NTable; i++) {
         if (my_table[i].flag == 2 && my_table[i].autoeval == 1) {
-            tabular_eval_fun(my_table[i].n, my_table[i].xlo, my_table[i].xhi,
-                             my_table[i].filename, my_table[i].y);
+            tabular_eval_fun(my_table[i].n, my_table[i].xlo, my_table[i].xhi, my_table[i].filename,
+                             my_table[i].y);
         }
     }
     simplenet_update_all_ffts();
@@ -302,8 +297,7 @@ tabular_eval_fun(int32 n, double xlo, double xhi, char *formula, double *y) {
 }
 
 int32
-tabular_create_fun(int32 npts, double xlo, double xhi, char *formula,
-                   int32 index) {
+tabular_create_fun(int32 npts, double xlo, double xhi, char *formula, int32 index) {
     int32 length = npts;
 
     if (my_table[index].flag == 1) {
@@ -319,11 +313,10 @@ tabular_create_fun(int32 npts, double xlo, double xhi, char *formula,
         return 0;
     }
     if (my_table[index].flag == 0) {
-        my_table[index].y =
-            xmalloc((usize)length*sizeof(*(my_table[index].y)));
+        my_table[index].y = xmalloc((usize)length*sizeof(*(my_table[index].y)));
     } else {
-        my_table[index].y = (double *)realloc(
-            my_table[index].y, (usize)length*sizeof(*(my_table[index].y)));
+        my_table[index].y =
+            (double *)realloc(my_table[index].y, (usize)length*sizeof(*(my_table[index].y)));
     }
     if (my_table[index].y == NULL) {
         ggets_err_msg("Unable to allocate table");
@@ -379,8 +372,7 @@ tabular_load_table(char *filename, int32 index) {
     fp = fopen(filename2, "r");
     if (fp == NULL) {
         read_dir_get_directory(cur_dir);
-        snprintf(error, sizeof(error), "File<%s> not found in %s", filename2,
-                 cur_dir);
+        snprintf(error, sizeof(error), "File<%s> not found in %s", filename2, cur_dir);
         ggets_err_msg(error);
         return 0;
     }
@@ -412,8 +404,7 @@ tabular_load_table(char *filename, int32 index) {
         return 0;
     }
     if (my_table[index].flag == 0) {
-        my_table[index].y =
-            xmalloc((usize)length*sizeof(*(my_table[index].y)));
+        my_table[index].y = xmalloc((usize)length*sizeof(*(my_table[index].y)));
         if (my_table[index].y == NULL) {
             ggets_err_msg("Unable to allocate table");
             fclose(fp);
@@ -433,8 +424,7 @@ tabular_load_table(char *filename, int32 index) {
         return 1;
     }
     my_table[index].y =
-        (double *)realloc((void *)my_table[index].y,
-                          (usize)length*sizeof(*(my_table[index].y)));
+        (double *)realloc((void *)my_table[index].y, (usize)length*sizeof(*(my_table[index].y)));
     if (my_table[index].y == NULL) {
         ggets_err_msg("Unable to reallocate table");
         fclose(fp);

@@ -17,14 +17,12 @@ char *symbolfonts[]={
 "-adobe-symbol-medium-r-normal--24-240-75-75-p-142-adobe-fontspecific"};
 */
 
-char *timesfonts[] = {
-    "*-times-medium-r-*-10-100-*", "*-times-medium-r-*-12-120-*",
-    "*-times-medium-r-*-14-140-*", "*-times-medium-r-*-18-180-*",
-    "*-times-medium-r-*-24-240-*"};
+char *timesfonts[] = {"*-times-medium-r-*-10-100-*", "*-times-medium-r-*-12-120-*",
+                      "*-times-medium-r-*-14-140-*", "*-times-medium-r-*-18-180-*",
+                      "*-times-medium-r-*-24-240-*"};
 
-char *symbolfonts[] = {
-    "*-symbol-medium-r-*-10-100-*", "*-symbol-medium-r-*-12-120-*",
-    "*-symbol-medium-r-*-14-140-*", "*-symbol-medium-r-*-18-180-*",
-    "*-symbol-medium-r-*-24-240-*"};
+char *symbolfonts[] = {"*-symbol-medium-r-*-10-100-*", "*-symbol-medium-r-*-12-120-*",
+                       "*-symbol-medium-r-*-14-140-*", "*-symbol-medium-r-*-18-180-*",
+                       "*-symbol-medium-r-*-24-240-*"};
 
 #endif

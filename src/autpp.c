@@ -9,8 +9,8 @@
 /*    Hooks to xpp RHS     */
 
 int32
-func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     double zz[NAUTO];
     double y[NAUTO];
     double yp[NAUTO];
@@ -78,8 +78,8 @@ stpnt(int64 ndim, double t, double *u, double *par) {
 }
 
 int32
-bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
-     int64 ijac, double *fb, double *dbc) {
+bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1, int64 ijac, double *fb,
+     double *dbc) {
     (void)dbc;
     (void)ijac;
     (void)icp;
@@ -98,8 +98,8 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
 }
 
 int32
-icnd(int64 ndim, double *par, int64 *icp, int64 nint, double *u, double *uold,
-     double *udot, double *upold, int64 ijac, double *fi, double *dint) {
+icnd(int64 ndim, double *par, int64 *icp, int64 nint, double *u, double *uold, double *udot,
+     double *upold, int64 ijac, double *fi, double *dint) {
     (void)dint;
     (void)ijac;
     (void)fi;
@@ -115,8 +115,8 @@ icnd(int64 ndim, double *par, int64 *icp, int64 nint, double *u, double *uold,
 }
 
 int32
-fopt(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *fs,
-     double *dfdu, double *dfdp) {
+fopt(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *fs, double *dfdu,
+     double *dfdp) {
     (void)dfdp;
     (void)dfdu;
     (void)fs;

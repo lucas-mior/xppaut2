@@ -18,10 +18,10 @@
 #include "txtview.bitmap"
 #include "mykeydef.h"
 
-#define XDS(a)                                                                 \
-    do {                                                                       \
-        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));    \
-        return;                                                                \
+#define XDS(a)                                                                                     \
+    do {                                                                                           \
+        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));                        \
+        return;                                                                                    \
     } while (0)
 
 static struct TxtView {
@@ -135,9 +135,9 @@ txtview_keypress(XEvent event) {
 void
 enter_txtview(Window window, int32 val) {
     Window w = window;
-    if (w == txtview.up || w == txtview.down || w == txtview.pgup ||
-        w == txtview.pgdn || w == txtview.home || w == txtview.end ||
-        w == txtview.src || w == txtview.action || w == txtview.kill) {
+    if (w == txtview.up || w == txtview.down || w == txtview.pgup || w == txtview.pgdn ||
+        w == txtview.home || w == txtview.end || w == txtview.src || w == txtview.action ||
+        w == txtview.kill) {
         XSetWindowBorderWidth(display, w, (uint)val);
     }
     return;
@@ -161,8 +161,7 @@ do_txt_action(char *s) {
 void
 resize_txtview(int32 w, int32 h) {
     int32 hgt = h - 8 - 3*dcur_ys;
-    XMoveResizeWindow(display, txtview.text, 2, 3*dcur_ys + 5, (uint)w - 4,
-                      (uint)hgt);
+    XMoveResizeWindow(display, txtview.text, 2, 3*dcur_ys + 5, (uint)w - 4, (uint)hgt);
     txtview.nlines = (int32)(hgt / dcur_y);
     return;
 }
@@ -296,16 +295,14 @@ redraw_txtview_text(void) {
         switch (txtview.which) {
         case 0:
             if (j < NLINES) {
-                XDrawString(display, txtview.text, gc, txtview.dw,
-                            i*txtview.dh + cury_offs, save_eqn[j],
-                            (int)strlen(save_eqn[j]));
+                XDrawString(display, txtview.text, gc, txtview.dw, i*txtview.dh + cury_offs,
+                            save_eqn[j], (int)strlen(save_eqn[j]));
             }
             break;
         case 1:
             if (j < n_comments) {
-                XDrawString(display, txtview.text, gc, txtview.dw,
-                            i*dcur_y + cury_offs, comments[j].text,
-                            (int)strlen(comments[j].text));
+                XDrawString(display, txtview.text, gc, txtview.dw, i*dcur_y + cury_offs,
+                            comments[j].text, (int)strlen(comments[j].text));
             }
             break;
         default:
@@ -339,12 +336,10 @@ txt_make_view(void) {
     if (txtview.here == 1) {
         return;
     }
-    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, minwid,
-                                      minlen, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, minwid, minlen, 4);
     txtview.base = base;
     XSelectInput(display, base,
-                 ExposureMask | KeyPressMask | ButtonPressMask |
-                     StructureNotifyMask);
+                 ExposureMask | KeyPressMask | ButtonPressMask | StructureNotifyMask);
 
     XStringListToTextProperty(wname, 1, &winname);
     XStringListToTextProperty(iname, 1, &iconname);
@@ -353,30 +348,18 @@ txt_make_view(void) {
     size_hints.min_height = minlen;
     size_hints.x = 0;
     size_hints.y = 0;
-    XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
-                     NULL, NULL);
-    many_pops_make_icon((char *)txtview_bits, txtview_width, txtview_height,
-                        base);
-    txtview.up =
-        pop_list_make_window(base, dcur_xs, 2, 8*dcur_xs, dcur_ys, 1);
-    txtview.down =
-        pop_list_make_window(base, dcur_xs + ww, 2, 8*dcur_xs, dcur_ys, 1);
-    txtview.pgup = pop_list_make_window(base, dcur_xs + 2*ww, 2, 8*dcur_xs,
-                                        dcur_ys, 1);
-    txtview.pgdn = pop_list_make_window(base, dcur_xs + 3*ww, 2, 8*dcur_xs,
-                                        dcur_ys, 1);
-    txtview.kill = pop_list_make_window(base, dcur_xs + 4*ww, 2, 8*dcur_xs,
-                                        dcur_ys, 1);
-    txtview.home =
-        pop_list_make_window(base, dcur_xs, 2 + hh, 8*dcur_xs, dcur_ys, 1);
-    txtview.end = pop_list_make_window(base, dcur_xs + ww, 2 + hh, 8*dcur_xs,
-                                       dcur_ys, 1);
-    txtview.src = pop_list_make_window(base, dcur_xs + 2*ww, 2 + hh,
-                                       8*dcur_xs, dcur_ys, 1);
-    txtview.action = pop_list_make_window(base, dcur_xs + 3*ww, 2 + hh,
-                                          8*dcur_xs, dcur_ys, 1);
-    txtview.text = pop_list_make_plain_window(base, 2, 3*dcur_ys + 5,
-                                              minwid - 4, 10*dcur_y, 1);
+    XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints, NULL, NULL);
+    many_pops_make_icon((char *)txtview_bits, txtview_width, txtview_height, base);
+    txtview.up = pop_list_make_window(base, dcur_xs, 2, 8*dcur_xs, dcur_ys, 1);
+    txtview.down = pop_list_make_window(base, dcur_xs + ww, 2, 8*dcur_xs, dcur_ys, 1);
+    txtview.pgup = pop_list_make_window(base, dcur_xs + 2*ww, 2, 8*dcur_xs, dcur_ys, 1);
+    txtview.pgdn = pop_list_make_window(base, dcur_xs + 3*ww, 2, 8*dcur_xs, dcur_ys, 1);
+    txtview.kill = pop_list_make_window(base, dcur_xs + 4*ww, 2, 8*dcur_xs, dcur_ys, 1);
+    txtview.home = pop_list_make_window(base, dcur_xs, 2 + hh, 8*dcur_xs, dcur_ys, 1);
+    txtview.end = pop_list_make_window(base, dcur_xs + ww, 2 + hh, 8*dcur_xs, dcur_ys, 1);
+    txtview.src = pop_list_make_window(base, dcur_xs + 2*ww, 2 + hh, 8*dcur_xs, dcur_ys, 1);
+    txtview.action = pop_list_make_window(base, dcur_xs + 3*ww, 2 + hh, 8*dcur_xs, dcur_ys, 1);
+    txtview.text = pop_list_make_plain_window(base, 2, 3*dcur_ys + 5, minwid - 4, 10*dcur_y, 1);
     txtview.here = 1;
     txtview.nlines = 10;
     txtview.which = 0;

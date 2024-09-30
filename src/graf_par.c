@@ -49,14 +49,12 @@ int32 auto_freeze_flag = 0;
 static int32 CurrentCurve = 0;
 
 int32 colorline[] = {0, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 0};
-char *color_names[] = {"WHITE",        "RED",    "REDORANGE",   "ORANGE",
-                       "YELLOWORANGE", "YELLOW", "YELLOWGREEN", "GREEN",
-                       "BLUEGREEN",    "BLUE",   "PURPLE",      "BLACK"};
+char *color_names[] = {"WHITE",       "RED",   "REDORANGE", "ORANGE", "YELLOWORANGE", "YELLOW",
+                       "YELLOWGREEN", "GREEN", "BLUEGREEN", "BLUE",   "PURPLE",       "BLACK"};
 
 static int32 graf_par_get_frz_index(Window window);
 static void graf_par_read_bd(FILE *fp);
-static void graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type,
-                                int32 ncrv);
+static void graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
 static void graf_par_draw_frozen_cline(int32 index, Window window);
 static void graf_par_edit_frz_crv(int32 i);
 static int32 graf_par_create_crv(int32 ind);
@@ -68,15 +66,12 @@ static void graf_par_set_key(int32 x, int32 y);
 static int32 graf_par_alter_curve(char *title, int32 in_it, int32 n);
 static void graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
 static void graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
-static void graf_par_movie_rot(double start, double increment, int32 nclip,
-                               int32 angle);
+static void graf_par_movie_rot(double start, double increment, int32 nclip, int32 angle);
 static void graf_par_fit_window(void);
-static void graf_par_corner_cube(double *xlo, double *xhi, double *ylo,
-                                 double *yhi);
+static void graf_par_corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
 static void graf_par_check_val(double *x1, double *x2, double *xb, double *xd);
 static void graf_par_check_flags(void);
-static void graf_par_update_view(double xlo, double xhi, double ylo,
-                                 double yhi);
+static void graf_par_update_view(double xlo, double xhi, double ylo, double yhi);
 
 void
 graf_par_change_view_com(int32 com) {
@@ -139,13 +134,11 @@ graf_par_change_view_com(int32 com) {
         }
     } else {
         int32 ind = CurrentCurve;
-        static char *n[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "Xmin",
-                            "Xmax",     "Ymin",     "Ymax",     "Zmin",
-                            "Zmax",     "XLo",      "XHi",      "YLo",
+        static char *n[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "Xmin",  "Xmax", "Ymin",
+                            "Ymax",     "Zmin",     "Zmax",     "XLo",   "XHi",  "YLo",
                             "YHi",      "Xlabel",   "Ylabel",   "Zlabel"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
-        int32 status, i, i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind],
-                         i3 = MyGraph->zv[ind];
+        int32 status, i, i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind], i3 = MyGraph->zv[ind];
         char n1[15];
         char n2[15];
         char n3[15];
@@ -184,12 +177,9 @@ graf_par_change_view_com(int32 com) {
             if (i > -1) {
                 MyGraph->zv[ind] = i;
             }
-            snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s",
-                     values[13]);
-            snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s",
-                     values[14]);
-            snprintf(MyGraph->zlabel, sizeof(MyGraph->zlabel), "%s",
-                     values[15]);
+            snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[13]);
+            snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s", values[14]);
+            snprintf(MyGraph->zlabel, sizeof(MyGraph->zlabel), "%s", values[15]);
 
             MyGraph->xmin = atof(values[3]);
             MyGraph->ymin = atof(values[5]);
@@ -403,8 +393,7 @@ graf_par_default_window(void) {
         MyGraph->ymin = y_3d[0];
         MyGraph->zmin = z_3d[0];
 
-        graf_par_corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
-                             &(MyGraph->yhi));
+        graf_par_corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo), &(MyGraph->yhi));
         graf_par_check_windows();
     } else {
         MyGraph->xmax = x_3d[1];
@@ -438,18 +427,15 @@ graf_par_fit_window(void) {
     }
     if (MyGraph->ThreeDFlag) {
         for (int32 i = 0; i < n; i++) {
-            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
-                             &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
             Mx = LMAX(MyGraph->xmax, Mx);
             mx = -LMAX(-MyGraph->xmin, -mx);
 
-            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin),
-                             &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin), &(MyGraph->ymax));
             My = LMAX(MyGraph->ymax, My);
             my = -LMAX(-MyGraph->ymin, -my);
 
-            graf_par_get_max(MyGraph->zv[i], &(MyGraph->zmin),
-                             &(MyGraph->zmax));
+            graf_par_get_max(MyGraph->zv[i], &(MyGraph->zmin), &(MyGraph->zmax));
             Mz = LMAX(MyGraph->zmax, Mz);
             mz = -LMAX(-MyGraph->zmin, -mz);
         }
@@ -460,18 +446,15 @@ graf_par_fit_window(void) {
         MyGraph->ymin = my;
         MyGraph->zmin = mz;
 
-        graf_par_corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
-                             &(MyGraph->yhi));
+        graf_par_corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo), &(MyGraph->yhi));
         graf_par_check_windows();
     } else {
         for (int32 i = 0; i < n; i++) {
-            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
-                             &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
             Mx = LMAX(MyGraph->xmax, Mx);
             mx = -LMAX(-MyGraph->xmin, -mx);
 
-            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin),
-                             &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin), &(MyGraph->ymax));
             My = LMAX(MyGraph->ymax, My);
             my = -LMAX(-MyGraph->ymin, -my);
         }
@@ -494,12 +477,9 @@ void
 graf_par_check_windows(void) {
     double zip;
     double zap;
-    graf_par_check_val(&MyGraph->xmin, &MyGraph->xmax, &MyGraph->xbar,
-                       &MyGraph->dx);
-    graf_par_check_val(&MyGraph->ymin, &MyGraph->ymax, &MyGraph->ybar,
-                       &MyGraph->dy);
-    graf_par_check_val(&MyGraph->zmin, &MyGraph->zmax, &MyGraph->zbar,
-                       &MyGraph->dz);
+    graf_par_check_val(&MyGraph->xmin, &MyGraph->xmax, &MyGraph->xbar, &MyGraph->dx);
+    graf_par_check_val(&MyGraph->ymin, &MyGraph->ymax, &MyGraph->ybar, &MyGraph->dy);
+    graf_par_check_val(&MyGraph->zmin, &MyGraph->zmax, &MyGraph->zbar, &MyGraph->dz);
     graf_par_check_val(&MyGraph->xlo, &MyGraph->xhi, &zip, &zap);
     graf_par_check_val(&MyGraph->ylo, &MyGraph->yhi, &zip, &zap);
     return;
@@ -522,10 +502,8 @@ graf_par_xi_vs_t(void) {
         MyGraph->grtype = 0;
         MyGraph->xv[0] = 0;
         if (storind >= 2) {
-            graf_par_get_max(MyGraph->xv[0], &(MyGraph->xmin),
-                             &(MyGraph->xmax));
-            graf_par_get_max(MyGraph->yv[0], &(MyGraph->ymin),
-                             &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->xv[0], &(MyGraph->xmin), &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->yv[0], &(MyGraph->ymin), &(MyGraph->ymax));
 
         } else {
             MyGraph->xmin = T0;
@@ -580,16 +558,9 @@ graf_par_movie_rot(double start, double increment, int32 nclip, int32 angle) {
 
 void
 graf_par_get_3d_com(void) {
-    static char *n[] = {"Persp (1=On)",
-                        "ZPlane",
-                        "ZView",
-                        "Theta",
-                        "Phi",
-                        "Movie(Y/N)",
-                        "Vary (theta/phi)",
-                        "Start angle",
-                        "Increment",
-                        "Number increments"};
+    static char *n[] = {
+        "Persp (1=On)", "ZPlane",           "ZView",       "Theta",     "Phi",
+        "Movie(Y/N)",   "Vary (theta/phi)", "Start angle", "Increment", "Number increments"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
 
@@ -729,8 +700,8 @@ graf_par_window_zoom_com(int32 c) {
         double dy = 0;
         int32 alldone = 0;
         XSelectInput(display, draw_win,
-                     KeyPressMask | ButtonPressMask | ButtonReleaseMask |
-                         PointerMotionMask | ButtonMotionMask | ExposureMask);
+                     KeyPressMask | ButtonPressMask | ButtonReleaseMask | PointerMotionMask |
+                         ButtonMotionMask | ExposureMask);
         while (!alldone) {
             XNextEvent(display, &event);
             switch (event.type) {
@@ -756,8 +727,7 @@ graf_par_window_zoom_com(int32 c) {
                     dx = -(x - x0) / 2;
                     dy = -(y - y0) / 2;
 
-                    graf_par_update_view(xlo + dx, xhi + dx, ylo + dy,
-                                         yhi + dy);
+                    graf_par_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
                 }
                 break;
             case ButtonRelease:
@@ -929,13 +899,11 @@ graf_par_graph_all(int32 *list, int32 n, int32 type) {
 
 int32
 graf_par_alter_curve(char *title, int32 in_it, int32 n) {
-    static char *nn[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "*4Color",
-                         "Line type"};
+    static char *nn[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "*4Color", "Line type"};
     char values[LENGTH(nn)][MAX_LEN_SBOX];
     int32 status;
     int32 i;
-    int32 i1 = MyGraph->xv[in_it], i2 = MyGraph->yv[in_it],
-          i3 = MyGraph->zv[in_it];
+    int32 i1 = MyGraph->xv[in_it], i2 = MyGraph->yv[in_it], i3 = MyGraph->zv[in_it];
     char n1[15];
     char n2[15];
     char n3[15];
@@ -977,16 +945,14 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
 
 void
 graf_par_dump_ps(int32 i) {
-#define FILENAME_SIZE                                                          \
-    (sizeof(this_file) + sizeof(this_internset) + sizeof(plot_format) + 10)
+#define FILENAME_SIZE (sizeof(this_file) + sizeof(this_internset) + sizeof(plot_format) + 10)
     char filename[FILENAME_SIZE];
 #undef FILENAME_SIZE
     if (i < 0) {
-        snprintf(filename, sizeof(filename), "%s%s.%s", this_file,
-                 this_internset, plot_format);
+        snprintf(filename, sizeof(filename), "%s%s.%s", this_file, this_internset, plot_format);
     } else {
-        snprintf(filename, sizeof(filename), "%s%s_%04d.%s", this_file,
-                 this_internset, i, plot_format);
+        snprintf(filename, sizeof(filename), "%s%s_%04d.%s", this_file, this_internset, i,
+                 plot_format);
     }
 
     if (strcmp(plot_format, "ps") == 0) {
@@ -1097,8 +1063,7 @@ graf_par_draw_freeze_key(void) {
     ix2 = ix + 4*h_char;
     y0 = iy;
     for (int32 i = 0; i < MAXFRZ; i++) {
-        if (frz[i].use == 1 && frz[i].window == draw_win &&
-            strlen(frz[i].key) > 0) {
+        if (frz[i].use == 1 && frz[i].window == draw_win && strlen(frz[i].key) > 0) {
             graphics_set_linestyle(ABS(frz[i].color));
             graphics_line(ix, y0, ix2, y0);
             graphics_set_linestyle(0);
@@ -1194,16 +1159,12 @@ graf_par_create_crv(int32 ind) {
                 ggets_err_msg("No Curve to freeze");
                 return -1;
             }
-            frz[i].xv =
-                xmalloc(sizeof(*(frz[i].xv))*(usize)browser_my.maxrow);
-            frz[i].yv =
-                xmalloc(sizeof(*(frz[i].yv))*(usize)browser_my.maxrow);
+            frz[i].xv = xmalloc(sizeof(*(frz[i].xv))*(usize)browser_my.maxrow);
+            frz[i].yv = xmalloc(sizeof(*(frz[i].yv))*(usize)browser_my.maxrow);
             if ((type = MyGraph->grtype) > 0) {
-                frz[i].zv =
-                    xmalloc(sizeof(*(frz[i].zv))*(usize)browser_my.maxrow);
+                frz[i].zv = xmalloc(sizeof(*(frz[i].zv))*(usize)browser_my.maxrow);
             }
-            if ((type > 0 && frz[i].zv == NULL) ||
-                (type == 0 && frz[i].yv == NULL)) {
+            if ((type > 0 && frz[i].zv == NULL) || (type == 0 && frz[i].yv == NULL)) {
                 ggets_err_msg("Cant allocate storage for curve");
                 return -1;
             }
@@ -1383,12 +1344,10 @@ graf_par_read_bd(FILE *fp) {
     double ylo[8000];
     double yhi[8000];
     len = 0;
-    fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &oldtype,
-           &oldbr, &f2);
+    fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &oldtype, &oldbr, &f2);
     len++;
     while (!feof(fp)) {
-        fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &type,
-               &br, &f2);
+        fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &type, &br, &f2);
         if (type == oldtype && br == oldbr) {
             len++;
         } else {
@@ -1448,9 +1407,8 @@ graf_par_get_frz_index(Window window) {
         return -1;
     }
     key[count] = 0;
-    ch = (char)pop_list_popup_list_new(&temp, "Curves", n, key, count, 12, 0,
-                                       10, 8*dcur_y + 8, no_hint, info_pop,
-                                       info_message);
+    ch = (char)pop_list_popup_list_new(&temp, "Curves", n, key, count, 12, 0, 10, 8*dcur_y + 8,
+                                       no_hint, info_pop, info_message);
     for (int32 i = 0; i < count; i++) {
         free(n[i]);
     }
@@ -1494,8 +1452,8 @@ graf_par_add_a_curve_com(int32 c) {
     case 4: {
         // create ps
         char filename[XPP_MAX_NAME + 3];
-        static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
-                             "Font", "Linewidth"};
+        static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize", "Font",
+                             "Linewidth"};
         int32 status;
         char values[LENGTH(nn)][MAX_LEN_SBOX];
         snprintf(values[0], sizeof(values[0]), "%d", ps_color);
@@ -1503,8 +1461,7 @@ graf_par_add_a_curve_com(int32 c) {
         snprintf(values[2], sizeof(values[2]), "%d", ps_fontsize);
         strncpy(values[3], ps_font, sizeof(values[3]));
         snprintf(values[4], sizeof(values[4]), "%g", ps_lw);
-        status = pop_list_do_string_box(5, 5, 1, "Postscript parameters", nn,
-                                        values, 25);
+        status = pop_list_do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
         if (status != 0) {
             ps_color = atoi(values[0]);
             ps_port = atoi(values[1]);
@@ -1514,8 +1471,7 @@ graf_par_add_a_curve_com(int32 c) {
             snprintf(filename, sizeof(filename), "%s.ps", this_file);
             ggets_ping();
 
-            if (!init_conds_file_selector("Print postscript", filename,
-                                          "*.ps")) {
+            if (!init_conds_file_selector("Print postscript", filename, "*.ps")) {
                 return;
             }
             if (ps_init(filename, ps_color)) {
@@ -1544,9 +1500,8 @@ graf_par_add_a_curve_com(int32 c) {
            break; */
     case 7: {
         // graf par axes opts
-        static char *n[] = {"X-origin",    "Y-origin",    "Z-origin",
-                            "X-org(1=on)", "Y-org(1=on)", "Z-org(1=on",
-                            "PSFontSize"};
+        static char *n[] = {"X-origin",    "Y-origin",   "Z-origin",  "X-org(1=on)",
+                            "Y-org(1=on)", "Z-org(1=on", "PSFontSize"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
         snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xorg);

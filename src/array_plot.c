@@ -237,8 +237,7 @@ array_plot_do_events(XEvent event) {
          */
     case MotionNotify:
         if (event.xany.window == array_plot.wplot) {
-            array_plot.nstart =
-                array_plot.nstart - event.xmotion.y + first_aplot_press;
+            array_plot.nstart = array_plot.nstart - event.xmotion.y + first_aplot_press;
             if (array_plot.nstart < 0) {
                 array_plot.nstart = 0;
             }
@@ -255,8 +254,8 @@ array_plot_do_events(XEvent event) {
         array_plot.height = y;
         array_plot.ploth = y - 55;
         array_plot.plotw = x - 30 - 10*dcur_xs;
-        XMoveResizeWindow(display, array_plot.wplot, 20 + 10*dcur_xs, 45,
-                          (uint)array_plot.plotw, (uint)array_plot.ploth);
+        XMoveResizeWindow(display, array_plot.wplot, 20 + 10*dcur_xs, 45, (uint)array_plot.plotw,
+                          (uint)array_plot.ploth);
         break;
     case EnterNotify:
         array_plot_wborder(event.xexpose.window, 2, array_plot);
@@ -281,8 +280,8 @@ array_plot_wborder(Window window, int32 i, struct ArrayPlot ap) {
     /* if(w==ap.wedit||w==ap.wprint||w==ap.wkill||w==ap.wstyle||w==ap.wredraw)
      */
     Window w = window;
-    if (w == ap.wedit || w == ap.wprint || w == ap.wclose || w == ap.wredraw ||
-        w == ap.wgif || w == ap.wrange || w == ap.wfit) {
+    if (w == ap.wedit || w == ap.wprint || w == ap.wclose || w == ap.wredraw || w == ap.wgif ||
+        w == ap.wrange || w == ap.wfit) {
         XSetWindowBorderWidth(display, w, (uint)i);
     }
     return;
@@ -325,12 +324,10 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     XSizeHints size_hints;
     width = ap->width;
     height = ap->height;
-    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
-                                      ap->width, ap->height, 1);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, ap->width, ap->height, 1);
     ap->base = base;
     XSelectInput(display, base,
-                 ExposureMask | KeyPressMask | ButtonPressMask |
-                     StructureNotifyMask);
+                 ExposureMask | KeyPressMask | ButtonPressMask | StructureNotifyMask);
     XStringListToTextProperty(&wname, 1, &winname);
     XStringListToTextProperty(&iname, 1, &iconname);
 
@@ -339,8 +336,7 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     size_hints.y = 0;
     size_hints.min_width = width;
     size_hints.min_height = height;
-    XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
-                     NULL, NULL);
+    XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints, NULL, NULL);
     main_fix_window_size(base, width, height, FIX_MIN_SIZE);
     many_pops_make_icon((char *)array_bits, array_width, array_height, base);
 
@@ -352,14 +348,12 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     ap->wrange = browser_button2(base, 0, 5, 0);
     ap->wgif = browser_button2(base, 1, 0, 0);
     ap->wmax = pop_list_make_window(base, 10, 45, 10*dcur_xs, dcur_ys, 1);
-    ap->wmin = pop_list_make_window(base, 10, 51 + dcur_ys + color_total,
-                                    10*dcur_xs, dcur_ys, 1);
-    ap->wscale = pop_list_make_window(base, 10 + 4*dcur_xs, 48 + dcur_ys,
-                                      2*dcur_xs, color_total, 0);
-    ap->wtime = pop_list_make_window(base, 20 + 10*dcur_xs, 30, 20*dcur_xs,
-                                     dcur_ys, 0);
-    ap->wplot = pop_list_make_plain_window(
-        base, 20 + 10*dcur_xs, 45, width - 30 - 10*dcur_xs, height - 55, 2);
+    ap->wmin = pop_list_make_window(base, 10, 51 + dcur_ys + color_total, 10*dcur_xs, dcur_ys, 1);
+    ap->wscale =
+        pop_list_make_window(base, 10 + 4*dcur_xs, 48 + dcur_ys, 2*dcur_xs, color_total, 0);
+    ap->wtime = pop_list_make_window(base, 20 + 10*dcur_xs, 30, 20*dcur_xs, dcur_ys, 0);
+    ap->wplot = pop_list_make_plain_window(base, 20 + 10*dcur_xs, 45, width - 30 - 10*dcur_xs,
+                                           height - 55, 2);
     ap->plotw = width - 30 - 10*dcur_xs;
     ap->ploth = height - 55;
     ap->alive = 1;
@@ -373,8 +367,7 @@ array_plot_print(struct ArrayPlot *ap) {
     double thi;
     int32 status;
     int32 errflag;
-    static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
-                        "Render(-1,0,1,2)"};
+    static char *n[] = {"Filename", "Top label", "Side label", "Bottom label", "Render(-1,0,1,2)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 nrows = browser_my.maxrow;
     int32 row0 = ap->nstart;
@@ -415,10 +408,9 @@ array_plot_print(struct ArrayPlot *ap) {
             ap->type = -1;
         }
         errflag =
-            array_print(ap->filename, ap->xtitle, ap->ytitle, ap->bottom,
-                        ap->nacross, ap->ndown, col0, row0, ap->nskip,
-                        ap->ncskip, nrows, browser_my.maxcol, browser_my.data,
-                        ap->zmin, ap->zmax, tlo, thi, ap->type);
+            array_print(ap->filename, ap->xtitle, ap->ytitle, ap->bottom, ap->nacross, ap->ndown,
+                        col0, row0, ap->nskip, ap->ncskip, nrows, browser_my.maxcol,
+                        browser_my.data, ap->zmin, ap->zmax, tlo, thi, ap->type);
         if (errflag == -1) {
             ggets_err_msg("Couldn't open file");
         }
@@ -449,11 +441,9 @@ array_plot_button(Window window) {
         strncpy(values[0], array_plot_range_stem, sizeof(values[0]));
         snprintf(values[1], sizeof(values[1]), "%d", array_plot_still);
         snprintf(values[2], sizeof(values[2]), "%d", array_plot_tag);
-        status = pop_list_do_string_box(3, 3, 1, "Array range saving", n,
-                                        values, 28);
+        status = pop_list_do_string_box(3, 3, 1, "Array range saving", n, values, 28);
         if (status != 0) {
-            snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s",
-                     values[0]);
+            snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s", values[0]);
             array_plot_still = atoi(values[1]);
             array_plot_tag = atoi(values[2]);
             array_plot_range = 1;
@@ -655,8 +645,7 @@ array_plot_gif_all(char *filename, int32 still) {
         XGetGeometry(display, array_plot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                            (uint)DefaultDepth(display, screen));
-        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0,
-                  0);
+        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0, 0);
 
         scrngif_add_ani_gif(xi, ap_fp, array_plot_range_count);
         XFreePixmap(display, xi);
@@ -672,8 +661,7 @@ array_plot_gif_all(char *filename, int32 still) {
         XGetGeometry(display, array_plot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                            (uint)DefaultDepth(display, screen));
-        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0,
-                  0);
+        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0, 0);
         scrngif_screen_to_gif(xi, ap_fp);
         fclose(ap_fp);
         XFreePixmap(display, xi);
@@ -734,8 +722,7 @@ array_plot_redraw(struct ArrayPlot ap) {
         thi = browser_my.data[0][jb];
     }
     snprintf(bob, sizeof(bob), " %g < t < %g ", tlo, thi);
-    XDrawString(display, ap.wtime, small_gc, 0, cury_offs, bob,
-                (int32)strlen(bob));
+    XDrawString(display, ap.wtime, small_gc, 0, cury_offs, bob, (int32)strlen(bob));
     dx = (double)ap.plotw / (double)(ap.nacross / ap.ncskip);
     dy = (double)ap.ploth / (double)ap.ndown;
     delx = (int32)dx + 1;
@@ -756,8 +743,7 @@ array_plot_redraw(struct ArrayPlot ap) {
                 iy = (int32)y;
                 /*	  if(j==0)
                           ggets_plintf(" ib=%d ix=%d iy=%d \n",ib,ix,iy); */
-                z = (double)color_total*(browser_my.data[ib][jb] - ap.zmin) /
-                    (ap.zmax - ap.zmin);
+                z = (double)color_total*(browser_my.data[ib][jb] - ap.zmin) / (ap.zmax - ap.zmin);
                 colr = (int32)z + FIRSTCOLOR;
                 if (colr < FIRSTCOLOR) {
                     colr = FIRSTCOLOR;
@@ -772,14 +758,12 @@ array_plot_redraw(struct ArrayPlot ap) {
                     XSetForeground(display, array_plot_gc, gr_fore);
                 } else {
                     if (COLOR) {
-                        XSetForeground(display, array_plot_gc,
-                                       (uint)color_map(colr));
+                        XSetForeground(display, array_plot_gc, (uint)color_map(colr));
                     } else {
                         XSetForeground(display, array_plot_gc, gr_fore);
                     }
                 }
-                XFillRectangle(display, window, array_plot_gc, ix, iy,
-                               (uint)delx, (uint)dely);
+                XFillRectangle(display, window, array_plot_gc, ix, iy, (uint)delx, (uint)dely);
             }
         }
     }
@@ -790,8 +774,7 @@ array_plot_redraw(struct ArrayPlot ap) {
 void
 array_plot_tag2(char *bob) {
     color_set(0);
-    XDrawString(display, array_plot.wplot, small_gc, 0, cury_offs, bob,
-                (int32)strlen(bob));
+    XDrawString(display, array_plot.wplot, small_gc, 0, cury_offs, bob, (int32)strlen(bob));
     return;
 }
 
@@ -809,14 +792,12 @@ array_plot_display(Window window, struct ArrayPlot ap) {
     }
     if (window == ap.wmin) {
         snprintf(bob, sizeof(bob), "%g", ap.zmin);
-        XDrawString(display, window, small_gc, 0, cury_offs, bob,
-                    (int32)strlen(bob));
+        XDrawString(display, window, small_gc, 0, cury_offs, bob, (int32)strlen(bob));
         return;
     }
     if (window == ap.wmax) {
         snprintf(bob, sizeof(bob), "%g", ap.zmax);
-        XDrawString(display, window, small_gc, 0, cury_offs, bob,
-                    (int32)strlen(bob));
+        XDrawString(display, window, small_gc, 0, cury_offs, bob, (int32)strlen(bob));
         return;
     }
     if (window == ap.wedit) {

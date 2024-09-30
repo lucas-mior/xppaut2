@@ -35,18 +35,15 @@ int32 four_here;
 static int32 histogram_two_d2(void);
 
 static void histogram_just_fourier(int32 flag);
-static void histogram_mycor2(double *x, double *y, int32 n, int32 nbins,
-                             double *z, int32 flag);
-static int32 histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
-                                double *pow);
+static void histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag);
+static int32 histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow);
 static int32 histogram_get_col_info(int32 *col, char *prompt);
 static void histogram_new_four(int32 nmodes, int32 col);
-static void histogram_fft(double *data, double *ct, double *st, int32 nmodes,
-                          int32 length);
+static void histogram_fft(double *data, double *ct, double *st, int32 nmodes, int32 length);
 
 int32
-histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
-                double xlo, double xhi, double ylo, double yhi) {
+histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo, double xhi,
+                double ylo, double yhi) {
     /*
       col1,2 are the data you want to histogram
       ndat - number of points in the data
@@ -164,8 +161,7 @@ histogram_post_process_stuff(void) {
         return;
     }
     if (post_process == 1) {
-        histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col,
-                      0, "", 0);
+        histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0, "", 0);
         return;
     }
     if (post_process == 2) {
@@ -208,12 +204,10 @@ histogram_post_process_stuff(void) {
             my_hist[0][j] = ((double)j*storind / spec_wid) / total;
         }
         if (spec_type == 0) {
-            histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
-                               my_hist[1]);
+            histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win, my_hist[1]);
         } else {
-            histogram_cross_spectrum(storage[spec_col], storage[spec_col2],
-                                     storind, spec_wid, spec_win, my_hist[1],
-                                     spec_type);
+            histogram_cross_spectrum(storage[spec_col], storage[spec_col2], storind, spec_wid,
+                                     spec_win, my_hist[1], spec_type);
         }
         histogram_back();
         ggets_ping();
@@ -255,9 +249,8 @@ histogram_two_d2(void) {
         my_hist[i] = storage[i];
     }
     hist_len = length;
-    histogram_two_d(hist_inf.col, hist_inf.col2, storind, hist_inf.nbins,
-                    hist_inf.nbins2, hist_inf.xlo, hist_inf.xhi, hist_inf.ylo,
-                    hist_inf.yhi);
+    histogram_two_d(hist_inf.col, hist_inf.col2, storind, hist_inf.nbins, hist_inf.nbins2,
+                    hist_inf.xlo, hist_inf.xhi, hist_inf.ylo, hist_inf.yhi);
 
     histogram_back();
 
@@ -307,8 +300,8 @@ histogram_new_2d(void) {
 }
 
 void
-histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
-              char *condition, int32 which) {
+histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2, char *condition,
+              int32 which) {
     int32 i;
     int32 index;
     int32 command[256];
@@ -366,8 +359,7 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
                     set_ivar(j, (double)storage[j][i]);
                 }
                 for (int32 j = 0; j < NMarkov; j++) {
-                    set_ivar(j + NODE + 1 + fix_var,
-                             (double)storage[j + NODE + 1][i]);
+                    set_ivar(j + NODE + 1 + fix_var, (double)storage[j + NODE + 1][i]);
                 }
                 z = evaluate(command);
                 if (fabs(z) > 0.0) {
@@ -404,15 +396,13 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         return;
     }
     if (which == 2) {
-        histogram_mycor2(storage[col], storage[col2], storind, nbins,
-                         my_hist[1], 1);
+        histogram_mycor2(storage[col], storage[col2], storind, nbins, my_hist[1], 1);
         histogram_back();
         ggets_ping();
         return;
     }
     if (which == 3) {
-        histogram_fft_xcorr(storage[col], storage[col2], storind,
-                            (nbins - 1) / 2, my_hist[1], 1);
+        histogram_fft_xcorr(storage[col], storage[col2], storind, (nbins - 1) / 2, my_hist[1], 1);
         histogram_back();
         ggets_ping();
         return;
@@ -501,8 +491,7 @@ histogram_compute_power(void) {
  *     size = win/2 */
 
 int32
-histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
-                   double *pow) {
+histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow) {
     // assumes 50% overlap
     int32 shift = win / 2;
     int32 kwin = (nr - win + 1) / shift;
@@ -584,8 +573,8 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
 */
 
 int32
-histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
-                         int32 w_type, double *pow, int32 type) {
+histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win, int32 w_type,
+                         double *pow, int32 type) {
     int32 shift = win / 2;
     int32 kwin = (nr - win + 1) / shift;
     int32 kk;
@@ -726,11 +715,10 @@ histogram_compute_sd(void) {
         my_hist[0][j] = ((double)j*storind / spec_wid) / total;
     }
     if (spec_type == 0) {
-        histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
-                           my_hist[1]);
+        histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win, my_hist[1]);
     } else {
-        histogram_cross_spectrum(storage[spec_col], storage[spec_col2], storind,
-                                 spec_wid, spec_win, my_hist[1], spec_type);
+        histogram_cross_spectrum(storage[spec_col], storage[spec_col2], storind, spec_wid, spec_win,
+                                 my_hist[1], spec_type);
     }
     histogram_back();
     ggets_ping();
@@ -804,8 +792,8 @@ histogram_compute_correl(void) {
     if (histogram_get_col_info(&hist_inf.col2, "Variable 2 ") == 0) {
         return;
     }
-    histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col,
-                  hist_inf.col2, hist_inf.cond, 2 + hist_inf.fftc);
+    histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, hist_inf.col2,
+                  hist_inf.cond, 2 + hist_inf.fftc);
     return;
 }
 
@@ -817,14 +805,13 @@ histogram_compute_stacor(void) {
     if (histogram_get_col_info(&hist_inf.col, "Variable ") == 0) {
         return;
     }
-    histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0,
-                  hist_inf.cond, 1);
+    histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0, hist_inf.cond, 1);
     return;
 }
 
 void
-histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
-                int32 nbins, double *z, int32 flag) {
+histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins, double *z,
+                int32 flag) {
     int32 k;
     int32 count = 0;
     double sum;
@@ -859,8 +846,7 @@ histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
 }
 
 void
-histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z,
-                 int32 flag) {
+histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag) {
     int32 k, count = 0, lag = nbins / 2;
     double sum;
     double avx = 0.0;
@@ -901,16 +887,15 @@ histogram_compute(void) {
         return;
     }
     ggets_new_string("Condition ", hist_inf.cond);
-    histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0,
-                  hist_inf.cond, 0);
+    histogram_new(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0, hist_inf.cond, 0);
     return;
 }
 
 /* experimental -- does it work */
 /* nlag should be less than length/2 */
 void
-histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
-                    double *cr, int32 flag) {
+histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag, double *cr,
+                    int32 flag) {
     double *re1, *re2, *im1, *im2, x, y, sum;
     double av1 = 0.0;
     double av2 = 0.0;
@@ -951,8 +936,7 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
     sum = 0.0;
     for (int32 i = 0; i < nlag; i++) {
         sum += fabs(im1[i]);
-        cr[nlag + i] =
-            (double)re1[i]*length;  // positive part of the correlation
+        cr[nlag + i] = (double)re1[i]*length;  // positive part of the correlation
     }
     for (int32 i = 0; i < nlag; i++) {
         sum += fabs(im1[length - nlag + i]);
@@ -967,8 +951,7 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
 }
 
 void
-histogram_fft(double *data, double *ct, double *st, int32 nmodes,
-              int32 length) {
+histogram_fft(double *data, double *ct, double *st, int32 nmodes, int32 length) {
     double *im;
     double *re;
     int32 dim[2];

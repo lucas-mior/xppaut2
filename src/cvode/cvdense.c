@@ -59,12 +59,10 @@ typedef struct {
 
 static int32 cv_dense_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
-                            Vector fpred, bool *jcurPtr, Vector vtemp1,
-                            Vector vtemp2, Vector vtemp3);
+static int32 cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+                            bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3);
 
-static int32 cv_dense_solve(CVodeMem cv_mem, Vector b, Vector ycur,
-                            Vector fcur);
+static int32 cv_dense_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur);
 
 static void cv_dense_free(CVodeMem cv_mem);
 
@@ -82,9 +80,9 @@ static void cv_dense_free(CVodeMem cv_mem);
 **********************************************************************/
 
 void
-cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
-                Vector fy, Vector ewt, double h, double uround, void *jac_data,
-                int32 *nfePtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
+cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y, Vector fy,
+                Vector ewt, double h, double uround, void *jac_data, int32 *nfePtr, Vector vtemp1,
+                Vector vtemp2, Vector vtemp3) {
     double fnorm;
     double minInc;
     double inc;
@@ -110,9 +108,7 @@ cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
     // Set minimum increment based on uround and norm of f
     srur = llnlmath_rsqrt(uround);
     fnorm = vector_wrms_norm(fy, ewt);
-    minInc = (fnorm != 0.0)
-                 ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm)
-                 : 1.0;
+    minInc = (fnorm != 0.0) ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm) : 1.0;
 
     N_VMAKE(jthCol, NULL, N);
 
@@ -289,8 +285,8 @@ cv_dense_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
-               bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
+cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred, bool *jcurPtr,
+               Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     bool jbad;
     bool jok;
     double dgamma;
@@ -303,8 +299,7 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 
     dgamma = ABS((gamma / gammap) - 1.0);
     jbad = (nst == 0) || (nst > nstlj + CVD_MSBJ) ||
-           ((convfail == FAIL_BAD_J) && (dgamma < CVD_DGMAX)) ||
-           (convfail == FAIL_OTHER);
+           ((convfail == FAIL_BAD_J) && (dgamma < CVD_DGMAX)) || (convfail == FAIL_OTHER);
     jok = !jbad;
 
     if (jok) {
@@ -320,8 +315,8 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
         nstlj = nst;
         *jcurPtr = true;
         dense_zero(M);
-        jac(N, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data, &nfe,
-            vtemp1, vtemp2, vtemp3);
+        jac(N, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data, &nfe, vtemp1, vtemp2,
+            vtemp3);
         dense_copy(M, savedJ);
     }
 

@@ -51,23 +51,19 @@ volterra_alloc_memory(void) {
     for (int32 i = 0; i < NKernel; i++) {
         kernel[i].k_n = 0.0;
         if (parserslow_add_expr(kernel[i].expr, formula, &len)) {
-            ggets_plintf("Illegal kernel %s=%s\n", kernel[i].name,
-                         kernel[i].expr);
+            ggets_plintf("Illegal kernel %s=%s\n", kernel[i].name, kernel[i].expr);
             exit(0);  // fatal error ...
         }
-        kernel[i].formula =
-            xmalloc((usize)(len + 2)*sizeof(*(kernel[i].formula)));
+        kernel[i].formula = xmalloc((usize)(len + 2)*sizeof(*(kernel[i].formula)));
         for (int32 j = 0; j < len; j++) {
             kernel[i].formula[j] = formula[j];
         }
         if (kernel[i].flag == CONV) {
             if (parserslow_add_expr(kernel[i].kerexpr, formula, &len)) {
-                ggets_plintf("Illegal convolution %s=%s\n", kernel[i].name,
-                             kernel[i].kerexpr);
+                ggets_plintf("Illegal convolution %s=%s\n", kernel[i].name, kernel[i].kerexpr);
                 exit(0);  // fatal error ...
             }
-            kernel[i].kerform =
-                xmalloc((usize)(len + 2)*sizeof(*(kernel[i].kerform)));
+            kernel[i].kerform = xmalloc((usize)(len + 2)*sizeof(*(kernel[i].kerform)));
             for (int32 j = 0; j < len; j++) {
                 kernel[i].kerform[j] = formula[j];
             }
@@ -181,8 +177,7 @@ volterra_alloc_kernels(int32 flag) {
 ***/
 
 void
-volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
-                   int32 ishift) {
+volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
     double t = t0 + n*dt, tp = t0 + i0*dt;
     double sum[MAX_ODE];
     double al;
@@ -225,8 +220,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
                 alpbet = kernel[ker].al[n - i0 - i];
             }
             if (kernel[ker].flag == CONV) {
-                sum[ker] += (alpbet*evaluate(kernel[ker].formula) *
-                             kernel[ker].cnv[n - i0 - i]);
+                sum[ker] += (alpbet*evaluate(kernel[ker].formula)*kernel[ker].cnv[n - i0 - i]);
             } else {
                 sum[ker] += (alpbet*evaluate(kernel[ker].formula));
             }
@@ -291,20 +285,17 @@ volterra_get_kn(double *y, double t) {
     }
     for (int32 i = 0; i < NKernel; i++) {
         if (kernel[i].flag == CONV) {
-            kernel[i].k_n = kernel[i].sum + kernel[i].betnn *
-                                                evaluate(kernel[i].formula) *
-                                                kernel[i].cnv[0];
-        } else {
             kernel[i].k_n =
-                kernel[i].sum + kernel[i].betnn*evaluate(kernel[i].formula);
+                kernel[i].sum + kernel[i].betnn*evaluate(kernel[i].formula)*kernel[i].cnv[0];
+        } else {
+            kernel[i].k_n = kernel[i].sum + kernel[i].betnn*evaluate(kernel[i].formula);
         }
     }
     return;
 }
 
 int32
-volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
-         double *work) {
+volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart, double *work) {
     double *jac, *yg, *yp, *yp2, *ytemp, *errvec;
     double z;
     double mu;
@@ -350,8 +341,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
                 y[i] = z;
             }
         }
-        for (int32 i = NODE; i < NODE + fix_var;
-             i++) {  // pass 2 for fixed variables
+        for (int32 i = NODE; i < NODE + fix_var; i++) {  // pass 2 for fixed variables
             SETVAR(i + 1, evaluate(my_ode[i]));
         }
         for (int32 i = 0; i < NODE + fix_var + NMarkov; i++) {
@@ -365,8 +355,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
     {
         *t = *t + dt;
         markov_set_wieners(dt, y, *t);
-        if ((j = volterra_step(y, *t, dt, neq, yg, yp, yp2, errvec, jac)) !=
-            0) {
+        if ((j = volterra_step(y, *t, dt, neq, yg, yp, yp2, errvec, jac)) != 0) {
             return j;
         }
         delay_handle_stor_delay(y);
@@ -375,8 +364,8 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
 }
 
 int32
-volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
-              double *yp2, double *errvec, double *jac) {
+volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp, double *yp2,
+              double *errvec, double *jac) {
     int32 i0;
     int32 iend;
     int32 ishift;

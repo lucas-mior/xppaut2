@@ -14,12 +14,11 @@
 #include "struct.h"
 #include "xpplim.h"
 
-#define MASK_EVENT                                                             \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
+#define MASK_EVENT (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
-#define MASK_BUTTON                                                            \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     EnterWindowMask | LeaveWindowMask)
+#define MASK_BUTTON                                                                                \
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask | EnterWindowMask |       \
+     LeaveWindowMask)
 
 enum {
     FIX_SIZE = 3,
@@ -78,10 +77,10 @@ enum {
 
 #define LENGTH(X) (sizeof(X) / sizeof(*X))
 
-#define SETVAR(i, x)                                                           \
-    do {                                                                       \
-        if ((i) < NVAR)                                                        \
-            variables[(i)] = (x);                                              \
+#define SETVAR(i, x)                                                                               \
+    do {                                                                                           \
+        if ((i) < NVAR)                                                                            \
+            variables[(i)] = (x);                                                                  \
     } while (0)
 #define GETVAR(i) (i) < NVAR ? variables[(i)] : 0.0
 
@@ -145,11 +144,10 @@ void array_plot_dump(FILE *fp, int32 f);
 #ifndef ARRAY_PRINT_H
 #define ARRAY_PRINT_H
 
-int32 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
-                  int32 nacross, int32 ndown, int32 col0, int32 row0,
-                  int32 nskip, int32 ncskip, int32 maxrow, int32 maxcol,
-                  double **data, double zmin, double zmax, double tlo,
-                  double thi, int32 type);
+int32 array_print(char *filename, char *xtitle, char *ytitle, char *bottom, int32 nacross,
+                  int32 ndown, int32 col0, int32 row0, int32 nskip, int32 ncskip, int32 maxrow,
+                  int32 maxcol, double **data, double zmin, double zmax, double tlo, double thi,
+                  int32 type);
 
 #endif
 
@@ -185,9 +183,8 @@ void auto_x11_col(int32 col);
 void auto_x11_bw(void);
 void auto_x11_scroll(void);
 int32 auto_x11_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag);
-int32 auto_x11_pop_up_list(char *title, char **list, char *key, int32 n,
-                           int32 max, int32 def, int32 x, int32 y, char **hints,
-                           char *httxt);
+int32 auto_x11_pop_up_list(char *title, char **list, char *key, int32 n, int32 max, int32 def,
+                           int32 x, int32 y, char **hints, char *httxt);
 void auto_x11_xor_cross(int32 x, int32 y);
 void auto_x11_fill_circle(int32 x, int32 y, int32 r);
 void auto_x11_line_width(int32 wid);
@@ -213,8 +210,8 @@ extern int32 axes_doing_box;
 void axes_redraw_cube_pt(double theta, double phi);
 void axes_do(void);
 void axes_redraw_cube(double theta, double phi);
-void axes_box(double x_min, double x_max, double y_min, double y_max, char *sx,
-              char *sy, int32 flag);
+void axes_box(double x_min, double x_max, double y_min, double y_max, char *sx, char *sy,
+              int32 flag);
 
 #endif
 
@@ -281,15 +278,13 @@ void browser_reset(void);
 void browser_init(void);
 void browser_make_new(void);
 Window browser_button2(Window root, int32 row, int32 col, int32 iflag);
-Window browser_button_data(Window root, int32 row, int32 col, char *name,
-                           int32 iflag);
+Window browser_button_data(Window root, int32 row, int32 col, char *name, int32 iflag);
 void browser_my_expose(XEvent event);
 void browser_my_enter(XEvent event, int32 yn);
 void browser_my_button(XEvent event);
 void browser_my_keypress(XEvent event, int32 *used);
 void browser_my_resize(Window win);
-void browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
-                          int32 i3, int32 off);
+void browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3, int32 off);
 void browser_open_write_file(FILE **fp, char *fil, int32 *ok);
 void browser_my_write_data(FILE *fp);
 void browser_my_get_data(int32 row);
@@ -308,8 +303,7 @@ double calc(char *expr, int32 *ok);
 #ifndef CHOICE_BOX_H
 #define CHOICE_BOX_H
 
-void choice_box_base(char *wname, int32 n, int32 mcc, char **names,
-                     int32 *check, int32 type);
+void choice_box_base(char *wname, int32 n, int32 mcc, char **names, int32 *check, int32 type);
 
 #endif
 
@@ -371,10 +365,9 @@ void ggets_display_command(char *name, char *value, int32 pos);
 void ggets_put_cursor_at(Window window, int32 col0, int32 pos);
 void ggets_mov_mem(char *s1, char *s2, int32 len);
 void ggets_mem_mov(char *s1, char *s2, int32 len);
-void ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
-                       int32 *done, int32 ch);
-void ggets_edit_command_string(XEvent event, char *name, char *value,
-                               int32 *done, int32 *pos, int32 *col);
+void ggets_edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done, int32 ch);
+void ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done, int32 *pos,
+                               int32 *col);
 int32 ggets_new_string(char *name, char *value);
 
 #endif
@@ -537,12 +530,10 @@ typedef struct COMPLEX {
     double i;
 } COMPLEX;
 
-void del_stab_do_delay_sing(double *x, double eps, double err, double big,
-                            int32 maxit, int32 n, int32 *ierr,
-                            double *stabinfo);
-int32 del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
-                                  double err, double eps, double big,
-                                  int32 maxit, double *rr);
+void del_stab_do_delay_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
+                            int32 *ierr, double *stabinfo);
+int32 del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m, double err,
+                                  double eps, double big, int32 maxit, double *rr);
 
 #endif
 
@@ -563,20 +554,18 @@ extern Diagram *bifd;
 extern int32 NBifs;
 
 void diagram_start(int32 n);
-void diagram_edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab,
-                        int32 nfpar, double a, double *uhi, double *ulo,
-                        double *u0, double *ubar, double *par, double per,
-                        int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4,
-                        double *evr, double *evi);
-void edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
-                  int32 nfpar, double a, double *uhi, double *ulo, double *u0,
-                  double *ubar, double *par, double per, int32 n, int32 icp1,
-                  int32 icp2, int32 icp3, int32 icp4, int32 flag2, double *evr,
+void diagram_edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
+                        double *uhi, double *ulo, double *u0, double *ubar, double *par, double per,
+                        int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4, double *evr,
+                        double *evi);
+void edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
+                  double *uhi, double *ulo, double *u0, double *ubar, double *par, double per,
+                  int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4, int32 flag2, double *evr,
                   double *evi, double tp);
-void add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
-                 double a, double *uhi, double *ulo, double *u0, double *ubar,
-                 double *par, double per, int32 n, int32 icp1, int32 icp2,
-                 int32 icp3, int32 icp4, int32 flag2, double *evr, double *evi);
+void add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a, double *uhi,
+                 double *ulo, double *u0, double *ubar, double *par, double per, int32 n,
+                 int32 icp1, int32 icp2, int32 icp3, int32 icp4, int32 flag2, double *evr,
+                 double *evi);
 void kill_diagrams(void);
 void diagram_redraw(void);
 void diagram_write_info_out(void);
@@ -594,8 +583,7 @@ void diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 #ifndef DIALOG_BOX_H
 #define DIALOG_BOX_H
 
-int32 dialog_box_get(char *wname, char *name, char *value, char *ok,
-                     char *cancel, int32 max);
+int32 dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel, int32 max);
 
 #endif
 
@@ -603,27 +591,22 @@ int32 dialog_box_get(char *wname, char *name, char *value, char *ok,
 #define DO_FIT_H
 
 void do_fit_init_info(void);
-void do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
-                     double *yfit, double **yderv, int32 npts, int32 npars,
-                     int32 nvars, int32 *ivar, int32 *ipar);
-void do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars,
-                    int32 nvars, int32 npts);
+void do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps, double *yfit,
+                     double **yderv, int32 npts, int32 npars, int32 nvars, int32 *ivar,
+                     int32 *ipar);
+void do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars, int32 npts);
 int32 do_fit_one_step_int(double *y, double t0, double t1, int32 *istart);
 void do_fit_test(void);
-int32 do_fit_run(char *filename, int32 npts, int32 npars, int32 nvars,
-                 int32 maxiter, int32 ndim, double eps, double tol, int32 *ipar,
-                 int32 *ivar, int32 *icols, double *y0, double *a,
-                 double *yfit);
-int32 do_fit_marlev_step(double *t0, double *y0, double *y, double *sig,
-                         double *a, int32 npts, int32 nvars, int32 npars,
-                         int32 *ivar, int32 *ipar, double *covar, double *alpha,
-                         double *chisq, double *alambda, double *work,
-                         double **yderv, double *yfit, double *ochisq,
-                         int32 ictrl, double eps);
-int32 do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
-                    int32 npts, int32 nvars, int32 npars, int32 *ivar,
-                    int32 *ipar, double *alpha, double *chisq, double *beta,
-                    double **yderv, double *yfit, double eps);
+int32 do_fit_run(char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter, int32 ndim,
+                 double eps, double tol, int32 *ipar, int32 *ivar, int32 *icols, double *y0,
+                 double *a, double *yfit);
+int32 do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
+                         int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *covar,
+                         double *alpha, double *chisq, double *alambda, double *work,
+                         double **yderv, double *yfit, double *ochisq, int32 ictrl, double eps);
+int32 do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
+                    int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *alpha,
+                    double *chisq, double *beta, double **yderv, double *yfit, double eps);
 
 #endif
 
@@ -959,77 +942,72 @@ nfcnRead    Number of function calls.
 */
 
 typedef void (*FcnEqDiff)(uint32 n, double x, double *y, double *f);
-typedef void (*SolTrait)(long nr, double xold, double x, double *y, uint32 n,
-                         int32 *irtrn);
+typedef void (*SolTrait)(long nr, double xold, double x, double *y, uint32 n, int32 *irtrn);
 
-int32 dop853(
-    uint32 n,        // dimension of the system <= UINT_MAX-1
-    FcnEqDiff fcn,   // function computing the value of f(x,y)
-    double x,        // initial x-value
-    double *y,       // initial values for y
-    double xend,     // final x-value (xend-x may be positive or negative)
-    double *rtoler,  // relative error tolerance
-    double *atoler,  // absolute error tolerance
-    int32 itoler,    // switch for rtoler and atoler
-    SolTrait
-        solout,  // function providing the numerical solution during integration
-    int32 iout,  // switch for calling solout
-    FILE *fileout,  // messages stream
-    double uround,  // rounding unit
-    double safe,    // safety factor
-    double fac1,    // parameters for step size selection
-    double fac2,
-    double beta,    // for stabilized step size control
-    double hmax,    // maximal step size
-    double h,       // initial step size
-    long nmax,      // maximal number of allowed steps
-    int32 meth,     // switch for the choice of the coefficients
-    long nstiff,    // test for stiffness
-    uint32 nrdens,  // number of components for which dense outpout is required
-    uint32 *icont,  // indexes of components for which dense output is required,
-                    // >= nrdens */
-    uint32 licont,  // declared length of icon
-    double *work);
+int32 dop853(uint32 n,         // dimension of the system <= UINT_MAX-1
+             FcnEqDiff fcn,    // function computing the value of f(x,y)
+             double x,         // initial x-value
+             double *y,        // initial values for y
+             double xend,      // final x-value (xend-x may be positive or negative)
+             double *rtoler,   // relative error tolerance
+             double *atoler,   // absolute error tolerance
+             int32 itoler,     // switch for rtoler and atoler
+             SolTrait solout,  // function providing the numerical solution during integration
+             int32 iout,       // switch for calling solout
+             FILE *fileout,    // messages stream
+             double uround,    // rounding unit
+             double safe,      // safety factor
+             double fac1,      // parameters for step size selection
+             double fac2,
+             double beta,    // for stabilized step size control
+             double hmax,    // maximal step size
+             double h,       // initial step size
+             long nmax,      // maximal number of allowed steps
+             int32 meth,     // switch for the choice of the coefficients
+             long nstiff,    // test for stiffness
+             uint32 nrdens,  // number of components for which dense outpout is required
+             uint32 *icont,  // indexes of components for which dense output is required,
+                             // >= nrdens */
+             uint32 licont,  // declared length of icon
+             double *work);
 
-extern int32 dopri5(
-    uint32 n,        // dimension of the system <= UINT_MAX-1
-    FcnEqDiff fcn,   // function computing the value of f(x,y)
-    double x,        // initial x-value
-    double *y,       // initial values for y
-    double xend,     // final x-value (xend-x may be positive or negative)
-    double *rtoler,  // relative error tolerance
-    double *atoler,  // absolute error tolerance
-    int32 itoler,    // switch for rtoler and atoler
-    SolTrait
-        solout,  // function providing the numerical solution during integration
-    int32 iout,  // switch for calling solout
-    FILE *fileout,  // messages stream
-    double uround,  // rounding unit
-    double safe,    // safety factor
-    double fac1,    // parameters for step size selection
-    double fac2,
-    double beta,    // for stabilized step size control
-    double hmax,    // maximal step size
-    double h,       // initial step size
-    long nmax,      // maximal number of allowed steps
-    int32 meth,     // switch for the choice of the coefficients
-    long nstiff,    // test for stiffness
-    uint32 nrdens,  // number of components for which dense outpout is required
-    uint32 *icont,  // indexes of components for which dense output is required,
-                    // >= nrdens
-    uint32 licont,  // declared length of icon
-    double *work);
+extern int32
+dopri5(uint32 n,         // dimension of the system <= UINT_MAX-1
+       FcnEqDiff fcn,    // function computing the value of f(x,y)
+       double x,         // initial x-value
+       double *y,        // initial values for y
+       double xend,      // final x-value (xend-x may be positive or negative)
+       double *rtoler,   // relative error tolerance
+       double *atoler,   // absolute error tolerance
+       int32 itoler,     // switch for rtoler and atoler
+       SolTrait solout,  // function providing the numerical solution during integration
+       int32 iout,       // switch for calling solout
+       FILE *fileout,    // messages stream
+       double uround,    // rounding unit
+       double safe,      // safety factor
+       double fac1,      // parameters for step size selection
+       double fac2,
+       double beta,    // for stabilized step size control
+       double hmax,    // maximal step size
+       double h,       // initial step size
+       long nmax,      // maximal number of allowed steps
+       int32 meth,     // switch for the choice of the coefficients
+       long nstiff,    // test for stiffness
+       uint32 nrdens,  // number of components for which dense outpout is required
+       uint32 *icont,  // indexes of components for which dense output is required,
+                       // >= nrdens
+       uint32 licont,  // declared length of icon
+       double *work);
 
 void dormpri_dp_err(int32 k);
-int32 dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
-         double *atol, int32 flag, int32 *kflag);
-int32 dormprin(int32 *istart, double *y, double *t, int32 n, double tout,
-               double *tol, double *atol, int32 flag, int32 *kflag);
-int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-             double *rtoler, double *atoler, int32 itoler, SolTrait solout,
-             int32 iout, FILE *fileout, double uround, double safe, double fac1,
-             double fac2, double beta, double hmax, double h, long nmax,
-             int32 meth, long nstiff, uint32 nrdens, uint32 *icont,
+int32 dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol, double *atol,
+         int32 flag, int32 *kflag);
+int32 dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol, double *atol,
+               int32 flag, int32 *kflag);
+int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double *rtoler,
+             double *atoler, int32 itoler, SolTrait solout, int32 iout, FILE *fileout,
+             double uround, double safe, double fac1, double fac2, double beta, double hmax,
+             double h, long nmax, int32 meth, long nstiff, uint32 nrdens, uint32 *icont,
              uint32 licont, double *work);
 
 #ifndef EDIT_RHS_H
@@ -1055,8 +1033,7 @@ void eig_list_enter_eq_stuff(Window window, int32 b);
 void eig_list_eq_list_button(XEvent event);
 void eig_list_get_new_size(Window win, uint32 *wid, uint32 *hgt);
 void eig_list_resize_eq_list(Window win);
-void eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
-                            double *y, int32 n);
+void eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y, int32 n);
 void eig_list_draw_eq_box(Window window);
 
 #endif
@@ -1072,15 +1049,13 @@ extern char dll_lib[256];
 extern char dll_fun[256];
 
 void extra_load_new_dll(void);
-int32 extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
-                   double *c);
+int32 extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c);
 void extra_auto_load_dll(void);
 void extra_do_in_out(void);
 void extra_add_export_list(char *in, char *out);
 void extra_do_export_list(void);
-void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
-                             int32 ivar, double *wgt[MAXW], double *var,
-                             double *con);
+void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
+                             double *wgt[MAXW], double *var, double *con);
 
 #endif
 
@@ -1177,12 +1152,10 @@ void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
 extern void fft_free(void);
 
 /* double precision routine */
-extern int32 fftn(int32 ndim, int32 dims[], double Re[], double im[], int32,
-                  double scaling);
+extern int32 fftn(int32 ndim, int32 dims[], double Re[], double im[], int32, double scaling);
 
 /* double precision routine */
-extern int32 fftnf(int32 ndim, int32 dims[], double Re[], double im[],
-                   int32 isign, double scaling);
+extern int32 fftnf(int32 ndim, int32 dims[], double Re[], double im[], int32 isign, double scaling);
 
 #endif
 
@@ -1195,36 +1168,31 @@ extern double stol;
 int32 flags_add_global(char *cond, int32 sign, char *rest);
 void flags_show(void);
 int32 flags_compile(void);
-int32 one_flag_step(double *yold, double *ynew, int32 *istart, double told,
-                    double *tnew, int32 neq, double *s);
-int32 one_flag_step_symp(double *y, double dt, double *work, int32 neq,
-                         double *tim, int32 *istart);
-int32 one_flag_step_euler(double *y, double dt, double *work, int32 neq,
-                          double *tim, int32 *istart);
-int32 one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
-                             double *tim, int32 *istart);
-int32 one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
-                         double *tim, int32 *istart);
-int32 one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq,
-                        double *tim, int32 *istart);
-int32 one_flag_step_gear(int32 neq, double *t, double tout, double *y,
-                         double hmin, double hmax, double eps, int32 mf,
-                         double *error, int32 *kflag, int32 *jstart,
+int32 one_flag_step(double *yold, double *ynew, int32 *istart, double told, double *tnew, int32 neq,
+                    double *s);
+int32 one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim, int32 *istart);
+int32 one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
+                          int32 *istart);
+int32 one_flag_step_discrete(double *y, double dt, double *work, int32 neq, double *tim,
+                             int32 *istart);
+int32 one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim,
+                         int32 *istart);
+int32 one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
+                        int32 *istart);
+int32 one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin, double hmax,
+                         double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
                          double *work, int32 *iwork);
-int32 one_flag_step_rosen(double *y, double *tstart, double tfinal,
-                          int32 *istart, int32 n, double *work, int32 *ierr);
-int32 one_flag_step_dp(int32 *istart, double *y, double *t, int32 n,
-                       double tout, double *tol, double *atol, int32 flag,
-                       int32 *kflag);
-int32 one_flag_step_adap(double *y, int32 neq, double *t, double tout,
-                         double eps, double *hguess, double hmin, double *work,
-                         int32 *ier, double epjac, int32 iflag, int32 *jstart);
-int32 one_flag_step_backeul(double *y, double *t, double dt, int32 neq,
-                            double *yg, double *yp, double *yp2, double *ytemp,
-                            double *errvec, double *jac, int32 *istart);
-int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
-                          double tout, int32 *kflag, double *atol,
-                          double *rtol);
+int32 one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
+                          double *work, int32 *ierr);
+int32 one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
+                       double *atol, int32 flag, int32 *kflag);
+int32 one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps, double *hguess,
+                         double hmin, double *work, int32 *ier, double epjac, int32 iflag,
+                         int32 *jstart);
+int32 one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
+                            double *yp2, double *ytemp, double *errvec, double *jac, int32 *istart);
+int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
+                          double *atol, double *rtol);
 
 #endif
 
@@ -1289,13 +1257,10 @@ int32 form_ode_compiler(char *bob, FILE *fptr);
 char *form_ode_get_first(char *string, char *src);
 char *form_ode_do_fit_get_next(char *src);
 void form_ode_create_plot_list(void);
-void form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
-                          char args[20][13 + 1]);
-int32 form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
-                            char args[20][13 + 1]);
+void form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs, char args[20][13 + 1]);
+int32 form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg, char args[20][13 + 1]);
 int32 form_ode_find_char(char *s1, char *s2, int32 i0, int32 *i1);
-int32 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2,
-                            int32 *flag);
+int32 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag);
 void form_ode_subsk(char *big, char *new, int32 k, int32 flag);
 
 /* for parsing par, init with whitespace correctly */
@@ -1313,39 +1278,32 @@ extern int32 shoot_ic_flag;
 extern int32 shoot_ic_flag;
 extern int32 shoot_index;
 
-void gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
-                  int32 n, int32 *ierr, double *stabinfo);
-void gear_do_sing_info(double *x, double eps, double err, double big,
-                       int32 maxit, int32 n, double *er, double *em,
-                       int32 *ierr);
+void gear_do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n, int32 *ierr,
+                  double *stabinfo);
+void gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit, int32 n,
+                       double *er, double *em, int32 *ierr);
 
 void gear_shoot_this_now(void);
-void gear_get_complex_evec(double *m, double evr, double evm, double *br,
-                           double *bm, int32 n, int32 maxit, double err,
-                           int32 *ierr);
-void gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
-                   int32 maxit, double err, int32 *ipivot, double eval,
-                   int32 *ierr);
+void gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm, int32 n,
+                           int32 maxit, double err, int32 *ierr);
+void gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit, double err,
+                   int32 *ipivot, double eval, int32 *ierr);
 void gear_eigen(int32 n, double *a, double *ev, double *work, int32 *ierr);
 double gear_sign(double x, double y);
 int32 gear_imin(int32 x, int32 y);
 double gear_amax(double u, double v);
-void gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
-                    double *d, int32 n);
-void gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
-                  double *dermat, int32 n);
-void gear_rooter(double *x, double err, double eps, double big, double *work,
-                 int32 *ierr, int32 maxit, int32 n);
-int32 gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
-           double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
-           double *work, int32 *iwork);
-int32 ggear(int32 n, double *t, double tout, double *y, double hmin,
-            double hmax, double eps, int32 mf, double *error, int32 *kflag,
-            int32 *jstart, double *work, int32 *iwork);
+void gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps, double *d, int32 n);
+void gear_get_jac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
+                  int32 n);
+void gear_rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
+                 int32 maxit, int32 n);
+int32 gear(int32 n, double *t, double tout, double *y, double hmin, double hmax, double eps,
+           int32 mf, double *error, int32 *kflag, int32 *jstart, double *work, int32 *iwork);
+int32 ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax, double eps,
+            int32 mf, double *error, int32 *kflag, int32 *jstart, double *work, int32 *iwork);
 double gear_min(double x, double y);
 void gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info);
-void gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b,
-                int32 job);
+void gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job);
 void gear_save_batch_shoot(void);
 
 #endif
@@ -1437,8 +1395,7 @@ void graphics_init_svg(void);
 void graphics_set_linestyle(int32 ls);
 void graphics_put_text_x11(int32 x, int32 y, char *str);
 void graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size);
-void graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
-                                 int32 font);
+void graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font);
 void graphics_scale_dxdy(double x, double y, double *i, double *j);
 void graphics_scale_to_screen(double x, double y, int32 *i, int32 *j);
 void graphics_scale_to_real(int32 i, int32 j, double *x, double *y);
@@ -1448,20 +1405,14 @@ void graphics_reset_graph(void);
 void graphics_get_graph(void);
 void graphics_copy_graph(int32 i, int32 l);
 void graphics_make_rot(double theta, double phi);
-void graphics_scale3d(double x, double y, double z, double *xp, double *yp,
-                      double *zp);
-int32 graphics_threedproj(double x2p, double y2p, double z2p, double *xp,
-                          double *yp);
+void graphics_scale3d(double x, double y, double z, double *xp, double *yp, double *zp);
+int32 graphics_threedproj(double x2p, double y2p, double z2p, double *xp, double *yp);
 void graphics_text3d(double x, double y, double z, char *s);
-int32 graphics_threed_proj(double x, double y, double z, double *xp,
-                           double *yp);
+int32 graphics_threed_proj(double x, double y, double z, double *xp, double *yp);
 void graphics_point_3d(double x, double y, double z);
-void graphics_line3dn(double xs1, double ys1, double zs1, double xsp1,
-                      double ysp1, double zsp1);
-void graphics_line3d(double x01, double y01, double z01, double x02, double y02,
-                     double z02);
-void graphics_line_3d(double x, double y, double z, double xp, double yp,
-                      double zp);
+void graphics_line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1, double zsp1);
+void graphics_line3d(double x01, double y01, double z01, double x02, double y02, double z02);
+void graphics_line_3d(double x, double y, double z, double xp, double yp, double zp);
 void graphics_point_abs(double x1, double y1);
 void graphics_bead_abs(double x1, double y1);
 void graphics_frect_abs(double x1, double y1, double w, double h);
@@ -1469,11 +1420,10 @@ void graphics_line_abs(double x1, double y1, double x2, double y2);
 void graphics_text_abs(double x, double y, char *text);
 void graphics_fillin_text(char *old, char *new);
 void graphics_fancy_text_abs(double x, double y, char *old, int32 size);
-int32 graphics_clip3d(double x1, double y1, double z1, double x2, double y2,
-                      double z2, double *x1p, double *y1p, double *z1p,
-                      double *x2p, double *y2p, double *z2p);
-int32 graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
-                    double *y1_out, double *x2_out, double *y2_out);
+int32 graphics_clip3d(double x1, double y1, double z1, double x2, double y2, double z2, double *x1p,
+                      double *y1p, double *z1p, double *x2p, double *y2p, double *z2p);
+int32 graphics_clip(double x1, double x2, double y1, double y2, double *x1_out, double *y1_out,
+                    double *x2_out, double *y2_out);
 void graphics_eq_symb(double *x, int32 type);
 void graphics_reset_all_line_type(void);
 void graphics_draw_many_lines(void);
@@ -1542,25 +1492,25 @@ extern int32 four_here;
 
 extern BoxList param_box;
 
-int32 histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
-                      double xlo, double xhi, double ylo, double yhi);
+int32 histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo,
+                      double xhi, double ylo, double yhi);
 void histogram_back(void);
 int32 histogram_new_2d(void);
-void histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
-                   char *condition, int32 which);
+void histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2, char *condition,
+                   int32 which);
 void histogram_column_mean(void);
 void histogram_compute_power(void);
-int32 histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
-                               int32 w_type, double *pow, int32 type);
+int32 histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win, int32 w_type,
+                               double *pow, int32 type);
 void histogram_compute_sd(void);
 void histogram_compute_fourier(void);
 void histogram_compute_correl(void);
 void histogram_compute_stacor(void);
-void histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
-                     int32 nbins, double *z, int32 flag);
+void histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins, double *z,
+                     int32 flag);
 void histogram_compute(void);
-void histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
-                         double *cr, int32 flag);
+void histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag, double *cr,
+                         int32 flag);
 void histogram_post_process_stuff(void);
 
 #endif
@@ -1603,8 +1553,7 @@ void init_conds_make_new_delay_box(void);
 void init_conds_make_new_param_box(void);
 void init_conds_initialize_box(void);
 void init_conds_resize_par_box(Window win);
-void init_conds_make_box_list(BoxList *b, char *wname, char *iname, int32 n,
-                              int32 type, int32 use);
+void init_conds_make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type, int32 use);
 void init_conds_do_box_expose(Window window);
 void init_conds_draw_one_box(BoxList b, int32 index);
 void init_conds_redraw_params(void);
@@ -1652,8 +1601,8 @@ typedef struct Range {
 
 extern Range range;
 
-extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
-                       int32 *istart, double *work);
+extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
+                       double *work);
 
 typedef struct XppVec {
     int32 nvec;
@@ -1688,15 +1637,14 @@ int32 integrate_extract_ic_data(char *big);
 void integrate_arr_ic_start(void);
 void integrate_get_ic(int32 it, double *x);
 int32 integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow);
-int32 integrate(double *t, double *x, double tend, double dt, int32 count,
-                int32 nout, int32 *start);
+int32 integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
+                int32 *start);
 void integrate_send_halt(void);
 void integrate_send_output(double *y, double t);
-void integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
-                    double *ypl, double *zpl);
+void integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl, double *ypl,
+                    double *zpl);
 void integrate_export_data(FILE *fp);
-void integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
-                               int32 flag);
+void integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag);
 void integrate_restore(int32 i1, int32 i2);
 void integrate_comp_color(double *v1, double *v2, int32 n, double dt);
 void integrate_shoot(double *x, double *xg, double *evec, int32 sgn);
@@ -1970,9 +1918,8 @@ void main_bye_bye(void) __attribute__((noreturn));
 void main_clr_scrn(void);
 void main_redraw_all(void);
 void main_commander(int32 ch);
-Window main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x,
-                     int32 y, uint32 min_wid, uint32 min_hgt, int32 argc,
-                     char **argv);
+Window main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y, uint32 min_wid,
+                     uint32 min_hgt, int32 argc, char **argv);
 void main_top_button_draw(Window window);
 void main_fix_window_size(Window window, int32 width, int32 height, int32 flag);
 int32 main_get_command_width(void);
@@ -2000,8 +1947,8 @@ void many_pops_restore_off(void);
 void many_pops_restore_on(void);
 void many_pops_add_label(char *s, int32 x, int32 y, int32 size, int32 font);
 void many_pops_draw_label(Window window);
-void many_pops_add_grob(double xs, double ys, double xe, double ye, double size,
-                        int32 type, int32 color);
+void many_pops_add_grob(double xs, double ys, double xe, double ye, double size, int32 type,
+                        int32 color);
 void many_pops_edit_object_com(int32 com);
 void many_pops_do_gr_objs_com(int32 com);
 void many_pops_do_windows_com(int32 c);
@@ -2310,8 +2257,7 @@ void menudrive_do_tutorial(void);
 
 extern int32 help_menu;
 
-void menu_add(Window base, int32 j, int32 n, char **names, char *key,
-              char **hint);
+void menu_add(Window base, int32 j, int32 n, char **names, char *key, char **hint);
 void menu_create_them(Window base);
 void menu_help(void);
 void menu_help_num(void);
@@ -2418,17 +2364,15 @@ typedef struct NullClines {
 void nullcline_create_new_cline(void);
 void nullcline_froz_cline_stuff_com(int32 i);
 int32 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type);
-void nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn,
-                        int32 nmy, int32 n_iy);
-void nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
-                              double du, double dv, int32 n, int32 inx,
-                              int32 iny, double *mdf);
+void nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy, int32 n_iy);
+void nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0, double du, double dv,
+                              int32 n, int32 inx, int32 iny, double *mdf);
 void nullcline_redraw_dfield(void);
 void nullcline_direct_field_com(int32 c);
 void restore_nullclines(void);
 void nullcline_new_clines_com(int32 c);
-void new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi,
-                   double *stor, int32 *npts);
+void new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi, double *stor,
+                   int32 *npts);
 void nullcline_do_batch_nclines(void);
 void nullcline_do_batch_dfield(void);
 void nullcline_set_colorization_stuff(void);
@@ -2495,40 +2439,35 @@ void numerics_compute_one_period(double period, double *x, char *name);
 
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 
-int32 odesol_symplect3(double *y, double *tim, double dt, int32 nt, int32 neq,
-                       int32 *istart, double *work);
-int32 odesol_discrete(double *y, double *tim, double dt, int32 nt, int32 neq,
-                      int32 *istart, double *work);
-int32 odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
-                       int32 *istart, double *work);
-int32 odesol_one_bak_step(double *y, double *t, double dt, int32 neq,
-                          double *yg, double *yp, double *yp2, double *ytemp,
-                          double *errvec, double *jac);
-void odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq,
-                               double *t);
+int32 odesol_symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
+                       double *work);
+int32 odesol_discrete(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
+                      double *work);
+int32 odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
+                       double *work);
+int32 odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
+                          double *yp2, double *ytemp, double *errvec, double *jac);
+void odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t);
 void odesol2_one_step_symp(double *y, double h, double *f, int32 n, double *t);
-void odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq,
-                            double *t);
-void odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq,
-                         double *tim);
-void odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq,
-                          double *tim);
-int32 odesol_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
-                   int32 *istart, double *work);
-int32 odesol_mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
-                       int32 *istart, double *work);
-int32 odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq,
-                      int32 *istart, double *work);
-int32 odesol_adams(double *y, double *tim, double dt, int32 nstep, int32 neq,
-                   int32 *ist, double *work);
-int32 odesol_rb23(double *y, double *tstart, double tfinal, int32 *istart,
-                  int32 n, double *work, int32 *ierr);
-int32 odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart,
-                   int32 n, double *work, int32 *ierr);
-void odesol_get_the_jac(double t, double *y, double *yp, double *ypnew,
-                        double *dfdy, int32 neq, double eps, double scal);
-void odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
-                         double *ypold, int32 n, double eps, double scal);
+void odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq, double *t);
+void odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim);
+void odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim);
+int32 odesol_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
+                   double *work);
+int32 odesol_mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
+                       double *work);
+int32 odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
+                      double *work);
+int32 odesol_adams(double *y, double *tim, double dt, int32 nstep, int32 neq, int32 *ist,
+                   double *work);
+int32 odesol_rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n, double *work,
+                  int32 *ierr);
+int32 odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n, double *work,
+                   int32 *ierr);
+void odesol_get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy, int32 neq,
+                        double eps, double scal);
+void odesol_get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold, int32 n,
+                         double eps, double scal);
 
 #endif
 
@@ -2610,62 +2549,54 @@ extern char *color_names[];
 
 void pop_list_set_window_title(Window win, char *string);
 void pop_list_make_scrbox_lists(void);
-int32 pop_list_do_string_box(int32 n, int32 row, int32 col, char *title,
-                             char **names, char values[][MAX_LEN_SBOX],
-                             int32 maxchar);
-void pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window,
-                             int32 pos);
-void pop_list_new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col,
-                           int32 *done, Window *w);
-Window pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
-                                  int32 height, int32 bw);
-Window pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
-                                     int32 height, int32 bw);
-Window pop_list_make_plain_unmapped_window(Window root, int32 x, int32 y,
-                                           int32 width, int32 height, int32 bw);
-Window pop_list_make_window(Window root, int32 x, int32 y, int32 width,
-                            int32 height, int32 bw);
-Window pop_list_make_plain_window(Window root, int32 x, int32 y, int32 width,
-                                  int32 height, int32 bw);
+int32 pop_list_do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
+                             char values[][MAX_LEN_SBOX], int32 maxchar);
+void pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window, int32 pos);
+void pop_list_new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
+                           Window *w);
+Window pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                                  int32 bw);
+Window pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                                     int32 bw);
+Window pop_list_make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                                           int32 bw);
+Window pop_list_make_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw);
+Window pop_list_make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                                  int32 bw);
 void pop_list_respond_box(char *button, char *message);
 void pop_list_message_box(Window *w, int32 x, int32 y, char *message);
-void pop_list_expose_choice(char *choice1, char *choice2, char *msg, Window c1,
-                            Window c2, Window wm, Window window);
-int32 pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
-                          int32 x, int32 y, Window window, char *title);
+void pop_list_expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
+                            Window wm, Window window);
+int32 pop_list_two_choice(char *choice1, char *choice2, char *string, char *key, int32 x, int32 y,
+                          Window window, char *title);
 int32 pop_list_yes_no_box(void);
-int32 pop_list_popup_list_new(Window *root, char *title, char **list, char *key,
-                              int32 n, int32 max, int32 def, int32 x, int32 y,
-                              char **hints, Window hwin, char *httxt);
-Window pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y,
-                                          int32 width, int32 height, int32 bw,
-                                          uchar *icdata);
-Window pop_list_make_icon_window(Window root, int32 x, int32 y, int32 width,
-                                 int32 height, int32 bw, uchar *icdata);
+int32 pop_list_popup_list_new(Window *root, char *title, char **list, char *key, int32 n, int32 max,
+                              int32 def, int32 x, int32 y, char **hints, Window hwin, char *httxt);
+Window pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                                          int32 bw, uchar *icdata);
+Window pop_list_make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw,
+                                 uchar *icdata);
 
 #endif
 
 #ifndef PP_SHOOT_H
 #define PP_SHOOT_H
 
-void pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
-                    int32 n);
+void pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int32 n);
 void pp_shoot_compile_bvp(void);
 void pp_shoot_reset_bvp(void);
 void pp_shoot_init_shoot_range(char *s);
 void pp_shoot_dump_shoot_range(FILE *fp, int32 f);
 void pp_shoot_find_bvp_com(int32 com);
-void pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
-                 int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar,
-                 int32 ivar, double sect);
+void pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit, int32 *iret, int32 n,
+                 int32 ishow, int32 iper, int32 ipar, int32 ivar, double sect);
 
 #endif
 
 #ifndef RUBBER_H
 #define RUBBER_H
 
-int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window,
-             int32 f);
+int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f);
 
 #endif
 
@@ -2699,8 +2630,8 @@ int32 simplenet_add_vectorizer(char *name, char *rhs);
 void simplenet_add_vectorizer_name(char *name, char *rhs);
 void simplenet_eval_all_nets(void);
 void simplenet_update_all_ffts(void);
-void simplenet_fft_conv(int32 it, int32 n, double *values, double *yy,
-                        double *fftr, double *ffti, double *dr, double *di);
+void simplenet_fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr, double *ffti,
+                        double *dr, double *di);
 double simplenet_vector_value(double x, int32 i);
 
 #endif
@@ -2708,22 +2639,19 @@ double simplenet_vector_value(double x, int32 i);
 #ifndef STIFF_H
 #define STIFF_H
 
-void stiff_jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
-                  double *work, int32 n);
-int32 stiff_adaptive(double *ystart, int32 nvar, double *xs, double x2,
-                     double eps, double *hguess, double hmin, double *work,
-                     int32 *ier, double epjac, int32 iflag, int32 *jstart);
-int32 stiff_gadaptive(double *ystart, int32 nvar, double *xs, double x2,
-                      double eps, double *hguess, double hmin, double *work,
-                      int32 *ier, double epjac, int32 iflag);
-int32 stiff(double y[], double dydx[], int32 n, double *x, double htry,
-            double eps, double yscal[], double *hdid, double *hnext,
-            double *work, double epjac, int32 *ier);
-int32 stiff_rkqs(double *y, double *dydx, int32 n, double *x, double htry,
-                 double eps, double *yscal, double *hdid, double *hnext,
-                 double *work, int32 *ier);
-void stiff_rkck(double *y, double *dydx, int32 n, double x, double h,
-                double *yout, double *yerr, double *work);
+void stiff_jacobn(double x, double *y, double *dfdx, double *dermat, double eps, double *work,
+                  int32 n);
+int32 stiff_adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps, double *hguess,
+                     double hmin, double *work, int32 *ier, double epjac, int32 iflag,
+                     int32 *jstart);
+int32 stiff_gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps, double *hguess,
+                      double hmin, double *work, int32 *ier, double epjac, int32 iflag);
+int32 stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps, double yscal[],
+            double *hdid, double *hnext, double *work, double epjac, int32 *ier);
+int32 stiff_rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
+                 double *yscal, double *hdid, double *hnext, double *work, int32 *ier);
+void stiff_rkck(double *y, double *dydx, int32 n, double x, double h, double *yout, double *yerr,
+                double *work);
 
 #endif
 
@@ -2771,8 +2699,7 @@ void tabular_new_lookup_com(int32 i);
 double tabular_lookup(double x, int32 index);
 void tabular_init_table(void);
 void tabular_redo_all_fun_tables(void);
-int32 tabular_create_fun(int32 npts, double xlo, double xhi, char *formula,
-                         int32 index);
+int32 tabular_create_fun(int32 npts, double xlo, double xhi, char *formula, int32 index);
 int32 tabular_load_table(char *filename, int32 index);
 int32 tabular_get_lookup_len(int32 i);
 
@@ -2807,12 +2734,10 @@ void volterra_alloc_memory(void);
 void volterra_allocate(int32 npts, int32 flag);
 void volterra_re_evaluate_kernels(void);
 void volterra_alloc_kernels(int32 flag);
-void volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
-                        int32 ishift);
-int32 volterra(double *y, double *t, double dt, int32 nt, int32 neq,
-               int32 *istart, double *work);
-int32 volterra_step(double *y, double t, double dt, int32 neq, double *yg,
-                    double *yp, double *yp2, double *errvec, double *jac);
+void volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift);
+int32 volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart, double *work);
+int32 volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp, double *yp2,
+                    double *errvec, double *jac);
 
 #endif
 

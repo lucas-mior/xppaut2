@@ -36,8 +36,8 @@ typedef struct EditBox {
 static void edit_rhs_reset_box(EditBox *sb, int32 *pos, int32 *col);
 static void edit_rhs_expose_box(EditBox *sb, Window window, int32 pos);
 static void edit_rhs_reset_hot(int32 inew, EditBox *sb);
-static void edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos,
-                                  int32 *col, int32 *done, Window *w);
+static void edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
+                                  Window *w);
 static int32 edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
 static void edit_rhs_make_box_windows(EditBox *sb, char *title);
 
@@ -146,14 +146,12 @@ edit_rhs_reset_hot(int32 inew, EditBox *sb) {
     pop_list_do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
                             (int32)strlen(sb->value[inew]));
     XClearWindow(display, sb->win[i]);
-    pop_list_do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
-                            (int32)strlen(sb->value[i]));
+    pop_list_do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i], (int32)strlen(sb->value[i]));
     return;
 }
 
 void
-edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
-                      int32 *done, Window *w) {
+edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done, Window *w) {
     edit_rhs_reset_hot(inew, sb);
     *pos = (int32)strlen(sb->value[inew]);
     *col = (*pos + (int32)strlen(sb->name[inew]))*dcur_x;
@@ -200,8 +198,7 @@ edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
         }
         for (int32 i = 0; i < nn; i++) {
             if (event.xbutton.window == sb->win[i]) {
-                XSetInputFocus(display, sb->win[i], RevertToParent,
-                               CurrentTime);
+                XSetInputFocus(display, sb->win[i], RevertToParent, CurrentTime);
                 if (i != sb->hot) {
                     edit_rhs_new_editable(sb, i, pos, col, &done, &window);
                 }
@@ -257,8 +254,7 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     Window base;
     width = (MAX_LEN_EBOX + 4)*dcur_x;
     height = (n + 4)*(dcur_y + 16);
-    base = pop_list_make_plain_window(DefaultRootWindow(display), 0, 0, width,
-                                      height, 4);
+    base = pop_list_make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
     XStringListToTextProperty(&title, 1, &winname);
     size_hints.flags = PPosition | PSize | PMinSize | PMaxSize;
     size_hints.x = 0;
@@ -269,8 +265,7 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     size_hints.min_height = height;
     size_hints.max_width = width;
     size_hints.max_height = height;
-    XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
-                     NULL);
+    XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL, NULL);
     sb->base = base;
 
     ystart = dcur_y;
@@ -278,17 +273,14 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     for (int32 i = 0; i < n; i++) {
         xpos = xstart;
         ypos = ystart + i*(dcur_y + 10);
-        sb->win[i] = pop_list_make_window(base, xpos, ypos,
-                                          MAX_LEN_EBOX*dcur_x, dcur_y, 1);
+        sb->win[i] = pop_list_make_window(base, xpos, ypos, MAX_LEN_EBOX*dcur_x, dcur_y, 1);
     }
 
     ypos = height - 2*dcur_y;
     xpos = (width - 19*dcur_x) / 2;
     (sb->ok) = pop_list_make_window(base, xpos, ypos, 2*dcur_x, dcur_y, 1);
-    (sb->cancel) = pop_list_make_window(base, xpos + 4*dcur_x, ypos,
-                                        6*dcur_x, dcur_y, 1);
-    (sb->reset) = pop_list_make_window(base, xpos + 12*dcur_x, ypos,
-                                       5*dcur_x, dcur_y, 1);
+    (sb->cancel) = pop_list_make_window(base, xpos + 4*dcur_x, ypos, 6*dcur_x, dcur_y, 1);
+    (sb->reset) = pop_list_make_window(base, xpos + 12*dcur_x, ypos, 5*dcur_x, dcur_y, 1);
     XRaiseWindow(display, base);
     return;
 }
@@ -300,9 +292,8 @@ edit_rhs_menu(void) {
     static char key[] = "rfsl";
     char ch;
     int32 edtype = 0;
-    ch = (char)pop_list_popup_list_new(&temp, "Edit Stuff", n, key, 4, 11,
-                                       edtype, 10, 13*dcur_y + 8, edrh_hint,
-                                       info_pop, info_message);
+    ch = (char)pop_list_popup_list_new(&temp, "Edit Stuff", n, key, 4, 11, edtype, 10,
+                                       13*dcur_y + 8, edrh_hint, info_pop, info_message);
     edtype = -1;
     for (int32 i = 0; i < 4; i++) {
         if (ch == key[i]) {
@@ -447,8 +438,8 @@ edit_rhs_functions(void) {
             sprintf(names[i], "%s(%s)", ufun_names[i], ufun_arg[i].args[0]);
         }
         if (narg_fun[i] > 1) {
-            sprintf(names[i], "%s(%s,...,%s)", ufun_names[i],
-                    ufun_arg[i].args[0], ufun_arg[i].args[narg_fun[i] - 1]);
+            sprintf(names[i], "%s(%s,...,%s)", ufun_names[i], ufun_arg[i].args[0],
+                    ufun_arg[i].args[narg_fun[i] - 1]);
         }
     }
 

@@ -86,12 +86,10 @@ typedef struct {
 
 static int32 cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
-                            Vector fpred, bool *jcurPtr, Vector vtemp1,
-                            Vector vtemp2, Vector vtemp3);
+static int32 cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+                            bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3);
 
-static int32 cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ycur,
-                            Vector fcur);
+static int32 cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur);
 
 static void cv_spgmr_free(CVodeMem cv_mem);
 
@@ -226,10 +224,9 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
     }
 
     // Check for legal pretype, precond, and psolve
-    if ((pretype != PRE_NONE) && (pretype != PRE_LEFT) &&
-        (pretype != PRE_RIGHT) && (pretype != PRE_BOTH)) {
-        fprintf(errfp, MSG_BAD_PRETYPE, pretype, PRE_NONE, PRE_LEFT, PRE_RIGHT,
-                PRE_BOTH);
+    if ((pretype != PRE_NONE) && (pretype != PRE_LEFT) && (pretype != PRE_RIGHT) &&
+        (pretype != PRE_BOTH)) {
+        fprintf(errfp, MSG_BAD_PRETYPE, pretype, PRE_NONE, PRE_LEFT, PRE_RIGHT, PRE_BOTH);
         return LINIT_ERR;
     }
     if ((pretype != PRE_NONE) && (psolve == NULL)) {
@@ -299,8 +296,8 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
-               bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
+cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred, bool *jcurPtr,
+               Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     bool jbad;
     bool jok;
     double dgamma;
@@ -312,14 +309,13 @@ cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     // Use nst, gamma/gammap, and convfail to set J eval. flag jok
     dgamma = ABS((gamma / gammap) - 1.0);
     jbad = (nst == 0) || (nst > nstlpre + CVSPGMR_MSBPRE) ||
-           ((convfail == FAIL_BAD_J) && (dgamma < CVSPGMR_DGMAX)) ||
-           (convfail == FAIL_OTHER);
+           ((convfail == FAIL_BAD_J) && (dgamma < CVSPGMR_DGMAX)) || (convfail == FAIL_OTHER);
     *jcurPtr = jbad;
     jok = !jbad;
 
     // Call precond routine and possibly reset jcur
-    ier = precond(N, tn, ypred, fpred, jok, jcurPtr, gamma, ewt, h, uround,
-                  &nfe, P_data, vtemp1, vtemp2, vtemp3);
+    ier = precond(N, tn, ypred, fpred, jok, jcurPtr, gamma, ewt, h, uround, &nfe, P_data, vtemp1,
+                  vtemp2, vtemp3);
     if (jbad) {
         *jcurPtr = true;
     }
@@ -386,9 +382,8 @@ cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     vector_const(0.0, x);
 
     // Call spgmr_solve and copy x to b
-    ier = spgmr_solve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0,
-                      cv_mem, ewt, ewt, cv_spgmr_atimes_dq, cv_spgmr_psolve,
-                      &res_norm, &nli_inc, &nps_inc);
+    ier = spgmr_solve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0, cv_mem, ewt, ewt,
+                      cv_spgmr_atimes_dq, cv_spgmr_psolve, &res_norm, &nli_inc, &nps_inc);
     vector_scale(1.0, x, b);
 
     // Increment counters nli, nps, and ncfl
@@ -409,8 +404,7 @@ cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     if (ier < 0) {
         return -1;
     }
-    if ((ier == SPGMR_SUCCESS) ||
-        ((ier == SPGMR_RES_REDUCED) && (mnewt == 0))) {
+    if ((ier == SPGMR_SUCCESS) || ((ier == SPGMR_RES_REDUCED) && (mnewt == 0))) {
         return 0;
     }
     return 1;
@@ -495,8 +489,7 @@ cv_spgmr_psolve(void *cvode_mem, Vector r, Vector z, int32 lr) {
     cv_mem = (CVodeMem)cvode_mem;
     cvspgmr_mem = (CVSpgmrMem)lmem;
 
-    ier = psolve(N, tn, ycur, fcur, ytemp, gamma, ewt, delta, &nfe, r, lr,
-                 P_data, z);
+    ier = psolve(N, tn, ycur, fcur, ytemp, gamma, ewt, delta, &nfe, r, lr, P_data, z);
     // This call is counted in nps within the cv_spgmr_solve routine
 
     return ier;

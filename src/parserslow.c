@@ -25,10 +25,10 @@
 #define DOUB_EPS 2.23E-15
 #define POP stack[--stack_pointer]
 static double zippy;
-#define PUSH(a)                                                                \
-    do {                                                                       \
-        zippy = (a);                                                           \
-        stack[stack_pointer++] = zippy;                                        \
+#define PUSH(a)                                                                                    \
+    do {                                                                                           \
+        zippy = (a);                                                                               \
+        stack[stack_pointer++] = zippy;                                                            \
     } while (0)
 
 /* #define COM(a) my_symb[toklist[(a)]].com */
@@ -228,8 +228,7 @@ init_rpn(void) {
     fun2[6] = (void *)max;
     fun2[7] = (void *)min;
     //  fun2[8]= (void*)mod;
-    fun2[8] =
-        (void *)pmod;  // This always gives an answer in [0,y) for mod(x,y)
+    fun2[8] = (void *)pmod;  // This always gives an answer in [0,y) for mod(x,y)
     fun2[9] = (void *)dand;
     fun2[10] = (void *)dor;
     fun2[11] = (void *)dgt;
@@ -431,8 +430,7 @@ parserslow_add_kernel(char *name, double mu, char *expr) {
             kernel[NKernel].expr[i - in - 1] = expr[i];
         }
         kernel[NKernel].expr[strlen(expr) - (usize)in - 1] = 0;
-        ggets_plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
-                     kernel[NKernel].expr);
+        ggets_plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr, kernel[NKernel].expr);
     } else {
         kernel[NKernel].expr = xmalloc(strlen(expr) + 2);
         strcpy(kernel[NKernel].expr, expr);
@@ -598,8 +596,7 @@ parserslow_add_table_name(int32 index, char *name) {
 /* ADD LOOKUP TABLE   */
 
 int32
-parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi,
-                          char *formula) {
+parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula) {
     if (tabular_create_fun(nn, xlo, xhi, formula, index) == 0) {
         if (errout) {
             printf("Problem with creating table !!\n");
@@ -612,8 +609,7 @@ parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi,
 void
 set_old_arg_names(int32 narg) {
     for (int32 i = 0; i < narg; i++) {
-        snprintf(my_symb[FIRST_ARG + i].name,
-                 sizeof(my_symb[FIRST_ARG + i].name), "ARG%d", i + 1);
+        snprintf(my_symb[FIRST_ARG + i].name, sizeof(my_symb[FIRST_ARG + i].name), "ARG%d", i + 1);
         my_symb[FIRST_ARG + i].len = 4;
     }
     return;
@@ -668,8 +664,7 @@ fixup_endfun(int32 *u, int32 l, int32 narg) {
 }
 
 int32
-parserslow_add_ufun_new(int32 index, int32 narg, char *rhs,
-                        char args[MAXARG][14]) {
+parserslow_add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
     int32 l;
     int32 end;
     if (narg > MAXARG) {
@@ -764,8 +759,7 @@ parserslow_add_ufun(char *junk, char *expr, int32 narg) {
         strcpy(ufun_names[NFUN], junk);
         narg_fun[NFUN] = narg;
         for (int32 i = 0; i < narg; i++) {
-            snprintf(ufun_arg[NFUN].args[i], sizeof(ufun_arg[NFUN].args[i]),
-                     "ARG%d", i + 1);
+            snprintf(ufun_arg[NFUN].args[i], sizeof(ufun_arg[NFUN].args[i]), "ARG%d", i + 1);
         }
         NFUN++;
         return 0;
@@ -1002,8 +996,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 /* ram -- is this right? not sure I understand what was
                  * happening here
                  */
-                my_symb[LASTTOK].com =
-                    COM(SVARTYPE, temp % MAXTYPE);  // create a temporary sybol
+                my_symb[LASTTOK].com = COM(SVARTYPE, temp % MAXTYPE);  // create a temporary sybol
                 NDELAYS++;
                 toklist[lstptr + 1] = LASTTOK;
 
@@ -1020,8 +1013,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
             temp = my_symb[toklist[lstptr + 1]].com;
             /* !! */ if (is_uvar(temp)) {
                 // ram -- same issue
-                my_symb[LASTTOK].com =
-                    COM(SVARTYPE, temp % MAXTYPE);  // create a temporary sybol
+                my_symb[LASTTOK].com = COM(SVARTYPE, temp % MAXTYPE);  // create a temporary sybol
                 NDELAYS++;
                 toklist[lstptr + 1] = LASTTOK;
 
@@ -1037,8 +1029,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
             temp = my_symb[toklist[lstptr + 1]].com;
             if (is_uvar(temp)) {
                 // ram -- same issue
-                my_symb[LASTTOK].com =
-                    COM(SVARTYPE, temp % MAXTYPE);  // create a temporary sybol
+                my_symb[LASTTOK].com = COM(SVARTYPE, temp % MAXTYPE);  // create a temporary sybol
                 toklist[lstptr + 1] = LASTTOK;
 
                 my_symb[LASTTOK].pri = 10;
@@ -1111,8 +1102,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
 
         if (my_symb[oldtok].pri >= my_symb[newtok].pri) {
             command[comptr] = my_symb[oldtok].com;
-            if ((my_symb[oldtok].arg == 2) &&
-                (my_symb[oldtok].com / MAXTYPE == FUN2TYPE)) {
+            if ((my_symb[oldtok].arg == 2) && (my_symb[oldtok].com / MAXTYPE == FUN2TYPE)) {
                 ncomma--;
             }
             my_com = command[comptr];
@@ -1162,8 +1152,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 nelse++;
             }
 
-            if (my_com == ENDDELAY || my_com == ENDSHIFT ||
-                my_com == ENDISHIFT) {
+            if (my_com == ENDDELAY || my_com == ENDSHIFT || my_com == ENDISHIFT) {
                 ncomma -= 1;
             }
             if (my_com == ENDDELSHFT || my_com == ENDSET) {
@@ -1254,9 +1243,9 @@ function_sym(int32 token) {
     if (i1 == UFUNTYPE || i1 == TABTYPE || i1 == VECTYPE || i1 == NETTYPE) {
         return 1;
     }
-    if (token == DELSHFTSYM || token == SETSYM || token == DELSYM ||
-        token == SHIFTSYM || token == ISHIFTSYM || com == MYIF ||
-        com == MYTHEN || com == MYELSE || com == SUMSYM || com == ENDSUM) {
+    if (token == DELSHFTSYM || token == SETSYM || token == DELSYM || token == SHIFTSYM ||
+        token == ISHIFTSYM || com == MYIF || com == MYTHEN || com == MYELSE || com == SUMSYM ||
+        com == ENDSUM) {
         return 1;
     }
     return 0;
@@ -1290,8 +1279,8 @@ int32
 pure_number(int32 token) {
     int32 com = my_symb[token].com;
     int32 i1 = com / MAXTYPE;
-    /* !! */ if (token == NUMTOK || isvar(i1) || iscnst(i1) || isker(i1) ||
-                 i1 == USTACKTYPE || token == INDX) {
+    /* !! */ if (token == NUMTOK || isvar(i1) || iscnst(i1) || isker(i1) || i1 == USTACKTYPE ||
+                 token == INDX) {
         return 1;
     }
     return 0;
@@ -1318,13 +1307,12 @@ gives_number(int32 token) {
      * if(i1==8||isvar(i1)||iscnst(i1)||i1==7||i1==6||i1==5||isker(i1)||i1==UFUN)return
      * 1;
      */
-    if (i1 == USTACKTYPE || isvar(i1) || iscnst(i1) || i1 == TABTYPE ||
-        i1 == VECTYPE || i1 == NETTYPE || isker(i1) || i1 == UFUNTYPE) {
+    if (i1 == USTACKTYPE || isvar(i1) || iscnst(i1) || i1 == TABTYPE || i1 == VECTYPE ||
+        i1 == NETTYPE || isker(i1) || i1 == UFUNTYPE) {
         return 1;
     }
-    if (com == MYIF || token == DELSHFTSYM || token == SETSYM ||
-        token == DELSYM || token == SHIFTSYM || token == ISHIFTSYM ||
-        com == SUMSYM) {
+    if (com == MYIF || token == DELSHFTSYM || token == SETSYM || token == DELSYM ||
+        token == SHIFTSYM || token == ISHIFTSYM || com == SUMSYM) {
         return 1;
     }
     return 0;
@@ -1339,10 +1327,9 @@ check_syntax(  // 1 is BAD!
        something that returns a number or another (
     */
 
-    if (unary_sym(oldtoken) || oldtoken == COMMA || oldtoken == STARTTOK ||
-        oldtoken == LPAREN || binary_sym(oldtoken)) {
-        if (unary_sym(newtoken) || gives_number(newtoken) ||
-            newtoken == LPAREN) {
+    if (unary_sym(oldtoken) || oldtoken == COMMA || oldtoken == STARTTOK || oldtoken == LPAREN ||
+        binary_sym(oldtoken)) {
+        if (unary_sym(newtoken) || gives_number(newtoken) || newtoken == LPAREN) {
             return 0;
         }
         return 1;
@@ -1363,8 +1350,7 @@ check_syntax(  // 1 is BAD!
     */
 
     if (pure_number(oldtoken)) {
-        if (binary_sym(newtoken) || newtoken == RPAREN || newtoken == COMMA ||
-            newtoken == ENDTOK) {
+        if (binary_sym(newtoken) || newtoken == RPAREN || newtoken == COMMA || newtoken == ENDTOK) {
             return 0;
         }
 
@@ -1372,8 +1358,7 @@ check_syntax(  // 1 is BAD!
     }
 
     if (oldtoken == RPAREN) {
-        if (binary_sym(newtoken) || newtoken == RPAREN || newtoken == COMMA ||
-            newtoken == ENDTOK) {
+        if (binary_sym(newtoken) || newtoken == RPAREN || newtoken == COMMA || newtoken == ENDTOK) {
             return 0;
         }
         if (com2 == MYELSE || com2 == MYTHEN || com2 == ENDSUM) {
@@ -1415,8 +1400,8 @@ make_toks(char *dest, int32 *my_token) {
     while (dest[index] != '\0') {
         lastindex = index;
         find_tok(dest, &index, &token);
-        if ((token == MINUS) && ((old_tok == STARTTOK) || (old_tok == COMMA) ||
-                                 (old_tok == LPAREN))) {
+        if ((token == MINUS) &&
+            ((old_tok == STARTTOK) || (old_tok == COMMA) || (old_tok == LPAREN))) {
             token = NEGATE;
         }
         if (token == LPAREN) {
@@ -1476,8 +1461,8 @@ make_toks(char *dest, int32 *my_token) {
 
 void
 tokeninfo(int32 tok) {
-    ggets_plintf(" %s %d %d %d %d \n", my_symb[tok].name, my_symb[tok].len,
-                 my_symb[tok].com, my_symb[tok].arg, my_symb[tok].pri);
+    ggets_plintf(" %s %d %d %d %d \n", my_symb[tok].name, my_symb[tok].len, my_symb[tok].com,
+                 my_symb[tok].arg, my_symb[tok].pri);
     return;
 }
 
@@ -1498,13 +1483,12 @@ do_num(char *source, char *num, double *value, int32 *ind) {
         if (((ch == '+') || (ch == '-')) && (oldch != 'E')) {
             break;
         }
-        if ((ch == '*') || (ch == '^') || (ch == '/') || (ch == ',') ||
-            (ch == ')') || (ch == '\0') || (ch == '|') || (ch == '>') ||
-            (ch == '<') || (ch == '&') || (ch == '=')) {
+        if ((ch == '*') || (ch == '^') || (ch == '/') || (ch == ',') || (ch == ')') ||
+            (ch == '\0') || (ch == '|') || (ch == '>') || (ch == '<') || (ch == '&') ||
+            (ch == '=')) {
             break;
         }
-        if ((ch == 'E') || (ch == '.') || (ch == '+') || (ch == '-') ||
-            isdigit(ch)) {
+        if ((ch == 'E') || (ch == '.') || (ch == '+') || (ch == '-') || isdigit(ch)) {
             if (isdigit(ch)) {
                 ndig++;
             }
@@ -1674,23 +1658,21 @@ bessi0(double x) {
     if ((ax = fabs(x)) < 3.75) {
         y = x / 3.75;
         y *= y;
-        ans = 1.0 + y*(3.5156229 +
-                         y*(3.0899424 +
-                              y*(1.2067492 +
-                                   y*(0.2659732 +
-                                        y*(0.360768e-1 + y*0.45813e-2)))));
+        ans = 1.0 +
+              y*(3.5156229 +
+                   y*(3.0899424 +
+                        y*(1.2067492 + y*(0.2659732 + y*(0.360768e-1 + y*0.45813e-2)))));
     } else {
         y = 3.75 / ax;
-        ans = (exp(ax) / sqrt(ax)) *
-              (0.39894228 +
-               y*(0.1328592e-1 +
-                    y*(0.225319e-2 +
-                         y*(-0.157565e-2 +
-                              y*(0.916281e-2 +
-                                   y*(-0.2057706e-1 +
-                                        y*(0.2635537e-1 +
-                                             y*(-0.1647633e-1 +
-                                                  y*0.392377e-2))))))));
+        ans =
+            (exp(ax) / sqrt(ax)) *
+            (0.39894228 +
+             y*(0.1328592e-1 +
+                  y*(0.225319e-2 + y*(-0.157565e-2 +
+                                          y*(0.916281e-2 + y*(-0.2057706e-1 +
+                                                                  y*(0.2635537e-1 +
+                                                                       y*(-0.1647633e-1 +
+                                                                            y*0.392377e-2))))))));
     }
     return ans;
 }
@@ -1704,20 +1686,16 @@ bessi1(double x) {
     if ((ax = fabs(x)) < 3.75) {
         y = x / 3.75;
         y *= y;
-        ans = ax*(0.5 +
-                    y*(0.87890594 +
-                         y*(0.51498869 +
-                              y*(0.15084934 +
-                                   y*(0.2658733e-1 +
-                                        y*(0.301532e-2 + y*0.32411e-3))))));
+        ans = ax*(0.5 + y*(0.87890594 +
+                               y*(0.51498869 +
+                                    y*(0.15084934 + y*(0.2658733e-1 +
+                                                           y*(0.301532e-2 + y*0.32411e-3))))));
     } else {
         y = 3.75 / ax;
-        ans = 0.2282967e-1 +
-              y*(-0.2895312e-1 + y*(0.1787654e-1 - y*0.420059e-2));
+        ans = 0.2282967e-1 + y*(-0.2895312e-1 + y*(0.1787654e-1 - y*0.420059e-2));
         ans = 0.39894228 +
               y*(-0.3988024e-1 +
-                   y*(-0.362018e-2 +
-                        y*(0.163801e-2 + y*(-0.1031555e-1 + y*ans))));
+                   y*(-0.362018e-2 + y*(0.163801e-2 + y*(-0.1031555e-1 + y*ans))));
         ans *= (exp(ax) / sqrt(ax));
     }
     return x < 0.0 ? -ans : ans;
@@ -1771,24 +1749,22 @@ bessis0(double x) {
     if ((ax = fabs(x)) < 3.75) {
         y = x / 3.75;
         y *= y;
-        ans = (1.0 + y*(3.5156229 +
-                          y*(3.0899424 +
-                               y*(1.2067492 +
-                                    y*(0.2659732 + y*(0.360768e-1 +
-                                                          y*0.45813e-2)))))) *
+        ans = (1.0 +
+               y*(3.5156229 +
+                    y*(3.0899424 +
+                         y*(1.2067492 + y*(0.2659732 + y*(0.360768e-1 + y*0.45813e-2)))))) *
               exp(-ax);
     } else {
         y = 3.75 / ax;
-        ans = (1.0 / sqrt(ax)) *
-              (0.39894228 +
-               y*(0.1328592e-1 +
-                    y*(0.225319e-2 +
-                         y*(-0.157565e-2 +
-                              y*(0.916281e-2 +
-                                   y*(-0.2057706e-1 +
-                                        y*(0.2635537e-1 +
-                                             y*(-0.1647633e-1 +
-                                                  y*0.392377e-2))))))));
+        ans =
+            (1.0 / sqrt(ax)) *
+            (0.39894228 +
+             y*(0.1328592e-1 +
+                  y*(0.225319e-2 + y*(-0.157565e-2 +
+                                          y*(0.916281e-2 + y*(-0.2057706e-1 +
+                                                                  y*(0.2635537e-1 +
+                                                                       y*(-0.1647633e-1 +
+                                                                            y*0.392377e-2))))))));
     }
     return ans;
 }
@@ -1802,21 +1778,17 @@ bessis1(double x) {
     if ((ax = fabs(x)) < 3.75) {
         y = x / 3.75;
         y *= y;
-        ans =
-            exp(-ax)*ax *
-            (0.5 + y*(0.87890594 +
-                        y*(0.51498869 +
-                             y*(0.15084934 +
-                                  y*(0.2658733e-1 +
-                                       y*(0.301532e-2 + y*0.32411e-3))))));
+        ans = exp(-ax)*ax *
+              (0.5 + y*(0.87890594 +
+                          y*(0.51498869 +
+                               y*(0.15084934 +
+                                    y*(0.2658733e-1 + y*(0.301532e-2 + y*0.32411e-3))))));
     } else {
         y = 3.75 / ax;
-        ans = 0.2282967e-1 +
-              y*(-0.2895312e-1 + y*(0.1787654e-1 - y*0.420059e-2));
+        ans = 0.2282967e-1 + y*(-0.2895312e-1 + y*(0.1787654e-1 - y*0.420059e-2));
         ans = 0.39894228 +
               y*(-0.3988024e-1 +
-                   y*(-0.362018e-2 +
-                        y*(0.163801e-2 + y*(-0.1031555e-1 + y*ans))));
+                   y*(-0.362018e-2 + y*(0.163801e-2 + y*(-0.1031555e-1 + y*ans))));
         ans *= (1. / sqrt(ax));
     }
     return x < 0.0 ? -ans : ans;
@@ -1871,8 +1843,7 @@ do_shift(double shift, double variable) {
             return variables[in];
         }
     default:
-        ggets_plintf(
-            "This can't happen: Invalid symbol index for SHIFT: i = %d\n", i);
+        ggets_plintf("This can't happen: Invalid symbol index for SHIFT: i = %d\n", i);
         return 0.0;
     }
 }

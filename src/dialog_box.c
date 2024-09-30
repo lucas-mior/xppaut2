@@ -18,8 +18,7 @@ static void dialog_box_display(Window window, Dialog d, int32 col);
 static int32 dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col);
 
 int32
-dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
-               int32 max) {
+dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel, int32 max) {
     int32 lm = (int32)strlen(name)*dcur_x;
     int32 lv = max*dcur_x;
     int32 pos;
@@ -35,9 +34,8 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
     strcpy(d.input_s, value);
     strcpy(d.ok_s, ok);
     strcpy(d.cancel_s, cancel);
-    d.base = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
-                                 (uint)(lm + lv + 20), (uint)(30 + 2*dcur_y),
-                                 2, my_fore_color, my_back_color);
+    d.base = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0, (uint)(lm + lv + 20),
+                                 (uint)(30 + 2*dcur_y), 2, my_fore_color, my_back_color);
     XStringListToTextProperty(&wname, 1, &winname);
 
     {
@@ -45,22 +43,17 @@ dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display, d.base, &winname, NULL, NULL, 0, NULL, NULL,
-                         &class_hints);
+        XSetWMProperties(display, d.base, &winname, NULL, NULL, 0, NULL, NULL, &class_hints);
     }
 
-    d.mes =
-        XCreateSimpleWindow(display, d.base, 5, 5, (uint)lm, (uint)dcur_y + 8,
-                            1, my_back_color, my_back_color);
-    d.input =
-        XCreateSimpleWindow(display, d.base, 10 + lm, 5, (uint)lv,
-                            (uint)dcur_y + 8, 1, my_back_color, my_back_color);
-    d.ok =
-        XCreateSimpleWindow(display, d.base, 5, 10 + dcur_y, (uint)lo + 4,
-                            (uint)dcur_y + 8, 1, my_fore_color, my_back_color);
-    d.cancel = XCreateSimpleWindow(display, d.base, 5 + lo + 10, 10 + dcur_y,
-                                   (uint)lc + 4, (uint)dcur_y + 8, 1,
-                                   my_fore_color, my_back_color);
+    d.mes = XCreateSimpleWindow(display, d.base, 5, 5, (uint)lm, (uint)dcur_y + 8, 1, my_back_color,
+                                my_back_color);
+    d.input = XCreateSimpleWindow(display, d.base, 10 + lm, 5, (uint)lv, (uint)dcur_y + 8, 1,
+                                  my_back_color, my_back_color);
+    d.ok = XCreateSimpleWindow(display, d.base, 5, 10 + dcur_y, (uint)lo + 4, (uint)dcur_y + 8, 1,
+                               my_fore_color, my_back_color);
+    d.cancel = XCreateSimpleWindow(display, d.base, 5 + lo + 10, 10 + dcur_y, (uint)lc + 4,
+                                   (uint)dcur_y + 8, 1, my_fore_color, my_back_color);
 
     XSelectInput(display, d.base, MASK_EVENT);
     XSelectInput(display, d.input, MASK_EVENT);
@@ -122,14 +115,12 @@ dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
         break;
 
     case EnterNotify:
-        if (event.xcrossing.window == d->ok ||
-            event.xcrossing.window == d->cancel) {
+        if (event.xcrossing.window == d->ok || event.xcrossing.window == d->cancel) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 2);
         }
         break;
     case LeaveNotify:
-        if (event.xcrossing.window == d->ok ||
-            event.xcrossing.window == d->cancel) {
+        if (event.xcrossing.window == d->ok || event.xcrossing.window == d->cancel) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 1);
         }
         break;
@@ -154,20 +145,16 @@ dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
 void
 dialog_box_display(Window window, Dialog d, int32 col) {
     if (window == d.ok) {
-        XDrawString(display, window, gc, 0, cury_off + 1, d.ok_s,
-                    (int32)strlen(d.ok_s));
+        XDrawString(display, window, gc, 0, cury_off + 1, d.ok_s, (int32)strlen(d.ok_s));
     }
     if (window == d.cancel) {
-        XDrawString(display, window, gc, 0, cury_off + 1, d.cancel_s,
-                    (int32)strlen(d.cancel_s));
+        XDrawString(display, window, gc, 0, cury_off + 1, d.cancel_s, (int32)strlen(d.cancel_s));
     }
     if (window == d.mes) {
-        XDrawString(display, window, gc, 0, cury_off + 1, d.mes_s,
-                    (int32)strlen(d.mes_s));
+        XDrawString(display, window, gc, 0, cury_off + 1, d.mes_s, (int32)strlen(d.mes_s));
     }
     if (window == d.input) {
-        XDrawString(display, window, gc, 0, cury_off, d.input_s,
-                    (int32)strlen(d.input_s));
+        XDrawString(display, window, gc, 0, cury_off, d.input_s, (int32)strlen(d.input_s));
         ggets_put_cursor_at(window, col, 0);
     }
     return;

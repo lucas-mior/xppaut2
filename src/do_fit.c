@@ -81,9 +81,8 @@ do_fit_init_info(void) {
 
  */
 void
-do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
-                double *yfit, double **yderv, int32 npts, int32 npars,
-                int32 nvars, int32 *ivar, int32 *ipar) {
+do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps, double *yfit,
+                double **yderv, int32 npts, int32 npars, int32 nvars, int32 *ivar, int32 *ipar) {
     int32 iv;
     int32 ip;
     int32 istart = 1;
@@ -160,8 +159,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
             y[ip] = par + dp;
             for (int32 j = 0; j < nvars; j++) {
                 if (ip == ivar[j]) {
-                    yderv[l][j] =
-                        1.0;  // ... except for those ICs that can vary
+                    yderv[l][j] = 1.0;  // ... except for those ICs that can vary
                 }
             }
         }
@@ -208,8 +206,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
 }
 
 void
-do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars,
-               int32 nvars, int32 npts) {
+do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars, int32 npts) {
     int32 ioff;
     for (int32 i = 0; i < npts; i++) {
         ggets_plintf(" %8.5g ", t0[i]);
@@ -263,8 +260,7 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
         return 1;
     }
     if (METHOD == RKQS || METHOD == STIFF) {
-        stiff_adaptive(y, NODE, &t, t1, TOLER, &dt, h_min, WORK, &kflag,
-                       NEWT_ERR, METHOD, istart);
+        stiff_adaptive(y, NODE, &t, t1, TOLER, &dt, h_min, WORK, &kflag, NEWT_ERR, METHOD, istart);
         if (kflag) {
             ggets_ping();
             switch (kflag) {
@@ -295,8 +291,7 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
     /* cvode(command,y,t,n,tout,kflag,atol,rtol)
    command =0 continue, 1 is start 2 finish   */
     if (METHOD == GEAR) {
-        gear(NODE, &t, t1, y, h_min, h_max, TOLER, 2, error, &kflag, istart,
-             WORK, i_work);
+        gear(NODE, &t, t1, y, h_min, h_max, TOLER, 2, error, &kflag, istart, WORK, i_work);
         if (kflag < 0) {
             ggets_ping();
             switch (kflag) {
@@ -455,23 +450,20 @@ do_fit_test(void) {
     }
 
     // do fit print info
-    ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n",
-                 fit_info.dim, fit_info.maxiter, fit_info.npts, fit_info.file,
-                 fit_info.tol, fit_info.eps);
+    ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n", fit_info.dim,
+                 fit_info.maxiter, fit_info.npts, fit_info.file, fit_info.tol, fit_info.eps);
 
     for (int32 i = 0; i < fit_info.nvars; i++) {
-        ggets_plintf(" variable %d to col %d \n", fit_info.ivar[i],
-                     fit_info.icols[i]);
+        ggets_plintf(" variable %d to col %d \n", fit_info.ivar[i], fit_info.icols[i]);
     }
     for (int32 i = 0; i < fit_info.npars; i++) {
         ggets_plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
     }
 
     ggets_plintf(" Running the fit...\n");
-    ok =
-        do_fit_run(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars,
-                   fit_info.maxiter, fit_info.dim, fit_info.eps, fit_info.tol,
-                   fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
+    ok = do_fit_run(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars, fit_info.maxiter,
+                    fit_info.dim, fit_info.eps, fit_info.tol, fit_info.ipar, fit_info.ivar,
+                    fit_info.icols, y0, a, yfit);
 
     free(yfit);
     if (ok == 0) {
@@ -503,11 +495,9 @@ do_fit_test(void) {
 */
 int32
 do_fit_run(  // double arrays
-    char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter,
-    int32 ndim, double eps, double tol, int32 *ipar, int32 *ivar, int32 *icols,
-    double *y0, double *a, double *yfit) {
-    double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda,
-        **yderv, *work;
+    char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter, int32 ndim, double eps,
+    double tol, int32 *ipar, int32 *ivar, int32 *icols, double *y0, double *a, double *yfit) {
+    double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda, **yderv, *work;
     int32 ioff;
     int32 ictrl = 0;
     int32 ok = 0;
@@ -542,8 +532,8 @@ do_fit_run(  // double arrays
             y[ioff + k] = ytemp[icols[k] - 2];
         }
     }
-    ggets_plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1],
-                 y[npts*nvars - 2], y[npts*nvars - 1]);
+    ggets_plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1], y[npts*nvars - 2],
+                 y[npts*nvars - 1]);
 
     work = xmalloc(sizeof(*work)*(usize)(4*npars + npars*npars));
     yderv = xmalloc((usize)npars*sizeof(double *));
@@ -559,12 +549,11 @@ do_fit_run(  // double arrays
 
     while (good_flag < 3) {  // take 3 good steps after convergence
 
-        ok = do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar,
-                                ipar, covar, alpha, &chisq, &alambda, work,
-                                yderv, yfit, &ochisq, ictrl, eps);
+        ok = do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar, alpha,
+                                &chisq, &alambda, work, yderv, yfit, &ochisq, ictrl, eps);
         niter++;
-        ggets_plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n",
-                     niter, ok, alambda, chisq, ochisq);
+        ggets_plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n", niter, ok, alambda,
+                     chisq, ochisq);
         ggets_plintf(" params: ");
         for (int32 i = 0; i < npars; i++) {
             ggets_plintf(" %g ", a[i]);
@@ -574,8 +563,7 @@ do_fit_run(  // double arrays
             break;
         }
         if (ochisq > chisq) {
-            if (((ochisq - chisq) < tol10) ||
-                (((ochisq - chisq) / MAX(1.0, chisq)) < tol)) {
+            if (((ochisq - chisq) < tol10) || (((ochisq - chisq) / MAX(1.0, chisq)) < tol)) {
                 good_flag++;
                 niter--;  // compensate for good stuff ...
             }
@@ -618,9 +606,8 @@ do_fit_run(  // double arrays
         return 1;
     }
     ictrl = 2;
-    do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar,
-                       alpha, &chisq, &alambda, work, yderv, yfit, &ochisq,
-                       ictrl, eps);
+    do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar, alpha, &chisq,
+                       &alambda, work, yderv, yfit, &ochisq, ictrl, eps);
     ggets_err_msg(" Success! ");
     // have the covariance matrix -- so what?
     ggets_plintf(" covariance: \n");
@@ -669,10 +656,9 @@ eps   control numerical derivative
 sigma  weights on nvars
 */
 int32
-do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
-                   int32 npts, int32 nvars, int32 npars, int32 *ivar,
-                   int32 *ipar, double *covar, double *alpha, double *chisq,
-                   double *alambda, double *work, double **yderv, double *yfit,
+do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
+                   int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *covar, double *alpha,
+                   double *chisq, double *alambda, double *work, double **yderv, double *yfit,
                    double *ochisq, int32 ictrl, double eps) {
     int32 ierr;
     int32 ipivot[1000];
@@ -685,8 +671,8 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
 
     if (ictrl == 0) {
         *alambda = .001;
-        if (do_fit_mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar,
-                          alpha, chisq, beta, yderv, yfit, eps) == 0) {
+        if (do_fit_mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, alpha, chisq, beta,
+                          yderv, yfit, eps) == 0) {
             return 0;
         }
         for (int32 i = 0; i < npars; i++) {
@@ -730,8 +716,8 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
     for (int32 j = 0; j < npars; j++) {
         atry[j] = a[j] + da[j];
     }
-    if (do_fit_mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar,
-                      covar, chisq, da, yderv, yfit, eps) == 0) {
+    if (do_fit_mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar, covar, chisq, da, yderv,
+                      yfit, eps) == 0) {
         return 0;
     }
 
@@ -753,10 +739,9 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
 }
 
 int32
-do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
-              int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
-              double *alpha, double *chisq, double *beta, double **yderv,
-              double *yfit, double eps) {
+do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts, int32 nvars,
+              int32 npars, int32 *ivar, int32 *ipar, double *alpha, double *chisq, double *beta,
+              double **yderv, double *yfit, double eps) {
     int32 flag;
     int32 l;
     int32 k0;
@@ -764,8 +749,7 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
     double dy;
     double wt;
 
-    do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars,
-                    ivar, ipar);
+    do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars, ivar, ipar);
     if (flag == 0) {
         ggets_err_msg(" Integration error ...\n");
         return 0;

@@ -30,8 +30,8 @@ norm() {
 }
 
 double
-onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
-       double isig, double S, double tau) {
+onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar, double isig, double S,
+       double tau) {
     int ni, nt, i;
     double cs[MAXN];
     double ssum = 0.0;

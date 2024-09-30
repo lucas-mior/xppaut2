@@ -52,8 +52,7 @@ static char *PS_header[] = {
     "/Cshow { currentpoint stroke moveto\n",
     "  dup stringwidth pop -2 div vshift rmoveto show } def\n",
     // Dash or Color Line
-    "/DL { Color {setrgbcolor [] 0 setdash pop}\n",
-    " {pop pop pop 0 setdash} ifelse } def\n",
+    "/DL { Color {setrgbcolor [] 0 setdash pop}\n", " {pop pop pop 0 setdash} ifelse } def\n",
     // Border Lines
     "/BL { stroke xpplinewidth 2 mul setlinewidth } def\n",
     // Axes Lines
@@ -65,8 +64,7 @@ static char *PS_header[] = {
     "/LTa { AL [1 dl 2 dl] 0 setdash 0 0 0 setrgbcolor } def\n", /* axes
                                                                   */
     "/LT0 { PL [] 0 0 0 DL } def\n", "/LT1 { PL [4 dl 2 dl] 1 0 0 DL } def\n",
-    "/LT2 { PL [2 dl 3 dl] .95 .4 0 DL } def\n",
-    "/LT3 { PL [1 dl 1.5 dl] 1 .65 0 DL } def\n",
+    "/LT2 { PL [2 dl 3 dl] .95 .4 0 DL } def\n", "/LT3 { PL [1 dl 1.5 dl] 1 .65 0 DL } def\n",
     "/LT4 { PL [5 dl 2 dl 1 dl 2 dl] 1 .8 0 DL } def\n",
     "/LT5 { PL [4 dl 3 dl 1 dl 3 dl] .85 .85 0 DL } def\n",
     "/LT6 { PL [2 dl 2 dl 2 dl 4 dl]  .6 .8 .2 DL } def\n",
@@ -75,20 +73,18 @@ static char *PS_header[] = {
                                                                  fat line
                                                                */
     "/LT9 { stroke 16. setlinewidth [4 dl 2 dl] 0 0 1 DL } def\n",
-    "/LTc { stroke 16. setlinewidth [2 dl 3 dl] .62 .125 .93 DL } def\n",
-    "/M {moveto} def\n", "/L {lineto} def\n", "/R {rlineto} def\n",
+    "/LTc { stroke 16. setlinewidth [2 dl 3 dl] .62 .125 .93 DL } def\n", "/M {moveto} def\n",
+    "/L {lineto} def\n", "/R {rlineto} def\n",
     "/P { stroke [] 0 setdash\n",  // Point
-    "  currentlinewidth 2 div sub moveto\n",
-    "  0 currentlinewidth rlineto  stroke } def\n",
+    "  currentlinewidth 2 div sub moveto\n", "  0 currentlinewidth rlineto  stroke } def\n",
     "/D { stroke [] 0 setdash  2 copy  vpt add moveto\n",  // Diamond
     "  hpt neg vpt neg rlineto  hpt vpt neg rlineto\n",
-    "  hpt vpt rlineto  hpt neg vpt rlineto  closepath  stroke\n",
-    "  P  } def\n",
+    "  hpt vpt rlineto  hpt neg vpt rlineto  closepath  stroke\n", "  P  } def\n",
     "/A { stroke [] 0 setdash  vpt sub moveto  0 vpt2 rlineto\n", /* Plus
                                                                      (Add)
                                                                    */
-    "  currentpoint stroke moveto\n",
-    "  hpt neg vpt neg rmoveto  hpt2 0 rlineto stroke\n", "  } def\n",
+    "  currentpoint stroke moveto\n", "  hpt neg vpt neg rmoveto  hpt2 0 rlineto stroke\n",
+    "  } def\n",
     "/B { stroke [] 0 setdash  2 copy  exch hpt sub exch vpt add "
     "moveto\n",  // Box
     "  0 vpt2 neg rlineto  hpt2 0 rlineto  0 vpt2 rlineto\n",
@@ -201,8 +197,8 @@ ps_end(void) {
 
 void
 ps_frect(int32 x, int32 y, int32 w, int32 h) {
-    fprintf(psfile, " newpath %d %d M %d %d R %d %d R %d %d R closepath fill\n",
-            x, y, 0, -h, w, 0, 0, h);
+    fprintf(psfile, " newpath %d %d M %d %d R %d %d R %d %d R closepath fill\n", x, y, 0, -h, w, 0,
+            0, h);
     return;
 }
 
@@ -412,8 +408,7 @@ ps_text(int32 x, int32 y, char *str) {
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "%d %d moveto\n", x, y);
     if (text_angle != 0) {
-        fprintf(psfile, "currentpoint gsave translate %d rotate 0 0 moveto\n",
-                text_angle*90);
+        fprintf(psfile, "currentpoint gsave translate %d rotate 0 0 moveto\n", text_angle*90);
     }
     putc('(', psfile);
     ch = *str++;

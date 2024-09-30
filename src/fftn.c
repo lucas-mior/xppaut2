@@ -305,9 +305,8 @@ fftn_factorize(int32 nPass, int32 *kt) {
 #define FFTRADIX fftradix
 #define FFTRADIXS "fftradix"
 /* double precision routine */
-static int32 fftradix(double Re[], double im[], usize nTotal, usize nPass,
-                      usize nSpan, int32 isign, int32 maxFactors,
-                      int32 maxPerm);
+static int32 fftradix(double Re[], double im[], usize nTotal, usize nPass, usize nSpan, int32 isign,
+                      int32 maxFactors, int32 maxPerm);
 #include __FILE__  // include this file again
 #endif
 /*}}}*/
@@ -326,9 +325,8 @@ static int32 fftradix(double Re[], double im[], usize nTotal, usize nPass,
 #define FFTRADIX fftradixf     // trailing 'f' for double
 #define FFTRADIXS "fftradixf"  // name for error message
 /* double precision routine */
-static int32 fftradixf(double Re[], double im[], usize nTotal, usize nPass,
-                       usize nSpan, int32 isign, int32 maxFactors,
-                       int32 maxPerm);
+static int32 fftradixf(double Re[], double im[], usize nTotal, usize nPass, usize nSpan,
+                       int32 isign, int32 maxFactors, int32 maxPerm);
 #include __FILE__  // include this file again
 #endif
 /*}}}*/
@@ -344,16 +342,14 @@ static int32 fftradixf(double Re[], double im[], usize nTotal, usize nPass,
 #define Im_Data(i) im[i]
 #endif
 
-static int32 FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass,
-                      usize nSpan, int32 iSign, int32 maxFactors,
-                      int32 maxPerm);
+static int32 FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan, int32 iSign,
+                      int32 maxFactors, int32 maxPerm);
 
 /*
  *
  */
 int32
-FFTN(int32 ndim, int32 dims[], REAL Re[], REAL im[], int32 iSign,
-     double scaling) {
+FFTN(int32 ndim, int32 dims[], REAL Re[], REAL im[], int32 iSign, double scaling) {
     usize nTotal;
     int32 maxFactors;
     int32 maxPerm;
@@ -421,8 +417,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL im[], int32 iSign,
         for (int32 i = 0; i < ndim; i++) {
             int32 ret;
             nSpan *= (usize)dims[i];
-            ret = FFTRADIX(Re, im, nTotal, (usize)dims[i], nSpan, iSign,
-                           maxFactors, maxPerm);
+            ret = FFTRADIX(Re, im, nTotal, (usize)dims[i], nSpan, iSign, maxFactors, maxPerm);
             // exit, clean-up already done
             if (ret) {
                 return ret;
@@ -430,8 +425,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL im[], int32 iSign,
         }
     } else {
         int32 ret;
-        ret = FFTRADIX(Re, im, nTotal, nTotal, nTotal, iSign, maxFactors,
-                       maxPerm);
+        ret = FFTRADIX(Re, im, nTotal, nTotal, nTotal, iSign, maxFactors, maxPerm);
         // exit, clean-up already done
         if (ret) {
             return ret;
@@ -468,8 +462,8 @@ Dimension_Error:
  * possible to make this a standalone function
  */
 int32
-FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan,
-         int32 iSign, int32 maxFactors, int32 maxPerm) {
+FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan, int32 iSign,
+         int32 maxFactors, int32 maxPerm) {
     int32 ii;
     int32 nFactor;
     int32 kspan;
@@ -591,8 +585,7 @@ FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan,
     nFactor = fftn_factorize((int32)nPass, &kt);
     // test that nFactors is in range
     if (nFactor > NFACTOR) {
-        fprintf(stderr,
-                "Error: " FFTRADIXS "() - exceeded number of factors\n");
+        fprintf(stderr, "Error: " FFTRADIXS "() - exceeded number of factors\n");
         goto Memory_Error;
     }
 
@@ -754,8 +747,7 @@ FFTRADIX(REAL Re[], REAL im[], usize nTotal, usize nPass, usize nSpan,
         default:
             // transform for odd factors
 #ifdef FFT_RADIX4
-            fprintf(stderr,
-                    "Error: " FFTRADIXS "(): compiled for radix 2/4 only\n");
+            fprintf(stderr, "Error: " FFTRADIXS "(): compiled for radix 2/4 only\n");
             fft_free();  // free-up memory
             return -1;
             break;

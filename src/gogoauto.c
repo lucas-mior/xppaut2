@@ -80,13 +80,12 @@ go_go_auto(void) {
     // ----------------------------------------------------------
 
     if (list.type == AUTOAE) {
-        autoae(&iap, &rap, par, icp, list.aelist.funi, list.aelist.stpnt,
-               list.aelist.pvli, thl, thu, iuz, vuz);
+        autoae(&iap, &rap, par, icp, list.aelist.funi, list.aelist.stpnt, list.aelist.pvli, thl,
+               thu, iuz, vuz);
     }
     if (list.type == AUTOBV) {
-        autobv(&iap, &rap, par, icp, list.bvlist.funi, list.bvlist.bcni,
-               list.bvlist.icni, list.bvlist.stpnt, list.bvlist.pvli, thl, thu,
-               iuz, vuz);
+        autobv(&iap, &rap, par, icp, list.bvlist.funi, list.bvlist.bcni, list.bvlist.icni,
+               list.bvlist.stpnt, list.bvlist.pvli, thl, thu, iuz, vuz);
     }
 
     free(thu);
@@ -362,8 +361,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
     // ---------------------------------------------------
     // ---------------------------------------------------
 
-    else if (iap.ips <= 1 && ABS(iap.isw) == 2 &&
-             (iap.itp == 1 || iap.itp == 2)) {
+    else if (iap.ips <= 1 && ABS(iap.isw) == 2 && (iap.itp == 1 || iap.itp == 2)) {
         //	** Fold continuation (algebraic problems).
         data->type = AUTOAE;
         data->aelist.funi = fnlp;
@@ -376,15 +374,13 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->aelist.funi = fnlp;
         data->aelist.stpnt = stpnae;
         data->aelist.pvli = pvlsae;
-    } else if ((iap.ips == 0 || iap.ips == 1) && ABS(iap.isw) == 2 &&
-               iap.itp == 3) {
+    } else if ((iap.ips == 0 || iap.ips == 1) && ABS(iap.isw) == 2 && iap.itp == 3) {
         //	** Hopf bifurcation continuation (ODE).
         data->type = AUTOAE;
         data->aelist.funi = fnhb;
         data->aelist.stpnt = stpnhb;
         data->aelist.pvli = pvlsae;
-    } else if (ABS(iap.ips) == 1 && ABS(iap.isw) == 2 &&
-               ABS(iap.itp) / 10 == 3) {
+    } else if (ABS(iap.ips) == 1 && ABS(iap.isw) == 2 && ABS(iap.itp) / 10 == 3) {
         //	** Hopf bifurcation continuation (ODE, restart).
         data->type = AUTOAE;
         data->aelist.funi = fnhb;
@@ -414,8 +410,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->aelist.funi = fnhd;
         data->aelist.stpnt = stpnae;
         data->aelist.pvli = pvlsae;
-    } else if (iap.ips == 2 && ABS(iap.isw) == 2 &&
-               (iap.itp == 5 || iap.itp == 6)) {
+    } else if (iap.ips == 2 && ABS(iap.isw) == 2 && (iap.itp == 5 || iap.itp == 6)) {
         //	** Fold continuation (Periodic solutions, start).
         data->type = AUTOBV;
         data->bvlist.funi = fnpl;
@@ -464,8 +459,7 @@ gogoauto_set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.icni = ictr;
         data->bvlist.stpnt = stpnbv;
         data->bvlist.pvli = pvlsbv;
-    } else if (iap.ips == 4 && ABS(iap.isw) == 2 &&
-               (iap.itp == 5 || iap.itp == 6)) {
+    } else if (iap.ips == 4 && ABS(iap.isw) == 2 && (iap.itp == 5 || iap.itp == 6)) {
         //        ** Continuation of folds (BVP, start).
         data->type = AUTOBV;
         data->bvlist.funi = fnbl;

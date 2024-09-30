@@ -56,9 +56,9 @@ This also has the clone gadget
 #define ICBOX 2
 #define DELAYBOX 3
 #define BCBOX 4
-#define BOXEVENT                                                               \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     LeaveWindowMask | EnterWindowMask)
+#define BOXEVENT                                                                                   \
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask | LeaveWindowMask |       \
+     EnterWindowMask)
 
 #define EDIT_WAIT 0
 #define EDIT_NEXT 1
@@ -121,10 +121,8 @@ static void init_conds_do_slide_button(Window window, struct ParSlider *p);
 static void init_conds_redraw_slide(struct ParSlider *p);
 static void init_conds_set_slide_pos(struct ParSlider *p);
 static void init_conds_do_slide_release(Window window, struct ParSlider *p);
-static void init_conds_do_slide_motion(Window window, int32 x,
-                                       struct ParSlider *p, int32 state);
-static void init_conds_enter_slider(Window window, struct ParSlider *p,
-                                    int32 val);
+static void init_conds_do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 state);
+static void init_conds_enter_slider(Window window, struct ParSlider *p, int32 val);
 static void init_conds_expose_slider(Window window, struct ParSlider *p);
 static void init_conds_load_entire_box(BoxList *b);
 static void init_conds_set_value_from_box(BoxList *b, int32 i);
@@ -133,8 +131,7 @@ static void init_conds_add_edit_val(BoxList *b, int32 i, char *string);
 static void init_conds_add_edit_float(BoxList *b, int32 i, double z);
 static int32 init_conds_edit_bit_em(BoxList *b, int32 i, int32 ch);
 static void init_conds_put_edit_cursor(Window window, int32 pos);
-static void init_conds_draw_editable(Window win, char *string, int32 off,
-                                     int32 cursor, int32 mc);
+static void init_conds_draw_editable(Window win, char *string, int32 off, int32 cursor, int32 mc);
 static void init_conds_set_default_params(void);
 static void init_conds_do_box_key(BoxList *b, XEvent event, int32 *used);
 static void init_conds_box_list_scroll(BoxList *b, int32 i);
@@ -146,13 +143,11 @@ static void init_conds_justify_string(Window w1, char *s1);
 static void init_conds_make_box_list_window(BoxList *b, int32 type);
 static void init_conds_destroy_box(BoxList *b);
 static void init_conds_get_nrow_from_hgt(int32 h, int32 *n, int32 *w);
-static void init_conds_make_par_slider(Window base, int32 x, int32 y,
-                                       int32 width, int32 index);
+static void init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index);
 static void init_conds_draw_slider(Window window, int32 x, int32 hgt, int32 l);
 static int32 init_conds_selector_key(XEvent event);
 static void init_conds_string_intersect(char *target, char *sother);
-static void init_conds_create_file_selector(char *title, char *file,
-                                            char *wild);
+static void init_conds_create_file_selector(char *title, char *file, char *wild);
 static void init_conds_crossing_selector(Window window, int32 c);
 static int32 init_conds_button_selector(Window window);
 static void init_conds_fs_scroll(int32 i);
@@ -290,8 +285,8 @@ init_conds_create_par_sliders(Window base, int32 x0, int32 h0) {
 void
 init_conds_resize_par_slides(int32 h) {
     for (int32 i = 0; i < 3; i++) {
-        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i*dcur_xs,
-                          h, 32*(uint)dcur_xs, 3*(uint)(dcur_ys + 2));
+        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i*dcur_xs, h,
+                          32*(uint)dcur_xs, 3*(uint)(dcur_ys + 2));
     }
     return;
 }
@@ -399,8 +394,7 @@ init_conds_redraw_fs_text(char *string, Window window, int32 flag) {
     if (flag) {
         filesel.pos = (int32)strlen(string);
     }
-    XDrawString(display, window, small_gc, 0, cury_off, string,
-                (int)strlen(string));
+    XDrawString(display, window, small_gc, 0, cury_off, string, (int)strlen(string));
     if (flag) {
         init_conds_put_edit_cursor(window, dcur_xs*(int32)strlen(string));
     }
@@ -422,18 +416,16 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
     char t[sizeof(f.title) + sizeof(cur_dir) + sizeof(f.wildtxt) + 1];
     int32 hgt = dcur_ys + 4;
 
-    XGetGeometry(display, f.base, &root, &xloc, &yloc, &cwid, &chgt, &cbwid,
-                 &cdepth);
+    XGetGeometry(display, f.base, &root, &xloc, &yloc, &cwid, &chgt, &cbwid, &cdepth);
     XResizeWindow(display, f.wild, cwid - 7*(uint)dcur_xs - 5, (uint)dcur_ys);
     XResizeWindow(display, f.file, cwid - 7*(uint)dcur_xs - 5, (uint)dcur_ys);
     for (int32 i = 0; i < f.nwin; i++) {
-        XResizeWindow(display, f.window[i], cwid - 6*(uint)dcur_xs - 10,
-                      (uint)dcur_ys);
+        XResizeWindow(display, f.window[i], cwid - 6*(uint)dcur_xs - 10, (uint)dcur_ys);
     }
-    XMoveResizeWindow(display, f.ok, (int)cwid / 2 - 7*dcur_xs - 3,
-                      (int32)chgt - hgt, 7*(uint)dcur_xs, (uint)dcur_ys);
-    XMoveResizeWindow(display, f.cancel, cwid / 2 + 3, (int)chgt - hgt,
+    XMoveResizeWindow(display, f.ok, (int)cwid / 2 - 7*dcur_xs - 3, (int32)chgt - hgt,
                       7*(uint)dcur_xs, (uint)dcur_ys);
+    XMoveResizeWindow(display, f.cancel, cwid / 2 + 3, (int)chgt - hgt, 7*(uint)dcur_xs,
+                      (uint)dcur_ys);
 
     if (f.here != 1) {
         return;
@@ -454,13 +446,11 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
     }
     if (f.file == window) {
         XClearWindow(display, window);
-        XDrawString(display, window, small_gc, 2, cury_offs, f.filetxt,
-                    (int)strlen(f.filetxt));
+        XDrawString(display, window, small_gc, 2, cury_offs, f.filetxt, (int)strlen(f.filetxt));
     }
     if (f.wild == window) {
         XClearWindow(display, window);
-        XDrawString(display, window, small_gc, 2, cury_offs, f.wildtxt,
-                    (int)strlen(f.wildtxt));
+        XDrawString(display, window, small_gc, 2, cury_offs, f.wildtxt, (int)strlen(f.wildtxt));
     }
     if (f.fw == window) {
         XDrawString(display, window, small_gc, 5, cury_offs, "File: ", 6);
@@ -490,8 +480,7 @@ init_conds_display_file_sel(struct FileSel f, Window window) {
                 } else {
                     sprintf(t, "%s", my_ff.filenames[i0 - my_ff.ndirs]);
                 }
-                XDrawString(display, window, small_gc, 5, cury_offs, t,
-                            (int)strlen(t));
+                XDrawString(display, window, small_gc, 5, cury_offs, t, (int)strlen(t));
             }
         }
     }
@@ -678,10 +667,9 @@ init_conds_crossing_selector(Window window, int32 c) {
             return;
         }
     }
-    if (w == filesel.ok || w == filesel.cancel || w == filesel.pgup ||
-        w == filesel.pgdn || w == filesel.up || w == filesel.dn ||
-        w == filesel.file || w == filesel.wild || w == filesel.home ||
-        w == filesel.start) {
+    if (w == filesel.ok || w == filesel.cancel || w == filesel.pgup || w == filesel.pgdn ||
+        w == filesel.up || w == filesel.dn || w == filesel.file || w == filesel.wild ||
+        w == filesel.home || w == filesel.start) {
         XSetWindowBorderWidth(display, w, (uint)t2);
     }
     return;
@@ -709,8 +697,7 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     height = (5 + nwin)*hgt;
     filesel.minwid = width;
     filesel.minhgt = height;
-    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
-                                      height, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
     filesel.base = base;
     XStringListToTextProperty(&title, 1, &winname);
     size_hints.flags = PPosition | PSize | PMinSize;
@@ -723,16 +710,14 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     size_hints.max_width = width;
     size_hints.max_height = height;
 
-    many_pops_make_icon((char *)filebrowse_bits, filebrowse_width,
-                        filebrowse_height, base);
+    many_pops_make_icon((char *)filebrowse_bits, filebrowse_width, filebrowse_height, base);
 
     {
         XClassHint class_hints;
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints,
-                         NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL, &class_hints);
     }
 
     /*
@@ -742,39 +727,35 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     filesel.pgdn=pop_list_make_window(base,dcur_xs,2+8*hgt,3*dcur_xs+5,dcur_ys,1);
     */
 
-    filesel.up = pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 72 + 15,
-                                           32, 24, 1, lineup_bits);
-    filesel.dn = pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 96 + 18,
-                                           32, 24, 1, linedn_bits);
-    filesel.pgup = pop_list_make_icon_window(
-        base, dcur_xs, 2 + 3*hgt + 48 + 12, 32, 24, 1, pageup_bits);
-    filesel.pgdn = pop_list_make_icon_window(
-        base, dcur_xs, 2 + 3*hgt + 120 + 21, 32, 24, 1, pagedn_bits);
-    filesel.home = pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt, 32, 24,
-                                             1, home_bits);
-    filesel.start = pop_list_make_icon_window(
-        base, dcur_xs, 2 + 3*hgt + 24 + 3, 32, 24, 1, start_bits);
+    filesel.up =
+        pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 72 + 15, 32, 24, 1, lineup_bits);
+    filesel.dn =
+        pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 96 + 18, 32, 24, 1, linedn_bits);
+    filesel.pgup =
+        pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 48 + 12, 32, 24, 1, pageup_bits);
+    filesel.pgdn =
+        pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 120 + 21, 32, 24, 1, pagedn_bits);
+    filesel.home = pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt, 32, 24, 1, home_bits);
+    filesel.start =
+        pop_list_make_icon_window(base, dcur_xs, 2 + 3*hgt + 24 + 3, 32, 24, 1, start_bits);
 
-    filesel.dir = pop_list_make_plain_window(
-        base, 7*dcur_xs, 2, width - 7*dcur_xs - 5, dcur_ys, 0);
-    filesel.wild = pop_list_make_plain_window(
-        base, 7*dcur_xs, 2 + hgt, width - 7*dcur_xs - 5, dcur_ys, 1);
-    filesel.ww =
-        pop_list_make_window(base, 2, 2 + hgt, 6*dcur_xs + 2, dcur_ys, 0);
-    filesel.file = pop_list_make_plain_window(
-        base, 7*dcur_xs, 2 + 2*hgt, width - 7*dcur_xs - 5, dcur_ys, 1);
-    filesel.fw =
-        pop_list_make_window(base, 2, 2 + 2*hgt, 6*dcur_xs + 2, dcur_ys, 0);
+    filesel.dir =
+        pop_list_make_plain_window(base, 7*dcur_xs, 2, width - 7*dcur_xs - 5, dcur_ys, 0);
+    filesel.wild =
+        pop_list_make_plain_window(base, 7*dcur_xs, 2 + hgt, width - 7*dcur_xs - 5, dcur_ys, 1);
+    filesel.ww = pop_list_make_window(base, 2, 2 + hgt, 6*dcur_xs + 2, dcur_ys, 0);
+    filesel.file = pop_list_make_plain_window(base, 7*dcur_xs, 2 + 2*hgt,
+                                              width - 7*dcur_xs - 5, dcur_ys, 1);
+    filesel.fw = pop_list_make_window(base, 2, 2 + 2*hgt, 6*dcur_xs + 2, dcur_ys, 0);
     for (int32 i = 0; i < nwin; i++) {
-        filesel.window[i] =
-            pop_list_make_plain_window(base, 6*dcur_xs + 5, 2 + (3 + i)*hgt,
-                                       width - 6*dcur_xs - 10, dcur_ys, 0);
+        filesel.window[i] = pop_list_make_plain_window(base, 6*dcur_xs + 5, 2 + (3 + i)*hgt,
+                                                       width - 6*dcur_xs - 10, dcur_ys, 0);
     }
 
-    filesel.ok = pop_list_make_window(base, width / 2 - 7*dcur_xs - 3,
-                                      height - hgt, 7*dcur_xs, dcur_ys, 1);
-    filesel.cancel = pop_list_make_window(base, width / 2 + 3, height - hgt,
-                                          7*dcur_xs, dcur_ys, 1);
+    filesel.ok = pop_list_make_window(base, width / 2 - 7*dcur_xs - 3, height - hgt, 7*dcur_xs,
+                                      dcur_ys, 1);
+    filesel.cancel =
+        pop_list_make_window(base, width / 2 + 3, height - hgt, 7*dcur_xs, dcur_ys, 1);
     filesel.here = 1;
     filesel.hot = HOTFILE;
     filesel.pos = (int32)strlen(filesel.filetxt);
@@ -800,11 +781,10 @@ init_conds_string_intersect(char *target, char *sother) {
     return;
 }
 
-static int32 init_conds_fit_em(int32 ch, char *string, Window window,
-                               int32 *off1, int32 *pos1, int32 mc);
+static int32 init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
+                               int32 mc);
 int32
-init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
-                  int32 *pos1, int32 mc) {
+init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1, int32 *pos1, int32 mc) {
     int32 l = (int32)strlen(string);
     int32 cp;
     int32 off = *off1, pos = *pos1, wpos = pos - off;
@@ -1014,8 +994,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
                 if (j < my_ff.ndirs) {
                     init_conds_string_intersect(U, my_ff.dirnames[j]);
                 } else {
-                    init_conds_string_intersect(
-                        U, my_ff.filenames[j - my_ff.ndirs]);
+                    init_conds_string_intersect(U, my_ff.filenames[j - my_ff.ndirs]);
                 }
 
                 if (strlen(U) == 0)  // No common substring
@@ -1060,8 +1039,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
     *off1 = off;
     *pos1 = pos;
     XClearWindow(display, window);
-    XDrawString(display, window, small_gc, 0, cury_off, string + off,
-                (int32)strlen(string) - off);
+    XDrawString(display, window, small_gc, 0, cury_off, string + off, (int32)strlen(string) - off);
     cp = dcur_xs*(pos - off);
     init_conds_put_edit_cursor(window, cp);
     return 0;
@@ -1074,8 +1052,8 @@ init_conds_selector_key(XEvent event) {
     ch = (char)ggets_get_key_press(&event);
     switch (filesel.hot) {
     case HOTFILE:
-        flag = init_conds_fit_em(ch, filesel.filetxt, filesel.file,
-                                 &(filesel.off), &(filesel.pos), 29);
+        flag = init_conds_fit_em(ch, filesel.filetxt, filesel.file, &(filesel.off), &(filesel.pos),
+                                 29);
         if (flag == EDIT_DONE) {
             return 1;
         }
@@ -1084,8 +1062,8 @@ init_conds_selector_key(XEvent event) {
         }
         return 0;
     case HOTWILD:
-        flag = init_conds_fit_em(ch, filesel.wildtxt, filesel.wild,
-                                 &(filesel.off), &(filesel.pos), 29);
+        flag = init_conds_fit_em(ch, filesel.wildtxt, filesel.wild, &(filesel.off), &(filesel.pos),
+                                 29);
         if (flag == EDIT_DONE) {
             // new wild
             read_dir_free_finfo(&my_ff);  // delete the old file info
@@ -1258,15 +1236,13 @@ init_conds_slider_motion(XEvent event) {
     window = event.xmotion.window;
     x = event.xmotion.x;
     for (int32 i = 0; i < 3; i++) {
-        init_conds_do_slide_motion(window, x, &my_par_slide[i],
-                                   (int32)event.xmotion.state);
+        init_conds_do_slide_motion(window, x, &my_par_slide[i], (int32)event.xmotion.state);
     }
     return;
 }
 
 void
-init_conds_do_slide_motion(Window window, int32 x, struct ParSlider *p,
-                           int32 s) {
+init_conds_do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
     int32 sp = suppress_bounds;
     if (window == p->slide) {
         p->pos = x;
@@ -1278,8 +1254,7 @@ init_conds_do_slide_motion(Window window, int32 x, struct ParSlider *p,
         }
         init_conds_expose_slider(p->slide, p);
         if (p->use) {
-            p->val = p->lo + (p->hi - p->lo)*(double)(p->pos - 2) /
-                                 (double)(p->l - 4);
+            p->val = p->lo + (p->hi - p->lo)*(double)(p->pos - 2) / (double)(p->l - 4);
             init_conds_expose_slider(p->top, p);
             set_val(p->parname, p->val);
             if (p->type == ICBOX) {
@@ -1333,8 +1308,7 @@ init_conds_expose_slider(Window window, struct ParSlider *p) {
         return;
     }
     if (window == p->go) {
-        XDrawString(display, window, small_gc, 2,
-                    (int32)(0.75*(double)cury_offs), "go", 2);
+        XDrawString(display, window, small_gc, 2, (int32)(0.75*(double)cury_offs), "go", 2);
         return;
     }
     if (p->use) {
@@ -1342,8 +1316,7 @@ init_conds_expose_slider(Window window, struct ParSlider *p) {
             sprintf(top, "%.16g", p->lo);
             x = 1;
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, x, cury_offs, top,
-                        (int)strlen(top));
+            XDrawString(display, window, small_gc, x, cury_offs, top, (int)strlen(top));
             return;
         }
         if (window == p->right) {
@@ -1353,23 +1326,20 @@ init_conds_expose_slider(Window window, struct ParSlider *p) {
                 x = len - dcur_xs*(int32)strlen(top) - 1;
             }
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, x, cury_offs, top,
-                        (int)strlen(top));
+            XDrawString(display, window, small_gc, x, cury_offs, top, (int)strlen(top));
             return;
         }
         if (window == p->top) {
             sprintf(top, "%s=%.16g", p->parname, p->val);
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, 2, cury_offs, top,
-                        (int)strlen(top));
+            XDrawString(display, window, small_gc, 2, cury_offs, top, (int)strlen(top));
         }
     } else {
         if (window == p->top) {
             sprintf(top, "Par/Var?");
             x = 1;
             XClearWindow(display, window);
-            XDrawString(display, window, small_gc, x, cury_offs, top,
-                        (int)strlen(top));
+            XDrawString(display, window, small_gc, x, cury_offs, top, (int)strlen(top));
         }
     }
     return;
@@ -1392,8 +1362,7 @@ init_conds_draw_slider(Window window, int32 x, int32 hgt, int32 l) {
 }
 
 void
-init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width,
-                           int32 index) {
+init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index) {
     int32 mainhgt = 3*(dcur_ys + 2);
     int32 mainwid = 32*dcur_xs;
     int32 xs;
@@ -1405,17 +1374,15 @@ init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width,
     window = pop_list_make_plain_window(base, x, y, mainwid, mainhgt, 1);
     my_par_slide[index].main = window;
     xs = (mainwid - width - 4) / 2;
-    my_par_slide[index].slide = pop_list_make_window(window, xs, dcur_ys + 5,
-                                                     width + 4, dcur_ys - 4, 1);
-    my_par_slide[index].go = pop_list_make_window(
-        window, xs + width + 8, dcur_ys + 5, 3*dcur_xs, dcur_ys - 3, 1);
-    my_par_slide[index].top =
-        pop_list_make_window(window, 2, 2, mainwid - 6, dcur_ys, 1);
-    my_par_slide[index].left = pop_list_make_window(window, 2, 2*dcur_ys + 3,
-                                                    12*dcur_xs, dcur_ys, 0);
-    my_par_slide[index].right =
-        pop_list_make_window(window, mainwid - 12*dcur_xs - 4,
-                             2*dcur_ys + 3, 12*dcur_xs, dcur_ys, 0);
+    my_par_slide[index].slide =
+        pop_list_make_window(window, xs, dcur_ys + 5, width + 4, dcur_ys - 4, 1);
+    my_par_slide[index].go =
+        pop_list_make_window(window, xs + width + 8, dcur_ys + 5, 3*dcur_xs, dcur_ys - 3, 1);
+    my_par_slide[index].top = pop_list_make_window(window, 2, 2, mainwid - 6, dcur_ys, 1);
+    my_par_slide[index].left =
+        pop_list_make_window(window, 2, 2*dcur_ys + 3, 12*dcur_xs, dcur_ys, 0);
+    my_par_slide[index].right = pop_list_make_window(window, mainwid - 12*dcur_xs - 4,
+                                                     2*dcur_ys + 3, 12*dcur_xs, dcur_ys, 0);
     my_par_slide[index].lo = 0.0;
     my_par_slide[index].hi = 1.0;
     my_par_slide[index].val = 0.5;
@@ -1488,8 +1455,7 @@ init_conds_make_new_delay_box(void) {
         return;
     }
     init_conds_make_box_list_window(&DelayBox, DELAYBOX);
-    many_pops_make_icon((char *)delay_bits, delay_width, delay_height,
-                        DelayBox.base);
+    many_pops_make_icon((char *)delay_bits, delay_width, delay_height, DelayBox.base);
     return;
 }
 
@@ -1503,24 +1469,20 @@ init_conds_make_new_param_box(void) {
         return;
     }
     init_conds_make_box_list_window(&param_box, PARAMBOX);
-    many_pops_make_icon((char *)param_bits, param_width, param_height,
-                        param_box.base);
+    many_pops_make_icon((char *)param_bits, param_width, param_height, param_box.base);
     return;
 }
 
 void
 init_conds_initialize_box(void) {
-    init_conds_make_box_list(&ICBox, "Initial Data", "ICs", NODE + NMarkov,
-                             ICBOX, 1);
+    init_conds_make_box_list(&ICBox, "Initial Data", "ICs", NODE + NMarkov, ICBOX, 1);
     if (NUPAR > 0) {
-        init_conds_make_box_list(&param_box, "Parameters", "Par", NUPAR,
-                                 PARAMBOX, 1);
+        init_conds_make_box_list(&param_box, "Parameters", "Par", NUPAR, PARAMBOX, 1);
     } else {
         param_box.use = 0;
     }
     if (NDELAYS > 0) {
-        init_conds_make_box_list(&DelayBox, "Delay ICs", "Delay", NODE,
-                                 DELAYBOX, 1);
+        init_conds_make_box_list(&DelayBox, "Delay ICs", "Delay", NODE, DELAYBOX, 1);
     } else {
         DelayBox.use = 0;
     }
@@ -1686,8 +1648,7 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
     width = wid + 8*dcur_xs;
     b->minwid = width;
     b->minhgt = height;
-    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
-                                      height, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
     b->base = base;
     XStringListToTextProperty(&b->wname, 1, &winname);
     XStringListToTextProperty(&b->iname, 1, &iconame);
@@ -1704,8 +1665,8 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
         XClassHint class_hints;
         class_hints.res_name = "";
         class_hints.res_class = "";
-        XSetWMProperties(display, base, &winname, &iconame, NULL, 0,
-                         &size_hints, NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, &iconame, NULL, 0, &size_hints, NULL,
+                         &class_hints);
     }
     b->w = xmalloc((usize)nrow*sizeof(*(b->w)));
     b->we = xmalloc((usize)nrow*sizeof(*(b->we)));
@@ -1726,26 +1687,23 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
     b->close = pop_list_make_window(base, 2, 5, 7*dcur_xs + 10, dcur_ys, 1);
     b->ok = pop_list_make_window(base, xb1, 5, 7*dcur_xs + 10, dcur_ys, 1);
     b->def = pop_list_make_window(base, xb2, 5, 7*dcur_xs + 10, dcur_ys, 1);
-    b->cancel =
-        pop_list_make_window(base, xb3, 5, 7*dcur_xs + 10, dcur_ys, 1);
+    b->cancel = pop_list_make_window(base, xb3, 5, 7*dcur_xs + 10, dcur_ys, 1);
     b->go = pop_list_make_window(base, xb4, 5, 7*dcur_xs + 10, dcur_ys, 1);
     xb1 = dcur_xs + wid1 + wid2 + 12;
 
-    b->up = pop_list_make_icon_window(
-        base, xb1, (int32)(1.75*dcur_ys) + 24 + 3, 32, 24, 1, lineup_bits);
-    b->dn = pop_list_make_icon_window(
-        base, xb1, (int32)(1.75*dcur_ys) + 48 + 6, 32, 24, 1, linedn_bits);
-    b->pgup = pop_list_make_icon_window(base, xb1, (int32)(1.75*dcur_ys), 32,
-                                        24, 1, pageup_bits);
-    b->pgdn = pop_list_make_icon_window(
-        base, xb1, (int32)(1.75*dcur_ys) + 72 + 9, 32, 24, 1, pagedn_bits);
+    b->up = pop_list_make_icon_window(base, xb1, (int32)(1.75*dcur_ys) + 24 + 3, 32, 24, 1,
+                                      lineup_bits);
+    b->dn = pop_list_make_icon_window(base, xb1, (int32)(1.75*dcur_ys) + 48 + 6, 32, 24, 1,
+                                      linedn_bits);
+    b->pgup = pop_list_make_icon_window(base, xb1, (int32)(1.75*dcur_ys), 32, 24, 1, pageup_bits);
+    b->pgdn = pop_list_make_icon_window(base, xb1, (int32)(1.75*dcur_ys) + 72 + 9, 32, 24, 1,
+                                        pagedn_bits);
 
     for (int32 i = 0; i < nrow; i++) {
         x = dcur_xs;
         y = dcur_ys + (hgt + 4)*i + (int32)(1.5*hgt);
         b->w[i] = pop_list_make_plain_window(base, x, y, wid1, hgt, 0);
-        b->we[i] =
-            pop_list_make_plain_window(base, x + wid1 + 2, y, wid2, hgt, 1);
+        b->we[i] = pop_list_make_plain_window(base, x + wid1 + 2, y, wid2, hgt, 1);
         XSelectInput(display, b->w[i], BOXEVENT);
         if (type == ICBOX) {
             b->ck[i] = pop_list_make_plain_window(base, 1, y, 6, dcur_ys, 1);
@@ -1756,10 +1714,8 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
     x = (width - 24) / 3;
     if (type == ICBOX) {
         b->xvt = pop_list_make_window(base, x, y, 5*dcur_xs, dcur_ys, 1);
-        b->pp = pop_list_make_window(base, x + 6*dcur_xs, y, 5*dcur_xs,
-                                     dcur_ys, 1);
-        b->arr = pop_list_make_window(base, x + 12*dcur_xs, y, 5*dcur_xs,
-                                      dcur_ys, 1);
+        b->pp = pop_list_make_window(base, x + 6*dcur_xs, y, 5*dcur_xs, dcur_ys, 1);
+        b->arr = pop_list_make_window(base, x + 12*dcur_xs, y, 5*dcur_xs, dcur_ys, 1);
     }
 
     b->xuse = 1;
@@ -1767,8 +1723,7 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
 }
 
 void
-init_conds_make_box_list(BoxList *b, char *wname, char *iname, int32 n,
-                         int32 type, int32 use) {
+init_conds_make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type, int32 use) {
     int32 nrow;
     char sss[256];
     double z;
@@ -1879,24 +1834,20 @@ init_conds_draw_one_box(BoxList b, int32 index) {
     we = b.we[i];
     switch (b.type) {
     case PARAMBOX:
-        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index],
-                                 b.mc);
+        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
         init_conds_justify_string(window, upar_names[index]);
         break;
     case BCBOX:
         init_conds_justify_string(window, my_bc[index].name);
-        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index],
-                                 b.mc);
+        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
         break;
     case ICBOX:
-        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index],
-                                 b.mc);
+        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
         init_conds_justify_string(window, uvar_names[index]);
         break;
     case DELAYBOX:
         init_conds_justify_string(window, uvar_names[index]);
-        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index],
-                                 b.mc);
+        init_conds_draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
         break;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -2022,8 +1973,7 @@ init_conds_display_box(BoxList b, Window window) {
             index = i + b.n0;
             if (index >= n0 && index < n1) {
                 if (b.ck[i] == window && b.isck[index] == 1) {
-                    XDrawString(display, window, small_gc, 5, cury_offs, "*",
-                                1);
+                    XDrawString(display, window, small_gc, 5, cury_offs, "*", 1);
                 }
             }
         }
@@ -2051,8 +2001,7 @@ init_conds_box_enter_events(Window window, int32 yn) {
     if (DelayBox.xuse) {
         init_conds_box_enter(DelayBox, window, val);
     }
-    if (ICBox.xuse &&
-        (window == ICBox.xvt || window == ICBox.pp || window == ICBox.arr)) {
+    if (ICBox.xuse && (window == ICBox.xvt || window == ICBox.pp || window == ICBox.arr)) {
         XSetWindowBorderWidth(display, window, (uint)val);
     }
     if (ICBox.xuse == 0) {
@@ -2069,8 +2018,8 @@ init_conds_box_enter_events(Window window, int32 yn) {
 void
 init_conds_box_enter(BoxList b, Window window, int32 val) {
     Window w = window;
-    if (w == b.ok || w == b.cancel || w == b.def || w == b.go || w == b.close ||
-        w == b.dn || w == b.up || w == b.pgdn || w == b.pgup) {
+    if (w == b.ok || w == b.cancel || w == b.def || w == b.go || w == b.close || w == b.dn ||
+        w == b.up || w == b.pgdn || w == b.pgup) {
         XSetWindowBorderWidth(display, w, (uint)val);
     }
     return;
@@ -2157,17 +2106,15 @@ init_conds_do_box_button(BoxList *b, Window window) {
                     break;
                 }
                 n0 = HotBox->n0;
-                init_conds_draw_editable(HotBox->we[HotBoxItem],
-                                         HotBox->value[HotBoxItem + n0],
-                                         HotBox->off[HotBoxItem],
-                                         HotBox->pos[HotBoxItem], HotBox->mc);
+                init_conds_draw_editable(HotBox->we[HotBoxItem], HotBox->value[HotBoxItem + n0],
+                                         HotBox->off[HotBoxItem], HotBox->pos[HotBoxItem],
+                                         HotBox->mc);
                 HotBoxItem = -1;
             } while (0);
             HotBoxItem = i;
             HotBox = b;
-            init_conds_draw_editable(window, b->value[i + b->n0],
-                                     b->off[i + b->n0], b->pos[i + b->n0],
-                                     b->mc);
+            init_conds_draw_editable(window, b->value[i + b->n0], b->off[i + b->n0],
+                                     b->pos[i + b->n0], b->mc);
         }
     }
 
@@ -2176,8 +2123,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
             if (window == b->ck[i]) {
                 b->isck[i + b->n0] = 1 - b->isck[i + b->n0];
                 if (b->isck[i + b->n0]) {
-                    XDrawString(display, window, small_gc, 0, cury_offs, "*",
-                                1);
+                    XDrawString(display, window, small_gc, 0, cury_offs, "*", 1);
                 } else {
                     XClearWindow(display, window);
                 }
@@ -2367,16 +2313,13 @@ init_conds_do_box_key(BoxList *b, XEvent event, int32 *used) {
                     if (j == n) {
                         j = 0;
                     }
-                    XSetInputFocus(display, b->we[j], RevertToParent,
-                                   CurrentTime);
+                    XSetInputFocus(display, b->we[j], RevertToParent, CurrentTime);
                     init_conds_set_value_from_box(b, i);
 
                     HotBoxItem = j;
-                    init_conds_draw_editable(b->we[i], b->value[i + b->n0],
-                                             b->off[i + b->n0],
+                    init_conds_draw_editable(b->we[i], b->value[i + b->n0], b->off[i + b->n0],
                                              b->pos[i + b->n0], b->mc);
-                    init_conds_draw_editable(b->we[j], b->value[j + b->n0],
-                                             b->off[j + b->n0],
+                    init_conds_draw_editable(b->we[j], b->value[j + b->n0], b->off[j + b->n0],
                                              b->pos[j + b->n0], b->mc);
                     if (b->type == PARAMBOX || b->type == ICBOX) {
                         init_conds_reset_sliders();
@@ -2385,14 +2328,12 @@ init_conds_do_box_key(BoxList *b, XEvent event, int32 *used) {
 
                 if (flag == EDIT_DONE) {
                     HotBoxItem = -1;
-                    XSetInputFocus(display, main_win, RevertToParent,
-                                   CurrentTime);
+                    XSetInputFocus(display, main_win, RevertToParent, CurrentTime);
                     init_conds_load_entire_box(b);
                 }
                 if (flag == EDIT_ESC) {
                     HotBoxItem = -1;
-                    XSetInputFocus(display, main_win, RevertToParent,
-                                   CurrentTime);
+                    XSetInputFocus(display, main_win, RevertToParent, CurrentTime);
                 }
             }
         }
@@ -2504,8 +2445,7 @@ init_conds_set_default_params(void) {
 }
 
 void
-init_conds_draw_editable(Window window, char *string, int32 off, int32 cursor,
-                         int32 mc) {
+init_conds_draw_editable(Window window, char *string, int32 off, int32 cursor, int32 mc) {
     // cursor position in letters to the left
     // first character of string is off
     int32 l = (int32)strlen(string) - off, rev, cp;
@@ -2690,8 +2630,7 @@ init_conds_add_edit_val(BoxList *b, int32 i, char *string) {
     }
     iw = i - n0;
     if (b->xuse) {
-        init_conds_draw_editable(b->we[iw], string, b->off[i], b->pos[i],
-                                 b->mc);
+        init_conds_draw_editable(b->we[iw], string, b->off[i], b->pos[i], b->mc);
     }
     return;
 }

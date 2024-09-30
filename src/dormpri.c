@@ -43,22 +43,17 @@ static double *rcont8;
 static void dprhs(uint32 n, double t, double *y, double *f);
 static double dormpri_sign(double a, double b);
 static double min_d(double a, double b);
-static int32 dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-                    double hmax, double h, double *rtoler, double *atoler2,
-                    int32 itoler, FILE *fileout, SolTrait solout, int32 iout,
-                    long nmax, double uround, int32 meth, long nstiff,
-                    double safe, double beta, double fac1, double fac2,
-                    uint32 *icont);
-static double hinit5(uint32 n, FcnEqDiff fcn, double x, double *y,
-                     double posneg, double *f0, double *f1, double *yyy1,
-                     int32 iord, double hmax, double *atoler2, double *rtoler,
-                     int32 itoler);
-static int32 dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-                     double hmax, double h, double *rtoler, double *atoler2,
-                     int32 itoler, FILE *fileout, SolTrait solout, int32 iout,
-                     long nmax, double uround, int32 meth, long nstiff,
-                     double safe, double beta, double fac1, double fac2,
-                     uint32 *icont);
+static int32 dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
+                    double h, double *rtoler, double *atoler2, int32 itoler, FILE *fileout,
+                    SolTrait solout, int32 iout, long nmax, double uround, int32 meth, long nstiff,
+                    double safe, double beta, double fac1, double fac2, uint32 *icont);
+static double hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
+                     double *f1, double *yyy1, int32 iord, double hmax, double *atoler2,
+                     double *rtoler, int32 itoler);
+static int32 dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
+                     double h, double *rtoler, double *atoler2, int32 itoler, FILE *fileout,
+                     SolTrait solout, int32 iout, long nmax, double uround, int32 meth, long nstiff,
+                     double safe, double beta, double fac1, double fac2, uint32 *icont);
 
 void
 dprhs(uint32 n, double t, double *y, double *f) {
@@ -90,8 +85,8 @@ dormpri_dp_err(int32 k) {
 }
 
 int32
-dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
-   double *atol, int32 flag, int32 *kflag) {
+dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol, double *atol, int32 flag,
+   int32 *kflag) {
     int32 err = 0;
 
     if (NFlags == 0) {
@@ -112,8 +107,8 @@ dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
   istart=0 for continuation
 */
 int32
-dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
-         double *atol, int32 flag, int32 *kflag) {
+dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol, double *atol,
+         int32 flag, int32 *kflag) {
     double hg = 0.0;
     if (*istart == 0) {
         hg = hout;
@@ -121,15 +116,13 @@ dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
     *istart = 0;
     switch (flag) {
     case 0:
-        *kflag = dopri5((uint)n, dprhs, *t, y, tout, tol, atol, 0,
-                        (SolTrait)NULL, 0, stdout, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                        hg, 0, 0, 1, 0, NULL, 0, WORK);
+        *kflag = dopri5((uint)n, dprhs, *t, y, tout, tol, atol, 0, (SolTrait)NULL, 0, stdout, 0.0,
+                        0.0, 0.0, 0.0, 0.0, 0.0, hg, 0, 0, 1, 0, NULL, 0, WORK);
         *t = tout;
         return 1;
     case 1:
-        *kflag = dop853((uint)n, dprhs, *t, y, tout, tol, atol, 0,
-                        (SolTrait)NULL, 0, stdout, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                        hg, 0, 0, 1, 0, NULL, 0, WORK);
+        *kflag = dop853((uint)n, dprhs, *t, y, tout, tol, atol, 0, (SolTrait)NULL, 0, stdout, 0.0,
+                        0.0, 0.0, 0.0, 0.0, 0.0, hg, 0, 0, 1, 0, NULL, 0, WORK);
         *t = tout;
         return 1;
     default:
@@ -154,9 +147,8 @@ max_d(double a, double b) {
 }
 
 static double
-hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
-      double *f1, double *yyy1, int32 iord, double hmax, double *atoler2,
-      double *rtoler, int32 itoler) {
+hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0, double *f1,
+      double *yyy1, int32 iord, double hmax, double *atoler2, double *rtoler, int32 itoler) {
     double dnf;
     double dny;
     double atoli;
@@ -240,11 +232,10 @@ hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 
 /* core integrator */
 static int32
-dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
-       double h, double *rtoler, double *atoler2, int32 itoler, FILE *fileout,
-       SolTrait solout, int32 iout, long nmax, double uround, int32 meth,
-       long nstiff, double safe, double beta, double fac1, double fac2,
-       uint32 *icont) {
+dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax, double h,
+       double *rtoler, double *atoler2, int32 itoler, FILE *fileout, SolTrait solout, int32 iout,
+       long nmax, double uround, int32 meth, long nstiff, double safe, double beta, double fac1,
+       double fac2, uint32 *icont) {
     double facold;
     double expo1;
     double fac;
@@ -442,14 +433,10 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     a161 = a166 = a167 = a168 = a169 = a1613 = a1614 = a1615 = 0;
     c2 = c3 = c4 = c5 = c6 = c7 = c8 = c9 = c10 = c11 = c14 = c15 = c16 = 0;
     b1 = b6 = b7 = b8 = b9 = b10 = b11 = b12 = bhh1 = bhh2 = bhh3 = 0;
-    d41 = d46 = d47 = d48 = d49 = d410 = d411 = d412 = d413 = d414 = d415 =
-        d416 = 0;
-    d51 = d56 = d57 = d58 = d59 = d510 = d511 = d512 = d513 = d514 = d515 =
-        d516 = 0;
-    d61 = d66 = d67 = d68 = d69 = d610 = d611 = d612 = d613 = d614 = d615 =
-        d616 = 0;
-    d71 = d76 = d77 = d78 = d79 = d710 = d711 = d712 = d713 = d714 = d715 =
-        d716 = 0;
+    d41 = d46 = d47 = d48 = d49 = d410 = d411 = d412 = d413 = d414 = d415 = d416 = 0;
+    d51 = d56 = d57 = d58 = d59 = d510 = d511 = d512 = d513 = d514 = d515 = d516 = 0;
+    d61 = d66 = d67 = d68 = d69 = d610 = d611 = d612 = d613 = d614 = d615 = d616 = 0;
+    d71 = d76 = d77 = d78 = d79 = d710 = d711 = d712 = d713 = d714 = d715 = d716 = 0;
 
     // initialisations
     switch (meth) {
@@ -643,8 +630,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     hmax = fabs(hmax);
     iord = 8;
     if (h == 0.0) {
-        h = hinit(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler2, rtoler,
-                  itoler);
+        h = hinit(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler2, rtoler, itoler);
     }
     nfcn += 2;
     reject = 0;
@@ -718,43 +704,40 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         }
         fcn(n, x + c6*h, yy1, k6);
         for (i = 0; i < n; i++) {
-            yy1[i] = y[i] + h*(a71*k1[i] + a74*k4[i] + a75*k5[i] +
-                                 a76*k6[i]);
+            yy1[i] = y[i] + h*(a71*k1[i] + a74*k4[i] + a75*k5[i] + a76*k6[i]);
         }
         fcn(n, x + c7*h, yy1, k7);
         for (i = 0; i < n; i++) {
-            yy1[i] = y[i] + h*(a81*k1[i] + a84*k4[i] + a85*k5[i] +
-                                 a86*k6[i] + a87*k7[i]);
+            yy1[i] =
+                y[i] + h*(a81*k1[i] + a84*k4[i] + a85*k5[i] + a86*k6[i] + a87*k7[i]);
         }
         fcn(n, x + c8*h, yy1, k8);
         for (i = 0; i < n; i++) {
-            yy1[i] = y[i] + h*(a91*k1[i] + a94*k4[i] + a95*k5[i] +
-                                 a96*k6[i] + a97*k7[i] + a98*k8[i]);
+            yy1[i] = y[i] + h*(a91*k1[i] + a94*k4[i] + a95*k5[i] + a96*k6[i] +
+                                 a97*k7[i] + a98*k8[i]);
         }
         fcn(n, x + c9*h, yy1, k9);
         for (i = 0; i < n; i++) {
-            yy1[i] = y[i] + h*(a101*k1[i] + a104*k4[i] + a105*k5[i] +
-                                 a106*k6[i] + a107*k7[i] + a108*k8[i] +
-                                 a109*k9[i]);
+            yy1[i] = y[i] + h*(a101*k1[i] + a104*k4[i] + a105*k5[i] + a106*k6[i] +
+                                 a107*k7[i] + a108*k8[i] + a109*k9[i]);
         }
         fcn(n, x + c10*h, yy1, k10);
         for (i = 0; i < n; i++) {
-            yy1[i] = y[i] + h*(a111*k1[i] + a114*k4[i] + a115*k5[i] +
-                                 a116*k6[i] + a117*k7[i] + a118*k8[i] +
-                                 a119*k9[i] + a1110*k10[i]);
+            yy1[i] = y[i] + h*(a111*k1[i] + a114*k4[i] + a115*k5[i] + a116*k6[i] +
+                                 a117*k7[i] + a118*k8[i] + a119*k9[i] + a1110*k10[i]);
         }
         fcn(n, x + c11*h, yy1, k2);
         xph = x + h;
         for (i = 0; i < n; i++) {
-            yy1[i] = y[i] + h*(a121*k1[i] + a124*k4[i] + a125*k5[i] +
-                                 a126*k6[i] + a127*k7[i] + a128*k8[i] +
-                                 a129*k9[i] + a1210*k10[i] + a1211*k2[i]);
+            yy1[i] = y[i] +
+                     h*(a121*k1[i] + a124*k4[i] + a125*k5[i] + a126*k6[i] + a127*k7[i] +
+                          a128*k8[i] + a129*k9[i] + a1210*k10[i] + a1211*k2[i]);
         }
         fcn(n, xph, yy1, k3);
         nfcn += 11;
         for (i = 0; i < n; i++) {
-            k4[i] = b1*k1[i] + b6*k6[i] + b7*k7[i] + b8*k8[i] +
-                    b9*k9[i] + b10*k10[i] + b11*k2[i] + b12*k3[i];
+            k4[i] = b1*k1[i] + b6*k6[i] + b7*k7[i] + b8*k8[i] + b9*k9[i] + b10*k10[i] +
+                    b11*k2[i] + b12*k3[i];
             k5[i] = y[i] + h*k4[i];
         }
 
@@ -767,9 +750,8 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                 erri = k4[i] - bhh1*k1[i] - bhh2*k9[i] - bhh3*k3[i];
                 sqr = erri / sk;
                 err2 += sqr*sqr;
-                erri = er1*k1[i] + er6*k6[i] + er7*k7[i] + er8*k8[i] +
-                       er9*k9[i] + er10*k10[i] + er11*k2[i] +
-                       er12*k3[i];
+                erri = er1*k1[i] + er6*k6[i] + er7*k7[i] + er8*k8[i] + er9*k9[i] +
+                       er10*k10[i] + er11*k2[i] + er12*k3[i];
                 sqr = erri / sk;
                 err += sqr*sqr;
             }
@@ -779,9 +761,8 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                 erri = k4[i] - bhh1*k1[i] - bhh2*k9[i] - bhh3*k3[i];
                 sqr = erri / sk;
                 err2 += sqr*sqr;
-                erri = er1*k1[i] + er6*k6[i] + er7*k7[i] + er8*k8[i] +
-                       er9*k9[i] + er10*k10[i] + er11*k2[i] +
-                       er12*k3[i];
+                erri = er1*k1[i] + er6*k6[i] + er7*k7[i] + er8*k8[i] + er9*k9[i] +
+                       er10*k10[i] + er11*k2[i] + er12*k3[i];
                 sqr = erri / sk;
                 err += sqr*sqr;
             }
@@ -855,18 +836,14 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                         bspl = h*k1[i] - ydiff;
                         rcont3[i] = bspl;
                         rcont4[i] = ydiff - h*k4[i] - bspl;
-                        rcont5[i] = d41*k1[i] + d46*k6[i] + d47*k7[i] +
-                                    d48*k8[i] + d49*k9[i] + d410*k10[i] +
-                                    d411*k2[i] + d412*k3[i];
-                        rcont6[i] = d51*k1[i] + d56*k6[i] + d57*k7[i] +
-                                    d58*k8[i] + d59*k9[i] + d510*k10[i] +
-                                    d511*k2[i] + d512*k3[i];
-                        rcont7[i] = d61*k1[i] + d66*k6[i] + d67*k7[i] +
-                                    d68*k8[i] + d69*k9[i] + d610*k10[i] +
-                                    d611*k2[i] + d612*k3[i];
-                        rcont8[i] = d71*k1[i] + d76*k6[i] + d77*k7[i] +
-                                    d78*k8[i] + d79*k9[i] + d710*k10[i] +
-                                    d711*k2[i] + d712*k3[i];
+                        rcont5[i] = d41*k1[i] + d46*k6[i] + d47*k7[i] + d48*k8[i] +
+                                    d49*k9[i] + d410*k10[i] + d411*k2[i] + d412*k3[i];
+                        rcont6[i] = d51*k1[i] + d56*k6[i] + d57*k7[i] + d58*k8[i] +
+                                    d59*k9[i] + d510*k10[i] + d511*k2[i] + d512*k3[i];
+                        rcont7[i] = d61*k1[i] + d66*k6[i] + d67*k7[i] + d68*k8[i] +
+                                    d69*k9[i] + d610*k10[i] + d611*k2[i] + d612*k3[i];
+                        rcont8[i] = d71*k1[i] + d76*k6[i] + d77*k7[i] + d78*k8[i] +
+                                    d79*k9[i] + d710*k10[i] + d711*k2[i] + d712*k3[i];
                     }
                 } else {
                     for (j = 0; j < nrds; j++) {
@@ -877,41 +854,34 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                         bspl = h*k1[i] - ydiff;
                         rcont3[j] = bspl;
                         rcont4[j] = ydiff - h*k4[i] - bspl;
-                        rcont5[j] = d41*k1[i] + d46*k6[i] + d47*k7[i] +
-                                    d48*k8[i] + d49*k9[i] + d410*k10[i] +
-                                    d411*k2[i] + d412*k3[i];
-                        rcont6[j] = d51*k1[i] + d56*k6[i] + d57*k7[i] +
-                                    d58*k8[i] + d59*k9[i] + d510*k10[i] +
-                                    d511*k2[i] + d512*k3[i];
-                        rcont7[j] = d61*k1[i] + d66*k6[i] + d67*k7[i] +
-                                    d68*k8[i] + d69*k9[i] + d610*k10[i] +
-                                    d611*k2[i] + d612*k3[i];
-                        rcont8[j] = d71*k1[i] + d76*k6[i] + d77*k7[i] +
-                                    d78*k8[i] + d79*k9[i] + d710*k10[i] +
-                                    d711*k2[i] + d712*k3[i];
+                        rcont5[j] = d41*k1[i] + d46*k6[i] + d47*k7[i] + d48*k8[i] +
+                                    d49*k9[i] + d410*k10[i] + d411*k2[i] + d412*k3[i];
+                        rcont6[j] = d51*k1[i] + d56*k6[i] + d57*k7[i] + d58*k8[i] +
+                                    d59*k9[i] + d510*k10[i] + d511*k2[i] + d512*k3[i];
+                        rcont7[j] = d61*k1[i] + d66*k6[i] + d67*k7[i] + d68*k8[i] +
+                                    d69*k9[i] + d610*k10[i] + d611*k2[i] + d612*k3[i];
+                        rcont8[j] = d71*k1[i] + d76*k6[i] + d77*k7[i] + d78*k8[i] +
+                                    d79*k9[i] + d710*k10[i] + d711*k2[i] + d712*k3[i];
                     }
                 }
 
                 // the next three function evaluations
                 for (i = 0; i < n; i++) {
-                    yy1[i] = y[i] + h*(a141*k1[i] + a147*k7[i] +
-                                         a148*k8[i] + a149*k9[i] +
-                                         a1410*k10[i] + a1411*k2[i] +
-                                         a1412*k3[i] + a1413*k4[i]);
+                    yy1[i] =
+                        y[i] + h*(a141*k1[i] + a147*k7[i] + a148*k8[i] + a149*k9[i] +
+                                    a1410*k10[i] + a1411*k2[i] + a1412*k3[i] + a1413*k4[i]);
                 }
                 fcn(n, x + c14*h, yy1, k10);
                 for (i = 0; i < n; i++) {
-                    yy1[i] = y[i] +
-                             h*(a151*k1[i] + a156*k6[i] + a157*k7[i] +
-                                  a158*k8[i] + a1511*k2[i] + a1512*k3[i] +
-                                  a1513*k4[i] + a1514*k10[i]);
+                    yy1[i] =
+                        y[i] + h*(a151*k1[i] + a156*k6[i] + a157*k7[i] + a158*k8[i] +
+                                    a1511*k2[i] + a1512*k3[i] + a1513*k4[i] + a1514*k10[i]);
                 }
                 fcn(n, x + c15*h, yy1, k2);
                 for (i = 0; i < n; i++) {
-                    yy1[i] = y[i] +
-                             h*(a161*k1[i] + a166*k6[i] + a167*k7[i] +
-                                  a168*k8[i] + a169*k9[i] + a1613*k4[i] +
-                                  a1614*k10[i] + a1615*k2[i]);
+                    yy1[i] =
+                        y[i] + h*(a161*k1[i] + a166*k6[i] + a167*k7[i] + a168*k8[i] +
+                                    a169*k9[i] + a1613*k4[i] + a1614*k10[i] + a1615*k2[i]);
                 }
                 fcn(n, x + c16*h, yy1, k3);
                 nfcn += 3;
@@ -919,34 +889,26 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                 // final preparation
                 if (nrds == n) {
                     for (i = 0; i < n; i++) {
-                        rcont5[i] =
-                            h*(rcont5[i] + d413*k4[i] + d414*k10[i] +
-                                 d415*k2[i] + d416*k3[i]);
-                        rcont6[i] =
-                            h*(rcont6[i] + d513*k4[i] + d514*k10[i] +
-                                 d515*k2[i] + d516*k3[i]);
-                        rcont7[i] =
-                            h*(rcont7[i] + d613*k4[i] + d614*k10[i] +
-                                 d615*k2[i] + d616*k3[i]);
-                        rcont8[i] =
-                            h*(rcont8[i] + d713*k4[i] + d714*k10[i] +
-                                 d715*k2[i] + d716*k3[i]);
+                        rcont5[i] = h*(rcont5[i] + d413*k4[i] + d414*k10[i] + d415*k2[i] +
+                                         d416*k3[i]);
+                        rcont6[i] = h*(rcont6[i] + d513*k4[i] + d514*k10[i] + d515*k2[i] +
+                                         d516*k3[i]);
+                        rcont7[i] = h*(rcont7[i] + d613*k4[i] + d614*k10[i] + d615*k2[i] +
+                                         d616*k3[i]);
+                        rcont8[i] = h*(rcont8[i] + d713*k4[i] + d714*k10[i] + d715*k2[i] +
+                                         d716*k3[i]);
                     }
                 } else {
                     for (j = 0; j < nrds; j++) {
                         i = icont[j];
-                        rcont5[j] =
-                            h*(rcont5[j] + d413*k4[i] + d414*k10[i] +
-                                 d415*k2[i] + d416*k3[i]);
-                        rcont6[j] =
-                            h*(rcont6[j] + d513*k4[i] + d514*k10[i] +
-                                 d515*k2[i] + d516*k3[i]);
-                        rcont7[j] =
-                            h*(rcont7[j] + d613*k4[i] + d614*k10[i] +
-                                 d615*k2[i] + d616*k3[i]);
-                        rcont8[j] =
-                            h*(rcont8[j] + d713*k4[i] + d714*k10[i] +
-                                 d715*k2[i] + d716*k3[i]);
+                        rcont5[j] = h*(rcont5[j] + d413*k4[i] + d414*k10[i] + d415*k2[i] +
+                                         d416*k3[i]);
+                        rcont6[j] = h*(rcont6[j] + d513*k4[i] + d514*k10[i] + d515*k2[i] +
+                                         d516*k3[i]);
+                        rcont7[j] = h*(rcont7[j] + d613*k4[i] + d614*k10[i] + d615*k2[i] +
+                                         d616*k3[i]);
+                        rcont8[j] = h*(rcont8[j] + d713*k4[i] + d714*k10[i] + d715*k2[i] +
+                                         d716*k3[i]);
                     }
                 }
             }
@@ -999,10 +961,9 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
 /* front-end */
 int32
-dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-       double *rtoler, double *atoler2, int32 itoler, SolTrait solout,
-       int32 iout, FILE *fileout, double uround, double safe, double fac1,
-       double fac2, double beta, double hmax, double h, long nmax, int32 meth,
+dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double *rtoler, double *atoler2,
+       int32 itoler, SolTrait solout, int32 iout, FILE *fileout, double uround, double safe,
+       double fac1, double fac2, double beta, double hmax, double h, long nmax, int32 meth,
        long nstiff, uint32 nrdens, uint32 *icont, uint32 licont, double *work) {
     int32 arret;
     int32 idid;
@@ -1010,8 +971,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 
     // initialisations
     nfcn = nstep = naccpt = nrejct = arret = 0;
-    rcont1 = rcont2 = rcont3 = rcont4 = rcont5 = rcont6 = rcont7 = rcont8 =
-        NULL;
+    rcont1 = rcont2 = rcont3 = rcont4 = rcont5 = rcont6 = rcont7 = rcont8 = NULL;
     indir = NULL;
 
     // n, the dimension of the system
@@ -1086,9 +1046,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
             nrds = n;
         } else if (licont < nrdens) {
             if (fileout) {
-                fprintf(fileout,
-                        "Insufficient storage for icont, min. licont = %u\r\n",
-                        nrdens);
+                fprintf(fileout, "Insufficient storage for icont, min. licont = %u\r\n", nrdens);
             }
             arret = 1;
         } else {
@@ -1110,9 +1068,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         uround = 2.3E-16;
     } else if ((uround <= 1.0E-35) || (uround >= 1.0)) {
         if (fileout) {
-            fprintf(fileout,
-                    "Which machine do you have ? Your uround was : %.16e\r\n",
-                    uround);
+            fprintf(fileout, "Which machine do you have ? Your uround was : %.16e\r\n", uround);
         }
         arret = 1;
     }
@@ -1122,8 +1078,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         safe = 0.9;
     } else if ((safe >= 1.0) || (safe <= 1.0E-4)) {
         if (fileout) {
-            fprintf(fileout,
-                    "Curious input for safety factor, safe = %.16e\r\n", safe);
+            fprintf(fileout, "Curious input for safety factor, safe = %.16e\r\n", safe);
         }
         arret = 1;
     }
@@ -1166,9 +1121,8 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     k9 = k8 + n;
     k10 = k9 + n;
 
-    idid = dopcor(n, fcn, x, y, xend, hmax, h, rtoler, atoler2, itoler, fileout,
-                  solout, iout, nmax, uround, meth, nstiff, safe, beta, fac1,
-                  fac2, icont);
+    idid = dopcor(n, fcn, x, y, xend, hmax, h, rtoler, atoler2, itoler, fileout, solout, iout, nmax,
+                  uround, meth, nstiff, safe, beta, fac1, fac2, icont);
     if (indir) {
         free(indir);
     }
@@ -1177,9 +1131,8 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 
 /************    dopri5  ***************************/
 static double
-hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
-       double *f1, double *yyy1, int32 iord, double hmax, double *atoler2,
-       double *rtoler, int32 itoler) {
+hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0, double *f1,
+       double *yyy1, int32 iord, double hmax, double *atoler2, double *rtoler, int32 itoler) {
     double dnf;
     double dny;
     double atoli;
@@ -1263,11 +1216,10 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 
 /* core integrator */
 int32
-dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
-        double h, double *rtoler, double *atoler2, int32 itoler, FILE *fileout,
-        SolTrait solout, int32 iout, long nmax, double uround, int32 meth,
-        long nstiff, double safe, double beta, double fac1, double fac2,
-        uint32 *icont) {
+dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax, double h,
+        double *rtoler, double *atoler2, int32 itoler, FILE *fileout, SolTrait solout, int32 iout,
+        long nmax, double uround, int32 meth, long nstiff, double safe, double beta, double fac1,
+        double fac2, uint32 *icont) {
     double facold;
     double expo1;
     double fac;
@@ -1333,8 +1285,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     double a75;
     double a76;
 
-    c2 = c3 = c4 = c5 = e1 = e3 = e4 = e5 = e6 = e7 = d1 = d3 = d4 = d5 = d6 =
-        d7 = 0;
+    c2 = c3 = c4 = c5 = e1 = e3 = e4 = e5 = e6 = e7 = d1 = d3 = d4 = d5 = d6 = d7 = 0;
     a21 = a31 = a32 = a41 = a42 = a43 = a51 = a52 = a53 = a54 = 0;
     a61 = a62 = a63 = a64 = a65 = a71 = a73 = a74 = a75 = a76 = 0;
 
@@ -1398,8 +1349,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     hmax = fabs(hmax);
     iord = 5;
     if (h == 0.0) {
-        h = hinit5(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler2,
-                   rtoler, itoler);
+        h = hinit5(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler2, rtoler, itoler);
     }
     nfcn += 2;
     reject = 0;
@@ -1464,38 +1414,37 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         }
         fcn(n, x + c4*h, yy1, k4);
         for (i = 0; i < n; i++) {
-            yy1[i] = y[i] + h*(a51*k1[i] + a52*k2[i] + a53*k3[i] +
-                                 a54*k4[i]);
+            yy1[i] = y[i] + h*(a51*k1[i] + a52*k2[i] + a53*k3[i] + a54*k4[i]);
         }
         fcn(n, x + c5*h, yy1, k5);
         for (i = 0; i < n; i++) {
-            ysti[i] = y[i] + h*(a61*k1[i] + a62*k2[i] + a63*k3[i] +
-                                  a64*k4[i] + a65*k5[i]);
+            ysti[i] =
+                y[i] + h*(a61*k1[i] + a62*k2[i] + a63*k3[i] + a64*k4[i] + a65*k5[i]);
         }
         xph = x + h;
         fcn(n, xph, ysti, k6);
         for (i = 0; i < n; i++) {
-            yy1[i] = y[i] + h*(a71*k1[i] + a73*k3[i] + a74*k4[i] +
-                                 a75*k5[i] + a76*k6[i]);
+            yy1[i] =
+                y[i] + h*(a71*k1[i] + a73*k3[i] + a74*k4[i] + a75*k5[i] + a76*k6[i]);
         }
         fcn(n, xph, yy1, k2);
         if (iout == 2) {
             if (nrds == n) {
                 for (i = 0; i < n; i++) {
-                    rcont5[i] = h*(d1*k1[i] + d3*k3[i] + d4*k4[i] +
-                                     d5*k5[i] + d6*k6[i] + d7*k2[i]);
+                    rcont5[i] = h*(d1*k1[i] + d3*k3[i] + d4*k4[i] + d5*k5[i] +
+                                     d6*k6[i] + d7*k2[i]);
                 }
             } else {
                 for (j = 0; j < nrds; j++) {
                     i = icont[j];
-                    rcont5[j] = h*(d1*k1[i] + d3*k3[i] + d4*k4[i] +
-                                     d5*k5[i] + d6*k6[i] + d7*k2[i]);
+                    rcont5[j] = h*(d1*k1[i] + d3*k3[i] + d4*k4[i] + d5*k5[i] +
+                                     d6*k6[i] + d7*k2[i]);
                 }
             }
         }
         for (i = 0; i < n; i++) {
-            k4[i] = h*(e1*k1[i] + e3*k3[i] + e4*k4[i] + e5*k5[i] +
-                         e6*k6[i] + e7*k2[i]);
+            k4[i] =
+                h*(e1*k1[i] + e3*k3[i] + e4*k4[i] + e5*k5[i] + e6*k6[i] + e7*k2[i]);
         }
         nfcn += 6;
 
@@ -1638,10 +1587,9 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
 /* front-end */
 int32
-dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-       double *rtoler, double *atoler2, int32 itoler, SolTrait solout,
-       int32 iout, FILE *fileout, double uround, double safe, double fac1,
-       double fac2, double beta, double hmax, double h, long nmax, int32 meth,
+dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double *rtoler, double *atoler2,
+       int32 itoler, SolTrait solout, int32 iout, FILE *fileout, double uround, double safe,
+       double fac1, double fac2, double beta, double hmax, double h, long nmax, int32 meth,
        long nstiff, uint32 nrdens, uint32 *icont, uint32 licont, double *work) {
     int32 arret;
     int32 idid;
@@ -1721,9 +1669,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
             nrds = n;
         } else if (licont < nrdens) {
             if (fileout) {
-                fprintf(fileout,
-                        "Insufficient storage for icont, min. licont = %u\r\n",
-                        nrdens);
+                fprintf(fileout, "Insufficient storage for icont, min. licont = %u\r\n", nrdens);
             }
             arret = 1;
         } else {
@@ -1745,9 +1691,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         uround = 2.3E-16;
     } else if ((uround <= 1.0E-35) || (uround >= 1.0)) {
         if (fileout) {
-            fprintf(fileout,
-                    "Which machine do you have ? Your uround was : %.16e\r\n",
-                    uround);
+            fprintf(fileout, "Which machine do you have ? Your uround was : %.16e\r\n", uround);
         }
         arret = 1;
     }
@@ -1757,8 +1701,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         safe = 0.9;
     } else if ((safe >= 1.0) || (safe <= 1.0E-4)) {
         if (fileout) {
-            fprintf(fileout,
-                    "Curious input for safety factor, safe = %.16e\r\n", safe);
+            fprintf(fileout, "Curious input for safety factor, safe = %.16e\r\n", safe);
         }
         arret = 1;
     }
@@ -1798,9 +1741,8 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     k6 = k5 + n;
     ysti = k6 + n;
 
-    idid = dopcor5(n, fcn, x, y, xend, hmax, h, rtoler, atoler2, itoler,
-                   fileout, solout, iout, nmax, uround, meth, nstiff, safe,
-                   beta, fac1, fac2, icont);
+    idid = dopcor5(n, fcn, x, y, xend, hmax, h, rtoler, atoler2, itoler, fileout, solout, iout,
+                   nmax, uround, meth, nstiff, safe, beta, fac1, fac2, icont);
 
     if (indir) {
         free(indir);

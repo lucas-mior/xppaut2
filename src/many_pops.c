@@ -75,8 +75,7 @@ static void many_pops_add_marker(void);
 static int32 many_pops_select_marker_type(int32 *type);
 static void many_pops_destroy_label(Window window);
 static void many_pops_destroy_grob(Window window);
-static void many_pops_arrow_head(double xs, double ys, double xe, double ye,
-                                 double size);
+static void many_pops_arrow_head(double xs, double ys, double xe, double ye, double size);
 static void many_pops_draw_marker(double x, double y, double size, int32 type);
 
 int32
@@ -90,8 +89,8 @@ many_pops_select_table(void) {
         sprintf(n[i], "%c: %s", key[i], my_table[i].name);
     }
     key[NTable] = 0;
-    ch = (char)pop_list_popup_list_new(&temp, "Table", n, key, NTable, 12, 0,
-                                       10, 0, no_hint, info_pop, info_message);
+    ch = (char)pop_list_popup_list_new(&temp, "Table", n, key, NTable, 12, 0, 10, 0, no_hint,
+                                       info_pop, info_message);
     for (int32 i = 0; i < NTable; i++) {
         free(n[i]);
     }
@@ -119,8 +118,8 @@ many_pops_get_intern_set(void) {
         sprintf(n[i], "%c: %s", key[i], intern_set[i].name);
     }
     key[count] = 0;
-    ch = (char)pop_list_popup_list_new(&temp, "Param set", n, key, count, 12, 0,
-                                       10, 0, no_hint, info_pop, info_message);
+    ch = (char)pop_list_popup_list_new(&temp, "Param set", n, key, count, 12, 0, 10, 0, no_hint,
+                                       info_pop, info_message);
     for (int32 i = 0; i < count; i++) {
         free(n[i]);
     }
@@ -141,8 +140,7 @@ void
 many_pops_make_icon(char *icon, int32 wid, int32 hgt, Window window) {
     Pixmap icon_map;
     XWMHints wm_hints;
-    icon_map =
-        XCreateBitmapFromData(display, window, icon, (uint)wid, (uint)hgt);
+    icon_map = XCreateBitmapFromData(display, window, icon, (uint)wid, (uint)hgt);
     wm_hints.initial_state = NormalState;
     wm_hints.input = True;
     wm_hints.icon_pixmap = icon_map;
@@ -152,8 +150,7 @@ many_pops_make_icon(char *icon, int32 wid, int32 hgt, Window window) {
         XClassHint class_hints;
         class_hints.res_name = "";
         class_hints.res_class = "";
-        XSetWMProperties(display, window, NULL, NULL, NULL, 0, NULL, &wm_hints,
-                         &class_hints);
+        XSetWMProperties(display, window, NULL, NULL, NULL, 0, NULL, &wm_hints, &class_hints);
     }
     return;
 }
@@ -172,8 +169,7 @@ many_pops_gtitle_text(char *string, Window win) {
     if (win != graph[0].window) {
         XStringListToTextProperty(&string, 1, &wname);
         XStringListToTextProperty(&string, 1, &iname);
-        XSetWMProperties(display, win, &wname, &iname, NULL, 0, NULL, NULL,
-                         NULL);
+        XSetWMProperties(display, win, &wname, &iname, NULL, 0, NULL, NULL, NULL);
     } else {
         int32 len = (int32)strlen(string);
         int32 x;
@@ -607,8 +603,7 @@ many_pops_draw_label(Window window) {
     for (int32 i = 0; i < MAXGROB; i++) {
         if ((grob[i].use == 1) && (grob[i].window == window)) {
             // many pops draw grob
-            double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe,
-                   ye = grob[i].ye;
+            double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
             graphics_set_linestyle(grob[i].color);
             if (grob[i].type == POINTER) {
                 graphics_line_abs(xs, ys, xe, ye);
@@ -626,8 +621,8 @@ many_pops_draw_label(Window window) {
 }
 
 void
-many_pops_add_grob(double xs, double ys, double xe, double ye, double size,
-                   int32 type, int32 color) {
+many_pops_add_grob(double xs, double ys, double xe, double ye, double size, int32 type,
+                   int32 color) {
     for (int32 i = 0; i < MAXGROB; i++) {
         if (grob[i].use == 0) {
             grob[i].use = 1;
@@ -652,9 +647,8 @@ many_pops_select_marker_type(int32 *type) {
     static char key[] = "bdtpxc";
     Window temp = main_win;
     char ch;
-    ch = (char)pop_list_popup_list_new(&temp, "Markers", list, key, 6, 9, ival,
-                                       10, 4*dcur_y + 8, no_hint, info_pop,
-                                       info_message);
+    ch = (char)pop_list_popup_list_new(&temp, "Markers", list, key, 6, 9, ival, 10, 4*dcur_y + 8,
+                                       no_hint, info_pop, info_message);
     if (ch == PAUSE_NUMBER) {
         return 0;
     }
@@ -705,8 +699,7 @@ many_pops_add_marker(void) {
         return;
     }
     graphics_scale_to_real(i1, j1, &xs, &ys);
-    many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type,
-                       markinfo.color);
+    many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
     main_redraw_all();
 }
 
@@ -770,8 +763,7 @@ many_pops_edit_object_com(int32 com) {
         type = 0;  // label =  0, arrows, etc =1
         for (i = 0; i < MAXLAB; i++) {
             if (lb[i].use == 1 && lb[i].window == draw_win) {
-                dd = (x - lb[i].x)*(x - lb[i].x) +
-                     (y - lb[i].y)*(y - lb[i].y);
+                dd = (x - lb[i].x)*(x - lb[i].x) + (y - lb[i].y)*(y - lb[i].y);
                 if (dd < dist) {
                     ilab = i;
                     dist = dd;
@@ -780,8 +772,7 @@ many_pops_edit_object_com(int32 com) {
         }
         for (i = 0; i < MAXGROB; i++) {
             if (grob[i].use == 1 && grob[i].window == draw_win) {
-                dd = (x - grob[i].xs)*(x - grob[i].xs) +
-                     (y - grob[i].ys)*(y - grob[i].ys);
+                dd = (x - grob[i].xs)*(x - grob[i].xs) + (y - grob[i].ys)*(y - grob[i].ys);
                 if (dd < dist) {
                     ilab = i;
                     dist = dd;
@@ -842,8 +833,7 @@ many_pops_edit_object_com(int32 com) {
         if (ilab >= 0 && type == 1) {
             switch (com) {
             case 0:
-                snprintf(str, sizeof(str), "Move graphic at (%f,%f)",
-                         grob[ilab].xs, grob[ilab].ys);
+                snprintf(str, sizeof(str), "Move graphic at (%f,%f)", grob[ilab].xs, grob[ilab].ys);
                 ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     menudrive_message_box("Reposition");
@@ -863,8 +853,8 @@ many_pops_edit_object_com(int32 com) {
                 }
                 break;
             case 1:
-                snprintf(str, sizeof(str), "Change graphic at (%f,%f)",
-                         grob[ilab].xs, grob[ilab].ys);
+                snprintf(str, sizeof(str), "Change graphic at (%f,%f)", grob[ilab].xs,
+                         grob[ilab].ys);
                 ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     if (grob[ilab].type >= MARKER) {
@@ -877,8 +867,8 @@ many_pops_edit_object_com(int32 com) {
                 }
                 break;
             case 2:
-                snprintf(str, sizeof(str), "Delete graphic at (%f,%f)",
-                         grob[ilab].xs, grob[ilab].ys);
+                snprintf(str, sizeof(str), "Delete graphic at (%f,%f)", grob[ilab].xs,
+                         grob[ilab].ys);
                 ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     grob[ilab].window = 0;
@@ -922,8 +912,7 @@ many_pops_do_gr_objs_com(int32 com) {
 
         {
             // many pops get markers info
-            static char *n[] = {"*5Type", "*4Color", "Size",
-                                "Number", "Row1",    "Skip"};
+            static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
             char values[LENGTH(n)][MAX_LEN_SBOX];
             int32 status;
             snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
@@ -933,8 +922,7 @@ many_pops_do_gr_objs_com(int32 com) {
             snprintf(values[4], sizeof(values[4]), "%d", markinfo.start);
             snprintf(values[5], sizeof(values[5]), "%d", markinfo.skip);
 
-            status =
-                pop_list_do_string_box(6, 6, 1, "Add Markers", n, values, 25);
+            status = pop_list_do_string_box(6, 6, 1, "Add Markers", n, values, 25);
             if (status == 0) {
                 break;
             }
@@ -948,8 +936,7 @@ many_pops_do_gr_objs_com(int32 com) {
         }
 
         for (int32 i = 0; i < markinfo.number; i++) {
-            browser_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0],
-                                 MyGraph->zv[0],
+            browser_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0], MyGraph->zv[0],
                                  markinfo.start + i*markinfo.skip);
             if (MyGraph->ThreeDFlag == 0) {
                 xs = x;
@@ -957,8 +944,7 @@ many_pops_do_gr_objs_com(int32 com) {
             } else {
                 graphics_threed_proj(x, y, z, &xs, &ys);
             }
-            many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type,
-                               markinfo.color);
+            many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
         }
         main_redraw_all();
         break;
@@ -1090,9 +1076,8 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
     active_win_list[0] = 0;
     graphics_init_all();
 
-    graph[0].window =
-        XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w, (uint)h, 2,
-                            gr_fore, my_draw_win_color);
+    graph[0].window = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w, (uint)h, 2, gr_fore,
+                                          my_draw_win_color);
     graph[0].w_info = info_pop;
 
     info_message = graph[0].gr_info;
@@ -1104,9 +1089,8 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
     graph[0].Height = h;
     graph[0].Width = w;
     XSelectInput(display, graph[0].window,
-                 KeyPressMask | ButtonPressMask | ExposureMask |
-                     ButtonReleaseMask | ButtonMotionMask |
-                     StructureNotifyMask);
+                 KeyPressMask | ButtonPressMask | ExposureMask | ButtonReleaseMask |
+                     ButtonMotionMask | StructureNotifyMask);
     num_pops = 1;
     XMapWindow(display, graph[0].window);
     draw_win = graph[0].window;
@@ -1249,13 +1233,11 @@ many_pops_do_expose(XEvent event) {
                 XClearWindow(display, graph[i].w_info);
                 if (i == 0) {
                     many_pops_base_col();
-                    XDrawString(display, graph[i].w_info, gc, 5, cury_off,
-                                graph[i].gr_info,
+                    XDrawString(display, graph[i].w_info, gc, 5, cury_off, graph[i].gr_info,
                                 (int)strlen(graph[i].gr_info));
                 } else {
                     many_pops_small_base();
-                    XDrawString(display, graph[i].w_info, small_gc, 0,
-                                cury_offs, graph[i].gr_info,
+                    XDrawString(display, graph[i].w_info, small_gc, 0, cury_offs, graph[i].gr_info,
                                 (int)strlen(graph[i].gr_info));
                     many_pops_small_gr();
                 }
@@ -1291,8 +1273,7 @@ many_pops_do_expose(XEvent event) {
 
 void
 many_pops_resize_all(int32 wid, int32 hgt) {
-    int32 nw = wid - 16 - 16*dcur_x + 7,
-          nh = hgt - 3*dcur_yb - 4*dcur_ys - 24;
+    int32 nw = wid - 16 - 16*dcur_x + 7, nh = hgt - 3*dcur_yb - 4*dcur_ys - 24;
     nw = 4*((nw / 4));
     nh = 4*((nh / 4));
     XResizeWindow(display, graph[0].window, (uint)nw, (uint)nh);
@@ -1318,11 +1299,10 @@ many_pops_create_a_pop(void) {
     }
     index = i;
 
-    graph[index].window =
-        XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
-                            (uint)MINI_W, (uint)MINI_H, 2, gr_fore, gr_back);
-    graph[index].w_info = pop_list_make_window(graph[index].window, 10, 0,
-                                               40*dcur_xs, dcur_ys, 0);
+    graph[index].window = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
+                                              (uint)MINI_W, (uint)MINI_H, 2, gr_fore, gr_back);
+    graph[index].w_info =
+        pop_list_make_window(graph[index].window, 10, 0, 40*dcur_xs, dcur_ys, 0);
     XSetWindowBackground(display, graph[i].window, my_draw_win_color);
 
     graphics_copy_graph(index, current_pop);
@@ -1331,11 +1311,10 @@ many_pops_create_a_pop(void) {
     graph[index].x0 = 0;
     graph[index].y0 = 0;
     num_pops++;
-    many_pops_make_icon((char *)graph_bits, graph_width, graph_height,
-                        graph[index].window);
+    many_pops_make_icon((char *)graph_bits, graph_width, graph_height, graph[index].window);
     XSelectInput(display, graph[index].window,
-                 KeyPressMask | ButtonPressMask | ExposureMask |
-                     ButtonReleaseMask | ButtonMotionMask);
+                 KeyPressMask | ButtonPressMask | ExposureMask | ButtonReleaseMask |
+                     ButtonMotionMask);
     XMapWindow(display, graph[index].window);
     XRaiseWindow(display, graph[index].window);
     XSetWMProtocols(display, graph[index].window, &atom_delete_window, 1);
@@ -1403,8 +1382,7 @@ many_pops_check_active_plot(int32 k) {
         if (graph[i].Use) {
             np = graph[i].nvars;
             for (ip = 0; ip < np; ip++) {
-                if (graph[i].xv[ip] == k || graph[i].yv[ip] == k ||
-                    graph[i].zv[ip] == k) {
+                if (graph[i].xv[ip] == k || graph[i].yv[ip] == k || graph[i].zv[ip] == k) {
                     return 1;
                 }
             }
@@ -1470,12 +1448,10 @@ many_pops_canvas_xy(char *buf) {
     strcpy(MyGraph->gr_info, buf);
     if (MyGraph->w_info == info_pop) {
         many_pops_base_col();
-        XDrawString(display, MyGraph->w_info, gc, 5, cury_off, buf,
-                    (int)strlen(buf));
+        XDrawString(display, MyGraph->w_info, gc, 5, cury_off, buf, (int)strlen(buf));
     } else {
         many_pops_small_base();
-        XDrawString(display, MyGraph->w_info, small_gc, 0, cury_offs, buf,
-                    (int)strlen(buf));
+        XDrawString(display, MyGraph->w_info, small_gc, 0, cury_offs, buf, (int)strlen(buf));
     }
     return;
 }

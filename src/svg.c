@@ -46,36 +46,26 @@ svg_init(char *filename) {
     fprintf(svgfile, "      xmlns:xlink=\"http://www.w3.org/1999/xlink\" "
                      "font-size=\"12pt\" width=\"640\" height=\"400\">\n");
     fprintf(svgfile, "\n\n      <defs>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointP\" id = \"xpppointP\"  "
-            "r = \"1\"  stroke-width = \"1\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xppbead\" id = \"xppbead\"  r = "
-            "\"1\"  stroke-width = \"1\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointD\" id = \"xpppointD\"  "
-            "r = \"1\"  stroke-width = \"1\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointA\" id = \"xpppointA\"  "
-            "r = \"1\"  stroke-width = \"1\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointB\" id = \"xpppointB\"  "
-            "r = \"1\"  stroke-width = \"1\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointC\" id = \"xpppointC\"  "
-            "r = \"1\"  stroke-width = \"1\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointT\" id = \"xpppointT\"  "
-            "r = \"1\"  stroke-width = \"1\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointS\" id = \"xpppointS\"  "
-            "r = \"1\"  stroke-width = \"1\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointK\" id = \"xpppointK\"  "
-            "r = \"3\"  stroke-width = \"0.75\"/>\n");
-    fprintf(svgfile,
-            "          <circle class=\"xpppointF\" id = \"xpppointF\"  "
-            "r = \"2\"  stroke-width = \"0\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointP\" id = \"xpppointP\"  "
+                     "r = \"1\"  stroke-width = \"1\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xppbead\" id = \"xppbead\"  r = "
+                     "\"1\"  stroke-width = \"1\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointD\" id = \"xpppointD\"  "
+                     "r = \"1\"  stroke-width = \"1\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointA\" id = \"xpppointA\"  "
+                     "r = \"1\"  stroke-width = \"1\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointB\" id = \"xpppointB\"  "
+                     "r = \"1\"  stroke-width = \"1\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointC\" id = \"xpppointC\"  "
+                     "r = \"1\"  stroke-width = \"1\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointT\" id = \"xpppointT\"  "
+                     "r = \"1\"  stroke-width = \"1\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointS\" id = \"xpppointS\"  "
+                     "r = \"1\"  stroke-width = \"1\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointK\" id = \"xpppointK\"  "
+                     "r = \"3\"  stroke-width = \"0.75\"/>\n");
+    fprintf(svgfile, "          <circle class=\"xpppointF\" id = \"xpppointF\"  "
+                     "r = \"2\"  stroke-width = \"0\"/>\n");
     fprintf(svgfile, "      </defs>\n\n");
     fprintf(svgfile, "\n\n");
     fprintf(svgfile, "      <!-- Comment out the following style block when "
@@ -172,195 +162,150 @@ svg_init(char *filename) {
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 1em;\n");
     fprintf(svgfile, "                    stroke	: #000000;\n");
-    fprintf(svgfile,
-            "                    fill	: #000000;\n"); /*Need to support more
-                                                           than 1 vertical
-                                                           centering tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: #000000;\n");            /*Need to support more
+                                                                              than 1 vertical
+                                                                              centering tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n");       /*Supported in Inkscape
+                                                                              v0.48.2, but not in
+                                                                              Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
     fprintf(svgfile, "                 text.xppyaxislabelh {\n");
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 1em;\n");
     fprintf(svgfile, "                    stroke	: none;\n");
-    fprintf(svgfile,
-            "                    fill	: none;\n"); /*Need to support more than
-                                                        1 vertical centering
-                                                        tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: none;\n");         /*Need to support more than
+                                                                        1 vertical centering
+                                                                        tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
+                                                                        v0.48.2, but not in
+                                                                        Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
     fprintf(svgfile, "                 text.xppyaxislabelv {\n");
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 1em;\n");
     fprintf(svgfile, "                    stroke	: #000000;\n");
-    fprintf(svgfile,
-            "                    fill	: #000000;\n"); /*Need to support more
-                                                           than 1 vertical
-                                                           centering tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: #000000;\n");            /*Need to support more
+                                                                              than 1 vertical
+                                                                              centering tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n");       /*Supported in Inkscape
+                                                                              v0.48.2, but not in
+                                                                              Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
     fprintf(svgfile, "                 text.xppaxestext {\n");
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 1em;\n");
     fprintf(svgfile, "                    stroke	: #000000;\n");
-    fprintf(svgfile,
-            "                    fill	: #000000;\n"); /*Need to support more
-                                                           than 1 vertical
-                                                           centering tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: #000000;\n");            /*Need to support more
+                                                                              than 1 vertical
+                                                                              centering tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n");       /*Supported in Inkscape
+                                                                              v0.48.2, but not in
+                                                                              Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
     fprintf(svgfile, "                 \n");
     fprintf(svgfile, "                 text.xpptext0 {\n");
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 0.5em;\n");
     fprintf(svgfile, "                    stroke	: #000000;\n");
-    fprintf(svgfile,
-            "                    fill	: #000000;\n"); /*Need to support more
-                                                           than 1 vertical
-                                                           centering tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: #000000;\n");            /*Need to support more
+                                                                              than 1 vertical
+                                                                              centering tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n");       /*Supported in Inkscape
+                                                                              v0.48.2, but not in
+                                                                              Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
     fprintf(svgfile, "                 \n");
     fprintf(svgfile, "                 text.xpptext1 {\n");
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 0.75em;\n");
     fprintf(svgfile, "                    stroke	: #000000;\n");
-    fprintf(svgfile,
-            "                    fill	: #000000;\n"); /*Need to support more
-                                                           than 1 vertical
-                                                           centering tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: #000000;\n");            /*Need to support more
+                                                                              than 1 vertical
+                                                                              centering tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n");       /*Supported in Inkscape
+                                                                              v0.48.2, but not in
+                                                                              Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
     fprintf(svgfile, "                 \n");
     fprintf(svgfile, "                 text.xpptext2 {\n");
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 1em;\n");
     fprintf(svgfile, "                    stroke	: #000000;\n");
-    fprintf(svgfile,
-            "                    fill	: #000000;\n"); /*Need to support more
-                                                           than 1 vertical
-                                                           centering tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: #000000;\n");            /*Need to support more
+                                                                              than 1 vertical
+                                                                              centering tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n");       /*Supported in Inkscape
+                                                                              v0.48.2, but not in
+                                                                              Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
     fprintf(svgfile, "                 \n");
     fprintf(svgfile, "                 text.xpptext3 {\n");
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 1.25em;\n");
     fprintf(svgfile, "                    stroke	: #000000;\n");
-    fprintf(svgfile,
-            "                    fill	: #000000;\n"); /*Need to support more
-                                                           than 1 vertical
-                                                           centering tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: #000000;\n");            /*Need to support more
+                                                                              than 1 vertical
+                                                                              centering tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n");       /*Supported in Inkscape
+                                                                              v0.48.2, but not in
+                                                                              Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
     fprintf(svgfile, "                 \n");
     fprintf(svgfile, "                 text.xpptext4 {\n");
     fprintf(svgfile, "                    font-family: sans-serif;\n");
     fprintf(svgfile, "                    font-size  : 1.5em;\n");
     fprintf(svgfile, "                    stroke	: #000000;\n");
-    fprintf(svgfile,
-            "                    fill	: #000000;\n"); /*Need to support more
-                                                           than 1 vertical
-                                                           centering tactic!*/
-    fprintf(
-        svgfile,
-        "                    baseline-shift:-33%%;\n"); /*Supported in Inkscape
-                                                           v0.48.2, but not in
-                                                           Firefox v13*/
-    fprintf(
-        svgfile,
-        "                    dominant-baseline: central;\n"); /*Supported in
-                                                                 Firefox v13,
-                                                                 but not in
-                                                                 Inkscape
-                                                                 v0.48.2*/
+    fprintf(svgfile, "                    fill	: #000000;\n");            /*Need to support more
+                                                                              than 1 vertical
+                                                                              centering tactic!*/
+    fprintf(svgfile, "                    baseline-shift:-33%%;\n");       /*Supported in Inkscape
+                                                                              v0.48.2, but not in
+                                                                              Firefox v13*/
+    fprintf(svgfile, "                    dominant-baseline: central;\n"); /*Supported in
+                                                                              Firefox v13,
+                                                                              but not in
+                                                                              Inkscape
+                                                                              v0.48.2*/
     fprintf(svgfile, "                 }\n");
 
     snprintf(css, sizeof(css), "%s/xppaut-stylesheet.css", getenv("HOME"));
@@ -439,15 +384,14 @@ svg_frect(int32 x, int32 y, int32 w, int32 h) {
         fprintf(svgfile,
                 "      <rect x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" "
                 "style=\"stroke:rgb(%d,%d,%d);fill:rgb(%d,%d,%d);\"/>",
-                x, y, w, h, cur_RGB[0], cur_RGB[1], cur_RGB[2], cur_RGB[0],
-                cur_RGB[1], cur_RGB[2]);
+                x, y, w, h, cur_RGB[0], cur_RGB[1], cur_RGB[2], cur_RGB[0], cur_RGB[1], cur_RGB[2]);
     } else {
         gray = (0.299*cur_RGB[0] + 0.587*cur_RGB[1] + 0.114*cur_RGB[2]);
         fprintf(svgfile,
                 "      <rect x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" "
                 "style=\"stroke:rgb(%d,%d,%d);fill:rgb(%d,%d,%d);\"/>",
-                x, y, w, h, (int32)gray, (int32)gray, (int32)gray, (int32)gray,
-                (int32)gray, (int32)gray);
+                x, y, w, h, (int32)gray, (int32)gray, (int32)gray, (int32)gray, (int32)gray,
+                (int32)gray);
     }
     return;
 }
@@ -463,11 +407,10 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
     if (DOING_SVG_COLOR) {
         if (axes_doing) {
             if (axes_doing_box) {
-                fprintf(
-                    svgfile,
-                    "      <line class=\"xppboxaxes\"  x1=\"%d\"  y1=\"%d\" "
-                    "x2=\"%d\"   y2=\"%d\" style=\"stroke:rgb(%d,%d,%d);\"/>\n",
-                    xp1, yp1, xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2]);
+                fprintf(svgfile,
+                        "      <line class=\"xppboxaxes\"  x1=\"%d\"  y1=\"%d\" "
+                        "x2=\"%d\"   y2=\"%d\" style=\"stroke:rgb(%d,%d,%d);\"/>\n",
+                        xp1, yp1, xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2]);
             } else {
                 fprintf(svgfile,
                         "      <line class=\"xppaxes\"  x1=\"%d\"  y1=\"%d\" "
@@ -481,39 +424,35 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
                     fprintf(svgfile, "<g>\n");
                 }
 
-                fprintf(
-                    svgfile,
-                    "      <line class=\"xppdfield\"  x1=\"%d\"  y1=\"%d\" "
-                    "x2=\"%d\"   y2=\"%d\" style=\"stroke:rgb(%d,%d,%d);\"/>\n",
-                    xp1, yp1, xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2]);
+                fprintf(svgfile,
+                        "      <line class=\"xppdfield\"  x1=\"%d\"  y1=\"%d\" "
+                        "x2=\"%d\"   y2=\"%d\" style=\"stroke:rgb(%d,%d,%d);\"/>\n",
+                        xp1, yp1, xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2]);
                 if (DO_MARKER) {
                     fprintf(svgfile,
                             "      <use xlink:href = \"#xppbead\" x=\"%d\" "
                             "y=\"%d\" "
                             "style=\"stroke:rgb(%d,%d,%d); "
                             "fill:rgb(%d,%d,%d)\"/>\n",
-                            xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2],
-                            cur_RGB[0], cur_RGB[1], cur_RGB[2]);
+                            xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2], cur_RGB[0], cur_RGB[1],
+                            cur_RGB[2]);
                     fprintf(svgfile, "</g>\n");
                 }
             } else {
-                fprintf(
-                    svgfile,
-                    "      <line class=\"xppline%c\"  x1=\"%d\"  y1=\"%d\" "
-                    "x2=\"%d\"   y2=\"%d\" style=\"stroke:rgb(%d,%d,%d);\"/>\n",
-                    SVGLINETYPE, xp1, yp1, xp2, yp2, cur_RGB[0], cur_RGB[1],
-                    cur_RGB[2]);
+                fprintf(svgfile,
+                        "      <line class=\"xppline%c\"  x1=\"%d\"  y1=\"%d\" "
+                        "x2=\"%d\"   y2=\"%d\" style=\"stroke:rgb(%d,%d,%d);\"/>\n",
+                        SVGLINETYPE, xp1, yp1, xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2]);
             }
         }
 
     } else {
         if (axes_doing) {
             if (axes_doing_box) {
-                fprintf(
-                    svgfile,
-                    "      <line class=\"xppboxaxes\"  x1=\"%d\"  y1=\"%d\" "
-                    "x2=\"%d\"   y2=\"%d\" />\n",
-                    xp1, yp1, xp2, yp2);
+                fprintf(svgfile,
+                        "      <line class=\"xppboxaxes\"  x1=\"%d\"  y1=\"%d\" "
+                        "x2=\"%d\"   y2=\"%d\" />\n",
+                        xp1, yp1, xp2, yp2);
             } else {
                 fprintf(svgfile,
                         "      <line class=\"xppaxes\"  x1=\"%d\"  y1=\"%d\" "
@@ -598,8 +537,8 @@ svg_point(int32 x, int32 y) {
         fprintf(svgfile,
                 "      <use xlink:href = \"#xpppoint%c\" x=\"%d\" y=\"%d\" "
                 "style=\"stroke:rgb(%d,%d,%d); fill:rgb(%d,%d,%d)\"/>\n",
-                point[number + 1], x, y, cur_RGB[0], cur_RGB[1], cur_RGB[2],
-                cur_RGB[0], cur_RGB[1], cur_RGB[2]);
+                point[number + 1], x, y, cur_RGB[0], cur_RGB[1], cur_RGB[2], cur_RGB[0], cur_RGB[1],
+                cur_RGB[2]);
     } else {
         fprintf(svgfile,
                 "      <use xlink:href = \"#xpppoint%c\" x=\"%d\" y=\"%d\" "
@@ -661,11 +600,10 @@ svg_text(int32 x, int32 y, char *str) {
     }
 
     if (axes_doing) {
-        fprintf(
-            svgfile,
-            "\n      <text class=\"xppaxestext\" text-anchor=\"%s\" x=\"%d\"  "
-            "y=\"%d\"\n",
-            anchor, x, y);
+        fprintf(svgfile,
+                "\n      <text class=\"xppaxestext\" text-anchor=\"%s\" x=\"%d\"  "
+                "y=\"%d\"\n",
+                anchor, x, y);
 
     } else {
         fprintf(svgfile,

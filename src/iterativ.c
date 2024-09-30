@@ -27,8 +27,7 @@
 *************************************************************************/
 
 int32
-iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
-                     double *new_vk_norm) {
+iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
     int32 k_minus_1;
     int32 i0;
     double new_norm_2;
@@ -89,8 +88,8 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
 **********************************************************************/
 
 int32
-iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
-                      double *new_vk_norm, Vector temp, double *s) {
+iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm, Vector temp,
+                      double *s) {
     int32 k_minus_1;
     int32 i0;
     double vk_norm;

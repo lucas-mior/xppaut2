@@ -14,15 +14,15 @@
 #include "equilib.bitmap"
 
 #include "mykeydef.h"
-#define XDS(a)                                                                 \
-    do {                                                                       \
-        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));    \
-        return;                                                                \
+#define XDS(a)                                                                                     \
+    do {                                                                                           \
+        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));                        \
+        return;                                                                                    \
     } while (0)
 
-#define MYMASK                                                                 \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     LeaveWindowMask | EnterWindowMask)
+#define MYMASK                                                                                     \
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask | LeaveWindowMask |       \
+     EnterWindowMask)
 
 static struct EqBox {
     Window base;
@@ -73,8 +73,7 @@ eig_list_draw_eq_list(Window window) {
         XDS("Close");
     }
     if (window == eq_list.list) {
-        for (int32 i = eq_list.istart; i < eq_list.istart + eq_list.nlines;
-             i++) {
+        for (int32 i = eq_list.istart; i < eq_list.istart + eq_list.nlines; i++) {
             if (i >= NEQ) {
                 break;
             }
@@ -94,8 +93,7 @@ eig_list_draw_eq_list(Window window) {
 
             bob[299] = 0;
             XDrawString(display, window, small_gc, 0,
-                        cury_offs + (i - eq_list.istart)*(dcur_ys + 2), bob,
-                        (int32)strlen(bob));
+                        cury_offs + (i - eq_list.istart)*(dcur_ys + 2), bob, (int32)strlen(bob));
         }
     }
     return;
@@ -131,8 +129,7 @@ eig_list_create_eq_list(void) {
     eq_list.nlines = (height - hmain) / (dcur_ys + 2);
 
     width = 300;
-    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
-                                      height, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
     eq_list.base = base;
 
     XStringListToTextProperty(wname, 1, &winname);
@@ -151,18 +148,17 @@ eig_list_create_eq_list(void) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display, base, &winname, &iconame, NULL, 0,
-                         &size_hints, NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, &iconame, NULL, 0, &size_hints, NULL,
+                         &class_hints);
     }
     many_pops_make_icon((char *)eqns_bits, eqns_width, eqns_height, base);
     eq_list.main = pop_list_make_plain_window(base, 0, 0, width, hmain, 1);
     eq_list.list = pop_list_make_plain_window(base, 0, hmain, width, hlist, 1);
-    eq_list.close =
-        pop_list_make_window(eq_list.main, 10, 5, 7*dcur_xs, dcur_ys + 2, 1);
-    eq_list.up = pop_list_make_window(eq_list.main, 10 + 7*dcur_xs + 14, 5,
-                                      7*dcur_xs, dcur_ys + 2, 1);
-    eq_list.down = pop_list_make_window(eq_list.main, 10 + 14*dcur_xs + 28, 5,
-                                        7*dcur_xs, dcur_ys + 2, 1);
+    eq_list.close = pop_list_make_window(eq_list.main, 10, 5, 7*dcur_xs, dcur_ys + 2, 1);
+    eq_list.up =
+        pop_list_make_window(eq_list.main, 10 + 7*dcur_xs + 14, 5, 7*dcur_xs, dcur_ys + 2, 1);
+    eq_list.down =
+        pop_list_make_window(eq_list.main, 10 + 14*dcur_xs + 28, 5, 7*dcur_xs, dcur_ys + 2, 1);
 
     XSelectInput(display, eq_list.up, MYMASK);
     XSelectInput(display, eq_list.down, MYMASK);
@@ -182,8 +178,7 @@ eig_list_eq_list_keypress(XEvent event, int32 *used) {
     if (eq_list.flag == 0) {
         return;
     }
-    if (window == eq_list.main || window == eq_list.base ||
-        window == eq_list.list) {
+    if (window == eq_list.main || window == eq_list.base || window == eq_list.list) {
         *used = 1;
         ks = (char)ggets_get_key_press(&event);
 
@@ -203,13 +198,11 @@ eig_list_eq_list_keypress(XEvent event, int32 *used) {
 void
 eig_list_enter_eq_stuff(Window window, int32 b) {
     if (eq_list.flag == 1) {
-        if (window == eq_list.close || window == eq_list.up ||
-            window == eq_list.down) {
+        if (window == eq_list.close || window == eq_list.up || window == eq_list.down) {
             XSetWindowBorderWidth(display, window, (uint)b);
         }
     }
-    if (eq_box.flag == 1 &&
-        (window == eq_box.close || window == eq_box.import)) {
+    if (eq_box.flag == 1 && (window == eq_box.close || window == eq_box.import)) {
         XSetWindowBorderWidth(display, window, (uint)b);
     }
     return;
@@ -329,8 +322,7 @@ eig_list_resize_eq_list(Window win) {
 }
 
 void
-eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
-                       double *y, int32 n) {
+eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y, int32 n) {
     int32 width;
     int32 hstab;
     int32 hequil;
@@ -373,8 +365,7 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
         height = hequil + hstab;
         tpos = (width - 8*dcur_x) / 2;
         tpos2 = tpos + 9*dcur_x;
-        base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
-                                          width, height, 4);
+        base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
 
         eq_box.base = base;
 
@@ -390,20 +381,14 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
         size_hints.max_width = width;
         size_hints.max_height = height;
 
-        XSetWMProperties(display, eq_box.base, &winname, &iconame, NULL, 0,
-                         &size_hints, NULL, NULL);
-        many_pops_make_icon((char *)equilib_bits, equilib_width, equilib_height,
-                            base);
-        eq_box.stab =
-            pop_list_make_plain_window(eq_box.base, 0, 0, width, hstab, 1);
-        eq_box.rest =
-            pop_list_make_plain_window(eq_box.base, 0, hstab, width, hequil, 1);
-        eq_box.top = pop_list_make_window(eq_box.stab, tpos, 2, 8*dcur_x,
-                                          dcur_y + 5, 1);
-        eq_box.close = pop_list_make_window(eq_box.base, 2, 2, 8*dcur_xs,
-                                            dcur_ys + 4, 1);
-        eq_box.import = pop_list_make_window(eq_box.base, tpos2, 2, 8*dcur_xs,
-                                             dcur_ys + 4, 1);
+        XSetWMProperties(display, eq_box.base, &winname, &iconame, NULL, 0, &size_hints, NULL,
+                         NULL);
+        many_pops_make_icon((char *)equilib_bits, equilib_width, equilib_height, base);
+        eq_box.stab = pop_list_make_plain_window(eq_box.base, 0, 0, width, hstab, 1);
+        eq_box.rest = pop_list_make_plain_window(eq_box.base, 0, hstab, width, hequil, 1);
+        eq_box.top = pop_list_make_window(eq_box.stab, tpos, 2, 8*dcur_x, dcur_y + 5, 1);
+        eq_box.close = pop_list_make_window(eq_box.base, 2, 2, 8*dcur_xs, dcur_ys + 4, 1);
+        eq_box.import = pop_list_make_window(eq_box.base, tpos2, 2, 8*dcur_xs, dcur_ys + 4, 1);
         eq_box.flag = 1;
     } else {  //   Already it has been created so we are updating it
         XClearWindow(display, eq_box.top);
@@ -433,26 +418,24 @@ eig_list_draw_eq_box(Window window) {
         XDS("Import");
     }
     if (window == eq_box.top) {
-        XDrawString(display, eq_box.top, gc, 5, cury_off, eq_box.type,
-                    (int)strlen(eq_box.type));
+        XDrawString(display, eq_box.top, gc, 5, cury_off, eq_box.type, (int)strlen(eq_box.type));
         return;
     }
     if (window == eq_box.stab) {
         sprintf(temp, "c+ = %d", eq_box.info[0]);
-        XDrawString(display, eq_box.stab, small_gc, 2, 2*dcur_y + 6, temp,
-                    (int)strlen(temp));
+        XDrawString(display, eq_box.stab, small_gc, 2, 2*dcur_y + 6, temp, (int)strlen(temp));
         sprintf(temp, "c- = %d", eq_box.info[1]);
-        XDrawString(display, eq_box.stab, small_gc, 2 + 9*dcur_xs,
-                    2*dcur_y + 6, temp, (int)strlen(temp));
+        XDrawString(display, eq_box.stab, small_gc, 2 + 9*dcur_xs, 2*dcur_y + 6, temp,
+                    (int)strlen(temp));
         sprintf(temp, "im = %d", eq_box.info[2]);
-        XDrawString(display, eq_box.stab, small_gc, 2 + 18*dcur_xs,
-                    2*dcur_y + 6, temp, (int)strlen(temp));
+        XDrawString(display, eq_box.stab, small_gc, 2 + 18*dcur_xs, 2*dcur_y + 6, temp,
+                    (int)strlen(temp));
         sprintf(temp, "r+ = %d", eq_box.info[3]);
-        XDrawString(display, eq_box.stab, small_gc, 2,
-                    2*dcur_y + 2*dcur_ys + 6, temp, (int)strlen(temp));
+        XDrawString(display, eq_box.stab, small_gc, 2, 2*dcur_y + 2*dcur_ys + 6, temp,
+                    (int)strlen(temp));
         sprintf(temp, "r- = %d", eq_box.info[4]);
-        XDrawString(display, eq_box.stab, small_gc, 2 + 9*dcur_xs,
-                    2*dcur_y + 2*dcur_ys + 6, temp, (int)strlen(temp));
+        XDrawString(display, eq_box.stab, small_gc, 2 + 9*dcur_xs, 2*dcur_y + 2*dcur_ys + 6,
+                    temp, (int)strlen(temp));
         return;
     }
     if (window == eq_box.rest) {
@@ -471,9 +454,8 @@ eig_list_draw_eq_box(Window window) {
                     continue;
                 }
                 sprintf(temp, "%s=%.5g", uvar_names[in], eq_box.y[in]);
-                XDrawString(display, eq_box.rest, small_gc,
-                            j*28*dcur_xs + 8, i*(dcur_ys + 3) + 13, temp,
-                            (int)strlen(temp));
+                XDrawString(display, eq_box.rest, small_gc, j*28*dcur_xs + 8,
+                            i*(dcur_ys + 3) + 13, temp, (int)strlen(temp));
             }
         }
         return;

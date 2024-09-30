@@ -70,10 +70,9 @@ lunch_ps_write_pars(FILE *fp) {
 
 void
 lunch_do_info(FILE *fp) {
-    static char *method[] = {
-        "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
-        "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
-        "CVode",    "DoPri5",   "DoPri8(3)",  "Rosenbrock",  "Symplectic"};
+    static char *method[] = {"Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
+                             "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
+                             "CVode",    "DoPri5",   "DoPri8(3)",  "Rosenbrock",  "Symplectic"};
     int32 div;
     int32 rem;
     double z;
@@ -106,21 +105,19 @@ lunch_do_info(FILE *fp) {
 
     fprintf(fp, "\n\n Numerical parameters ...\n");
 
-    fprintf(fp, "NJMP=%d  NMESH=%d METHOD=%s evec_iter=%d \n", NJMP, NMESH,
-            method[METHOD], evec_iter);
-    fprintf(fp, "bvp_eps=%g,bvp_tol=%g,bpv_maxit=%d \n", bvp_eps, bvp_tol,
-            bpv_maxit);
-    fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g delay=%g MaxPts=%d\n",
-            delta_t, T0, TRANS, TEND, bound, delay, max_points);
-    fprintf(fp, "evec_err=%g, NEWT_ERR=%g h_min=%g h_max=%g TOLER=%g \n",
-            evec_err, NEWT_ERR, h_min, h_max, TOLER);
+    fprintf(fp, "NJMP=%d  NMESH=%d METHOD=%s evec_iter=%d \n", NJMP, NMESH, method[METHOD],
+            evec_iter);
+    fprintf(fp, "bvp_eps=%g,bvp_tol=%g,bpv_maxit=%d \n", bvp_eps, bvp_tol, bpv_maxit);
+    fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g delay=%g MaxPts=%d\n", delta_t, T0, TRANS,
+            TEND, bound, delay, max_points);
+    fprintf(fp, "evec_err=%g, NEWT_ERR=%g h_min=%g h_max=%g TOLER=%g \n", evec_err, NEWT_ERR, h_min,
+            h_max, TOLER);
     if (POIVAR == 0) {
         strcpy(bob, "T");
     } else {
         strcpy(bob, uvar_names[POIVAR - 1]);
     }
-    fprintf(fp, "POIMAP=%d POIVAR=%s POIPLN=%g POISGN=%d \n", POIMAP, bob,
-            POIPLN, POISGN);
+    fprintf(fp, "POIMAP=%d POIVAR=%s POIPLN=%g POISGN=%d \n", POIMAP, bob, POIPLN, POISGN);
 
     fprintf(fp, "\n\n Delay strings ...\n");
 
@@ -314,12 +311,10 @@ lunch_dump_eqn(FILE *fp) {
 
 void
 lunch_io_numerics(int32 f, FILE *fp) {
-    char *method[] = {"Discrete",  "Euler", "Mod. Euler", "Runge-Kutta",
-                      "Adams",     "Gear",  "Volterra",   "BackEul",
-                      "Qual RK",   "Stiff", "CVode",      "DorPrin5",
-                      "DorPri8(3)"};
-    char *pmap[] = {"Poincare None", "Poincare Section", "Poincare Max",
-                    "Period"};
+    char *method[] = {"Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
+                      "Gear",     "Volterra", "BackEul",    "Qual RK",     "Stiff",
+                      "CVode",    "DorPrin5", "DorPri8(3)"};
+    char *pmap[] = {"Poincare None", "Poincare Section", "Poincare Max", "Period"};
     char temp[256];
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp);  // skip a line
@@ -449,10 +444,8 @@ lunch_io_ic_file(char *fn, int32 flag) {
         for (int32 i = 0; i < NODE; i++) {
             chk = fscanf(fp, "%lg", &last_ic[i]);
             if (chk != 1) {
-                sprintf(
-                    msg,
-                    "Expected %d initial conditions but only found %d in %s.",
-                    NODE, i, fn);
+                sprintf(msg, "Expected %d initial conditions but only found %d in %s.", NODE, i,
+                        fn);
                 ggets_err_msg(msg);
                 return;
             }
@@ -461,8 +454,7 @@ lunch_io_ic_file(char *fn, int32 flag) {
         while (chk != EOF) {
             chk = fscanf(fp, "%lg", &last_ic[NODE]);
             if (chk != EOF) {
-                sprintf(msg, "Found more than %d initial conditions in %s.",
-                        NODE, fn);
+                sprintf(msg, "Found more than %d initial conditions in %s.", NODE, fn);
                 ggets_err_msg(msg);
                 return;
             }

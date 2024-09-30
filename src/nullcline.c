@@ -62,10 +62,8 @@ static NullClines *ncperm;
 static int32 n_nstore = 0;
 static int32 ncline_cnt;
 
-static int32 nullcline_interpolate(Point p1, Point p2, double z, double *x,
-                                   double *y);
-static void nullcline_do_cline(int32 ngrid, double x1, double y1, double x2,
-                               double y2);
+static int32 nullcline_interpolate(Point p1, Point p2, double z, double *x, double *y);
+static void nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
 static void nullcline_quad_contour(Point p1, Point p2, Point p3, Point p4);
 static double nullcline_fnull(double x, double y);
 static void nullcline_store(double x1, double y1, double x2, double y2);
@@ -365,8 +363,7 @@ nullcline_redraw_froz(int32 flag) {
             return;
         }
 
-        if (MyGraph->xv[0] == z->n_ix && MyGraph->yv[0] == z->n_iy &&
-            MyGraph->ThreeDFlag == 0) {
+        if (MyGraph->xv[0] == z->n_ix && MyGraph->yv[0] == z->n_iy && MyGraph->ThreeDFlag == 0) {
             if (flag > 0) {
                 browser_wait_a_sec(flag);
                 main_clr_scrn();
@@ -388,8 +385,7 @@ nullcline_redraw_froz(int32 flag) {
 }
 
 void
-nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
-                   int32 n_iy) {
+nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy, int32 n_iy) {
     NullClines *z;
     NullClines *znew;
     z = ncperm;
@@ -422,9 +418,8 @@ nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
 }
 
 void
-nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
-                         double du, double dv, int32 n, int32 inx, int32 iny,
-                         double *mdf) {
+nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0, double du, double dv,
+                         int32 n, int32 inx, int32 iny, double *mdf) {
     double amp;
     double dxp;
     double dyp;
@@ -463,8 +458,7 @@ nullcline_do_batch_nclines(void) {
 
 void
 nullcline_set_colorization_stuff(void) {
-    numerics_user_set_color_par(colorize_flag, color_via, color_via_lo,
-                                color_via_hi);
+    numerics_user_set_color_par(colorize_flag, color_via, color_via_lo, color_via_hi);
     return;
 }
 
@@ -544,8 +538,7 @@ nullcline_redraw_dfield(void) {
 
     int32 grid = df_grid;
     if (df_flag == 0 || MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
-        MyGraph->ThreeDFlag || DF_IX != MyGraph->xv[0] ||
-        DF_IY != MyGraph->yv[0]) {
+        MyGraph->ThreeDFlag || DF_IX != MyGraph->xv[0] || DF_IY != MyGraph->yv[0]) {
         return;
     }
     if (DFSuppress == 1) {
@@ -605,8 +598,7 @@ nullcline_redraw_dfield(void) {
                 xv2 = y[iny] + ydot[iny]*dz;
                 if (!DFSuppress) {
                     graphics_bead_abs((double)xv1, (double)xv2);
-                    graphics_line_abs((double)y[inx], (double)y[iny],
-                                      (double)xv1, (double)xv2);
+                    graphics_line_abs((double)y[inx], (double)y[iny], (double)xv1, (double)xv2);
                 } else {
                     if (fp) {
                         fprintf(fp, "%g %g %g %g\n", y[inx], y[iny], xv1, xv2);
@@ -614,8 +606,7 @@ nullcline_redraw_dfield(void) {
                 }
             }
             if (df_flag == 2 && j > 0 && i < grid) {
-                graphics_frect_abs((double)y[inx], (double)y[iny], (double)du,
-                                   (double)dv);
+                graphics_frect_abs((double)y[inx], (double)y[iny], (double)du, (double)dv);
             }
         }
     }
@@ -660,8 +651,7 @@ nullcline_direct_field_com(int32 c) {
 
     int32 grid = df_grid;
 
-    if (MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
-        MyGraph->ThreeDFlag) {
+    if (MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] || MyGraph->ThreeDFlag) {
         return;
     }
 
@@ -735,12 +725,10 @@ nullcline_direct_field_com(int32 c) {
                     xv1 = y[inx] + ydot[inx]*dz;
                     xv2 = y[iny] + ydot[iny]*dz;
                     graphics_bead_abs((double)xv1, (double)xv2);
-                    graphics_line_abs((double)y[inx], (double)y[iny],
-                                      (double)xv1, (double)xv2);
+                    graphics_line_abs((double)y[inx], (double)y[iny], (double)xv1, (double)xv2);
                 }
                 if (df_flag == 2 && j > 0 && i < grid) {
-                    graphics_frect_abs((double)y[inx], (double)y[iny],
-                                       (double)du, (double)dv);
+                    graphics_frect_abs((double)y[inx], (double)y[iny], (double)du, (double)dv);
                 }
             }
         }
@@ -805,8 +793,7 @@ restore_nullclines(void) {
     if (NULL_HERE == 0) {
         return;
     }
-    if (MyGraph->xv[0] == null_ix && MyGraph->yv[0] == null_iy &&
-        MyGraph->ThreeDFlag == 0) {
+    if (MyGraph->xv[0] == null_ix && MyGraph->yv[0] == null_iy && MyGraph->ThreeDFlag == 0) {
         graphics_set_linestyle(col1);
         nullcline_restor(X_n, num_x_n, 1);
         graphics_set_linestyle(col2);
@@ -891,8 +878,7 @@ nullcline_new_clines_com(int32 c) {
     int32 col1 = XNullColor;
     int32 col2 = YNullColor;
 
-    if (MyGraph->ThreeDFlag || MyGraph->TimeFlag ||
-        MyGraph->xv[0] == MyGraph->yv[0]) {
+    if (MyGraph->ThreeDFlag || MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0]) {
         return;
     }
 
@@ -984,8 +970,8 @@ nullcline_new_clines_com(int32 c) {
 }
 
 void
-new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi,
-              double *stor, int32 *npts) {
+new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi, double *stor,
+              int32 *npts) {
     num_index = 0;
     saver = stor;
     nullcline_do_cline(course, xlo, ylo, xhi, yhi);

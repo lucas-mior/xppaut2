@@ -25,21 +25,20 @@
 #include <wctype.h>
 #endif
 
-#define XDS(a)                                                                 \
-    do {                                                                       \
-        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));    \
-        return;                                                                \
+#define XDS(a)                                                                                     \
+    do {                                                                                           \
+        XDrawString(display, window, small_gc, 5, cury_offs, a, strlen(a));                        \
+        return;                                                                                    \
     } while (0)
 
 #define BMAXCOL 20
 
-#define MYMASK                                                                 \
-    (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask |       \
-     StructureNotifyMask | LeaveWindowMask | EnterWindowMask)
+#define MYMASK                                                                                     \
+    (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
+     LeaveWindowMask | EnterWindowMask)
 
-#define SIMPMASK                                                               \
-    (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask |       \
-     StructureNotifyMask)
+#define SIMPMASK                                                                                   \
+    (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
 /*  The one and only primitive data browser   */
 
@@ -55,10 +54,8 @@ static void browser_data_del_col(Browser *b);
 static void browser_data_add_col(Browser *b);
 static int32 browser_add_stor_col(char *name, char *formula, Browser *b);
 static void browser_chk_seq(char *f, int32 *seq, double *a1, double *a2);
-static void browser_replace_column(char *var, char *form, double **dat,
-                                   int32 n);
-static void browser_make_d_table(double xlo, double xhi, int32 col,
-                                 char *filename, Browser b);
+static void browser_replace_column(char *var, char *form, double **dat, int32 n);
+static void browser_make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b);
 static void browser_find_value(int32 col, double val, int32 *row, Browser b);
 static void browser_but_on(Browser *b, int32 i, Window window, int32 yn);
 static void enter_browser(XEvent event, Browser *b, int32 yn);
@@ -66,8 +63,7 @@ static void display_browser(Window window, Browser b);
 static void redraw_browser(Browser b);
 static void browser_draw_data(Browser b);
 static void kill_browser(Browser *b);
-static void make_browser(Browser *b, char *wname, char *iname, int32 row,
-                         int32 col);
+static void make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col);
 static void expose_browser(XEvent event, Browser b);
 static void resize_browser(Window win, Browser *b);
 static void browser_button(XEvent event, Browser *b);
@@ -208,8 +204,7 @@ browser_data_add_col(Browser *b) {
     strcpy(form, "");
     status = dialog_box_get("Add Column", "Name", var, "Ok", "Cancel", 20);
     if (status != 0) {
-        status = dialog_box_get("Add Column", "Formula:", form, "Add it",
-                                "Cancel", 80);
+        status = dialog_box_get("Add Column", "Formula:", form, "Add it", "Cancel", 80);
         if (status != 0) {
             browser_add_stor_col(var, form, b);
         }
@@ -226,13 +221,11 @@ browser_add_stor_col(char *name, char *formula, Browser *b) {
         ggets_err_msg("Bad Formula .... ");
         return 0;
     }
-    if ((my_ode[NEQ + fix_var] = xmalloc((usize)(i + 2)*sizeof(int32))) ==
-        NULL) {
+    if ((my_ode[NEQ + fix_var] = xmalloc((usize)(i + 2)*sizeof(int32))) == NULL) {
         ggets_err_msg("Cant allocate formula space");
         return 0;
     }
-    if ((storage[NEQ + 1] = xmalloc((usize)max_stor*sizeof(double))) ==
-        NULL) {
+    if ((storage[NEQ + 1] = xmalloc((usize)max_stor*sizeof(double))) == NULL) {
         ggets_err_msg("Cant allocate space ....");
         free(my_ode[NEQ]);
         return 0;
@@ -437,8 +430,7 @@ browser_wipe_rep(void) {
 }
 
 void
-browser_make_d_table(double xlo, double xhi, int32 col, char *filename,
-                     Browser b) {
+browser_make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b) {
     int32 npts;
     int32 ok;
     FILE *fp;
@@ -582,8 +574,7 @@ display_browser(Window window, Browser b) {
     int32 i0;
     if (window == b.hint) {
         XClearWindow(display, b.hint);
-        XDrawString(display, window, small_gc, 8, cury_offs, b.hinttxt,
-                    (int)strlen(b.hinttxt));
+        XDrawString(display, window, small_gc, 8, cury_offs, b.hinttxt, (int)strlen(b.hinttxt));
         return;
     }
 
@@ -658,8 +649,8 @@ display_browser(Window window, Browser b) {
         if (window == b.label[i]) {
             i0 = i + b.col0 - 1;
             if (i0 < b.maxcol - 1) {
-                XDrawString(display, window, small_gc, 5, cury_offs,
-                            uvar_names[i0], (int)strlen(uvar_names[i0]));
+                XDrawString(display, window, small_gc, 5, cury_offs, uvar_names[i0],
+                            (int)strlen(uvar_names[i0]));
             }
         }
     }
@@ -723,8 +714,8 @@ browser_draw_data(Browser b) {
         i0 = i + b.row0;
         if (i0 < b.maxrow) {
             sprintf(string, "%.8g", b.data[0][i0]);
-            XDrawString(display, b.main, small_gc, dcur_xs / 2 + 5,
-                        i*drow + dcur_ys, string, (int)strlen(string));
+            XDrawString(display, b.main, small_gc, dcur_xs / 2 + 5, i*drow + dcur_ys, string,
+                        (int)strlen(string));
         }
     }
 
@@ -739,8 +730,8 @@ browser_draw_data(Browser b) {
             i0 = i + b.row0;
             if (i0 < b.maxrow) {
                 sprintf(string, "%.7g", b.data[j0][i0]);
-                XDrawString(display, b.main, small_gc, x0 + 5,
-                            i*drow + dcur_ys, string, (int)strlen(string));
+                XDrawString(display, b.main, small_gc, x0 + 5, i*drow + dcur_ys, string,
+                            (int)strlen(string));
             }
         }
     }
@@ -799,8 +790,7 @@ browser_button2(Window root, int32 row, int32 col, int32 iflag) {
 }
 
 Window
-browser_button_data(Window root, int32 row, int32 col, char *name,
-                    int32 iflag) {
+browser_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window window;
     int32 dcol = 12*dcur_xs;
     int32 drow = (dcur_ys + 6);
@@ -839,12 +829,10 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     width = ncol*dcol;
     b->nrow = row;
     b->ncol = ncol;
-    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
-                                      height, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
     b->base = base;
     XSelectInput(display, base,
-                 ExposureMask | KeyPressMask | ButtonPressMask |
-                     StructureNotifyMask);
+                 ExposureMask | KeyPressMask | ButtonPressMask | StructureNotifyMask);
     XStringListToTextProperty(&wname, 1, &winname);
     XStringListToTextProperty(&iname, 1, &iconname);
 
@@ -858,14 +846,13 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display, base, &winname, &iconname, NULL, 0,
-                         &size_hints, NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints, NULL,
+                         &class_hints);
     }
     many_pops_make_icon((char *)browse_bits, browse_width, browse_height, base);
     b->upper = pop_list_make_window(base, 0, 0, width, ystart + drow*6, 1);
     XSetWindowBackground(display, b->upper, my_main_win_color);
-    b->main = pop_list_make_plain_window(base, 0, ystart + drow*6, width,
-                                         row*drow, 1);
+    b->main = pop_list_make_plain_window(base, 0, ystart + drow*6, width, row*drow, 1);
     XSetWindowBackground(display, b->main, my_draw_win_color);
     b->find = browser_button2(base, 0, 0, 0);
     b->get = browser_button2(base, 1, 0, 0);
@@ -1030,8 +1017,8 @@ browser_button(XEvent event, Browser *b) {
     if (browser_my.xflag == 0) {
         return;
     }
-    if (w == b->up || w == b->down || w == b->pgup || w == b->pgdn ||
-        w == b->left || w == b->right) {
+    if (w == b->up || w == b->down || w == b->pgup || w == b->pgdn || w == b->left ||
+        w == b->right) {
         done = 1;
         while (done) {
             if (w == b->up) {
@@ -1336,8 +1323,7 @@ browser_data_end(Browser *b) {
 }
 
 void
-browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
-                     int32 i3, int32 off) {
+browser_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3, int32 off) {
     int32 in = browser_my.row0 + off;
     *x = browser_my.data[i1][in];
     *y = browser_my.data[i2][in];
@@ -1383,8 +1369,7 @@ browser_data_replace(Browser *b) {
     strcpy(form, uvar_names[0]);
     status = dialog_box_get("Replace", "Variable:", var, "Ok", "Cancel", 20);
     if (status != 0) {
-        status = dialog_box_get("Replace", "Formula:", form, "Replace",
-                                "Cancel", 80);
+        status = dialog_box_get("Replace", "Formula:", form, "Replace", "Cancel", 80);
         if (status != 0) {
             browser_replace_column(var, form, b->data, b->maxrow);
         }
@@ -1427,8 +1412,7 @@ browser_data_table(Browser *b) {
     strncpy(value[0], uvar_names[0], sizeof(value[0]));
     snprintf(value[1], sizeof(value[1]), "0.00");
     snprintf(value[2], sizeof(value[2]), "1.00");
-    snprintf(value[3], sizeof(value[3]), "%.*s.tab", (int)sizeof(value[0]) - 5,
-             value[0]);
+    snprintf(value[3], sizeof(value[3]), "%.*s.tab", (int)sizeof(value[0]) - 5, value[0]);
 
     XGetInputFocus(display, &window, &rev);
     status = pop_list_do_string_box(4, 4, 1, "Tabulate", name, value, 40);
@@ -1487,8 +1471,7 @@ browser_open_write_file(FILE **fp, char *fil, int32 *ok) {
     *fp = fopen(fil, "r");
     if (*fp != NULL) {
         fclose(*fp);
-        ans = (char)menudrive_two_choice("Yes", "No", "File Exists! Overwrite?",
-                                         "yn");
+        ans = (char)menudrive_two_choice("Yes", "No", "File Exists! Overwrite?", "yn");
         if (ans != 'y') {
             return;
         }

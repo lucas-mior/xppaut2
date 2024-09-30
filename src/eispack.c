@@ -23,8 +23,8 @@ static int64 c__2 = 2;
 /*          Eigenvalue solver from EISPACK */
 /* ----------------------------------------------------------------------- */
 int32
-rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
-   double *z__, int64 *iv1, double *fv1, int64 *ierr) {
+rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz, double *z__, int64 *iv1,
+   double *fv1, int64 *ierr) {
     int64 a_dim1;
     int64 a_offset;
     int64 z_dim1;
@@ -111,8 +111,7 @@ L10:
 /*     .......... FIND BOTH EIGENVALUES AND EIGENVECTORS .......... */
 L20:
     eltran(&nm, &n, &is1, &is2, &a[a_offset], &iv1[1], &z__[z_offset]);
-    hqr2(&nm, &n, &is1, &is2, &a[a_offset], &wr[1], &wi[1], &z__[z_offset],
-         ierr);
+    hqr2(&nm, &n, &is1, &is2, &a[a_offset], &wr[1], &wi[1], &z__[z_offset], ierr);
     if (*ierr != 0) {
         goto L50;
     }
@@ -122,8 +121,7 @@ L50:
 }
 
 int32
-hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
-    double *wi, int64 *ierr) {
+hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr, double *wi, int64 *ierr) {
     int64 h_dim1;
     int64 h_offset;
     int64 i__1;
@@ -403,8 +401,7 @@ L150:
         //     .......... ROW MODIFICATION ..........
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
-            p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1] +
-                r__*h__[k + 2 + j*h_dim1];
+            p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1] + r__*h__[k + 2 + j*h_dim1];
             h__[k + j*h_dim1] -= p*x;
             h__[k + 1 + j*h_dim1] -= p*y;
             h__[k + 2 + j*h_dim1] -= p*zz;
@@ -474,8 +471,8 @@ L1001:
 }
 
 int32
-hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
-     double *wi, double *z__, int64 *ierr) {
+hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr, double *wi, double *z__,
+     int64 *ierr) {
     int64 h_dim1;
     int64 h_offset;
     int64 z_dim1;
@@ -789,8 +786,7 @@ L150:
         //     .......... ROW MODIFICATION ..........
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
-            p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1] +
-                r__*h__[k + 2 + j*h_dim1];
+            p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1] + r__*h__[k + 2 + j*h_dim1];
             h__[k + j*h_dim1] -= p*x;
             h__[k + 1 + j*h_dim1] -= p*y;
             h__[k + 2 + j*h_dim1] -= p*zz;
@@ -1010,14 +1006,12 @@ L340:
             goto L720;
         }
         h__[na + na*h_dim1] = q / h__[en + na*h_dim1];
-        h__[na + en*h_dim1] =
-            -(h__[en + en*h_dim1] - p) / h__[en + na*h_dim1];
+        h__[na + en*h_dim1] = -(h__[en + en*h_dim1] - p) / h__[en + na*h_dim1];
         goto L730;
     L720:
         d__1 = -h__[na + en*h_dim1];
         d__2 = h__[na + na*h_dim1] - p;
-        cdiv(&c_b81, &d__1, &d__2, &q, &h__[na + na*h_dim1],
-             &h__[na + en*h_dim1]);
+        cdiv(&c_b81, &d__1, &d__2, &q, &h__[na + na*h_dim1], &h__[na + en*h_dim1]);
     L730:
         h__[en + na*h_dim1] = 0.;
         h__[en + en*h_dim1] = 1.;
@@ -1054,8 +1048,7 @@ L340:
             }
             d__1 = -ra;
             d__2 = -sa;
-            cdiv(&d__1, &d__2, &w, &q, &h__[i__ + na*h_dim1],
-                 &h__[i__ + en*h_dim1]);
+            cdiv(&d__1, &d__2, &w, &q, &h__[i__ + na*h_dim1], &h__[i__ + en*h_dim1]);
             goto L790;
             //     .......... SOLVE COMPLEX EQUATIONS ..........
         L780:
@@ -1077,23 +1070,19 @@ L340:
         L784:
             d__1 = x*r__ - zz*ra + q*sa;
             d__2 = x*s - zz*sa - q*ra;
-            cdiv(&d__1, &d__2, &vr, &vi, &h__[i__ + na*h_dim1],
-                 &h__[i__ + en*h_dim1]);
+            cdiv(&d__1, &d__2, &vr, &vi, &h__[i__ + na*h_dim1], &h__[i__ + en*h_dim1]);
             if (fabs(x) <= fabs(zz) + fabs(q)) {
                 goto L785;
             }
-            h__[i__ + 1 + na*h_dim1] = (-ra - w*h__[i__ + na*h_dim1] +
-                                          q*h__[i__ + en*h_dim1]) /
-                                         x;
-            h__[i__ + 1 + en*h_dim1] = (-sa - w*h__[i__ + en*h_dim1] -
-                                          q*h__[i__ + na*h_dim1]) /
-                                         x;
+            h__[i__ + 1 + na*h_dim1] =
+                (-ra - w*h__[i__ + na*h_dim1] + q*h__[i__ + en*h_dim1]) / x;
+            h__[i__ + 1 + en*h_dim1] =
+                (-sa - w*h__[i__ + en*h_dim1] - q*h__[i__ + na*h_dim1]) / x;
             goto L790;
         L785:
             d__1 = -r__ - y*h__[i__ + na*h_dim1];
             d__2 = -s - y*h__[i__ + en*h_dim1];
-            cdiv(&d__1, &d__2, &zz, &q, &h__[i__ + 1 + na*h_dim1],
-                 &h__[i__ + 1 + en*h_dim1]);
+            cdiv(&d__1, &d__2, &zz, &q, &h__[i__ + 1 + na*h_dim1], &h__[i__ + 1 + en*h_dim1]);
 
             //     .......... OVERFLOW CONTROL ..........
         L790:
@@ -1450,8 +1439,7 @@ L280:
 }
 
 int32
-balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
-       double *z__) {
+balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m, double *z__) {
     int64 z_dim1;
     int64 z_offset;
     int64 i__1;
@@ -1703,8 +1691,7 @@ L200:
 }
 
 int32
-eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
-       double *z__) {
+eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__, double *z__) {
     int64 a_dim1;
     int64 a_offset;
     int64 z_dim1;
@@ -1820,8 +1807,7 @@ L200:
 /* ----------------------------------------------------------------------- */
 int32
 qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
-    int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
-        i__3;
+    int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2, i__3;
     double d__1;
     double d__2;
 
@@ -2101,10 +2087,8 @@ L170:
 }
 
 int32
-qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
-     double *z__, int64 *ierr) {
-    int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
-        i__3;
+qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz, double *z__, int64 *ierr) {
+    int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2, i__3;
     double d__1;
     double d__2;
     double d__3;
@@ -2115,8 +2099,8 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
     static int64 enorn;
     static double a1, a2, a3;
     static int64 k1, k2, l1;
-    static double u1, u2, u3, v1, v2, v3, a11, a12, a21, a22, a33, a34, a43,
-        a44, b11, b12, b22, b33;
+    static double u1, u2, u3, v1, v2, v3, a11, a12, a21, a22, a33, a34, a43, a44, b11, b12, b22,
+        b33;
     static int64 na, ld;
     static double b34, b44;
     static int64 en;
@@ -2421,8 +2405,7 @@ L150:
     a12 = a[l + l1*a_dim1] / b22;
     a22 = a[l1 + l1*a_dim1] / b22;
     b12 = b[l + l1*b_dim1] / b22;
-    a1 = ((a33 - a11)*(a44 - a11) - a34*a43 + a43*b34*a11) / a21 + a12 -
-         a11*b12;
+    a1 = ((a33 - a11)*(a44 - a11) - a34*a43 + a43*b34*a11) / a21 + a12 - a11*b12;
     a2 = a22 - a11 - a21*b12 - (a33 - a11) - (a44 - a11) + a43*b34;
     a3 = a[l1 + 1 + l1*a_dim1] / b22;
     goto L160;
@@ -2513,13 +2496,11 @@ L160:
 
         i__2 = enorn;
         for (j = km1; j <= i__2; ++j) {
-            t = a[k + j*a_dim1] + u2*a[k1 + j*a_dim1] +
-                u3*a[k2 + j*a_dim1];
+            t = a[k + j*a_dim1] + u2*a[k1 + j*a_dim1] + u3*a[k2 + j*a_dim1];
             a[k + j*a_dim1] += t*v1;
             a[k1 + j*a_dim1] += t*v2;
             a[k2 + j*a_dim1] += t*v3;
-            t = b[k + j*b_dim1] + u2*b[k1 + j*b_dim1] +
-                u3*b[k2 + j*b_dim1];
+            t = b[k + j*b_dim1] + u2*b[k1 + j*b_dim1] + u3*b[k2 + j*b_dim1];
             b[k + j*b_dim1] += t*v1;
             b[k1 + j*b_dim1] += t*v2;
             b[k2 + j*b_dim1] += t*v3;
@@ -2553,13 +2534,11 @@ L160:
 
         i__2 = ll;
         for (i__ = lor1; i__ <= i__2; ++i__) {
-            t = a[i__ + k2*a_dim1] + u2*a[i__ + k1*a_dim1] +
-                u3*a[i__ + k*a_dim1];
+            t = a[i__ + k2*a_dim1] + u2*a[i__ + k1*a_dim1] + u3*a[i__ + k*a_dim1];
             a[i__ + k2*a_dim1] += t*v1;
             a[i__ + k1*a_dim1] += t*v2;
             a[i__ + k*a_dim1] += t*v3;
-            t = b[i__ + k2*b_dim1] + u2*b[i__ + k1*b_dim1] +
-                u3*b[i__ + k*b_dim1];
+            t = b[i__ + k2*b_dim1] + u2*b[i__ + k1*b_dim1] + u3*b[i__ + k*b_dim1];
             b[i__ + k2*b_dim1] += t*v1;
             b[i__ + k1*b_dim1] += t*v2;
             b[i__ + k*b_dim1] += t*v3;
@@ -2574,8 +2553,7 @@ L160:
 
         i__2 = n;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            t = z__[i__ + k2*z_dim1] + u2*z__[i__ + k1*z_dim1] +
-                u3*z__[i__ + k*z_dim1];
+            t = z__[i__ + k2*z_dim1] + u2*z__[i__ + k1*z_dim1] + u3*z__[i__ + k*z_dim1];
             z__[i__ + k2*z_dim1] += t*v1;
             z__[i__ + k1*z_dim1] += t*v2;
             z__[i__ + k*z_dim1] += t*v3;
@@ -2638,8 +2616,8 @@ L1001:
 }
 
 int32
-qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
-      double *beta, int64 matz, double *z__) {
+qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi, double *beta, int64 matz,
+      double *z__) {
     int64 a_dim1;
     int64 a_offset;
     int64 b_dim1;
@@ -2655,15 +2633,13 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
 
     static double epsb, c__, d__, e;
     static int64 i__, j;
-    static double r__, s, t, a1, a2, u1, u2, v1, v2, a11, a12, a21, a22, b11,
-        b12, b22, di, ei;
+    static double r__, s, t, a1, a2, u1, u2, v1, v2, a11, a12, a21, a22, b11, b12, b22, di, ei;
     static int64 na;
     static double an, bn;
     static int64 en;
     static double cq, dr;
     static int64 nn;
-    static double cz, ti, tr, a1i, a2i, a11i, a12i, a22i, a11r, a12r, a22r, sqi,
-        ssi;
+    static double cz, ti, tr, a1i, a2i, a11i, a12i, a22i, a11r, a12r, a22r, sqi, ssi;
     static int64 isw;
     static double sqr, szi, ssr, szr;
 
@@ -3349,9 +3325,8 @@ L40:
     mp1 = m + 1;
     i__1 = *n;
     for (i__ = mp1; i__ <= i__1; i__ += 5) {
-        dtemp = dtemp + dx[i__]*dy[i__] + dx[i__ + 1]*dy[i__ + 1] +
-                dx[i__ + 2]*dy[i__ + 2] + dx[i__ + 3]*dy[i__ + 3] +
-                dx[i__ + 4]*dy[i__ + 4];
+        dtemp = dtemp + dx[i__]*dy[i__] + dx[i__ + 1]*dy[i__ + 1] + dx[i__ + 2]*dy[i__ + 2] +
+                dx[i__ + 3]*dy[i__ + 3] + dx[i__ + 4]*dy[i__ + 4];
         // L50:
     }
 L60:
@@ -3565,8 +3540,7 @@ L40:
 }
 
 int32
-drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
-     double *s) {
+drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__, double *s) {
     int64 i__1;
 
     static int64 i__;
@@ -3707,8 +3681,7 @@ L40:
 }
 
 int32
-dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
-      int64 *trans) {
+dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb, int64 *trans) {
     int64 a_dim1;
     int64 a_offset;
     int64 b_dim1;
@@ -3848,10 +3821,8 @@ xerbla(char *srname, int64 *info, int64 srname_len) {
 
     //     .. Executable Statements ..
 
-    printf(
-        "On entry to %c%c%c%c%c%c parameter number %ld had an illegal value\n",
-        srname[0], srname[1], srname[2], srname[3], srname[4], srname[5],
-        (*info));
+    printf("On entry to %c%c%c%c%c%c parameter number %ld had an illegal value\n", srname[0],
+           srname[1], srname[2], srname[3], srname[4], srname[5], (*info));
     exit(0);
 }
 
@@ -3948,9 +3919,9 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 /*  BLAS-3 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 int32
-dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
-      double *a, int64 *lda, double *b, int64 *ldb, double *beta, double *c__,
-      int64 *ldc, int64 transa_len, int64 transb_len) {
+dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha, double *a,
+      int64 *lda, double *b, int64 *ldb, double *beta, double *c__, int64 *ldc, int64 transa_len,
+      int64 transb_len) {
     int64 a_dim1;
     int64 a_offset;
     int64 b_dim1;
@@ -4167,8 +4138,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     info = 0;
     if (!nota && !lsame(transa, "C", 1L, 1L) && !lsame(transa, "T", 1L, 1L)) {
         info = 1;
-    } else if (!notb && !lsame(transb, "C", 1L, 1L) &&
-               !lsame(transb, "T", 1L, 1L)) {
+    } else if (!notb && !lsame(transb, "C", 1L, 1L) && !lsame(transb, "T", 1L, 1L)) {
         info = 2;
     } else if (*m < 0) {
         info = 3;
@@ -4272,8 +4242,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                     if (*beta == 0.) {
                         c__[i__ + j*c_dim1] = *alpha*temp;
                     } else {
-                        c__[i__ + j*c_dim1] =
-                            *alpha*temp + *beta*c__[i__ + j*c_dim1];
+                        c__[i__ + j*c_dim1] = *alpha*temp + *beta*c__[i__ + j*c_dim1];
                     }
                     // L110:
                 }
@@ -4330,8 +4299,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                     if (*beta == 0.) {
                         c__[i__ + j*c_dim1] = *alpha*temp;
                     } else {
-                        c__[i__ + j*c_dim1] =
-                            *alpha*temp + *beta*c__[i__ + j*c_dim1];
+                        c__[i__ + j*c_dim1] = *alpha*temp + *beta*c__[i__ + j*c_dim1];
                     }
                     // L190:
                 }
@@ -4349,9 +4317,8 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
 /* Demmel-Kahan SVD routines needed for computing the Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 int32
-ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
-      double *u, int64 *ldu, double *v, int64 *ldv, double *work, int64 *job,
-      int64 *info, double *tol) {
+ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e, double *u, int64 *ldu,
+      double *v, int64 *ldv, double *work, int64 *job, int64 *info, double *tol) {
     int64 x_dim1;
     int64 x_offset;
     int64 u_dim1;
@@ -4420,9 +4387,9 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     //     maximum 30 QR sweeps per singular value
     maxitr = 30;
 
-    ndsvd(&x[x_offset], ldx, n, p, &s[1], &e[1], &u[u_offset], ldu,
-          &v[v_offset], ldv, &work[1], job, info, &maxitr, tol, &idbg, &ifull,
-          &kount, &kount1, &kount2, &skip, &limshf, &maxsin, &iidir);
+    ndsvd(&x[x_offset], ldx, n, p, &s[1], &e[1], &u[u_offset], ldu, &v[v_offset], ldv, &work[1],
+          job, info, &maxitr, tol, &idbg, &ifull, &kount, &kount1, &kount2, &skip, &limshf, &maxsin,
+          &iidir);
     return 0;
 }
 
@@ -4476,13 +4443,11 @@ ndrotg(double *f, double *g, double *cs, double *sn) {
 }
 
 int32
-ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
-      double *u, int64 *ldu, double *v, int64 *ldv, double *work, int64 *job,
-      int64 *info, int64 *maxitr, double *tol, int64 *idbg, int64 *ifull,
-      int64 *kount, int64 *kount1, int64 *kount2, int64 *skip, int64 *limshf,
-      double *maxsin, int64 *iidir) {
-    int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset, i__1, i__2,
-        i__3;
+ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e, double *u, int64 *ldu,
+      double *v, int64 *ldv, double *work, int64 *job, int64 *info, int64 *maxitr, double *tol,
+      int64 *idbg, int64 *ifull, int64 *kount, int64 *kount1, int64 *kount2, int64 *skip,
+      int64 *limshf, double *maxsin, int64 *iidir) {
+    int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset, i__1, i__2, i__3;
     double d__1;
     double d__2;
     double d__3;
@@ -4743,12 +4708,10 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
                 //              apply the transformation.
 
                 i__3 = *n - l + 1;
-                t = -ddot(&i__3, &x[l + l*x_dim1], &c__1, &x[l + j*x_dim1],
-                          &c__1) /
+                t = -ddot(&i__3, &x[l + l*x_dim1], &c__1, &x[l + j*x_dim1], &c__1) /
                     x[l + l*x_dim1];
                 i__3 = *n - l + 1;
-                daxpy(&i__3, &t, &x[l + l*x_dim1], &c__1, &x[l + j*x_dim1],
-                      &c__1);
+                daxpy(&i__3, &t, &x[l + l*x_dim1], &c__1, &x[l + j*x_dim1], &c__1);
             L30:
 
                 //           place the l-th row of x into  e for the
@@ -4807,16 +4770,14 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             i__2 = *p;
             for (j = lp1; j <= i__2; ++j) {
                 i__3 = *n - l;
-                daxpy(&i__3, &e[j], &x[lp1 + j*x_dim1], &c__1, &work[lp1],
-                      &c__1);
+                daxpy(&i__3, &e[j], &x[lp1 + j*x_dim1], &c__1, &work[lp1], &c__1);
                 // L100:
             }
             i__2 = *p;
             for (j = lp1; j <= i__2; ++j) {
                 i__3 = *n - l;
                 d__1 = -e[j] / e[lp1];
-                daxpy(&i__3, &d__1, &work[lp1], &c__1, &x[lp1 + j*x_dim1],
-                      &c__1);
+                daxpy(&i__3, &d__1, &work[lp1], &c__1, &x[lp1 + j*x_dim1], &c__1);
                 // L110:
             }
         L120:
@@ -4895,12 +4856,10 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             i__2 = ncu;
             for (j = lp1; j <= i__2; ++j) {
                 i__3 = *n - l + 1;
-                t = -ddot(&i__3, &u[l + l*u_dim1], &c__1, &u[l + j*u_dim1],
-                          &c__1) /
+                t = -ddot(&i__3, &u[l + l*u_dim1], &c__1, &u[l + j*u_dim1], &c__1) /
                     u[l + l*u_dim1];
                 i__3 = *n - l + 1;
-                daxpy(&i__3, &t, &u[l + l*u_dim1], &c__1, &u[l + j*u_dim1],
-                      &c__1);
+                daxpy(&i__3, &t, &u[l + l*u_dim1], &c__1, &u[l + j*u_dim1], &c__1);
                 // L210:
             }
         L220:
@@ -4950,12 +4909,10 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             i__2 = *p;
             for (j = lp1; j <= i__2; ++j) {
                 i__3 = *p - l;
-                t = -ddot(&i__3, &v[lp1 + l*v_dim1], &c__1,
-                          &v[lp1 + j*v_dim1], &c__1) /
+                t = -ddot(&i__3, &v[lp1 + l*v_dim1], &c__1, &v[lp1 + j*v_dim1], &c__1) /
                     v[lp1 + l*v_dim1];
                 i__3 = *p - l;
-                daxpy(&i__3, &t, &v[lp1 + l*v_dim1], &c__1,
-                      &v[lp1 + j*v_dim1], &c__1);
+                daxpy(&i__3, &t, &v[lp1 + l*v_dim1], &c__1, &v[lp1 + j*v_dim1], &c__1);
                 // L310:
             }
         L320:
@@ -5047,10 +5004,9 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
 L999:
     if (*idbg > 0) {
         printf("top of loop\n");
-        printf(
-            "oldll,oldm,oldacc,m,iter,maxit,ifull,thresh=%ld,%ld,%ld,%ld,%ld,%"
-            "ld,%ld,%f\n",
-            oldll, oldm, oldacc, oldacc, iter, maxit, (*ifull), thresh);
+        printf("oldll,oldm,oldacc,m,iter,maxit,ifull,thresh=%ld,%ld,%ld,%ld,%ld,%"
+               "ld,%ld,%f\n",
+               oldll, oldm, oldacc, oldacc, iter, maxit, (*ifull), thresh);
         prse(&c__1, &mm, n, p, &s[1], &e[1]);
     }
 
@@ -5161,19 +5117,16 @@ L1003:
         //         print *,'check shift=',-sn*abse+cs*abss
         //         print *,'check zero=',cs*abse+sn*abss
         //       endif
-        sig22(&s[m - 1], &e[m - 1], &s[m], &sigmn, &sigmx, &sinr, &cosr, &sinl,
-              &cosl);
+        sig22(&s[m - 1], &e[m - 1], &s[m], &sigmn, &sigmx, &sinr, &cosr, &sinl, &cosl);
         s[m - 1] = sigmx;
         e[m - 1] = (double)0.;
         s[m] = sigmn;
         if (wantv) {
-            drot(p, &v[ll*v_dim1 + 1], &c__1, &v[m*v_dim1 + 1], &c__1,
-                 &cosr, &sinr);
+            drot(p, &v[ll*v_dim1 + 1], &c__1, &v[m*v_dim1 + 1], &c__1, &cosr, &sinr);
         }
         //       if wantu and ll.eq.n, then rotation trivial
         if (wantu && ll < *n) {
-            drot(n, &u[ll*u_dim1 + 1], &c__1, &u[m*u_dim1 + 1], &c__1,
-                 &cosl, &sinl);
+            drot(n, &u[ll*u_dim1 + 1], &c__1, &u[m*u_dim1 + 1], &c__1, &cosl, &sinl);
         }
         goto L999;
     }
@@ -5435,8 +5388,7 @@ L1003:
                 *maxsin = max(d__1, d__2);
                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn
                 if (wantv) {
-                    drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1)*v_dim1 + 1],
-                         &c__1, &cs, &sn);
+                    drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1)*v_dim1 + 1], &c__1, &cs, &sn);
                 }
                 if (k != ll) {
                     e[k - 1] = oldsn*f;
@@ -5460,8 +5412,7 @@ L1003:
                 /*           if wantu and k.eq.n, then s(k+1)=0 so g=0 so cs=1
                  and sn=0 */
                 if (wantu && k < *n) {
-                    drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1)*u_dim1 + 1],
-                         &c__1, &cs, &sn);
+                    drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1)*u_dim1 + 1], &c__1, &cs, &sn);
                 }
                 s[k] = f;
                 //           if (idbg.gt.3) print *,'s(k)=',s(k)
@@ -5517,8 +5468,7 @@ L1003:
                 //           k.lt.n necessary
                 if (wantu) {
                     d__1 = -sn;
-                    drot(n, &u[(k - 1)*u_dim1 + 1], &c__1, &u[k*u_dim1 + 1],
-                         &c__1, &cs, &d__1);
+                    drot(n, &u[(k - 1)*u_dim1 + 1], &c__1, &u[k*u_dim1 + 1], &c__1, &cs, &d__1);
                 }
                 if (k != m) {
                     e[k] = oldsn*f;
@@ -5541,8 +5491,7 @@ L1003:
                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn
                 if (wantv) {
                     d__1 = -sn;
-                    drot(p, &v[(k - 1)*v_dim1 + 1], &c__1, &v[k*v_dim1 + 1],
-                         &c__1, &cs, &d__1);
+                    drot(p, &v[(k - 1)*v_dim1 + 1], &c__1, &v[k*v_dim1 + 1], &c__1, &cs, &d__1);
                 }
                 s[k] = f;
                 //           if (idbg.gt.3) print *,'s(k)=',s(k)
@@ -5589,8 +5538,7 @@ L1003:
                 printf("qr with nonzero shift, top to bottom\n");
             }
             d__1 = s[ll];
-            f = ((fabs(d__1)) - shift) *
-                (d_sign(c_b170, s[ll]) + shift / s[ll]);
+            f = ((fabs(d__1)) - shift)*(d_sign(c_b170, s[ll]) + shift / s[ll]);
             g = e[ll];
             i__1 = m - 1;
             for (k = ll; k <= i__1; ++k) {
@@ -5612,8 +5560,7 @@ L1003:
                 s[k + 1] = cs*s[k + 1];
                 //           if (idbg.gt.3) print *,'s(k+1)=',s(k+1)
                 if (wantv) {
-                    drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1)*v_dim1 + 1],
-                         &c__1, &cs, &sn);
+                    drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1)*v_dim1 + 1], &c__1, &cs, &sn);
                 }
                 ndrotg(&f, &g, &cs, &sn);
                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn
@@ -5631,8 +5578,7 @@ L1003:
                 s zero */
                 //           shift, so test removed from original code
                 if (wantu) {
-                    drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1)*u_dim1 + 1],
-                         &c__1, &cs, &sn);
+                    drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1)*u_dim1 + 1], &c__1, &cs, &sn);
                 }
                 //           if (idbg.gt.2) call prse(ll,m,n,p,s,e)
                 // L1008:
@@ -5682,15 +5628,13 @@ L1003:
                 //           if (idbg.gt.3) print *,'s(k-1)=',s(k-1)
                 if (wantu && k <= *n) {
                     d__1 = -sn;
-                    drot(n, &u[(k - 1)*u_dim1 + 1], &c__1, &u[k*u_dim1 + 1],
-                         &c__1, &cs, &d__1);
+                    drot(n, &u[(k - 1)*u_dim1 + 1], &c__1, &u[k*u_dim1 + 1], &c__1, &cs, &d__1);
                 }
                 ndrotg(&f, &g, &cs, &sn);
                 //           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn
                 if (wantv) {
                     d__1 = -sn;
-                    drot(p, &v[(k - 1)*v_dim1 + 1], &c__1, &v[k*v_dim1 + 1],
-                         &c__1, &cs, &d__1);
+                    drot(p, &v[(k - 1)*v_dim1 + 1], &c__1, &v[k*v_dim1 + 1], &c__1, &cs, &d__1);
                 }
                 s[k] = f;
                 //           if (idbg.gt.3) print *,'s(k)=',s(k)
@@ -5771,12 +5715,10 @@ L998:
             s[m + 1 - i__] = s[iisub];
             s[iisub] = temp;
             if (wantv) {
-                dswap(p, &v[(m + 1 - i__)*v_dim1 + 1], &c__1,
-                      &v[iisub*v_dim1 + 1], &c__1);
+                dswap(p, &v[(m + 1 - i__)*v_dim1 + 1], &c__1, &v[iisub*v_dim1 + 1], &c__1);
             }
             if (wantu) {
-                dswap(n, &u[(m + 1 - i__)*u_dim1 + 1], &c__1,
-                      &u[iisub*u_dim1 + 1], &c__1);
+                dswap(n, &u[(m + 1 - i__)*u_dim1 + 1], &c__1, &u[iisub*u_dim1 + 1], &c__1);
             }
         }
         // L1011:
@@ -5837,13 +5779,13 @@ prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
 }
 
 int32
-sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
-      double *snr, double *csr, double *snl, double *csl) {
+sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax, double *snr, double *csr,
+      double *snl, double *csl) {
     double d__1;
     double d__2;
 
-    static double absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl, sinl,
-        cosr, temp, sinr, temp1, temp2, temp3, sgnmn, sgnmx, ac, ca;
+    static double absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl, sinl, cosr, temp, sinr,
+        temp1, temp2, temp3, sgnmn, sgnmx, ac, ca;
     static int64 ia;
     static double absbac;
     static int64 ib;
@@ -6130,8 +6072,7 @@ sigmin(double *a, double *b, double *c__) {
                 d__1 = as*au;
                 // Computing 2nd power
                 d__2 = at*au;
-                ret_val =
-                    acmn / (sqrt(d__1*d__1 + 1.) + sqrt(d__2*d__2 + 1.));
+                ret_val = acmn / (sqrt(d__1*d__1 + 1.) + sqrt(d__2*d__2 + 1.));
                 ret_val = au*ret_val;
                 ret_val += ret_val;
             }
@@ -6180,9 +6121,8 @@ sndrtg(double *f, double *g, double *cs, double *sn) {
 /*  hqr3_loc.f orthes.f ortran.f   for computing triangular matrix */
 
 int32
-hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
-       double *er, double *ei, int64 *type__, int64 *na, int64 *nv,
-       int64 *imfd) {
+hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps, double *er, double *ei,
+       int64 *type__, int64 *na, int64 *nv, int64 *imfd) {
     int64 a_dim1;
     int64 a_offset;
     int64 v_dim1;
@@ -6408,8 +6348,7 @@ L110:
         }
     }
 
-    exchng(&a[a_offset], &v[v_offset], n, &nl, &c__2, &c__2, eps, &fail, na,
-           nv);
+    exchng(&a[a_offset], &v[v_offset], n, &nl, &c__2, &c__2, eps, &fail, na, nv);
     if (!fail) {
         goto L120;
     }
@@ -6438,8 +6377,7 @@ L130:
         }
     }
 
-    exchng(&a[a_offset], &v[v_offset], n, &nl, &c__2, &c__1, eps, &fail, na,
-           nv);
+    exchng(&a[a_offset], &v[v_offset], n, &nl, &c__2, &c__1, eps, &fail, na, nv);
     if (!fail) {
         goto L140;
     }
@@ -6489,8 +6427,7 @@ L180:
         }
     }
 
-    exchng(&a[a_offset], &v[v_offset], n, &mu, &c__1, &c__2, eps, &fail, na,
-           nv);
+    exchng(&a[a_offset], &v[v_offset], n, &mu, &c__1, &c__2, eps, &fail, na, nv);
     if (!fail) {
         goto L190;
     }
@@ -6515,8 +6452,7 @@ L200:
         }
     }
 
-    exchng(&a[a_offset], &v[v_offset], n, &mu, &c__1, &c__1, eps, &fail, na,
-           nv);
+    exchng(&a[a_offset], &v[v_offset], n, &mu, &c__1, &c__1, eps, &fail, na, nv);
     ++mu;
 L210:
     goto L180;
@@ -6584,8 +6520,7 @@ L310:
 }
 
 int32
-split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
-      int64 *na, int64 *nv) {
+split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2, int64 *na, int64 *nv) {
     int64 a_dim1;
     int64 a_offset;
     int64 v_dim1;
@@ -6729,8 +6664,8 @@ L80:
 }
 
 int32
-exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
-       double *eps, int64 *fail, int64 *na, int64 *nv) {
+exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2, double *eps, int64 *fail,
+       int64 *na, int64 *nv) {
     int64 a_dim1;
     int64 a_offset;
     int64 v_dim1;
@@ -6808,24 +6743,21 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     i__1 = *n;
     for (j = *l; j <= i__1; ++j) {
         s = p*a[*l + j*a_dim1] + q*a[*l + 1 + j*a_dim1];
-        a[*l + 1 + j*a_dim1] =
-            p*a[*l + 1 + j*a_dim1] - q*a[*l + j*a_dim1];
+        a[*l + 1 + j*a_dim1] = p*a[*l + 1 + j*a_dim1] - q*a[*l + j*a_dim1];
         a[*l + j*a_dim1] = s;
         // L10:
     }
     i__1 = l1;
     for (i__ = 1; i__ <= i__1; ++i__) {
         s = p*a[i__ + *l*a_dim1] + q*a[i__ + (*l + 1)*a_dim1];
-        a[i__ + (*l + 1)*a_dim1] =
-            p*a[i__ + (*l + 1)*a_dim1] - q*a[i__ + *l*a_dim1];
+        a[i__ + (*l + 1)*a_dim1] = p*a[i__ + (*l + 1)*a_dim1] - q*a[i__ + *l*a_dim1];
         a[i__ + *l*a_dim1] = s;
         // L20:
     }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         s = p*v[i__ + *l*v_dim1] + q*v[i__ + (*l + 1)*v_dim1];
-        v[i__ + (*l + 1)*v_dim1] =
-            p*v[i__ + (*l + 1)*v_dim1] - q*v[i__ + *l*v_dim1];
+        v[i__ + (*l + 1)*v_dim1] = p*v[i__ + (*l + 1)*v_dim1] - q*v[i__ + *l*v_dim1];
         v[i__ + *l*v_dim1] = s;
         // L30:
     }
@@ -6905,8 +6837,8 @@ L90:
 }
 
 int32
-qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
-       int64 *nu, int64 *n, int64 *na, int64 *nv) {
+qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl, int64 *nu, int64 *n,
+       int64 *na, int64 *nv) {
     int64 a_dim1;
     int64 a_offset;
     int64 v_dim1;
@@ -7218,8 +7150,7 @@ L200:
 }
 
 int32
-ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
-       double *z__) {
+ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort, double *z__) {
     int64 a_dim1;
     int64 a_offset;
     int64 z_dim1;
