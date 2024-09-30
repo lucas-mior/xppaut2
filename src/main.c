@@ -200,7 +200,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.iy_plt = 1;
     notAlreadySet.iz_plt = 1;
     notAlreadySet.axes = 1;
-    notAlreadySet.NMESH = 1;
+    notAlreadySet.nmesh = 1;
     notAlreadySet.METHOD = 1;
     notAlreadySet.TIMEPLOT = 1;
     notAlreadySet.max_stor = 1;

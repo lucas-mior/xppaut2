@@ -120,8 +120,8 @@ numerics_get_num_par(int32 ch) {
         break;
     case 'n':
         // ncline
-        ggets_new_int("ncline mesh :", &NMESH);
-        numerics_check_pos(&NMESH);
+        ggets_new_int("ncline mesh :", &nmesh);
+        numerics_check_pos(&nmesh);
         break;
     case 'v':
         ggets_new_int("Maximum iterates :", &bpv_maxit);

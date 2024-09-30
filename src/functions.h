@@ -1679,7 +1679,7 @@ typedef struct OptionsSet {
     int32 iy_plt;
     int32 iz_plt;
     int32 axes;
-    int32 NMESH;
+    int32 nmesh;
     int32 METHOD;
     int32 TIMEPLOT;
     int32 max_stor;
@@ -2402,7 +2402,7 @@ extern int32 cv_bandflag;
 extern int32 cv_bandupper;
 extern int32 cv_bandlower;
 
-extern int32 NMESH;
+extern int32 nmesh;
 extern int32 njmp;
 extern int32 METHOD;
 extern int32 color_flag;

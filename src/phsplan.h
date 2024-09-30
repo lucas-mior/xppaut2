@@ -35,7 +35,7 @@ extern double NULL_ERR;
 extern double evec_err;
 extern double newt_err;
 extern int32 evec_iter;
-extern int32 NMESH;
+extern int32 nmesh;
 extern int32 NC_ITER;
 
 extern double *fft_data;

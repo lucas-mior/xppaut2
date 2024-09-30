@@ -96,7 +96,7 @@ double POIPLN;
 
 int32 euler_max_iter;
 double euler_tol;
-int32 NMESH;
+int32 nmesh;
 int32 njmp;
 int32 METHOD;
 int32 color_flag;
@@ -279,9 +279,9 @@ load_eqn_set_all_vals(void) {
         bvp_flag = 0;
         notAlreadySet.bvp_flag = 0;
     }
-    if (notAlreadySet.NMESH) {
-        NMESH = 40;
-        notAlreadySet.NMESH = 0;
+    if (notAlreadySet.nmesh) {
+        nmesh = 40;
+        notAlreadySet.nmesh = 0;
     }
     if (notAlreadySet.NOUT) {
         njmp = 1;
@@ -609,9 +609,9 @@ load_eqn_read_defaults(FILE *fp) {
         load_eqn_fil_int(fp, &njmp);
         notAlreadySet.NOUT = 0;
     }
-    if (notAlreadySet.NMESH) {
-        load_eqn_fil_int(fp, &NMESH);
-        notAlreadySet.NMESH = 0;
+    if (notAlreadySet.nmesh) {
+        load_eqn_fil_int(fp, &nmesh);
+        notAlreadySet.nmesh = 0;
     }
     if (notAlreadySet.METHOD) {
         load_eqn_fil_int(fp, &METHOD);
@@ -1377,10 +1377,10 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         }
         return;
     }
-    if (load_eqn_msc("NMESH", s1)) {
-        if ((notAlreadySet.NMESH || force) || ((mask != NULL) && (mask->NMESH == 1))) {
-            NMESH = atoi(s2);
-            notAlreadySet.NMESH = 0;
+    if (load_eqn_msc("nmesh", s1)) {
+        if ((notAlreadySet.nmesh || force) || ((mask != NULL) && (mask->nmesh == 1))) {
+            nmesh = atoi(s2);
+            notAlreadySet.nmesh = 0;
         }
         return;
     }

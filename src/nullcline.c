@@ -159,7 +159,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
         double y_bot;
         int32 col1 = XNullColor;
         int32 col2 = YNullColor;
-        int32 course = NMESH;
+        int32 course = nmesh;
         /* if(paper_white){
           col1=1;
           col2=9;
@@ -870,7 +870,7 @@ nullcline_create_new_cline(void) {
 
 void
 nullcline_new_clines_com(int32 c) {
-    int32 course = NMESH;
+    int32 course = nmesh;
     double xmin;
     double xmax;
     double y_tp;
