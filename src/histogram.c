@@ -358,7 +358,7 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2, char *
                 for (int32 j = 0; j < NODE + 1; j++) {
                     set_ivar(j, (double)storage[j][i]);
                 }
-                for (int32 j = 0; j < NMarkov; j++) {
+                for (int32 j = 0; j < nmarkov; j++) {
                     set_ivar(j + NODE + 1 + fix_var, (double)storage[j + NODE + 1][i]);
                 }
                 z = evaluate(command);

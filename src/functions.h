@@ -2540,7 +2540,7 @@ typedef struct StringBox {
 extern int32 NUPAR;
 extern int32 n_equations;
 extern int32 NODE;
-extern int32 NMarkov;
+extern int32 nmarkov;
 extern char upar_names[MAX_PAR][MAX_ODE_NAME_LENGTH];
 extern char uvar_names[MAX_ODE][MAX_ODE_NAME_LENGTH];
 extern char *color_names[];

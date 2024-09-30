@@ -359,7 +359,7 @@ edit_rhs(void) {
     status = edit_rhs_box(n, "Right Hand Sides", names, values);
     if (status != 0) {
         for (int32 i = 0; i < n; i++) {
-            if (i < NODE || (i >= (NODE + NMarkov))) {
+            if (i < NODE || (i >= (NODE + nmarkov))) {
                 err = parserslow_add_expr(values[i], command[i], &len);
                 if (err == 1) {
                     sprintf(msg, "Bad rhs:%s=%s", names[i], values[i]);
@@ -370,7 +370,7 @@ edit_rhs(void) {
                     strcpy(ode_names[i], values[i]);
                     i0 = i;
                     if (i >= NODE) {
-                        i0 = i0 + fix_var - NMarkov;
+                        i0 = i0 + fix_var - nmarkov;
                     }
 
                     for (int32 j = 0; j < len; j++) {

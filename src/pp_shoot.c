@@ -305,7 +305,7 @@ pp_shoot_find_bvp_com(int32 com) {
     double ystart[MAX_ODE];
     double oldtrans;
     double yend[MAX_ODE];
-    if (NMarkov > 0 || nkernel > 0) {
+    if (nmarkov > 0 || nkernel > 0) {
         ggets_err_msg("Can't do BVP with integral or markov eqns");
         return;
     }

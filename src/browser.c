@@ -1346,11 +1346,11 @@ browser_data_get(Browser *b) {
         last_ic[i] = (double)storage[i + 1][in];
         set_ivar(i + 1, last_ic[i]);
     }
-    for (int32 i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < nmarkov; i++) {
         last_ic[i + NODE] = (double)storage[i + NODE + 1][in];
         set_ivar(i + 1 + NODE + fix_var, last_ic[i + NODE]);
     }
-    for (int32 i = NODE + NMarkov; i < n_equations; i++) {
+    for (int32 i = NODE + nmarkov; i < n_equations; i++) {
         set_val(uvar_names[i], storage[i + 1][in]);
     }
 

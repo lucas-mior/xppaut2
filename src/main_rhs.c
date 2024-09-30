@@ -16,15 +16,15 @@ main_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
     for (int32 i = 0; i < nod; i++) {
         SETVAR(i + 1, y__y[i]);
     }
-    for (int32 i = nod + fix_var; i < nod + fix_var + NMarkov; i++) {
+    for (int32 i = nod + fix_var; i < nod + fix_var + nmarkov; i++) {
         SETVAR(i + 1, y__y[i - fix_var]);
     }
     for (int32 i = nod; i < nod + fix_var; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
 
-    for (int32 i = nod + NMarkov; i < neq; i++) {
-        y__y[i] = evaluate(my_ode[i + fix_var - NMarkov]);
+    for (int32 i = nod + nmarkov; i < neq; i++) {
+        y__y[i] = evaluate(my_ode[i + fix_var - nmarkov]);
     }
     return;
 }
@@ -35,7 +35,7 @@ main_rhs_set_fix(double t, double *y) {
     for (int32 i = 0; i < NODE; i++) {
         SETVAR(i + 1, y[i]);
     }
-    for (int32 i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < nmarkov; i++) {
         SETVAR(i + 1 + NODE + fix_var, y[i + NODE]);
     }
     for (int32 i = NODE; i < NODE + fix_var; i++) {

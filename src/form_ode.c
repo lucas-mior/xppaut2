@@ -73,7 +73,7 @@ int32 convert_style = 0;
 FILE *convertf;
 static int32 OldStyle = 1;
 int32 in_vars;
-int32 NMarkov;
+int32 nmarkov;
 
 int32 fix_var;
 
@@ -120,7 +120,7 @@ form_ode_make_eqn(void) {
     int32 okay;
     n_equations = 2;
     fix_var = 0;
-    NMarkov = 0;
+    nmarkov = 0;
 
     okay = 0;
     snprintf(wild, sizeof(wild), "*.ode");
@@ -343,7 +343,7 @@ form_ode_get_eqn(FILE *fptr) {
             fclose(convertf);
         }
     }
-    if ((NODE + NMarkov) == 0) {
+    if ((NODE + nmarkov) == 0) {
         ggets_plintf(" Must have at least one equation! \n Probably not an ODE file.\n");
         exit(0);
     }
@@ -366,7 +366,7 @@ form_ode_get_eqn(FILE *fptr) {
     }
     bvp_flag = 1;
 
-    if (NODE != n_equations + fix_var - NMarkov) {
+    if (NODE != n_equations + fix_var - nmarkov) {
         ggets_plintf(" Too many/few equations\n");
         exit(0);
     }
@@ -377,11 +377,11 @@ form_ode_get_eqn(FILE *fptr) {
     NODE = in_vars;
 
     for (i = 0; i < Naux; i++) {
-        strcpy(uvar_names[i + NODE + NMarkov], aux_names[i]);
+        strcpy(uvar_names[i + NODE + nmarkov], aux_names[i]);
     }
 
-    for (i = NODE + NMarkov + Naux; i < n_equations; i++) {
-        snprintf(uvar_names[i], sizeof(uvar_names[i]), "AUX%d", i - NODE - NMarkov + 1);
+    for (i = NODE + nmarkov + Naux; i < n_equations; i++) {
+        snprintf(uvar_names[i], sizeof(uvar_names[i]), "AUX%d", i - NODE - nmarkov + 1);
     }
 
     for (i = 0; i < n_equations; i++) {
@@ -403,7 +403,7 @@ form_ode_get_eqn(FILE *fptr) {
                      MAX_PRIME_VAR);
         ggets_plintf(" Averaging and boundary value problems cannot be done\n");
     }
-    if (NMarkov > 0) {
+    if (nmarkov > 0) {
         markov_compile_all();
     }
     if (flags_compile() == 1) {
@@ -412,7 +412,7 @@ form_ode_get_eqn(FILE *fptr) {
     }
     flags_show();
     // add auxiliary variables
-    for (i = NODE + NMarkov; i < n_equations; i++) {
+    for (i = NODE + nmarkov; i < n_equations; i++) {
         parserslow_add_var(uvar_names[i], 0.0);
     }
     NCON_START = NCON;
@@ -616,9 +616,9 @@ form_ode_compiler(char *bob, FILE *fptr) {
         my_string = form_ode_do_fit_get_next(" \n");
         nstates = atoi(my_string);
         parserslow_add_var(name, value);
-        strcpy(uvar_names[in_vars + NMarkov], name);
-        last_ic[in_vars + NMarkov] = value;
-        default_ic[in_vars + NMarkov] = value;
+        strcpy(uvar_names[in_vars + nmarkov], name);
+        last_ic[in_vars + nmarkov] = value;
+        default_ic[in_vars + nmarkov] = value;
         ggets_plintf(" Markov variable %s=%f has %d states \n", name, value, nstates);
         if (OldStyle) {
             markov_add(nstates, name);
@@ -646,7 +646,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
             fprintf(convertf, "init ");
         }
     vrs:
-        if (NMarkov > 0 && OldStyle) {
+        if (nmarkov > 0 && OldStyle) {
             printf(" Error at line %d \n Must declare Markov variables after "
                    "fixed "
                    "and regular variables\n",
@@ -799,7 +799,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         VFlag = 1;
         __attribute__((fallthrough));
     case 'o':
-        if (NODE >= (n_equations + fix_var - NMarkov)) {
+        if (NODE >= (n_equations + fix_var - nmarkov)) {
             done = 0;
             break;
         }
@@ -838,11 +838,11 @@ form_ode_compiler(char *bob, FILE *fptr) {
 
         if (NODE >= (in_vars + fix_var)) {
             i = NODE - (in_vars + fix_var);
-            if ((ode_names[NODE - fix_var + NMarkov] = xmalloc((usize)nn)) == NULL) {
+            if ((ode_names[NODE - fix_var + nmarkov] = xmalloc((usize)nn)) == NULL) {
                 ggets_plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
-            strcpy(ode_names[NODE - fix_var + NMarkov], formula);
+            strcpy(ode_names[NODE - fix_var + nmarkov], formula);
             if (convert_style) {
                 if (i < Naux) {
                     fprintf(convertf, "aux %s=%s\n", aux_names[i], formula);
@@ -1042,7 +1042,7 @@ form_ode_clrscr(void) {
  * external formula: odes markov auxilliary (ode_names)
 
  * NODE = #ode variables
- * NMarkov = # Markov variables
+ * nmarkov = # Markov variables
  * NAux = # named auxiliary variables
  * n_equations = ode+naux   --> plotted quantities
 
@@ -1634,7 +1634,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
         in_vars = nvar;
         Naux = naux;
-        n_equations = nvar + NMarkov + Naux;
+        n_equations = nvar + nmarkov + Naux;
         fix_var = nfix;
         NTable = ntab;
         nfun = nufun;
@@ -1669,7 +1669,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         set_val(tmp, z);
                         ggets_plintf(" Initial %s(0)=%g\n", tmp, z);
                     } else {
-                        in = form_ode_find_the_name(mnames, NMarkov, tmp);
+                        in = form_ode_find_the_name(mnames, nmarkov, tmp);
                         if (in >= 0) {
                             last_ic[in + in_vars] = z;
                             default_ic[in + in_vars] = z;
@@ -1702,7 +1702,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
                     ggets_plintf(" Initial %s(0)=%s\n", tmp, v2->rhs);
                 } else {
-                    in = form_ode_find_the_name(mnames, NMarkov, tmp);
+                    in = form_ode_find_the_name(mnames, nmarkov, tmp);
                     if (in >= 0) {
                         last_ic[in + in_vars] = z;
                         default_ic[in + in_vars] = z;
@@ -1770,7 +1770,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 break;
 
             case AUX_VAR:
-                in1 = in_vars + NMarkov + naux;
+                in1 = in_vars + nmarkov + naux;
                 in2 = in_vars + fix_var + naux;
                 nn = (int32)strlen(v2->rhs) + 1;
                 if ((ode_names[in1] = xmalloc((usize)nn + 2)) == NULL ||

@@ -186,7 +186,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
         }
         get_val(ncrange.rv, &zold);
 
-        for (i2 = NODE; i2 < NODE + NMarkov; i2++) {
+        for (i2 = NODE; i2 < NODE + nmarkov; i2++) {
             set_ivar(i2 + 1 + fix_var, last_ic[i2]);
         }
         xmin = (double)MyGraph->xmin;
@@ -921,7 +921,7 @@ nullcline_new_clines_com(int32 c) {
         return;
     }
     if (c == 0) {
-        for (int32 i = NODE; i < NODE + NMarkov; i++) {
+        for (int32 i = NODE; i < NODE + nmarkov; i++) {
             set_ivar(i + 1 + fix_var, last_ic[i]);
         }
         xmin = (double)MyGraph->xmin;

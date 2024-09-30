@@ -93,7 +93,7 @@ build_markov(char **ma, char *name) {
     int32 index;
     index = -1;
     // find it -- if not defined, then abort
-    for (int32 i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < nmarkov; i++) {
         ll = (int32)strlen(markov[i].name);
         if (strncasecmp(name, markov[i].name, (usize)ll) == 0) {
             if (len < ll) {
@@ -140,7 +140,7 @@ markov_old_build(FILE *fptr, char *name) {
     int32 index;
     index = -1;
     // find it -- if not defined, then abort
-    for (int32 i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < nmarkov; i++) {
         ll = (int32)strlen(markov[i].name);
         if (strncasecmp(name, markov[i].name, (usize)ll) == 0) {
             if (len < ll) {
@@ -203,7 +203,7 @@ markov_extract_expr(char *source, char *dest, int32 *i0) {
 void
 create_markov(int32 nstates, double *st, int32 type, char *name) {
     int32 n2 = nstates*nstates;
-    int32 j = NMarkov;
+    int32 j = nmarkov;
 
     if (j >= MAX_MARK) {
         ggets_plintf("Too many Markov chains...\n");
@@ -223,7 +223,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
         markov[j].states[i] = st[i];
     }
     strcpy(markov[j].name, name);
-    NMarkov++;
+    nmarkov++;
     return;
 }
 
@@ -259,10 +259,10 @@ markov_compile_all(void) {
     int32 index;
     int32 ns;
     int32 l0;
-    if (NMarkov == 0) {
+    if (nmarkov == 0) {
         return;
     }
-    for (index = 0; index < NMarkov; index++) {
+    for (index = 0; index < nmarkov; index++) {
         ns = markov[index].nstates;
         for (int32 j = 0; j < ns; j++) {
             for (int32 k = 0; k < ns; k++) {
@@ -300,23 +300,23 @@ compile_markov(int32 index, int32 j, int32 k) {
 void
 update_markov(double *x, double t, double dt) {
     double yp[MAX_ODE];
-    if (NMarkov == 0) {
+    if (nmarkov == 0) {
         return;
     }
     set_ivar(0, t);
     for (int32 i = 0; i < NODE; i++) {
         set_ivar(i + 1, x[i]);
     }
-    for (int32 i = NODE + fix_var; i < NODE + fix_var + NMarkov; i++) {
+    for (int32 i = NODE + fix_var; i < NODE + fix_var + nmarkov; i++) {
         set_ivar(i + 1, x[i - fix_var]);
     }
     for (int32 i = NODE; i < NODE + fix_var; i++) {
         set_ivar(i + 1, evaluate(my_ode[i]));
     }
-    for (int32 i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < nmarkov; i++) {
         yp[i] = markov_new_state(x[NODE + i], i, dt);
     }
-    for (int32 i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < nmarkov; i++) {
         x[NODE + i] = yp[i];
         set_ivar(i + NODE + fix_var + 1, yp[i]);
     }

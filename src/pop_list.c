@@ -94,9 +94,9 @@ pop_list_make_scrbox_lists(void) {
         strcpy(scrbox_list[0].list[i + 1], uvar_names[i]);
     }
     // variable list
-    scrbox_list[1].n = NODE + NMarkov;
-    scrbox_list[1].list = xmalloc((usize)(NODE + NMarkov)*sizeof(char *));
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
+    scrbox_list[1].n = NODE + nmarkov;
+    scrbox_list[1].list = xmalloc((usize)(NODE + nmarkov)*sizeof(char *));
+    for (int32 i = 0; i < NODE + nmarkov; i++) {
         scrbox_list[1].list[i] = xmalloc(15);
         strcpy(scrbox_list[1].list[i], uvar_names[i]);
     }
@@ -110,16 +110,16 @@ pop_list_make_scrbox_lists(void) {
     }
 
     // parvar list
-    n = NODE + NMarkov + NUPAR;
+    n = NODE + nmarkov + NUPAR;
     scrbox_list[3].n = n;
     scrbox_list[3].list = xmalloc((usize)n*sizeof(char *));
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + nmarkov; i++) {
         scrbox_list[3].list[i] = xmalloc(15);
         strcpy(scrbox_list[3].list[i], uvar_names[i]);
     }
-    for (int32 i = NODE + NMarkov; i < n; i++) {
+    for (int32 i = NODE + nmarkov; i < n; i++) {
         scrbox_list[3].list[i] = xmalloc(15);
-        strcpy(scrbox_list[3].list[i], upar_names[i - NODE - NMarkov]);
+        strcpy(scrbox_list[3].list[i], upar_names[i - NODE - nmarkov]);
     }
     // color list
     scrbox_list[4].n = 11;

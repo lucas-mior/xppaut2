@@ -596,7 +596,7 @@ ani_buttonx(XEvent event, int32 flag) {
             for (int32 i = 0; i < NODE; i++) {
                 last_ic[i] = get_ivar(i + 1);
             }
-            for (int32 i = NODE + fix_var; i < NODE + fix_var + NMarkov; i++) {
+            for (int32 i = NODE + fix_var; i < NODE + fix_var + nmarkov; i++) {
                 last_ic[i - fix_var] = get_ivar(i + 1);
             }
 
@@ -955,7 +955,7 @@ ani_flip1(int32 n) {
     row = vcr.pos;
 
     t = (double)ss[0][row];
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + nmarkov; i++) {
         y[i] = (double)ss[i + 1][row];
     }
     main_rhs_set_fix(t, y);
@@ -1038,7 +1038,7 @@ ani_flip(void) {
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
         row = vcr.pos;
         t = (double)ss[0][row];
-        for (int32 i = 0; i < NODE + NMarkov; i++) {
+        for (int32 i = 0; i < NODE + nmarkov; i++) {
             y[i] = (double)ss[i + 1][row];
         }
         main_rhs_set_fix(t, y);
@@ -2347,7 +2347,7 @@ set_ani_perm(void) {
 
     // ani set from init data
     double y[MAX_ODE];
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + nmarkov; i++) {
         y[i] = last_ic[i];
     }
     main_rhs_set_fix(T0, y);

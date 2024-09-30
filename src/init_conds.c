@@ -206,7 +206,7 @@ init_conds_clone_ode(void) {
     // now we do parameters boundary conds and ICs
     j = 0;
     fprintf(fp, "init ");
-    for (int32 i = 0; i < (NODE + NMarkov); i++) {
+    for (int32 i = 0; i < (NODE + nmarkov); i++) {
         if (j == 8) {
             fprintf(fp, "\ninit ");
             j = 0;
@@ -1475,7 +1475,7 @@ init_conds_make_new_param_box(void) {
 
 void
 init_conds_initialize_box(void) {
-    init_conds_make_box_list(&ICBox, "Initial Data", "ICs", NODE + NMarkov, ICBOX, 1);
+    init_conds_make_box_list(&ICBox, "Initial Data", "ICs", NODE + nmarkov, ICBOX, 1);
     if (NUPAR > 0) {
         init_conds_make_box_list(&param_box, "Parameters", "Par", NUPAR, PARAMBOX, 1);
     } else {
@@ -1883,7 +1883,7 @@ init_conds_redraw_delays(void) {
 void
 init_conds_redraw_ics(void) {
     int32 in;
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + nmarkov; i++) {
         init_conds_add_edit_float(&ICBox, i, last_ic[i]);
         init_conds_draw_one_box(ICBox, i);
     }
@@ -2074,7 +2074,7 @@ init_conds_do_box_button(BoxList *b, Window window) {
     if (window == b->def && b->type == ICBOX) {
 
         // set default ics
-        for (int32 i2 = 0; i2 < NODE + NMarkov; i2++) {
+        for (int32 i2 = 0; i2 < NODE + nmarkov; i2++) {
             last_ic[i2] = default_ic[i2];
         }
     }
@@ -2358,7 +2358,7 @@ init_conds_man_ic(void) {
             init_conds_set_edit_params(&ICBox, index, junk);
             init_conds_draw_one_box(ICBox, index);
             index++;
-            if (index >= NODE + NMarkov) {
+            if (index >= NODE + nmarkov) {
                 break;
             }
         }

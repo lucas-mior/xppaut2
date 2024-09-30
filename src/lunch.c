@@ -131,7 +131,7 @@ lunch_do_info(FILE *fp) {
     }
     fprintf(fp, "\n\n ICs ...\n");
 
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + nmarkov; i++) {
         fprintf(fp, "%s=%.16g\n", uvar_names[i], last_ic[i]);
     }
     fprintf(fp, "\n\n Parameters ...\n");
@@ -522,7 +522,7 @@ lunch_io_exprs(int32 f, FILE *fp) {
     if (f != READEM) {
         fprintf(fp, "# Old ICs\n");
     }
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + nmarkov; i++) {
         lunch_io_double(&last_ic[i], fp, f, uvar_names[i]);
     }
     if (f == READEM && set_type == 1) {
@@ -531,7 +531,7 @@ lunch_io_exprs(int32 f, FILE *fp) {
     if (f != READEM) {
         fprintf(fp, "# Ending  ICs\n");
     }
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + nmarkov; i++) {
         lunch_io_double(&my_data[i], fp, f, uvar_names[i]);
     }
     if (f == READEM && set_type == 1) {

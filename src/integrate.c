@@ -599,7 +599,7 @@ integrate_eq_range(double *x) {
             for (int32 j = 0; j < NODE; j++) {
                 storage[j + 1][storind] = (double)x[j];
             }
-            for (int32 j = NODE; j < NODE + NMarkov; j++) {
+            for (int32 j = NODE; j < NODE + nmarkov; j++) {
                 storage[j + 1][storind] = 0.0;
             }
             if (stabcol > 0) {
@@ -1752,13 +1752,13 @@ void
 integrate_get_ic(int32 it, double *x) {
     switch (it) {
     case 0:
-        for (int32 i = 0; i < NODE + NMarkov; i++) {
+        for (int32 i = 0; i < NODE + nmarkov; i++) {
             last_ic[i] = x[i];
         }
         break;
     case 1:
     case 2:
-        for (int32 i = 0; i < NODE + NMarkov; i++) {
+        for (int32 i = 0; i < NODE + nmarkov; i++) {
             x[i] = last_ic[i];
         }
         break;
@@ -1938,7 +1938,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     int32 kflag;
 
     int32 torcross[MAX_ODE];
-    int32 nodes = xpv.node + xpv.nvec - NMarkov;
+    int32 nodes = xpv.node + xpv.nvec - nmarkov;
 
     int32 rval = 0;
     double oldx[MAX_ODE];
