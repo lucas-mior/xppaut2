@@ -84,11 +84,11 @@ int32 UPc = 28;
 
 static int32 LPP_color = 0;
 static int32 LPE_color = 20;
-static int32 HB_color = 28;
+static int32 hb_color = 28;
 static int32 TR_color = 26;
 static int32 PD_color = 23;
 static int32 br_color = 27;
-static int32 FP_color = 25;
+static int32 fp_color = 25;
 
 int32 restart_label = 0;
 
@@ -140,12 +140,12 @@ static double XfromAuto;
 static double YfromAuto;
 static double XfromAuto;
 static double YfromAuto;
-static int32 FromAutoFlag = 0;
+static int32 from_auto_flag = 0;
 
 int32 homo_flag = 0;
 double homo_l[100];
 double homo_r[100];
-static double HOMO_SHIFT = 0.0;
+static double homo_shift = 0.0;
 
 Bifurcation Auto;
 AdvAuto aauto;
@@ -193,7 +193,7 @@ auto_nox_pscolset2(int32 flag2) {
         graphics_set_linestyle(LPP_color);
         break;
     case HB2:
-        graphics_set_linestyle(HB_color - 19);
+        graphics_set_linestyle(hb_color - 19);
         break;
     case TR2:
         graphics_set_linestyle(TR_color - 19);
@@ -205,7 +205,7 @@ auto_nox_pscolset2(int32 flag2) {
         graphics_set_linestyle(PD_color - 19);
         break;
     case FP2:
-        graphics_set_linestyle(FP_color - 19);
+        graphics_set_linestyle(fp_color - 19);
         break;
     default:
         graphics_set_linestyle(0);
@@ -224,7 +224,7 @@ auto_nox_colset2(int32 flag2) {
         auto_x11_col(LPP_color);
         break;
     case HB2:
-        auto_x11_col(HB_color);
+        auto_x11_col(hb_color);
         break;
     case TR2:
         auto_x11_col(TR_color);
@@ -236,7 +236,7 @@ auto_nox_colset2(int32 flag2) {
         auto_x11_col(PD_color);
         break;
     case FP2:
-        auto_x11_col(FP_color);
+        auto_x11_col(fp_color);
         break;
     default:
         auto_x11_col(0);
@@ -249,7 +249,7 @@ auto_nox_store_point(double x, double y) {
     if (Auto.plot == P_P) {
         XfromAuto = x;
         YfromAuto = y;
-        FromAutoFlag = 1;
+        from_auto_flag = 1;
     }
     return;
 }
@@ -1666,7 +1666,7 @@ auto_nox_yes_reset(void) {
         return 0;
     }
     kill_diagrams();
-    FromAutoFlag = 0;
+    from_auto_flag = 0;
     NBifs = 1;
     grabpt.flag = 0;
     sprintf(string, "%s.b", this_auto_file);
@@ -1725,8 +1725,8 @@ auto_nox_find_best_homo_shift(int32 n) {
             tshift = storage[0][i];
         }
     }
-    HOMO_SHIFT = tshift;
-    printf("shifting %g\n", HOMO_SHIFT);
+    homo_shift = tshift;
+    printf("shifting %g\n", homo_shift);
     return;
 }
 
@@ -1744,7 +1744,7 @@ auto_nox_get_shifted_orbit(double *u, double t, double p, int32 n) {
     if (t < 0.0) {
         t += 1.0;
     }
-    ts = fmod(t*p + HOMO_SHIFT, p);
+    ts = fmod(t*p + homo_shift, p);
     for (i = 0; i < storind; i++) {
         ip = (i + 1) % storind;
         if ((ts >= storage[0][i]) && (ts < storage[0][ip])) {
@@ -2955,9 +2955,9 @@ auto_nox_file(void) {
             ggets_err_msg("Must be in 2 parameter plot");
             return;
         }
-        if (FromAutoFlag) {
+        if (from_auto_flag) {
             // auto nox set point
-            FromAutoFlag = 0;
+            from_auto_flag = 0;
             set_val(upar_names[auto_par[Auto.icp1]], XfromAuto);
             set_val(upar_names[auto_par[Auto.icp2]], YfromAuto);
             derived_evaluate();

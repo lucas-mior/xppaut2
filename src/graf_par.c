@@ -40,11 +40,11 @@ static struct BD {
     Window window;
 } my_bd;
 
-static double FreezeKeyX;
-static double FreezeKeyY;
-static double FreezeKeyX;
-static double FreezeKeyY;
-static int32 FreezeKeyFlag;
+static double freeze_key_x;
+static double freeze_key_y;
+static double freeze_key_x;
+static double freeze_key_y;
+static int32 freeze_key_flag;
 int32 auto_freeze_flag = 0;
 static int32 current_curve = 0;
 
@@ -1040,9 +1040,9 @@ graf_par_set_key(int32 x, int32 y) {
     double xp;
     double yp;
     graphics_scale_to_real(x, y, &xp, &yp);
-    FreezeKeyX = xp;
-    FreezeKeyY = yp;
-    FreezeKeyFlag = 1;
+    freeze_key_x = xp;
+    freeze_key_y = yp;
+    freeze_key_flag = 1;
     return;
 }
 
@@ -1053,13 +1053,13 @@ graf_par_draw_freeze_key(void) {
     int32 y0;
     int32 ix2;
     int32 dy = 2*h_char;
-    if (FreezeKeyFlag == SCRNFMT) {
+    if (freeze_key_flag == SCRNFMT) {
         return;
     }
     if (plt_fmt_flag == PSFMT) {
         dy = -dy;
     }
-    graphics_scale_to_screen((double)FreezeKeyX, (double)FreezeKeyY, &ix, &iy);
+    graphics_scale_to_screen((double)freeze_key_x, (double)freeze_key_y, &ix, &iy);
     ix2 = ix + 4*h_char;
     y0 = iy;
     for (int32 i = 0; i < MAXFRZ; i++) {
@@ -1080,7 +1080,7 @@ graf_par_key_frz_com(int32 c) {
     int32 y;
     switch (c) {
     case 0:
-        FreezeKeyFlag = 0;
+        freeze_key_flag = 0;
         break;
     case 1:
         menudrive_message_box("Position with mouse");

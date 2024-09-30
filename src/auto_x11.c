@@ -50,7 +50,7 @@ int32 mark_ixe;
 int32 mark_iys;
 int32 mark_iye;
 
-static uint32 DONT_XORCross = 0;
+static uint32 dont_xor_cross = 0;
 
 static struct AutoWin {
     Window canvas;
@@ -277,7 +277,7 @@ auto_x11_traverse_diagram(void) {
     }
 
     d = bifd;
-    DONT_XORCross = 0;
+    dont_xor_cross = 0;
     auto_nox_traverse_out(d, &ix, &iy, 1);
 
     while (done == 0) {
@@ -294,7 +294,7 @@ auto_x11_traverse_diagram(void) {
             if (window == auto_win.canvas) {
                 auto_x11_clear_msg();
                 auto_x11_xor_cross(ix, iy);
-                DONT_XORCross = 1;
+                dont_xor_cross = 1;
                 while (true) {
                     dnew = d->prev;
                     if (dnew == NULL) {
@@ -348,7 +348,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 d = dnew;
                 cur_diagram = d;
-                DONT_XORCross = 0;
+                dont_xor_cross = 0;
                 auto_nox_traverse_out(d, &ix, &iy, 1);
             }
         } else if (event.type == KeyPress) {
@@ -549,7 +549,7 @@ auto_x11_traverse_diagram(void) {
                 /*Seems XORing it with new draw can tend to bring it back
                 randomly depending on the order of window expose events.  Best
                 not to do the XORCross function at all.*/
-                DONT_XORCross = 1;
+                dont_xor_cross = 1;
                 diagram_redraw();
                 if (mark_flag == 2) {
                     // redraw mark
@@ -705,7 +705,7 @@ auto_x11_mark(int32 x, int32 y) {
 
 void
 auto_x11_xor_cross(int32 x, int32 y) {
-    if (DONT_XORCross) {
+    if (dont_xor_cross) {
         return;
     }
 

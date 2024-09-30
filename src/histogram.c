@@ -29,7 +29,7 @@ static int32 hist_len;
 static int32 four_len;
 static double *my_hist[MAX_ODE + 1];
 static double *my_four[MAX_ODE + 1];
-static int32 HIST_HERE;
+static int32 hist_here;
 int32 four_here;
 
 static int32 histogram_two_d2(void);
@@ -95,7 +95,7 @@ histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double x
 
 void
 histogram_back(void) {
-    if (HIST_HERE) {
+    if (hist_here) {
         browser_set_data(my_hist, 1);
         /*
         browser_my.data=my_hist;
@@ -178,14 +178,14 @@ histogram_post_process_stuff(void) {
         int32 length;
         double total = storage[0][storind - 1] - storage[0][0];
         spec_type = flag;
-        if (HIST_HERE) {
+        if (hist_here) {
             adjoints_data_back();
             free(my_hist[0]);
             free(my_hist[1]);
-            if (HIST_HERE == 2) {
+            if (hist_here == 2) {
                 free(my_hist[2]);
             }
-            HIST_HERE = 0;
+            hist_here = 0;
         }
         hist_len = spec_wid / 2;
         length = hist_len + 2;
@@ -196,7 +196,7 @@ histogram_post_process_stuff(void) {
             ggets_err_msg("Cannot allocate enough...");
             return;
         }
-        HIST_HERE = 1;
+        hist_here = 1;
         for (int32 i = 2; i <= NEQ; i++) {
             my_hist[i] = storage[i];
         }
@@ -224,14 +224,14 @@ histogram_two_d2(void) {
         length = max_stor - 1;
     }
 
-    if (HIST_HERE) {
+    if (hist_here) {
         adjoints_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
-        if (HIST_HERE == 2) {
+        if (hist_here == 2) {
             free(my_hist[2]);
         }
-        HIST_HERE = 0;
+        hist_here = 0;
     }
 
     hist_len = length;
@@ -244,7 +244,7 @@ histogram_two_d2(void) {
         ggets_err_msg("Cannot allocate enough...");
         return -1;
     }
-    HIST_HERE = 2;
+    hist_here = 2;
     for (int32 i = 3; i <= NEQ; i++) {
         my_hist[i] = storage[i];
     }
@@ -316,14 +316,14 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2, char *
         length = max_stor - 1;
     }
     dz = (zhi - zlo) / (double)(length - 1);
-    if (HIST_HERE) {
+    if (hist_here) {
         adjoints_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
-        if (HIST_HERE == 2) {
+        if (hist_here == 2) {
             free(my_hist[2]);
         }
-        HIST_HERE = 0;
+        hist_here = 0;
     }
     hist_len = length;
     my_hist[0] = xmalloc(sizeof(*(my_hist[0]))*(usize)length);
@@ -333,7 +333,7 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2, char *
         ggets_err_msg("Cannot allocate enough...");
         return;
     }
-    HIST_HERE = 1;
+    hist_here = 1;
     for (i = 2; i <= NEQ; i++) {
         my_hist[i] = storage[i];
     }
@@ -689,14 +689,14 @@ histogram_compute_sd(void) {
     }
     ggets_new_int("Window length ", &spec_wid);
     ggets_new_int("0:sqr 1:par 2:ham 3:bart 4:han ", &spec_win);
-    if (HIST_HERE) {
+    if (hist_here) {
         adjoints_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
-        if (HIST_HERE == 2) {
+        if (hist_here == 2) {
             free(my_hist[2]);
         }
-        HIST_HERE = 0;
+        hist_here = 0;
     }
     hist_len = spec_wid / 2;
     length = hist_len + 2;
@@ -707,7 +707,7 @@ histogram_compute_sd(void) {
         ggets_err_msg("Cannot allocate enough...");
         return;
     }
-    HIST_HERE = 1;
+    hist_here = 1;
     for (int32 i = 2; i <= NEQ; i++) {
         my_hist[i] = storage[i];
     }

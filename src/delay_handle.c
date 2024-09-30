@@ -15,7 +15,7 @@ double omega_max = 2;
 int32 delay_flag = 0;
 int32 delay_grid;
 
-static double *DelayWork;
+static double *delay_work;
 static int32 LatestDelay;
 static int32 MaxDelay;
 
@@ -66,20 +66,20 @@ delay_handle_alloc_delay(double big) {
     MaxDelay = n;
     LatestDelay = 1;
     delay_flag = 0;
-    DelayWork = malloc((usize)(n*NODE)*sizeof(*DelayWork));
+    delay_work = malloc((usize)(n*NODE)*sizeof(*delay_work));
 
-    if (DelayWork == NULL) {
+    if (delay_work == NULL) {
         ggets_err_msg("Could not allocate memory for Delay");
         return 0;
     }
 
-    memset(DelayWork, 0, (usize)(n*NODE));
+    memset(delay_work, 0, (usize)(n*NODE));
     delay_flag = 1;
     NDelay = 0;
     which_delay = -1;
     del_stab_flag = 1;
     for (int32 i = 0; i < n*(NODE); i++) {
-        DelayWork[i] = 0.0;
+        delay_work[i] = 0.0;
     }
     return 1;
 }
@@ -87,7 +87,7 @@ delay_handle_alloc_delay(double big) {
 void
 delay_handle_free_delay(void) {
     if (delay_flag) {
-        free(DelayWork);
+        free(delay_work);
     }
     delay_flag = 0;
     return;
@@ -107,7 +107,7 @@ delay_handle_stor_delay(double *y) {
     }
     in = LatestDelay*(nodes);
     for (int32 i = 0; i < (nodes); i++) {
-        DelayWork[i + in] = y[i];
+        delay_work[i + in] = y[i];
     }
     return;
 }
@@ -176,7 +176,7 @@ delay_handle_get_delay(int32 in, double tau) {
         return 0.0;
     }
     if (tau == 0.0) {  // check fro zero delay and ignore the rest
-        return DelayWork[in + nodes*(LatestDelay % MaxDelay)];
+        return delay_work[in + nodes*(LatestDelay % MaxDelay)];
     }
     xa[1] = n1*dd;
     xa[0] = xa[1] - dd;
@@ -199,10 +199,10 @@ delay_handle_get_delay(int32 in, double tau) {
         i0 += MaxDelay;
     }
 
-    ya[1] = DelayWork[in + (nodes)*i1];
-    ya[2] = DelayWork[in + (nodes)*i2];
-    ya[0] = DelayWork[in + (nodes)*i0];
-    ya[3] = DelayWork[in + (nodes)*i3];
+    ya[1] = delay_work[in + (nodes)*i1];
+    ya[2] = delay_work[in + (nodes)*i2];
+    ya[0] = delay_work[in + (nodes)*i0];
+    ya[3] = delay_work[in + (nodes)*i3];
     delay_handle_polint(xa, ya, 4, tau, &y, &dy);
 
     return y;

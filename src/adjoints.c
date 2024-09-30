@@ -45,7 +45,7 @@ static int32 adj_maxit = 20;
 static int32 adj_here = 0;
 static int32 H_HERE = 0;
 static int32 h_len;
-static int32 HODD_EV = 0;
+static int32 hodd_ev = 0;
 bool adj_range = false;
 static int32 *coup_fun[MAX_ODE];
 static char *coup_string[MAX_ODE];
@@ -272,16 +272,16 @@ adjoints_new_h_fun(int32 silent2) {
     if (H_HERE) {
         free(my_h[0]);
         free(my_h[1]);
-        if (HODD_EV) {
+        if (hodd_ev) {
             free(my_h[2]);
             free(my_h[3]);
         }
         free(my_h);
         H_HERE = 0;
-        HODD_EV = 0;
+        hodd_ev = 0;
     }
     if (NEQ > 2) {
-        HODD_EV = 1;
+        hodd_ev = 1;
         n = 4;
     }
     h_len = storind;
@@ -357,7 +357,7 @@ adjoints_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2)
         my_h[0][j] = orb[0][j];
         my_h[1][j] = sum / (double)nt;
     }
-    if (HODD_EV) {
+    if (hodd_ev) {
         for (int32 k = 0; k < nt; k++) {
             k2 = nt - k - 1;
             my_h[2][k] = .5*(my_h[1][k] - my_h[1][k2]);

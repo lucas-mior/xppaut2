@@ -32,15 +32,15 @@
 
 static uint32 debugFlag;
 static int32 UseGlobalMap = 0;
-static int32 GifFrameDelay = 5;
-static int32 GifFrameLoop = 1000;
+static int32 gif_frame_delay = 5;
+static int32 gif_frame_loop = 1000;
 static int32 chainlen = 0;
 static int32 maxchainlen = 0;
 static int32 nodecount = 0;
 static int32 lookuptypes = 0;
 static int16 need = 8;
 static GifTree *empty[256];
-static GifTree GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL};
+static GifTree gif_root = {LOOKUP, 0, 0, empty, NULL, NULL};
 static GifTree *topNode;
 static GifTree *baseNode;
 static GifTree **nodeArray;
@@ -250,7 +250,7 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
             if (ok == 1) {
                 scrngif_local_to_global();
                 scrngif_write_global_header((int32)w, (int32)h, fp);
-                scrngif_write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+                scrngif_write_local_header((int32)w, (int32)h, fp, 0, gif_frame_delay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
             } else  // first map cant be encoded
             {
@@ -259,14 +259,14 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
                 scrngif_write_global_header((int32)w, (int32)h,
                                             fp);  // write global header
                 scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
-                scrngif_write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+                scrngif_write_local_header((int32)w, (int32)h, fp, 1, gif_frame_delay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
                 UseGlobalMap = 1;
             }
         } else {
             scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
             scrngif_write_global_header((int32)w, (int32)h, fp);
-            scrngif_write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+            scrngif_write_local_header((int32)w, (int32)h, fp, 0, gif_frame_delay);
             scrngif_encode(fp, pixels, 8, (int32)(w*h));
         }
         break;
@@ -274,18 +274,18 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
         if (UseGlobalMap) {
             ok = scrngif_use_global_map(pixels, ppm, (int32)h, (int32)w);
             if (ok == 1) {
-                scrngif_write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+                scrngif_write_local_header((int32)w, (int32)h, fp, 0, gif_frame_delay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
             } else {
                 UseGlobalMap = 0;
                 scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
-                scrngif_write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+                scrngif_write_local_header((int32)w, (int32)h, fp, 1, gif_frame_delay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
                 UseGlobalMap = 1;
             }
         } else {
             scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
-            scrngif_write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+            scrngif_write_local_header((int32)w, (int32)h, fp, 1, gif_frame_delay);
             scrngif_encode(fp, pixels, 8, (int32)(w*h));
         }
         break;
@@ -329,7 +329,7 @@ scrngif_write_global_header(int32 cols, int32 rows, FILE *dst) {
     }
     fwrite(buffer, (ulong)(pos - buffer), 1, dst);
     free(buffer - 1);
-    scrngif_loop(dst, (uint32)GifFrameLoop);
+    scrngif_loop(dst, (uint32)gif_frame_loop);
     return;
 }
 
@@ -432,7 +432,7 @@ scrngif_make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
 
 int32
 scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
-    GifTree *first = &GifRoot, *newNode, *curNode;
+    GifTree *first = &gif_root, *newNode, *curNode;
     uchar *end;
     int32 cc;
     int32 eoi;

@@ -14,9 +14,9 @@ static char SVGLINETYPE;
 
 FILE *svgfile;
 static int32 cur_RGB[3];
-static int32 DOING_SVG_COLOR = 0;
+static int32 doing_svg_color = 0;
 
-static int32 DO_MARKER = 0;
+static int32 do_marker = 0;
 
 static void svg_write(char *str);
 
@@ -354,7 +354,7 @@ svg_do_color(int32 color) {
     cur_RGB[1] = g;
     cur_RGB[2] = b;
 
-    DOING_SVG_COLOR = 1;
+    doing_svg_color = 1;
     return;
 }
 
@@ -363,7 +363,7 @@ svg_end(void) {
     svg_write("</svg>");
     fclose(svgfile);
     plt_fmt_flag = SCRNFMT;
-    DOING_SVG_COLOR = 0;
+    doing_svg_color = 0;
     if (Xup) {
         graphics_init_x11();
     }
@@ -372,7 +372,7 @@ svg_end(void) {
 
 void
 svg_bead(void) {
-    DO_MARKER = 1;
+    do_marker = 1;
     return;
 }
 
@@ -380,7 +380,7 @@ void
 svg_frect(int32 x, int32 y, int32 w, int32 h) {
     double gray = 0;
 
-    if (DOING_SVG_COLOR) {
+    if (doing_svg_color) {
         fprintf(svgfile,
                 "      <rect x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" "
                 "style=\"stroke:rgb(%d,%d,%d);fill:rgb(%d,%d,%d);\"/>",
@@ -404,7 +404,7 @@ svg_last_pt_off(void) {
 
 void
 svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
-    if (DOING_SVG_COLOR) {
+    if (doing_svg_color) {
         if (axes_doing) {
             if (axes_doing_box) {
                 fprintf(svgfile,
@@ -420,7 +420,7 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
             }
         } else {
             if (doing_dfield) {
-                if (DO_MARKER) {
+                if (do_marker) {
                     fprintf(svgfile, "<g>\n");
                 }
 
@@ -428,7 +428,7 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
                         "      <line class=\"xppdfield\"  x1=\"%d\"  y1=\"%d\" "
                         "x2=\"%d\"   y2=\"%d\" style=\"stroke:rgb(%d,%d,%d);\"/>\n",
                         xp1, yp1, xp2, yp2, cur_RGB[0], cur_RGB[1], cur_RGB[2]);
-                if (DO_MARKER) {
+                if (do_marker) {
                     fprintf(svgfile,
                             "      <use xlink:href = \"#xppbead\" x=\"%d\" "
                             "y=\"%d\" "
@@ -463,14 +463,14 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
         } else {
 
             if (doing_dfield) {
-                if (DO_MARKER) {
+                if (do_marker) {
                     fprintf(svgfile, "<g>\n");
                 }
                 fprintf(svgfile,
                         "      <line class=\"xppdfield\"  x1=\"%d\"  y1=\"%d\" "
                         "x2=\"%d\"   y2=\"%d\" />\n",
                         xp1, yp1, xp2, yp2);
-                if (DO_MARKER) {
+                if (do_marker) {
                     fprintf(svgfile,
                             "      <use xlink:href = \"#xppbead\" x=\"%d\" "
                             "y=\"%d\" />\n",
@@ -490,8 +490,8 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
     last_psx = xp2;
     last_psy = yp2;
 
-    DOING_SVG_COLOR = 0;
-    DO_MARKER = 0;
+    doing_svg_color = 0;
+    do_marker = 0;
     return;
 }
 
@@ -533,7 +533,7 @@ svg_point(int32 x, int32 y) {
         snprintf(svgfill, sizeof(svgfill), "#000000");
     }
 
-    if (DOING_SVG_COLOR) {
+    if (doing_svg_color) {
         fprintf(svgfile,
                 "      <use xlink:href = \"#xpppoint%c\" x=\"%d\" y=\"%d\" "
                 "style=\"stroke:rgb(%d,%d,%d); fill:rgb(%d,%d,%d)\"/>\n",
@@ -548,7 +548,7 @@ svg_point(int32 x, int32 y) {
 
     ps_lines = 0;
     last_pt_line = 0;
-    DOING_SVG_COLOR = 0;
+    doing_svg_color = 0;
     return;
 }
 

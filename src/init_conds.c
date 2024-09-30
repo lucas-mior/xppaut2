@@ -160,7 +160,7 @@ static BoxList *HotBox;
 static int32 HotBoxItem = -1;
 static BoxList ICBox;
 BoxList param_box;
-static BoxList DelayBox;
+static BoxList delay_box;
 static BoxList bc_box;
 
 /* CLONE */
@@ -1447,15 +1447,15 @@ init_conds_make_new_bc_box(void) {
 
 void
 init_conds_make_new_delay_box(void) {
-    if (DelayBox.use == 0) {
+    if (delay_box.use == 0) {
         return;
     }
-    if (DelayBox.xuse == 1) {
-        XRaiseWindow(display, DelayBox.base);
+    if (delay_box.xuse == 1) {
+        XRaiseWindow(display, delay_box.base);
         return;
     }
-    init_conds_make_box_list_window(&DelayBox, DELAYBOX);
-    many_pops_make_icon((char *)delay_bits, delay_width, delay_height, DelayBox.base);
+    init_conds_make_box_list_window(&delay_box, DELAYBOX);
+    many_pops_make_icon((char *)delay_bits, delay_width, delay_height, delay_box.base);
     return;
 }
 
@@ -1482,16 +1482,16 @@ init_conds_initialize_box(void) {
         param_box.use = 0;
     }
     if (NDELAYS > 0) {
-        init_conds_make_box_list(&DelayBox, "Delay ICs", "Delay", NODE, DELAYBOX, 1);
+        init_conds_make_box_list(&delay_box, "Delay ICs", "Delay", NODE, DELAYBOX, 1);
     } else {
-        DelayBox.use = 0;
+        delay_box.use = 0;
     }
     init_conds_make_box_list(&bc_box, "Boundary Conds", "BCs", NODE, BCBOX, 1);
 
     //  Iconify them !!
     /*  if(noicon==0){
     if(ICBox.xuse)XIconifyWindow(display,ICBox.base,screen);
-    if(DelayBox.xuse) XIconifyWindow(display,DelayBox.base,screen);
+    if(delay_box.xuse) XIconifyWindow(display,delay_box.base,screen);
     if(param_box.xuse) XIconifyWindow(display,param_box.base,screen);
      if(bc_box.xuse)XIconifyWindow(display,bc_box.base,screen);
      } */
@@ -1527,9 +1527,9 @@ init_conds_resize_par_box(Window window) {
         eig_list_get_new_size(window, &w, &h);
         init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
-    if (DelayBox.xuse == 1 && window == DelayBox.base) {
+    if (delay_box.xuse == 1 && window == delay_box.base) {
         ok = 4;
-        b = &DelayBox;
+        b = &delay_box;
         eig_list_get_new_size(window, &w, &h);
         init_conds_get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
@@ -1567,7 +1567,7 @@ init_conds_resize_par_box(Window window) {
         init_conds_make_new_bc_box();
         break;
     case 4:
-        init_conds_destroy_box(&DelayBox);
+        init_conds_destroy_box(&delay_box);
         init_conds_make_new_delay_box();
         break;
     default:
@@ -1789,8 +1789,8 @@ init_conds_do_box_expose(Window window) {
     if (param_box.xuse) {
         init_conds_display_box(param_box, window);
     }
-    if (DelayBox.xuse) {
-        init_conds_display_box(DelayBox, window);
+    if (delay_box.xuse) {
+        init_conds_display_box(delay_box, window);
     }
     return;
 }
@@ -1872,9 +1872,9 @@ init_conds_redraw_params(void) {
 
 void
 init_conds_redraw_delays(void) {
-    if (DelayBox.use) {
+    if (delay_box.use) {
         for (int32 i = 0; i < NODE; i++) {
-            init_conds_draw_one_box(DelayBox, i);
+            init_conds_draw_one_box(delay_box, i);
         }
     }
     return;
@@ -1998,8 +1998,8 @@ init_conds_box_enter_events(Window window, int32 yn) {
     if (param_box.xuse) {
         init_conds_box_enter(param_box, window, val);
     }
-    if (DelayBox.xuse) {
-        init_conds_box_enter(DelayBox, window, val);
+    if (delay_box.xuse) {
+        init_conds_box_enter(delay_box, window, val);
     }
     if (ICBox.xuse && (window == ICBox.xvt || window == ICBox.pp || window == ICBox.arr)) {
         XSetWindowBorderWidth(display, window, (uint)val);
@@ -2250,8 +2250,8 @@ init_conds_box_buttons(Window window) {
     if (bc_box.xuse) {
         init_conds_do_box_button(&bc_box, window);
     }
-    if (DelayBox.xuse) {
-        init_conds_do_box_button(&DelayBox, window);
+    if (delay_box.xuse) {
+        init_conds_do_box_button(&delay_box, window);
     }
     if (param_box.xuse) {
         init_conds_do_box_button(&param_box, window);
@@ -2273,8 +2273,8 @@ init_conds_box_keypress(XEvent event, int32 *used) {
             return;
         }
     }
-    if (DelayBox.xuse) {
-        init_conds_do_box_key(&DelayBox, event, used);
+    if (delay_box.xuse) {
+        init_conds_do_box_key(&delay_box, event, used);
         if (*used) {
             return;
         }
