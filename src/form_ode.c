@@ -961,7 +961,7 @@ form_ode_find_ker(char *string, int32 *alt) {
         }
         if (ch == '}') {
             form[ifr] = 0;
-            snprintf(name, sizeof(name), "K##%d", NKernel);
+            snprintf(name, sizeof(name), "K##%d", nkernel);
             ggets_plintf("Kernel mu=%f %s = %s \n", mu, name, form);
             if (parserslow_add_kernel(name, mu, form)) {
                 exit(0);

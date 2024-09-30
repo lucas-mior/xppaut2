@@ -1019,7 +1019,7 @@ integrate_find_equilib_com(int32 com) {
     double oldtrans;
 
     x = &my_data[0];
-    if (FFT || hist || NKernel > 0) {
+    if (FFT || hist || nkernel > 0) {
         return;
     }
 

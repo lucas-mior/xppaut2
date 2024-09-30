@@ -41,7 +41,7 @@ static void numerics_check_pos(int32 *j);
 
 void
 numerics_chk_volterra(void) {
-    if (NKernel > 0) {
+    if (nkernel > 0) {
         METHOD = VOLTERRA;
     }
     return;
@@ -112,7 +112,7 @@ numerics_get_num_par(int32 ch) {
         } else {
             delay_handle_free_delay();
         }
-        if (NKernel > 0) {
+        if (nkernel > 0) {
             in_flag = 0;
             my_start = 1;
             volterra_alloc_kernels(1);
@@ -182,11 +182,11 @@ numerics_get_num_par(int32 ch) {
             i2 = nmeth - 1;
         }
     }
-        if (METHOD == VOLTERRA && NKernel == 0) {
+        if (METHOD == VOLTERRA && nkernel == 0) {
             ggets_err_msg("Volterra only for integral eqns");
             METHOD = 4;
         }
-        if (NKernel > 0) {
+        if (nkernel > 0) {
             METHOD = VOLTERRA;
         }
         if (METHOD == GEAR || METHOD == RKQS || METHOD == STIFF) {
@@ -532,7 +532,7 @@ numerics_set_col_par_com(int32 i) {
 
 void
 numerics_do_meth(void) {
-    if (NKernel > 0) {
+    if (nkernel > 0) {
         METHOD = VOLTERRA;
     }
     switch (METHOD) {

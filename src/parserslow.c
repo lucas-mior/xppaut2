@@ -59,7 +59,7 @@ static double stack[200];
 static double ustack[200];
 
 Kernel kernel[MAX_KER];
-int32 NKernel;
+int32 nkernel;
 int32 max_points;
 int32 NTable;
 
@@ -218,7 +218,7 @@ init_rpn(void) {
     NCON = 0;
     nfun = 0;
     NVAR = 0;
-    NKernel = 0;
+    nkernel = 0;
 
     max_points = 4000;
     NSYM = STDSYM;
@@ -385,7 +385,7 @@ parserslow_add_kernel(char *name, double mu, char *expr) {
     if (duplicate_name(name) == 1) {
         return 1;
     }
-    if (NKernel == MAX_KER) {
+    if (nkernel == MAX_KER) {
         ggets_plintf("Too many kernels..\n");
         return 1;
     }
@@ -403,12 +403,12 @@ parserslow_add_kernel(char *name, double mu, char *expr) {
     my_symb[NSYM].len = len;
     my_symb[NSYM].pri = 10;
     my_symb[NSYM].arg = 0;
-    my_symb[NSYM].com = COM(KERTYPE, NKernel);
-    kernel[NKernel].k_n1 = 0.0;
-    kernel[NKernel].mu = mu;
-    kernel[NKernel].k_n = 0.0;
-    kernel[NKernel].k_n1 = 0.0;
-    kernel[NKernel].flag = 0;
+    my_symb[NSYM].com = COM(KERTYPE, nkernel);
+    kernel[nkernel].k_n1 = 0.0;
+    kernel[nkernel].mu = mu;
+    kernel[nkernel].k_n = 0.0;
+    kernel[nkernel].k_n1 = 0.0;
+    kernel[nkernel].flag = 0;
     for (int32 i = 0; i < (int32)strlen(expr); i++) {
         if (expr[i] == '#') {
             in = i;
@@ -419,24 +419,24 @@ parserslow_add_kernel(char *name, double mu, char *expr) {
         return 1;
     }
     if (in > 0) {
-        kernel[NKernel].flag = CONV;
-        kernel[NKernel].expr = xmalloc(strlen(expr) + 2 - (usize)in);
-        kernel[NKernel].kerexpr = xmalloc((usize)in + 1);
+        kernel[nkernel].flag = CONV;
+        kernel[nkernel].expr = xmalloc(strlen(expr) + 2 - (usize)in);
+        kernel[nkernel].kerexpr = xmalloc((usize)in + 1);
         for (int32 i = 0; i < in; i++) {
-            kernel[NKernel].kerexpr[i] = expr[i];
+            kernel[nkernel].kerexpr[i] = expr[i];
         }
-        kernel[NKernel].kerexpr[in] = 0;
+        kernel[nkernel].kerexpr[in] = 0;
         for (int32 i = in + 1; i < (int32)strlen(expr); i++) {
-            kernel[NKernel].expr[i - in - 1] = expr[i];
+            kernel[nkernel].expr[i - in - 1] = expr[i];
         }
-        kernel[NKernel].expr[strlen(expr) - (usize)in - 1] = 0;
-        ggets_plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr, kernel[NKernel].expr);
+        kernel[nkernel].expr[strlen(expr) - (usize)in - 1] = 0;
+        ggets_plintf("Convolving %s with %s\n", kernel[nkernel].kerexpr, kernel[nkernel].expr);
     } else {
-        kernel[NKernel].expr = xmalloc(strlen(expr) + 2);
-        strcpy(kernel[NKernel].expr, expr);
+        kernel[nkernel].expr = xmalloc(strlen(expr) + 2);
+        strcpy(kernel[nkernel].expr, expr);
     }
     NSYM++;
-    NKernel++;
+    nkernel++;
     return 0;
 }
 

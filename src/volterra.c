@@ -48,7 +48,7 @@ volterra_alloc_memory(void) {
     int32 formula[256];
 
     // First parse the kernels   since these were deferred
-    for (int32 i = 0; i < NKernel; i++) {
+    for (int32 i = 0; i < nkernel; i++) {
         kernel[i].k_n = 0.0;
         if (parserslow_add_expr(kernel[i].expr, formula, &len)) {
             ggets_plintf("Illegal kernel %s=%s\n", kernel[i].name, kernel[i].expr);
@@ -81,7 +81,7 @@ volterra_allocate(int32 npts, int32 flag) {
     npts = ABS(npts);
     max_points = npts;
     // now allocate the memory
-    if (NKernel == 0) {
+    if (nkernel == 0) {
         return;
     }
     if (flag == 1) {
@@ -121,7 +121,7 @@ volterra_re_evaluate_kernels(void) {
     if (auto_evaluate == 0) {
         return;
     }
-    for (int32 i = 0; i < NKernel; i++) {
+    for (int32 i = 0; i < nkernel; i++) {
         if (kernel[i].flag == CONV) {
             for (int32 j = 0; j <= max_points; j++) {
                 SETVAR(0, T0 + delta_t*j);
@@ -137,7 +137,7 @@ volterra_alloc_kernels(int32 flag) {
     int32 n = max_points;
     double mu;
 
-    for (int32 i = 0; i < NKernel; i++) {
+    for (int32 i = 0; i < nkernel; i++) {
         if (kernel[i].flag == CONV) {
             if (flag == 1) {
                 free(kernel[i].cnv);
@@ -192,7 +192,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 is
     for (l = 0; l < nvar; l++) {
         SETVAR(l + 1, Memory[l][ishift]);
     }
-    for (ker = 0; ker < NKernel; ker++) {
+    for (ker = 0; ker < nkernel; ker++) {
         kernel[ker].k_n1 = kernel[ker].k_n;
         mu = kernel[ker].mu;
         if (mu == 0.0) {
@@ -212,7 +212,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 is
         for (l = 0; l < nvar; l++) {
             SETVAR(l + 1, Memory[l][ioff]);
         }
-        for (ker = 0; ker < NKernel; ker++) {
+        for (ker = 0; ker < nkernel; ker++) {
             mu = kernel[ker].mu;
             if (mu == 0.0) {
                 alpbet = dt;
@@ -226,7 +226,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 is
             }
         }
     }
-    for (ker = 0; ker < NKernel; ker++) {
+    for (ker = 0; ker < nkernel; ker++) {
         kernel[ker].sum = sum[ker];
     }
     return;
@@ -283,7 +283,7 @@ volterra_get_kn(double *y, double t) {
     for (int32 i = NODE; i < NODE + fix_var; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
-    for (int32 i = 0; i < NKernel; i++) {
+    for (int32 i = 0; i < nkernel; i++) {
         if (kernel[i].flag == CONV) {
             kernel[i].k_n =
                 kernel[i].sum + kernel[i].betnn*evaluate(kernel[i].formula)*kernel[i].cnv[0];
@@ -312,7 +312,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart, do
     if (*istart == 1) {
         current_point = 0;
         kn_flag = 1;
-        for (int32 i = 0; i < NKernel; i++) {  // zero the integrals
+        for (int32 i = 0; i < nkernel; i++) {  // zero the integrals
             kernel[i].k_n = 0.0;
             kernel[i].k_n1 = 0.0;
             mu = kernel[i].mu;  //  compute bet_nn

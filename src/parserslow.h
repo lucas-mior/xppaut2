@@ -20,7 +20,7 @@ extern char *ufun_def[MAX_UFUN];
 extern char ufun_names[MAX_UFUN][12];
 extern int32 narg_fun[MAX_UFUN];
 
-extern int32 NKernel;
+extern int32 nkernel;
 extern int32 max_points;
 extern int32 NTable;
 
