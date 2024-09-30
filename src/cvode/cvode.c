@@ -16,8 +16,11 @@
 #include "xmalloc.h"
 #include "llnlmath.h"
 #include "vector.h"
-#include "functions.h"
 #include "integers.h"
+
+#define MIN(A, B) ((A) < (B) ? (A) : (B))
+#define MAX(A, B) ((A) > (B) ? (A) : (B))
+#define ABS(A) ((A > 0) ? (A) : -(A))
 
 /************************************************************/
 /************** BEGIN CVODE Private Constants ***************/

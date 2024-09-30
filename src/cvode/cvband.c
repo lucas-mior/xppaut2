@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include "cvband.h"
 #include "cvode.h"
-#include "functions.h"
 #include "xmalloc.h"
 #include "vector.h"
 #include "integers.h"
