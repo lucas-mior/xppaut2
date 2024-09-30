@@ -7,7 +7,7 @@
 #include "somemath.h"
 #include "auto_c.h"
 #include "integers.h"
-#include "functions.h"
+#include "xmalloc.h"
 
 /* ----------------------------------------------------------------------- */
 /*    Floquet Multiplier Computation (Tom Fairgrieve, U. of Toronto) */

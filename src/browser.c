@@ -14,6 +14,7 @@
 
 #include "browse.bitmap"
 #include "functions.h"
+#include "xmalloc.h"
 #include "integers.h"
 #include "mykeydef.h"
 #include "parserslow.h"

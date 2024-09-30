@@ -4,6 +4,7 @@
 
 #include "integers.h"
 #include "functions.h"
+#include "xmalloc.h"
 
 #define NCMD 45  // add new commands as needed
 

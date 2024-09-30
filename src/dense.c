@@ -15,6 +15,7 @@
 #include "dense.h"
 #include "vector.h"
 #include "integers.h"
+#include "xmalloc.h"
 
 /* Implementation */
 

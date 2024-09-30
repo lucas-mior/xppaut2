@@ -7,6 +7,7 @@
 #include <string.h>
 #include <math.h>
 #include "integers.h"
+#include "xmalloc.h"
 #define MAXDAE 400
 
 /*    will have more stuff someday */

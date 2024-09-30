@@ -31,6 +31,7 @@
 
 #include "auto_nox.h"
 #include "functions.h"
+#include "xmalloc.h"
 #include "integers.h"
 #include "pp.bitmap"
 #include "read_dir.h"
@@ -151,33 +152,6 @@ main_plot_command(int32 nit, int32 icount, int32 cwidth) {
     XDrawPoint(display, command_pop, gc, (int32)dx, 5);
     return;
 }
-
-void *
-XMALLOC(usize size, const char *function, int32 line) {
-    void *p;
-
-    if (!(p = malloc(size))) {
-        fprintf(stderr, "Error allocating %zu bytes in function %s, line %d.\n",
-                size, function, line);
-        exit(EXIT_FAILURE);
-    }
-
-    return p;
-}
-
-#ifndef MALLOC_DEBUG
-void *
-xmalloc(usize size) {
-    void *p;
-
-    if (!(p = malloc(size))) {
-        fprintf(stderr, "Error allocating %zu bytes.\n", size);
-        exit(EXIT_FAILURE);
-    }
-
-    return p;
-}
-#endif
 
 int32
 main_my_abort(void) {

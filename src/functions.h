@@ -1960,12 +1960,6 @@ extern Window command_pop;
 extern GC gc_graph;
 extern GC font_gc;
 
-void *XMALLOC(usize size, const char *function, int32 line);
-#ifdef MALLOC_DEBUG
-#define xmalloc(X) XMALLOC(X, __func__, __LINE__)
-#else
-void *xmalloc(usize size);
-#endif
 void main_plot_command(int32 nit, int32 icount, int32 cwidth);
 int32 main_my_abort(void);
 void do_main(int32 argc, char **argv) __attribute__((noreturn));

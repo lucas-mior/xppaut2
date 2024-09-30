@@ -1,6 +1,7 @@
 #include "functions.h"
 #include "parserslow.h"
 #include "integers.h"
+#include "xmalloc.h"
 
 #include "read_dir.h"
 

@@ -2,6 +2,7 @@
 #include "integers.h"
 #include <stdbool.h>
 #include "cv2.h"
+#include "xmalloc.h"
 
 #include "parserslow.h"
 

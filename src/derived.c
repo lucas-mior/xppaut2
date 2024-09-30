@@ -3,6 +3,7 @@
 #include <string.h>
 #include "parserslow.h"
 #include "integers.h"
+#include "xmalloc.h"
 
 /* Derived parameter stuff !!  */
 #define MAXDERIVED 200

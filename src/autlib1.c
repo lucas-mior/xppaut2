@@ -3,6 +3,7 @@
 
 #include "auto_nox.h"
 #include "functions.h"
+#include "xmalloc.h"
 #include "auto_f2c.h"
 #include "somemath.h"
 #include "autevd.h"

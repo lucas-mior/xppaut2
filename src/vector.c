@@ -16,6 +16,7 @@
 #include <stdbool.h>
 #include "vector.h"
 #include "functions.h"
+#include "xmalloc.h"
 #include "llnlmath.h"
 
 static void vector_copy(Vector x, Vector z);

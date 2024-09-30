@@ -16,7 +16,7 @@
 #include "cvode.h"
 #include "vector.h"
 #include "integers.h"
-#include "functions.h"
+#include "xmalloc.h"
 
 /* Error Messages */
 

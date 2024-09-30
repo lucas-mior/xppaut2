@@ -9,9 +9,10 @@
  ******************************************************************/
 
 #include <math.h>
-#include "functions.h"
 #include "integers.h"
 #include "llnlmath.h"
+
+#define ABS(A) ((A > 0) ? (A) : -(A))
 
 double
 llnlmath_unit_roundoff(void) {

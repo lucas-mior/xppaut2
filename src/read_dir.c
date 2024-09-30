@@ -3,6 +3,7 @@
 
 #include <unistd.h>
 #include "functions.h"
+#include "xmalloc.h"
 #include <stdlib.h>
 #include <string.h>
 

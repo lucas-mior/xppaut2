@@ -1,4 +1,5 @@
 #include "auto_f2c.h"
+#include "xmalloc.h"
 #include "integers.h"
 #include "auto_c.h"
 #include "auto_types.h"

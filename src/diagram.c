@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "autlim.h"
 #include "integers.h"
+#include "xmalloc.h"
 
 int32 NBifs = 0;
 Diagram *bifd;

@@ -5,6 +5,7 @@
 #include <math.h>
 #include "xpplim.h"
 #include "integers.h"
+#include "xmalloc.h"
 
 /* this code takes the determinant of a floatcomplex valued matrix
  */

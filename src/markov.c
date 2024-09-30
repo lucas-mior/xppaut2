@@ -1,5 +1,6 @@
 #include "functions.h"
 #include "integers.h"
+#include "xmalloc.h"
 #include <stdbool.h>
 
 #include <stdlib.h>

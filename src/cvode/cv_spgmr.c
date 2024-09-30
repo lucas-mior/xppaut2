@@ -15,7 +15,7 @@
 #include "cv_spgmr.h"
 #include "cvode.h"
 #include "vector.h"
-#include "functions.h"
+#include "xmalloc.h"
 #include "spgmr.h"
 #include "integers.h"
 

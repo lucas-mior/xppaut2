@@ -8,7 +8,7 @@
 #include "x_auto.h"
 #include "integers.h"
 #include "autlib.h"
-#include "functions.h"
+#include "xmalloc.h"
 
 /* All of these global structures correspond to common
    blocks in the original code.  They are ONLY used within

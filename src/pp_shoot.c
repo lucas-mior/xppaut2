@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "xmalloc.h"
 #include "functions.h"
 #include "integers.h"
 #include "parserslow.h"

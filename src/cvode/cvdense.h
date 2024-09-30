@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 #include "cvode.h"
-#include "functions.h"
+#include "xmalloc.h"
 #include "dense.h"
 #include "vector.h"
 #include "integers.h"

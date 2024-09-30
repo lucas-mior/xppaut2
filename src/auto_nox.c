@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "functions.h"
+#include "xmalloc.h"
 #include "auto_nox.h"
 #include "autlim.h"
 #include "parserslow.h"

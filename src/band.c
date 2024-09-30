@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
+#include "xmalloc.h"
 #include "integers.h"
 #include "vector.h"
 #include "band.h"

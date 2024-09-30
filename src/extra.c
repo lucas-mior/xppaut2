@@ -1,4 +1,5 @@
 #include "functions.h"
+#include "xmalloc.h"
 
 #include "read_dir.h"
 #include "parserslow.h"

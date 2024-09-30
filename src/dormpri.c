@@ -6,6 +6,7 @@
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
+#include "xmalloc.h"
 
 static long nfcn;
 static long nstep;

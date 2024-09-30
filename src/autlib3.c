@@ -7,7 +7,7 @@
 #include "auto_c.h"
 #include "integers.h"
 #include "autlib.h"
-#include "functions.h"
+#include "xmalloc.h"
 
 /* ----------------------------------------------------------------------- */
 /*  Subroutines for the Continuation of Folds (Algebraic Problems) */

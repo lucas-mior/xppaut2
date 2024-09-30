@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
+#include "xmalloc.h"
 #include "spgmr.h"
 #include "vector.h"
 #include <stdbool.h>
