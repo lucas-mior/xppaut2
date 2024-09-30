@@ -1,17 +1,18 @@
-#include "functions.h"
-
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
 #include <X11/cursorfont.h>
-#include <stdio.h>
+
 #include "integers.h"
-#define DONE_WITH_THIS 1
 #include "struct.h"
+#include "functions.h"
+
+#define DONE_WITH_THIS 1
 
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
