@@ -10,8 +10,6 @@
 #include "X11/Xlib.h"
 #include "auto_nox.h"
 #include "integers.h"
-#include "newpars.h"
-#include "read_dir.h"
 #include "stdbool.h"
 #include "struct.h"
 #include "xpplim.h"
