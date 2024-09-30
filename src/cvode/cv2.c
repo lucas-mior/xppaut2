@@ -100,7 +100,7 @@ cvode(
     double *rtol) {
     int32 err = 0;
 
-    if (NFlags == 0) {
+    if (nflags == 0) {
         return ccvode(command, y, t, n, tout, kflag, atol, rtol);
     }
     err = one_flag_step_cvode(command, y, t, n, tout, kflag, atol, rtol);

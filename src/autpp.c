@@ -29,10 +29,10 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f, doub
     if (ijac == 1) {
         gear_jac_trans(u, y, yp, xp, newt_err, dfdu, (int32)ndim);
     }
-    if (METHOD > 0 || NJMP == 1) {
+    if (METHOD > 0 || njmp == 1) {
         return 0;
     }
-    for (int32 i = 1; i < NJMP; i++) {
+    for (int32 i = 1; i < njmp; i++) {
         for (int32 j = 0; j < ndim; j++) {
             zz[j] = f[j];
         }

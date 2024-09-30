@@ -24,7 +24,7 @@ extern int32 forever;
 extern int32 end_sing;
 
 extern int32 METHOD;
-extern int32 NJMP;
+extern int32 njmp;
 extern double h_min;
 extern double h_max;
 extern double TOLER;

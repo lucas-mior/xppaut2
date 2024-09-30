@@ -89,7 +89,7 @@ dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol, doubl
    int32 *kflag) {
     int32 err = 0;
 
-    if (NFlags == 0) {
+    if (nflags == 0) {
         return dormprin(istart, y, t, n, tout, tol, atol, flag, kflag);
     }
     err = one_flag_step_dp(istart, y, t, n, tout, tol, atol, flag, kflag);

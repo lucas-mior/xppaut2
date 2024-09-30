@@ -105,7 +105,7 @@ lunch_do_info(FILE *fp) {
 
     fprintf(fp, "\n\n Numerical parameters ...\n");
 
-    fprintf(fp, "NJMP=%d  NMESH=%d METHOD=%s evec_iter=%d \n", NJMP, NMESH, method[METHOD],
+    fprintf(fp, "njmp=%d  NMESH=%d METHOD=%s evec_iter=%d \n", njmp, NMESH, method[METHOD],
             evec_iter);
     fprintf(fp, "bvp_eps=%g,bvp_tol=%g,bpv_maxit=%d \n", bvp_eps, bvp_tol, bpv_maxit);
     fprintf(fp, "DT=%g T0=%g TRANS=%g TEND=%g bound=%g delay=%g MaxPts=%d\n", delta_t, T0, TRANS,
@@ -322,7 +322,7 @@ lunch_io_numerics(int32 f, FILE *fp) {
     if (f != READEM) {
         fprintf(fp, "# Numerical stuff\n");
     }
-    lunch_io_int(&NJMP, fp, f, " nout");
+    lunch_io_int(&njmp, fp, f, " nout");
     lunch_io_int(&NMESH, fp, f, " nullcline mesh");
     lunch_io_int(&METHOD, fp, f, method[METHOD]);
     if (f == READEM) {

@@ -260,7 +260,7 @@ integrate_cont_integ(void) {
     }
     dif = tetemp - fabs(my_time);
     my_start = 1;  //  I know it is wasteful to restart, but lets be safe....
-    integrate(&my_time, x, dif, delta_t, 1, NJMP, &my_start);
+    integrate(&my_time, x, dif, delta_t, 1, njmp, &my_start);
     ggets_ping();
     browser_refresh(storind);
 }
@@ -905,7 +905,7 @@ integrate_do_range(double *x, int32 flag) {
                 storind++;
             }
 
-            if (integrate(&t, x, TEND, delta_t, 1, NJMP, &my_start) == 1) {
+            if (integrate(&t, x, TEND, delta_t, 1, njmp, &my_start) == 1) {
                 ierr = -1;
                 break;
             }
@@ -1187,7 +1187,7 @@ batch_integrate_once(void) {
             storind = 1;
         }
 
-        if (integrate(&my_time, x, TEND, delta_t, 1, NJMP, &my_start) != 0) {
+        if (integrate(&my_time, x, TEND, delta_t, 1, njmp, &my_start) != 0) {
             ggets_plintf(" Integration not completed -- will write anyway...\n");
         }
 
@@ -1499,7 +1499,7 @@ usual_integrate_stuff(double *x) {
         storind = 1;
     }
 
-    integrate(&my_time, x, TEND, delta_t, 1, NJMP, &my_start);
+    integrate(&my_time, x, TEND, delta_t, 1, njmp, &my_start);
 
     ggets_ping();
     in_flag = 1;
@@ -1776,7 +1776,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
     int32 kflag;
     int32 nodes = xpv.node + xpv.nvec;
     int32 nit;
-    int32 nout = NJMP;
+    int32 nout = njmp;
     double tend = TEND;
     double dt = delta_t;
     double tout;
@@ -2453,7 +2453,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         }
 
         if (!(fabs(*t) < TRANS) && Xup && OnTheFly) {
-            integrate_plot_the_graphs(xv, xvold, fabs(dt*NJMP), torcross, 0);
+            integrate_plot_the_graphs(xv, xvold, fabs(dt*njmp), torcross, 0);
         }
 
         if ((stor_flag == 1) && (count != 0) && (storind < max_stor) && !(fabs(*t) < TRANS)) {
@@ -2814,7 +2814,7 @@ integrate_shoot_easy(double *x) {
     int32 i;
     suppress_bounds = 1;
 
-    integrate(&t, x, TEND, delta_t, 1, NJMP, &i);
+    integrate(&t, x, TEND, delta_t, 1, njmp, &i);
     suppress_bounds = 0;
     return;
 }
@@ -2828,7 +2828,7 @@ integrate_shoot(double *x, double *xg, double *evec, int32 sgn) {
         x[i] = xg[i] + sgn*evec[i]*delta_t*.1;
     }
     i = 1;
-    integrate(&t, x, TEND, delta_t, 1, NJMP, &i);
+    integrate(&t, x, TEND, delta_t, 1, njmp, &i);
     ggets_ping();
     suppress_bounds = 0;
     return;

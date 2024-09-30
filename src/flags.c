@@ -97,7 +97,7 @@ typedef struct {
 #define Param 1
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 static FLAG flag[MAX_FLAG];
-int32 NFlags = 0;
+int32 nflags = 0;
 
 double stol = 1.e-10;
 
@@ -109,10 +109,10 @@ flags_add_global(char *cond, int32 sign, char *rest) {
     int32 k;
     int32 l;
     int32 lt;
-    int32 j = NFlags;
+    int32 j = nflags;
     char ch;
 
-    if (NFlags >= MAX_FLAG) {
+    if (nflags >= MAX_FLAG) {
         ggets_plintf("Too many global conditions\n");
         return 1;
     }
@@ -169,7 +169,7 @@ flags_add_global(char *cond, int32 sign, char *rest) {
     //  we now have the condition, the names, and the formulae
     flag[j].sign = sign;
     flag[j].nevents = nevents;
-    NFlags++;
+    nflags++;
     return 0;
 }
 
@@ -177,7 +177,7 @@ void
 flags_show(void) {
     // uncomment for debugging
     /*
-    for(i=0;i<NFlags;i++){
+    for(i=0;i<nflags;i++){
       n=flag[i].nevents;
       ggets_plintf(" Flag %d has sign %d and %d events and condition %s \n",
              i+1,flag[i].sign,n,flag[i].cond);
@@ -194,10 +194,10 @@ flags_compile(void) {
     int32 index;
     int32 nc;
     int32 command[256];
-    if (NFlags == 0) {
+    if (nflags == 0) {
         return 0;
     }
-    for (int32 j = 0; j < NFlags; j++) {
+    for (int32 j = 0; j < nflags; j++) {
         if (parserslow_add_expr(flag[j].cond, command, &nc)) {
             ggets_plintf("Illegal global condition:  %s\n", flag[j].cond);
             return 1;
@@ -275,10 +275,10 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told, double *tn
     int32 newhit;
     int32 nevents;
 
-    if (NFlags == 0) {
+    if (nflags == 0) {
         return 0;
     }
-    for (int32 i = 0; i < NFlags; i++) {
+    for (int32 i = 0; i < nflags; i++) {
         flag[i].tstar = 2.0;
         flag[i].hit = 0;
     }
@@ -288,11 +288,11 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told, double *tn
             SETVAR(i + 1, yold[i]);
         }
         SETVAR(0, told);
-        for (int32 i = 0; i < NFlags; i++) {
+        for (int32 i = 0; i < nflags; i++) {
             *istart = 0;
         }
     }
-    for (int32 i = 0; i < NFlags; i++) {
+    for (int32 i = 0; i < nflags; i++) {
         sign = flag[i].sign;
         flag[i].f0 = flag[i].f1;
         f0 = flag[i].f0;
@@ -350,13 +350,13 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told, double *tn
         ynew[i] = yold[i] + smin*(ynew[i] - yold[i]);
         SETVAR(i + 1, ynew[i]);
     }
-    for (int32 i = 0; i < NFlags; i++) {
+    for (int32 i = 0; i < nflags; i++) {
         flag[i].f0 = evaluate(flag[i].comcond);
     }
     while (true) {  // run through all possible events
         ncycle++;
         newhit = 0;
-        for (int32 i = 0; i < NFlags; i++) {
+        for (int32 i = 0; i < nflags; i++) {
             nevents = flag[i].nevents;
             if (flag[i].hit == ncycle && flag[i].tstar <= smin) {
                 for (int32 j = 0; j < nevents; j++) {
@@ -368,7 +368,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told, double *tn
                 }
             }
         }
-        for (int32 i = 0; i < NFlags; i++) {
+        for (int32 i = 0; i < nflags; i++) {
             nevents = flag[i].nevents;
             if (flag[i].hit == ncycle && flag[i].tstar <= smin) {
                 for (int32 j = 0; j < nevents; j++) {
@@ -398,7 +398,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told, double *tn
         for (int32 i = 0; i < neq; i++) {
             ynew[i] = GETVAR(i + 1);  // if this screws up
         }
-        for (int32 i = 0; i < NFlags; i++) {
+        for (int32 i = 0; i < nflags; i++) {
             flag[i].f1 = evaluate(flag[i].comcond);
             if (flag[i].hit > 0) {
                 continue;  // already hit so dont do anything
@@ -464,7 +464,7 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim, i
         // Its a hit !!
         nstep++;
         dtt = (1 - s)*dt;
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard?? ");
             ggets_plintf("smin=%g\n", s);
             break;
@@ -494,7 +494,7 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim, 
         // Its a hit !!
         nstep++;
         dtt = (1 - s)*dt;
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard?? ");
             ggets_plintf("smin=%g\n", s);
             break;
@@ -524,7 +524,7 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq, double *ti
         // Its a hit !!
         nstep++;
         dtt = (1 - s)*dt;
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard?? ");
             ggets_plintf("smin=%g\n", s);
             break;
@@ -553,7 +553,7 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim
         // Its a hit !!
         nstep++;
         dtt = (1 - s)*dt;
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf(" smin=%g\n", s);
             break;
@@ -582,7 +582,7 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
         // Its a hit !!
         nstep++;
         dtt = (1 - s)*dt;
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard?");
             ggets_plintf("smin=%g\n", s);
             break;
@@ -618,7 +618,7 @@ one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin, do
         if (*t == tout) {
             break;
         }
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
             break;
@@ -654,7 +654,7 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart, int
         if (*tstart == tfinal) {
             break;
         }
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
             *ierr = -2;
@@ -690,7 +690,7 @@ one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout, doub
         if (*t == tout) {
             break;
         }
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
             return 1;
@@ -730,7 +730,7 @@ one_flag_step_cvode(
         if (*t == tout) {
             break;
         }
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
             return 1;
@@ -767,7 +767,7 @@ one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps, dou
         if (*t == tout) {
             break;
         }
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard? ");
             ggets_plintf("smin=%g\n", s);
             break;
@@ -800,7 +800,7 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg, do
         // Its a hit !!
         nstep++;
         dtt = (1 - s)*dt;
-        if (nstep > (NFlags + 2)) {
+        if (nstep > (nflags + 2)) {
             ggets_plintf(" Working too hard?");
             ggets_plintf("smin=%g\n", s);
             break;

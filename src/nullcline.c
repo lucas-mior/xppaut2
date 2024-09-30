@@ -750,13 +750,13 @@ nullcline_direct_field_com(int32 c) {
                 y[iny] = v0 + dv*j;
                 t = 0.0;
                 start = 1;
-                /*if(integrate(&t,y,TEND,delta_t,1,NJMP,&start)==1){
+                /*if(integrate(&t,y,TEND,delta_t,1,njmp,&start)==1){
                   TRANS=oldtrans;
                   delta_t=dtold;
                   return;
                   stor_flag=1;
                   } */
-                integrate(&t, y, TEND, delta_t, 1, NJMP, &start);
+                integrate(&t, y, TEND, delta_t, 1, njmp, &start);
             }
         }
         delta_t = -delta_t;

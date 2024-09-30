@@ -68,11 +68,11 @@ typedef struct GifCol {
 
 static GifCol gifcol[256];
 static GifCol gifGcol[256];
-static int32 NGlobalColors = 0;
+static int32 nglobal_colors = 0;
 
 void
 scrngif_set_global_map(int32 flag) {
-    if (NGlobalColors == 0) {  // Cant use it if it aint there
+    if (nglobal_colors == 0) {  // Cant use it if it aint there
         UseGlobalMap = 0;
         return;
     }
@@ -85,7 +85,7 @@ scrngif_ppm_to_pix(uchar r, uchar g, uchar b, int32 *n) {
     int32 nc = *n;
 
     if (UseGlobalMap == 1) {
-        for (int32 i = 0; i < NGlobalColors; i++) {
+        for (int32 i = 0; i < nglobal_colors; i++) {
             if (r == gifGcol[i].r && g == gifGcol[i].g && b == gifGcol[i].b) {
                 return i;
             }
@@ -237,7 +237,7 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
             gifGcol[i].g = gifcol[i].g;
             gifGcol[i].b = gifcol[i].b;
         }
-        NGlobalColors = ncol;
+        nglobal_colors = ncol;
 
         break;
     case MAKE_ONE_GIF:  // don't need global map!

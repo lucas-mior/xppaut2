@@ -389,7 +389,7 @@ pp_shoot_last(int32 flag) {
         }
         storind = 1;
     }
-    integrate(&my_time, x, TEND, delta_t, 1, NJMP, &my_start);
+    integrate(&my_time, x, TEND, delta_t, 1, njmp, &my_start);
     /* if(flag){
        in_flag=1;
        browser_refresh(storind);

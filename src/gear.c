@@ -1093,7 +1093,7 @@ gear_sqr2(double z) {
 int32
 gear(int32 n, double *t, double tout, double *y, double hmin, double hmax, double eps, int32 mf,
      double *error, int32 *kflag, int32 *jstart, double *work, int32 *iwork) {
-    if (NFlags == 0) {
+    if (nflags == 0) {
         return (ggear(n, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart, work, iwork));
     }
     return (

@@ -136,15 +136,15 @@ numerics_get_num_par(int32 ch) {
         numerics_check_pos(&evec_iter);
         ggets_new_float("Newton tolerance :", &evec_err);
         ggets_new_float("Jacobian epsilon :", &newt_err);
-        if (NFlags > 0) {
+        if (nflags > 0) {
             ggets_new_float("SMIN :", &stol);
         }
 
         break;
     case 'o':
         // noutput
-        ggets_new_int("n_out :", &NJMP);
-        numerics_check_pos(&NJMP);
+        ggets_new_int("n_out :", &njmp);
+        numerics_check_pos(&njmp);
 
         break;
     case 'b':
@@ -516,8 +516,8 @@ numerics_set_col_par_com(int32 i) {
             }
         }
         if (minder >= 0.0 && maxder > minder) {
-            MyGraph->color_scale = (maxder - minder) / (fabs(delta_t*NJMP));
-            MyGraph->min_scale = minder / (fabs(delta_t*NJMP));
+            MyGraph->color_scale = (maxder - minder) / (fabs(delta_t*njmp));
+            MyGraph->min_scale = minder / (fabs(delta_t*njmp));
         }
     } else {
         graf_par_get_max(MyGraph->ColorValue, &temp[0], &temp[1]);
@@ -553,7 +553,7 @@ numerics_do_meth(void) {
         solver = odesol_adams;
         break;
     case 5:
-        NJMP = 1;
+        njmp = 1;
         break;
     case 6:
         solver = volterra;
@@ -570,7 +570,7 @@ numerics_do_meth(void) {
     case DP5:
     case DP83:
     case RB23:
-        NJMP = 1;
+        njmp = 1;
         break;
     default:
         solver = odesol_rung_kut;

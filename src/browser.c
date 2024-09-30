@@ -315,7 +315,7 @@ browser_replace_column(char *var, char *form, double **dat, int32 n) {
         return;
     }
 
-    dt = NJMP*delta_t;
+    dt = njmp*delta_t;
     // first check for derivative or integral symbol
     i = 0;
     while (i < (int32)strlen(form)) {

@@ -1162,7 +1162,7 @@ extern int32 fftnf(int32 ndim, int32 dims[], double Re[], double im[], int32 isi
 #ifndef FLAGS_H
 #define FLAGS_H
 
-extern int32 NFlags;
+extern int32 nflags;
 extern double stol;
 
 int32 flags_add_global(char *cond, int32 sign, char *rest);
@@ -2403,7 +2403,7 @@ extern int32 cv_bandupper;
 extern int32 cv_bandlower;
 
 extern int32 NMESH;
-extern int32 NJMP;
+extern int32 njmp;
 extern int32 METHOD;
 extern int32 color_flag;
 extern int32 NC_ITER;

@@ -73,7 +73,7 @@ stiff_adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps, do
                double hmin, double *work, int32 *ier, double epjac, int32 iflag, int32 *jstart) {
     int32 value;
 
-    if (NFlags == 0) {
+    if (nflags == 0) {
         value = stiff_gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier, epjac, iflag);
         return value;
     }

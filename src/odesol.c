@@ -24,7 +24,7 @@ static int32 odesol_abmpc(double *y, double *t, double dt, int32 neq);
 int32
 odesol_symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
                  double *work) {
-    if (NFlags == 0) {
+    if (nflags == 0) {
         for (int32 i = 0; i < nt; i++) {
             odesol2_one_step_symp(y, dt, work, neq, tim);
         }
@@ -43,7 +43,7 @@ odesol_symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *
 int32
 odesol_discrete(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
                 double *work) {
-    if (NFlags == 0) {
+    if (nflags == 0) {
         for (int32 i = 0; i < nt; i++) {
             odesol2_one_step_discrete(y, dt, work, neq, tim);
             delay_handle_stor_delay(y);
@@ -70,7 +70,7 @@ odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *
     errvec = ytemp + neq;
     yp2 = errvec + neq;
     jac = yp2 + neq;
-    if (NFlags == 0) {
+    if (nflags == 0) {
         for (int32 i = 0; i < nt; i++) {
             if ((j = odesol_one_bak_step(y, tim, dt, neq, yg, yp, yp2, ytemp, errvec, jac)) != 0) {
                 return j;
@@ -239,7 +239,7 @@ odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq, double *t
 
 int32
 odesol_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart, double *work) {
-    if (NFlags == 0) {
+    if (nflags == 0) {
         for (int32 i = 0; i < nt; i++) {
             odesol2_one_step_euler(y, dt, work, neq, tim);
             delay_handle_stor_delay(y);
@@ -262,7 +262,7 @@ odesol_mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *
 
     yval[0] = work;
     yval[1] = work + neq;
-    if (NFlags == 0) {
+    if (nflags == 0) {
         for (int32 j = 0; j < nt; j++) {
             odesol_one_step_heun(y, dt, yval, neq, tim);
             delay_handle_stor_delay(y);
@@ -287,7 +287,7 @@ odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *i
     yval[1] = work + neq;
     yval[2] = work + neq + neq;
 
-    if (NFlags == 0) {
+    if (nflags == 0) {
         for (int32 j = 0; j < nt; j++) {
             odesol_one_step_rk4(y, dt, yval, neq, tim);
             delay_handle_stor_delay(y);
@@ -439,7 +439,7 @@ odesol_rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n, do
             int32 *ierr) {
     int32 out = -1;
 
-    if (NFlags == 0) {
+    if (nflags == 0) {
         out = odesol_rosen(y, tstart, tfinal, istart, n, work, ierr);
     } else {
         out = one_flag_step_rosen(y, tstart, tfinal, istart, n, work, ierr);

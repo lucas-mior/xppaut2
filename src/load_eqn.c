@@ -97,7 +97,7 @@ double POIPLN;
 int32 euler_max_iter;
 double euler_tol;
 int32 NMESH;
-int32 NJMP;
+int32 njmp;
 int32 METHOD;
 int32 color_flag;
 int32 NC_ITER;
@@ -284,7 +284,7 @@ load_eqn_set_all_vals(void) {
         notAlreadySet.NMESH = 0;
     }
     if (notAlreadySet.NOUT) {
-        NJMP = 1;
+        njmp = 1;
         notAlreadySet.NOUT = 0;
     }
     if (notAlreadySet.SOS) {
@@ -606,7 +606,7 @@ load_eqn_read_defaults(FILE *fp) {
         notAlreadySet.paper_white = 0;
     }
     if (notAlreadySet.NOUT) {
-        load_eqn_fil_int(fp, &NJMP);
+        load_eqn_fil_int(fp, &njmp);
         notAlreadySet.NOUT = 0;
     }
     if (notAlreadySet.NMESH) {
@@ -1363,16 +1363,16 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
 
-    if (load_eqn_msc("NJMP", s1)) {
+    if (load_eqn_msc("njmp", s1)) {
         if ((notAlreadySet.NOUT || force) || ((mask != NULL) && (mask->NOUT == 1))) {
-            NJMP = atoi(s2);
+            njmp = atoi(s2);
             notAlreadySet.NOUT = 0;
         }
         return;
     }
     if (load_eqn_msc("NOUT", s1)) {
         if ((notAlreadySet.NOUT || force) || ((mask != NULL) && (mask->NOUT == 1))) {
-            NJMP = atoi(s2);
+            njmp = atoi(s2);
             notAlreadySet.NOUT = 0;
         }
         return;
