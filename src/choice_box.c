@@ -10,8 +10,6 @@
 
 #include "functions.h"
 
-#define ALL_DONE 2
-#define FORGET_ALL 0
 #include "struct.h"
 #include "integers.h"
 
@@ -153,7 +151,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
             }
             if (event.xbutton.window == p.cancel) {
                 ggets_bar(0, 0, 200, 200, p.cancel);
-                status = FORGET_ALL;
+                status = ALL_FORGET;
             }
             for (int32 i = 0; i < nn; i++) {
                 if (event.xbutton.window == p.cw[i]) {
@@ -187,7 +185,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
 
-    if (status == FORGET_ALL) {
+    if (status == ALL_FORGET) {
         for (int32 i = 0; i < n; i++) {
             check[i] = oldcheck[i];
         }

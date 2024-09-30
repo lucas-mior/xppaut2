@@ -10,9 +10,7 @@
 #include <X11/cursorfont.h>
 #include <stdio.h>
 #include "integers.h"
-#define ALL_DONE 2
 #define DONE_WITH_THIS 1
-#define FORGET_ALL 0
 #include "struct.h"
 
 #define EV_MASK                                                                \
@@ -119,7 +117,7 @@ dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
             status = ALL_DONE;
         }
         if (event.xbutton.window == d->cancel) {
-            status = FORGET_ALL;
+            status = ALL_FORGET;
         }
         if (event.xbutton.window == d->input) {
             XSetInputFocus(display, d->input, RevertToParent, CurrentTime);
@@ -143,7 +141,7 @@ dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
         ch = ggets_get_key_press(&event);
         ggets_edit_window(d->input, pos, d->input_s, col, &done, ch);
         if (done == -1) {
-            status = FORGET_ALL;
+            status = ALL_FORGET;
         }
         if (done == 1 || done == 2) {
             status = DONE_WITH_THIS;

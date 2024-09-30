@@ -2843,8 +2843,8 @@ void odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
 
 #define MAX_N_SBOX 22
 
-#define FORGET_ALL 0
-#define DONE_ALL 2
+#define ALL_FORGET 0
+#define ALL_DONE 2
 
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)

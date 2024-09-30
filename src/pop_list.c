@@ -363,7 +363,7 @@ pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title,
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 
-    if (status == FORGET_ALL) {
+    if (status == ALL_FORGET) {
         return status;
     }
     for (int32 i = 0; i < n; i++) {
@@ -497,11 +497,11 @@ pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
         }
         if (event.xbutton.window == sb->ok) {
             pop_list_destroy_scroll_box(scrb);
-            status = DONE_ALL;
+            status = ALL_DONE;
             break;
         }
         if (event.xbutton.window == sb->cancel) {
-            status = FORGET_ALL;
+            status = ALL_FORGET;
             break;
         }
         for (int32 i = 0; i < nn; i++) {
@@ -549,8 +549,8 @@ pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
         ch = (char)ggets_get_key_press(&event);
         ggets_edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
-            if (done == DONE_ALL) {
-                status = DONE_ALL;
+            if (done == ALL_DONE) {
+                status = ALL_DONE;
                 break;
             }
             inew = (sb->hot + 1) % nn;

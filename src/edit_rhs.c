@@ -102,7 +102,7 @@ edit_rhs_box(int32 n, char *title, char **names, char **values) {
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 
-    if (status == FORGET_ALL) {
+    if (status == ALL_FORGET) {
         return status;
     }
     for (int32 i = 0; i < n; i++) {
@@ -189,11 +189,11 @@ edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
 
     case ButtonPress:
         if (event.xbutton.window == sb->ok) {
-            status = DONE_ALL;
+            status = ALL_DONE;
             break;
         }
         if (event.xbutton.window == sb->cancel) {
-            status = FORGET_ALL;
+            status = ALL_FORGET;
             break;
         }
         if (event.xbutton.window == sb->reset) {
@@ -230,8 +230,8 @@ edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
         ch = (char)ggets_get_key_press(&event);
         ggets_edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
-            if (done == DONE_ALL) {
-                status = DONE_ALL;
+            if (done == ALL_DONE) {
+                status = ALL_DONE;
                 break;
             }
             inew = (sb->hot + 1) % nn;
