@@ -357,19 +357,20 @@ txt_make_view(void) {
                      NULL, NULL);
     many_pops_make_icon((char *)txtview_bits, txtview_width, txtview_height,
                         base);
-    txtview.up = pop_list_make_window(base, dcur_xs, 2, 8*dcur_xs, dcur_ys, 1);
+    txtview.up =
+        pop_list_make_window(base, dcur_xs, 2, 8*dcur_xs, dcur_ys, 1);
     txtview.down =
         pop_list_make_window(base, dcur_xs + ww, 2, 8*dcur_xs, dcur_ys, 1);
-    txtview.pgup =
-        pop_list_make_window(base, dcur_xs + 2*ww, 2, 8*dcur_xs, dcur_ys, 1);
-    txtview.pgdn =
-        pop_list_make_window(base, dcur_xs + 3*ww, 2, 8*dcur_xs, dcur_ys, 1);
-    txtview.kill =
-        pop_list_make_window(base, dcur_xs + 4*ww, 2, 8*dcur_xs, dcur_ys, 1);
+    txtview.pgup = pop_list_make_window(base, dcur_xs + 2*ww, 2, 8*dcur_xs,
+                                        dcur_ys, 1);
+    txtview.pgdn = pop_list_make_window(base, dcur_xs + 3*ww, 2, 8*dcur_xs,
+                                        dcur_ys, 1);
+    txtview.kill = pop_list_make_window(base, dcur_xs + 4*ww, 2, 8*dcur_xs,
+                                        dcur_ys, 1);
     txtview.home =
         pop_list_make_window(base, dcur_xs, 2 + hh, 8*dcur_xs, dcur_ys, 1);
-    txtview.end =
-        pop_list_make_window(base, dcur_xs + ww, 2 + hh, 8*dcur_xs, dcur_ys, 1);
+    txtview.end = pop_list_make_window(base, dcur_xs + ww, 2 + hh, 8*dcur_xs,
+                                       dcur_ys, 1);
     txtview.src = pop_list_make_window(base, dcur_xs + 2*ww, 2 + hh,
                                        8*dcur_xs, dcur_ys, 1);
     txtview.action = pop_list_make_window(base, dcur_xs + 3*ww, 2 + hh,

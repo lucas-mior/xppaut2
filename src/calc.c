@@ -80,8 +80,8 @@ make_calc(double z) {
 
         XSetWMProperties(display, base, &winname, &winname, NULL, 0,
                          &size_hints, NULL, NULL);
-        my_calc.answer =
-            pop_list_make_window(base, 10, dcur_ys / 2, 24*dcur_xs, dcur_ys, 0);
+        my_calc.answer = pop_list_make_window(base, 10, dcur_ys / 2,
+                                              24*dcur_xs, dcur_ys, 0);
         width = (width - 4*dcur_xs) / 2;
         my_calc.quit = pop_list_make_window(base, width, (int32)(2.5*dcur_ys),
                                             4*dcur_xs, dcur_ys, 1);

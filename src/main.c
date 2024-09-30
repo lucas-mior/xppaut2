@@ -484,12 +484,12 @@ do_main(int32 argc, char **argv) {
         Window wn;
         XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
         menu_create_them(main_win);
-        command_pop =
-            XCreateSimpleWindow(display, main_win, 0, dcur_ys + 4, w - 2,
-                                (uint)dcur_y + 4, 2, my_fore_color, my_back_color);
-        info_pop = XCreateSimpleWindow(display, main_win, 0,
-                                       (int32)h - dcur_y - 4, w - 2, (uint)dcur_y,
-                                       2, my_fore_color, my_back_color);
+        command_pop = XCreateSimpleWindow(display, main_win, 0, dcur_ys + 4,
+                                          w - 2, (uint)dcur_y + 4, 2,
+                                          my_fore_color, my_back_color);
+        info_pop = XCreateSimpleWindow(
+            display, main_win, 0, (int32)h - dcur_y - 4, w - 2, (uint)dcur_y, 2,
+            my_fore_color, my_back_color);
         XCreateFontCursor(display, XC_hand2);
         XSelectInput(display, command_pop,
                      KeyPressMask | ButtonPressMask | ExposureMask);
@@ -713,8 +713,8 @@ main_init_x(void) {
 
     if (strlen(user_draw_win_color) != 0) {
         XColor draw_win_col;
-        XParseColor(display, DefaultColormap(display, screen), user_draw_win_color,
-                    &draw_win_col);
+        XParseColor(display, DefaultColormap(display, screen),
+                    user_draw_win_color, &draw_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &draw_win_col);
 
         my_draw_win_color = (uint32)draw_win_col.pixel;
@@ -790,7 +790,7 @@ main_init_x(void) {
     cury_offb = font_big->ascent - 1;
 
     dcur_xs = XTextWidth(font_small, teststr, (int)strlen(teststr)) /
-             (int)(strlen(teststr) - 2);
+              (int)(strlen(teststr) - 2);
 
     dcur_ys = font_small->ascent + font_small->descent;
     cury_offs = font_small->ascent - 1;
@@ -908,8 +908,8 @@ main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                               (uint)dcur_y + 1);
                 XMoveResizeWindow(display, info_pop, 0, scale_y - dcur_y - 4,
                                   (uint)SCALEX - 4, (uint)dcur_y);
-                init_conds_resize_par_slides(scale_y - 3*dcur_ys - 1*dcur_yb -
-                                             13);
+                init_conds_resize_par_slides(scale_y - 3*dcur_ys -
+                                             1*dcur_yb - 13);
                 many_pops_resize_all(SCALEX, scale_y);
                 main_redraw_all();
             }

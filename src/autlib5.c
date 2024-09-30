@@ -379,7 +379,8 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         prjcti(bound2, xequib1, icp, par, -1, 1, 1, &ndm);
         for (int64 i = 0; i < blhom_1.nstab; ++i) {
             for (k = 0; k < ndm; ++k) {
-                fb[-1 + jb] += (u0[k] - xequib1[k])*bound2[i + k*(iap->ndm)];
+                fb[-1 + jb] +=
+                    (u0[k] - xequib1[k])*bound2[i + k*(iap->ndm)];
             }
             //         write(9,*) 'fb',jb,fb(jb)
             ++jb;

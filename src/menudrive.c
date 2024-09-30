@@ -511,8 +511,8 @@ menudrive_set_col_par(void) {
     static char key[] = "nva";
     int32 i;
     ch = (char)pop_list_popup_list_new(&tempw, "Color code", n, key, 3, 11, 0,
-                                       10, 12*dcur_y + 8, color_hint, info_pop,
-                                       info_message);
+                                       10, 12*dcur_y + 8, color_hint,
+                                       info_pop, info_message);
     for (i = 0; i < 3; i++) {
         if (ch == key[i]) {
             break;
@@ -623,8 +623,8 @@ menudrive_find_bvp(void) {
     int32 i;
     Window temp = main_win;
     ch = (char)pop_list_popup_list_new(&temp, "Bndry Value Prob", n, key, 4, 16,
-                                       1, 10, 6*dcur_y + 8, bvp_hint, info_pop,
-                                       info_message);
+                                       1, 10, 6*dcur_y + 8, bvp_hint,
+                                       info_pop, info_message);
     if (ch == PAUSE_NUMBER) {
         return;
     }
@@ -788,8 +788,8 @@ menudrive_do_movie(void) {
     static char key[] = "crpasmx";
     Window temp = main_win;
     ch = (char)pop_list_popup_list_new(&temp, "Kinescope", list, key, nkc, 11,
-                                       0, 10, 8*dcur_y + 8, kin_hint, info_pop,
-                                       info_message);
+                                       0, 10, 8*dcur_y + 8, kin_hint,
+                                       info_pop, info_message);
     for (i = 0; i < nkc; i++) {
         if (ch == key[i]) {
             break;
@@ -897,8 +897,8 @@ menudrive_froz_cline_stuff(void) {
     char ch;
     int32 i;
     ch = (char)pop_list_popup_list_new(&temp, "Freeze cline", n, key, 4, 10, 0,
-                                       10, 6*dcur_y + 8, null_freeze, info_pop,
-                                       info_message);
+                                       10, 6*dcur_y + 8, null_freeze,
+                                       info_pop, info_message);
     for (i = 0; i < 4; i++) {
         if (ch == key[i]) {
             break;

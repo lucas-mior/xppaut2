@@ -754,8 +754,8 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     filesel.start = pop_list_make_icon_window(
         base, dcur_xs, 2 + 3*hgt + 24 + 3, 32, 24, 1, start_bits);
 
-    filesel.dir = pop_list_make_plain_window(base, 7*dcur_xs, 2,
-                                             width - 7*dcur_xs - 5, dcur_ys, 0);
+    filesel.dir = pop_list_make_plain_window(
+        base, 7*dcur_xs, 2, width - 7*dcur_xs - 5, dcur_ys, 0);
     filesel.wild = pop_list_make_plain_window(
         base, 7*dcur_xs, 2 + hgt, width - 7*dcur_xs - 5, dcur_ys, 1);
     filesel.ww =
@@ -1404,17 +1404,17 @@ init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width,
     window = pop_list_make_plain_window(base, x, y, mainwid, mainhgt, 1);
     my_par_slide[index].main = window;
     xs = (mainwid - width - 4) / 2;
-    my_par_slide[index].slide =
-        pop_list_make_window(window, xs, dcur_ys + 5, width + 4, dcur_ys - 4, 1);
+    my_par_slide[index].slide = pop_list_make_window(window, xs, dcur_ys + 5,
+                                                     width + 4, dcur_ys - 4, 1);
     my_par_slide[index].go = pop_list_make_window(
         window, xs + width + 8, dcur_ys + 5, 3*dcur_xs, dcur_ys - 3, 1);
     my_par_slide[index].top =
         pop_list_make_window(window, 2, 2, mainwid - 6, dcur_ys, 1);
-    my_par_slide[index].left =
-        pop_list_make_window(window, 2, 2*dcur_ys + 3, 12*dcur_xs, dcur_ys, 0);
+    my_par_slide[index].left = pop_list_make_window(window, 2, 2*dcur_ys + 3,
+                                                    12*dcur_xs, dcur_ys, 0);
     my_par_slide[index].right =
-        pop_list_make_window(window, mainwid - 12*dcur_xs - 4, 2*dcur_ys + 3,
-                             12*dcur_xs, dcur_ys, 0);
+        pop_list_make_window(window, mainwid - 12*dcur_xs - 4,
+                             2*dcur_ys + 3, 12*dcur_xs, dcur_ys, 0);
     my_par_slide[index].lo = 0.0;
     my_par_slide[index].hi = 1.0;
     my_par_slide[index].val = 0.5;
@@ -1725,7 +1725,8 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
     b->close = pop_list_make_window(base, 2, 5, 7*dcur_xs + 10, dcur_ys, 1);
     b->ok = pop_list_make_window(base, xb1, 5, 7*dcur_xs + 10, dcur_ys, 1);
     b->def = pop_list_make_window(base, xb2, 5, 7*dcur_xs + 10, dcur_ys, 1);
-    b->cancel = pop_list_make_window(base, xb3, 5, 7*dcur_xs + 10, dcur_ys, 1);
+    b->cancel =
+        pop_list_make_window(base, xb3, 5, 7*dcur_xs + 10, dcur_ys, 1);
     b->go = pop_list_make_window(base, xb4, 5, 7*dcur_xs + 10, dcur_ys, 1);
     xb1 = dcur_xs + wid1 + wid2 + 12;
 

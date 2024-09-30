@@ -456,7 +456,8 @@ nullcline_do_batch_nclines(void) {
 
 void
 nullcline_set_colorization_stuff(void) {
-    numerics_user_set_color_par(colorize_flag, color_via, color_via_lo, color_via_hi);
+    numerics_user_set_color_par(colorize_flag, color_via, color_via_lo,
+                                color_via_hi);
     return;
 }
 

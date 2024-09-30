@@ -416,8 +416,8 @@ ani_create_vcr(char *name) {
     vcr.wup = browser_button2(base, 1, 2, 0);
     vcr.wdn = browser_button2(base, 1, 3, 0);
     vcr.wgrab = browser_button2(base, 2, 3, 0);
-    vcr.slider = pop_list_make_window(base, dcur_xs, 7 + 4*dcur_ys, 48*dcur_xs,
-                                      dcur_ys + 4, 1);
+    vcr.slider = pop_list_make_window(base, dcur_xs, 7 + 4*dcur_ys,
+                                      48*dcur_xs, dcur_ys + 4, 1);
     vcr.slipos = 0;
     vcr.sliwid = 48*dcur_xs;
     vcr.wpause = browser_button2(base, 2, 0, 0);

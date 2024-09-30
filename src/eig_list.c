@@ -398,10 +398,10 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
             pop_list_make_plain_window(eq_box.base, 0, 0, width, hstab, 1);
         eq_box.rest =
             pop_list_make_plain_window(eq_box.base, 0, hstab, width, hequil, 1);
-        eq_box.top =
-            pop_list_make_window(eq_box.stab, tpos, 2, 8*dcur_x, dcur_y + 5, 1);
-        eq_box.close =
-            pop_list_make_window(eq_box.base, 2, 2, 8*dcur_xs, dcur_ys + 4, 1);
+        eq_box.top = pop_list_make_window(eq_box.stab, tpos, 2, 8*dcur_x,
+                                          dcur_y + 5, 1);
+        eq_box.close = pop_list_make_window(eq_box.base, 2, 2, 8*dcur_xs,
+                                            dcur_ys + 4, 1);
         eq_box.import = pop_list_make_window(eq_box.base, tpos2, 2, 8*dcur_xs,
                                              dcur_ys + 4, 1);
         eq_box.flag = 1;
@@ -471,8 +471,9 @@ eig_list_draw_eq_box(Window window) {
                     continue;
                 }
                 sprintf(temp, "%s=%.5g", uvar_names[in], eq_box.y[in]);
-                XDrawString(display, eq_box.rest, small_gc, j*28*dcur_xs + 8,
-                            i*(dcur_ys + 3) + 13, temp, (int)strlen(temp));
+                XDrawString(display, eq_box.rest, small_gc,
+                            j*28*dcur_xs + 8, i*(dcur_ys + 3) + 13, temp,
+                            (int)strlen(temp));
             }
         }
         return;

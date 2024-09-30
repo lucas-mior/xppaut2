@@ -55,7 +55,8 @@ choice_box_do_checks(ChoiceBox p) {
         } else {
             ggets_set_back();
         }
-        XDrawString(display, p.cw[i], gc, (p.mc + 1)*dcur_x, cury_off, "X", 1);
+        XDrawString(display, p.cw[i], gc, (p.mc + 1)*dcur_x, cury_off, "X",
+                    1);
     }
     ggets_set_fore();
     return;
@@ -115,15 +116,15 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
         oldcheck[i] = check[i];
         xpos = xstart;
         ypos = ystart + i*(dcur_y + 10);
-        p.cw[i] =
-            pop_list_make_window(base, xpos, ypos, (mcc + 3)*dcur_x, dcur_y, 1);
+        p.cw[i] = pop_list_make_window(base, xpos, ypos, (mcc + 3)*dcur_x,
+                                       dcur_y, 1);
     }
 
     ypos = height - 2*dcur_y;
     xpos = (width - 12*dcur_x) / 2;
     p.ok = pop_list_make_window(base, xpos, ypos, 2*dcur_x, dcur_y, 2);
-    p.cancel =
-        pop_list_make_window(base, xpos + 4*dcur_x, ypos, 6*dcur_x, dcur_y, 2);
+    p.cancel = pop_list_make_window(base, xpos + 4*dcur_x, ypos, 6*dcur_x,
+                                    dcur_y, 2);
     p.base = base;
 
     p.n = n;

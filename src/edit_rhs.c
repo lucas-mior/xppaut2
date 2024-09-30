@@ -284,10 +284,10 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     ypos = height - 2*dcur_y;
     xpos = (width - 19*dcur_x) / 2;
     (sb->ok) = pop_list_make_window(base, xpos, ypos, 2*dcur_x, dcur_y, 1);
-    (sb->cancel) =
-        pop_list_make_window(base, xpos + 4*dcur_x, ypos, 6*dcur_x, dcur_y, 1);
-    (sb->reset) = pop_list_make_window(base, xpos + 12*dcur_x, ypos, 5*dcur_x,
-                                       dcur_y, 1);
+    (sb->cancel) = pop_list_make_window(base, xpos + 4*dcur_x, ypos,
+                                        6*dcur_x, dcur_y, 1);
+    (sb->reset) = pop_list_make_window(base, xpos + 12*dcur_x, ypos,
+                                       5*dcur_x, dcur_y, 1);
     XRaiseWindow(display, base);
     return;
 }

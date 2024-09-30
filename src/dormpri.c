@@ -1397,8 +1397,8 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     hmax = fabs(hmax);
     iord = 5;
     if (h == 0.0) {
-        h = hinit5(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler2, rtoler,
-                   itoler);
+        h = hinit5(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler2,
+                   rtoler, itoler);
     }
     nfcn += 2;
     reject = 0;
@@ -1797,9 +1797,9 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     k6 = k5 + n;
     ysti = k6 + n;
 
-    idid = dopcor5(n, fcn, x, y, xend, hmax, h, rtoler, atoler2, itoler, fileout,
-                   solout, iout, nmax, uround, meth, nstiff, safe, beta, fac1,
-                   fac2, icont);
+    idid = dopcor5(n, fcn, x, y, xend, hmax, h, rtoler, atoler2, itoler,
+                   fileout, solout, iout, nmax, uround, meth, nstiff, safe,
+                   beta, fac1, fac2, icont);
 
     if (indir) {
         free(indir);

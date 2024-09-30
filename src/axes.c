@@ -415,6 +415,7 @@ axes_draw_xtics(char *s2, double start, double incr, double end) {
         axes_doing_box = 0;
         graphics_put_text(xt, yt - (int32)(1.25*VChar*s), bob);
     }
-    graphics_put_text((d_left + d_right) / 2, yt - (int32)(2.5*VChar*s), s2);
+    graphics_put_text((d_left + d_right) / 2, yt - (int32)(2.5*VChar*s),
+                      s2);
     return;
 }

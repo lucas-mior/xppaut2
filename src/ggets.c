@@ -239,7 +239,8 @@ ggets_cput_text(void) {
     if (size < 0) {
         size = 0;
     }
-    pop_list_message_box(&temp, 0, scale_y - 5*dcur_y, "Place text with mouse");
+    pop_list_message_box(&temp, 0, scale_y - 5*dcur_y,
+                         "Place text with mouse");
     if (menudrive_get_mouse_xy(&x, &y)) {
         many_pops_gr_col();
         graphics_fillin_text(string, new);
@@ -378,8 +379,8 @@ ggets_display_command(char *name, char *value, int32 pos) {
 
 void
 ggets_clr_line_at(Window window, int32 col0, int32 pos, int32 n) {
-    XClearArea(display, window, col0 + pos*dcur_x, 0, (uint)((n + 2)*dcur_x),
-               2*(uint)dcur_y, False);
+    XClearArea(display, window, col0 + pos*dcur_x, 0,
+               (uint)((n + 2)*dcur_x), 2*(uint)dcur_y, False);
     return;
 }
 

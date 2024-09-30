@@ -1078,8 +1078,9 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
     active_win_list[0] = 0;
     graphics_init_all();
 
-    graph[0].window = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,
-                                          (uint)h, 2, gr_fore, my_draw_win_color);
+    graph[0].window =
+        XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w, (uint)h, 2,
+                            gr_fore, my_draw_win_color);
     graph[0].w_info = info_pop;
 
     info_message = graph[0].gr_info;

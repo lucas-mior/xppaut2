@@ -519,8 +519,8 @@ auto_nox_do(int32 iold, int32 isave) {
     if (restart_label != 0) {
         printf("restart_label=%d itp=%d ips=%d nfpar=%d ilp=%d isw=%d isp=%d "
                "A2p=%d \n",
-               restart_label, Auto.itp, Auto.ips, Auto.nfpar, Auto.ilp, Auto.isw,
-               Auto.isp, auto_two_param);
+               restart_label, Auto.itp, Auto.ips, Auto.nfpar, Auto.ilp,
+               Auto.isw, Auto.isp, auto_two_param);
         Auto.irs = restart_label;
         restart_label = 0;
         auto_nox_do(iold, isave);
