@@ -2929,14 +2929,6 @@ extern char upar_names[MAX_PAR][MAX_ODE_NAME_LENGTH];
 extern char uvar_names[MAX_ODE][MAX_ODE_NAME_LENGTH];
 extern char *color_names[];
 
-#define SB_PLOTTABLE 0
-#define SB_VARIABLE 1
-#define SB_PARAMETER 2
-#define SB_PARVAR 3
-#define SB_COLOR 4
-#define SB_MARKER 5
-#define SB_METHOD 6
-
 void pop_list_set_window_title(Window win, char *string);
 void pop_list_make_scrbox_lists(void);
 int32 pop_list_do_string_box(int32 n, int32 row, int32 col, char *title,
