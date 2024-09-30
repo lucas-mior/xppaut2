@@ -1035,10 +1035,6 @@ int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 #ifndef EDIT_RHS_H
 #define EDIT_RHS_H
 
-#define NEQMAXFOREDIT 20
-#define MAX_N_EBOX MAX_ODE
-#define MAX_LEN_EBOX 86
-
 #define MAX_UFUN 50
 
 void edit_rhs_menu(void);

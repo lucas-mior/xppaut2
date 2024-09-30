@@ -15,6 +15,10 @@
 #include <wctype.h>
 #endif
 
+#define NEQMAXFOREDIT 20
+#define MAX_N_EBOX MAX_ODE
+#define MAX_LEN_EBOX 86
+
 typedef struct EditBox {
     Window base;
     Window ok;
