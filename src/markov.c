@@ -13,12 +13,11 @@
 #include "parserslow.h"
 
 #define IA 16807
-#define IM 2147483647
-#define AM (1.0 / IM)
+#define AM (1.0 / INT_MAX)
 #define IQ 127773
 #define IR 2836
 #define NTAB 32
-#define NDIV (1 + (IM - 1) / NTAB)
+#define NDIV (1 + (INT_MAX - 1) / NTAB)
 #define EPS 1.2e-12
 #define RNMX (1.0 - EPS)
 #define PI 3.1415926
@@ -684,7 +683,7 @@ markov_ran1(long *idum) {
             k = (*idum) / IQ;
             *idum = IA*(*idum - k*IQ) - IR*k;
             if (*idum < 0) {
-                *idum += IM;
+                *idum += INT_MAX;
             }
             if (j < NTAB) {
                 iv[j] = *idum;
@@ -695,7 +694,7 @@ markov_ran1(long *idum) {
     k = (*idum) / IQ;
     *idum = IA*(*idum - k*IQ) - IR*k;
     if (*idum < 0) {
-        *idum += IM;
+        *idum += INT_MAX;
     }
     j = (int32)(iy / NDIV);
     iy = iv[j];
@@ -707,7 +706,6 @@ markov_ran1(long *idum) {
     }
 }
 #undef IA
-#undef IM
 #undef AM
 #undef IQ
 #undef IR
