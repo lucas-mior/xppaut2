@@ -2,16 +2,15 @@
 #include <stdlib.h>
 #include <functions.h>
 
-/*  ml.c for use in the ode file mlnet.ode
-
- without the -O3 -m64 it is slower than XPP!!
- gcc -fPIC -dynamiclib -O3 -o ML.SO ml.c -m64
-
- for linux
-
-gcc -fPIC -shared  -O3 -o ML.SO ml.c -m64
-
-*/
+/* ml.c for use in the ode file mlnet.ode
+ *
+ * without the -O3 -m64 it is slower than XPP!!
+ * gcc -fPIC -dynamiclib -O3 -o ML.SO ml.c -m64
+ *
+ * for linux
+ *
+ * gcc -fPIC -shared  -O3 -o ML.SO ml.c -m64
+ */
 
 double *p;
 #define iapp p[0]
