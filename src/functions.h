@@ -24,6 +24,11 @@ enum {
 
 #define PAUSE_NUMBER 27
 
+#define MIN(A, B) ((A) < (B) ? (A) : (B))
+#define MAX(A, B) ((A) > (B) ? (A) : (B))
+#define ABS(A) ((A > 0) ? (A) : -(A))
+#define SQR(A) ((A)*(A))
+
 extern Display *display;
 
 extern char *timesfonts[];
@@ -1960,21 +1965,6 @@ int32 kinescope_film_clip(void);
 
 #ifndef LLNLMATH_H
 #define LLNLMATH_H
-
-/******************************************************************
- *                                                                *
- * Macros : MIN, MAX, ABS, SQR                                    *
- *----------------------------------------------------------------*
- * MIN(A, B) returns the minimum of A and B.                      *
- * MAX(A, B) returns the maximum of A and B.                      *
- * ABS(A) returns the absolute value of A.                        *
- * SQR(A) returns the square of A.                                *
- *                                                                *
- ******************************************************************/
-#define MIN(A, B) ((A) < (B) ? (A) : (B))
-#define MAX(A, B) ((A) > (B) ? (A) : (B))
-#define ABS(A) ((A > 0) ? (A) : -(A))
-#define SQR(A) ((A)*(A))
 
 /******************************************************************
  *                                                                *

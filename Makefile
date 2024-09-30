@@ -13,7 +13,7 @@ CFLAGS += -DNON_UNIX_STDIO -DAUTO -DCVODE_YES -DHAVEDLL
 
 LDFLAGS = -lX11 -lm -ldl -L.
 
-SOURCES = $(wildcard src/*.c src/cvode/*.c src/cuda/*.c)
+SOURCES = $(wildcard src/*.c src/cvode/*.c)
 HEADERS = $(wildcard src/*.h)
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = xppaut
