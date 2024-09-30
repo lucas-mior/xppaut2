@@ -2786,8 +2786,8 @@ void do_torus_com(int32 c);
 
 #endif
 
-#ifndef TXTREAD_H
-#define TXTREAD_H
+#ifndef TXT_H
+#define TXT_H
 
 void txt_view_events(XEvent event);
 void txt_redraw_view(Window window);
