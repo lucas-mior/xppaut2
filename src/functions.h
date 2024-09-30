@@ -1038,9 +1038,6 @@ int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 #define NEQMAXFOREDIT 20
 #define MAX_N_EBOX MAX_ODE
 #define MAX_LEN_EBOX 86
-#define FORGET_THIS 3
-#define DONE_THIS 1
-#define RESET_ALL 4
 
 #define MAX_UFUN 50
 
