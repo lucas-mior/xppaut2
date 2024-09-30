@@ -22,6 +22,7 @@
 #include "newpars.h"
 
 #define MAXONLY 1000
+#define MAXVNAM 33
 
 static int32 IN_INCLUDED_FILE = 0;
 

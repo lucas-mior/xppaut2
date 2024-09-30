@@ -1231,7 +1231,6 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 #ifndef FORM_ODE_H
 #define FORM_ODE_H
 
-#define MAXVNAM 33
 #define MAXLINES 5000
 #define MAXCOMMENTS 500
 
