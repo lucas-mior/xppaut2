@@ -3,7 +3,7 @@
  * File          : vector.h
  * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL
  * Last Modified : 1 September 1994
- *--------------------------------------------------------------
+ * --------------------------------------------------------------
  *
  * This is the header file for a generic VECTOR package. It exports the type
  * Vector.
@@ -49,7 +49,7 @@
 /*******************************************************************************
  *
  * Type: Vector
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  * The type Vector is an abstract vector type. The fields of its concrete
  * representation should not be accessed directly, but rather through the macros
  * given below.
@@ -66,7 +66,7 @@ typedef struct {
 /*******************************************************************************
  *
  * Macros: N_VMAKE, N_VDISPOSE, N_VDATA, N_VLENGTH, N_VIth
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  * In the descriptions below, the following user
  * declarations are assumed:
  *
@@ -146,7 +146,7 @@ typedef struct {
  *
  * Function : vector_new
  * Usage    : x = vector_new(N);
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * Returns a new Vector of length N. The parameter machEnv is a pointer to
  * machine environment-specific information.  It is ignored in the sequential
@@ -161,7 +161,7 @@ Vector vector_new(int64 n);
  *
  * Function : vector_free
  * Usage    : vector_free(x);
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * Frees the Vector x. It is illegal to use x after the call vector_free(x).
  *
@@ -228,7 +228,7 @@ void vector_abs(Vector x, Vector z);
  *
  * Function  : N_VInv
  * Operation : z[i] = 1.0 / x[i] for i = 0, 1, ..., N-1
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * This routine does not check for division by 0. It should be called only with
  * an Vector x which is guaranteed to have all non-zero components.
@@ -255,7 +255,7 @@ void vector_add_const(Vector x, double b, Vector z);
  *
  * Function : N_VDotProd
  * Usage    : dotprod = vector_dot_prod(x, y);
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * Returns the value of the ordinary dot product of x and y:
  *
@@ -270,7 +270,7 @@ double vector_dot_prod(Vector x, Vector y);
  *
  * Function : N_VMaxNorm
  * Usage    : maxnorm = vector_max_norm(x);
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * Returns the maximum norm of x:
  *
@@ -285,7 +285,7 @@ double vector_max_norm(Vector x);
  *
  * Function : N_VWrmsNorm
  * Usage    : wrmsnorm = vector_wrms_norm(x, w);
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * Returns the weighted root mean square norm of x with
  * weight vector w:
@@ -301,7 +301,7 @@ double vector_wrms_norm(Vector x, Vector w);
  *
  * Function : N_VMin
  * Usage    : min = vector_min(x);
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * Returns min x[i] if N > 0 and returns 0.0 if N <= 0.
  *          i
@@ -329,7 +329,7 @@ void vector_compare(double c, Vector x, Vector z);
  * Function  : N_VInvTest
  * Operation : z[i] = 1.0 / x[i] with a test for x[i]==0.0
  *             before inverting x[i].
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * This routine returns true if all components of x are non-zero (successful
  * inversion) and returns false otherwise.
@@ -347,7 +347,7 @@ bool vector_inv_test(Vector x, Vector z);
  *
  * Function : N_VPrint
  * Usage    : vector_print(x);
- *-------------------------------------------------------------
+ * -------------------------------------------------------------
  *
  * Prints the Vector x to stdout. Each component of x is printed on a separate
  * line using the %g specification. This routine is provided as an aid in
