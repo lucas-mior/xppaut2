@@ -63,7 +63,6 @@
  * can be obtained via the macro N_VDATA.                      
  *                                                             
  ***************************************************************/
-
 typedef struct {
     int64 length;
     double *data;
@@ -146,11 +145,8 @@ typedef struct {
     v->length = v_len
 
 #define N_VDISPOSE(v) free(v)
-
 #define N_VDATA(v) (v->data)
-
 #define N_VLENGTH(v) (v->length)
-
 #define N_VIth(v, i) ((v->data)[i])
 
 /* Part II: Vector Kernel Prototypes (Machine Environment-Independent) */
@@ -175,7 +171,6 @@ typedef struct {
  * then vector_new returns NULL.                                   
  *                                                             
  ***************************************************************/
-
 Vector vector_new(int64 n);
 
 /*************************************************************
@@ -188,7 +183,6 @@ Vector vector_new(int64 n);
  * vector_free(x).                                                 
  *                                                             
  ***************************************************************/
-
 void vector_free(Vector x);
 
 /*************************************************************
@@ -205,7 +199,6 @@ void vector_free(Vector x);
  * Operation : z = a x + b y                                   
  *                                                             
  ***************************************************************/
-
 void vector_linear_sum(double a, Vector x, double b, Vector y, Vector z);
 
 /*************************************************************
@@ -214,7 +207,6 @@ void vector_linear_sum(double a, Vector x, double b, Vector y, Vector z);
  * Operation : z[i] = c for i=0, 1, ..., N-1                   
  *                                                             
  ***************************************************************/
-
 void vector_const(double c, Vector z);
 
 /*************************************************************
@@ -223,7 +215,6 @@ void vector_const(double c, Vector z);
  * Operation : z[i] = x[i]*y[i] for i=0, 1, ..., N-1         
  *                                                             
  ***************************************************************/
-
 void vector_prod(Vector x, Vector y, Vector z);
 
 /*************************************************************
@@ -232,7 +223,6 @@ void vector_prod(Vector x, Vector y, Vector z);
  * Operation : z[i] = x[i] / y[i] for i=0, 1, ..., N-1         
  *                                                             
  ***************************************************************/
-
 void vector_div(Vector x, Vector y, Vector z);
 
 /*************************************************************
@@ -241,7 +231,6 @@ void vector_div(Vector x, Vector y, Vector z);
  * Operation : z = c x                                         
  *                                                             
  ***************************************************************/
-
 void vector_scale(double c, Vector x, Vector z);
 
 /*************************************************************
@@ -250,7 +239,6 @@ void vector_scale(double c, Vector x, Vector z);
  * Operation : z[i] = |x[i]|,   for i=0, 1, ..., N-1           
  *                                                             
  ***************************************************************/
-
 void vector_abs(Vector x, Vector z);
 
 /*************************************************************
@@ -264,7 +252,6 @@ void vector_abs(Vector x, Vector z);
  * all non-zero components.                                    
  *                                                             
  ***************************************************************/
-
 void vector_inv(Vector x, Vector z);
 
 /*************************************************************
@@ -273,7 +260,6 @@ void vector_inv(Vector x, Vector z);
  * Operation : z[i] = x[i] + b   for i = 0, 1, ..., N-1        
  *                                                             
  ***************************************************************/
-
 void vector_add_const(Vector x, double b, Vector z);
 
 /*************************************************************
@@ -296,7 +282,6 @@ void vector_add_const(Vector x, double b, Vector z);
  * Returns 0.0 if N <= 0.                                      
  *                                                             
  ***************************************************************/
-
 double vector_dot_prod(Vector x, Vector y);
 
 /*************************************************************
@@ -312,7 +297,6 @@ double vector_dot_prod(Vector x, Vector y);
  * Returns 0.0 if N <= 0.                                      
  *                                                             
  ***************************************************************/
-
 double vector_max_norm(Vector x);
 
 /*************************************************************
@@ -329,7 +313,6 @@ double vector_max_norm(Vector x);
  * Returns 0.0 if N <= 0.                                      
  *                                                             
  ***************************************************************/
-
 double vector_wrms_norm(Vector x, Vector w);
 
 /*************************************************************
@@ -342,7 +325,6 @@ double vector_wrms_norm(Vector x, Vector w);
  *          i                                                  
  *                                                             
  ***************************************************************/
-
 double vector_min(Vector x);
 
 /**************************************************************
@@ -358,7 +340,6 @@ double vector_min(Vector x);
  *                    0.0 otherwise                            
  *                                                             
  ***************************************************************/
-
 void vector_compare(double c, Vector x, Vector z);
 
 /**************************************************************
@@ -373,7 +354,6 @@ void vector_compare(double c, Vector x, Vector z);
  * otherwise.                                                  
  *                                                             
  ***************************************************************/
-
 bool vector_inv_test(Vector x, Vector z);
 
 /**************************************************************
@@ -394,7 +374,6 @@ bool vector_inv_test(Vector x, Vector z);
  * this vector package.                                        
  *                                                             
  ***************************************************************/
-
 void vector_print(Vector x);
 
 #endif
