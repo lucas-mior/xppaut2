@@ -32,10 +32,10 @@ int32 auto_redraw_flag = 1;
 
 static int32 STD_HGT_var = 0;
 static int32 STD_WID_var = 0;
-static int32 Auto_extra_wid;
-static int32 Auto_extra_hgt;
-static int32 Auto_extra_wid;
-static int32 Auto_extra_hgt;
+static int32 auto_extra_wid;
+static int32 auto_extra_hgt;
+static int32 auto_extra_wid;
+static int32 auto_extra_hgt;
 static int32 Auto_x0;
 static int32 Auto_y0;
 
@@ -933,8 +933,8 @@ auto_x11_make(char *wname, char *iname) {
 
     STD_HGT_var = 20*dcur_y;
     STD_WID_var = 67*dcur_x;
-    Auto_extra_wid = 10 + addwid;
-    Auto_extra_hgt = addhgt + 2*dcur_y + hinthgt;
+    auto_extra_wid = 10 + addwid;
+    auto_extra_hgt = addhgt + 2*dcur_y + hinthgt;
     wid = 10 + addwid + STD_WID_var + xmargin;
     hgt = addhgt + 2*dcur_y + STD_HGT_var + ymargin + hinthgt;
     x = addwid + 5;
@@ -1038,8 +1038,8 @@ auto_x11_resize_window(XEvent event) {
         int32 ix;
         int32 iy;
 
-        wid = event.xconfigure.width - Auto_extra_wid;
-        hgt = event.xconfigure.height - Auto_extra_hgt;
+        wid = event.xconfigure.width - auto_extra_wid;
+        hgt = event.xconfigure.height - auto_extra_hgt;
 
         addhgt = 3*dcur_y;
 

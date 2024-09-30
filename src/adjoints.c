@@ -39,10 +39,10 @@ static int32 LIAP_N;
 static int32 LIAP_I;
 static int32 LIAP_N;
 static int32 LIAP_I;
-static double ADJ_EPS = 1.e-8;
-static double ADJ_ERR = 1.e-3;
-static int32 ADJ_MAXIT = 20;
-static int32 ADJ_HERE = 0;
+static double adj_eps = 1.e-8;
+static double adj_err = 1.e-3;
+static int32 adj_maxit = 20;
+static int32 adj_here = 0;
 static int32 H_HERE = 0;
 static int32 h_len;
 static int32 HODD_EV = 0;
@@ -191,7 +191,7 @@ adjoints_data_back(void) {
 
 void
 adjoints_back(void) {
-    if (ADJ_HERE) {
+    if (adj_here) {
         browser_set_data(my_adj, 1);
         browser_refresh(adj_len);
     }
@@ -245,8 +245,8 @@ adjoints_make_adj_com(int32 com) {
         break;
     case 'p':
         // adj2 adjoint parameters
-        ggets_new_int("Maximum iterates :", &ADJ_MAXIT);
-        ggets_new_float("Adjoint error tolerance :", &ADJ_ERR);
+        ggets_new_int("Maximum iterates :", &adj_maxit);
+        ggets_new_float("Adjoint error tolerance :", &adj_err);
         break;
     case 'r':
         adj_range = true;
@@ -261,7 +261,7 @@ void
 adjoints_new_h_fun(int32 silent2) {
     int32 n = 2;
 
-    if (!ADJ_HERE) {
+    if (!adj_here) {
         ggets_err_msg("Must compute adjoint first!");
         return;
     }
@@ -375,13 +375,13 @@ bye:
 void
 adjoints_new_adjoint(void) {
     int32 n = NODE + 1;
-    if (ADJ_HERE) {
+    if (adj_here) {
         adjoints_data_back();
         for (int32 i = 0; i < n; i++) {
             free(my_adj[i]);
         }
         free(my_adj);
-        ADJ_HERE = 0;
+        adj_here = 0;
     }
     adj_len = storind;
     my_adj = xmalloc((usize)(NEQ + 1)*sizeof(*my_adj));
@@ -391,9 +391,9 @@ adjoints_new_adjoint(void) {
     for (int32 i = n; i <= NEQ; i++) {
         my_adj[i] = storage[i];
     }
-    if (adjoints_adjoint(storage, my_adj, adj_len, delta_t*NJMP, ADJ_EPS, ADJ_ERR, ADJ_MAXIT,
+    if (adjoints_adjoint(storage, my_adj, adj_len, delta_t*NJMP, adj_eps, adj_err, adj_maxit,
                          NODE)) {
-        ADJ_HERE = 1;
+        adj_here = 1;
         adjoints_back();
     }
     ggets_ping();
