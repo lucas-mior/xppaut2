@@ -16,9 +16,6 @@
 #include "vector.h"
 #include "band.h"
 
-#define ZERO 0.0
-#define ONE 1.0
-
 #define ROW(i, j, smu) (i - j + smu)
 
 /* Implementation */
@@ -175,7 +172,7 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
         for (c = 0; c < n; c++) {
             a_c = a[c];
             for (r = 0; r < num_rows; r++) {
-                a_c[r] = ZERO;
+                a_c[r] = 0.0;
             }
         }
     }
@@ -203,7 +200,7 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 
         // check for zero pivot element
 
-        if (col_k[storage_l] == ZERO) {
+        if (col_k[storage_l] == 0.0) {
             return k + 1;
         }
 
@@ -221,7 +218,7 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
         // stores the pivot row multipliers -a(i,k)/a(k,k)
         // in a(i,k), i=k+1, ..., MIN(n-1,k+ml).
 
-        mult = -ONE / (*diag_k);
+        mult = -1.0 / (*diag_k);
         for (i = k + 1, kptr = sub_diag_k; i <= last_row_k; i++, kptr++) {
             (*kptr) *= mult;
         }
@@ -248,7 +245,7 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
             // a(i,j) = a(i,j) - [a(i,k)/a(k,k)]*a(k,j)
             // a_kj = a(k,j), *kptr = - a(i,k)/a(k,k), *jptr = a(i,j)
 
-            if (a_kj != ZERO) {
+            if (a_kj != 0.0) {
                 for (i = k + 1, kptr = sub_diag_k,
                     jptr = col_j + ROW(k + 1, j, smu);
                      i <= last_row_k; i++, kptr++, jptr++) {
@@ -261,7 +258,7 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     // set the last pivot row to be n-1 and check for a zero pivot
 
     *p = n - 1;
-    if (a[n - 1][smu] == ZERO) {
+    if (a[n - 1][smu] == 0.0) {
         return n;
     }
 
@@ -318,7 +315,7 @@ band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     for (int32 j = 0; j < n; j++) {
         col_j = a[j] + smu - mu;
         for (int32 i = 0; i < colSize; i++) {
-            col_j[i] = ZERO;
+            col_j[i] = 0.0;
         }
     }
     return;
@@ -362,7 +359,7 @@ band_scale2(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
 void
 band_add_i2(double **a, int64 n, int64 smu) {
     for (int32 j = 0; j < n; j++) {
-        a[j][smu] += ONE;
+        a[j][smu] += 1.0;
     }
     return;
 }

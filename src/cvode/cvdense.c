@@ -28,9 +28,6 @@
 /* Other Constants */
 
 #define MIN_INC_MULT 1000.0
-#define ZERO 0.0
-#define ONE 1.0
-#define TWO 2.0
 
 /******************************************************************
  *                                                                *
@@ -113,9 +110,9 @@ cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
     // Set minimum increment based on uround and norm of f
     srur = llnlmath_rsqrt(uround);
     fnorm = vector_wrms_norm(fy, ewt);
-    minInc = (fnorm != ZERO)
+    minInc = (fnorm != 0.0)
                  ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm)
-                 : ONE;
+                 : 1.0;
 
     N_VMAKE(jthCol, NULL, N);
 
@@ -129,7 +126,7 @@ cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
         inc = MAX(srur*ABS(yjsaved), minInc / ewt_data[j]);
         y_data[j] += inc;
         f(N, tn, y, ftemp, f_data);
-        inc_inv = ONE / inc;
+        inc_inv = 1.0 / inc;
         vector_linear_sum(inc_inv, ftemp, -inc_inv, fy, jthCol);
         y_data[j] = yjsaved;
     }
@@ -304,7 +301,7 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 
     // Use nst, gamma/gammap, and convfail to set J eval. flag jok
 
-    dgamma = ABS((gamma / gammap) - ONE);
+    dgamma = ABS((gamma / gammap) - 1.0);
     jbad = (nst == 0) || (nst > nstlj + CVD_MSBJ) ||
            ((convfail == FAIL_BAD_J) && (dgamma < CVD_DGMAX)) ||
            (convfail == FAIL_OTHER);
@@ -360,8 +357,8 @@ cv_dense_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
     dense_back_solve(M, pivots, b);
 
     // If BDF, scale the correction to account for change in gamma
-    if ((lmm == BDF) && (gamrat != ONE)) {
-        vector_scale(TWO / (ONE + gamrat), b, b);
+    if ((lmm == BDF) && (gamrat != 1.0)) {
+        vector_scale(2.0 / (1.0 + gamrat), b, b);
     }
 
     return 0;

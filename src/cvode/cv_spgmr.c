@@ -41,9 +41,6 @@
 
 /* Other Constants */
 
-#define ZERO 0.0
-#define ONE 1.0
-
 /******************************************************************
  *                                                                *
  * Types : CVSpgmrMemRec, CVSpgmrMem                              *
@@ -191,7 +188,7 @@ cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
     cvspgmr_mem->g_pretype = pretype;
     cvspgmr_mem->g_gstype = gstype;
     cvspgmr_mem->g_maxl = (int32)((maxl <= 0) ? MIN(CVSPGMR_MAXL, N) : maxl);
-    cvspgmr_mem->g_delt = (delt == ZERO) ? CVSPGMR_DELT : delt;
+    cvspgmr_mem->g_delt = (delt == 0.0) ? CVSPGMR_DELT : delt;
     cvspgmr_mem->g_P_data = P_data;
     cvspgmr_mem->g_precond = precond;
     cvspgmr_mem->g_psolve = psolve;
@@ -313,7 +310,7 @@ cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     cvspgmr_mem = (CVSpgmrMem)lmem;
 
     // Use nst, gamma/gammap, and convfail to set J eval. flag jok
-    dgamma = ABS((gamma / gammap) - ONE);
+    dgamma = ABS((gamma / gammap) - 1.0);
     jbad = (nst == 0) || (nst > nstlpre + CVSPGMR_MSBPRE) ||
            ((convfail == FAIL_BAD_J) && (dgamma < CVSPGMR_DGMAX)) ||
            (convfail == FAIL_OTHER);
@@ -375,7 +372,7 @@ cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     bnorm = vector_wrms_norm(b, ewt);
     if (bnorm <= deltar) {
         if (mnewt > 0) {
-            vector_const(ZERO, b);
+            vector_const(0.0, b);
         }
         return 0;
     }
@@ -386,13 +383,13 @@ cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
 
     // Set inputs delta and initial guess x = 0 to spgmr_solve
     delta = deltar*sqrtN;
-    vector_const(ZERO, x);
+    vector_const(0.0, x);
 
     // Call spgmr_solve and copy x to b
     ier = spgmr_solve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0,
                       cv_mem, ewt, ewt, cv_spgmr_atimes_dq, cv_spgmr_psolve,
                       &res_norm, &nli_inc, &nps_inc);
-    vector_scale(ONE, x, b);
+    vector_scale(1.0, x, b);
 
     // Increment counters nli, nps, and ncfl
     nli += nli_inc;
@@ -458,21 +455,21 @@ cv_spgmr_atimes_dq(void *cvode_mem, Vector v, Vector z) {
 
     // If rho = norm(v) is 0, return z = 0
     rho = vector_wrms_norm(v, ewt);
-    if (rho == ZERO) {
-        vector_const(ZERO, z);
+    if (rho == 0.0) {
+        vector_const(0.0, z);
         return 0;
     }
 
     // Set ytemp = ycur + (1/rho) v
-    vector_linear_sum(ONE / rho, v, ONE, ycur, ytemp);
+    vector_linear_sum(1.0 / rho, v, 1.0, ycur, ytemp);
 
     // Set z = f(tn, ytemp)
     f(N, tn, ytemp, z, f_data);
     nfe++;
 
     // Replace z by v - (gamma*rho)(z - fcur)
-    vector_linear_sum(ONE, z, -ONE, fcur, z);
-    vector_linear_sum(-gamma*rho, z, ONE, v, z);
+    vector_linear_sum(1.0, z, -1.0, fcur, z);
+    vector_linear_sum(-gamma*rho, z, 1.0, v, z);
 
     return 0;
 }

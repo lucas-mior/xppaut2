@@ -16,8 +16,6 @@
 #include "integers.h"
 
 #define FACTOR 1000.0
-#define ZERO 0.0
-#define ONE 1.0
 
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 #define ABS(A) ((A > 0) ? (A) : -(A))
@@ -46,7 +44,7 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
 
     for (int32 i = i0; i < k; i++) {
         h[i][k_minus_1] = vector_dot_prod(v[i], v[k]);
-        vector_linear_sum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
+        vector_linear_sum(1.0, v[k], -h[i][k_minus_1], v[i], v[k]);
     }
 
     // Compute the norm of the new vector at v[k].
@@ -64,7 +62,7 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
         return 0;
     }
 
-    new_norm_2 = ZERO;
+    new_norm_2 = 0.0;
 
     for (int32 i = i0; i < k; i++) {
         new_product = vector_dot_prod(v[i], v[k]);
@@ -73,14 +71,14 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
             continue;
         }
         h[i][k_minus_1] += new_product;
-        vector_linear_sum(ONE, v[k], -new_product, v[i], v[k]);
+        vector_linear_sum(1.0, v[k], -new_product, v[i], v[k]);
         new_norm_2 += SQR(new_product);
     }
 
-    if (new_norm_2 != ZERO) {
+    if (new_norm_2 != 0.0) {
         new_product = SQR(*new_vk_norm) - new_norm_2;
         *new_vk_norm =
-            (new_product > ZERO) ? llnlmath_rsqrt(new_product) : ZERO;
+            (new_product > 0.0) ? llnlmath_rsqrt(new_product) : 0.0;
     }
 
     return 0;
@@ -110,7 +108,7 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
     }
 
     for (int32 i = i0; i < k; i++) {
-        vector_linear_sum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
+        vector_linear_sum(1.0, v[k], -h[i][k_minus_1], v[i], v[k]);
     }
 
     // Compute the norm of the new vector at v[k].
@@ -129,10 +127,10 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
             h[i0][k_minus_1] += s[i0];
         }
         for (int32 i = i0 + 1; i < k; i++) {
-            vector_linear_sum(s[i], v[i], ONE, temp, temp);
+            vector_linear_sum(s[i], v[i], 1.0, temp, temp);
             h[i][k_minus_1] += s[i];
         }
-        vector_linear_sum(ONE, v[k], -ONE, temp, v[k]);
+        vector_linear_sum(1.0, v[k], -1.0, temp, v[k]);
 
         *new_vk_norm = llnlmath_rsqrt(vector_dot_prod(v[k], v[k]));
     }
@@ -177,21 +175,21 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
             q_ptr = 2*k;
             temp1 = h[k][k];
             temp2 = h[k + 1][k];
-            if (temp2 == ZERO) {
-                c = ONE;
-                s = ZERO;
+            if (temp2 == 0.0) {
+                c = 1.0;
+                s = 0.0;
             } else if (ABS(temp2) >= ABS(temp1)) {
                 temp3 = temp1 / temp2;
-                s = -ONE / llnlmath_rsqrt(ONE + SQR(temp3));
+                s = -1.0 / llnlmath_rsqrt(1.0 + SQR(temp3));
                 c = -s*temp3;
             } else {
                 temp3 = temp2 / temp1;
-                c = ONE / llnlmath_rsqrt(ONE + SQR(temp3));
+                c = 1.0 / llnlmath_rsqrt(1.0 + SQR(temp3));
                 s = -c*temp3;
             }
             q[q_ptr] = c;
             q[q_ptr + 1] = s;
-            if ((h[k][k] = c*temp1 - s*temp2) == ZERO) {
+            if ((h[k][k] = c*temp1 - s*temp2) == 0.0) {
                 code = k + 1;
             }
         }
@@ -218,22 +216,22 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
            this product will be 0, so it is not necessary to compute it. */
         temp1 = h[n_minus_1][n_minus_1];
         temp2 = h[n][n_minus_1];
-        if (temp2 == ZERO) {
-            c = ONE;
-            s = ZERO;
+        if (temp2 == 0.0) {
+            c = 1.0;
+            s = 0.0;
         } else if (ABS(temp2) >= ABS(temp1)) {
             temp3 = temp1 / temp2;
-            s = -ONE / llnlmath_rsqrt(ONE + SQR(temp3));
+            s = -1.0 / llnlmath_rsqrt(1.0 + SQR(temp3));
             c = -s*temp3;
         } else {
             temp3 = temp2 / temp1;
-            c = ONE / llnlmath_rsqrt(ONE + SQR(temp3));
+            c = 1.0 / llnlmath_rsqrt(1.0 + SQR(temp3));
             s = -c*temp3;
         }
         q_ptr = 2*n_minus_1;
         q[q_ptr] = c;
         q[q_ptr + 1] = s;
-        if ((h[n_minus_1][n_minus_1] = c*temp1 - s*temp2) == ZERO) {
+        if ((h[n_minus_1][n_minus_1] = c*temp1 - s*temp2) == 0.0) {
             code = n;
         }
     }
@@ -270,7 +268,7 @@ iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
     // Solve  R*x = Q*b.
 
     for (int32 k = n - 1; k >= 0; k--) {
-        if (h[k][k] == ZERO) {
+        if (h[k][k] == 0.0) {
             code = k + 1;
             break;
         }

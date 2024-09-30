@@ -23,17 +23,14 @@
 /************************************************************/
 
 #define HALF 0.5     // double 0.5
-#define ZERO 0.0     // double 0.0
-#define ONE 1.0      // double 1.0
-#define TWO 2.0      // double 2.0
 #define TWELVE 12.0  // double 12.0
 
 /***************************************************************/
 /************** BEGIN Default Constants ************************/
 /***************************************************************/
 
-#define HMIN_DEFAULT ZERO      // hmin default value
-#define HMAX_INV_DEFAULT ZERO  // hmax_inv default value
+#define HMIN_DEFAULT 0.0      // hmin default value
+#define HMAX_INV_DEFAULT 0.0  // hmax_inv default value
 #define MXHNIL_DEFAULT 10      // mxhnil default value
 #define MXSTEP_DEFAULT 2000    // mxstep default value
 
@@ -138,7 +135,7 @@
     0.3  // iter == NEWTON, |gamma/gammap-1| > DGMAX
          // => call lsetup
 
-#define RDIV TWO  // declare divergence if ratio del/delp > RDIV
+#define RDIV 2.0  // declare divergence if ratio del/delp > RDIV
 #define MSBP 20   // max no. of steps between lsetup calls
 
 #define TRY_AGAIN                                                              \
@@ -495,7 +492,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
         return NULL;
     }
 
-    if (*reltol < ZERO) {
+    if (*reltol < 0.0) {
         fprintf(fp, MSG_BAD_RELTOL, *reltol);
         return NULL;
     }
@@ -506,9 +503,9 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
     }
 
     if (itol == SS) {
-        neg_abstol = (*((double *)abstol) < ZERO);
+        neg_abstol = (*((double *)abstol) < 0.0);
     } else {
-        neg_abstol = (vector_min((Vector)abstol) < ZERO);
+        neg_abstol = (vector_min((Vector)abstol) < 0.0);
     }
     if (neg_abstol) {
         fprintf(fp, MSG_BAD_ABSTOL);
@@ -529,7 +526,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
     roptExists = (ropt != NULL);
 
     if (optIn && roptExists) {
-        if ((ropt[CV_HMAX] > ZERO) && (ropt[CV_HMIN] > ropt[CV_HMAX])) {
+        if ((ropt[CV_HMAX] > 0.0) && (ropt[CV_HMIN] > ropt[CV_HMAX])) {
             fprintf(fp, MSG_BAD_HMIN_HMAX, ropt[CV_HMIN], ropt[CV_HMAX]);
             return NULL;
         }
@@ -611,7 +608,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
 
     // Initialize the history array zn
 
-    vector_scale(ONE, y0, zn[0]);
+    vector_scale(1.0, y0, zn[0]);
     f(N, t0, y0, zn[1], f_data);
     nfe = 1;
 
@@ -620,11 +617,11 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
     hmin = HMIN_DEFAULT;
     hmax_inv = HMAX_INV_DEFAULT;
     if (optIn && roptExists) {
-        if (ropt[CV_HMIN] > ZERO) {
+        if (ropt[CV_HMIN] > 0.0) {
             hmin = ropt[CV_HMIN];
         }
-        if (ropt[CV_HMAX] > ZERO) {
-            hmax_inv = ONE / ropt[CV_HMAX];
+        if (ropt[CV_HMAX] > 0.0) {
+            hmax_inv = 1.0 / ropt[CV_HMAX];
         }
     }
 
@@ -640,7 +637,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
     }
 
     if ((!optIn) && roptExists) {
-        ropt[H0] = ZERO;
+        ropt[H0] = 0.0;
     }
 
     // Set maxcor
@@ -654,8 +651,8 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
     // Initialize all other vars corresponding to optional outputs
 
     qu = 0;
-    hu = ZERO;
-    tolsf = ONE;
+    hu = 0.0;
+    tolsf = 1.0;
 
     // Initialize optional output locations in iopt, ropt
 
@@ -670,7 +667,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
 
     if (roptExists) {
         ropt[HU] = hu;
-        ropt[HCUR] = ZERO;
+        ropt[HCUR] = 0.0;
         ropt[TCUR] = t0;
         ropt[TOLSF] = tolsf;
     }
@@ -783,15 +780,15 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
 
         // On first call, set initial h (from H0 or CVHin) and scale zn[1]
 
-        h = ZERO;
+        h = 0.0;
         if (ropt != NULL) {
             h = ropt[H0];
         }
-        if ((h != ZERO) && ((tout - tn)*h < ZERO)) {
+        if ((h != 0.0) && ((tout - tn)*h < 0.0)) {
             fprintf(errfp, MSG_BAD_H0, h, tout - tn);
             return ILL_INPUT;
         }
-        if (h == ZERO) {
+        if (h == 0.0) {
             hOK = cv_hin(cv_mem, tout);
             if (!hOK) {
                 fprintf(errfp, MSG_TOO_CLOSE, tout, tn);
@@ -799,7 +796,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
             }
         }
         rh = ABS(h)*hmax_inv;
-        if (rh > ONE) {
+        if (rh > 1.0) {
             h /= rh;
         }
         if (ABS(h) < hmin) {
@@ -811,7 +808,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
 
     // If not the first call, check if tout already reached
 
-    if ((itask == NORMAL) && (nst > 0) && ((tn - tout)*h >= ZERO)) {
+    if ((itask == NORMAL) && (nst > 0) && ((tn - tout)*h >= 0.0)) {
         *t = tout;
         ier = cvode_dky(cv_mem, tout, 0, yout);
         if (ier != OKAY) {  // ier must be == BAD_T
@@ -836,7 +833,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
                 fprintf(errfp, MSG_EWT_NOW_BAD, tn);
                 istate = ILL_INPUT;
                 *t = tn;
-                vector_scale(ONE, zn[0], yout);
+                vector_scale(1.0, zn[0], yout);
                 break;
             }
         }
@@ -847,18 +844,18 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
             fprintf(errfp, MSG_MAX_STEPS, tn, mxstep, tout);
             istate = TOO_MUCH_WORK;
             *t = tn;
-            vector_scale(ONE, zn[0], yout);
+            vector_scale(1.0, zn[0], yout);
             break;
         }
 
         // Check for too much accuracy requested
 
-        if ((tolsf = uround*vector_wrms_norm(zn[0], ewt)) > ONE) {
+        if ((tolsf = uround*vector_wrms_norm(zn[0], ewt)) > 1.0) {
             fprintf(errfp, MSG_TOO_MUCH_ACC, tn);
             istate = TOO_MUCH_ACC;
             *t = tn;
-            vector_scale(ONE, zn[0], yout);
-            tolsf *= TWO;
+            vector_scale(1.0, zn[0], yout);
+            tolsf *= 2.0;
             break;
         }
 
@@ -883,7 +880,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
         if (kflag != SUCCESS_STEP) {
             istate = cv_handle_failure(cv_mem, kflag);
             *t = tn;
-            vector_scale(ONE, zn[0], yout);
+            vector_scale(1.0, zn[0], yout);
             break;
         }
 
@@ -894,7 +891,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
         if (itask == ONE_STEP) {
             istate = SUCCESS;
             *t = tn;
-            vector_scale(ONE, zn[0], yout);
+            vector_scale(1.0, zn[0], yout);
             next_q = qprime;
             next_h = hprime;
             break;
@@ -902,7 +899,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
 
         // Check if tout reached, and if so interpolate and exit loop
 
-        if ((tn - tout)*h >= ZERO) {
+        if ((tn - tout)*h >= 0.0) {
             istate = SUCCESS;
             *t = tout;
             (void)cvode_dky(cv_mem, tout, 0, yout);
@@ -985,7 +982,7 @@ cvode_dky(void *cvode_mem, double t, int32 k, Vector dky) {
     tfuzz = FUZZ_FACTOR*uround*(tn + hu);
     tp = tn - hu - tfuzz;
     tn1 = tn + tfuzz;
-    if ((t - tp)*(t - tn1) > ZERO) {
+    if ((t - tp)*(t - tn1) > 0.0) {
         fprintf(errfp, MSG_BAD_T, t, tn - hu, tn);
         return BAD_T;
     }
@@ -994,7 +991,7 @@ cvode_dky(void *cvode_mem, double t, int32 k, Vector dky) {
 
     s = (t - tn) / h;
     for (j = q; j >= k; j--) {
-        c = ONE;
+        c = 1.0;
         for (i = j; i >= j - k + 1; i--) {
             c *= i;
         }
@@ -1189,7 +1186,7 @@ cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
     vector_abs(ycur, tempv);
     vector_scale(rtoli, tempv, tempv);
     vector_add_const(tempv, atoli, tempv);
-    if (vector_min(tempv) <= ZERO) {
+    if (vector_min(tempv) <= 0.0) {
         return false;
     }
     vector_inv(tempv, ewtvec);
@@ -1214,8 +1211,8 @@ cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur,
 
     rtoli = *rtol;
     vector_abs(ycur, tempv);
-    vector_linear_sum(rtoli, tempv, ONE, atol, tempv);
-    if (vector_min(tempv) <= ZERO) {
+    vector_linear_sum(rtoli, tempv, 1.0, atol, tempv);
+    if (vector_min(tempv) <= 0.0) {
         return false;
     }
     vector_inv(tempv, ewtvec);
@@ -1253,14 +1250,14 @@ cv_hin(CVodeMem cv_mem, double tout) {
 
     // Test for tout too close to tn
 
-    if ((tdiff = tout - tn) == ZERO) {
+    if ((tdiff = tout - tn) == 0.0) {
         return false;
     }
 
-    sign = (tdiff > ZERO) ? 1 : -1;
+    sign = (tdiff > 0.0) ? 1 : -1;
     tdist = ABS(tdiff);
     tround = uround*MAX(ABS(tn), ABS(tout));
-    if (tdist < TWO*tround) {
+    if (tdist < 2.0*tround) {
         return false;
     }
 
@@ -1287,17 +1284,17 @@ cv_hin(CVodeMem cv_mem, double tout) {
     while (true) {
         hgs = hg*sign;
         yddnrm = cv_ydd_norm(cv_mem, hgs);
-        hnew = (yddnrm*hub*hub > TWO) ? llnlmath_rsqrt(TWO / yddnrm)
+        hnew = (yddnrm*hub*hub > 2.0) ? llnlmath_rsqrt(2.0 / yddnrm)
                                           : llnlmath_rsqrt(hg*hub);
         count++;
         if (count >= MAX_ITERS) {
             break;
         }
         hrat = hnew / hg;
-        if ((hrat > HALF) && (hrat < TWO)) {
+        if ((hrat > HALF) && (hrat < 2.0)) {
             break;
         }
-        if ((count >= 2) && (hrat > TWO)) {
+        if ((count >= 2) && (hrat > 2.0)) {
             hnew = hg;
             break;
         }
@@ -1345,7 +1342,7 @@ cv_upper_bound_h0(CVodeMem cv_mem, double tdist) {
     vector_abs(zn[0], temp1);
     vector_abs(zn[1], temp2);
     if (vectorAtol) {
-        vector_linear_sum(HUB_FACTOR, temp1, ONE, (Vector)abstol, temp1);
+        vector_linear_sum(HUB_FACTOR, temp1, 1.0, (Vector)abstol, temp1);
     } else {
         vector_scale(HUB_FACTOR, temp1, temp1);
         vector_add_const(temp1, atoli, temp1);
@@ -1353,8 +1350,8 @@ cv_upper_bound_h0(CVodeMem cv_mem, double tdist) {
     vector_div(temp2, temp1, temp1);
     hub_inv = vector_max_norm(temp1);
     hub = HUB_FACTOR*tdist;
-    if (hub*hub_inv > ONE) {
-        hub = ONE / hub_inv;
+    if (hub*hub_inv > 1.0) {
+        hub = 1.0 / hub_inv;
     }
     return hub;
 }
@@ -1370,11 +1367,11 @@ static double
 cv_ydd_norm(CVodeMem cv_mem, double hg) {
     double yddnrm;
 
-    vector_linear_sum(hg, zn[1], ONE, zn[0], y);
+    vector_linear_sum(hg, zn[1], 1.0, zn[0], y);
     f(N, tn + hg, y, tempv, f_data);
     nfe++;
-    vector_linear_sum(ONE, tempv, -ONE, zn[1], tempv);
-    vector_scale(ONE / hg, tempv, tempv);
+    vector_linear_sum(1.0, tempv, -1.0, zn[1], tempv);
+    vector_scale(1.0 / hg, tempv, tempv);
 
     yddnrm = vector_wrms_norm(tempv, ewt);
     return yddnrm;
@@ -1521,7 +1518,7 @@ cv_adjust_adams(CVodeMem cv_mem, int32 deltaq) {
     // On an order increase, set new column of zn to zero and return
 
     if (deltaq == 1) {
-        vector_const(ZERO, zn[L]);
+        vector_const(0.0, zn[L]);
         return;
     }
 
@@ -1531,10 +1528,10 @@ cv_adjust_adams(CVodeMem cv_mem, int32 deltaq) {
        integrated, where xi_j = [t_n - t_(n-j)]/h.               */
 
     for (i = 0; i <= qmax; i++) {
-        l[i] = ZERO;
+        l[i] = 0.0;
     }
-    l[1] = ONE;
-    hsum = ZERO;
+    l[1] = 1.0;
+    hsum = 0.0;
     for (j = 1; j <= q - 2; j++) {
         hsum += tau[j];
         xi = hsum / hscale;
@@ -1548,7 +1545,7 @@ cv_adjust_adams(CVodeMem cv_mem, int32 deltaq) {
     }
 
     for (j = 2; j < q; j++) {
-        vector_linear_sum(-l[j], zn[q], ONE, zn[j], zn[j]);
+        vector_linear_sum(-l[j], zn[q], 1.0, zn[j], zn[j]);
     }
     return;
 }
@@ -1602,18 +1599,18 @@ cv_increase_bdf(CVodeMem cv_mem) {
     int32 j;
 
     for (i = 0; i <= qmax; i++) {
-        l[i] = ZERO;
+        l[i] = 0.0;
     }
-    l[2] = alpha1 = prod = xiold = ONE;
-    alpha0 = -ONE;
+    l[2] = alpha1 = prod = xiold = 1.0;
+    alpha0 = -1.0;
     hsum = hscale;
     if (q > 1) {
         for (j = 1; j < q; j++) {
             hsum += tau[j + 1];
             xi = hsum / hscale;
             prod *= xi;
-            alpha0 -= ONE / (j + 1);
-            alpha1 += ONE / xi;
+            alpha0 -= 1.0 / (j + 1);
+            alpha1 += 1.0 / xi;
             for (i = j + 2; i >= 2; i--) {
                 l[i] = l[i]*xiold + l[i - 1];
             }
@@ -1623,7 +1620,7 @@ cv_increase_bdf(CVodeMem cv_mem) {
     A1 = (-alpha0 - alpha1) / prod;
     vector_scale(A1, zn[qmax], zn[L]);
     for (j = 2; j <= q; j++) {
-        vector_linear_sum(l[j], zn[L], ONE, zn[j], zn[j]);
+        vector_linear_sum(l[j], zn[L], 1.0, zn[j], zn[j]);
     }
     return;
 }
@@ -1646,10 +1643,10 @@ cv_decrese_bdf(CVodeMem cv_mem) {
     int32 j;
 
     for (i = 0; i <= qmax; i++) {
-        l[i] = ZERO;
+        l[i] = 0.0;
     }
-    l[2] = ONE;
-    hsum = ZERO;
+    l[2] = 1.0;
+    hsum = 0.0;
     for (j = 1; j <= q - 2; j++) {
         hsum += tau[j];
         xi = hsum / hscale;
@@ -1659,7 +1656,7 @@ cv_decrese_bdf(CVodeMem cv_mem) {
     }
 
     for (j = 2; j < q; j++) {
-        vector_linear_sum(-l[j], zn[q], ONE, zn[j], zn[j]);
+        vector_linear_sum(-l[j], zn[q], 1.0, zn[j], zn[j]);
     }
     return;
 }
@@ -1702,7 +1699,7 @@ cv_predict(CVodeMem cv_mem) {
     tn += h;
     for (int32 k = 1; k <= q; k++) {
         for (j = q; j >= k; j--) {
-            vector_linear_sum(ONE, zn[j - 1], ONE, zn[j], zn[j - 1]);
+            vector_linear_sum(1.0, zn[j - 1], 1.0, zn[j], zn[j - 1]);
         }
     }
     return;
@@ -1729,12 +1726,12 @@ cv_set(CVodeMem cv_mem) {
         fprintf(stderr, "Unexpected case in %s.\n", __func__);
         exit(EXIT_FAILURE);
     }
-    rl1 = ONE / l[1];
+    rl1 = 1.0 / l[1];
     gamma = h*rl1;
     if (nst == 0) {
         gammap = gamma;
     }
-    gamrat = (nst > 0) ? gamma / gammap : ONE;  // protect x / x != 1.0
+    gamrat = (nst > 0) ? gamma / gammap : 1.0;  // protect x / x != 1.0
     return;
 }
 
@@ -1763,8 +1760,8 @@ cv_set_adams(CVodeMem cv_mem) {
     double hsum;
 
     if (q == 1) {
-        l[0] = l[1] = tq[1] = tq[5] = ONE;
-        tq[2] = TWO;
+        l[0] = l[1] = tq[1] = tq[5] = 1.0;
+        tq[2] = 2.0;
         tq[3] = TWELVE;
         tq[4] = CORTES*tq[2];  // = 0.1*tq[2]
         return;
@@ -1795,9 +1792,9 @@ cv_adams_start(CVodeMem cv_mem, double m[]) {
     int32 j;
 
     hsum = h;
-    m[0] = ONE;
+    m[0] = 1.0;
     for (i = 1; i <= q; i++) {
-        m[i] = ZERO;
+        m[i] = 0.0;
     }
     for (j = 1; j < q; j++) {
         if ((j == q - 1) && (qwait == 1)) {
@@ -1827,14 +1824,14 @@ cv_adams_finish(CVodeMem cv_mem, double m[], double M[], double hsum) {
     double xi;
     double xi_inv;
 
-    M0_inv = ONE / M[0];
+    M0_inv = 1.0 / M[0];
 
-    l[0] = ONE;
+    l[0] = 1.0;
     for (i = 1; i <= q; i++) {
         l[i] = M0_inv*(m[i - 1] / i);
     }
     xi = hsum / h;
-    xi_inv = ONE / xi;
+    xi_inv = 1.0 / xi;
 
     tq[2] = xi*M[0] / M[1];
     tq[5] = xi / l[q];
@@ -1868,10 +1865,10 @@ cv_alt_sum(int32 iend, double a[], int32 k) {
     double sum;
 
     if (iend < 0) {
-        return ZERO;
+        return 0.0;
     }
 
-    sum = ZERO;
+    sum = 0.0;
     sign = 1;
     for (i = 0; i <= iend; i++) {
         sum += sign*(a[i] / (i + k));
@@ -1908,17 +1905,17 @@ cv_set_bdf(CVodeMem cv_mem) {
     int32 i;
     int32 j;
 
-    l[0] = l[1] = xi_inv = xistar_inv = ONE;
+    l[0] = l[1] = xi_inv = xistar_inv = 1.0;
     for (i = 2; i <= q; i++) {
-        l[i] = ZERO;
+        l[i] = 0.0;
     }
-    alpha0 = alpha0_hat = -ONE;
+    alpha0 = alpha0_hat = -1.0;
     hsum = h;
     if (q > 1) {
         for (j = 2; j < q; j++) {
             hsum += tau[j - 1];
             xi_inv = h / hsum;
-            alpha0 -= ONE / j;
+            alpha0 -= 1.0 / j;
             for (i = j; i >= 1; i--) {
                 l[i] += l[i - 1]*xi_inv;
             }
@@ -1926,7 +1923,7 @@ cv_set_bdf(CVodeMem cv_mem) {
         }
 
         // j = q
-        alpha0 -= ONE / q;
+        alpha0 -= 1.0 / q;
         xistar_inv = -l[1] - alpha0;
         hsum += tau[q - 1];
         xi_inv = h / hsum;
@@ -1960,21 +1957,21 @@ cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
     double CPrime;
     double CPrimePrime;
 
-    A1 = ONE - alpha0_hat + alpha0;
-    A2 = ONE + q*A1;
+    A1 = 1.0 - alpha0_hat + alpha0;
+    A2 = 1.0 + q*A1;
     tq[2] = ABS(alpha0*(A2 / A1));
     tq[5] = ABS((A2) / (l[q]*xi_inv / xistar_inv));
     if (qwait == 1) {
         C = xistar_inv / l[q];
-        A3 = alpha0 + ONE / q;
+        A3 = alpha0 + 1.0 / q;
         A4 = alpha0_hat + xi_inv;
-        CPrime = A3 / (ONE - A4 + A3);
+        CPrime = A3 / (1.0 - A4 + A3);
         tq[1] = ABS(CPrime / C);
         hsum += tau[q];
         xi_inv = h / hsum;
-        A5 = alpha0 - (ONE / (q + 1));
+        A5 = alpha0 - (1.0 / (q + 1));
         A6 = alpha0_hat - xi_inv;
-        CPrimePrime = A2 / (ONE - A6 + A5);
+        CPrimePrime = A2 / (1.0 - A6 + A5);
         tq[3] = ABS(CPrimePrime*xi_inv*(q + 2)*A5);
     }
     tq[4] = CORTES*tq[2];
@@ -2019,31 +2016,31 @@ cv_nls_functional(CVodeMem cv_mem) {
 
     // Initialize counter and evaluate f at predicted y
 
-    crate = ONE;
+    crate = 1.0;
     m = 0;
     f(N, tn, zn[0], tempv, f_data);
     nfe++;
-    vector_const(ZERO, acor);
+    vector_const(0.0, acor);
 
     // Loop until convergence; accumulate corrections in acor
 
     while (true) {
         // Correct y directly from the last f value
-        vector_linear_sum(h, tempv, -ONE, zn[1], tempv);
+        vector_linear_sum(h, tempv, -1.0, zn[1], tempv);
         vector_scale(rl1, tempv, tempv);
-        vector_linear_sum(ONE, zn[0], ONE, tempv, y);
+        vector_linear_sum(1.0, zn[0], 1.0, tempv, y);
         // Get WRMS norm of current correction to use in convergence test
-        vector_linear_sum(ONE, tempv, -ONE, acor, acor);
+        vector_linear_sum(1.0, tempv, -1.0, acor, acor);
         del = vector_wrms_norm(acor, ewt);
-        vector_scale(ONE, tempv, acor);
+        vector_scale(1.0, tempv, acor);
 
         /* Test for convergence.  If m > 0, an estimate of the convergence
            rate constant is stored in crate, and used in the test.        */
         if (m > 0) {
             crate = MAX(CRDOWN*crate, del / delp);
         }
-        dcon = del*MIN(ONE, crate) / tq[4];
-        if (dcon <= ONE) {
+        dcon = del*MIN(1.0, crate) / tq[4];
+        if (dcon <= 1.0) {
             acnrm = (m == 0) ? del : vector_wrms_norm(acor, ewt);
             return SOLVED;  // Convergence achieved
         }
@@ -2090,9 +2087,9 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
     if (setupNonNull) {
         callSetup = (nflag == PREV_CONV_FAIL) || (nflag == PREV_ERR_FAIL) ||
                     (nst == 0) || (nst >= nstlp + MSBP) ||
-                    (ABS(gamrat - ONE) > DGMAX);
+                    (ABS(gamrat - 1.0) > DGMAX);
     } else {
-        crate = ONE;
+        crate = 1.0;
         callSetup = false;
     }
 
@@ -2110,7 +2107,7 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
                          vtemp3);
             nsetups++;
             callSetup = false;
-            gamrat = crate = ONE;
+            gamrat = crate = 1.0;
             gammap = gamma;
             nstlp = nst;
             // Return if lsetup failed
@@ -2123,8 +2120,8 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
         }
 
         // Set acor to zero and load prediction into y vector
-        vector_const(ZERO, acor);
-        vector_scale(ONE, zn[0], y);
+        vector_const(0.0, acor);
+        vector_scale(1.0, zn[0], y);
 
         // Do the Newton iteration
         ier = cv_newton_iteration(cv_mem);
@@ -2168,8 +2165,8 @@ cv_newton_iteration(CVodeMem cv_mem) {
     while (true) {
 
         // Evaluate the residual of the nonlinear system
-        vector_linear_sum(rl1, zn[1], ONE, acor, tempv);
-        vector_linear_sum(gamma, ftemp, -ONE, tempv, tempv);
+        vector_linear_sum(rl1, zn[1], 1.0, acor, tempv);
+        vector_linear_sum(gamma, ftemp, -1.0, tempv, tempv);
 
         // Call the lsolve function
         b = tempv;
@@ -2191,17 +2188,17 @@ cv_newton_iteration(CVodeMem cv_mem) {
         // ***************
         // Get WRMS norm of correction; add correction to acor and y
         del = vector_wrms_norm(b, ewt);
-        vector_linear_sum(ONE, acor, ONE, b, acor);
-        vector_linear_sum(ONE, zn[0], ONE, acor, y);
+        vector_linear_sum(1.0, acor, 1.0, b, acor);
+        vector_linear_sum(1.0, zn[0], 1.0, acor, y);
 
         /* Test for convergence.  If m > 0, an estimate of the convergence
            rate constant is stored in crate, and used in the test.        */
         if (m > 0) {
             crate = MAX(CRDOWN*crate, del / delp);
         }
-        dcon = del*MIN(ONE, crate) / tq[4];
+        dcon = del*MIN(1.0, crate) / tq[4];
 
-        if (dcon <= ONE) {
+        if (dcon <= 1.0) {
             acnrm = (m == 0) ? del : vector_wrms_norm(acor, ewt);
             jcur = false;
             return SOLVED;  // Nonlinear system was solved successfully
@@ -2280,7 +2277,7 @@ cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
     // At this point, nflag == CONV_FAIL; increment ncf
 
     (*ncfPtr)++;
-    etamax = ONE;
+    etamax = 1.0;
     // If we had MXNCF failures or |h| = hmin, return REP_CONV_FAIL
     if ((ABS(h) <= hmin*ONEPSM) || (*ncfPtr == MXNCF)) {
         return REP_CONV_FAIL;
@@ -2308,7 +2305,7 @@ cv_restore(CVodeMem cv_mem, double saved_t) {
     tn = saved_t;
     for (int32 k = 1; k <= q; k++) {
         for (j = q; j >= k; j--) {
-            vector_linear_sum(ONE, zn[j - 1], -ONE, zn[j], zn[j - 1]);
+            vector_linear_sum(1.0, zn[j - 1], -1.0, zn[j], zn[j - 1]);
         }
     }
     return;
@@ -2343,7 +2340,7 @@ cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
 
     // If est. local error norm dsm passes test, return true
     *dsmPtr = dsm;
-    if (dsm <= ONE) {
+    if (dsm <= 1.0) {
         return true;
     }
 
@@ -2360,11 +2357,11 @@ cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
     }
 
     // Set etamax = 1 to prevent step size increase at end of this step
-    etamax = ONE;
+    etamax = 1.0;
 
     // Set h ratio eta from dsm, rescale, and return for retry of step
     if (*nefPtr <= MXNEF1) {
-        eta = ONE / (llnlmath_rpower_r(BIAS2*dsm, ONE / L) + ADDON);
+        eta = 1.0 / (llnlmath_rpower_r(BIAS2*dsm, 1.0 / L) + ADDON);
         eta = MAX(ETAMIN, MAX(eta, hmin / ABS(h)));
         if (*nefPtr >= SMALL_NEF) {
             eta = MIN(eta, ETAMXF);
@@ -2425,11 +2422,11 @@ cv_complete_step(CVodeMem cv_mem) {
     tau[1] = h;
 
     for (j = 0; j <= q; j++) {
-        vector_linear_sum(l[j], acor, ONE, zn[j], zn[j]);
+        vector_linear_sum(l[j], acor, 1.0, zn[j], zn[j]);
     }
     qwait--;
     if ((qwait == 1) && (q != qmax)) {
-        vector_scale(ONE, acor, zn[qmax]);
+        vector_scale(1.0, acor, zn[qmax]);
         saved_tq5 = tq[5];
     }
     return;
@@ -2452,18 +2449,18 @@ cv_prepare_next_step(CVodeMem cv_mem, double dsm) {
     double etaqp1;
 
     // If etamax = 1, defer step size or order changes
-    if (etamax == ONE) {
+    if (etamax == 1.0) {
         qwait = MAX(qwait, 2);
         qprime = q;
         hprime = h;
-        eta = ONE;
+        eta = 1.0;
         etamax = (nst <= SMALL_NST) ? ETAMX2 : ETAMX3;
-        vector_scale(ONE / tq[2], acor, acor);
+        vector_scale(1.0 / tq[2], acor, acor);
         return;
     }
 
     // etaq is the ratio of new to old h at the current order
-    etaq = ONE / (llnlmath_rpower_r(BIAS2*dsm, ONE / L) + ADDON);
+    etaq = 1.0 / (llnlmath_rpower_r(BIAS2*dsm, 1.0 / L) + ADDON);
 
     // If no order change, adjust eta and acor in CVSetEta and return
     if (qwait != 0) {
@@ -2497,18 +2494,18 @@ cv_set_eta(CVodeMem cv_mem) {
 
     // If eta below the threshhold THRESH, reject a change of step size
     if (eta < THRESH) {
-        eta = ONE;
+        eta = 1.0;
         hprime = h;
     } else {
         // Limit eta by etamax and hmax, then set hprime
         eta = MIN(eta, etamax);
-        eta /= MAX(ONE, ABS(h)*hmax_inv*eta);
+        eta /= MAX(1.0, ABS(h)*hmax_inv*eta);
         hprime = h*eta;
     }
 
     // Reset etamx for the next step size change, and scale acor
     etamax = (nst <= SMALL_NST) ? ETAMX2 : ETAMX3;
-    vector_scale(ONE / tq[2], acor, acor);
+    vector_scale(1.0 / tq[2], acor, acor);
     return;
 }
 
@@ -2524,10 +2521,10 @@ cv_compute_etaqm1(CVodeMem cv_mem) {
     double etaqm1;
     double ddn;
 
-    etaqm1 = ZERO;
+    etaqm1 = 0.0;
     if (q > 1) {
         ddn = vector_wrms_norm(zn[q], ewt) / tq[1];
-        etaqm1 = ONE / (llnlmath_rpower_r(BIAS1*ddn, ONE / q) + ADDON);
+        etaqm1 = 1.0 / (llnlmath_rpower_r(BIAS1*ddn, 1.0 / q) + ADDON);
     }
     return etaqm1;
 }
@@ -2545,12 +2542,12 @@ cv_compute_etaqp1(CVodeMem cv_mem) {
     double dup;
     double cquot;
 
-    etaqp1 = ZERO;
+    etaqp1 = 0.0;
     if (q != qmax) {
         cquot = (tq[5] / saved_tq5)*llnlmath_rpower_i(h / tau[2], L);
-        vector_linear_sum(-cquot, zn[qmax], ONE, acor, tempv);
+        vector_linear_sum(-cquot, zn[qmax], 1.0, acor, tempv);
         dup = vector_wrms_norm(tempv, ewt) / tq[3];
-        etaqp1 = ONE / (llnlmath_rpower_r(BIAS3*dup, ONE / (L + 1)) + ADDON);
+        etaqp1 = 1.0 / (llnlmath_rpower_r(BIAS3*dup, 1.0 / (L + 1)) + ADDON);
     }
     return etaqp1;
 }
@@ -2575,7 +2572,7 @@ cv_choose_eta(CVodeMem cv_mem, double etaqm1, double etaq, double etaqp1) {
     etam = MAX(etaqm1, MAX(etaq, etaqp1));
 
     if (etam < THRESH) {
-        eta = ONE;
+        eta = 1.0;
         qprime = q;
         return;
     }
@@ -2589,7 +2586,7 @@ cv_choose_eta(CVodeMem cv_mem, double etaqm1, double etaq, double etaqp1) {
     } else {
         eta = etaqp1;
         qprime = q + 1;
-        vector_scale(ONE, acor, zn[qmax]);
+        vector_scale(1.0, acor, zn[qmax]);
     }
     return;
 }

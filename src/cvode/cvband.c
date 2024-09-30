@@ -33,9 +33,6 @@
 /* Other Constants */
 
 #define MIN_INC_MULT 1000.0
-#define ZERO 0.0
-#define ONE 1.0
-#define TWO 2.0
 
 /******************************************************************
  *                                                                *
@@ -128,14 +125,14 @@ cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
     ytemp_data = N_VDATA(ytemp);
 
     // Load ytemp with y = predicted y vector
-    vector_scale(ONE, y, ytemp);
+    vector_scale(1.0, y, ytemp);
 
     // Set minimum increment based on uround and norm of f
     srur = llnlmath_rsqrt(uround);
     fnorm = vector_wrms_norm(fy, ewt);
-    minInc = (fnorm != ZERO)
+    minInc = (fnorm != 0.0)
                  ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm)
-                 : ONE;
+                 : 1.0;
 
     // Set bandwidth and number of column groups for band differencing
     width = mlower + mupper + 1;
@@ -157,7 +154,7 @@ cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
             ytemp_data[j] = y_data[j];
             col_j = BAND_COL(J, j);
             inc = MAX(srur*ABS(y_data[j]), minInc / ewt_data[j]);
-            inc_inv = ONE / inc;
+            inc_inv = 1.0 / inc;
             i1 = MAX(0, j - mupper);
             i2 = MIN(j + mlower, N - 1);
             for (i = i1; i <= i2; i++) {
@@ -350,7 +347,7 @@ cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 
     // Use nst, gamma/gammap, and convfail to set J eval. flag jok
 
-    dgamma = ABS((gamma / gammap) - ONE);
+    dgamma = ABS((gamma / gammap) - 1.0);
     jbad = (nst == 0) || (nst > nstlj + CVB_MSBJ) ||
            ((convfail == FAIL_BAD_J) && (dgamma < CVB_DGMAX)) ||
            (convfail == FAIL_OTHER);
@@ -406,8 +403,8 @@ cv_band_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
     band_back_solve(M, pivots, b);
 
     // If BDF, scale the correction to account for change in gamma
-    if ((lmm == BDF) && (gamrat != ONE)) {
-        vector_scale(TWO / (ONE + gamrat), b, b);
+    if ((lmm == BDF) && (gamrat != 1.0)) {
+        vector_scale(2.0 / (1.0 + gamrat), b, b);
     }
 
     return 0;

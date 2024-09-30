@@ -126,7 +126,6 @@
 #include <stdio.h>
 
 #define EVEN 0
-#define ZERO 1
 #define PERIODIC 2
 #define MAXW 50
 
@@ -275,13 +274,13 @@ simplenet_vector_value(double x, int32 i) {
         return variables[root + ((k + n) % n)];
     }
     if (k < 0) {
-        if (il == ZERO) {
+        if (il == 0.0) {
             return 0.0;
         }
         return variables[root - k - 1];
     }
     if (k >= n) {
-        if (ir == ZERO) {
+        if (ir == 0.0) {
             return 0.0;
         }
         return variables[2*n - k - 1 + root];
@@ -1825,7 +1824,7 @@ simplenet_get_vector_info(char *str, char *name, int32 *root, int32 *length,
         *il = EVEN;
     }
     if (str[i] == 'z' || str[i] == 'Z') {
-        *il = ZERO;
+        *il = 0.0;
     }
     i++;
     i++;
@@ -1835,7 +1834,7 @@ simplenet_get_vector_info(char *str, char *name, int32 *root, int32 *length,
         *ir = EVEN;
     }
     if (str[i] == 'z' || str[i] == 'Z') {
-        *ir = ZERO;
+        *ir = 0.0;
     }
 
     return 1;

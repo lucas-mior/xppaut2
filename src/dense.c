@@ -16,9 +16,6 @@
 #include "vector.h"
 #include "integers.h"
 
-#define ZERO 0.0
-#define ONE 1.0
-
 /* Implementation */
 
 DenseMat
@@ -170,7 +167,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
 
         // check for zero pivot element
 
-        if (col_k[l] == ZERO) {
+        if (col_k[l] == 0.0) {
             return k + 1;
         }
 
@@ -188,7 +185,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
         // stores the pivot row multipliers -a(i,k)/a(k,k)
         // in a(i,k), i=k+1, ..., n-1.
 
-        mult = -ONE / (*diag_k);
+        mult = -1.0 / (*diag_k);
         for (int64 i = k + 1; i < n; i++) {
             col_k[i] *= mult;
         }
@@ -212,7 +209,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
             // a(i,j) = a(i,j) - [a(i,k)/a(k,k)]*a(k,j)
             // a_kj = a(k,j), col_k[i] = - a(i,k)/a(k,k)
 
-            if (a_kj != ZERO) {
+            if (a_kj != 0.0) {
                 for (int64 i = k + 1; i < n; i++) {
                     col_j[i] += a_kj*col_k[i];
                 }
@@ -223,7 +220,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
     // set the last pivot row to be n-1 and check for a zero pivot
 
     *p = n - 1;
-    if (a[n - 1][n - 1] == ZERO) {
+    if (a[n - 1][n - 1] == 0.0) {
         return n;
     }
 
@@ -273,7 +270,7 @@ dense_zero2(double **a, int64 n) {
     for (int32 j = 0; j < n; j++) {
         col_j = a[j];
         for (int64 i = 0; i < n; i++) {
-            col_j[i] = ZERO;
+            col_j[i] = 0.0;
         }
     }
     return;
@@ -309,7 +306,7 @@ dense_scale2(double c, double **a, int64 n) {
 void
 dense_add_i2(double **a, int64 n) {
     for (int64 i = 0; i < n; i++) {
-        a[i][i] += ONE;
+        a[i][i] += 1.0;
     }
     return;
 }
