@@ -129,7 +129,7 @@ XFontStruct *font_small;
 
 static int32 dcurx_b;
 static int32 SCALEX;
-static Window TopButton[6];
+static Window top_button[6];
 static XFontStruct *font_big;
 
 static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
@@ -478,21 +478,21 @@ do_main(int32 argc, char **argv) {
     {
         // main make top buttons
         int32 x1 = 2, x2 = 6*dcur_xs + 5, dx = dcur_xs;
-        TopButton[0] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        top_button[0] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
-        TopButton[1] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
-        x1 += x2 + dx;
-
-        TopButton[2] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        top_button[1] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
-        TopButton[3] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        top_button[2] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
-        TopButton[4] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        top_button[3] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
 
-        TopButton[5] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        top_button[4] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
+        x1 += x2 + dx;
+
+        top_button[5] = pop_list_make_fancy_window(main_win, x1, 1, x2, dcur_ys, 1);
         x1 += x2 + dx;
     }
 
@@ -1232,22 +1232,22 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y, uint
 
 void
 main_top_button_draw(Window window) {
-    if (window == TopButton[0]) {
+    if (window == top_button[0]) {
         XDrawString(display, window, small_gc, 5, cury_offs, "ICs  ", 5);
     }
-    if (window == TopButton[1]) {
+    if (window == top_button[1]) {
         XDrawString(display, window, small_gc, 5, cury_offs, "BCs  ", 5);
     }
-    if (window == TopButton[2]) {
+    if (window == top_button[2]) {
         XDrawString(display, window, small_gc, 5, cury_offs, "Delay", 5);
     }
-    if (window == TopButton[3]) {
+    if (window == top_button[3]) {
         XDrawString(display, window, small_gc, 5, cury_offs, "Param", 5);
     }
-    if (window == TopButton[4]) {
+    if (window == top_button[4]) {
         XDrawString(display, window, small_gc, 5, cury_offs, "Eqns ", 5);
     }
-    if (window == TopButton[5]) {
+    if (window == top_button[5]) {
         XDrawString(display, window, small_gc, 5, cury_offs, "Data ", 5);
     }
     return;
@@ -1256,7 +1256,7 @@ main_top_button_draw(Window window) {
 void
 main_top_button_cross(Window window, int32 b) {
     for (int32 i = 0; i < 6; i++) {
-        if (window == TopButton[i]) {
+        if (window == top_button[i]) {
             XSetWindowBorderWidth(display, window, (uint)b);
             return;
         }
@@ -1280,22 +1280,22 @@ main_top_button_events(XEvent report) {
     case ButtonPress: {
         Window window = report.xbutton.window;
         // main top button press
-        if (window == TopButton[0]) {
+        if (window == top_button[0]) {
             init_conds_make_new_ic_box();
         }
-        if (window == TopButton[1]) {
+        if (window == top_button[1]) {
             init_conds_make_new_bc_box();
         }
-        if (window == TopButton[2]) {
+        if (window == top_button[2]) {
             init_conds_make_new_delay_box();
         }
-        if (window == TopButton[3]) {
+        if (window == top_button[3]) {
             init_conds_make_new_param_box();
         }
-        if (window == TopButton[4]) {
+        if (window == top_button[4]) {
             eig_list_create_eq_list();
         }
-        if (window == TopButton[5]) {
+        if (window == top_button[5]) {
             browser_make_new();
         }
         break;
