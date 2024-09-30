@@ -2348,7 +2348,11 @@ render_ani(void) {
         // Draw little black x's where the grab points are
         double xc;
         double yc;
-        double x1, y1, x2, y2, z;
+        double  x1;
+        double  y1;
+        double  x2;
+        double  y2;
+        double  z;
         int32 i1, j1, i2, j2, ic, jc;
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
         for (int32 i = 0; i < n_ani_grab; i++) {

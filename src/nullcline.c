@@ -152,9 +152,12 @@ nullcline_froz_cline_stuff_com(int32 i) {
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
         int32 i2;
-        double z, dz, zold;
+        double  z;
+        double  dz;
+        double  zold;
         double xmin, xmax, y_tp, y_bot;
-        int32 col1 = XNullColor, col2 = YNullColor;
+        int32  col1 = XNullColor;
+        int32  col2 = YNullColor;
         int32 course = NMESH;
         /* if(paper_white){
           col1=1;

@@ -1166,10 +1166,13 @@ void
 simplenet_eval_all_nets(void) {
     for (int32 ind = 0; ind < n_network; ind++) {
         // evaluate network
-        int32 i, k, ij;
+        int32  i;
+        int32  k;
+        int32  ij;
         int32 imin;
         int32 imax;
-        double ymin, ymax;
+        double  ymin;
+        double  ymax;
         int32 skip;
         int32 mmt;
         int32 in0;
@@ -1178,7 +1181,9 @@ simplenet_eval_all_nets(void) {
         int32 n = my_net[ind].n, *f;
         int32 ncon = my_net[ind].ncon;
         double *w, *y, *cc, *values, *tau;
-        int32 twon = 2*n, root = my_net[ind].root, root2 = my_net[ind].root2;
+        int32  twon = 2*n;
+        int32  root = my_net[ind].root;
+        int32  root2 = my_net[ind].root2;
         cc = my_net[ind].index;
         w = my_net[ind].weight;
         values = my_net[ind].values;

@@ -176,9 +176,11 @@ many_pops_gtitle_text(char *string, Window win) {
                          NULL);
     } else {
         int32 len = (int32)strlen(string);
-        int32 x, y;
+        int32  x;
+        int32  y;
         uint32 w, h, bw, de;
-        int32 xs, ys = 2;
+        int32  xs;
+        int32  ys = 2;
         Window root;
         XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &de);
         xs = ((int32)w - len*dcur_x) / 2;
@@ -907,7 +909,13 @@ many_pops_do_gr_objs_com(int32 com) {
         break;
     case 6: {
         // many pops add markers
-        double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
+        double  xe = 0.0;
+        double  ye = 0.0;
+        double  xs;
+        double  ys;
+        double  x;
+        double  y;
+        double  z;
 
         {
             // many pops get markers info

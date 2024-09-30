@@ -454,7 +454,10 @@ do_main(int32 argc, char **argv) {
         // main make pops
         int32 x;
         int32 y;
-        uint32 h, w, bw, d;
+        uint32  h;
+        uint32  w;
+        uint32  bw;
+        uint32  d;
         Window wn;
         XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
         menu_create_them(main_win);
@@ -775,7 +778,8 @@ main_init_x(void) {
     main_get_gc(&font_gc);
 
     if (strlen(user_bg_bitmap) != 0) {
-        uint32 width_return, height_return;
+        uint32  width_return;
+        uint32  height_return;
         int32 x_hot, y_hot;
         uchar *pixdata;
 
@@ -1230,7 +1234,8 @@ main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
     {
         XWMHints wm_hints;
         XClassHint class_hints;
-        XTextProperty winname, iconname;
+        XTextProperty  winname;
+        XTextProperty  iconname;
         if (XStringListToTextProperty(&icon_name, 1, &iconname) == 0) {
             ggets_plintf("X error: failure for iconname\n");
             exit(-1);
@@ -1398,7 +1403,12 @@ main_get_x_colors(XWindowAttributes *win_info, XColor **colors) {
     xorfix = 0;
 
     if (win_info->visual->class == DirectColor) {
-        int32 red, green, blue, red1, green1, blue1;
+        int32  red;
+        int32  green;
+        int32  blue;
+        int32  red1;
+        int32  green1;
+        int32  blue1;
 
         ggets_plintf("DirectColor visual\n");
 

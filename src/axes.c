@@ -163,14 +163,25 @@ axes_do(void) {
                  MyGraph->xlabel, MyGraph->ylabel, 1);
         break;
     case 5: {
-        double tx, ty, tz;
+        double  tx;
+        double  ty;
+        double  tz;
         double x1, y1, z1, x2, y2, z2, dt = .03;
-        double x0 = MyGraph->xorg, y0 = MyGraph->yorg, z0 = MyGraph->zorg;
+        double  x0 = MyGraph->xorg;
+        double  y0 = MyGraph->yorg;
+        double  z0 = MyGraph->zorg;
         char bob[20];
 
-        double xmin = MyGraph->xmin, xmax = MyGraph->xmax, ymin = MyGraph->ymin;
+        double  xmin = MyGraph->xmin;
+        double  xmax = MyGraph->xmax;
+        double  ymin = MyGraph->ymin;
         double ymax = MyGraph->ymax, zmin = MyGraph->zmin, zmax = MyGraph->zmax;
-        double x4 = xmin, y4 = ymin, z4 = zmin, x5 = xmax, y5 = ymax, z5 = zmax;
+        double  x4 = xmin;
+        double  y4 = ymin;
+        double  z4 = zmin;
+        double  x5 = xmax;
+        double  y5 = ymax;
+        double  z5 = zmax;
         double x3, y3, z3, x6, y6, z6;
 
         axes_doing = 1;
