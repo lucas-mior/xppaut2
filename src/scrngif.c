@@ -59,7 +59,7 @@ static void scrngif_local_to_global(void);
 static int32 scrngif_ppm_to_pix(uchar r, uchar g, uchar b, int32 *n);
 static uchar *scrngif_add_code_to_buffer(int32, int16, uchar *);
 static void scrngif_write_local_header(int32 cols, int32 rows, FILE *fout,
-                                       int32 colflag, int32 delay);
+                                       int32 colflag, int32 delay2);
 
 typedef struct GifCol {
     uchar r;
@@ -357,12 +357,12 @@ scrngif_loop(FILE *fout, uint32 repeats) {
 
 void
 scrngif_write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
-                           int32 delay) {
+                           int32 delay2) {
     fputc(0x21, fout);
     fputc(0xF9, fout);
     fputc(0x04, fout);
     fputc(0x80, fout);  // flag ???
-    GifPutShort(delay, fout);
+    GifPutShort(delay2, fout);
     fputc(0x00, fout);
     fputc(0x00, fout);
     fputc(',', fout);  // image separator

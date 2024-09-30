@@ -113,8 +113,8 @@ static struct Symbol {
     {"#$%8", 4, COM(USTACKTYPE, 7), 0, 10},
     {"FLR", 3, COM(FUN1TYPE, 18), 0, 10},  //  40
     {"MOD", 3, COM(FUN2TYPE, 8), 2, 10},   //  41
-    {"delay", 5, ENDDELAY, 2, 10},
-    /*  42 */                              //  Delay symbol
+    {"delay2", 5, ENDDELAY, 2, 10},
+    /*  42 */                              //  delay2 symbol
     {"RAN", 3, COM(FUN1TYPE, 19), 1, 10},  // 43
     {"&", 1, COM(FUN2TYPE, 9), 0, 6},      // logical stuff
     {"|", 1, COM(FUN2TYPE, 10), 0, 4},
@@ -994,7 +994,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
     while (true) {
     getnew:
         newtok = toklist[lstptr++];
-        //        check for delay symbol
+        //        check for delay2 symbol
         if (newtok == DELSYM) {
             temp = my_symb[toklist[lstptr + 1]].com;
             /* !! */ if (is_uvar(temp)) {
@@ -1009,7 +1009,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 my_symb[LASTTOK].pri = 10;
 
             } else {
-                printf("Illegal use of delay \n");
+                printf("Illegal use of delay2 \n");
                 return 1;
             }
         }
@@ -1027,7 +1027,7 @@ parserslow_alg_to_rpn(int32 *toklist, int32 *command) {
                 my_symb[LASTTOK].pri = 10;
 
             } else {
-                printf("Illegal use of delay Shift \n");
+                printf("Illegal use of delay2 Shift \n");
                 return 1;
             }
         }
@@ -1826,7 +1826,7 @@ bessis1(double x) {
 #undef BIGNI
 
 /*********************************************
-          FANCY delay HERE                   *-------------------------<<<
+          FANCY delay2 HERE                   *-------------------------<<<
 *********************************************/
 
 char *
@@ -1882,7 +1882,7 @@ do_ishift(double shift, double variable) {
 }
 
 double
-do_delay_shift(double delay, double shift, double variable) {
+do_delay_shift(double delay2, double shift, double variable) {
     int32 in;
     int32 i = (int32)(variable);
     int32 ish = (int32)shift;
@@ -1896,30 +1896,30 @@ do_delay_shift(double delay, double shift, double variable) {
     }
 
     if (del_stab_flag > 0) {
-        if (delay_flag && delay > 0.0) {
-            return delay_handle_get_delay(in - 1, delay);
+        if (delay_flag && delay2 > 0.0) {
+            return delay_handle_get_delay(in - 1, delay2);
         }
         return variables[in];
     }
 
-    return delay_handle_stab_eval(delay, in);
+    return delay_handle_stab_eval(delay2, in);
 }
 
 double
-do_delay(double delay, double i) {
+do_delay(double delay2, double i) {
     int32 variable;
     /* ram - this was a little weird, since i is a double... except I think it's
      * secretely an int64 */
     variable = ((int32)i) % MAXTYPE;
 
     if (del_stab_flag > 0) {
-        if (delay_flag && delay > 0.0) {
-            return delay_handle_get_delay(variable - 1, delay);
+        if (delay_flag && delay2 > 0.0) {
+            return delay_handle_get_delay(variable - 1, delay2);
         }
         return variables[variable];
     }
 
-    return delay_handle_stab_eval(delay, (int32)variable);
+    return delay_handle_stab_eval(delay2, (int32)variable);
 }
 
 double
@@ -2223,7 +2223,7 @@ eval_rpn(int32 *equat) {
                 PUSH(variables[in]);
                 break;
 
-                // indexes for shift and delay operators...
+                // indexes for shift and delay2 operators...
             case SCONTYPE:
 
                 PUSH((double)(COM(CONTYPE, in)));

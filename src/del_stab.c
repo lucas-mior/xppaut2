@@ -10,7 +10,7 @@
  */
 
 static int32 del_stab_test_sign(double old, double new);
-static double del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
+static double del_stab_get_arg(double *delay2, double *coef, int32 m, int32 n,
                                COMPLEX lambda);
 static void del_stab_process_root(double real, double im);
 static COMPLEX del_stab_z_determ(COMPLEX *z, int32 n);
@@ -21,9 +21,9 @@ static COMPLEX del_stab_c_exp2(COMPLEX z);
 static COMPLEX del_stab_c_div(COMPLEX z, COMPLEX w);
 static COMPLEX del_stab_z_mult(COMPLEX z, COMPLEX w);
 static COMPLEX del_stab_z_dif(COMPLEX z, COMPLEX w);
-static int32 del_stab_plot_args(double *coef, double *delay, int32 n, int32 m,
+static int32 del_stab_plot_args(double *coef, double *delay2, int32 n, int32 m,
                                 int32 npts, double almax, double wmax);
-static void del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m,
+static void del_stab_z_make(COMPLEX *z, double *delay2, int32 n, int32 m,
                             double *coef, COMPLEX lambda);
 
 #define Z(a, b, NN) z[(a) + NN*(b)]
@@ -35,7 +35,7 @@ static void del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m,
 
 /* The
  code here replaces the do_sing code if the equation is
-   a delay differential equation.
+   a delay2 differential equation.
 */
 
 void
@@ -253,7 +253,7 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
 }
 
 void
-del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
+del_stab_z_make(COMPLEX *z, double *delay2, int32 n, int32 m, double *coef,
                 COMPLEX lambda) {
     int32 km;
     COMPLEX temp;
@@ -273,8 +273,8 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
     }
     for (int32 k = 0; k < m; k++) {
         km = (k + 1)*n*n;
-        temp = del_stab_rtoc(-delay[k],
-                             0.0);  // convert delay to floatcomplex number
+        temp = del_stab_rtoc(-delay2[k],
+                             0.0);  // convert delay2 to floatcomplex number
         eld = del_stab_c_exp2(
             del_stab_z_mult(temp, lambda));  // compute exp(-lambda*tau)
         for (int32 j = 0; j < n; j++) {
@@ -290,7 +290,7 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
 }
 
 int32
-del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
+del_stab_find_positive_root(double *coef, double *delay2, int32 n, int32 m,
                             double err, double eps, double big, int32 maxit,
                             double *rr) {
     COMPLEX lambda;
@@ -310,7 +310,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
 
     // now Newtons Method for maxit times
     for (int32 k = 0; k < maxit; k++) {
-        del_stab_z_make(z, delay, n, m, coef, lambda);
+        del_stab_z_make(z, delay2, n, m, coef, lambda);
         det = del_stab_z_determ(z, n);
 
         r = del_stab_z_abs(det);
@@ -331,7 +331,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         }
         xlp = xl + r;
         lambdap = del_stab_rtoc(xlp, yl);
-        del_stab_z_make(z, delay, n, m, coef, lambdap);
+        del_stab_z_make(z, delay2, n, m, coef, lambdap);
         detp = del_stab_z_determ(z, n);
         jac[0] = (detp.r - det.r) / r;
         jac[2] = (detp.i - det.i) / r;
@@ -342,7 +342,7 @@ del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
         }
         ylp = yl + r;
         lambdap = del_stab_rtoc(xl, ylp);
-        del_stab_z_make(z, delay, n, m, coef, lambdap);
+        del_stab_z_make(z, delay2, n, m, coef, lambdap);
         detp = del_stab_z_determ(z, n);
         jac[1] = (detp.r - det.r) / r;
         jac[3] = (detp.i - det.i) / r;
@@ -383,7 +383,7 @@ del_stab_process_root(double real, double im) {
 }
 
 double
-del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
+del_stab_get_arg(double *delay2, double *coef, int32 m, int32 n,
                  COMPLEX lambda) {
     int32 km;
     COMPLEX *z;
@@ -409,8 +409,8 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
     }
     for (int32 k = 0; k < m; k++) {
         km = (k + 1)*n*n;
-        temp = del_stab_rtoc(-delay[k],
-                             0.0);  // convert delay to floatcomplex number
+        temp = del_stab_rtoc(-delay2[k],
+                             0.0);  // convert delay2 to floatcomplex number
         eld = del_stab_c_exp2(
             del_stab_z_mult(temp, lambda));  // compute exp(-lambda*tau)
         for (int32 j = 0; j < n; j++) {
@@ -446,10 +446,10 @@ del_stab_test_sign(double old, double new) {
     return 0;
 }
 
-/* code for establishing delay stability
-   sign=del_stab_plot_args(coef,delay,n,m,npts,amax,wmax)
+/* code for establishing delay2 stability
+   sign=del_stab_plot_args(coef,delay2,n,m,npts,amax,wmax)
     coef is a real array of length  (m+1)*n^2
-    each n^2 block is the jacobian with respect to the mth delay
+    each n^2 block is the jacobian with respect to the mth delay2
     m total delays
     n is size of system
     npts is number of pts on each part of contour
@@ -465,7 +465,7 @@ del_stab_test_sign(double old, double new) {
 */
 
 int32
-del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
+del_stab_plot_args(double *coef, double *delay2, int32 n, int32 m, int32 npts,
                    double almax, double wmax) {
     int32 sign = 0;
     COMPLEX lambda;
@@ -480,7 +480,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     for (int32 i = 0; i < npts; i++) {
         y = wmax - i*ds;
         lambda = del_stab_rtoc(x, y);
-        arg = del_stab_get_arg(delay, coef, m, n, lambda);
+        arg = del_stab_get_arg(delay2, coef, m, n, lambda);
         sign = sign + del_stab_test_sign(oldarg, arg);
         oldarg = arg;
     }
@@ -490,7 +490,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     for (int32 i = 0; i < npts; i++) {
         x = i*ds;
         lambda = del_stab_rtoc(x, y);
-        arg = del_stab_get_arg(delay, coef, m, n, lambda);
+        arg = del_stab_get_arg(delay2, coef, m, n, lambda);
         sign = sign + del_stab_test_sign(oldarg, arg);
         oldarg = arg;
     }
@@ -500,7 +500,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     for (int32 i = 0; i < npts; i++) {
         y = -wmax + i*ds;
         lambda = del_stab_rtoc(x, y);
-        arg = del_stab_get_arg(delay, coef, m, n, lambda);
+        arg = del_stab_get_arg(delay2, coef, m, n, lambda);
         sign = sign + del_stab_test_sign(oldarg, arg);
         oldarg = arg;
     }
@@ -511,7 +511,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     for (int32 i = 0; i < npts; i++) {
         x = almax - i*ds;
         lambda = del_stab_rtoc(x, y);
-        arg = del_stab_get_arg(delay, coef, m, n, lambda);
+        arg = del_stab_get_arg(delay2, coef, m, n, lambda);
         sign = sign + del_stab_test_sign(oldarg, arg);
         oldarg = arg;
     }

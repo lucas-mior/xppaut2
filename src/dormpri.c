@@ -43,17 +43,17 @@ static void dprhs(uint32 n, double t, double *y, double *f);
 static double dormpri_sign(double a, double b);
 static double min_d(double a, double b);
 static int32 dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-                    double hmax, double h, double *rtoler, double *atoler,
+                    double hmax, double h, double *rtoler, double *atoler2,
                     int32 itoler, FILE *fileout, SolTrait solout, int32 iout,
                     long nmax, double uround, int32 meth, long nstiff,
                     double safe, double beta, double fac1, double fac2,
                     uint32 *icont);
 static double hinit5(uint32 n, FcnEqDiff fcn, double x, double *y,
                      double posneg, double *f0, double *f1, double *yyy1,
-                     int32 iord, double hmax, double *atoler, double *rtoler,
+                     int32 iord, double hmax, double *atoler2, double *rtoler,
                      int32 itoler);
 static int32 dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-                     double hmax, double h, double *rtoler, double *atoler,
+                     double hmax, double h, double *rtoler, double *atoler2,
                      int32 itoler, FILE *fileout, SolTrait solout, int32 iout,
                      long nmax, double uround, int32 meth, long nstiff,
                      double safe, double beta, double fac1, double fac2,
@@ -154,7 +154,7 @@ max_d(double a, double b) {
 
 static double
 hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
-      double *f1, double *yyy1, int32 iord, double hmax, double *atoler,
+      double *f1, double *yyy1, int32 iord, double hmax, double *atoler2,
       double *rtoler, int32 itoler) {
     double dnf;
     double dny;
@@ -170,7 +170,7 @@ hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 
     dnf = 0.0;
     dny = 0.0;
-    atoli = atoler[0];
+    atoli = atoler2[0];
     rtoli = rtoler[0];
 
     if (!itoler) {
@@ -183,7 +183,7 @@ hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
         }
     } else {
         for (i = 0; i < n; i++) {
-            sk = atoler[i] + rtoler[i]*fabs(y[i]);
+            sk = atoler2[i] + rtoler[i]*fabs(y[i]);
             sqr = f0[i] / sk;
             dnf += sqr*sqr;
             sqr = y[i] / sk;
@@ -216,7 +216,7 @@ hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
         }
     } else {
         for (i = 0; i < n; i++) {
-            sk = atoler[i] + rtoler[i]*fabs(y[i]);
+            sk = atoler2[i] + rtoler[i]*fabs(y[i]);
             sqr = (f1[i] - f0[i]) / sk;
             der2 += sqr*sqr;
         }
@@ -240,7 +240,7 @@ hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 /* core integrator */
 static int32
 dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
-       double h, double *rtoler, double *atoler, int32 itoler, FILE *fileout,
+       double h, double *rtoler, double *atoler2, int32 itoler, FILE *fileout,
        SolTrait solout, int32 iout, long nmax, double uround, int32 meth,
        long nstiff, double safe, double beta, double fac1, double fac2,
        uint32 *icont) {
@@ -633,7 +633,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     posneg = dormpri_sign(1.0, xend - x);
 
     // initial preparations
-    atoli = atoler[0];
+    atoli = atoler2[0];
     rtoli = rtoler[0];
     last = 0;
     hlamb = 0.0;
@@ -642,7 +642,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     hmax = fabs(hmax);
     iord = 8;
     if (h == 0.0) {
-        h = hinit(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler, rtoler,
+        h = hinit(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler2, rtoler,
                   itoler);
     }
     nfcn += 2;
@@ -774,7 +774,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
             }
         } else {
             for (i = 0; i < n; i++) {
-                sk = atoler[i] + rtoler[i]*max_d(fabs(y[i]), fabs(k5[i]));
+                sk = atoler2[i] + rtoler[i]*max_d(fabs(y[i]), fabs(k5[i]));
                 erri = k4[i] - bhh1*k1[i] - bhh2*k9[i] - bhh3*k3[i];
                 sqr = erri / sk;
                 err2 += sqr*sqr;
@@ -999,7 +999,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 /* front-end */
 int32
 dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-       double *rtoler, double *atoler, int32 itoler, SolTrait solout,
+       double *rtoler, double *atoler2, int32 itoler, SolTrait solout,
        int32 iout, FILE *fileout, double uround, double safe, double fac1,
        double fac2, double beta, double hmax, double h, long nmax, int32 meth,
        long nstiff, uint32 nrdens, uint32 *icont, uint32 licont, double *work) {
@@ -1165,7 +1165,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     k9 = k8 + n;
     k10 = k9 + n;
 
-    idid = dopcor(n, fcn, x, y, xend, hmax, h, rtoler, atoler, itoler, fileout,
+    idid = dopcor(n, fcn, x, y, xend, hmax, h, rtoler, atoler2, itoler, fileout,
                   solout, iout, nmax, uround, meth, nstiff, safe, beta, fac1,
                   fac2, icont);
     if (indir) {
@@ -1177,7 +1177,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 /************    dopri5  ***************************/
 static double
 hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
-       double *f1, double *yyy1, int32 iord, double hmax, double *atoler,
+       double *f1, double *yyy1, int32 iord, double hmax, double *atoler2,
        double *rtoler, int32 itoler) {
     double dnf;
     double dny;
@@ -1193,7 +1193,7 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 
     dnf = 0.0;
     dny = 0.0;
-    atoli = atoler[0];
+    atoli = atoler2[0];
     rtoli = rtoler[0];
 
     if (!itoler) {
@@ -1206,7 +1206,7 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
         }
     } else {
         for (i = 0; i < n; i++) {
-            sk = atoler[i] + rtoler[i]*fabs(y[i]);
+            sk = atoler2[i] + rtoler[i]*fabs(y[i]);
             sqr = f0[i] / sk;
             dnf += sqr*sqr;
             sqr = y[i] / sk;
@@ -1239,7 +1239,7 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
         }
     } else {
         for (i = 0; i < n; i++) {
-            sk = atoler[i] + rtoler[i]*fabs(y[i]);
+            sk = atoler2[i] + rtoler[i]*fabs(y[i]);
             sqr = (f1[i] - f0[i]) / sk;
             der2 += sqr*sqr;
         }
@@ -1263,7 +1263,7 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 /* core integrator */
 int32
 dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
-        double h, double *rtoler, double *atoler, int32 itoler, FILE *fileout,
+        double h, double *rtoler, double *atoler2, int32 itoler, FILE *fileout,
         SolTrait solout, int32 iout, long nmax, double uround, int32 meth,
         long nstiff, double safe, double beta, double fac1, double fac2,
         uint32 *icont) {
@@ -1388,7 +1388,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     posneg = dormpri_sign(1.0, xend - x);
 
     // initial preparations
-    atoli = atoler[0];
+    atoli = atoler2[0];
     rtoli = rtoler[0];
     last = 0;
     hlamb = 0.0;
@@ -1397,7 +1397,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     hmax = fabs(hmax);
     iord = 5;
     if (h == 0.0) {
-        h = hinit5(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler, rtoler,
+        h = hinit5(n, fcn, x, y, posneg, k1, k2, k3, iord, hmax, atoler2, rtoler,
                    itoler);
     }
     nfcn += 2;
@@ -1508,7 +1508,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
             }
         } else {
             for (i = 0; i < n; i++) {
-                sk = atoler[i] + rtoler[i]*max_d(fabs(y[i]), fabs(yy1[i]));
+                sk = atoler2[i] + rtoler[i]*max_d(fabs(y[i]), fabs(yy1[i]));
                 sqr = k4[i] / sk;
                 err += sqr*sqr;
             }
@@ -1638,7 +1638,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 /* front-end */
 int32
 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-       double *rtoler, double *atoler, int32 itoler, SolTrait solout,
+       double *rtoler, double *atoler2, int32 itoler, SolTrait solout,
        int32 iout, FILE *fileout, double uround, double safe, double fac1,
        double fac2, double beta, double hmax, double h, long nmax, int32 meth,
        long nstiff, uint32 nrdens, uint32 *icont, uint32 licont, double *work) {
@@ -1797,7 +1797,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     k6 = k5 + n;
     ysti = k6 + n;
 
-    idid = dopcor5(n, fcn, x, y, xend, hmax, h, rtoler, atoler, itoler, fileout,
+    idid = dopcor5(n, fcn, x, y, xend, hmax, h, rtoler, atoler2, itoler, fileout,
                    solout, iout, nmax, uround, meth, nstiff, safe, beta, fac1,
                    fac2, icont);
 

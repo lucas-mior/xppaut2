@@ -305,7 +305,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     double dum2;
 
     double *f;
-    double *bound;
+    double *bound2;
     double *fj;
     double *ri;
     double *rr, *vr, *vt;
@@ -325,7 +325,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
        having N X.  So, they all need to be changed at once.
     */
     f = xmalloc(sizeof(*f)*(usize)(iap->ndm));
-    bound = xmalloc(sizeof(*bound)*(usize)((iap->ndm)*(iap->ndm)));
+    bound2 = xmalloc(sizeof(*bound2)*(usize)((iap->ndm)*(iap->ndm)));
     fj = xmalloc(sizeof(*fj)*(usize)(iap->ndm));
     ri = xmalloc(sizeof(*ri)*(usize)(iap->ndm));
     rr = xmalloc(sizeof(*rr)*(usize)(iap->ndm));
@@ -376,21 +376,21 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     if (blhom_1.istart != 3) {
         //        *Projection boundary conditions for the homoclinic orbit
         //        *NSTAB boundary conditions at t=0
-        prjcti(bound, xequib1, icp, par, -1, 1, 1, &ndm);
+        prjcti(bound2, xequib1, icp, par, -1, 1, 1, &ndm);
         for (int64 i = 0; i < blhom_1.nstab; ++i) {
             for (k = 0; k < ndm; ++k) {
-                fb[-1 + jb] += (u0[k] - xequib1[k])*bound[i + k*(iap->ndm)];
+                fb[-1 + jb] += (u0[k] - xequib1[k])*bound2[i + k*(iap->ndm)];
             }
             //         write(9,*) 'fb',jb,fb(jb)
             ++jb;
         }
         //        *NUNSTAB boundary conditions at t=1
         if (blhom_1.nrev == 0) {
-            prjcti(bound, xequib2, icp, par, 1, 2, 1, &ndm);
+            prjcti(bound2, xequib2, icp, par, 1, 2, 1, &ndm);
             for (int64 i = ndm - blhom_1.nunstab; i < ndm; ++i) {
                 for (k = 0; k < ndm; ++k) {
                     fb[-1 + jb] +=
-                        (u1[k] - xequib2[k])*bound[i + k*(iap->ndm)];
+                        (u1[k] - xequib2[k])*bound2[i + k*(iap->ndm)];
                 }
                 ++jb;
             }
@@ -462,27 +462,27 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         if (blhom_1.itwist == 1) {
             /*           *-orthogonal to the unstable directions of A  at t=0
              */
-            prjcti(bound, xequib1, icp, par, 1, 1, 2, &ndm);
+            prjcti(bound2, xequib1, icp, par, 1, 1, 2, &ndm);
             for (int64 i = ndm - blhom_1.nunstab; i < ndm; ++i) {
                 dum = 0.;
                 for (k = 0; k < ndm; ++k) {
-                    dum += u0[ndm + k]*bound[i + k*(iap->ndm)];
+                    dum += u0[ndm + k]*bound2[i + k*(iap->ndm)];
                 }
                 fb[-1 + jb] = dum;
                 ++jb;
             }
             //           *-orthogonal to the stable directions of A  at t=1
-            prjcti(bound, xequib2, icp, par, -1, 2, 2, &ndm);
+            prjcti(bound2, xequib2, icp, par, -1, 2, 2, &ndm);
             for (int64 i = 0; i < blhom_1.nstab; ++i) {
                 dum = 0.;
                 for (k = 0; k < ndm; ++k) {
-                    dum += u1[ndm + k]*bound[i + k*(iap->ndm)];
+                    dum += u1[ndm + k]*bound2[i + k*(iap->ndm)];
                 }
                 fb[-1 + jb] = dum;
                 ++jb;
             }
             free(f);
-            free(bound);
+            free(bound2);
             free(fj);
             free(ri);
             free(rr);
@@ -583,7 +583,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     }
 
     free(f);
-    free(bound);
+    free(bound2);
     free(fj);
     free(ri);
     free(rr);
@@ -1743,7 +1743,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 }
 
 int32
-prjcti(double *bound, double *xequib, int64 *icp, double *par, int64 imfd,
+prjcti(double *bound2, double *xequib, int64 *icp, double *par, int64 imfd,
        int64 is, int64 itrans, int64 *ndm) {
     double *dfdp;
     double *dfdu;
@@ -1751,7 +1751,7 @@ prjcti(double *bound, double *xequib, int64 *icp, double *par, int64 imfd,
     dfdp = xmalloc(sizeof(*dfdp)*(usize)((*ndm)*NPARX));
     dfdu = xmalloc(sizeof(*dfdu)*(usize)((*ndm)*(*ndm)));
 
-    prjctn(bound, xequib, icp, par, &imfd, &is, &itrans, ndm, dfdu, dfdp);
+    prjctn(bound2, xequib, icp, par, &imfd, &is, &itrans, ndm, dfdu, dfdp);
 
     free(dfdp);
     free(dfdu);
@@ -1759,7 +1759,7 @@ prjcti(double *bound, double *xequib, int64 *icp, double *par, int64 imfd,
 }
 
 int32
-prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
+prjctn(double *bound2, double *xequib, int64 *icp, double *par, int64 *imfd,
        int64 *is, int64 *itrans, int64 *ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1;
     int64 dfdp_dim1;
@@ -1812,7 +1812,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
 
     // Local
 
-    bound -= ((*ndm) + 1);
+    bound2 -= ((*ndm) + 1);
     dfdp_dim1 = *ndm;
     dfdu_dim1 = *ndm;
 
@@ -1890,7 +1890,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
                 beyn_1.cprev[i +
                              (j + ((*is - 1) + ((*itrans - 1)*2))*(*ndm)) *
                                  (*ndm)] = cnow[i + j*(*ndm)];
-                bound[(i + 1) + (j + 1)*(*ndm)] = cnow[i + j*(*ndm)];
+                bound2[(i + 1) + (j + 1)*(*ndm)] = cnow[i + j*(*ndm)];
             }
         }
         beyn_1.iflag[*is + (*itrans*2) - 3] = 1;
@@ -1908,7 +1908,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         return 0;
     }
 
-    // Calculate the (transpose of the) BEYN matrix D and hence bound
+    // Calculate the (transpose of the) BEYN matrix D and hence bound2
     for (int64 i = 0; i < mcond; ++i) {
         for (int32 j = 0; j < mcond; ++j) {
             dum1[i + j*(*ndm)] = 0.;
@@ -1964,9 +1964,9 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
 
     for (int64 i = 0; i < mcond; ++i) {
         for (int32 j = 0; j < *ndm; ++j) {
-            bound[(i + 1) + m0 + (j + 1)*(*ndm)] = 0.;
+            bound2[(i + 1) + m0 + (j + 1)*(*ndm)] = 0.;
             for (int64 k = 0; k < mcond; ++k) {
-                bound[(i + 1) + m0 + (j + 1)*(*ndm)] +=
+                bound2[(i + 1) + m0 + (j + 1)*(*ndm)] +=
                     d[k + i*(*ndm)]*cnow[k + m0 + j*(*ndm)];
             }
         }
@@ -1975,7 +1975,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     for (int64 i = k1 - 1; i < k2; ++i) {
         for (int32 j = 0; j < *ndm; ++j) {
             beyn_1.cprev[i + (j + ((*is - 1) + ((*itrans - 1)*2))*(*ndm)) *
-                                 (*ndm)] = bound[(i + 1) + (j + 1)*(*ndm)];
+                                 (*ndm)] = bound2[(i + 1) + (j + 1)*(*ndm)];
         }
     }
 

@@ -33,23 +33,23 @@ static void delay_handle_polint(double *xa, double *ya, int32 n, double x,
 double
 delay_handle_stab_eval(
     // this returns appropriate values for delay jacobian
-    double delay, int32 var) {
+    double delay2, int32 var) {
 
     if (del_stab_flag == 0) {
         // search for all delays
         for (int32 i = 0; i < NDelay; i++) {
-            if (delay == delay_list[i]) {
+            if (delay2 == delay_list[i]) {
                 return GETVAR(var);
             }
         }
-        delay_list[NDelay] = delay;
+        delay_list[NDelay] = delay2;
         NDelay++;
         return GETVAR(var);
     }
     //  now we must determine the value to return
     //  del_stab_flag =-1
     for (int32 i = 0; i < NDelay; i++) {
-        if (delay == delay_list[i]) {
+        if (delay2 == delay_list[i]) {
             if (i == which_delay) {
                 return variable_shift[1][var - 1];
             }

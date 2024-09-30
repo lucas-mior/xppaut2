@@ -75,7 +75,7 @@ static void nullcline_save_frozen(char *fn);
 
 void
 nullcline_froz_cline_stuff_com(int32 i) {
-    int32 delay = 200;
+    int32 delay2 = 200;
 
     if (n_nstore == 0) {
         // nullcline start
@@ -139,11 +139,11 @@ nullcline_froz_cline_stuff_com(int32 i) {
         break;
     }
     case 3:
-        ggets_new_int("Delay (msec)", &delay);
-        if (delay <= 0) {
-            delay = 0;
+        ggets_new_int("delay2 (msec)", &delay2);
+        if (delay2 <= 0) {
+            delay2 = 0;
         }
-        nullcline_redraw_froz(delay);
+        nullcline_redraw_froz(delay2);
         break;
     case 2: {
         // nullcline do range
