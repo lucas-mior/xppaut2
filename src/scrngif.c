@@ -43,8 +43,8 @@ static GifTree *empty[256];
 static GifTree gif_root = {LOOKUP, 0, 0, empty, NULL, NULL};
 static GifTree *topNode;
 static GifTree *baseNode;
-static GifTree **nodeArray;
-static GifTree **lastArray;
+static GifTree **node_array;
+static GifTree **last_array;
 
 static void scrngif_clear_tree(int32 cc, GifTree *root);
 static int32 scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
@@ -446,8 +446,8 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     empty[0] = NULL;
     need = 8;
 
-    nodeArray = empty;
-    memmove(++nodeArray, empty, 255*sizeof(GifTree **));
+    node_array = empty;
+    memmove(++node_array, empty, 255*sizeof(GifTree **));
     if ((buffer = xmalloc((BUFLEN + 1)*sizeof(uchar))) == NULL) {
         return 0;
     }
@@ -466,10 +466,10 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     if ((topNode = baseNode = xmalloc(sizeof(GifTree)*4094)) == NULL) {
         return 0;
     }
-    if ((nodeArray = first->node = xmalloc(256*sizeof(GifTree *)*NUMBER_OF_ARRAYS)) == NULL) {
+    if ((node_array = first->node = xmalloc(256*sizeof(GifTree *)*NUMBER_OF_ARRAYS)) == NULL) {
         return 0;
     }
-    lastArray = nodeArray + (256*NUMBER_OF_ARRAYS - cc);
+    last_array = node_array + (256*NUMBER_OF_ARRAYS - cc);
     scrngif_clear_tree(cc, first);
 
     pos = scrngif_add_code_to_buffer(cc, cLength, pos);
@@ -514,9 +514,9 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
             curNode->node[*pixels] = newNode;
             break;
         case SEARCH:
-            if (nodeArray != lastArray) {
-                nodeArray += cc;
-                curNode->node = nodeArray;
+            if (node_array != last_array) {
+                node_array += cc;
+                curNode->node = node_array;
                 curNode->typ = LOOKUP;
                 curNode->node[*pixels] = newNode;
                 curNode->node[(curNode->nxt)->ix] = curNode->nxt;
@@ -635,8 +635,8 @@ scrngif_clear_tree(int32 cc, GifTree *root) {
     maxchainlen = 0;
     lookuptypes = 1;
     nodecount = 0;
-    nodeArray = root->node;
-    xx = nodeArray;
+    node_array = root->node;
+    xx = node_array;
     for (int32 i = 0; i < NUMBER_OF_ARRAYS; i++) {
         memmove(xx, empty, 256*sizeof(GifTree **));
         xx += 256;

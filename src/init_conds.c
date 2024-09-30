@@ -1392,7 +1392,7 @@ init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width, int32 ind
     my_par_slide[index].parname[0] = 0;
     my_par_slide[index].hgt = dcur_ys - 4;
 
-    if ((notAlreadySet.slider1 == 0) && (index == 0)) {
+    if ((not_already_set.slider1 == 0) && (index == 0)) {
         strcpy(my_par_slide[index].parname, slider1var);
         my_par_slide[index].use = 1;
         my_par_slide[index].lo = slider1lo;
@@ -1400,7 +1400,7 @@ init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width, int32 ind
         get_val(my_par_slide[index].parname, &my_par_slide[index].val);
     }
 
-    if ((notAlreadySet.slider2 == 0) && (index == 1)) {
+    if ((not_already_set.slider2 == 0) && (index == 1)) {
         strcpy(my_par_slide[index].parname, slider2var);
         my_par_slide[index].use = 1;
         my_par_slide[index].lo = slider2lo;
@@ -1408,7 +1408,7 @@ init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width, int32 ind
         get_val(my_par_slide[index].parname, &my_par_slide[index].val);
     }
 
-    if ((notAlreadySet.slider3 == 0) && (index == 2)) {
+    if ((not_already_set.slider3 == 0) && (index == 2)) {
         strcpy(my_par_slide[index].parname, slider3var);
         my_par_slide[index].use = 1;
         my_par_slide[index].lo = slider3lo;

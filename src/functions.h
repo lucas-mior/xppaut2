@@ -2519,7 +2519,7 @@ extern char slider1var[20];
 extern char slider2var[20];
 extern char slider3var[20];
 
-extern OptionsSet notAlreadySet;
+extern OptionsSet not_already_set;
 extern XFontStruct *font_small;
 
 // This is a string box widget which handles a list of editable strings

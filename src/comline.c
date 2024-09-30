@@ -155,16 +155,16 @@ cli_do(int32 argc, char **argv) {
             loadsetfile = 1;
         }
         if (k == 2) {
-            if (notAlreadySet.SMALL_FONT_NAME) {
+            if (not_already_set.SMALL_FONT_NAME) {
                 strcpy(font_name_small, argv[i + 1]);
-                notAlreadySet.SMALL_FONT_NAME = 0;
+                not_already_set.SMALL_FONT_NAME = 0;
             }
             i++;
         }
         if (k == 3) {
-            if (notAlreadySet.BIG_FONT_NAME) {
+            if (not_already_set.BIG_FONT_NAME) {
                 strcpy(font_name_big, argv[i + 1]);
-                notAlreadySet.BIG_FONT_NAME = 0;
+                not_already_set.BIG_FONT_NAME = 0;
             }
             i++;
         }

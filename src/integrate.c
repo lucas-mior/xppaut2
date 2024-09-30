@@ -195,33 +195,33 @@ integrate_init_range(void) {
     range.type = 0;
     range.rtype = 0;
     range.index = range.index2 = 0;
-    if (notAlreadySet.RANGESTEP) {
+    if (not_already_set.RANGESTEP) {
         range.steps = 20;
-        notAlreadySet.RANGESTEP = 0;
+        not_already_set.RANGESTEP = 0;
     }
     range.steps2 = 20;
-    if (notAlreadySet.RANGELOW) {
+    if (not_already_set.RANGELOW) {
         range.plow = range.plow2 = 0.0;
-        notAlreadySet.RANGELOW = 0;
+        not_already_set.RANGELOW = 0;
     }
 
-    if (notAlreadySet.RANGEHIGH) {
+    if (not_already_set.RANGEHIGH) {
         range.phigh = range.phigh2 = 1.0;
-        notAlreadySet.RANGEHIGH = 0;
+        not_already_set.RANGEHIGH = 0;
     }
-    if (notAlreadySet.RANGERESET) {
+    if (not_already_set.RANGERESET) {
         range.reset = 1;
-        notAlreadySet.RANGERESET = 0;
+        not_already_set.RANGERESET = 0;
     }
-    if (notAlreadySet.RANGEOLDIC) {
+    if (not_already_set.RANGEOLDIC) {
         range.oldic = 1;
-        notAlreadySet.RANGEOLDIC = 0;
+        not_already_set.RANGEOLDIC = 0;
     }
     range.cycle = 0;
     range.movie = 0;
-    if (notAlreadySet.RANGEOVER) {
+    if (not_already_set.RANGEOVER) {
         sprintf(range.item, "%s", uvar_names[0]);
-        notAlreadySet.RANGEOVER = 0;
+        not_already_set.RANGEOVER = 0;
     }
     sprintf(range.item2, "%s", uvar_names[0]);
     pp_shoot_init_shoot_range(upar_names[0]);
