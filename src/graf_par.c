@@ -98,8 +98,8 @@ graf_par_change_view_com(int32 com) {
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
         int32 i;
-        int32  i1 = MyGraph->xv[ind];
-        int32  i2 = MyGraph->yv[ind];
+        int32 i1 = MyGraph->xv[ind];
+        int32 i2 = MyGraph->yv[ind];
         char n1[15], n2[15];
         graf_par_ind_to_sym(i1, n1);
         graf_par_ind_to_sym(i2, n2);
@@ -145,9 +145,9 @@ graf_par_change_view_com(int32 com) {
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status, i, i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind],
                          i3 = MyGraph->zv[ind];
-        char  n1[15];
-        char  n2[15];
-        char  n3[15];
+        char n1[15];
+        char n2[15];
+        char n3[15];
         graf_par_ind_to_sym(i1, n1);
         graf_par_ind_to_sym(i2, n2);
         graf_par_ind_to_sym(i3, n3);
@@ -713,13 +713,13 @@ graf_par_window_zoom_com(int32 c) {
     case 5: {
         // graf par scroll window
         XEvent event;
-        int32  i = 0;
-        int32  j = 0;
+        int32 i = 0;
+        int32 j = 0;
         int32 state = 0;
-        double  x;
-        double  y;
-        double  x0 = 0;
-        double  y0 = 0;
+        double x;
+        double y;
+        double x0 = 0;
+        double y0 = 0;
         double xlo = MyGraph->xlo;
         double ylo = MyGraph->ylo;
         double xhi = MyGraph->xhi;

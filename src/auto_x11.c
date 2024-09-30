@@ -1050,8 +1050,8 @@ auto_x11_resize_window(XEvent event) {
         uint32 chgt;
         uint32 cbwid;
         uint32 cdepth;
-        int32  ix;
-        int32  iy;
+        int32 ix;
+        int32 iy;
 
         wid = event.xconfigure.width - Auto_extra_wid;
         hgt = event.xconfigure.height - Auto_extra_hgt;

@@ -77,8 +77,7 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
 
     if (new_norm_2 != 0.0) {
         new_product = SQR(*new_vk_norm) - new_norm_2;
-        *new_vk_norm =
-            (new_product > 0.0) ? llnlmath_rsqrt(new_product) : 0.0;
+        *new_vk_norm = (new_product > 0.0) ? llnlmath_rsqrt(new_product) : 0.0;
     }
 
     return 0;

@@ -35,8 +35,8 @@
 
 #define HMIN_DEFAULT 0.0      // hmin default value
 #define HMAX_INV_DEFAULT 0.0  // hmax_inv default value
-#define MXHNIL_DEFAULT 10      // mxhnil default value
-#define MXSTEP_DEFAULT 2000    // mxstep default value
+#define MXHNIL_DEFAULT 10     // mxhnil default value
+#define MXSTEP_DEFAULT 2000   // mxstep default value
 
 /***************************************************************/
 /*************** END Default Constants *************************/

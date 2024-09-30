@@ -5596,8 +5596,8 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     }
 
     {
-        int64  ntst_used;
-        int64  ncol_used;
+        int64 ntst_used;
+        int64 ncol_used;
         double *ups_new;
         double *upoldp_new;
         double *udotps_new;

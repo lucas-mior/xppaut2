@@ -313,10 +313,10 @@ pop_list_scroll_popup(StringBox *sb, ScrollBox *scrb) {
     {
         // get x coord win
         int32 y;
-        uint32  h;
-        uint32  w;
-        uint32  bw;
-        uint32  d;
+        uint32 h;
+        uint32 w;
+        uint32 bw;
+        uint32 d;
         Window root;
         XGetGeometry(display, sb->win[ihot], &root, &xx, &y, &w, &h, &bw, &d);
         pop_list_create_scroll_box(sb->base, xx, 3, scrbox_list[id].n, maxw,
@@ -634,12 +634,12 @@ pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
                               (uint)bw, my_fore_color, my_back_color);
 
     if (user_gradients == 1) {
-        int32  xx;
-        int32  yy;
+        int32 xx;
+        int32 yy;
         double cosine;
-        XColor  bcolour;
-        XColor  col2;
-        XColor  diffcol;
+        XColor bcolour;
+        XColor col2;
+        XColor diffcol;
         Colormap cmap = DefaultColormap(display, DefaultScreen(display));
         Pixmap pmap =
             XCreatePixmap(display, root, (uint)width, (uint)height,
@@ -717,15 +717,15 @@ pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
     // Gradient stuff
 
     if (user_gradients == 1) {
-        int32  xx;
-        int32  yy;
+        int32 xx;
+        int32 yy;
         double cosine;
         Pixmap pmap =
             XCreatePixmap(display, root, (uint)width, (uint)height,
                           (uint)DefaultDepth(display, DefaultScreen(display)));
-        XColor  bcolour;
-        XColor  col2;
-        XColor  diffcol;
+        XColor bcolour;
+        XColor col2;
+        XColor diffcol;
         Colormap cmap = DefaultColormap(display, DefaultScreen(display));
 
         xx = 0;

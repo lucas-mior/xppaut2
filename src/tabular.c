@@ -103,8 +103,8 @@ tabular_new_lookup_com(int32 i) {
     }
     if (i == 1) {
         // tabular view
-        int32  n = my_table[index].n;
-        int32  len;
+        int32 n = my_table[index].n;
+        int32 len;
         double *y = my_table[index].y;
         double dx = my_table[index].dx;
         xlo = my_table[index].xlo;

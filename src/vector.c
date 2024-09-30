@@ -1,14 +1,14 @@
 /*******************************************************************************
- *                                                              
- * File          : vector.c                                     
- * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL  
- * Last Modified : 1 September 1994                             
+ *
+ * File          : vector.c
+ * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL
+ * Last Modified : 1 September 1994
  * -----------------------------------------------------------------------------
- *                                                              
- * This is the implementation file for a generic VECTOR         
- * package. It contains the implementation of the Vector      
- * kernels listed in vector.h.                                  
- *                                                              
+ *
+ * This is the implementation file for a generic VECTOR
+ * package. It contains the implementation of the Vector
+ * kernels listed in vector.h.
+ *
  ******************************************************************************/
 
 #include <stdio.h>
@@ -25,7 +25,7 @@ static void vector_diff(Vector x, Vector y, Vector z);
 static void vector_neg(Vector x, Vector z);
 static void vector_scaleSum(double c, Vector x, Vector y, Vector z);
 static void vector_scaleDiff(double c, Vector x, Vector y, Vector z);
-static void vector_lin1(double a, Vector x, Vector y, Vector z); 
+static void vector_lin1(double a, Vector x, Vector y, Vector z);
 static void vector_lin2(double a, Vector x, Vector y, Vector z);
 static void vector_axpy(double a, Vector x, Vector y);
 static void vector_scaleBy(double a, Vector x);
