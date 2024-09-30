@@ -15,13 +15,6 @@
 #include <wctype.h>
 #endif
 
-#define EV_MASK                                                                \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
-
-#define BUT_MASK                                                               \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     EnterWindowMask | LeaveWindowMask)
-
 typedef struct EditBox {
     Window base;
     Window ok;

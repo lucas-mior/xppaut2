@@ -16,6 +16,13 @@
 #include "struct.h"
 #include "xpplim.h"
 
+#define EV_MASK                                                                \
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
+
+#define BUT_MASK                                                               \
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
+     EnterWindowMask | LeaveWindowMask)
+
 enum {
     FIX_SIZE = 3,
     FIX_MIN_SIZE = 2,
@@ -2845,13 +2852,6 @@ void odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
 
 #define ALL_FORGET 0
 #define ALL_DONE 2
-
-#define EV_MASK                                                                \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
-
-#define BUT_MASK                                                               \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     EnterWindowMask | LeaveWindowMask)
 
 extern int32 display_width;
 extern int32 display_height;

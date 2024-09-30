@@ -9,13 +9,6 @@
 #include "xpplim.h"
 #include "info.bitmap"
 
-#define EV_MASK                                                                \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
-
-#define BUT_MASK                                                               \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     EnterWindowMask | LeaveWindowMask)
-
 static struct TorusBox {
     Window base;
     Window done;

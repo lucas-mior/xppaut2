@@ -14,13 +14,6 @@
 
 #define DONE_WITH_THIS 1
 
-#define EV_MASK                                                                \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
-
-#define BUT_MASK                                                               \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
-     EnterWindowMask | LeaveWindowMask)
-
 static void dialog_box_display(Window window, Dialog d, int32 col);
 static int32 dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col);
 
