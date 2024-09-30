@@ -20,7 +20,7 @@ static void torus_make_box(char *title);
 static void torus_draw_var(int32 i);
 
 void
-do_torus_com(int32 c) {
+torus_do_com(int32 c) {
     TORUS = 0;
     if (c == 0 || c == 2) {
         XEvent event;

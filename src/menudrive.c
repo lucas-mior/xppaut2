@@ -285,7 +285,7 @@ menudrive_run_the_commands(int32 com) {
     }
 
     if (com >= M_AA && com <= M_AC) {
-        do_torus_com(com - M_AA);
+        torus_do_com(com - M_AA);
         return;
     }
 

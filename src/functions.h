@@ -2782,7 +2782,7 @@ int32 tabular_get_lookup_len(int32 i);
 
 #include <X11/Xlib.h>
 
-void do_torus_com(int32 c);
+void torus_do_com(int32 c);
 
 #endif
 
